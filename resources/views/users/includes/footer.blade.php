@@ -136,8 +136,8 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-md-7">
-					<p class="d-flex justify-content-center justify-content-md-start align-items-center h-100 m-md-0">
-						<i class="bi bi-c-circle"></i> {{ date('Y') }} {{ env('COMPANY_NAME') }} All rights reserved.
+					<p class="d-flex justify-content-center justify-content-md-start align-items-center h-100 m-md-0 text-muted">
+						<i class="bi bi-c-circle me-1"></i> {{ date('Y') }} {{ env('COMPANY_NAME') }} All rights reserved.
 					</p>
 				</div>
 				<div class="col-md-5">
