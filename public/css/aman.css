@@ -1,0 +1,54 @@
+#header{
+	height: 100px;
+}
+
+#body{
+	padding-top: 100px;
+	width: 100%;
+}
+
+.header-logo{
+	width: 130px;
+}
+
+#headerSearchInput{
+	width: 250px;
+}
+
+#headerSearchInput:focus{
+	background-color: #fff;
+	border-color:  #ced4da;
+}
+
+.footer-logo{
+	width: 130px;
+}
+
+.footer-heading{
+	font-size: 16px;
+}
+
+.footer-list li a{
+	font-size: 15px;
+}
+
+.footer-list li a:hover{
+	text-decoration: underline;
+}
+
+/* .grid{
+	--bs-columns: 5;
+	display: grid;
+	grid-template-rows: repeat(var(--bs-rows, 1), 1fr);
+	grid-template-columns: repeat(var(--bs-columns, 12), 1fr);
+	gap: var(--bs-gap, 1.5rem);
+} */
+
+/* .grid > div{
+	width: 20%;
+} */
+
+.footer-nav > div{
+	/* min-width: 155px; */
+  	padding-bottom: 1.5rem;
+}
