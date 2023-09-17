@@ -1,13 +1,47 @@
 :root{
-	--fublis-purple: #7F56D9;
+	--fublis-nav-height: 6rem;
+	--fublis-purple-600: #7F56D9;
+	--fublis-purple-800: #53389E;
+	--fublis-pink-200: #E9D7FE;
+	--fublis-white: #ffffff;
 }
 
-.text-purple{
-	color: var(--fublis-purple) !important;
+body{
+	font-family: 'Inter', sans-serif !important;
+	font-size: 15px;
 }
 
-.border-purple{
-	border-color: var(--fublis-purple) !important;;
+.text-purple-600{
+	color: var(--fublis-purple-600) !important;
+}
+
+.text-pink-200{
+	color: var(--fublis-pink-200) !important;
+}
+
+.border-purple-600{
+	border-color: var(--fublis-purple-600) !important;
+}
+
+.bg-purple-800{
+	background: var(--fublis-purple-800) !important;
+}
+
+.btn-primary {
+	--bs-btn-color: var(--fublis-white);
+	--bs-btn-bg: var(--fublis-purple-600);
+	--bs-btn-border-color: var(--fublis-purple-600);
+	--bs-btn-hover-color: var(--fublis-white);;
+	--bs-btn-hover-bg: #0b5ed7;
+	--bs-btn-hover-border-color: #0a58ca;
+	--bs-btn-focus-shadow-rgb: 49,132,253;
+	--bs-btn-active-color: var(--fublis-white);;
+	--bs-btn-active-bg: #0a58ca;
+	--bs-btn-active-border-color: #0a53be;
+	--bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+	--bs-btn-disabled-color: var(--fublis-white);;
+	--bs-btn-disabled-bg: var(--fublis-purple-600);
+	--bs-btn-disabled-border-color: var(--fublis-purple-600);
 }
 
 /* a.text-purple{
@@ -18,11 +52,11 @@ a.text-purple:hover{
 } */
 
 #header{
-	height: 100px;
+	height: var(--fublis-nav-height);
 }
 
 #body{
-	padding-top: 100px;
+	padding-top: var(--fublis-nav-height);
 	width: 100%;
 }
 
@@ -36,18 +70,18 @@ a.text-purple:hover{
 }
 
 #headerSearchInput{
-	width: 250px;
+	max-width: 250px;
 }
 
-#headerSearchInput:focus{
-	background-color: #fff;
+#headerSearchInput:focus, #blogSearchInput:focus{
+	background-color: var(--fublis-white);
 	border-color:  #ced4da;
 }
 
 #profileNav li a{
 	height: 40px;
 	width: 40px;
-	font-size: 18px;
+	font-size: 20px;
 }
 
 /* #profileNav li a i{
@@ -59,11 +93,11 @@ a.text-purple:hover{
 }
 
 .footer-heading{
-	font-size: 16px;
+	font-size: 15px;
 }
 
 .footer-list li a{
-	font-size: 15px;
+	font-size: 14px;
 }
 
 .footer-list li a:hover{
@@ -86,3 +120,29 @@ a.text-purple:hover{
 	/* min-width: 155px; */
   	padding-bottom: 1.5rem;
 }
+
+#socialNav li a{
+	font-size: 17px;
+}
+
+
+.filter-header{
+	font-size: 0.9rem;
+}
+
+.filter-checkbox:checked{
+	background-color: var(--fublis-purple-600);
+	border-color: var(--fublis-purple-600);
+}
+
+
+
+/************************ START BLOG ************************/
+#blogHeroSection p{
+	max-width: 450px;
+}
+
+#blogHeroSection .input-group{
+	max-width: 400px;
+}
+/************************ END BLOG ************************/

@@ -1,9 +1,9 @@
 <footer id="footer">
 	<div id="footer1" class="bg-white py-5">
 		<div class="container">
-			<div class="row g-5">
-				<div class="col-md-4">
-					<p class="mb-5">
+			<div class="row g-4">
+				<div class="col-md-4 text-center text-md-start">
+					<p class="mb-4 mb-md-5">
 						<img src="{{ asset(env('COMPANY_LOGO')) }}" alt="{{ env('APP_NAME') }}" class="footer-logo">
 					</p>
 					<p>
@@ -11,7 +11,7 @@
 					</p>
 				</div>
 				<div class="col-md-8">
-					<div class="footer-nav d-flex flex-column flex-sm-row justify-content-lg-evenly flex-wrap">
+					<div class="footer-nav d-flex flex-column flex-sm-row justify-content-lg-evenly flex-wrap text-center text-sm-start">
 						<div class="">
 							<x-users.footer.heading text="platform" />
 							<ul class="nav flex-column footer-list">
@@ -141,24 +141,24 @@
 					</p>
 				</div>
 				<div class="col-md-5">
-					<ul class="nav justify-content-center justify-content-md-end">
+					<ul id="socialNav" class="nav justify-content-center justify-content-md-end">
 						<li class="nav-item">
-							<a class="nav-link text-muted" href="#"><i class="bi bi-twitter-x"></i></a>
+							<a class="nav-link text-muted px-2" href="#"><i class="bi bi-twitter-x"></i></a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link text-muted" href="#"><i class="bi bi-linkedin"></i></a>
+							<a class="nav-link text-muted px-2" href="#"><i class="bi bi-linkedin"></i></a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link text-muted" href="#"><i class="bi bi-facebook"></i></a>
+							<a class="nav-link text-muted px-2" href="#"><i class="bi bi-facebook"></i></a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link text-muted" href="#"><i class="bi bi-github"></i></a>
+							<a class="nav-link text-muted px-2" href="#"><i class="bi bi-github"></i></a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link text-muted" href="#"><i class="bi bi-instagram"></i></a>
+							<a class="nav-link text-muted px-2" href="#"><i class="bi bi-instagram"></i></a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link text-muted" href="#"><i class="bi bi-dribbble"></i></a>
+							<a class="nav-link text-muted px-2" href="#"><i class="bi bi-dribbble"></i></a>
 						</li>
 					  </ul>
 				</div>
