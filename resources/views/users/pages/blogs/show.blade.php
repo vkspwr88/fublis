@@ -15,7 +15,7 @@
 			<h1 class="text-gray-900 mb-4">Bill Walsh leadership lessons</h1>
 			<p class="text-gray-600 mb-5">Like to know the secrets of transforming a 2-14 team into a 3x Super Bowl winning Dynasty? Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
 			<div class="mb-4">
-				<img class="img-fluid" src="https://placehold.co/1140x500" alt="">
+				<img class="img-fluid" src="https://placehold.co/1320x560" alt="">
 			</div>
 			<div class="row g-4">
 				<div class="col-auto">
