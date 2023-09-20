@@ -62,7 +62,7 @@
 							<x-users.footer.heading text="resources" />
 							<ul class="nav flex-column footer-list">
 								<li class="nav-item">
-									<x-users.footer.nav-links href="javascript:;" text="blog" />
+									<x-users.footer.nav-links href="{{ route('blogs.index') }}" text="blog" />
 								</li>
 								<li class="nav-item">
 									<x-users.footer.nav-links href="javascript:;" text="newsletter" />

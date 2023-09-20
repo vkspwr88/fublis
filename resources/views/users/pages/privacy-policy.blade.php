@@ -1,6 +1,6 @@
 @extends('users.layouts.master')
 
-@section('title', 'Blog')
+@section('title', 'Privacy Policy')
 
 @section('body')
 

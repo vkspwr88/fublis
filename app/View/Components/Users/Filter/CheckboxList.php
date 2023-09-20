@@ -1,18 +1,19 @@
 <?php
 
-namespace App\View\Components\Users;
+namespace App\View\Components\Users\Filter;
 
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class FilterHeader extends Component
+class CheckboxList extends Component
 {
     /**
      * Create a new component instance.
      */
     public function __construct(
-		public string $text,
+		public array $list,
+		public string $type,
 	)
     {
         //
@@ -23,6 +24,6 @@ class FilterHeader extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.users.filter-header');
+        return view('components.users.filter.checkbox-list');
     }
 }
