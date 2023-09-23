@@ -6,17 +6,19 @@ namespace App\Models;
 
 use App\Casts\EmailCast;
 use App\Casts\NameCast;
-use App\Enums\Users\UserTypeEnum;
+use App\Casts\Users\UserTypeCast;
+use Illuminate\Contracts\Auth\Access\Authorizable;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Hash;
 use Laravel\Sanctum\HasApiTokens;
+use Spatie\Permission\Traits\HasRoles;
 
-class User extends Authenticatable
+class User extends Authenticatable implements Authorizable
 {
-	use HasApiTokens, HasFactory, Notifiable, HasUuids;
+	use HasApiTokens, HasFactory, Notifiable, HasUuids, HasRoles;
 
 	/**
 	 * The attributes that are mass assignable.
@@ -50,7 +52,7 @@ class User extends Authenticatable
 		'email' => EmailCast::class,
 		'email_verified_at' => 'datetime',
 		'password' => 'hashed',
-		'user_type' => UserTypeEnum::class,
+		'user_type' => UserTypeCast::class,
 	];
 
 	public function setPasswordAttribute($value)

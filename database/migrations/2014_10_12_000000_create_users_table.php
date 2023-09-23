@@ -20,6 +20,8 @@ return new class extends Migration
             $table->string('user_type')->default('architect');
             $table->rememberToken();
             $table->timestamps();
+
+			$table->primary('id');
         });
     }
 

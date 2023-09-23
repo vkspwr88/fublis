@@ -19,8 +19,10 @@ return new class extends Migration
 			$table->string('author');
 			$table->date('published_date');
 			$table->longText('body');
+			$table->string('home_path');
 			$table->string('banner_path');
             $table->timestamps();
+			$table->softDeletes();
         });
     }
 

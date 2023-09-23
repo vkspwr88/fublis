@@ -6,6 +6,7 @@ use App\Casts\NameCast;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class BlogIndustry extends Model
@@ -19,4 +20,8 @@ class BlogIndustry extends Model
 	protected $casts = [
 		'name' => NameCast::class,
 	];
+
+	public function blogs(): BelongsToMany{
+		return $this->belongsToMany(Blog::class);
+	}
 }
