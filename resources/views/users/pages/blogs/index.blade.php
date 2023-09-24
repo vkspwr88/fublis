@@ -30,10 +30,10 @@
 					<input id="blogSearchInput" class="form-control border-start-0 shadow-none ps-0" type="search" placeholder="Search by name" aria-label="Search">
 				</div>
 				<x-users.filter.header text="choose category" />
-				<x-users.filter.checkbox-list type="category" :list="$category" />
+				<x-users.filter.checkbox-list type="category" :list="$categories" />
 				<hr class="divider">
 				<x-users.filter.header text="choose industry" />
-				<x-users.filter.checkbox-list type="indutry" :list="$industry" />
+				<x-users.filter.checkbox-list type="indutry" :list="$industries" />
 				<hr class="divider">
 				<div class="d-grid">
 					<button type="button" class="btn btn-white text-capitalize">search</button>
@@ -42,6 +42,27 @@
 		</div>
 		<div class="col-sm-7 col-md-8 col-lg-9">
 			<div class="row row-cols-1 row-cols-lg-2 g-4">
+				@foreach ($blogs as $blog)
+				<div class="col">
+					<div class="card px-5 px-md-5 px-lg-2 px-xl-3 blog-post-card">
+						<img src="{{ url($blog->home_path) }}" class="card-img-top" alt="...">
+						<div class="card-body px-0 pt-4">
+							<p class="blog-author fw-bold text-capitalize">{{ $blog->author }} <i class="bi bi-dot"></i> {{ $blog->published_date }}</p>
+						  	<h5 class="blog-title">{{ $blog->title }}</h5>
+						  	<p class="blog-description">{{ $blog->description }}</p>
+						  	<p class="blog-tags">
+								<a href="{{ route('blogs.show', ['blog' => $blog->id]) }}" class="stretched-link"></a>
+								@foreach ($blog->tags as $tag)
+									<span class="badge rounded-pill badge-purple">{{ $tag->name }}</span>
+								@endforeach
+								{{-- <span class="badge rounded-pill badge-purple">Design</span>
+								<span class="badge rounded-pill badge-indigo">Research</span>
+								<span class="badge rounded-pill badge-pink">Presentation</span> --}}
+							</p>
+						</div>
+					</div>
+				</div>
+				@endforeach
 				<div class="col">
 					<div class="card px-5 px-md-5 px-lg-2 px-xl-3 blog-post-card">
 						<img src="https://placehold.co/550x400" class="card-img-top" alt="...">
@@ -50,7 +71,7 @@
 						  	<h5 class="blog-title">Build your API Stack</h5>
 						  	<p class="blog-description">How do you create compelling presentations that wow your colleagues and impress your managers?</p>
 						  	<p class="blog-tags">
-								<a href="{{ route('blogs.show') }}" class="stretched-link"></a>
+								<a href="{{ route('blogs.show', ['blog' => 'id']) }}" class="stretched-link"></a>
 								<span class="badge rounded-pill badge-purple">Design</span>
 								<span class="badge rounded-pill badge-indigo">Research</span>
 								<span class="badge rounded-pill badge-pink">Presentation</span>
@@ -66,7 +87,7 @@
 						  	<h5 class="blog-title">Build your API Stack</h5>
 						  	<p class="blog-description">How do you create compelling presentations that wow your colleagues and impress your managers?</p>
 						  	<p class="blog-tags">
-								<a href="{{ route('blogs.show') }}" class="stretched-link"></a>
+								<a href="{{ route('blogs.show', ['blog' => 'id']) }}" class="stretched-link"></a>
 								<span class="badge rounded-pill badge-purple">Design</span>
 								<span class="badge rounded-pill badge-indigo">Research</span>
 								<span class="badge rounded-pill badge-pink">Presentation</span>
@@ -82,7 +103,7 @@
 						  	<h5 class="blog-title">Build your API Stack</h5>
 						  	<p class="blog-description">How do you create compelling presentations that wow your colleagues and impress your managers?</p>
 						  	<p class="blog-tags">
-								<a href="{{ route('blogs.show') }}" class="stretched-link"></a>
+								<a href="{{ route('blogs.show', ['blog' => 'id']) }}" class="stretched-link"></a>
 								<span class="badge rounded-pill badge-purple">Design</span>
 								<span class="badge rounded-pill badge-indigo">Research</span>
 								<span class="badge rounded-pill badge-pink">Presentation</span>
@@ -98,7 +119,7 @@
 						  	<h5 class="blog-title">Build your API Stack</h5>
 						  	<p class="blog-description">How do you create compelling presentations that wow your colleagues and impress your managers?</p>
 						  	<p class="blog-tags">
-								<a href="{{ route('blogs.show') }}" class="stretched-link"></a>
+								<a href="{{ route('blogs.show', ['blog' => 'id']) }}" class="stretched-link"></a>
 								<span class="badge rounded-pill badge-purple">Design</span>
 								<span class="badge rounded-pill badge-indigo">Research</span>
 								<span class="badge rounded-pill badge-pink">Presentation</span>
@@ -114,7 +135,7 @@
 						  	<h5 class="blog-title">Build your API Stack</h5>
 						  	<p class="blog-description">How do you create compelling presentations that wow your colleagues and impress your managers?</p>
 						  	<p class="blog-tags">
-								<a href="{{ route('blogs.show') }}" class="stretched-link"></a>
+								<a href="{{ route('blogs.show', ['blog' => 'id']) }}" class="stretched-link"></a>
 								<span class="badge rounded-pill badge-purple">Design</span>
 								<span class="badge rounded-pill badge-indigo">Research</span>
 								<span class="badge rounded-pill badge-pink">Presentation</span>
@@ -130,7 +151,7 @@
 						  	<h5 class="blog-title">Build your API Stack</h5>
 						  	<p class="blog-description">How do you create compelling presentations that wow your colleagues and impress your managers?</p>
 						  	<p class="blog-tags">
-								<a href="{{ route('blogs.show') }}" class="stretched-link"></a>
+								<a href="{{ route('blogs.show', ['blog' => 'id']) }}" class="stretched-link"></a>
 								<span class="badge rounded-pill badge-purple">Design</span>
 								<span class="badge rounded-pill badge-indigo">Research</span>
 								<span class="badge rounded-pill badge-pink">Presentation</span>
@@ -146,7 +167,7 @@
 						  	<h5 class="blog-title">Build your API Stack</h5>
 						  	<p class="blog-description">How do you create compelling presentations that wow your colleagues and impress your managers?</p>
 						  	<p class="blog-tags">
-								<a href="{{ route('blogs.show') }}" class="stretched-link"></a>
+								<a href="{{ route('blogs.show', ['blog' => 'id']) }}" class="stretched-link"></a>
 								<span class="badge rounded-pill badge-purple">Design</span>
 								<span class="badge rounded-pill badge-indigo">Research</span>
 								<span class="badge rounded-pill badge-pink">Presentation</span>
@@ -162,7 +183,7 @@
 						  	<h5 class="blog-title">Build your API Stack</h5>
 						  	<p class="blog-description">How do you create compelling presentations that wow your colleagues and impress your managers?</p>
 						  	<p class="blog-tags">
-								<a href="{{ route('blogs.show') }}" class="stretched-link"></a>
+								<a href="{{ route('blogs.show', ['blog' => 'id']) }}" class="stretched-link"></a>
 								<span class="badge rounded-pill badge-purple">Design</span>
 								<span class="badge rounded-pill badge-indigo">Research</span>
 								<span class="badge rounded-pill badge-pink">Presentation</span>
@@ -178,7 +199,7 @@
 						  	<h5 class="blog-title">Build your API Stack</h5>
 						  	<p class="blog-description">How do you create compelling presentations that wow your colleagues and impress your managers?</p>
 						  	<p class="blog-tags">
-								<a href="{{ route('blogs.show') }}" class="stretched-link"></a>
+								<a href="{{ route('blogs.show', ['blog' => 'id']) }}" class="stretched-link"></a>
 								<span class="badge rounded-pill badge-purple">Design</span>
 								<span class="badge rounded-pill badge-indigo">Research</span>
 								<span class="badge rounded-pill badge-pink">Presentation</span>
@@ -194,7 +215,7 @@
 						  	<h5 class="blog-title">Build your API Stack</h5>
 						  	<p class="blog-description">How do you create compelling presentations that wow your colleagues and impress your managers?</p>
 						  	<p class="blog-tags">
-								<a href="{{ route('blogs.show') }}" class="stretched-link"></a>
+								<a href="{{ route('blogs.show', ['blog' => 'id']) }}" class="stretched-link"></a>
 								<span class="badge rounded-pill badge-purple">Design</span>
 								<span class="badge rounded-pill badge-indigo">Research</span>
 								<span class="badge rounded-pill badge-pink">Presentation</span>

@@ -8,23 +8,23 @@
 	<div class="container">
 		<div class="blog-header pb-5">
 			<p class="blog-tags">
-				<span class="badge rounded-pill badge-purple">Design</span>
-				<span class="badge rounded-pill badge-indigo">Research</span>
-				<span class="badge rounded-pill badge-pink">Presentation</span>
+				@foreach ($blog->tags as $tag)
+					<span class="badge rounded-pill badge-indigo">{{ $tag->name }}</span>
+				@endforeach
 			</p>
-			<h1 class="text-gray-900 mb-4">Bill Walsh leadership lessons</h1>
-			<p class="text-gray-600 mb-5">Like to know the secrets of transforming a 2-14 team into a 3x Super Bowl winning Dynasty? Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+			<h1 class="text-gray-900 mb-4">{{ $blog->title }}</h1>
+			<p class="text-gray-600 mb-5">{{ $blog->description }}</p>
 			<div class="mb-4">
-				<img class="img-fluid" src="https://placehold.co/1320x560" alt="">
+				<img class="img-fluid" src="{{ $blog->banner_path }}" alt="">
 			</div>
 			<div class="row g-4">
 				<div class="col-auto">
 					<h5 class="fublis-header">Written by</h5>
-					<h6 class="fublis-body">Alec Whitten</h6>
+					<h6 class="fublis-body text-capitalize">{{ $blog->author }}</h6>
 				</div>
 				<div class="col-auto">
 					<h5 class="fublis-header">Published on</h5>
-					<h6 class="fublis-body">17 Jan 2022</h6>
+					<h6 class="fublis-body">{{ $blog->published_date }}</h6>
 				</div>
 				<div class="col">
 					<div class="d-grid gap-2 d-flex justify-content-end">
@@ -40,9 +40,10 @@
 			<div class="row g-4">
 				<div class="col-md-8">
 					<div class="blog-content pe-5">
-						<h4 class="text-gray-900 fw-bold mb-4">Introduction</h4>
+						{!! $blog->body !!}
+						{{-- <h4 class="text-gray-900 fw-bold mb-4">Introduction</h4>
 						<p class="text-gray-600">Mi tincidunt elit, id quisque ligula ac diam, amet. Vel etiam suspendisse morbi eleifend faucibus eget vestibulum felis. Dictum quis montes, sit sit. Tellus aliquam enim urna, etiam. Mauris posuere vulputate arcu amet, vitae nisi, tellus tincidunt. At feugiat sapien varius id.</p>
-						<p class="text-gray-600">Eget quis mi enim, leo lacinia pharetra, semper. Eget in volutpat mollis at volutpat lectus velit, sed auctor. Porttitor fames arcu quis fusce augue enim. Quis at habitant diam at. Suscipit tristique risus, at donec. In turpis vel et quam imperdiet. Ipsum molestie aliquet sodales id est ac volutpat.</p>
+						<p class="text-gray-600">Eget quis mi enim, leo lacinia pharetra, semper. Eget in volutpat mollis at volutpat lectus velit, sed auctor. Porttitor fames arcu quis fusce augue enim. Quis at habitant diam at. Suscipit tristique risus, at donec. In turpis vel et quam imperdiet. Ipsum molestie aliquet sodales id est ac volutpat.</p> --}}
 					</div>
 				</div>
 				<div class="col-md-4">
@@ -88,7 +89,26 @@
 			<p class="text-center section-description">Interviews, tips, guides, industry best practices, and news.</p>
 		</div>
 		<div class="row g-4 g-md-3">
+			@foreach ($latestBlogs as $latestBlog)
 			<div class="col-md-4">
+				<div class="card px-5 px-md-0 px-lg-2 px-xl-3 blog-post-card">
+					<img src="{{ url($latestBlog->home_path) }}" class="card-img-top" alt="...">
+					<div class="card-body px-0 pt-4">
+						<p class="blog-author fw-bold text-capitalize">{{ $latestBlog->author }} <i class="bi bi-dot"></i> {{ $latestBlog->published_date }}</p>
+						  <h5 class="blog-title">{{ $latestBlog->title }}</h5>
+						  <p class="blog-description">{{ $latestBlog->description }}</p>
+						  <p class="blog-tags">
+							<a href="{{ route('blogs.show', ['blog' => $latestBlog->id]) }}" class="stretched-link"></a>
+							@foreach ($latestBlog->tags as $tag)
+								<span class="badge rounded-pill badge-purple">{{ $tag->name }}</span>
+							@endforeach
+						</p>
+					</div>
+				</div>
+			</div>
+			@endforeach
+
+			{{-- <div class="col-md-4">
 				<div class="card px-5 px-md-0 px-lg-2 px-xl-3 blog-post-card">
 					<img src="https://placehold.co/550x400" class="card-img-top" alt="...">
 					<div class="card-body px-0 pt-4">
@@ -119,23 +139,7 @@
 						</p>
 					</div>
 				</div>
-			</div>
-			<div class="col-md-4">
-				<div class="card px-5 px-md-0 px-lg-2 px-xl-3 blog-post-card">
-					<img src="https://placehold.co/550x400" class="card-img-top" alt="...">
-					<div class="card-body px-0 pt-4">
-						<p class="blog-author fw-bold">Olivia Rhya <i class="bi bi-dot"></i> 20 Jan 2022</p>
-						  <h5 class="blog-title">Build your API Stack</h5>
-						  <p class="blog-description">How do you create compelling presentations that wow your colleagues and impress your managers?</p>
-						  <p class="blog-tags">
-							<a href="{{ route('blogs.show') }}" class="stretched-link"></a>
-							<span class="badge rounded-pill badge-purple">Design</span>
-							<span class="badge rounded-pill badge-indigo">Research</span>
-							<span class="badge rounded-pill badge-pink">Presentation</span>
-						</p>
-					</div>
-				</div>
-			</div>
+			</div> --}}
 		</div>
 		<p class="text-center">
 			<a href="{{ route('blogs.index') }}" class="btn btn-primary text-capitalize">view all posts</a>

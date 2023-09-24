@@ -14,6 +14,9 @@ class RepositoryServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->app->bind(Interfaces\BlogRepositoryInterface::class, Repositories\BlogRepository::class);
+        $this->app->bind(Interfaces\BlogCategoryRepositoryInterface::class, Repositories\BlogCategoryRepository::class);
+        $this->app->bind(Interfaces\BlogIndustryRepositoryInterface::class, Repositories\BlogIndustryRepository::class);
+        $this->app->bind(Interfaces\BlogTagRepositoryInterface::class, Repositories\BlogTagRepository::class);
     }
 
     /**

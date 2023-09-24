@@ -12,7 +12,7 @@ class CheckboxList extends Component
      * Create a new component instance.
      */
     public function __construct(
-		public array $list,
+		public $list,
 		public string $type,
 	)
     {

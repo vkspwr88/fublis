@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Users\BlogController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,35 +26,6 @@ Route::get('/blank', function () {
     return view('users.pages.blank');
 })->name('blank');
 
-Route::get('/blogs', function () {
-    return view('users.pages.blogs.index', [
-		'category' => [
-			[
-				'id' => 1,
-				'name' => 'Resources',
-				'slug' => 'resources'
-			],
-			[
-				'id' => 2,
-				'name' => 'Interviews',
-				'slug' => 'interviews'
-			]
-		],
-		'industry' => [
-			[
-				'id' => 1,
-				'name' => 'Architecture',
-				'slug' => 'architecture'
-			],
-			[
-				'id' => 2,
-				'name' => 'Home Decor',
-				'slug' => 'home-decor'
-			]
-		]
-	]);
-})->name('blogs.index');
+Route::get('/blogs', [BlogController::class, 'index'])->name('blogs.index');
 
-Route::get('/blogs/blog', function () {
-    return view('users.pages.blogs.show');
-})->name('blogs.show');
+Route::get('/blogs/{blog}', [BlogController::class, 'show'])->name('blogs.show');
