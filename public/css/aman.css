@@ -298,17 +298,18 @@ a.text-purple:hover{
 	line-height: 24px;
 }
 
-.blog-tags{
+/* .blog-tags{
 
 }
 
 .blog-post-card .card-img-top{
 
-}
+} */
 
 .blog-content img{
 	max-width: 100%;
 	border-radius: 20px;
+	height: auto;
 }
 
 .blog-content blockquote{

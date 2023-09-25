@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Casts\DateCast;
+use App\Casts\ImageCast;
 use App\Casts\NameCast;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -17,6 +18,8 @@ class Blog extends Model
 	protected $guarded = [];
 
 	protected $casts = [
+		'home_path' => ImageCast::class,
+		'banner_path' => ImageCast::class,
 		'author' => NameCast::class,
 		'published_date' => DateCast::class,
 	];

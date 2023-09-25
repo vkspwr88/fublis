@@ -15,7 +15,7 @@ return new class extends Migration
             $table->uuid('id');
 			$table->string('title');
 			$table->string('slug')->unique();
-			$table->string('description');
+			$table->text('description');
 			$table->string('author');
 			$table->date('published_date');
 			$table->longText('body');

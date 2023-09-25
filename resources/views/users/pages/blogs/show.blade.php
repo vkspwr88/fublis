@@ -15,7 +15,7 @@
 			<h1 class="text-gray-900 mb-4">{{ $blog->title }}</h1>
 			<p class="text-gray-600 mb-5">{{ $blog->description }}</p>
 			<div class="mb-4">
-				<img class="img-fluid" src="{{ $blog->banner_path }}" alt="">
+				<img class="img-fluid" src="{{ url( $blog->banner_path) }}" alt="{{ $blog->title }}" style="width: 100%;">
 			</div>
 			<div class="row g-4">
 				<div class="col-auto">
@@ -98,7 +98,7 @@
 						  <h5 class="blog-title">{{ $latestBlog->title }}</h5>
 						  <p class="blog-description">{{ $latestBlog->description }}</p>
 						  <p class="blog-tags">
-							<a href="{{ route('blogs.show', ['blog' => $latestBlog->id]) }}" class="stretched-link"></a>
+							<a href="{{ route('blogs.show', ['slug' => $latestBlog->slug]) }}" class="stretched-link"></a>
 							@foreach ($latestBlog->tags as $tag)
 								<span class="badge rounded-pill badge-purple">{{ $tag->name }}</span>
 							@endforeach

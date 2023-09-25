@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Users;
 use App\Http\Controllers\Controller;
 use App\Interfaces\BlogCategoryRepositoryInterface;
 use App\Interfaces\BlogIndustryRepositoryInterface;
-use App\Models\Blog;
 use App\Services\BlogService;
 use Illuminate\Http\Request;
 
@@ -34,10 +33,15 @@ class BlogController extends Controller
 		]);
 	}
 
-	public function show(Blog $blog) {
-		return view('users.pages.blogs.show', [
-			'blog' => $blog->load('tags'),
-			'latestBlogs' => $this->blogService->showLimitedBlogs(3)
-		]);
+	public function show(string $slug) {
+		$blog = $this->blogService->showBlogUsingSlug($slug);
+		//dd($blog->load('tags'));
+		if($blog){
+			return view('users.pages.blogs.show', [
+				'blog' => $blog->load('tags'),
+				'latestBlogs' => $this->blogService->showLimitedBlogs(3)
+			]);
+		}
+		abort(404);
 	}
 }

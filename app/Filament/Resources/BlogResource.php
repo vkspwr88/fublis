@@ -54,6 +54,7 @@ class BlogResource extends Resource
 								->label('Blog Home Imge (550 x 400)')
 								->required()
 								->columnSpanFull()
+								->disk('public')
 								->directory('images/blogs/home')
 								->image()
 								->imageEditor(),
@@ -61,6 +62,7 @@ class BlogResource extends Resource
 								->label('Blog Banner Image (1320 x 560)')
 								->required()
 								->columnSpanFull()
+								->disk('public')
 								->directory('images/blogs/banner')
 								->image()
 								->imageEditor(),
@@ -69,7 +71,7 @@ class BlogResource extends Resource
 								->columnSpanFull(),
 							Forms\Components\RichEditor::make('body')
 								->required()
-								//->fileAttachmentsDisk('local')
+								->fileAttachmentsDisk('public')
 								->fileAttachmentsDirectory('images/blogs/body')
 								->columnSpanFull(),
 						])

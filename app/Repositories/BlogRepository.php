@@ -17,4 +17,12 @@ class BlogRepository implements BlogRepositoryInterface
 					->limit($limit)
 					->get();
 	}
+
+	public function getBlogBySlug(string $slug){
+		return Blog::where([
+						'slug' => $slug,
+						'deleted_at' => null,
+					])
+					->first();
+	}
 }

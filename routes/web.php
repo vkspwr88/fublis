@@ -28,4 +28,4 @@ Route::get('/blank', function () {
 
 Route::get('/blogs', [BlogController::class, 'index'])->name('blogs.index');
 
-Route::get('/blogs/{blog}', [BlogController::class, 'show'])->name('blogs.show');
+Route::get('/blogs/{slug}', [BlogController::class, 'show'])->name('blogs.show');

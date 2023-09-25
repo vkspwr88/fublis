@@ -27,4 +27,8 @@ class BlogService
 				->getLimitedBlogs($limit)
 				->load('tags');
 	}
+
+	public function showBlogUsingSlug(string $slug){
+		return $this->blogRepository->getBlogBySlug($slug);
+	}
 }
