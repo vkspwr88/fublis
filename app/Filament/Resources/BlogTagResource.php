@@ -16,8 +16,10 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 class BlogTagResource extends Resource
 {
     protected static ?string $model = BlogTag::class;
-
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+	protected static ?string $navigationGroup = 'Blogs';
+    protected static ?string $navigationLabel  = 'Tags';
+	protected static ?int $navigationSort = 2;
 
     public static function form(Form $form): Form
     {
@@ -72,14 +74,14 @@ class BlogTagResource extends Resource
                 Tables\Actions\CreateAction::make(),
             ]);
     }
-    
+
     public static function getPages(): array
     {
         return [
             'index' => Pages\ManageBlogTags::route('/'),
         ];
-    }    
-    
+    }
+
     public static function getEloquentQuery(): Builder
     {
         return parent::getEloquentQuery()

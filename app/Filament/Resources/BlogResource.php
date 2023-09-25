@@ -21,7 +21,7 @@ class BlogResource extends Resource
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 	protected static ?string $navigationGroup = 'Blogs';
     protected static ?string $navigationLabel  = 'List';
-	protected static ?int $navigationSort = 2;
+	protected static ?int $navigationSort = 3;
 
     public static function form(Form $form): Form
     {
@@ -146,7 +146,19 @@ class BlogResource extends Resource
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('title')
+					->label('Blog Title'),
+                Tables\Columns\TextColumn::make('slug')
+					->label('Blog Slug'),
+                Tables\Columns\TextColumn::make('categories.name')
+					->listWithLineBreaks()
+					->bulleted(),
+                Tables\Columns\TextColumn::make('industries.name')
+					->listWithLineBreaks()
+					->bulleted(),
+                Tables\Columns\TextColumn::make('tags.name')
+					->listWithLineBreaks()
+					->bulleted(),
             ])
             ->filters([
                 Tables\Filters\TrashedFilter::make(),
