@@ -14,14 +14,19 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Str;
+use RalphJSmit\Filament\SEO\SEO;
+
+use FilamentTiptapEditor\TiptapEditor;
+use FilamentTiptapEditor\Enums\TiptapOutput;
+use Awcodes\Curator\Components\Forms\CuratorPicker;
 
 class BlogResource extends Resource
 {
     protected static ?string $model = Blog::class;
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-document-text';
 	protected static ?string $navigationGroup = 'Blogs';
-    protected static ?string $navigationLabel  = 'List';
-	protected static ?int $navigationSort = 3;
+    protected static ?string $navigationLabel  = 'Posts';
+	protected static ?int $navigationSort = 0;
 
     public static function form(Form $form): Form
     {
@@ -50,31 +55,50 @@ class BlogResource extends Resource
 								->required(),
 							Forms\Components\DatePicker::make('published_date')
 								->required(),
-							Forms\Components\FileUpload::make('home_path')
+							CuratorPicker::make('home_image_id')
 								->label('Blog Home Imge (550 x 400)')
-								->required()
+								->buttonLabel('Select Blog Home Image')
+								->relationship('homeImage', 'id')
 								->columnSpanFull()
-								->disk('public')
-								->directory('images/blogs/home')
-								->image()
-								->imageEditor(),
-							Forms\Components\FileUpload::make('banner_path')
+								->required()
+								->acceptedFileTypes(['image/*']),
+							CuratorPicker::make('banner_image_id')
 								->label('Blog Banner Image (1320 x 560)')
-								->required()
+								->buttonLabel('Select Blog Banner Image')
+								->relationship('bannerImage', 'id')
 								->columnSpanFull()
-								->disk('public')
-								->directory('images/blogs/banner')
-								->image()
-								->imageEditor(),
+								->required(),
 							Forms\Components\Textarea::make('description')
 								->required()
 								->columnSpanFull(),
-							Forms\Components\RichEditor::make('body')
+							/* Forms\Components\RichEditor::make('body')
+								->label('Content')
 								->required()
 								->fileAttachmentsDisk('public')
-								->fileAttachmentsDirectory('images/blogs/body')
-								->columnSpanFull(),
+								->fileAttachmentsDirectory('images/blogs')
+								->columnSpanFull(), */
+							TiptapEditor::make('body')
+								->label('Content')
+								->profile('default')
+								//->profile('default|simple|minimal|none|custom')
+								//->tools([]) // individual tools to use in the editor, overwrites profile
+								//->disk('string') // optional, defaults to config setting
+								//->directory('string or Closure returning a string') // optional, defaults to config setting
+								//->acceptedFileTypes(['array of file types']) // optional, defaults to config setting
+								//->maxFileSize('integer in KB') // optional, defaults to config setting
+								//->output(TiptapOutput::Html) // optional, change the format for saved data, default is html
+								//->maxContentWidth('5xl')
+								->required()
+								->columnSpanFull()
+
 						])
+						->columnSpan(3),
+
+					Forms\Components\Fieldset::make('SEO')
+						->schema([
+							SEO::make(),
+						])
+						->columns(1)
 						->columnSpan(2),
 
 					Forms\Components\Grid::make()
@@ -96,6 +120,7 @@ class BlogResource extends Resource
 												->unique(),
 										])
 								])
+								//->columnSpan(1)
 								->columns(1),
 
 							Forms\Components\Fieldset::make('Industries')
@@ -115,6 +140,7 @@ class BlogResource extends Resource
 												->unique(),
 										])
 								])
+								//->columnSpan(1)
 								->columns(1),
 
 							Forms\Components\Fieldset::make('Tags')
@@ -134,8 +160,10 @@ class BlogResource extends Resource
 												->unique(),
 										])
 								])
+								//->columnSpan(1)
 								->columns(1),
 						])
+						//->columns(3)
 						->columnSpan(1)
 
 				])

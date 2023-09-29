@@ -1,5 +1,6 @@
 <?php
 
+use Awcodes\Curator\Models\Media;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -19,10 +20,12 @@ return new class extends Migration
 			$table->string('author');
 			$table->date('published_date');
 			$table->longText('body');
-			$table->string('home_path');
-			$table->string('banner_path');
+			$table->foreignIdFor(Media::class, 'home_image_id');
+			$table->foreignIdFor(Media::class, 'banner_image_id');
             $table->timestamps();
 			$table->softDeletes();
+
+			$table->primary('id');
         });
     }
 

@@ -274,6 +274,10 @@ a.text-purple:hover{
 	border-radius: 0;
 }
 
+.blog-post-card .card-img-top{
+	height: auto;
+}
+
 .blog-post-card{
 	background: transparent;
 	border: none;

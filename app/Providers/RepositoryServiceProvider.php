@@ -17,6 +17,7 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(Interfaces\BlogCategoryRepositoryInterface::class, Repositories\BlogCategoryRepository::class);
         $this->app->bind(Interfaces\BlogIndustryRepositoryInterface::class, Repositories\BlogIndustryRepository::class);
         $this->app->bind(Interfaces\BlogTagRepositoryInterface::class, Repositories\BlogTagRepository::class);
+        $this->app->bind(Interfaces\SubscribeNewsletterRepositoryInterface::class, Repositories\SubscribeNewsletterRepository::class);
     }
 
     /**

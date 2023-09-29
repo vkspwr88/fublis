@@ -1,6 +1,8 @@
 @extends('users.layouts.master')
 
-@section('title', 'Blogs')
+@section('title')
+<title>{{ env('APP_NAME') }} | Blogs</title>
+@endsection
 
 @section('body')
 <div class="container-fluid p-0 blog-hero-container">
@@ -8,15 +10,7 @@
 		<div class="col-md-8 offset-md-2 py-5">
 			<h2 class="text-capitalize mb-4 fw-bold">resources, interviews & stories</h2>
 			<p class="text-pink-200 mx-auto mb-4">Subscribe to learn about the latest industry news, interviews, technologies, and resources.</p>
-			<div class="d-flex justify-content-center">
-				<div class="subscribe-input me-1 me-sm-2">
-					<input type="text" name="" id="" class="form-control" placeholder="Enter your email">
-					<div class="form-text position-absolute"><small>We care about your data in our <a href="{{ route('privacy-policy') }}" class="text-muted">privacy policy</a>.</small></div>
-				</div>
-				<div class="subscribe-button">
-					<button class="btn btn-primary text-capitalize" type="button">subscribe</button>
-				</div>
-			</div>
+			<livewire:users.blogs.index.subscribe-newsletter />
 		</div>
 	</div>
 </div>
@@ -45,7 +39,8 @@
 				@foreach ($blogs as $blog)
 				<div class="col">
 					<div class="card px-5 px-md-5 px-lg-2 px-xl-3 blog-post-card">
-						<img src="{{ url($blog->home_path) }}" class="card-img-top" alt="...">
+						<x-curator-glider class="card-img-top" :media="$blog->homeImage" />
+						{{-- <img src="{{ $blog->homeImage }}" class="card-img-top" alt="..."> --}}
 						<div class="card-body px-0 pt-4">
 							<p class="blog-author fw-bold text-capitalize">{{ $blog->author }} <i class="bi bi-dot"></i> {{ $blog->published_date }}</p>
 						  	<h5 class="blog-title">{{ $blog->title }}</h5>

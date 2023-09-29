@@ -1,9 +1,10 @@
 @extends('users.layouts.master')
 
-@section('title', 'Blog')
+@section('head')
+{!! seo()->for($blog) !!}
+@endsection
 
 @section('body')
-
 <section id="blog" class="bg-white py-5">
 	<div class="container">
 		<div class="blog-header pb-5">
@@ -15,7 +16,7 @@
 			<h1 class="text-gray-900 mb-4">{{ $blog->title }}</h1>
 			<p class="text-gray-600 mb-5">{{ $blog->description }}</p>
 			<div class="mb-4">
-				<img class="img-fluid" src="{{ url( $blog->banner_path) }}" alt="{{ $blog->title }}" style="width: 100%;">
+				<x-curator-glider class="img-fluid" :media="$blog->bannerImage"  style="width: 100%;" />
 			</div>
 			<div class="row g-4">
 				<div class="col-auto">
@@ -92,7 +93,7 @@
 			@foreach ($latestBlogs as $latestBlog)
 			<div class="col-md-4">
 				<div class="card px-5 px-md-0 px-lg-2 px-xl-3 blog-post-card">
-					<img src="{{ url($latestBlog->home_path) }}" class="card-img-top" alt="...">
+					<x-curator-glider class="card-img-top" :media="$latestBlog->homeImage" />
 					<div class="card-body px-0 pt-4">
 						<p class="blog-author fw-bold text-capitalize">{{ $latestBlog->author }} <i class="bi bi-dot"></i> {{ $latestBlog->published_date }}</p>
 						  <h5 class="blog-title">{{ $latestBlog->title }}</h5>

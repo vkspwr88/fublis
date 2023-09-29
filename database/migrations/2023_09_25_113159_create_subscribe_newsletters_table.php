@@ -11,13 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('blog_tags', function (Blueprint $table) {
-            $table->uuid('id');
-			$table->string('name')->unique();
+        Schema::create('subscribe_newsletters', function (Blueprint $table) {
+            $table->id();
+			$table->string('email')->unique();
+			$table->timestamp('email_verified_at')->nullable();
             $table->timestamps();
-			$table->softDeletes();
-
-			$table->primary('id');
         });
     }
 
@@ -26,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('blog_tags');
+        Schema::dropIfExists('subscribe_newsletters');
     }
 };

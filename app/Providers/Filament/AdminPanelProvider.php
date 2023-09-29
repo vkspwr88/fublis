@@ -2,6 +2,7 @@
 
 namespace App\Providers\Filament;
 
+use Awcodes\Curator\Resources\MediaResource;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
@@ -30,6 +31,7 @@ class AdminPanelProvider extends PanelProvider
             ->colors([
                 'primary' => '#6941C6'/* Color::Amber */,
             ])
+			->viteTheme('resources/css/filament/backend/theme.css')
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
             ->pages([
@@ -53,6 +55,16 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->authMiddleware([
                 Authenticate::class,
-            ]);
+			])
+			->plugins([
+				\Awcodes\Curator\CuratorPlugin::make()
+					->label('Media')
+					->pluralLabel('Media')
+					->navigationIcon('heroicon-o-photo')
+					->navigationGroup('Content')
+					->navigationSort(3)
+					->navigationCountBadge()
+					->resource(MediaResource::class),
+			]);
     }
 }

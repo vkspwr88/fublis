@@ -27,7 +27,7 @@ class BlogController extends Controller
 
 	public function index(){
 		return view('users.pages.blogs.index', [
-			'blogs' => $this->blogService->showAllBlogs(),
+			'blogs' => $this->blogService->showAllBlogs()->load('homeImage', 'bannerImage'),
 			'categories' => $this->blogCategoryRepository->getAllBlogCategories(),
 			'industries' => $this->blogIndustryRepository->getAllBlogIndustries(),
 		]);
