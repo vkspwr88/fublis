@@ -11,7 +11,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use RalphJSmit\Laravel\SEO\Models\SEO;
 use RalphJSmit\Laravel\SEO\Support\HasSEO;
 
 
@@ -46,5 +49,13 @@ class Blog extends Model
 
 	public function bannerImage(): BelongsTo{
 		return $this->belongsTo(Media::class, 'banner_image_id');
+	}
+
+	public function seoImage(): BelongsTo{
+		return $this->belongsTo(Media::class, 'seo_image_id');
+	}
+
+	public function blogSeo(): MorphOne{
+		return $this->morphOne(SEO::class, 'model');
 	}
 }

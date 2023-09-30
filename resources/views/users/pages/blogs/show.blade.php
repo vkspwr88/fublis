@@ -1,7 +1,7 @@
 @extends('users.layouts.master')
 
 @section('head')
-{!! seo()->for($blog) !!}
+{!! seo($seoData) /* seo()->for($blog) */ !!}
 @endsection
 
 @section('body')

@@ -67,7 +67,8 @@ class BlogResource extends Resource
 								->buttonLabel('Select Blog Banner Image')
 								->relationship('bannerImage', 'id')
 								->columnSpanFull()
-								->required(),
+								->required()
+								->acceptedFileTypes(['image/*']),
 							Forms\Components\Textarea::make('description')
 								->required()
 								->columnSpanFull(),
@@ -97,7 +98,13 @@ class BlogResource extends Resource
 					Forms\Components\Fieldset::make('SEO')
 						->schema([
 							SEO::make(),
-						])
+							CuratorPicker::make('seo_image_id')
+								->label(__('filament-seo::translations.image'))
+								->buttonLabel('Select Image')
+								->relationship('seoImage', 'id')
+								->columnSpan(2)
+								->acceptedFileTypes(['image/*'])
+							])
 						->columns(1)
 						->columnSpan(2),
 
