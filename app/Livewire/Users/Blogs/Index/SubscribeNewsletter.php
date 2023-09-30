@@ -3,6 +3,9 @@
 namespace App\Livewire\Users\Blogs\Index;
 
 use App\Interfaces\SubscribeNewsletterRepositoryInterface;
+use App\Mail\VerifySubscriber;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Livewire\Attributes\Rule;
 use Livewire\Component;
 
@@ -29,7 +32,11 @@ class SubscribeNewsletter extends Component
 		$this->subscribeNewsletter = app()->make(SubscribeNewsletterRepositoryInterface::class);
 	}
 
-	public function subscribe(){
+	public function subscribe(Request $request){
 		$this->validate();
+
+		//return (new VerifySubscriber())->render();
+
+		Mail::to($this->email)->send(new VerifySubscriber());
 	}
 }

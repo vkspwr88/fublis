@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Users\BlogController;
+use App\Mail\VerifySubscriber;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,6 +26,10 @@ Route::get('/privacy-policy', function () {
 Route::get('/blank', function () {
     return view('users.pages.blank');
 })->name('blank');
+
+Route::get('/email', function () {
+    return (new VerifySubscriber())->render();
+})->name('email');
 
 Route::get('/blogs', [BlogController::class, 'index'])->name('blogs.index');
 
