@@ -1,6 +1,6 @@
 @extends('users.layouts.master')
 
-@section('title', 'Privacy Policy')
+{!! seo() !!}
 
 @section('body')
 

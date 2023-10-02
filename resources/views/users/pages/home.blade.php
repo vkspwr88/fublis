@@ -1,6 +1,6 @@
 @extends('users.layouts.master')
 
-@section('title', 'Homepage')
+{!! seo() !!}
 
 @section('body')
 <div class="container-fluid p-0">

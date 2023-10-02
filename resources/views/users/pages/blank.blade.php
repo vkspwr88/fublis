@@ -1,6 +1,6 @@
 @extends('users.layouts.master')
 
-@section('title', 'Blank')
+{!! seo() !!}
 
 @section('body')
 

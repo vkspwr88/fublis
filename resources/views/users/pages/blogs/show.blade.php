@@ -55,15 +55,7 @@
 							</p>
 							<h5 class="text-gray-900 fw-bold">Weekly newsletter</h5>
 							<p class="text-gray-600">No spam. Just the latest releases and tips, interesting articles, and exclusive interviews in your inbox every week.</p>
-							<div class="form-group mb-3">
-								<input type="text" name="" id="" class="form-control" placeholder="Enter your email">
-								<div class="form-text"><small>Read about our <a href="{{ route('privacy-policy') }}" class="text-muted">privacy policy</a>.</small></div>
-							</div>
-							<div class="form-group mb-3">
-								<div class="d-grid">
-									<button class="btn btn-primary text-capitalize" type="button">subscribe</button>
-								</div>
-							</div>
+							<livewire:users.blogs.show.subscribe1 />
 							{{-- <div class="d-flex justify-content-center">
 								<div class="subscribe-input me-1 me-sm-2">
 									<input type="text" name="" id="" class="form-control" placeholder="Enter your email">
@@ -179,7 +171,7 @@
 		<div class="col-md-8 offset-md-2 py-5">
 			<h2 class="mb-4 fw-bold">Sign up for our newsletter</h2>
 			<p class="mx-auto mb-4">Be the first to know about releases and industry news and insights.</p>
-			<div class="d-flex justify-content-center">
+			{{-- <div class="d-flex justify-content-center">
 				<div class="subscribe-input me-1 me-sm-2">
 					<input type="text" name="" id="" class="form-control" placeholder="Enter your email">
 					<div class="form-text position-absolute"><small>We care about your data in our <a href="{{ route('privacy-policy') }}" class="text-muted">privacy policy</a>.</small></div>
@@ -187,7 +179,8 @@
 				<div class="subscribe-button">
 					<button class="btn btn-primary text-capitalize" type="button">subscribe</button>
 				</div>
-			</div>
+			</div> --}}
+			<livewire:users.blogs.show.subscribe2 />
 		</div>
 	</div>
 </div>

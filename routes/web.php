@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\Users\BlogController;
+use App\Http\Controllers\Users;
 use App\Mail\VerifySubscriber;
 use Illuminate\Support\Facades\Route;
 
@@ -27,10 +27,11 @@ Route::get('/blank', function () {
     return view('users.pages.blank');
 })->name('blank');
 
-Route::get('/email', function () {
+/* Route::get('/email', function () {
     return (new VerifySubscriber())->render();
-})->name('email');
+})->name('email'); */
 
-Route::get('/blogs', [BlogController::class, 'index'])->name('blogs.index');
+Route::get('/blogs', [Users\BlogController::class, 'index'])->name('blogs.index');
+Route::get('/newsletter/subscribe/{token}', [Users\SubscribeNewsletterController::class, 'verify'])->name('subscribe.newsletter.verify');
 
-Route::get('/blogs/{slug}', [BlogController::class, 'show'])->name('blogs.show');
+Route::get('/blogs/{slug}', [Users\BlogController::class, 'show'])->name('blogs.show');

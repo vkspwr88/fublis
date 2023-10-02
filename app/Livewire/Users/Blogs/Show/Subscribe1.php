@@ -1,16 +1,15 @@
 <?php
 
-namespace App\Livewire\Users\Blogs\Index;
+namespace App\Livewire\Users\Blogs\Show;
 
 use App\Interfaces\SubscribeNewsletterRepositoryInterface;
+use App\Livewire\Users\Blogs\Index\SubscribeNewsletter;
 use App\Mail\Subscription\VerificationMail;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
-use Livewire\Attributes\On;
 use Livewire\Attributes\Rule;
 use Livewire\Component;
 
-class SubscribeNewsletter extends Component
+class Subscribe1 extends Component
 {
 	#[Rule([
 		'email' => 'required|email',
@@ -26,14 +25,13 @@ class SubscribeNewsletter extends Component
 
     public function render()
     {
-        return view('livewire.users.blogs.index.subscribe-newsletter');
+        return view('livewire.users.blogs.show.subscribe1');
     }
 
 	public function boot(){
 		$this->subscribeNewsletterRepository = app()->make(SubscribeNewsletterRepositoryInterface::class);
 	}
 
-	#[On('subscribe-newsletter')]
 	public function subscribeNewsletter($email){
 		if($this->subscribeNewsletterRepository->isEmailVerified($email)){
 			$this->addError('email', 'The email address is already subscribed');

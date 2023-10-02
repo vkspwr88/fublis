@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Mail;
+namespace App\Mail\Subscription;
 
+use App\Models\SubscribeNewsletter;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
@@ -9,14 +10,16 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class VerifySubscriber extends Mailable
+class WelcomeMail extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
 
     /**
      * Create a new message instance.
      */
-    public function __construct()
+    public function __construct(
+		public SubscribeNewsletter $subscriber,
+	)
     {
         //
     }
@@ -27,7 +30,7 @@ class VerifySubscriber extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Subscription: Verify your email address',
+            subject: 'Subscription: Welcome',
         );
     }
 
@@ -37,7 +40,10 @@ class VerifySubscriber extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'emails.subscribers.verify',
+            markdown: 'emails.subscription.welcome-email',
+			with: [
+				'senderEmail' => $this->subscriber->email,
+			]
         );
     }
 

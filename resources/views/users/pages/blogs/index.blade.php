@@ -1,8 +1,6 @@
 @extends('users.layouts.master')
 
-@section('title')
-<title>{{ env('APP_NAME') }} | Blogs</title>
-@endsection
+{!! seo() !!}
 
 @section('body')
 <div class="container-fluid p-0 blog-hero-container">
