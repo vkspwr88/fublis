@@ -3,35 +3,36 @@
 namespace App\Http\Controllers\Users;
 
 use App\Http\Controllers\Controller;
-use App\Interfaces\BlogCategoryRepositoryInterface;
-use App\Interfaces\BlogIndustryRepositoryInterface;
+//use App\Interfaces\BlogCategoryRepositoryInterface;
+//use App\Interfaces\BlogIndustryRepositoryInterface;
 use App\Services\BlogService;
-use Illuminate\Http\Request;
+//use Illuminate\Http\Request;
 use RalphJSmit\Laravel\SEO\Support\SEOData;
 
 class BlogController extends Controller
 {
 	private BlogService $blogService;
-	private BlogCategoryRepositoryInterface $blogCategoryRepository;
-	private BlogIndustryRepositoryInterface $blogIndustryRepository;
+	//private BlogCategoryRepositoryInterface $blogCategoryRepository;
+	//private BlogIndustryRepositoryInterface $blogIndustryRepository;
 
     public function __construct(
 		BlogService $blogService,
-		BlogCategoryRepositoryInterface $blogCategoryRepository,
-		BlogIndustryRepositoryInterface $blogIndustryRepository,
+		//BlogCategoryRepositoryInterface $blogCategoryRepository,
+		//BlogIndustryRepositoryInterface $blogIndustryRepository,
 	)
 	{
 		$this->blogService = $blogService;
-		$this->blogCategoryRepository = $blogCategoryRepository;
-		$this->blogIndustryRepository = $blogIndustryRepository;
+		//$this->blogCategoryRepository = $blogCategoryRepository;
+		//$this->blogIndustryRepository = $blogIndustryRepository;
 	}
 
 	public function index(){
-		return view('users.pages.blogs.index', [
+		/* return view('users.pages.blogs.index', [
 			'blogs' => $this->blogService->showAllBlogs()->load('homeImage'),
 			'categories' => $this->blogCategoryRepository->getAllBlogCategories(),
 			'industries' => $this->blogIndustryRepository->getAllBlogIndustries(),
-		]);
+		]); */
+		return view('users.pages.blogs.index');
 	}
 
 	public function show(string $slug) {

@@ -14,6 +14,7 @@ class Checkbox extends Component
     public function __construct(
 		public $item,
 		public string $type,
+		public string $model,
 	)
     {
         //

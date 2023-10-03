@@ -14,6 +14,7 @@ class CheckboxList extends Component
     public function __construct(
 		public $list,
 		public string $type,
+		public string $model,
 	)
     {
         //

@@ -25,9 +25,6 @@ class BlogTagResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('id')
-                    ->required()
-                    ->maxLength(36),
                 Forms\Components\TextInput::make('name')
                     ->required()
                     ->maxLength(255),
@@ -58,10 +55,12 @@ class BlogTagResource extends Resource
                 Tables\Filters\TrashedFilter::make(),
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
-                Tables\Actions\ForceDeleteAction::make(),
-                Tables\Actions\RestoreAction::make(),
+				Tables\Actions\ActionGroup::make([
+					Tables\Actions\EditAction::make(),
+					Tables\Actions\DeleteAction::make(),
+					Tables\Actions\ForceDeleteAction::make(),
+					Tables\Actions\RestoreAction::make(),
+				])
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
