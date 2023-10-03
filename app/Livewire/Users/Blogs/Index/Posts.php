@@ -3,6 +3,7 @@
 namespace App\Livewire\Users\Blogs\Index;
 
 use App\Services\BlogService;
+use Livewire\Attributes\On;
 use Livewire\Component;
 
 class Posts extends Component
@@ -16,12 +17,11 @@ class Posts extends Component
 		$this->blogService = app()->make(BlogService::class);
 	}
 
-	public function getFilterredBlogs($showAll = true)
+	#[On('blogs-filterred')]
+	public function getFilterredBlogs($searchedCategories = [], $searchedIndustries = [])
 	{
-		if($showAll){
-			$this->blogs = $this->blogService->showAllBlogs()->load('homeImage');
-			return;
-		}
+		//dd('working');
+		$this->blogs = $this->blogService->searchBlogsByCategoryAndIndustry($searchedCategories, $searchedIndustries);
 	}
 
 	public function mount()

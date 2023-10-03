@@ -1,7 +1,7 @@
 <div class="col-sm-7 col-md-8 col-lg-9">
 	<div class="row row-cols-1 row-cols-lg-2 g-4">
 		@foreach ($blogs as $blog)
-			<livewire:users.blogs.index.post :blog="$blog" />
+			<livewire:users.blogs.index.post :blog="$blog" :key="$blog->id" />
 		@endforeach
 	</div>
 	<hr class="divider">

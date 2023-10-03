@@ -104,6 +104,7 @@ class BlogResource extends Resource
 								->relationship('seoImage', 'id')
 								->columnSpan(2)
 								->acceptedFileTypes(['image/*'])
+								->required()
 							])
 						->columns(1)
 						->columnSpan(2),
@@ -114,6 +115,7 @@ class BlogResource extends Resource
 								->schema([
 									Forms\Components\Select::make('categories')
 										->label('Select')
+										->required()
 										->multiple()
 										->relationship(name: 'categories', titleAttribute: 'name')
 										->searchable()
@@ -134,6 +136,7 @@ class BlogResource extends Resource
 								->schema([
 									Forms\Components\Select::make('industries')
 										->label('Select')
+										->required()
 										->multiple()
 										->relationship(name: 'industries', titleAttribute: 'name')
 										->searchable()
@@ -154,6 +157,7 @@ class BlogResource extends Resource
 								->schema([
 									Forms\Components\Select::make('tags')
 										->label('Select')
+										->required()
 										->multiple()
 										->relationship(name: 'tags', titleAttribute: 'name')
 										->searchable()

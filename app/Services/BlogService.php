@@ -15,6 +15,26 @@ class BlogService
 		$this->blogRepository = $blogRepository;
 	}
 
+	public function searchBlogsByCategoryAndIndustry(array $searchedCategories, array $searchedIndustries)
+	{
+		if(empty($searchedCategories) && empty($searchedIndustries)){
+			return $this->blogRepository->getAllBlogs()
+										->load('tags', 'homeImage');
+		}
+		$filterredBlogsWithCategories = $this->blogRepository->getBlogsByCategoriesId($searchedCategories);
+		$filterredBlogsWithIndustries = $this->blogRepository->getBlogsByIndustriesId($searchedIndustries);
+		//dd($filterredBlogsWithCategories->merge($filterredBlogsWithIndustries)->all());
+		//var_dump($filterredBlogsWithCategories, $filterredBlogsWithIndustries);
+		return $filterredBlogsWithCategories->intersect($filterredBlogsWithIndustries)
+											->load('tags', 'homeImage');
+											//->all();
+	}
+
+	public function searchBlogsByName(string $name)
+	{
+		//
+	}
+
 	public function showAllBlogs()
 	{
 		return $this->blogRepository
