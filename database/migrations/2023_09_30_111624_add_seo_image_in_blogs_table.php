@@ -13,7 +13,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('blogs', function (Blueprint $table) {
-            $table->foreignIdFor(Media::class, 'seo_image_id');
+            $table->foreignIdFor(Media::class, 'seo_image_id')->nullable();
         });
     }
 
