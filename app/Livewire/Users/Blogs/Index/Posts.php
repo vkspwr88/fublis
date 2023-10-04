@@ -3,9 +3,11 @@
 namespace App\Livewire\Users\Blogs\Index;
 
 use App\Services\BlogService;
+use Livewire\Attributes\Lazy;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
+#[Lazy]
 class Posts extends Component
 {
 	private BlogService $blogService;
@@ -26,8 +28,19 @@ class Posts extends Component
 
 	public function mount()
 	{
+		//sleep(600);
 		$this->getFilterredBlogs();
 	}
+
+	public function placeholder()
+    {
+        return <<<'HTML'
+        <div>
+            HI I AM LOADING
+            <svg>...</svg>
+        </div>
+        HTML;
+    }
 
     public function render()
     {

@@ -32,7 +32,11 @@ class BlogService
 
 	public function searchBlogsByName(string $name)
 	{
-		//
+		return array(
+			'name' => $this->blogRepository->getBlogsByTitle($name),
+			'author' => $this->blogRepository->getBlogsByAuthor($name),
+			'tags' => $this->blogRepository->getBlogsByTagsName($name),
+		);
 	}
 
 	public function showAllBlogs()

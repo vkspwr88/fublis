@@ -1,8 +1,5 @@
 <form wire:submit="search">
-    <div class="input-group mb-4">
-		<label class="input-group-text bg-white" for="blogSearchInput"><i class="bi bi-search"></i></label>
-		<input id="blogSearchInput" class="form-control border-start-0 shadow-none ps-0" type="search" placeholder="Search by name" aria-label="Search">
-	</div>
+    <livewire:users.blogs.index.search-input />
 	<x-users.filter.header text="choose category" />
 	<x-users.filter.checkbox-list type="category" :list="$categories" model="selectedCategories" />
 	<hr class="divider">

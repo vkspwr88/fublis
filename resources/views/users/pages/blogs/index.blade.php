@@ -20,7 +20,9 @@
 				<livewire:users.blogs.index.filter />
 			</div>
 		</div>
-		<livewire:users.blogs.index.posts />
+		<div class="col-sm-7 col-md-8 col-lg-9">
+			<livewire:users.blogs.index.posts />
+		</div>
 	</div>
 </div>
 @endsection

@@ -51,4 +51,26 @@ class BlogRepository implements BlogRepositoryInterface
 		})->orderBy('published_date', 'desc')
 		->get();
 	}
+
+	public function getBlogsByTitle(string $title)
+	{
+		return Blog::where('title', 'LIKE', "%{$title}%")
+					->orderBy('published_date', 'desc')
+					->get();
+	}
+
+	public function getBlogsByAuthor(string $author)
+	{
+		return Blog::where('author', 'LIKE', "%{$author}%")
+					->orderBy('published_date', 'desc')
+					->get();
+	}
+
+	public function getBlogsByTagsName(string $name)
+	{
+		return Blog::whereHas('tags', function (Builder $query) use($name) {
+			$query->where('blog_tags.name', 'LIKE', "%{$name}%");
+		})->orderBy('published_date', 'desc')
+		->get();
+	}
 }
