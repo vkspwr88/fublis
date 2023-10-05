@@ -17,16 +17,48 @@ class BlogService
 
 	public function searchBlogsByCategoryAndIndustry(array $searchedCategories, array $searchedIndustries)
 	{
+		// when both are not checked
 		if(empty($searchedCategories) && empty($searchedIndustries)){
-			return $this->blogRepository->getAllBlogs()
-										->load('tags', 'homeImage');
+			return $this->blogRepository
+						->getAllBlogsWithoutPaginate();
 		}
-		$filterredBlogsWithCategories = $this->blogRepository->getBlogsByCategoriesId($searchedCategories);
-		$filterredBlogsWithIndustries = $this->blogRepository->getBlogsByIndustriesId($searchedIndustries);
+
+		// when only category is checked
+		if(empty($searchedIndustries))
+		{
+			return $this->blogRepository
+						->getBlogsByCategoriesId($searchedCategories);
+		}
+
+		// when only industry is checked
+		if(empty($searchedCategories))
+		{
+			return $this->blogRepository
+						->getBlogsByIndustriesId($searchedIndustries);
+		}
+		/* dd(
+			$this->blogRepository
+				->getBlogsByCategoriesId($searchedCategories)
+				->get(),
+			$this->blogRepository
+				->getBlogsByIndustriesId($searchedIndustries)
+				->get(),
+			$this->blogRepository
+				->getBlogsByCategoriesIdAndIndustriesId($searchedCategories, $searchedIndustries)
+				->get()
+			); */
+		// when both are checked
+		return $this->blogRepository
+					->getBlogsByCategoriesIdAndIndustriesId($searchedCategories, $searchedIndustries);
+		/* $filterredBlogsWithCategories = $this->blogRepository
+												->getBlogsByCategoriesId($searchedCategories);
+		$filterredBlogsWithIndustries = $this->blogRepository
+												->getBlogsByIndustriesId($searchedIndustries); */
 		//dd($filterredBlogsWithCategories->merge($filterredBlogsWithIndustries)->all());
 		//var_dump($filterredBlogsWithCategories, $filterredBlogsWithIndustries);
-		return $filterredBlogsWithCategories->intersect($filterredBlogsWithIndustries)
-											->load('tags', 'homeImage');
+		/* return $filterredBlogsWithCategories->intersect($filterredBlogsWithIndustries)
+											->load('tags', 'homeImage')
+											->paginate(3); */
 											//->all();
 	}
 

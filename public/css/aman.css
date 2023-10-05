@@ -41,7 +41,11 @@ body{
 }
 
 .text-purple-700{
-	color: var(--fublis-purple-600) !important;
+	color: var(--fublis-purple-700) !important;
+}
+
+.text-purple-800{
+	color: var(--fublis-purple-800) !important;
 }
 
 .text-pink-200{

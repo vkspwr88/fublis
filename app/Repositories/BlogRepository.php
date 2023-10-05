@@ -10,8 +10,14 @@ class BlogRepository implements BlogRepositoryInterface
 {
 	public function getAllBlogs()
 	{
-		return Blog::orderBy('published_date', 'desc')
-					->get();
+		return $this->getAllBlogsWithoutPaginate()
+					->paginate(3);
+	}
+
+	public function getAllBlogsWithoutPaginate()
+	{
+		return Blog::with('tags', 'homeImage')
+					->orderBy('published_date', 'desc');
 	}
 
 	public function getLimitedBlogs(int $limit)
@@ -32,24 +38,36 @@ class BlogRepository implements BlogRepositoryInterface
 
 	public function getBlogsByCategoriesId(array $categoriesId)
 	{
-		if(empty($categoriesId)){
-			return $this->getAllBlogs();
-		}
-		return Blog::whereHas('categories', function (Builder $query) use($categoriesId) {
+		return Blog::with('tags', 'homeImage')
+					->whereHas('categories', function (Builder $query) use($categoriesId) {
+						$query->whereIn('blog_categories.id', $categoriesId);
+					})->orderBy('published_date', 'desc');
+		/* return Blog::whereHas('categories', function (Builder $query) use($categoriesId) {
 			$query->whereIn('blog_categories.id', $categoriesId);
 		})->orderBy('published_date', 'desc')
-		->get();
+		->get(); */
 	}
 
 	public function getBlogsByIndustriesId(array $industriesId)
 	{
-		if(empty($industriesId)){
-			return $this->getAllBlogs();
-		}
-		return Blog::whereHas('industries', function (Builder $query) use($industriesId) {
+		return Blog::with('tags', 'homeImage')
+					->whereHas('industries', function (Builder $query) use($industriesId) {
+						$query->whereIn('blog_industries.id', $industriesId);
+					})->orderBy('published_date', 'desc');
+		/* return Blog::whereHas('industries', function (Builder $query) use($industriesId) {
 			$query->whereIn('blog_industries.id', $industriesId);
 		})->orderBy('published_date', 'desc')
-		->get();
+		->get(); */
+	}
+
+	public function getBlogsByCategoriesIdAndIndustriesId(array $categoriesId, array $industriesId)
+	{
+		return Blog::with('tags', 'homeImage')
+					->whereHas('categories', function (Builder $query) use($categoriesId) {
+						$query->whereIn('blog_categories.id', $categoriesId);
+					})->whereHas('industries', function (Builder $query) use($industriesId) {
+						$query->whereIn('blog_industries.id', $industriesId);
+					})->orderBy('published_date', 'desc');
 	}
 
 	public function getBlogsByTitle(string $title)

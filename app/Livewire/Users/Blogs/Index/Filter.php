@@ -34,6 +34,7 @@ class Filter extends Component
 	public function search()
 	{
 		$this->dispatch('blogs-filterred', searchedCategories: $this->selectedCategories, searchedIndustries: $this->selectedIndustries);
+		$this->dispatch('refresh-blogs');
 		/* $filterredBlogsWithCategories = Blog::whereHas('categories', function (Builder $query) {
 												$query->whereIn('blog_categories.id', $this->selectedCategories);
 											})->get();
