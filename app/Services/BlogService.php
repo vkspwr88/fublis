@@ -36,30 +36,10 @@ class BlogService
 			return $this->blogRepository
 						->getBlogsByIndustriesId($searchedIndustries);
 		}
-		/* dd(
-			$this->blogRepository
-				->getBlogsByCategoriesId($searchedCategories)
-				->get(),
-			$this->blogRepository
-				->getBlogsByIndustriesId($searchedIndustries)
-				->get(),
-			$this->blogRepository
-				->getBlogsByCategoriesIdAndIndustriesId($searchedCategories, $searchedIndustries)
-				->get()
-			); */
+		
 		// when both are checked
 		return $this->blogRepository
 					->getBlogsByCategoriesIdAndIndustriesId($searchedCategories, $searchedIndustries);
-		/* $filterredBlogsWithCategories = $this->blogRepository
-												->getBlogsByCategoriesId($searchedCategories);
-		$filterredBlogsWithIndustries = $this->blogRepository
-												->getBlogsByIndustriesId($searchedIndustries); */
-		//dd($filterredBlogsWithCategories->merge($filterredBlogsWithIndustries)->all());
-		//var_dump($filterredBlogsWithCategories, $filterredBlogsWithIndustries);
-		/* return $filterredBlogsWithCategories->intersect($filterredBlogsWithIndustries)
-											->load('tags', 'homeImage')
-											->paginate(3); */
-											//->all();
 	}
 
 	public function searchBlogsByName(string $name)

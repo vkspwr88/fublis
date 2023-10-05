@@ -35,17 +35,6 @@ class Blog extends Model
 		return $this->belongsToMany(BlogCategory::class, 'blog_category_blogs');
 	}
 
-	public function filterredCategories($categoriesId): BelongsToMany{
-		return $this->categories()
-					->whereIn('blog_category_id', $categoriesId);
-		/* return $this->belongsToMany(BlogCategory::class)
-					->using(BlogCategoryBlog::class)
-					->wherePivotIn('blog_category_id', $categoriesId); */
-		/* return $this->belongsToMany(BlogCategory::class)
-					->using(BlogCategoryBlog::class)
-					->whereIn('blog_category_id', $categoriesId); */
-	}
-
 	public function industries(): BelongsToMany{
 		return $this->belongsToMany(BlogIndustry::class, 'blog_industry_blogs');
 	}

@@ -38,7 +38,6 @@ class SearchInput extends Component
 			$this->postsByName = $searchedPosts['name'];
 			$this->postsByAuthor = $searchedPosts['author'];
 			$this->postsByTags = $searchedPosts['tags'];
-			//dd($this->postsByName);
 		}
 	}
 }

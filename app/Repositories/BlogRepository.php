@@ -42,10 +42,6 @@ class BlogRepository implements BlogRepositoryInterface
 					->whereHas('categories', function (Builder $query) use($categoriesId) {
 						$query->whereIn('blog_categories.id', $categoriesId);
 					})->orderBy('published_date', 'desc');
-		/* return Blog::whereHas('categories', function (Builder $query) use($categoriesId) {
-			$query->whereIn('blog_categories.id', $categoriesId);
-		})->orderBy('published_date', 'desc')
-		->get(); */
 	}
 
 	public function getBlogsByIndustriesId(array $industriesId)
@@ -54,10 +50,6 @@ class BlogRepository implements BlogRepositoryInterface
 					->whereHas('industries', function (Builder $query) use($industriesId) {
 						$query->whereIn('blog_industries.id', $industriesId);
 					})->orderBy('published_date', 'desc');
-		/* return Blog::whereHas('industries', function (Builder $query) use($industriesId) {
-			$query->whereIn('blog_industries.id', $industriesId);
-		})->orderBy('published_date', 'desc')
-		->get(); */
 	}
 
 	public function getBlogsByCategoriesIdAndIndustriesId(array $categoriesId, array $industriesId)

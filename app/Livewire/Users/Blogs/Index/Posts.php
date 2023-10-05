@@ -19,7 +19,6 @@ class Posts extends Component
 
 	public $searchedCategories = [];
 	public $searchedIndustries = [];
-	//private $blogs;
 
 	public function boot()
 	{
@@ -32,18 +31,7 @@ class Posts extends Component
 	{
 		$this->searchedCategories = $searchedCategories;
 		$this->searchedIndustries = $searchedIndustries;
-		//dd('working');
-		/* $this->blogs = $this->blogService
-							->searchBlogsByCategoryAndIndustry($searchedCategories, $searchedIndustries)
-							->paginate(3); */
-		//return $this->blogService->searchBlogsByCategoryAndIndustry($searchedCategories, $searchedIndustries);
 	}
-
-	/* public function mount()
-	{
-		//sleep(600);
-		$this->getFilterredBlogs();
-	} */
 
 	#[On('refresh-blogs')]
 	public function refresh()
@@ -51,18 +39,12 @@ class Posts extends Component
 		$this->resetPage();
 	}
 
-    //#[On('blogs-filterred')]
 	public function render()
     {
 		return view('livewire.users.blogs.index.posts', [
-			/* 'blogs' => $this->blogService
-							->searchBlogsByCategoryAndIndustry($searchedCategories, $searchedIndustries)
-							->paginate(3), */
-			//'blogs' => $this->blogs,
 			'blogs' => $this->blogService
 							->searchBlogsByCategoryAndIndustry($this->searchedCategories, $this->searchedIndustries)
 							->paginate(2),
-			//'blogs' => Blog::with('tags', 'homeImage')->orderBy('published_date', 'desc')->paginate(3)
 		]);
     }
 }

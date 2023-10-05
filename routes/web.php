@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\Users;
-use App\Mail\VerifySubscriber;
 use Illuminate\Support\Facades\Route;
 
 /*
