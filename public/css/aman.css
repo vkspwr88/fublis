@@ -1,5 +1,6 @@
 :root{
 	--fublis-gray-50: #F9FAFB;
+	--fublis-gray-100: #F2F4F7;
 	--fublis-gray-200: #EAECF0;
 	--fublis-gray-300: #D0D5DD;
 	--fublis-gray-600: #475467;
@@ -12,9 +13,11 @@
 	--fublis-pink-200: #E9D7FE;
 	--fublis-pink-700: #C11574;
 	--fublis-purple-50: #F9F5FF;
+	--fublis-purple-100: #F4EBFF;
 	--fublis-purple-600: #7F56D9;
 	--fublis-purple-700: #6941C6;
 	--fublis-purple-800: #53389E;
+	--fublis-purple-900: #42307D;
 	--fublis-white: #ffffff;
 
 	--fublis-divider-color: #D0D0D0;
@@ -24,6 +27,14 @@
 body{
 	font-family: 'Inter', sans-serif !important;
 	font-size: 15px;
+}
+
+a{
+	text-decoration: none;
+}
+
+.fw-medium{
+	font-weight: 500 !important;
 }
 
 .text-gray-300{
@@ -48,6 +59,10 @@ body{
 	color: var(--fublis-purple-800) !important;
 }
 
+.text-purple-900{
+	color: var(--fublis-purple-900) !important;
+}
+
 .text-pink-200{
 	color: var(--fublis-pink-200) !important;
 }
@@ -62,8 +77,17 @@ body{
 .bg-gray-50{
 	background: var(--fublis-gray-50) !important;
 }
+.bg-gray-200{
+	background: var(--fublis-gray-200) !important;
+}
 .bg-pink-100{
 	background: var(--fublis-pink-100) !important;
+}
+.bg-purple-600{
+	background: var(--fublis-purple-600) !important;
+}
+.bg-purple-700{
+	background: var(--fublis-purple-700) !important;
 }
 .bg-purple-800{
 	background: var(--fublis-purple-800) !important;
@@ -346,3 +370,61 @@ a.text-purple:hover{
 	}
 }
 /************************ END BLOG ************************/
+
+
+
+
+.step-line{
+	height: 0.125rem;
+	top: 0.825rem;
+}
+
+.steps .step-title{
+	color: var(--fublis-gray-700);
+}
+
+.steps .step-subtitle{
+	color: var(--fublis-gray-600);
+}
+
+.steps .step-icon{
+	width: 1.5rem;
+	height: 1.5rem;
+	background: var(--fublis-gray-100);
+}
+
+.steps .inner-circle {
+	width: 0.5rem;
+	height: 0.5rem;
+	margin: 0.5rem auto;
+	background: var(--fublis-white);
+}
+
+.step-current .step-title{
+	color: var(--fublis-purple-700);
+}
+
+.step-current .step-subtitle{
+	color: var(--fublis-purple-600);
+}
+
+.step-current .step-icon, .step-complete .step-icon{
+	background: var(--fublis-purple-600);
+}
+
+.step-current .step-icon{
+	box-shadow: 0px 0px 0px 0.25rem var(--fublis-purple-100);
+}
+
+.mail-icon{
+	width: 3.5rem;
+	height: 3.5rem;
+	background: var(--fublis-purple-100);
+	border: 10px solid var(--fublis-purple-50);
+	padding: 0.5rem;
+}
+
+.mail-icon i{
+	font-size: 1.25rem;
+}
+

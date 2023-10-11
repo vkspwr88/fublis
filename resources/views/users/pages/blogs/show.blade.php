@@ -5,7 +5,7 @@
 @endsection
 
 @section('body')
-<section id="blog" class="bg-white py-5">
+<div id="blog" class="bg-white py-5">
 	<div class="container">
 		<div class="blog-header pb-5">
 			<p class="blog-tags">
@@ -72,7 +72,7 @@
 			</div>
 		</div>
 	</div>
-</section>
+</div>
 
 <section id="latestBlog" class="bg-white py-5">
 	<div class="container">

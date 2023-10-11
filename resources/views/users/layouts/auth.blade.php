@@ -20,12 +20,35 @@
 		@stack('styles')
 	</head>
 
-	<body class="bg-light">
-		@include('users.includes.header')
-		<section id="body" class="w-100 m-0 px-0 pb-0">
+	<body class="bg-white">
+		<nav id="header" class="navbar navbar-expand-xl">
+			<div class="container">
+				<a class="navbar-brand" href="{{ route('home') }}">
+					<img src="{{ asset(env('COMPANY_LOGO')) }}" alt="{{ env('APP_NAME') }}" class="header-logo">
+				</a>
+			</div>
+		</nav>
+		<section class="w-100 m-0 px-0 pt-3 pb-5">
 			@yield('body')
 		</section>
-		@include('users.includes.footer')
+		<footer id="footer">
+			<div id="footer2" class="py-3">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-7">
+							<p class="d-flex justify-content-center justify-content-md-start align-items-center h-100 m-md-0 text-muted">
+								<i class="bi bi-c-circle me-1"></i> {{ env('COMPANY_NAME') }} {{ date('Y') }}
+							</p>
+						</div>
+						<div class="col-md-5">
+							<p class="d-flex justify-content-center justify-content-md-end align-items-center h-100 m-md-0 text-muted">
+								<i class="bi bi-envelope me-2"></i> <a href="mailto:{{ env('MAIL_FROM_ADDRESS') }}" class="text-muted">{{ env('MAIL_FROM_ADDRESS') }}</a>
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</footer>
 		<script src="{{ asset('js/aman.js') }}"></script>
 		@stack('scripts')
 	</body>
