@@ -4,8 +4,8 @@
 
 @section('body')
 <div class="container">
-	<h4 class="text-center text-black fs-5 fw-bold font-family-Inter m-0 px-3 py-2">Get your stories published. It's fast & easy.</h4>
-	<p class="text-center text-black fs-6 fw-normal m-0 px-3 py-2">You’re just 2 mins away from pitching stories to journalists.</p>
+	<h4 class="text-center text-black fs-5 fw-bold m-0 py-2">Get your stories published. It's fast & easy.</h4>
+	<p class="text-center text-black fs-6 fw-normal m-0 py-2">You’re just 2 mins away from pitching stories to journalists.</p>
 	<div class="row align-items-center pt-4">
 		<div class="col-12">
 			<div class="row justify-content-center">
@@ -135,16 +135,10 @@
 								<div class="card-body px-5">
 									<div class="row justify-content-center align-items-center">
 										<div class="col-auto">
-											<div class="mail-icon rounded-circle text-purple-600">
+											<div class="mail-icon rounded-circle text-purple-600 fs-5">
 												<i class="bi bi-envelope"></i>
 											</div>
 										</div>
-										
-										{{-- <div class="p-1 bg-light rounded-4 border border-5 border-light col-2 justify-content-center align-items-center">
-											<div class="position-relative col-6 d-flex text-purple-600">
-												
-											</div>
-										</div> --}}
 									</div>
 									<h5 class="card-title text-center text-dark fs-3 fw-semibold m-0 py-2">Check your email</h5>
 									<p class="card-text text-center text-secondary fs-6 fw-normal m-0 py-2">
@@ -200,7 +194,7 @@
 										</div>
 										<div class="mb-3">
 											<label for="exampleInputName" class="form-label text-dark fs-6 fw-medium">Website</label>
-											<div class="input-group mb-3">
+											<div class="input-group">
 												<span class="input-group-text bg-white" id="basic-addon1">http://</span>
 												<input type="text" class="form-control" placeholder="www.your-website.com" aria-label="Username" aria-describedby="basic-addon1">
 											</div>

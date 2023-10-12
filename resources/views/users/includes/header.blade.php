@@ -19,7 +19,7 @@
 			<div class="offcanvas-body">
 				<ul id="headerNav" class="navbar-nav ms-xl-5 me-xl-auto mb-2 mb-xl-0">
 					<li class="nav-item">
-						<a class="nav-link active" aria-current="page" href="#">Add Story</a>
+						<a class="nav-link active" aria-current="page" href="{{ route('architect.add-story.index') }}">Add Story</a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" href="#">Media Kits</a>

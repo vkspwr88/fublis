@@ -37,6 +37,11 @@ a{
 	font-weight: 500 !important;
 }
 
+.rounded-top-4 {
+	border-top-left-radius: var(--bs-border-radius-xl) !important;
+	border-top-right-radius: var(--bs-border-radius-xl) !important;
+}
+
 .text-gray-300{
 	color: var(--fublis-gray-300) !important;
 }
@@ -428,3 +433,15 @@ a.text-purple:hover{
 	font-size: 1.25rem;
 }
 
+.add-story-card .card-header{
+	background: #D9D9D9;
+	color: #9E9E9E;
+}
+
+.upload-icon{
+	width: 2.5rem;
+	height: 2.5rem;
+	padding: 0.25rem;
+	background: var(--fublis-gray-100);
+	border: 6px solid var(--fublis-gray-50);
+}
