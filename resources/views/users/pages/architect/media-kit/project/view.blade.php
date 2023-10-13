@@ -167,16 +167,6 @@
 						<div class="col-auto text-purple-700"><i class="bi bi-arrow-up-right"></i></div>
 					</div>
 				</div>
-				{{-- <div class="col-12 row align-items-center">
-
-				<div class="col-4 row">
-				<div class="col-12 row">
-				<p class="text-purple fs-6 fw-medium font-family-Inter col-10 m-0 px-3 py-2">Vikas Pawar</p>
-				</div>
-				<p class="text-secondary fs-6 fw-normal font-family-Inter col-12 m-0 px-3 py-2">Architect</p>
-				</div>
-				<div class="position-relative col-1"></div>
-				</div> --}}
 			</div>
 		</div>
 	</div>
