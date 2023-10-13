@@ -3,6 +3,7 @@
 	--fublis-gray-100: #F2F4F7;
 	--fublis-gray-200: #EAECF0;
 	--fublis-gray-300: #D0D5DD;
+	--fublis-gray-500: #667085;
 	--fublis-gray-600: #475467;
 	--fublis-gray-700: #344054;
 	--fublis-gray-900: #101828;
@@ -22,6 +23,8 @@
 
 	--fublis-divider-color: #D0D0D0;
 	--fublis-nav-height: 6rem;
+
+	--fublis-breadcrumb-item-padding-x: 1rem;
 }
 
 body{
@@ -54,6 +57,10 @@ a{
 
 .text-purple-600{
 	color: var(--fublis-purple-600) !important;
+}
+
+a.text-purple-600:hover{
+	color: var(--fublis-purple-800) !important;
 }
 
 .text-purple-700{
@@ -118,6 +125,23 @@ a{
 	--bs-btn-disabled-border-color: var(--fublis-purple-600);
 }
 
+.btn-outline-primary {
+	--bs-btn-color: var(--fublis-purple-600);
+	--bs-btn-border-color: var(--fublis-purple-600);
+	--bs-btn-hover-color: var(--fublis-white);
+	--bs-btn-hover-bg: var(--fublis-purple-700);
+	--bs-btn-hover-border-color: var(--fublis-purple-700);
+	--bs-btn-focus-shadow-rgb: 13,110,253;
+	--bs-btn-active-color: var(--fublis-white);
+	--bs-btn-active-bg: var(--fublis-purple-700);
+	--bs-btn-active-border-color: var(--fublis-purple-700);
+	--bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+	--bs-btn-disabled-color: var(--fublis-purple-600);
+	--bs-btn-disabled-bg: transparent;
+	--bs-btn-disabled-border-color: var(--fublis-purple-600);
+	--bs-gradient: none;
+  }
+
 /* a.text-purple{
 	opacity: 0.7;
 }
@@ -147,7 +171,7 @@ a.text-purple:hover{
 	max-width: 250px;
 }
 
-#headerSearchInput:focus, #blogSearchInput:focus{
+#headerSearchInput:focus, #filterSearchInput:focus{
 	background-color: var(--fublis-white);
 	border-color:  #ced4da;
 }
@@ -379,9 +403,6 @@ a.text-purple:hover{
 }
 /************************ END BLOG ************************/
 
-
-
-
 .step-line{
 	height: 0.125rem;
 	top: 0.825rem;
@@ -447,4 +468,31 @@ a.text-purple:hover{
 	padding: 0.25rem;
 	background: var(--fublis-gray-100);
 	border: 6px solid var(--fublis-gray-50);
+}
+
+.btn-filter-check + .btn{
+	color: var(--fublis-gray-500);
+	border: none;
+}
+
+.btn-filter-check:checked + .btn{
+	color: var(--fublis-purple-700);
+  	background-color: var(--fublis-purple-50);
+	border-bottom: 2px solid var(--fublis-purple-700);
+}
+
+.fublis-breadcrumb-item a{
+
+}
+
+.fublis-breadcrumb-item + .fublis-breadcrumb-item {
+	padding-left: var(--fublis-breadcrumb-item-padding-x);
+}
+
+.fublis-breadcrumb-item + .fublis-breadcrumb-item::before {
+	padding-right: var(--fublis-breadcrumb-item-padding-x);
+}
+
+.fublis-breadcrumb-item.active{
+
 }

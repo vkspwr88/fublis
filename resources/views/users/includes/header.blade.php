@@ -22,7 +22,7 @@
 						<a class="nav-link active" aria-current="page" href="{{ route('architect.add-story.index') }}">Add Story</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="#">Media Kits</a>
+						<a class="nav-link" href="{{ route('architect.media-kit.index') }}">Media Kits</a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" href="#">Pitch Story</a>

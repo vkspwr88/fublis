@@ -1,7 +1,7 @@
 <div class="click-text">
     <div class="input-group mb-4">
-		<label class="input-group-text bg-white" for="blogSearchInput"><i class="bi bi-search"></i></label>
-		<input id="blogSearchInput" class="form-control border-start-0 shadow-none ps-0" type="search" placeholder="Search by name" aria-label="Search" wire:model="searchInput" wire:keydown.enter="searchPosts" wire:focus="$set('showSearchBox', true)" />
+		<label class="input-group-text bg-white" for="filterSearchInput"><i class="bi bi-search"></i></label>
+		<input id="filterSearchInput" class="form-control border-start-0 shadow-none ps-0" type="search" placeholder="Search by name" aria-label="Search" wire:model="searchInput" wire:keydown.enter="searchPosts" wire:focus="$set('showSearchBox', true)" />
 	</div>
 	@if($showSearchBox)
 	<div id="searchBox" class="bg-white border rounded position-absolute w-100 p-2" style="height: 250px; top: 40px; z-index: 99; overflow-y: scroll;">
@@ -104,7 +104,7 @@
 	/* const searchBox = $('#searchBox');
 	searchBox.hide();
 
-	$(document).on('focus', '#blogSearchInput', function(){
+	$(document).on('focus', '#filterSearchInput', function(){
 		searchBox.show();
 	}); */
 </script>
