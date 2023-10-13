@@ -98,6 +98,9 @@ a.text-purple-600:hover{
 .bg-pink-100{
 	background: var(--fublis-pink-100) !important;
 }
+.bg-purple-50{
+	background: var(--fublis-purple-50) !important;
+}
 .bg-purple-600{
 	background: var(--fublis-purple-600) !important;
 }
