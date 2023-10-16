@@ -15,12 +15,19 @@
 
 <div class="container py-5">
 	<div class="row">
-		<div class="col-sm-5 col-md-4 col-lg-3">
-			<div class="position-sticky" style="top: 9rem;">
-				<livewire:users.blogs.index.filter />
+		<div class="col-lg-3 col-xl-3">
+			<div class="filter-btn text-end pb-3">
+				<button class="btn btn-primary rounded-0" data-bs-toggle="collapse" data-bs-target="#collapsedFilter" aria-expanded="false" aria-controls="collapsedFilter">
+					<i class="bi bi-filter"></i>
+				</button>
+			</div>
+			<div class="position-relative">
+				<div class="filter-container" id="collapsedFilter">
+					<livewire:users.blogs.index.filter />
+				</div>
 			</div>
 		</div>
-		<div class="col-sm-7 col-md-8 col-lg-9">
+		<div class="col-lg-9 col-xl-9">
 			<livewire:users.blogs.index.posts />
 		</div>
 	</div>

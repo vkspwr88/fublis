@@ -201,7 +201,7 @@
 						<label class="d-block form-text text-secondary fs-7 m-0">Choose the best high-resolution images</label>
 					</div>
 					<div class="col-md-8">
-						<div class="row align-items-center">
+						<div class="row align-items-center g-4">
 							<div class="col-md-4">
 								<div class="card">
 									<div class="card-body bg-white rounded-3 border border-1 border-light">
@@ -234,7 +234,7 @@
 						<label class="d-block form-text text-secondary fs-7 m-0">Add content </label>
 					</div>
 					<div class="col-md-8">
-						<div class="row align-items-center">
+						<div class="row align-items-center g-4">
 							<div class="col-md-4">
 								<div class="card">
 									<div class="card-body bg-white rounded-3 border border-1 border-light">

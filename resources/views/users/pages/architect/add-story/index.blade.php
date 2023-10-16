@@ -6,10 +6,10 @@
 <div class="container py-5">
 	@include('users.includes.architect.add-story-steps')
 	<div class="row justify-content-center pt-5">
-		<div class="col-md-11">
+		<div class="col-lg-11">
 			<div class="row g-4">
-				<div class="col-md-4">
-					<div class="card add-story-card rounded-4 shadow border border-1">
+				<div class="col-lg-4">
+					<div class="card add-story-card rounded-4 shadow border border-1 h-100">
 						<div class="card-header rounded-top-4 border-0 py-5">
 							<div class="justify-content-center align-items-center d-flex">
 								<div class="text-center fs-1 rounded-circle bg-white"><i class="bi bi-plus"></i></div>
@@ -64,8 +64,8 @@
 					</div>
 				</div>
 
-				<div class="col-md-4">
-					<div class="card add-story-card rounded-4 shadow border border-1">
+				<div class="col-lg-4">
+					<div class="card add-story-card rounded-4 shadow border border-1 h-100">
 						<div class="card-header rounded-top-4 border-0 py-5">
 							<div class="justify-content-center align-items-center d-flex">
 								<div class="text-center fs-1 rounded-circle bg-white"><i class="bi bi-plus"></i></div>
@@ -120,8 +120,8 @@
 					</div>
 				</div>
 
-				<div class="col-md-4">
-					<div class="card add-story-card rounded-4 shadow border border-1">
+				<div class="col-lg-4">
+					<div class="card add-story-card rounded-4 shadow border border-1 h-100">
 						<div class="card-header rounded-top-4 border-0 py-5">
 							<div class="justify-content-center align-items-center d-flex">
 								<div class="text-center fs-1 rounded-circle bg-white"><i class="bi bi-plus"></i></div>

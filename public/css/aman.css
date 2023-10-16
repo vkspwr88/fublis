@@ -322,7 +322,21 @@ a.text-purple:hover{
 	position: absolute;
 }
 
+.filter-btn{
+	display: none;
+}
 
+.filter-container{
+	position: sticky;
+	top: 9rem;
+}
+
+#searchBox{
+	height: 250px;
+	top: 40px;
+	z-index: 99;
+	overflow-y: scroll;
+}
 
 /************************ START BLOG ************************/
 .blog-hero-container p{
@@ -399,11 +413,7 @@ a.text-purple:hover{
 	line-height: 1.875rem; */
 }
 
-@media(max-width: 440px){
-	.blog-post-card{
-		padding: 0 !important;
-	}
-}
+
 /************************ END BLOG ************************/
 
 .step-line{
@@ -498,4 +508,48 @@ a.text-purple:hover{
 
 .fublis-breadcrumb-item.active{
 
+}
+
+
+
+
+
+
+
+
+@media(max-width: 992px){
+	.filter-btn{
+		display: block;
+	}
+	.filter-container:not(.show){
+		display: none;
+	}
+	.filter-container{
+		position: absolute;
+		z-index: 9;
+		background: var(--fublis-white);
+		width: 100%;
+		top: -5px;
+		padding: 1.5rem;
+		border: 1px solid var(--fublis-gray-300);
+	}
+
+	#searchBox{
+		top: 65px;
+	}
+
+	.steps.step-complete, .steps.step-incomplete{
+		display: none;
+	}
+}
+
+
+
+
+
+
+@media(max-width: 440px){
+	.blog-post-card{
+		padding: 0 !important;
+	}
 }

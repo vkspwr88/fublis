@@ -15,7 +15,7 @@
 		</div>
 
 		<div class="row align-items-center">
-			<div class="col-md-4 steps step-complete">
+			<div class="col-lg-4 steps step-complete">
 				<div class="d-flex justify-content-center align-items-center">
 					<div class="step-icon rounded-circle">
 						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -32,7 +32,7 @@
 				</div>
 			</div>
 
-			<div class="col-md-4 steps step-current">
+			<div class="col-lg-4 steps step-current">
 				<div class="d-flex justify-content-center align-items-center">
 					<div class="step-icon rounded-circle">
 						<div class="inner-circle rounded-circle"></div>
@@ -46,7 +46,7 @@
 				</div>
 			</div>
 
-			<div class="col-md-4 steps step-incomplete">
+			<div class="col-lg-4 steps step-incomplete">
 				<div class="d-flex justify-content-center align-items-center">
 					<div class="step-icon rounded-circle">
 						<div class="inner-circle rounded-circle"></div>

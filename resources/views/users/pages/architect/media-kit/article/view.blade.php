@@ -4,7 +4,7 @@
 
 @section('body')
 <div class="container py-5">
-	<div class="row">
+	<div class="row g-4">
 		<div class="col-md-8">
 			<h1 class="text-dark fs-2 fw-semibold m-0 py-2">Chengdu National History Museum Pelli Clarke & Partners + CSWADI Udaipur</h1>
 			<div class="row justify-content-center g-2 py-3">
@@ -33,7 +33,7 @@
 			</div>
 			<div class="row">
 				<div class="col-12">
-					<img src="https://via.placeholder.com/790x400" alt="" class="img-fluid" />
+					<img src="https://via.placeholder.com/790x400" alt="" class="img-fluid w-100" />
 				</div>
 			</div>
 		</div>
@@ -71,7 +71,7 @@
 			<hr class="border-gray-300">
 			<div class="row">
 				<div class="col-12">
-					<img src="https://via.placeholder.com/401x213" class="img-fluid" alt="..." />
+					<img src="https://via.placeholder.com/401x213" class="img-fluid w-100" alt="..." />
 				</div>
 			</div>
 			<hr class="border-gray-300">

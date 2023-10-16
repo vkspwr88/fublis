@@ -17,11 +17,11 @@
 		</div>
 	</div>
 
-	<div class="row">
-		<div class="col-md-7">
+	<div class="row g-4">
+		<div class="col-sm-6">
 			<h2 class="text-dark fs-3 fw-semibold m-0">All Media Kits</h2>
 		</div>
-		<div class="col-md-5 text-end">
+		<div class="col-sm-6 text-end">
 			<a href="{{ route('architect.add-story.index') }}" class="btn btn-link text-decoration-none text-purple-600 fs-6 fw-semibold"><i class="bi bi-plus"></i> Add Story</a>
 			<a href="{{ route('architect.pitch-story.index') }}" class="btn btn-white text-dark fs-6 fw-semibold"><i class="bi bi-arrow-up-right"></i> Start Pitching</a>
 		</div>
@@ -30,8 +30,50 @@
 	<hr class="border-gray-300 my-4">
 
 	<div class="row">
-		<div class="col-sm-5 col-md-4">
-			<div class="position-sticky" style="top: 7rem;">
+		<div class="col-lg-4">
+			<div class="filter-btn text-end pb-3">
+				<button class="btn btn-primary rounded-0" data-bs-toggle="collapse" data-bs-target="#collapsedFilter" aria-expanded="false" aria-controls="collapsedFilter">
+					<i class="bi bi-filter"></i>
+				</button>
+			</div>
+			<div class="position-relative">
+				<div class="filter-container p-0 rounded-3" id="collapsedFilter">
+					<div class="card border-0 rounded-3 bg-white shadow">
+						<div class="card-body">
+							<form wire:submit="search">
+								<div class="row g-0 mb-4">
+									<div class="col">
+										<div class="d-grid">
+											<input type="radio" class="btn-check btn-filter-check" name="options-outlined" id="published-outlined" autocomplete="off" checked>
+											<label class="btn btn-outline-primary rounded-0 fw-semibold" for="published-outlined">Published</label>
+										</div>
+									</div>
+									<div class="col">
+										<div class="d-grid">
+											<input type="radio" class="btn-check btn-filter-check" name="options-outlined" id="drafts-outlined" autocomplete="off">
+											<label class="btn btn-outline-primary rounded-0 fw-semibold" for="drafts-outlined">Drafts</label>
+										</div>
+									</div>
+								</div>
+								<div class="input-group mb-4">
+									<label class="input-group-text bg-white" for="filterSearchInput"><i class="bi bi-search"></i></label>
+									<input id="filterSearchInput" class="form-control border-start-0 shadow-none ps-0" type="search" placeholder="Search by name" aria-label="Search" />
+								</div>
+								<x-users.filter.header text="Media Kit Type" />
+								<x-users.filter.checkbox-list type="media-kit-type" :list="$mediaKitTypes" model="selectedMediaKitType" />
+								<hr class="divider">
+								<x-users.filter.header text="Categories" />
+								<x-users.filter.checkbox-list type="category" :list="$categories" model="selectedCategories" />
+								<hr class="divider">
+								<div class="d-grid">
+									<button type="submit" class="btn btn-white text-capitalize">search</button>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+			{{-- <div class="position-sticky" style="top: 7rem;">
 				<div class="card border-0 rounded-3 bg-white shadow">
 					<div class="card-body">
 						<form wire:submit="search">
@@ -65,19 +107,19 @@
 						</form>
 					</div>
 				</div>
-			</div>
+			</div> --}}
 		</div>
-		<div class="col-sm-7 col-md-8">
+		<div class="col-lg-8">
 			<div class="row g-4">
 				<div class="col-12">
 					<div class="card border-0 rounded-3 bg-white shadow">
 						<div class="card-body">
 							<a href="{{ route('architect.media-kit.article.view', ['id' => 'id']) }}" class="stretched-link"></a>
 							<div class="row">
-								<div class="col-md-4">
+								<div class="col-sm-4">
 									<img src="https://via.placeholder.com/300x300" class="img-fluid" alt="...">
 								</div>
-								<div class="col-md-8">
+								<div class="col-sm-8">
 									<div class="row justify-content-center pb-2">
 										<p class="text-secondary fs-6 fw-semibold col m-0">Article</p>
 										<p class="text-end text-secondary fs-6 fw-semibold col m-0">Architecure</p>

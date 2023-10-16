@@ -4,7 +4,7 @@
 		<input id="filterSearchInput" class="form-control border-start-0 shadow-none ps-0" type="search" placeholder="Search by name" aria-label="Search" wire:model="searchInput" wire:keydown.enter="searchPosts" wire:focus="$set('showSearchBox', true)" />
 	</div>
 	@if($showSearchBox)
-	<div id="searchBox" class="bg-white border rounded position-absolute w-100 p-2" style="height: 250px; top: 40px; z-index: 99; overflow-y: scroll;">
+	<div id="searchBox" class="bg-white border rounded position-absolute w-100 p-2">
 		<div wire:loading>Searching posts...</div>
 		<div wire:loading.remove>
 			@if ($searchInput == "")

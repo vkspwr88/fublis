@@ -22,7 +22,7 @@
 			</div>
 
 			<div class="row align-items-center">
-				<div class="col-md-4 steps step-complete">
+				<div class="col-lg-4 steps step-complete">
 					<div class="d-flex justify-content-center align-items-center">
 						<div class="step-icon rounded-circle">
 							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -39,7 +39,7 @@
 					</div>
 				</div>
 
-				<div class="col-md-4 steps step-current">
+				<div class="col-lg-4 steps step-current">
 					<div class="d-flex justify-content-center align-items-center">
 						<div class="step-icon rounded-circle">
 							<div class="inner-circle rounded-circle"></div>
@@ -53,7 +53,7 @@
 					</div>
 				</div>
 
-				<div class="col-md-4 steps step-incomplete">
+				<div class="col-lg-4 steps step-incomplete">
 					<div class="d-flex justify-content-center align-items-center">
 						<div class="step-icon rounded-circle">
 							<div class="inner-circle rounded-circle"></div>
@@ -70,10 +70,10 @@
 		</div>
 	</div>
 	<div class="row bg-white justify-content-center pt-5">
-		<div class="col-md-10">
+		<div class="col-lg-10">
 			<div class="card rounded-4 shadow border border-1">
 				<div class="row g-0 align-items-center">
-					<div class="col-md-6">
+					<div class="col-sm-12 col-md-6">
 						<div class="row justify-content-between align-items-center">
 							<div class="col-12">
 								<div class="card-body px-5">
@@ -117,7 +117,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="col-md-6">
+					<div class="col-sm-0 col-md-6 d-none d-md-flex">
 						<img src="https://via.placeholder.com/504x704" class="img-fluid rounded-4 w-100" alt="...">
 					</div>
 				</div>
@@ -126,7 +126,7 @@
 	</div>
 
 	<div class="row bg-white justify-content-center pt-5">
-		<div class="col-md-10">
+		<div class="col-lg-10">
 			<div class="card rounded-4 shadow border border-1">
 				<div class="row g-0 align-items-center">
 					<div class="col-md-6">
@@ -171,7 +171,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="col-md-6">
+					<div class="col-sm-0 col-md-6 d-none d-md-flex">
 						<img src="https://via.placeholder.com/504x704" class="img-fluid rounded-4 w-100" alt="...">
 					</div>
 				</div>
@@ -180,7 +180,7 @@
 	</div>
 
 	<div class="row bg-white justify-content-center pt-5">
-		<div class="col-md-10">
+		<div class="col-lg-10">
 			<div class="card rounded-4 shadow border border-1">
 				<div class="row g-0 align-items-center">
 					<div class="col-md-6">
@@ -243,7 +243,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="col-md-6">
+					<div class="col-sm-0 col-md-6 d-none d-md-flex">
 						<img src="https://via.placeholder.com/504x704" class="img-fluid rounded-4 w-100" alt="...">
 					</div>
 				</div>
@@ -252,12 +252,12 @@
 	</div>
 
 	<div class="row bg-white justify-content-center pt-5">
-		<div class="col-md-10">
+		<div class="col-lg-10">
 			<div class="card rounded-4 shadow border border-1">
 				<div class="row justify-content-between align-items-center">
 					<div class="col-12">
 						<div class="row justify-content-center">
-							<div class="col-md-10">
+							<div class="col-lg-10">
 								<div class="card-body p-5 text-center">
 									<h5 class="card-title text-purple-900 fs-3 fw-semibold m-0 py-3">Great!<br>You’re all set to go.</h5>
 									<p class="card-text text-secondary fs-6 fw-normal m-0 py-3">Getting published was never this easy. Pitch your latest projects, press releases, brand stories to journalists. Start creating your media kits now.</p>

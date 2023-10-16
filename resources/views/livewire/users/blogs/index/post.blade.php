@@ -1,5 +1,5 @@
 <div class="col">
-	<div class="card px-5 px-md-5 px-lg-2 px-xl-3 blog-post-card">
+	<div class="card {{-- px-5 px-md-2 px-xl-3 --}} blog-post-card">
 		<x-curator-glider class="card-img-top" :media="$blog->homeImage" />
 		<div class="card-body px-0 pt-4">
 			<p class="blog-author fw-bold text-capitalize">{{ $blog->author }} <i class="bi bi-dot"></i> {{ $blog->published_date }}</p>
