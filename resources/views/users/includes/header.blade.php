@@ -25,7 +25,7 @@
 						<a class="nav-link" href="{{ route('architect.media-kit.index') }}">Media Kits</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="#">Pitch Story</a>
+						<a class="nav-link" href="{{ route('architect.pitch-story.index') }}">Pitch Story</a>
 					</li>
 					<li class="nav-item dropdown">
 						<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"

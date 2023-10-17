@@ -48,6 +48,9 @@ a{
 .text-gray-300{
 	color: var(--fublis-gray-300) !important;
 }
+.text-gray-500{
+	color: var(--fublis-gray-500) !important;
+}
 .text-gray-600{
 	color: var(--fublis-gray-600) !important;
 }
@@ -174,7 +177,7 @@ a.text-purple:hover{
 	max-width: 250px;
 }
 
-#headerSearchInput:focus, #filterSearchInput:focus{
+#headerSearchInput:focus, #filterSearchInput:focus, .search-input:focus{
 	background-color: var(--fublis-white);
 	border-color:  #ced4da;
 }
@@ -244,7 +247,7 @@ a.text-purple:hover{
 	font-size: 0.9rem;
 }
 
-.filter-checkbox:checked{
+.filter-checkbox:checked, .form-check-input:checked{
 	background-color: var(--fublis-purple-600);
 	border-color: var(--fublis-purple-600);
 }
@@ -261,6 +264,12 @@ a.text-purple:hover{
 
 .btn-white:hover{
 	opacity: 0.6;
+}
+
+.modal-backdrop.show{
+	background: rgba(52, 64, 84, 0.70);
+	backdrop-filter: blur(10px);
+	opacity: 1;
 }
 
 .section-content{
@@ -509,6 +518,44 @@ a.text-purple:hover{
 .fublis-breadcrumb-item.active{
 
 }
+
+.custom-radio {
+	position: absolute;
+	clip: rect(0,0,0,0);
+	pointer-events: none;
+}
+
+.fublis-radio{
+	width: 1.5rem;
+	height: 1.5rem;
+	border: 3px solid var(--fublis-gray-200);
+}
+
+.fublis-radio svg{
+	display: none;
+}
+
+.custom-radio:checked + .card{
+	border-color: var(--fublis-purple-600) !important;
+}
+
+.custom-radio:checked+.card .contact-title{
+	color: var(--fublis-purple-800) !important;
+}
+
+.custom-radio:checked+.card .contact-subtitle{
+	color: var(--fublis-purple-700) !important;
+}
+
+.custom-radio:checked+.card .fublis-radio{
+	border: none;
+	background: var(--fublis-purple-700);
+}
+
+.custom-radio:checked+.card .fublis-radio svg{
+	display: block;
+}
+
 
 
 

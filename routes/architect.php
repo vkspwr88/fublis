@@ -55,10 +55,29 @@ Route::name('media-kit.')->prefix('media-kit')->group(function () {
 
 Route::name('pitch-story.')->prefix('pitch-story')->group(function () {
     Route::get('/', function(){
-		return view('users.pages.architect.media-kit.index', [
+		return view('users.pages.architect.pitch-story.publication', [
 			'categories' => array(),
-			'mediaKitTypes' => array(),
+			'publicationTypes' => array(),
 		]);
 	})->name('index');
+	Route::get('/publications', function(){
+		return view('users.pages.architect.pitch-story.publication', [
+			'categories' => array(),
+			'publicationTypes' => array(),
+		]);
+	})->name('publications');
+	Route::get('/journalists', function(){
+		return view('users.pages.architect.pitch-story.journalist', [
+			'categories' => array(),
+			'publicationTypes' => array(),
+			'roleTypes' => array(),
+		]);
+	})->name('journalists');
+	Route::get('/calls', function(){
+		return view('users.pages.architect.pitch-story.call', [
+			'categories' => array(),
+			'publicationTypes' => array(),
+		]);
+	})->name('calls');
 });
 
