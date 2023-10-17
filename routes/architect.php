@@ -33,13 +33,32 @@ Route::name('media-kit.')->prefix('media-kit')->group(function () {
 			'mediaKitTypes' => array(),
 		]);
 	})->name('index');
-	Route::get('/press-release/{id}', function(){
-		return view('users.pages.architect.media-kit.press-release.view');
-	})->name('press-release.view');
-	Route::get('/press-release/{id}/edit', function(){
-		return view('users.pages.architect.media-kit.press-release.edit');
-	})->name('press-release.edit');
-	Route::get('/article/{id}', function(){
+	Route::name('press-release.')->prefix('press-release')->group(function () {
+		Route::get('/{id}', function(){
+			return view('users.pages.architect.media-kit.press-release.view');
+		})->name('view');
+		Route::get('/{id}/edit', function(){
+			return view('users.pages.architect.media-kit.press-release.edit');
+		})->name('edit');
+	});
+	Route::name('article.')->prefix('article')->group(function () {
+		Route::get('/{id}', function(){
+			return view('users.pages.architect.media-kit.article.view');
+		})->name('view');
+		Route::get('/{id}/edit', function(){
+			return view('users.pages.architect.media-kit.article.edit');
+		})->name('edit');
+	});
+	Route::name('project.')->prefix('project')->group(function () {
+		Route::get('/{id}', function(){
+			return view('users.pages.architect.media-kit.project.view');
+		})->name('view');
+		Route::get('/{id}/edit', function(){
+			return view('users.pages.architect.media-kit.project.edit');
+		})->name('edit');
+	});
+
+	/* Route::get('/article/{id}', function(){
 		return view('users.pages.architect.media-kit.article.view');
 	})->name('article.view');
 	Route::get('/article/{id}/edit', function(){
@@ -50,34 +69,43 @@ Route::name('media-kit.')->prefix('media-kit')->group(function () {
 	})->name('project.view');
 	Route::get('/project/{id}/edit', function(){
 		return view('users.pages.architect.media-kit.project.edit');
-	})->name('project.edit');
+	})->name('project.edit'); */
 });
 
 Route::name('pitch-story.')->prefix('pitch-story')->group(function () {
     Route::get('/', function(){
-		return view('users.pages.architect.pitch-story.publication', [
+		return view('users.pages.architect.pitch-story.publication.index', [
 			'categories' => array(),
 			'publicationTypes' => array(),
 		]);
 	})->name('index');
-	Route::get('/publications', function(){
-		return view('users.pages.architect.pitch-story.publication', [
-			'categories' => array(),
-			'publicationTypes' => array(),
-		]);
-	})->name('publications');
-	Route::get('/journalists', function(){
-		return view('users.pages.architect.pitch-story.journalist', [
-			'categories' => array(),
-			'publicationTypes' => array(),
-			'roleTypes' => array(),
-		]);
-	})->name('journalists');
-	Route::get('/calls', function(){
-		return view('users.pages.architect.pitch-story.call', [
-			'categories' => array(),
-			'publicationTypes' => array(),
-		]);
-	})->name('calls');
+	Route::name('publications.')->prefix('publications')->group(function () {
+		Route::get('/', function(){
+			return view('users.pages.architect.pitch-story.publication.index', [
+				'categories' => array(),
+				'publicationTypes' => array(),
+			]);
+		})->name('index');
+	});
+	Route::name('journalists.')->prefix('journalists')->group(function () {
+		Route::get('/', function(){
+			return view('users.pages.architect.pitch-story.journalist.index', [
+				'categories' => array(),
+				'publicationTypes' => array(),
+				'roleTypes' => array(),
+			]);
+		})->name('index');
+	});
+	Route::name('calls.')->prefix('calls')->group(function () {
+		Route::get('/', function(){
+			return view('users.pages.architect.pitch-story.call.index', [
+				'categories' => array(),
+				'publicationTypes' => array(),
+			]);
+		})->name('index');
+	});
+
+
+
 });
 

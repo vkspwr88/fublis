@@ -39,32 +39,7 @@
 			<div class="position-relative">
 				<div class="filter-container" id="collapsedFilter">
 					<form wire:submit="search">
-						<div class="row g-0 mb-4">
-							<div class="col">
-								<div class="d-grid">
-									<input type="radio" class="btn-check btn-filter-check" name="options-outlined" id="publications-outlined" autocomplete="off">
-									<label class="btn btn-outline-primary rounded-0 fw-semibold" for="publications-outlined">
-										<a href="{{ route('architect.pitch-story.publications') }}" class="text-gray-500">Publications</a>
-									</label>
-								</div>
-							</div>
-							<div class="col">
-								<div class="d-grid">
-									<input type="radio" class="btn-check btn-filter-check" name="options-outlined" id="journalists-outlined" autocomplete="off" checked>
-									<label class="btn btn-outline-primary rounded-0 fw-semibold" for="journalists-outlined">
-										<a href="{{ route('architect.pitch-story.journalists') }}" class="text-purple-700">Journalists</a>
-									</label>
-								</div>
-							</div>
-							<div class="col">
-								<div class="d-grid">
-									<input type="radio" class="btn-check btn-filter-check" name="options-outlined" id="calls-outlined" autocomplete="off">
-									<label class="btn btn-outline-primary rounded-0 fw-semibold" for="calls-outlined">
-										<a href="{{ route('architect.pitch-story.calls') }}" class="text-gray-500">Calls</a>
-									</label>
-								</div>
-							</div>
-						</div>
+						@include('users.includes.architect.pitch-story-nav-types', ['type' => 'journalist'])
 						<div class="input-group mb-4">
 							<label class="input-group-text bg-white" for="filterSearchInput"><i class="bi bi-search"></i></label>
 							<input id="filterSearchInput" class="form-control border-start-0 shadow-none ps-0" type="search" placeholder="Search by name" aria-label="Search" />
@@ -290,7 +265,7 @@
 						</div>
 					</div>
 					<div class="modal-footer justify-content-center border-0">
-						<a href="{{ route('architect.pitch-story.journalists') }}" class="btn btn-primary px-3">
+						<a href="{{ route('architect.pitch-story.journalists.index') }}" class="btn btn-primary px-3">
 							Pitch to another Journalist <i class="bi bi-send-fill"></i>
 						</a>
 					</div>
