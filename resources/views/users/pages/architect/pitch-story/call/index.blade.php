@@ -17,15 +17,7 @@
 		</div>
 	</div>
 
-	<div class="row g-4">
-		<div class="col-sm-6">
-			<h2 class="text-dark fs-3 fw-semibold m-0">Submit your stories to call for submissions</h2>
-		</div>
-		<div class="col-sm-6 text-end">
-			<a href="{{ route('architect.add-story.index') }}" class="btn btn-link text-decoration-none text-purple-600 fs-6 fw-semibold"><i class="bi bi-plus"></i> Add Story</a>
-			<a href="{{ route('architect.media-kit.index') }}" class="btn btn-white text-dark fs-6 fw-semibold"><i class="bi bi-stack"></i> All Media kits</a>
-		</div>
-	</div>
+	@include('users.includes.architect.pitch-story-header', ['headerTitle' => 'Submit your stories to call for submissions'])
 
 	<hr class="border-gray-300 my-4">
 

@@ -17,15 +17,7 @@
 		</div>
 	</div>
 
-	<div class="row g-4">
-		<div class="col-sm-6">
-			<h2 class="text-dark fs-3 fw-semibold m-0">Pitch your stories to publications</h2>
-		</div>
-		<div class="col-sm-6 text-end">
-			<a href="{{ route('architect.add-story.index') }}" class="btn btn-link text-decoration-none text-purple-600 fs-6 fw-semibold"><i class="bi bi-plus"></i> Add Story</a>
-			<a href="{{ route('architect.media-kit.index') }}" class="btn btn-white text-dark fs-6 fw-semibold"><i class="bi bi-stack"></i> All Media kits</a>
-		</div>
-	</div>
+	@include('users.includes.architect.pitch-story-header', ['headerTitle' => 'Pitch your stories to publications'])
 
 	<hr class="border-gray-300 my-4">
 
@@ -96,7 +88,10 @@
 													</p>
 												</div>
 												<div class="col-12">
-													<h5 class="text-dark fs-5 fw-semibold m-0 pt-3">Architizer</h5>
+													<h5 class="fs-5 fw-semibold m-0 pt-3">
+														<a href="{{ route('architect.pitch-story.publications.view', ['id' => 'id']) }}" class="text-dark">Architizer</a>
+
+													</h5>
 													<p class="fs-6 m-0 p-0">
 														<a href="#" class="text-secondary small">www.architizer.com</a>
 													</p>

@@ -86,6 +86,9 @@ Route::name('pitch-story.')->prefix('pitch-story')->group(function () {
 				'publicationTypes' => array(),
 			]);
 		})->name('index');
+		Route::get('/{id}', function(){
+			return view('users.pages.architect.pitch-story.publication.view');
+		})->name('view');
 	});
 	Route::name('journalists.')->prefix('journalists')->group(function () {
 		Route::get('/', function(){
