@@ -2,9 +2,9 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\LocationResource\Pages;
-use App\Filament\Resources\LocationResource\RelationManagers;
-use App\Models\Location;
+use App\Filament\Resources\CategoryResource\Pages;
+use App\Filament\Resources\CategoryResource\RelationManagers;
+use App\Models\Category;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -13,13 +13,13 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class LocationResource extends Resource
+class CategoryResource extends Resource
 {
-    protected static ?string $model = Location::class;
+    protected static ?string $model = Category::class;
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 	protected static ?string $navigationGroup = 'Values';
-    //protected static ?string $label = 'Locations';
-	protected static ?int $navigationSort = 5;
+    //protected static ?string $label = 'Categories';
+	protected static ?int $navigationSort = 4;
 
     public static function form(Form $form): Form
     {
@@ -76,7 +76,7 @@ class LocationResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ManageLocations::route('/'),
+            'index' => Pages\ManageCategories::route('/'),
         ];
     }
 
