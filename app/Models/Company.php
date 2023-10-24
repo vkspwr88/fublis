@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Company extends Model
@@ -29,5 +30,9 @@ class Company extends Model
 
 	public function teamSize(): BelongsTo{
 		return $this->belongsTo(TeamSize::class);
+	}
+
+	public function architects(): HasMany{
+		return $this->hasMany(Architect::class);
 	}
 }

@@ -10,6 +10,7 @@ use App\Casts\Users\UserTypeCast;
 use Illuminate\Contracts\Auth\Access\Authorizable;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Hash;
@@ -58,5 +59,9 @@ class User extends Authenticatable implements Authorizable
 	public function setPasswordAttribute($value)
 	{
 		$this->attributes['password'] = Hash::make($value);
+	}
+
+	public function architect(): HasOne{
+		return $this->hasOne(Architect::class);
 	}
 }
