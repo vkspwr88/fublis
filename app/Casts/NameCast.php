@@ -4,6 +4,7 @@ namespace App\Casts;
 
 use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class NameCast implements CastsAttributes
 {
@@ -14,7 +15,7 @@ class NameCast implements CastsAttributes
      */
     public function get(Model $model, string $key, mixed $value, array $attributes): mixed
     {
-        return ucfirst($value);
+        return Str::headline($value);
     }
 
     /**

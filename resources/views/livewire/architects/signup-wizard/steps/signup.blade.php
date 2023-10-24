@@ -11,18 +11,21 @@
 								<div class="card-body px-5">
 									<h5 class="card-title text-dark fs-3 fw-semibold m-0 py-2">Sign up</h5>
 									<p class="card-text text-secondary fs-6 fw-normal m-0 py-2">Create your free account</p>
-									<form class="py-3" action="" wire:submit="signup">
+									<form class="py-3" wire:submit="signup">
 										<div class="mb-3">
-											<label for="exampleInputName" class="form-label text-dark fs-6 fw-medium">Name<span class="text-danger">*</span></label>
-											<input type="text" class="form-control" id="exampleInputName" placeholder="Enter your name">
+											<label for="inputName" class="form-label text-dark fs-6 fw-medium">Name<span class="text-danger">*</span></label>
+											<input type="text" class="form-control @error('name') is-invalid @enderror" id="inputName" placeholder="Enter your name" wire:model="name">
+											@error('name')<div class="invalid-feedback">{{ $message }}</div>@enderror
 										</div>
 										<div class="mb-3">
-											<label for="exampleInputEmail" class="form-label text-dark fs-6 fw-medium">Email<span class="text-danger">*</span></label>
-											<input type="email" class="form-control" id="exampleInputEmail" placeholder="Enter your email">
+											<label for="inputEmail" class="form-label text-dark fs-6 fw-medium">Email<span class="text-danger">*</span></label>
+											<input type="email" class="form-control @error('email') is-invalid @enderror" id="inputEmail" placeholder="Enter your email" wire:model="email">
+											@error('email')<div class="invalid-feedback">{{ $message }}</div>@enderror
 										</div>
 										<div class="mb-3">
-											<label for="exampleInputPassword" class="form-label">Password<span class="text-danger">*</span></label>
-											<input type="password" class="form-control" id="exampleInputPassword" placeholder="Create a password" aria-describedby="passwordHelpBlock">
+											<label for="inputPassword" class="form-label">Password<span class="text-danger">*</span></label>
+											<input type="password" class="form-control @error('password') is-invalid @enderror" id="inputPassword" placeholder="Create a password" aria-describedby="passwordHelpBlock" wire:model="password">
+											@error('password')<div class="invalid-feedback">{{ $message }}</div>@enderror
 											<div id="passwordHelpBlock" class="form-text">Must be at least 8 characters.</div>
 										</div>
 										<div class="d-grid gap-3">

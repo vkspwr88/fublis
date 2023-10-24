@@ -5,13 +5,14 @@ namespace App\Models;
 use App\Casts\EmailCast;
 use App\Casts\NameCast;
 use App\Casts\Users\UserTypeCast;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Hash;
 
 class Guest extends Model
 {
-    use HasFactory;
+    use HasFactory, HasUuids;
 
 	protected $fillable = [
 		'name',

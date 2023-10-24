@@ -1,10 +1,9 @@
 <?php
 
+use App\Http\Controllers\Users\Architects\Auth\SignupController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/signup', function(){
-	return view('users.pages.architect.auth.signup');
-})->name('signup');
+Route::get('/signup', [SignupController::class, 'index'])->name('signup');
 
 Route::get('/login', function(){
 	echo "hello";
