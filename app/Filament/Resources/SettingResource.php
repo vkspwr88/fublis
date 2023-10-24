@@ -2,9 +2,9 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\CategoryResource\Pages;
-use App\Filament\Resources\CategoryResource\RelationManagers;
-use App\Models\Category;
+use App\Filament\Resources\SettingResource\Pages;
+use App\Filament\Resources\SettingResource\RelationManagers;
+use App\Models\Setting;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -13,21 +13,28 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class CategoryResource extends Resource
+class SettingResource extends Resource
 {
-    protected static ?string $model = Category::class;
+    protected static ?string $model = Setting::class;
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 	protected static ?string $navigationGroup = 'Settings';
-    //protected static ?string $label = 'Categories';
+    //protected static ?string $label = 'Locations';
 	protected static ?int $navigationSort = 4;
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('name')
+                Forms\Components\TextInput::make('setting_key')
                     ->required()
                     ->maxLength(255),
+                Forms\Components\TextInput::make('setting_value')
+                    ->required()
+                    ->maxLength(255),
+                Forms\Components\Textarea::make('remarks')
+                    ->required()
+                    ->maxLength(65535)
+                    ->columnSpanFull(),
             ]);
     }
 
@@ -37,8 +44,13 @@ class CategoryResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('id')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('name')
+                Tables\Columns\TextColumn::make('setting_key')
                     ->searchable(),
+                Tables\Columns\TextColumn::make('setting_value')
+                    ->searchable(),
+				Tables\Columns\TextColumn::make('remarks')
+                    ->searchable()
+					->toggleable(isToggledHiddenByDefault: false),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -76,7 +88,7 @@ class CategoryResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ManageCategories::route('/'),
+            'index' => Pages\ManageSettings::route('/'),
         ];
     }
 
