@@ -6,10 +6,10 @@ use App\Casts\NameCast;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Location extends Model
+class Company extends Model
 {
     use HasFactory, SoftDeletes, HasUuids;
 
@@ -19,7 +19,15 @@ class Location extends Model
 		'name' => NameCast::class,
 	];
 
-	public function companies(): HasMany{
-		return $this->hasMany(Company::class);
+	public function category(): BelongsTo{
+		return $this->belongsTo(Category::class);
+	}
+
+	public function location(): BelongsTo{
+		return $this->belongsTo(Location::class);
+	}
+
+	public function teamSize(): BelongsTo{
+		return $this->belongsTo(TeamSize::class);
 	}
 }

@@ -6,6 +6,7 @@ use App\Casts\NameCast;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Category extends Model
@@ -17,4 +18,8 @@ class Category extends Model
 	protected $casts = [
 		'name' => NameCast::class,
 	];
+
+	public function companies(): HasMany{
+		return $this->hasMany(Company::class);
+	}
 }

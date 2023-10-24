@@ -2,9 +2,9 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\BlogTagResource\Pages;
-use App\Filament\Resources\BlogTagResource\RelationManagers;
-use App\Models\BlogTag;
+use App\Filament\Resources\CompanyResource\Pages;
+use App\Filament\Resources\CompanyResource\RelationManagers;
+use App\Models\Company;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -13,13 +13,13 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class BlogTagResource extends Resource
+class CompanyResource extends Resource
 {
-    protected static ?string $model = BlogTag::class;
-    protected static ?string $navigationIcon = 'heroicon-o-tag';
-	protected static ?string $navigationGroup = 'Blogs';
-    protected static ?string $navigationLabel  = 'Tags';
-	protected static ?int $navigationSort = 2;
+    protected static ?string $model = Company::class;
+    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+	protected static ?string $navigationGroup = 'Architects';
+    //protected static ?string $label = 'Locations';
+	protected static ?int $navigationSort = 0;
 
     public static function form(Form $form): Form
     {
@@ -28,6 +28,19 @@ class BlogTagResource extends Resource
                 Forms\Components\TextInput::make('name')
                     ->required()
                     ->maxLength(255),
+                Forms\Components\TextInput::make('website')
+                    ->required()
+					->url()
+                    ->maxLength(255),
+                Forms\Components\Select::make('location_id')
+                    ->relationship('location', 'name')
+                    ->required(),
+                Forms\Components\Select::make('category_id')
+                    ->relationship('category', 'name')
+                    ->required(),
+                Forms\Components\Select::make('team_size_id')
+                    ->relationship('teamSize', 'name')
+                    ->required(),
             ]);
     }
 
@@ -38,6 +51,14 @@ class BlogTagResource extends Resource
                 Tables\Columns\TextColumn::make('id')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('name')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('website')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('location.name')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('category.name')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('teamSize.name')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
@@ -55,12 +76,8 @@ class BlogTagResource extends Resource
                 Tables\Filters\TrashedFilter::make(),
             ])
             ->actions([
-				Tables\Actions\ActionGroup::make([
-					Tables\Actions\EditAction::make(),
-					Tables\Actions\DeleteAction::make(),
-					Tables\Actions\ForceDeleteAction::make(),
-					Tables\Actions\RestoreAction::make(),
-				])
+                Tables\Actions\ViewAction::make(),
+                Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -74,10 +91,20 @@ class BlogTagResource extends Resource
             ]);
     }
 
+    public static function getRelations(): array
+    {
+        return [
+            //
+        ];
+    }
+
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ManageBlogTags::route('/'),
+            'index' => Pages\ListCompanies::route('/'),
+            'create' => Pages\CreateCompany::route('/create'),
+            'view' => Pages\ViewCompany::route('/{record}'),
+            'edit' => Pages\EditCompany::route('/{record}/edit'),
         ];
     }
 
