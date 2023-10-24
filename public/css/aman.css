@@ -503,20 +503,12 @@ a.text-purple:hover{
 	border-bottom: 2px solid var(--fublis-purple-700);
 }
 
-.fublis-breadcrumb-item a{
-
-}
-
 .fublis-breadcrumb-item + .fublis-breadcrumb-item {
 	padding-left: var(--fublis-breadcrumb-item-padding-x);
 }
 
 .fublis-breadcrumb-item + .fublis-breadcrumb-item::before {
 	padding-right: var(--fublis-breadcrumb-item-padding-x);
-}
-
-.fublis-breadcrumb-item.active{
-
 }
 
 .custom-radio {
