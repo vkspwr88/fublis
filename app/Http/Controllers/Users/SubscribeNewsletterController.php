@@ -22,7 +22,7 @@ class SubscribeNewsletterController extends Controller
 		$verify = $this->subscribeNewsletterRepository->verifySubscriber($token);
 		if($verify){
 			$subscriber = $this->subscribeNewsletterRepository->getSubscriberByToken($token);
-			Mail::to($subscriber->email)->send(new WelcomeMail($subscriber));
+			Mail::to($subscriber->email)->queue(new WelcomeMail($subscriber));
 		}
         return view('users.pages.subscribe-newsletter.verify', [
             'verify' => $verify,

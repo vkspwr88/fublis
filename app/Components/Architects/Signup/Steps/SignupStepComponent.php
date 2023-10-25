@@ -69,11 +69,11 @@ class SignupStepComponent extends StepComponent
 		$validated['user_type'] = UserTypeEnum::ARCHITECT;
 
 		if($this->architectService->registerGuest($validated)){
+			$this->nextStep();
 			$this->dispatch('alert', [
 				'type' => 'success',
 				'message' => 'Please check your email address for the OTP.'
 			]);
-			$this->nextStep();
 			return;
 		}
 		$this->dispatch('alert', [

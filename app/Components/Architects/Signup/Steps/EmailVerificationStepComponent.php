@@ -63,11 +63,11 @@ class EmailVerificationStepComponent extends StepComponent
 		$otp = Arr::join($this->otp, '');
 		$guest = $this->architectService->verifyGuestEmail($otp);
 		if($guest){
+			$this->nextStep();
 			$this->dispatch('alert', [
 				'type' => 'success',
 				'message' => 'You have successfully verified your email address.'
 			]);
-			$this->nextStep();
 			return;
 		}
 		$this->addError('otp.1', 'OTP is either invalid or expired.');

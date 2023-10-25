@@ -15,9 +15,9 @@ class TeamSize extends Model
 
 	protected $guarded = [];
 
-	protected $casts = [
+	/* protected $casts = [
 		'name' => NameCast::class,
-	];
+	]; */
 
 	public function companies(): HasMany{
 		return $this->hasMany(Company::class);

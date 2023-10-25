@@ -7,6 +7,7 @@ namespace App\Models;
 use App\Casts\EmailCast;
 use App\Casts\NameCast;
 use App\Casts\Users\UserTypeCast;
+use App\Enums\Users\UserTypeEnum;
 use Illuminate\Contracts\Auth\Access\Authorizable;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -53,7 +54,7 @@ class User extends Authenticatable implements Authorizable
 		'email' => EmailCast::class,
 		'email_verified_at' => 'datetime',
 		'password' => 'hashed',
-		'user_type' => UserTypeCast::class,
+		'user_type' => UserTypeEnum::class,
 	];
 
 	public function setPasswordAttribute($value)
