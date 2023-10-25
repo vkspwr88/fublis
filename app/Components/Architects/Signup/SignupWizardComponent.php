@@ -3,6 +3,7 @@
 namespace App\Components\Architects\Signup;
 
 use App\Components\Architects\Signup\Steps;
+use App\Support\Architects\Signup\SignupWizardState;
 use Spatie\LivewireWizard\Components\WizardComponent;
 
 class SignupWizardComponent extends WizardComponent
@@ -15,5 +16,10 @@ class SignupWizardComponent extends WizardComponent
 			Steps\AddCompanyStepComponent::class,
 			Steps\SuccessStepComponent::class,
         ];
+    }
+
+	public function stateClass(): string
+    {
+        return SignupWizardState::class;
     }
 }

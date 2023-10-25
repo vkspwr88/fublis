@@ -9,21 +9,21 @@
 						<div class="row justify-content-between align-items-center">
 							<div class="col-12">
 								<div class="card-body px-5">
-									<form class="py-3" action="" wire:submit="add">
+									<form class="py-3" wire:submit="add">
 										<div class="mb-3">
-											<label for="exampleInputName" class="form-label text-dark fs-6 fw-medium">Company Name</label>
-											<input type="text" class="form-control" id="exampleInputName" placeholder="Name of your brand/ studio">
+											<label for="inputCompanyName" class="form-label text-dark fs-6 fw-medium">Company Name</label>
+											<input type="text" class="form-control" id="inputCompanyName" placeholder="Name of your brand / studio" wire:model="companyName">
 										</div>
 										<div class="mb-3">
-											<label for="exampleInputName" class="form-label text-dark fs-6 fw-medium">Website</label>
+											<label for="inputWebsite" class="form-label text-dark fs-6 fw-medium">Website</label>
 											<div class="input-group">
 												<span class="input-group-text bg-white" id="basic-addon1">http://</span>
-												<input type="text" class="form-control" placeholder="www.your-website.com" aria-label="Username" aria-describedby="basic-addon1">
+												<input type="text" class="form-control" id="inputWebsite" placeholder="www.your-website.com" aria-label="Username" aria-describedby="basic-addon1" wire:model="website">
 											</div>
 										</div>
 										<div class="mb-3">
-											<label for="exampleInputName" class="form-label text-dark fs-6 fw-medium">Location</label>
-											<select class="form-select" id="inputGroupSelect02">
+											<label for="selectLocation" class="form-label text-dark fs-6 fw-medium">Location</label>
+											<select class="form-select" id="selectLocation" wire:model="location">
 												<option selected>Choose...</option>
 												<option value="1">One</option>
 												<option value="2">Two</option>
@@ -31,8 +31,8 @@
 											</select>
 										</div>
 										<div class="mb-3">
-											<label for="exampleInputName" class="form-label text-dark fs-6 fw-medium">Category</label>
-											<select class="form-select" id="inputGroupSelect02">
+											<label for="selectCategory" class="form-label text-dark fs-6 fw-medium">Category</label>
+											<select class="form-select" id="selectCategory" wire:model="category">
 												<option selected>Choose...</option>
 												<option value="1">One</option>
 												<option value="2">Two</option>
@@ -40,8 +40,8 @@
 											</select>
 										</div>
 										<div class="mb-3">
-											<label for="exampleInputName" class="form-label text-dark fs-6 fw-medium">Team Size</label>
-											<select class="form-select" id="inputGroupSelect02">
+											<label for="selectTeamSize" class="form-label text-dark fs-6 fw-medium">Team Size</label>
+											<select class="form-select" id="selectTeamSize" wire:model="teamSize">
 												<option selected>Choose...</option>
 												<option value="1">One</option>
 												<option value="2">Two</option>
@@ -49,8 +49,8 @@
 											</select>
 										</div>
 										<div class="mb-3">
-											<label for="exampleInputName" class="form-label text-dark fs-6 fw-medium">Your Position in Company</label>
-											<select class="form-select" id="inputGroupSelect02">
+											<label for="selectPosition" class="form-label text-dark fs-6 fw-medium">Your Position in Company</label>
+											<select class="form-select" id="selectPosition" wire:model="position">
 												<option selected>Choose...</option>
 												<option value="1">One</option>
 												<option value="2">Two</option>

@@ -73,7 +73,7 @@ class SignupStepComponent extends StepComponent
 				'type' => 'success',
 				'message' => 'Please check your email address for the OTP.'
 			]);
-			//$this->nextStep();
+			$this->nextStep();
 			return;
 		}
 		$this->dispatch('alert', [

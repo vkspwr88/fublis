@@ -11,7 +11,7 @@
 									<h5 class="card-title text-purple-900 fs-3 fw-semibold m-0 py-3">Great!<br>You’re all set to go.</h5>
 									<p class="card-text text-secondary fs-6 fw-normal m-0 py-3">Getting published was never this easy. Pitch your latest projects, press releases, brand stories to journalists. Start creating your media kits now.</p>
 									<p class="card-text m-0 py-3">
-										<button class="btn btn-primary fs-6 fw-semibold" type="button">Let Go!</button>
+										<a class="btn btn-primary fs-6 fw-semibold" href="{{ route('architect.add-story.index') }}">Let Go!</a>
 									</p>
 								</div>
 							</div>

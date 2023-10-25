@@ -33,7 +33,7 @@ class ArchitectService
 		// add guest id in session
 		session()->put('guest_id', $guest->id);
 		// send verification email
-		$this->sendVerificationEmail($guest);
+		//$this->sendVerificationEmail($guest);
 		return true;
 	}
 
@@ -45,20 +45,27 @@ class ArchitectService
 	public function resendVerificationEmail()
 	{
 		$guestId = session()->get('guest_id');
-		$guest = $this->guestRepository->getGuestById($guestId);
-		$this->sendVerificationEmail($guest);
+		$otp = $this->guestRepository->generateEmailOtp();
+		$guest = $this->guestRepository->updateGuestEmailOtpById($guestId, $otp);
+		if($guest){
+			$this->sendVerificationEmail($guest);
+			return true;
+		}
+		return false;
 	}
 
-	public function verifyGuestEmail($otp)
+	public function verifyGuestEmail(string $otp)
 	{
 		// retrieve guest record
-		// verify otp
-		// if yes, update email_verified_at
+		$guestId = session()->get('guest_id');
+		// verify otp, if yes, update email_verified_at
+		return $this->guestRepository->verifyGuestEmailByOtp($guestId, $otp);
 	}
 
 	public function addCompany(array $details)
 	{
 		// retrieve guest record
+		$guestId = session()->get('guest_id');
 		// insert user record
 		// insert company record
 		// insert architect record

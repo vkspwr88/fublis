@@ -20,29 +20,44 @@
 									<p class="card-text text-center text-secondary fs-6 fw-normal m-0 py-2">
 										We sent a verification link to
 										<br>
-										<span class="fw-medium">olivia@untitledui.com</span>
+										<span class="fw-medium">{{ $email }}</span>
 									</p>
 									<form class="py-3" action="" wire:submit="verify">
+										@if ($errors->any())
+											<div class="alert alert-danger">
+												<ul>
+													@foreach ($errors->all() as $error)
+														@if($loop->first)
+															<li>{{ $error }}</li>
+														@endif
+													@endforeach
+												</ul>
+											</div>
+										@endif
 										<div class="row mb-4">
-											<div class="col">
-												<input type="text" class="form-control text-center text-purple-600 rounded-3 shadow border border-2 border-purple-600 fs-1 fw-medium" id="exampleInputLetter1">
+											<input type="text" class="col m-1 form-control otp-inputs text-center text-purple-600 rounded-3 shadow border border-2 border-purple-600 fs-1 fw-medium" maxlength="1" wire:model="otp.1" />
+											<input type="text" class="col m-1 form-control otp-inputs text-center text-purple-600 rounded-3 shadow border border-2 border-purple-600 fs-1 fw-medium" maxlength="1" wire:model="otp.2" />
+											<input type="text" class="col m-1 form-control otp-inputs text-center text-purple-600 rounded-3 shadow border border-2 border-purple-600 fs-1 fw-medium" maxlength="1" wire:model="otp.3" />
+											<input type="text" class="col m-1 form-control otp-inputs text-center text-purple-600 rounded-3 shadow border border-2 border-purple-600 fs-1 fw-medium" maxlength="1" wire:model="otp.4" />
+											{{-- <div class="col">
+												<input type="text" class="form-control otp-inputs text-center text-purple-600 rounded-3 shadow border border-2 border-purple-600 fs-1 fw-medium" maxlength="1" wire:model="otp.1" wire:keyup="checkOtpInput(1)">
 											</div>
 											<div class="col">
-												<input type="text" class="form-control text-center text-purple-600 rounded-3 shadow border border-2 border-purple-600 fs-1 fw-medium" id="exampleInputLetter1">
+												<input type="text" class="form-control otp-inputs text-center text-purple-600 rounded-3 shadow border border-2 border-purple-600 fs-1 fw-medium" maxlength="1" wire:model="otp.2" wire:keyup="checkOtpInput(2)">
 											</div>
 											<div class="col">
-												<input type="text" class="form-control text-center text-purple-600 rounded-3 shadow border border-2 border-purple-600 fs-1 fw-medium" id="exampleInputLetter1">
+												<input type="text" class="form-control otp-inputs text-center text-purple-600 rounded-3 shadow border border-2 border-purple-600 fs-1 fw-medium" maxlength="1" wire:model="otp.3" wire:keyup="checkOtpInput(3)">
 											</div>
 											<div class="col">
-												<input type="text" class="form-control text-center text-purple-600 rounded-3 shadow border border-2 border-purple-600 fs-1 fw-medium" id="exampleInputLetter1">
-											</div>
+												<input type="text" class="form-control otp-inputs text-center text-purple-600 rounded-3 shadow border border-2 border-purple-600 fs-1 fw-medium" maxlength="1" wire:model="otp.4" wire:keyup="checkOtpInput(4)">
+											</div> --}}
 										</div>
 										<div class="d-grid">
 											<button class="btn btn-primary fs-6 fw-semibold" type="submit">Verify email</button>
 										</div>
 									</form>
-									<p class="card-text text-center text-secondary fs-6 m-0 py-2">Didn't receive the email? <a href="{{ route('architect.login') }}" class="text-purple-700 fw-semibold">Click to resend</a></p>
-									<p class="card-text text-center fs-6 fw-semibold m-0 py-2"><a href="{{ route('architect.login') }}" class="text-secondary"><i class="bi bi-arrow-left"></i> Back to signup</a></p>
+									<p class="card-text text-center text-secondary fs-6 m-0 py-2">Didn't receive the email? <a href="javascript:;" class="text-purple-700 fw-semibold" wire:click="resend">Click to resend</a></p>
+									<p class="card-text text-center fs-6 fw-semibold m-0 py-2"><a href="javascript:;" class="text-secondary" wire:click="previousStep"><i class="bi bi-arrow-left"></i> Back to signup</a></p>
 								</div>
 							</div>
 						</div>

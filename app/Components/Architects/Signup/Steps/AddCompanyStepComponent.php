@@ -6,6 +6,13 @@ use Spatie\LivewireWizard\Components\StepComponent;
 
 class AddCompanyStepComponent extends StepComponent
 {
+	public $companyName;
+	public $website;
+	public $location;
+	public $category;
+	public $teamSize;
+	public $position;
+
 	public function render()
 	{
 		return view('livewire.architects.signup-wizard.steps.add-company');
@@ -21,6 +28,7 @@ class AddCompanyStepComponent extends StepComponent
 
 	public function add()
 	{
+		$this->validate();
 		$this->nextStep();
 	}
 }

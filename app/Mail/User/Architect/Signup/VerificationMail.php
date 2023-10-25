@@ -45,6 +45,7 @@ class VerificationMail extends Mailable
 			with: [
 				'senderEmail' => $this->guest->email,
 				'guest' => $this->guest,
+				'otp' => (string)$this->guest->email_otp,
 				'emailVerificationTimeout' => SettingController::getValue('EMAIL_VERIFICATION_TIMEOUT'),
 			]
         );
