@@ -1,14 +1,12 @@
 <?php
 
-use App\Http\Controllers\Users\Architects\Auth\SignupController;
+use App\Http\Controllers\Users\Architects\Auth;
 use App\Http\Middleware\ArchitectLogin;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/signup', [SignupController::class, 'index'])->name('signup');
-
-Route::get('/login', function(){
-	echo "hello";
-})->name('login');
+Route::get('/signup', [Auth\SignupController::class, 'index'])->name('signup');
+Route::get('/login', [Auth\LoginController::class, 'index'])->name('login');
+Route::get('/logout', [Auth\LogoutController::class, 'index'])->name('logout');
 
 Route::middleware(ArchitectLogin::class)->group(function() {
 	Route::name('add-story.')->prefix('add-story')->group(function () {

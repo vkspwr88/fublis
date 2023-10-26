@@ -105,11 +105,18 @@ class AddCompanyStepComponent extends StepComponent
 		]); */
 		$validated = Validator::make($this->data(), $this->rules(), $this->messages(), $this->validationAttributes())->validate();
 		//dd($validated);
-		$this->architectService->addCompany($validated);
-		$this->nextStep();
+		$validated['password'] = $this->state()->guest()['password'];
+		if($this->architectService->addCompany($validated)){
+			$this->nextStep();
+			$this->dispatch('alert', [
+				'type' => 'success',
+				'message' => 'You have successfully created your company.'
+			]);
+			return;
+		}
 		$this->dispatch('alert', [
-			'type' => 'success',
-			'message' => 'You have successfully created your company.'
+			'type' => 'warning',
+			'message' => 'We are facing problem in adding company. Please contact support.'
 		]);
 	}
 }

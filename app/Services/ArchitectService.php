@@ -9,7 +9,9 @@ use App\Interfaces\UserRepositoryInterface;
 use App\Mail\User\Architect\Signup\VerificationMail;
 use App\Mail\User\Architect\Signup\WelcomeMail;
 use App\Models\Architect;
+use Exception;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 
 class ArchitectService
@@ -69,35 +71,44 @@ class ArchitectService
 
 	public function addCompany(array $details)
 	{
-		// retrieve guest record
-		$guestId = session()->get('guest_id');
-		$guest = $this->guestRepository->getGuestById($guestId);
-		// insert user record
-		$user = $this->userRepository->createUser([
-			'name' => $guest->name,
-			'email' => $guest->email,
-			'password' => $guest->password,
-			'user_type' => UserTypeEnum::ARCHITECT,
-			'email_verified_at' => $guest->email_verified_at,
-		]);
-		// insert company record
-		$company = CompanyController::createCompany([
-			'name' => $details['companyName'],
-			'website' => $details['website'],
-			'location_id' => $details['location'],
-			'category_id' => $details['category'],
-			'team_size_id' => $details['teamSize'],
-		]);
-		// insert architect record
-		$architect = Architect::create([
-			'user_id' => $user->id,
-			'company_id' => $company->id,
-			'architect_position_id' => $details['position'],
-		]);
-		// send welcome email in queue
-		Mail::to($guest->email)->queue(new WelcomeMail($guest->email));
-		// login user
-		Auth::login($user);
-		session()->forget('guest_id');
+		try{
+            DB::beginTransaction();
+			// retrieve guest record
+			$guestId = session()->get('guest_id');
+			$guest = $this->guestRepository->getGuestById($guestId);
+			// insert user record
+			$user = $this->userRepository->createUser([
+				'name' => $guest->name,
+				'email' => $guest->email,
+				'password' => $details['password'],
+				'user_type' => UserTypeEnum::ARCHITECT,
+				'email_verified_at' => $guest->email_verified_at,
+			]);
+			// insert company record
+			$company = CompanyController::createCompany([
+				'name' => $details['companyName'],
+				'website' => $details['website'],
+				'location_id' => $details['location'],
+				'category_id' => $details['category'],
+				'team_size_id' => $details['teamSize'],
+			]);
+			// insert architect record
+			$architect = Architect::create([
+				'user_id' => $user->id,
+				'company_id' => $company->id,
+				'architect_position_id' => $details['position'],
+			]);
+			DB::commit();
+			// send welcome email in queue
+			Mail::to($guest->email)->queue(new WelcomeMail($guest->email));
+			// login user
+			Auth::login($user);
+			session()->forget('guest_id');
+		}
+		catch(Exception $exp){
+            DB::rollBack();
+			return false;
+		}
+		return true;
 	}
 }

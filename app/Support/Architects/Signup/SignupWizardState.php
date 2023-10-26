@@ -11,6 +11,7 @@ class SignupWizardState extends State
 		$architectSignupStepState = $this->forStep('architect-signup-step');
 		return [
 			'email' => $architectSignupStepState['email'],
+			'password' => $architectSignupStepState['password'],
 		];
 	}
 }
