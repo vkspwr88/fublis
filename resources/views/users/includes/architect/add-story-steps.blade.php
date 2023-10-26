@@ -1,3 +1,25 @@
+@php
+	$currentRoute = Route::currentRouteName();
+
+	//dd($currentRoute);
+	$currentStep = 1;
+	$stepsArr = [
+		'class1' => 'step-current',
+		'class2' => 'step-incomplete',
+		'class3' => 'step-incomplete',
+	];
+	if(in_array($currentRoute, ['architect.add-story.press-release', 'architect.add-story.project', 'architect.add-story.article'])){
+		$currentStep = 2;
+		$stepsArr['class1'] = 'step-complete';
+		$stepsArr['class2'] = 'step-current';
+	}
+	else if(in_array($currentRoute, ['architect.add-story.press-release.success', 'architect.add-story.project.success', 'architect.add-story.article.success'])){
+		$currentStep = 3;
+		$stepsArr['class1'] = 'step-complete';
+		$stepsArr['class2'] = 'step-complete';
+		$stepsArr['class3'] = 'step-current';
+	}
+@endphp
 <h4 class="text-center text-black fs-1 fw-semibold m-0 py-2">Get published in just 3 steps</h4>
 <div class="row align-items-center pt-4">
 	<div class="col-12">
@@ -15,13 +37,16 @@
 		</div>
 
 		<div class="row align-items-center">
-			<div class="col-lg-4 steps step-complete">
+			<div class="col-lg-4 steps {{ $stepsArr['class1'] }}">
 				<div class="d-flex justify-content-center align-items-center">
 					<div class="step-icon rounded-circle">
+						@if ($currentStep > 1)
 						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
 							<path fill-rule="evenodd" clip-rule="evenodd" d="M17.0965 7.38967L9.9365 14.2997L8.0365 12.2697C7.6865 11.9397 7.1365 11.9197 6.7365 12.1997C6.3465 12.4897 6.2365 12.9997 6.4765 13.4097L8.7265 17.0697C8.9465 17.4097 9.3265 17.6197 9.7565 17.6197C10.1665 17.6197 10.5565 17.4097 10.7765 17.0697C11.1365 16.5997 18.0065 8.40967 18.0065 8.40967C18.9065 7.48967 17.8165 6.67967 17.0965 7.37967V7.38967Z" fill="white"/>
 						</svg>
-						{{-- <div class="inner-circle rounded-circle"></div> --}}
+						@else
+						<div class="inner-circle rounded-circle"></div>
+						@endif
 					</div>
 				</div>
 				<div class="row align-items-center pt-2">
@@ -32,10 +57,16 @@
 				</div>
 			</div>
 
-			<div class="col-lg-4 steps step-current">
+			<div class="col-lg-4 steps {{ $stepsArr['class2'] }}">
 				<div class="d-flex justify-content-center align-items-center">
 					<div class="step-icon rounded-circle">
+						@if ($currentStep > 2)
+						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+							<path fill-rule="evenodd" clip-rule="evenodd" d="M17.0965 7.38967L9.9365 14.2997L8.0365 12.2697C7.6865 11.9397 7.1365 11.9197 6.7365 12.1997C6.3465 12.4897 6.2365 12.9997 6.4765 13.4097L8.7265 17.0697C8.9465 17.4097 9.3265 17.6197 9.7565 17.6197C10.1665 17.6197 10.5565 17.4097 10.7765 17.0697C11.1365 16.5997 18.0065 8.40967 18.0065 8.40967C18.9065 7.48967 17.8165 6.67967 17.0965 7.37967V7.38967Z" fill="white"/>
+						</svg>
+						@else
 						<div class="inner-circle rounded-circle"></div>
+						@endif
 					</div>
 				</div>
 				<div class="row align-items-center pt-2">
@@ -46,10 +77,16 @@
 				</div>
 			</div>
 
-			<div class="col-lg-4 steps step-incomplete">
+			<div class="col-lg-4 steps {{ $stepsArr['class3'] }}">
 				<div class="d-flex justify-content-center align-items-center">
 					<div class="step-icon rounded-circle">
+						@if ($currentStep == 3)
+						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+							<path fill-rule="evenodd" clip-rule="evenodd" d="M17.0965 7.38967L9.9365 14.2997L8.0365 12.2697C7.6865 11.9397 7.1365 11.9197 6.7365 12.1997C6.3465 12.4897 6.2365 12.9997 6.4765 13.4097L8.7265 17.0697C8.9465 17.4097 9.3265 17.6197 9.7565 17.6197C10.1665 17.6197 10.5565 17.4097 10.7765 17.0697C11.1365 16.5997 18.0065 8.40967 18.0065 8.40967C18.9065 7.48967 17.8165 6.67967 17.0965 7.37967V7.38967Z" fill="white"/>
+						</svg>
+						@else
 						<div class="inner-circle rounded-circle"></div>
+						@endif
 					</div>
 				</div>
 				<div class="row align-items-center pt-2">

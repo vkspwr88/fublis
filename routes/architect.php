@@ -1,27 +1,22 @@
 <?php
 
-use App\Http\Controllers\Users\Architects\Auth;
+use App\Http\Controllers\Users\Architects;
 use App\Http\Middleware\ArchitectLogin;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/signup', [Auth\SignupController::class, 'index'])->name('signup');
-Route::get('/login', [Auth\LoginController::class, 'index'])->name('login');
-Route::get('/logout', [Auth\LogoutController::class, 'index'])->name('logout');
+Route::get('/signup', [Architects\Auth\SignupController::class, 'index'])->name('signup');
+Route::get('/login', [Architects\Auth\LoginController::class, 'index'])->name('login');
+Route::get('/logout', [Architects\Auth\LogoutController::class, 'index'])->name('logout');
 
 Route::middleware(ArchitectLogin::class)->group(function() {
 	Route::name('add-story.')->prefix('add-story')->group(function () {
-		Route::get('/', function(){
-			return view('users.pages.architect.add-story.index');
-		})->name('index');
-		Route::get('/press-release', function(){
-			return view('users.pages.architect.add-story.press-release');
-		})->name('press-release');
-		Route::get('/article', function(){
-			return view('users.pages.architect.add-story.article');
-		})->name('article');
-		Route::get('/project', function(){
-			return view('users.pages.architect.add-story.project');
-		})->name('project');
+		Route::get('/', [Architects\AddStoryController::class, 'index'])->name('index');
+		Route::get('/press-release', [Architects\AddStory\PressReleaseController::class, 'index'])->name('press-release');
+		Route::get('/press-release/success', [Architects\AddStoryController::class, 'success'])->name('press-release.success');
+		Route::get('/article', [Architects\AddStory\ArticleController::class, 'index'])->name('article');
+		Route::get('/article/success', [Architects\AddStoryController::class, 'success'])->name('article.success');
+		Route::get('/project', [Architects\AddStory\ProjectController::class, 'index'])->name('project');
+		Route::get('/project/success', [Architects\AddStoryController::class, 'success'])->name('project.success');
 	});
 
 	Route::name('media-kit.')->prefix('media-kit')->group(function () {
