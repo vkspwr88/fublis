@@ -20,4 +20,9 @@ class Tag extends Model
 	{
 		return $this->morphedByMany(PressRelease::class, 'taggable');
 	}
+
+	public function articles(): MorphToMany
+	{
+		return $this->morphedByMany(Article::class, 'taggable');
+	}
 }

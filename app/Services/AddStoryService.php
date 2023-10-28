@@ -5,7 +5,7 @@ namespace App\Services;
 use App\Http\Controllers\FileController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\TagController;
-use App\Models\Image;
+use App\Models\Article;
 use App\Models\PressRelease;
 use Exception;
 use Illuminate\Support\Facades\DB;
@@ -54,6 +54,52 @@ class AddStoryService
             //Session::flash('message', $exp->getMessage());
             //Session::flash('message', 'Unable to process the order. Please contact support.');
             //Session::flash('alert-class', 'alert-danger');
+            return false;
+        }
+		return true;
+	}
+
+	public function addArticle(array $details)
+	{
+		try{
+            DB::beginTransaction();
+			// create article
+			$article = Article::create([
+				'cover_image_path' => FileController::upload($details['coverImage'], 'images/articles/cover-images'),
+				'title' => $details['articleTitle'],
+				'text_credits' => $details['textCredits'],
+				'preview_text' => $details['previewText'],
+				'article_doc_path' => $details['articleFile'] ? FileController::upload($details['articleFile'], 'docs/article') : null,
+				'article_doc_link' => $details['articleLink'],
+				'article_writeup' => $details['articleWrite'],
+				'company_profile_path' => $details['companyProfileFile'] ? FileController::upload($details['companyProfileFile'], 'docs/article/company-profile') : null,
+				'company_profile_link' => $details['companyProfileLink'],
+				'images_link' => $details['imagesLink'],
+			]);
+			// create media kit
+			$article->mediakit()
+							->create([
+								'architect_id' => auth()->user()->architect->id,
+								'category_id' => $details['category'],
+							]);
+			// create images
+			if(count($details['imagesFiles']) > 0){
+				foreach($details['imagesFiles'] as $image){
+					ImageController::create($article->images(), [
+						'image_type' => 'images',
+						'image_path' => FileController::upload($image, 'images/article/images'),
+					]);
+				}
+			}
+			// create tags
+			TagController::attachTags($article, $details['tags']);
+
+			DB::commit();
+		}
+		catch(Exception $exp){
+            DB::rollBack();
+
+			dd($exp->getMessage());
             return false;
         }
 		return true;
