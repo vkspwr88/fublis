@@ -9,6 +9,6 @@ class SignupController extends Controller
 {
     public function index()
 	{
-		return view('users.pages.architect.auth.signup');
+		return view('users.pages.architects.auth.signup');
 	}
 }

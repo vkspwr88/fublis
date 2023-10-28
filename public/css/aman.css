@@ -114,6 +114,9 @@ a.text-purple-600:hover{
 	background: var(--fublis-purple-800) !important;
 }
 
+.bg-primary {
+	background-color: var(--fublis-purple-600) !important;
+}
 .btn-primary {
 	--bs-btn-color: var(--fublis-white);
 	--bs-btn-bg: var(--fublis-purple-600);
@@ -146,7 +149,22 @@ a.text-purple-600:hover{
 	--bs-btn-disabled-bg: transparent;
 	--bs-btn-disabled-border-color: var(--fublis-purple-600);
 	--bs-gradient: none;
-  }
+}
+
+.error{
+	width: 100%;
+	margin-top: 0.25rem;
+	font-size: 0.875em;
+	color: #dc3545;
+}
+
+.z-30{
+	z-index: 30;
+}
+
+.flex{
+	display: flex;
+}
 
 /* a.text-purple{
 	opacity: 0.7;

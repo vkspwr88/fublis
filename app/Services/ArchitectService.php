@@ -107,6 +107,7 @@ class ArchitectService
 		}
 		catch(Exception $exp){
             DB::rollBack();
+			dd($exp->getMessage());
 			return false;
 		}
 		return true;

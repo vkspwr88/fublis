@@ -8,10 +8,10 @@ use Illuminate\Http\Request;
 class AddStoryController extends Controller
 {
     public function index(){
-		return view('users.pages.architect.add-story.index');
+		return view('users.pages.architects.add-stories.index');
 	}
 
 	public function success(){
-		return view('users.pages.architect.add-story.success');
+		return view('users.pages.architects.add-stories.success');
 	}
 }

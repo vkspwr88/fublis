@@ -9,6 +9,6 @@ class LoginController extends Controller
 {
     public function index()
 	{
-		return view('users.pages.architect.auth.login');
+		return view('users.pages.architects.auth.login');
 	}
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Users\Architects\AddStory;
+namespace App\Http\Controllers\Users\Architects\AddStories;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -8,6 +8,6 @@ use Illuminate\Http\Request;
 class ProjectController extends Controller
 {
     public function index(){
-		return view('users.pages.architect.add-story.project');
+		return view('users.pages.architects.add-stories.project');
 	}
 }
