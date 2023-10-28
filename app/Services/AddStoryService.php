@@ -2,11 +2,12 @@
 
 namespace App\Services;
 
-use App\Http\Controllers\FileController;
-use App\Http\Controllers\ImageController;
-use App\Http\Controllers\TagController;
+use App\Http\Controllers\Users\FileController;
+use App\Http\Controllers\Users\ImageController;
+use App\Http\Controllers\Users\TagController;
 use App\Models\Article;
 use App\Models\PressRelease;
+use App\Models\Project;
 use Exception;
 use Illuminate\Support\Facades\DB;
 
@@ -59,6 +60,71 @@ class AddStoryService
 		return true;
 	}
 
+	public function addProject(array $details)
+	{
+		try{
+            DB::beginTransaction();
+			// create project
+			$project = Project::create([
+				'title' => $details['articleTitle'],
+				'site_area' => $details['siteArea'],
+				'site_area_id' => $details['siteAreaUnit'],
+				'built_up_area' => $details['builtUpArea'],
+				'built_up_area_id' => $details['builtUpAreaUnit'],
+				'location_id' => $details['location'],
+				'project_status_id' => $details['status'],
+				'materials' => $details['materials'],
+				'building_typology_id' => $details['buildingTypology'],
+				'image_credits' => $details['imageCredits'],
+				'text_credits' => $details['textCredits'],
+				'render_credits' => $details['renderCredits'],
+				'consultants' => $details['consultants'],
+				'design_team' => $details['designTeam'],
+				'cover_image_path' => FileController::upload($details['coverImage'], 'images/projects/cover-images'),
+				'project_brief' => $details['projectBrief'],
+				'project_doc_path' => $details['projectFile'] ? FileController::upload($details['projectFile'], 'docs/projects') : null,
+				'project_doc_link' => $details['projectLink'],
+				'media_contact_id' => $details['mediaContact'],
+				'project_access_id' => $details['mediaKitAccess'],
+			]);
+			// create media kit
+			$project->mediakit()
+							->create([
+								'architect_id' => auth()->user()->architect->id,
+								'category_id' => $details['category'],
+							]);
+			// create images (photographs)
+			if(count($details['photographsFiles']) > 0){
+				foreach($details['photographsFiles'] as $image){
+					ImageController::create($project->images(), [
+						'image_type' => 'photographs',
+						'image_path' => FileController::upload($image, 'images/projects/photographs'),
+					]);
+				}
+			}
+			// create images (drawings)
+			if(count($details['drawingsFiles']) > 0){
+				foreach($details['drawingsFiles'] as $image){
+					ImageController::create($project->images(), [
+						'image_type' => 'drawings',
+						'image_path' => FileController::upload($image, 'images/projects/drawings'),
+					]);
+				}
+			}
+			// create tags
+			TagController::attachTags($project, $details['tags']);
+
+			DB::commit();
+		}
+		catch(Exception $exp){
+            DB::rollBack();
+
+			dd($exp->getMessage());
+            return false;
+        }
+		return true;
+	}
+
 	public function addArticle(array $details)
 	{
 		try{
@@ -69,10 +135,10 @@ class AddStoryService
 				'title' => $details['articleTitle'],
 				'text_credits' => $details['textCredits'],
 				'preview_text' => $details['previewText'],
-				'article_doc_path' => $details['articleFile'] ? FileController::upload($details['articleFile'], 'docs/article') : null,
+				'article_doc_path' => $details['articleFile'] ? FileController::upload($details['articleFile'], 'docs/articles') : null,
 				'article_doc_link' => $details['articleLink'],
 				'article_writeup' => $details['articleWrite'],
-				'company_profile_path' => $details['companyProfileFile'] ? FileController::upload($details['companyProfileFile'], 'docs/article/company-profile') : null,
+				'company_profile_path' => $details['companyProfileFile'] ? FileController::upload($details['companyProfileFile'], 'docs/articles/company-profiles') : null,
 				'company_profile_link' => $details['companyProfileLink'],
 				'images_link' => $details['imagesLink'],
 			]);
@@ -87,7 +153,7 @@ class AddStoryService
 				foreach($details['imagesFiles'] as $image){
 					ImageController::create($article->images(), [
 						'image_type' => 'images',
-						'image_path' => FileController::upload($image, 'images/article/images'),
+						'image_path' => FileController::upload($image, 'images/articles/images'),
 					]);
 				}
 			}

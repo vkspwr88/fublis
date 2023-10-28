@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Architect extends Model
@@ -24,5 +25,10 @@ class Architect extends Model
 
 	public function position(): BelongsTo{
 		return $this->belongsTo(ArchitectPosition::class);
+	}
+
+	public function projects(): HasMany
+	{
+		return $this->hasMany(Project::class);
 	}
 }
