@@ -66,7 +66,7 @@ class AddStoryService
             DB::beginTransaction();
 			// create project
 			$project = Project::create([
-				'title' => $details['articleTitle'],
+				'title' => $details['projectTitle'],
 				'site_area' => $details['siteArea'],
 				'site_area_id' => $details['siteAreaUnit'],
 				'built_up_area' => $details['builtUpArea'],
@@ -96,7 +96,7 @@ class AddStoryService
 			// create images (photographs)
 			if(count($details['photographsFiles']) > 0){
 				foreach($details['photographsFiles'] as $image){
-					ImageController::create($project->images(), [
+					ImageController::create($project->photographs(), [
 						'image_type' => 'photographs',
 						'image_path' => FileController::upload($image, 'images/projects/photographs'),
 					]);
@@ -105,7 +105,7 @@ class AddStoryService
 			// create images (drawings)
 			if(count($details['drawingsFiles']) > 0){
 				foreach($details['drawingsFiles'] as $image){
-					ImageController::create($project->images(), [
+					ImageController::create($project->photographs(), [
 						'image_type' => 'drawings',
 						'image_path' => FileController::upload($image, 'images/projects/drawings'),
 					]);

@@ -91,7 +91,7 @@ class PressRelease extends Component
 			'coverImage.dimensions' => 'Maximum allowed dimension for the :attribute is 800x400px.',
 			'pressReleaseTitle.required' => 'Enter the :attribute.',
 			'imageCredits.required' => 'Enter the :attribute.',
-			'category.required' => 'Enter the :attribute.',
+			'category.required' => 'Select the :attribute.',
 			'conceptNote.required' => 'Enter the :attribute.',
 			'pressReleaseWrite.required' => 'Enter the :attribute.',
 			'pressReleaseWrite.max' => 'The :attribute allows only 275 characters.',

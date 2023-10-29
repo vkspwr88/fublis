@@ -15,6 +15,13 @@ class CompanyController extends Controller
 
 	public static function createCompany($details)
 	{
-		return Company::create($details);
+		return Company::firstOrCreate($details);
+	}
+
+	public static function getMediaContacts()
+	{
+		$user = auth()->user()->load('architect.company.architects.user');
+		return $user->architect->company->architects;
+		//dd(auth()->user()->load('architect.company.architects')->pluck(['id', 'name']));
 	}
 }

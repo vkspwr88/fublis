@@ -5,6 +5,7 @@ namespace App\Livewire\Architects\AddStories;
 use App\Http\Controllers\Users\AreaController;
 use App\Http\Controllers\Users\BuildingTypologyController;
 use App\Http\Controllers\Users\CategoryController;
+use App\Http\Controllers\Users\CompanyController;
 use App\Http\Controllers\Users\LocationController;
 use App\Http\Controllers\Users\ProjectAccessController;
 use App\Http\Controllers\Users\ProjectStatusController;
@@ -56,7 +57,7 @@ class Project extends Component
 			'locations' => LocationController::getAll(),
 			'statuses' => ProjectStatusController::getAll(),
 			'buildingTypologies' => BuildingTypologyController::getAll(),
-			'mediaContacts' => BuildingTypologyController::getAll(),
+			'mediaContacts' => CompanyController::getMediaContacts(),
 			'projectAccess' => ProjectAccessController::getAll(),
 		]);
     }
@@ -92,9 +93,9 @@ class Project extends Component
 		return [
 			'projectTitle' => 'required',
 			'category' => 'required',
-			'siteArea' => 'required',
+			'siteArea' => 'required|numeric',
 			'siteAreaUnit' => 'required',
-			'builtUpArea' => 'required',
+			'builtUpArea' => 'required|numeric',
 			'builtUpAreaUnit' => 'required',
 			'location' => 'required',
 			'status' => 'required',
@@ -109,8 +110,10 @@ class Project extends Component
 			'projectBrief' => 'required|max:275',
 			'projectFile' => 'nullable|file|mimes:pdf,doc,docs',
 			'projectLink' => 'nullable|required_without:projectFile|url',
-			'photographsFiles' => 'required|image|array|mimes:svg,png,jpg,gif',
-			'drawingsFiles' => 'required|image|array|mimes:svg,png,jpg,gif',
+			'photographsFiles' => 'required|array',
+			'photographsFiles.*' => 'image|mimes:svg,png,jpg,gif',
+			'drawingsFiles' => 'required|array',
+			'drawingsFiles.*' => 'image|mimes:svg,png,jpg,gif',
 			'tags' => 'required|array',
 			'mediaContact' => 'required',
 			'mediaKitAccess' => 'required',
@@ -121,15 +124,17 @@ class Project extends Component
 	{
 		return [
 			'projectTitle.required' => 'Enter the :attribute.',
-			'category.required' => 'Enter the :attribute.',
+			'category.required' => 'Select the :attribute.',
 			'siteArea.required' => 'Enter the :attribute.',
-			'siteAreaUnit.required' => 'Enter the :attribute.',
+			'siteArea.numeric' => 'Enter the :attribute in numbers.',
+			'siteAreaUnit.required' => 'Select the :attribute.',
 			'builtUpArea.required' => 'Enter the :attribute.',
-			'builtUpAreaUnit.required' => 'Enter the :attribute.',
-			'location.required' => 'Enter the :attribute.',
-			'status.required' => 'Enter the :attribute.',
+			'builtUpArea.numeric' => 'Enter the :attribute in numbers.',
+			'builtUpAreaUnit.required' => 'Select the :attribute.',
+			'location.required' => 'Select the :attribute.',
+			'status.required' => 'Select the :attribute.',
 			'materials.required' => 'Enter the :attribute.',
-			'buildingTypology.required' => 'Enter the :attribute.',
+			'buildingTypology.required' => 'Select the :attribute.',
 			'imageCredits.required' => 'Enter the :attribute.',
 			'textCredits.required' => 'Enter the :attribute.',
 			'renderCredits.required' => 'Enter the :attribute.',
@@ -146,11 +151,11 @@ class Project extends Component
 			'projectLink.url' => 'Enter the valid :attribute.',
 			'projectLink.required_without' => 'Enter the :attribute or upload the file.',
 			'photographsFiles.required' => 'Upload the :attribute.',
-			'photographsFiles.image' => 'The :attribute supports only image.',
-			'photographsFiles.mimes' => 'The :attribute supports only svg, png, jpg or gif.',
+			'photographsFiles.*.image' => 'The :attribute supports only image.',
+			'photographsFiles.*.mimes' => 'The :attribute supports only svg, png, jpg or gif.',
 			'drawingsFiles.required' => 'Upload the :attribute.',
-			'drawingsFiles.image' => 'The :attribute supports only image.',
-			'drawingsFiles.mimes' => 'The :attribute supports only svg, png, jpg or gif.',
+			'drawingsFiles.*.image' => 'The :attribute supports only image.',
+			'drawingsFiles.*.mimes' => 'The :attribute supports only svg, png, jpg or gif.',
 			'tags.required' => 'Enter the :attribute.',
 			'mediaContact.required' => 'Enter the :attribute.',
 			'mediaKitAccess.required' => 'Enter the :attribute.',
@@ -219,12 +224,9 @@ class Project extends Component
 
 	public function add()
 	{
-		//dd($this->tags);
-		//dd($this->pressReleaseFile, $this->pressReleaseLink, $this->photographsFiles, $this->photographsLink);
-		//$validated = $this->validate();
 		$validated = Validator::make($this->data(), $this->rules(), $this->messages(), $this->validationAttributes())->validate();
-		dd($validated);
-		if($this->addStoryService->addPressRelease($validated)){
+		//dd($validated);
+		if($this->addStoryService->addProject($validated)){
 			$this->dispatch('alert', [
 				'type' => 'success',
 				'message' => 'You have successfully created project.'

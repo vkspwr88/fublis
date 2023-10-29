@@ -381,7 +381,7 @@
 								</span>
 							</template>
 						</div>
-						
+
 					</div>
 			 	</div>
 			</div>
@@ -398,7 +398,7 @@
 			<select id="selectMediaContact" class="form-select @error('mediaContact') is-invalid @enderror" wire:model="mediaContact">
 				<option value="">Select Media Contact</option>
 				@foreach ($mediaContacts as $mediaContact)
-					<option value="{{ $mediaContact->id }}">{{ $mediaContact->name }}</option>
+					<option value="{{ $mediaContact->id }}">{{ $mediaContact->user->name }}</option>
 				@endforeach
 			</select>
 			@error('mediaContact')<div class="invalid-feedback">{{ $message }}</div>@enderror

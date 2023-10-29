@@ -97,7 +97,7 @@ class Article extends Component
 			'coverImage.dimensions' => 'Maximum allowed dimension for the :attribute is 800x400px.',
 			'articleTitle.required' => 'Enter the :attribute.',
 			'textCredits.required' => 'Enter the :attribute.',
-			'category.required' => 'Enter the :attribute.',
+			'category.required' => 'Select the :attribute.',
 			'previewText.required' => 'Enter the :attribute.',
 			'articleFile.mimes' => 'The :attribute supports only pdf, doc or docs.',
 			'articleLink.url' => 'Enter the valid :attribute.',
