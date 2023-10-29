@@ -20,12 +20,7 @@ Route::middleware(ArchitectLogin::class)->group(function() {
 	});
 
 	Route::name('media-kit.')->prefix('media-kit')->group(function () {
-		Route::get('/', function(){
-			return view('users.pages.architects.media-kits.index', [
-				'categories' => array(),
-				'mediaKitTypes' => array(),
-			]);
-		})->name('index');
+		Route::get('/', [Architects\MediaKitController::class, 'index'])->name('index');
 		Route::name('press-release.')->prefix('press-release')->group(function () {
 			Route::get('/{id}', function(){
 				return view('users.pages.architects.media-kits.press-releases.view');

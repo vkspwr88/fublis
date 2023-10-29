@@ -16,7 +16,7 @@ class FileController extends Controller
         //$location = 'images/categories';
         $file->move($location, $fileName);
         return $location . '/' . $fileName; */
-		return Storage::putFile($location, $file);
+		return Storage::putFile($location, $file, 'public');
 		// Storage::delete('file.jpg');
 	}
 
