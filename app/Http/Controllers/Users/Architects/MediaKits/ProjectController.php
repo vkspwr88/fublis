@@ -11,6 +11,9 @@ class ProjectController extends Controller
 	public function view(MediaKit $mediaKit)
 	{
 		//dd($this->loadModel($mediaKit));
+		if(!$mediaKit){
+			return abort(404);
+		}
 		return view('users.pages.architects.media-kits.projects.view', [
 			'mediaKit' => $this->loadModel($mediaKit),
 		]);
@@ -18,6 +21,9 @@ class ProjectController extends Controller
 
 	public function edit(MediaKit $mediaKit)
 	{
+		if(!$mediaKit){
+			return abort(404);
+		}
 		return view('users.pages.architects.media-kits.projects.edit', [
 			'mediaKit' => $this->loadModel($mediaKit),
 		]);

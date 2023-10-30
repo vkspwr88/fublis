@@ -1,4 +1,4 @@
-<form wire:submit="add" class="pt-4">
+<form wire:submit="edit" class="pt-4">
 	<div class="row">
 		<div class="col-md-4">
 			<label for="inputText" class="col-form-label text-dark fs-6 fw-medium">Cover Image</label>
@@ -26,13 +26,17 @@
 								<p class="card-text text-center text-secondary fs-6 m-0 py-2">
 									<label for="inputCoverImage"><span class="text-purple-700 fw-semibold">Click to upload</span></label> or drag and drop
 								</p>
-								<input type="file" id="inputCoverImage" class="d-none" accept="image/svg,image/png,image/jpg,image/gif" @change="handleFileSelect">
+								<input type="file" id="inputCoverImage" class="d-none" @change="handleFileSelect">
 								<p class="card-text text-center text-secondary fs-6 m-0 py-2">SVG, PNG, JPG or GIF (max. 800x400px)</p>
 								@if($coverImage)
 									<ul class="mt-3 list-disc">
 										<li>
-											{{ $coverImage->getClientOriginalName() }}
-											<button type="button" class="btn btn-link text-danger text-decoration-none" @click="removeUpload('{{ $coverImage->getFilename() }}')">X</button>
+											@if(method_exists($coverImage, 'getClientOriginalName'))
+												{{ $coverImage->getClientOriginalName() }}
+												<button type="button" class="btn btn-link text-danger text-decoration-none" @click="removeUpload('{{ $coverImage->getFilename() }}')">X</button>
+											@else
+												{{ filterFileName($coverImage) }}
+											@endif
 										</li>
 									</ul>
 								@endif
@@ -125,12 +129,16 @@
 								<p class="card-text text-center text-secondary fs-6 m-0 py-2">
 									<label for="inputPressReleaseFile"><span class="text-purple-700 fw-semibold">Click to upload</span></label> or drag and drop
 								</p>
-								<input type="file" id="inputPressReleaseFile" class="d-none" accept="application/pdf,application/doc,application/docs" @change="handleFileSelect">
+								<input type="file" id="inputPressReleaseFile" class="d-none" @change="handleFileSelect">
 								@if($pressReleaseFile)
 									<ul class="mt-3 list-disc">
 										<li>
-											{{ $pressReleaseFile->getClientOriginalName() }}
-											<button type="button" class="btn btn-link text-danger text-decoration-none" @click="removeUpload('{{ $pressReleaseFile->getFilename() }}')">X</button>
+											@if(method_exists($pressReleaseFile, 'getClientOriginalName'))
+												{{ $pressReleaseFile->getClientOriginalName() }}
+												<button type="button" class="btn btn-link text-danger text-decoration-none" @click="removeUpload('{{ $pressReleaseFile->getFilename() }}')">X</button>
+											@else
+												{{ filterFileName($pressReleaseFile) }}
+											@endif
 										</li>
 									</ul>
 								@endif
@@ -180,13 +188,17 @@
 								<p class="card-text text-center text-secondary fs-6 m-0 py-2">
 									<label for="inputPhotographsFiles"><span class="text-purple-700 fw-semibold">Click to upload</span></label> or drag and drop
 								</p>
-								<input type="file" id="inputPhotographsFiles" class="d-none" accept="image/svg,image/png,image/jpg,image/gif" @change="handleFilesSelect" multiple>
+								<input type="file" id="inputPhotographsFiles" class="d-none" @change="handleFilesSelect" multiple>
 								@if(count($photographsFiles) > 0)
 									<ul class="mt-3 list-disc">
 										@foreach ($photographsFiles as $photographsFile)
 										<li>
-											{{ $photographsFile->getClientOriginalName() }}
-											<button type="button" class="btn btn-link text-danger text-decoration-none" @click="removeUpload('{{ $photographsFile->getFilename() }}')">X</button>
+											@if(method_exists($photographsFile, 'getClientOriginalName'))
+												{{ $photographsFile->getClientOriginalName() }}
+												<button type="button" class="btn btn-link text-danger text-decoration-none" @click="removeUpload('{{ $photographsFile->getFilename() }}')">X</button>
+											@else
+												{{ filterFileName($photographsFile) }}
+											@endif
 										</li>
 										@endforeach
 									</ul>
@@ -198,29 +210,6 @@
 								</div>
 							</div>
 						</div>
-
-						{{-- <div class="col-md-4">
-							<div class="card">
-								<div class="card-body bg-white rounded-3 border border-light">
-									<div class="row align-items-center">
-										<div class="col-12">
-											<div class="d-flex justify-content-center align-items-center">
-												<div class="upload-icon rounded-circle text-gray-600 fs-5">
-													<i class="bi bi-cloud-upload"></i>
-												</div>
-											</div>
-											<p class="card-text text-center text-purple-700 fw-semibold fs-6 m-0 py-2">Click to upload</p>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-md-4">
-							<div class="d-flex flex-column justify-content-center align-items-center">
-								<div class="text-center fs-1 rounded-circle bg-white" style="color: #9E9E9E;"><i class="bi bi-plus"></i></div>
-								<p class="text-center text-gray-600 fs-6 m-0 py-2">Add more</p>
-							</div>
-						</div> --}}
 					</div>
 				</div>
 			</div>
@@ -236,8 +225,6 @@
 	<div class="row">
 		<label for="inputTags" class="col-md-4 col-form-label text-dark fs-6 fw-medium">Tags</label>
 		<div class="col-md-8">
-			{{-- <input type="text" id="inputTags" class="form-control @error('tags') is-invalid @enderror" wire:model="tags"> --}}
-			{{-- <x-form.tags class="bg-grey-lighter" wire:model="tags" /> --}}
 			<div x-data="{tags: @entangle('tags'), newTag: '' }">
 				<template x-for="tag in tags">
 					<input type="hidden" :value="tag" name="tags">
@@ -264,13 +251,13 @@
 			 	</div>
 			</div>
 			<div id="tagsHelpBlock" class="form-text">Press enter, dot or space to add tags.</div>
-			@error('tags')<div class="invalid-feedback">{{ $message }}</div>@enderror
+			@error('tags')<div class="error">{{ $message }}</div>@enderror
 		</div>
 	</div>
 	<hr class="border-gray-300">
 	<div class="text-end">
 		<button class="btn btn-white fs-6 fw-semibold" type="button">Preview</button>
-		<button class="btn btn-primary fs-6 fw-semibold" type="submit">Submit Press Release</button>
+		<button class="btn btn-primary fs-6 fw-semibold" type="submit">Save Press Release</button>
 	</div>
 	<script>
 		function fileUpload(element) {

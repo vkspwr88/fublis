@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Livewire\Architects\MediaKits;
+namespace App\Livewire\Architects\MediaKits\Projects;
 
 use Livewire\Component;
 
-class Project extends Component
+class View extends Component
 {
 	public $project;
 
@@ -15,6 +15,6 @@ class Project extends Component
 
     public function render()
     {
-        return view('livewire.architects.media-kits.project');
+        return view('livewire.architects.media-kits.projects.view');
     }
 }

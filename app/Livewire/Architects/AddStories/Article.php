@@ -81,7 +81,8 @@ class Article extends Component
 			'articleWrite' => 'required',
 			'companyProfileFile' => 'nullable|file|mimes:pdf,doc,docs',
 			'companyProfileLink' => 'nullable|required_without:companyProfileFile|url',
-			'imagesFiles' => 'nullable',
+			'imagesFiles' => 'nullable|array',
+			'imagesFiles.*' => 'image|mimes:svg,png,jpg,gif',
 			'imagesLink' => 'nullable|required_without:imagesFiles|url',
 			'tags' => 'required|array',
 		];
@@ -107,7 +108,9 @@ class Article extends Component
 			'companyProfileFile.mimes' => 'The :attribute supports only pdf, doc or docs.',
 			'companyProfileLink.url' => 'Enter the valid :attribute.',
 			'companyProfileLink.required_without' => 'Enter the :attribute or upload the file.',
-			'imagesFiles.url' => 'Enter the valid :attribute.',
+			'imagesFiles.*.image' => 'The :attribute supports only image.',
+			'imagesFiles.*.mimes' => 'The :attribute supports only svg, png, jpg or gif.',
+			'imagesLink.url' => 'Enter the valid :attribute.',
 			'imagesLink.required_without' => 'Enter the :attribute or upload the file.',
 			'tags.required' => 'Enter the :attribute.',
 		];

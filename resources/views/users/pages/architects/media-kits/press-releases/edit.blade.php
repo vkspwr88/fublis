@@ -7,7 +7,8 @@
 	<div class="row justify-content-center">
 		<div class="col-md-11">
 			<h4 class="text-purple-600 fs-3 fw-semibold m-0 py-2">Edit Press Release</h4>
-			<form action="" class="pt-5">
+			<livewire:architects.media-kits.press-releases.edit :mediaKit="$mediaKit" />
+			{{-- <form action="" class="pt-5">
 				<div class="row">
 					<div class="col-md-4">
 						<label for="inputText" class="col-form-label text-dark fs-6 fw-medium">Cover Image</label>
@@ -152,29 +153,7 @@
 					<button class="btn btn-white fs-6 fw-semibold" type="button">Preview</button>
 					<button class="btn btn-primary fs-6 fw-semibold" type="button">Save Press Release</button>
 				</div>
-			</form>
-		</div>
-	</div>
-
-	<div class="row justify-content-center pt-5">
-		<div class="col-md-10">
-			<div class="card rounded-4 shadow border border-1">
-				<div class="row justify-content-between align-items-center">
-					<div class="col-12">
-						<div class="row justify-content-center">
-							<div class="col-md-10">
-								<div class="card-body p-5 text-center">
-									<h5 class="card-title text-purple-900 fs-1 fw-semibold m-0 py-3">Your story is live.<br>Pitch Now!</h5>
-									<p class="card-text text-secondary fs-6 fw-normal m-0 py-3">Start exploring the publishing platforms readily available on Fublis. You can also respond to invited call for submissions that match your uploaded story.</p>
-									<p class="card-text m-0 py-3">
-										<button class="btn btn-primary btn-lg fs-6 fw-semibold" type="button">Pitch Story</button>
-									</p>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
+			</form> --}}
 		</div>
 	</div>
 </div>

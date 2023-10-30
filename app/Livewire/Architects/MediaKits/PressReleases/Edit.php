@@ -1,20 +1,21 @@
 <?php
 
-namespace App\Livewire\Architects\AddStories;
+namespace App\Livewire\Architects\MediaKits\PressReleases;
 
-ini_set('max_execution_time', 300);
 use App\Http\Controllers\Users\CategoryController;
 use App\Services\AddStoryService;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Livewire\Attributes\Rule;
 use Livewire\Component;
 use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
 use Livewire\WithFileUploads;
 
-class PressRelease extends Component
+class Edit extends Component
 {
 	use WithFileUploads;
 
+	public $mediaKitId;
 	#[Rule('required|image|mimes:svg,png,jpg,gif|max:3100|dimensions:max_width=800,max_height=400')]
 	public $coverImage;
 	public $pressReleaseTitle;
@@ -28,12 +29,30 @@ class PressRelease extends Component
 	public $photographsFiles = [];
 	public $photographsLink;
 	public $tags = [];
+	//public $mediaKit;
 
 	private AddStoryService $addStoryService;
 
+	public function mount($mediaKit)
+	{
+		//dd(Storage::size($mediaKit->story->cover_image_path));
+		$this->mediaKitId = $mediaKit->id;
+		$this->coverImage = $mediaKit->story->cover_image_path;
+		$this->pressReleaseTitle = $mediaKit->story->title;
+		$this->imageCredits = $mediaKit->story->image_credits;
+		$this->category = $mediaKit->category_id;
+		$this->conceptNote = $mediaKit->story->concept_note;
+		$this->pressReleaseWrite = $mediaKit->story->press_release_writeup;
+		$this->pressReleaseFile = $mediaKit->story->press_release_doc_path;
+		$this->pressReleaseLink = $mediaKit->story->press_release_doc_link;
+		$this->photographsFiles = $mediaKit->story->photographs->pluck('image_path');
+		$this->photographsLink = $mediaKit->story->photographs_link;
+		$this->tags = $mediaKit->story->tags->pluck('name');
+	}
+
     public function render()
     {
-        return view('livewire.architects.add-stories.press-release', [
+        return view('livewire.architects.media-kits.press-releases.edit', [
 			'categories' => CategoryController::getAll(),
 		]);
     }
@@ -45,15 +64,15 @@ class PressRelease extends Component
 
 	public function finishUpload($name, $tmpPath, $isMultiple)
     {
-		$this->cleanupOldUploads();
+		/* $this->cleanupOldUploads();
 		if ($isMultiple) {
             $file = collect($tmpPath)->map(function ($i) {
                 return TemporaryUploadedFile::createFromLivewire($i);
             })->toArray();
-            $this->emitSelf('upload:finished', $name, collect($file)->map->getFilename()->toArray());
+            $this->dispatch('upload:finished', $name, collect($file)->map->getFilename()->toArray());
         } else {
             $file = TemporaryUploadedFile::createFromLivewire($tmpPath[0]);
-            $this->emitSelf('upload:finished', $name, [$file->getFilename()]);
+            $this->dispatch('upload:finished', $name, [$file->getFilename()]);
 
             // If the property is an array, but the upload ISNT set to "multiple"
             // then APPEND the upload to the array, rather than replacing it.
@@ -61,13 +80,22 @@ class PressRelease extends Component
                 $file = array_merge($value, [$file]);
             }
         }
-        $this->syncInput($name, $file);
+        $this->syncInput($name, $file); */
+		$this->cleanupOldUploads();
+
+        $files = collect($tmpPath)->map(function ($i) {
+            return TemporaryUploadedFile::createFromLivewire($i);
+        })->toArray();
+        $this->dispatch('upload:finished', $name, collect($files)->map->getFilename()->toArray());
+
+        $files = array_merge($this->getPropertyValue($name), $files);
+        $this->syncInput($name, $files);
     }
 
 	public function rules()
 	{
 		return [
-			'coverImage' => 'required|image|mimes:svg,png,jpg,gif|max:3100|dimensions:max_width=800,max_height=400',
+			'coverImage' => 'nullable|image|mimes:svg,png,jpg,gif|max:3100|dimensions:max_width=800,max_height=400',
 			'pressReleaseTitle' => 'required',
 			'imageCredits' => 'required',
 			'category' => 'required',
@@ -78,7 +106,7 @@ class PressRelease extends Component
 			'photographsFiles' => 'nullable|array',
 			'photographsFiles.*' => 'image|mimes:svg,png,jpg,gif',
 			'photographsLink' => 'nullable|required_without:photographsFiles|url',
-			'tags' => 'required|array',
+			'tags' => 'nullable|array',
 		];
 	}
 
@@ -141,23 +169,21 @@ class PressRelease extends Component
 		];
 	}
 
-	public function add()
+	public function edit()
 	{
-		//dd($this->tags);
-		//dd($this->pressReleaseFile, $this->pressReleaseLink, $this->photographsFiles, $this->photographsLink);
-		//$validated = $this->validate();
+		dd($this->coverImage, $this->pressReleaseFile, $this->photographsFiles, $this->tags);
 		$validated = Validator::make($this->data(), $this->rules(), $this->messages(), $this->validationAttributes())->validate();
-		//dd($validated);
-		if($this->addStoryService->addPressRelease($validated)){
+		dd($validated);
+		if($this->addStoryService->editPressRelease($this->mediaKitId, $validated)){
 			$this->dispatch('alert', [
 				'type' => 'success',
-				'message' => 'You have successfully created press release.'
+				'message' => 'You have successfully updated press release.'
 			]);
-			return to_route('architect.add-story.press-release.success');
+			return to_route('architect.media-kit.press-release.view');
 		}
 		$this->dispatch('alert', [
 			'type' => 'warning',
-			'message' => 'We are facing problem in creating press release. Please try again or contact support.'
+			'message' => 'We are facing problem in updating press release. Please try again or contact support.'
 		]);
 	}
 }

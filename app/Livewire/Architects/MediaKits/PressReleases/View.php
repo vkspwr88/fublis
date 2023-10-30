@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Livewire\Architects\MediaKits;
+namespace App\Livewire\Architects\MediaKits\PressReleases;
 
 use Livewire\Component;
 
-class PressRelease extends Component
+class View extends Component
 {
 	public $pressRelease;
 
@@ -15,6 +15,6 @@ class PressRelease extends Component
 
     public function render()
     {
-        return view('livewire.architects.media-kits.press-release');
+        return view('livewire.architects.media-kits.press-releases.view');
     }
 }

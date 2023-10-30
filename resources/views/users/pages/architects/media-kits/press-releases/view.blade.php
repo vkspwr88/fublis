@@ -47,12 +47,12 @@
 				<div class="col-4">
 					<div class="row g-2 justify-content-end">
 						<div class="col-auto">
-							<a href="{{ route('architect.media-kit.project.edit', ['mediaKit' => $mediaKit->id]) }}" class="text-purple-600">
+							<a href="{{ route('architect.media-kit.press-release.edit', ['mediaKit' => $mediaKit->id]) }}" class="text-purple-600">
 								<i class="bi bi-pencil-square"></i>
 							</a>
 						</div>
 						<div class="col-auto">
-							<a href="{{ route('architect.media-kit.project.edit', ['mediaKit' => $mediaKit->id]) }}" class="text-purple-600">
+							<a href="{{ route('architect.media-kit.press-release.edit', ['mediaKit' => $mediaKit->id]) }}" class="text-purple-600">
 								<i class="bi bi-share-fill"></i>
 							</a>
 						</div>

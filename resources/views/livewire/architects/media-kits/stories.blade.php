@@ -1,11 +1,11 @@
 <div class="row g-4">
 	@forelse ($mediaKits as $mediaKit)
 		@if (str()->contains($mediaKit->story_type, 'PressRelease'))
-			<livewire:architects.media-kits.press-release :pressRelease="$mediaKit" :key="$mediaKit->id" />
+			<livewire:architects.media-kits.press-releases.view :pressRelease="$mediaKit" :key="$mediaKit->id" />
 		@elseif (str()->contains($mediaKit->story_type, 'Article'))
-			<livewire:architects.media-kits.article :article="$mediaKit" :key="$mediaKit->id" />
+			<livewire:architects.media-kits.articles.view :article="$mediaKit" :key="$mediaKit->id" />
 		@elseif (str()->contains($mediaKit->story_type, 'Project'))
-			<livewire:architects.media-kits.project :project="$mediaKit" :key="$mediaKit->id" />
+			<livewire:architects.media-kits.projects.view :project="$mediaKit" :key="$mediaKit->id" />
 		@endif
 	@empty
 	<div class="col-12">

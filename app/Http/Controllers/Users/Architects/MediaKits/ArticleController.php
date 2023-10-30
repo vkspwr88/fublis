@@ -10,6 +10,9 @@ class ArticleController extends Controller
 {
 	public function view(MediaKit $mediaKit)
 	{
+		if(!$mediaKit){
+			return abort(404);
+		}
 		return view('users.pages.architects.media-kits.articles.view', [
 			'mediaKit' => $this->loadModel($mediaKit),
 		]);
@@ -17,6 +20,9 @@ class ArticleController extends Controller
 
 	public function edit(MediaKit $mediaKit)
 	{
+		if(!$mediaKit){
+			return abort(404);
+		}
 		return view('users.pages.architects.media-kits.articles.edit', [
 			'mediaKit' => $this->loadModel($mediaKit),
 		]);
