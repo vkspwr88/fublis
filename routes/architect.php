@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Users\Architects;
 use App\Http\Middleware\ArchitectLogin;
+use App\Models\Architect;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/signup', [Architects\Auth\SignupController::class, 'index'])->name('signup');
@@ -22,28 +23,16 @@ Route::middleware(ArchitectLogin::class)->group(function() {
 	Route::name('media-kit.')->prefix('media-kit')->group(function () {
 		Route::get('/', [Architects\MediaKitController::class, 'index'])->name('index');
 		Route::name('press-release.')->prefix('press-release')->group(function () {
-			Route::get('/{id}', function(){
-				return view('users.pages.architects.media-kits.press-releases.view');
-			})->name('view');
-			Route::get('/{id}/edit', function(){
-				return view('users.pages.architects.media-kits.press-releases.edit');
-			})->name('edit');
+			Route::get('/{mediaKit}', [Architects\MediaKits\PressReleaseController::class, 'view'])->name('view');
+			Route::get('/{mediaKit}/edit', [Architects\MediaKits\PressReleaseController::class, 'edit'])->name('edit');
 		});
 		Route::name('article.')->prefix('article')->group(function () {
-			Route::get('/{id}', function(){
-				return view('users.pages.architects.media-kits.articles.view');
-			})->name('view');
-			Route::get('/{id}/edit', function(){
-				return view('users.pages.architects.media-kits.articles.edit');
-			})->name('edit');
+			Route::get('/{mediaKit}', [Architects\MediaKits\ArticleController::class, 'view'])->name('view');
+			Route::get('/{mediaKit}/edit', [Architects\MediaKits\ArticleController::class, 'edit'])->name('edit');
 		});
 		Route::name('project.')->prefix('project')->group(function () {
-			Route::get('/{id}', function(){
-				return view('users.pages.architects.media-kits.projects.view');
-			})->name('view');
-			Route::get('/{id}/edit', function(){
-				return view('users.pages.architects.media-kits.projects.edit');
-			})->name('edit');
+			Route::get('/{mediaKit}', [Architects\MediaKits\ProjectController::class, 'view'])->name('view');
+			Route::get('/{mediaKit}/edit', [Architects\MediaKits\ProjectController::class, 'edit'])->name('edit');
 		});
 
 		/* Route::get('/article/{id}', function(){

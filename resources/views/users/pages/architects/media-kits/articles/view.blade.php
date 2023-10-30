@@ -6,34 +6,23 @@
 <div class="container py-5">
 	<div class="row g-4">
 		<div class="col-md-8">
-			<h1 class="text-dark fs-2 fw-semibold m-0 py-2">Chengdu National History Museum Pelli Clarke & Partners + CSWADI Udaipur</h1>
+			<h1 class="text-dark fs-2 fw-semibold m-0 py-2">{{ $mediaKit->story->title }}</h1>
 			<div class="row justify-content-center g-2 py-3">
 				<div class="col-auto">
 					<span class="badge rounded-pill bg-purple-50 text-purple-700 fs-6 fw-medium">Article</span>
 				</div>
 				<div class="col-auto">
-					<span class="badge rounded-pill bg-purple-50 text-purple-700 fs-6 fw-medium">Hospitality</span>
-				</div>
-				<div class="col-auto">
-					<span class="badge rounded-pill bg-purple-50 text-purple-700 fs-6 fw-medium">India</span>
+					<span class="badge rounded-pill bg-purple-50 text-purple-700 fs-6 fw-medium">{{ $mediaKit->category->name }}</span>
 				</div>
 			</div>
 			<div class="row mb-4">
 				<div class="col text-secondary fs-6">
-					<p>
-						The latest product of RENESA ARCHITECTURE DESIGN INTERIORS STUDIO, The Elgin Cafe restaurant and bar is a culmination of a day bistro with a hip bar vibe by night. Leaning on our maximalist side, we created a clean, soft space with an inviting color palette. The idea was to create an atmosphere and feel of the outdoors, where you would find yourself surrounded by greenery, natural wood, food spots, and conversations. We sought to engage in a design that would create an international hospitality experience, consequently appealing to the social media savvy clientele that enjoys cafe culture.
-					</p>
-					<p>
-						The latest product of RENESA ARCHITECTURE DESIGN INTERIORS STUDIO, The Elgin Cafe restaurant and bar is a culmination of a day bistro with a hip bar vibe by night. Leaning on our maximalist side, we created a clean, soft space with an inviting color palette. The idea was to create an atmosphere and feel of the outdoors, where you would find yourself surrounded by greenery, natural wood, food spots, and conversations. We sought to engage in a design that would create an international hospitality experience, consequently appealing to the social media savvy clientele that enjoys cafe culture.
-					</p>
-					<p>
-						We began by understanding the functional demands coupled with our modern and refreshing interpretation defined by design, materiality, and brand. Once inside, customers are invited to engage with the play of materials and the spaces they form in the cafe. One part forms the cafe area which has more of a day dining aesthetic while separating the private dining room through sliding folding shutters.
-					</p>
+					{{ $mediaKit->story->article_writeup }}
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-12">
-					<img src="https://via.placeholder.com/790x400" alt="" class="img-fluid w-100" />
+					<img src="{{ Storage::url($mediaKit->story->cover_image_path) }}" style="max-width: 790px; max-height: 400px;" alt="" class="img-fluid" />
 				</div>
 			</div>
 		</div>
@@ -46,9 +35,9 @@
 							<img class="rounded-circle" src="https://via.placeholder.com/48x48" alt="..." />
 						</div>
 						<div class="col">
-							<p class="text-purple-800 fs-6 fw-medium m-0 p-0">Pelli Clarke & Partners</p>
+							<p class="text-purple-800 fs-6 fw-medium m-0 p-0">{{ $mediaKit->architect->company->name }}</p>
 							<p class="fs-6 m-0 p-0">
-								<a href="#" class="text-secondary">www.pcparch.com</a>
+								<a href="{{ $mediaKit->architect->company->website }}" class="text-secondary">{{ str()->remove('http://', $mediaKit->architect->company->website) }}</a>
 							</p>
 						</div>
 					</div>
@@ -56,12 +45,12 @@
 				<div class="col-4">
 					<div class="row g-2 justify-content-end">
 						<div class="col-auto">
-							<a href="{{ route('architect.media-kit.article.edit', ['id' => 'id']) }}" class="text-purple-600">
+							<a href="{{ route('architect.media-kit.article.edit', ['mediaKit' => $mediaKit->id]) }}" class="text-purple-600">
 								<i class="bi bi-pencil-square"></i>
 							</a>
 						</div>
 						<div class="col-auto">
-							<a href="{{ route('architect.media-kit.article.edit', ['id' => 'id']) }}" class="text-purple-600">
+							<a href="{{ route('architect.media-kit.article.edit', ['mediaKit' => $mediaKit->id]) }}" class="text-purple-600">
 								<i class="bi bi-share-fill"></i>
 							</a>
 						</div>
@@ -71,7 +60,7 @@
 			<hr class="border-gray-300">
 			<div class="row">
 				<div class="col-12">
-					<img src="https://via.placeholder.com/401x213" class="img-fluid w-100" alt="..." />
+					<img src="{{ Storage::url($mediaKit->story->cover_image_path) }}" style="max-width: 401px; max-height: 213px;" class="img-fluid" alt="..." />
 				</div>
 			</div>
 			<hr class="border-gray-300">
@@ -80,7 +69,7 @@
 					<p class="text-dark fs-6 m-0">Description</p>
 				</div>
 				<div class="col text-end">
-					<button class="btn btn-primary fs-6 fw-medium" type="button">Download</button>
+					<a class="btn btn-primary fs-6 fw-medium" href="{{ Storage::download($mediaKit->story->article_doc_path) }}" target="_blank">Download</a>
 				</div>
 			</div>
 			<hr class="border-gray-300">
@@ -89,7 +78,7 @@
 					<p class="text-dark fs-6 m-0">Gallery</p>
 				</div>
 				<div class="col text-end">
-					<button class="btn btn-primary fs-6 fw-medium" type="button">Download</button>
+					<a class="btn btn-primary fs-6 fw-medium" href="{{ Storage::download($mediaKit->story->article_doc_path) }}" target="_blank">Download</a>
 				</div>
 			</div>
 			<hr class="border-gray-300">
@@ -101,8 +90,8 @@
 							<img class="rounded-circle" src="https://via.placeholder.com/48x48" alt="..." />
 						</div>
 						<div class="col-auto">
-							<p class="text-purple-800 fs-6 fw-medium m-0 p-0">Vikas Pawar</p>
-							<p class="text-secondary fs-6 m-0 p-0">Architect</p>
+							<p class="text-purple-800 fs-6 fw-medium m-0 p-0">{{ $mediaKit->architect->user->name }}</p>
+							<p class="text-secondary fs-6 m-0 p-0">{{ $mediaKit->architect->position->name }}</p>
 						</div>
 						<div class="col-auto text-purple-700"><i class="bi bi-arrow-up-right"></i></div>
 					</div>

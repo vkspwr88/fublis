@@ -35,12 +35,12 @@ class Project extends Model
 
 	public function siteAreaUnit(): BelongsTo
 	{
-		return $this->belongsTo(Area::class);
+		return $this->belongsTo(Area::class, 'site_area_id');
 	}
 
 	public function builtUpAreaUnit(): BelongsTo
 	{
-		return $this->belongsTo(Area::class);
+		return $this->belongsTo(Area::class, 'built_up_area_id');
 	}
 
 	public function projectStatus(): BelongsTo

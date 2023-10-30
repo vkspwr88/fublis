@@ -1,7 +1,7 @@
 <div class="col-12">
 	<div class="card border-0 rounded-3 bg-white shadow">
 		<div class="card-body">
-			<a href="{{ route('architect.media-kit.article.view', ['id' => $article->id]) }}" class="stretched-link"></a>
+			<a href="{{ route('architect.media-kit.article.view', ['mediaKit' => $article->id]) }}" class="stretched-link"></a>
 			<div class="row">
 				<div class="col-sm-4">
 					<img src="{{ Storage::url($article->story->cover_image_path) }}" class="img-fluid" style="max-width: 300px; max-height: 300px;" alt="...">
@@ -23,7 +23,7 @@
 					<p class="card-text text-dark fs-6 m-0 py-2">{{ $article->story->preview_text }}</p>
 					<div class="row justify-content-center pt-2 position-relative" style="z-index: 2;">
 						<p class="fs-6 fw-bold col m-0">
-							<a href="{{ route('architect.media-kit.article.edit', ['id' => $article->id]) }}" class="text-purple-600">
+							<a href="{{ route('architect.media-kit.article.edit', ['mediaKit' => $article->id]) }}" class="text-purple-600">
 								Edit Story <i class="bi bi-arrow-up-right small"></i>
 							</a>
 						</p>

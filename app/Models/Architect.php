@@ -24,7 +24,7 @@ class Architect extends Model
 	}
 
 	public function position(): BelongsTo{
-		return $this->belongsTo(ArchitectPosition::class);
+		return $this->belongsTo(ArchitectPosition::class, 'architect_position_id');
 	}
 
 	public function projects(): HasMany
