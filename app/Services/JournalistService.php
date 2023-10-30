@@ -48,7 +48,7 @@ class JournalistService
 
 	public function sendVerificationEmail($guest)
 	{
-		//Mail::to($guest->email)->send(new VerificationMail($guest));
+		Mail::to($guest->email)->send(new VerificationMail($guest));
 	}
 
 	public function resendVerificationEmail()

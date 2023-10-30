@@ -18,6 +18,14 @@
 			</div>
 			<div class="offcanvas-body">
 				<ul id="headerNav" class="navbar-nav ms-xl-5 me-xl-auto mb-2 mb-xl-0">
+					@if(isJournalist())
+					<li class="nav-item">
+						<a class="nav-link" href="{{ route('architect.add-story.index') }}">Invite Story</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link {{ request()->segment(2) === 'media-kit' ? 'active fw-medium' : '' }}" {{ request()->segment(2) === 'media-kit' ? 'aria-current=page' : '' }} href="{{ route('architect.media-kit.index') }}">Media Kits</a>
+					</li>
+					@else
 					<li class="nav-item">
 						<a class="nav-link {{ request()->segment(2) === 'add-story' ? 'active fw-medium' : '' }}" {{ request()->segment(2) === 'add-story' ? 'aria-current=page' : '' }} href="{{ route('architect.add-story.index') }}">Add Story</a>
 					</li>
@@ -27,6 +35,7 @@
 					<li class="nav-item">
 						<a class="nav-link {{ request()->segment(2) === 'pitch-story' ? 'active fw-medium' : '' }}" {{ request()->segment(2) === 'pitch-story' ? 'aria-current=page' : '' }} href="{{ route('architect.pitch-story.index') }}">Pitch Story</a>
 					</li>
+					@endif
 					<li class="nav-item dropdown">
 						<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
 							aria-expanded="false">

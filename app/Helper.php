@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\Users\UserTypeEnum;
 use Illuminate\Support\Arr;
 
 if (!function_exists('filterFileName')) {
@@ -16,4 +17,18 @@ if (!function_exists('filterFileName')) {
 		$filter = str_replace( ',', ', ', $filter);
         return $filter; */
     }
+}
+
+if (!function_exists('isArchitect')) {
+    function isArchitect()
+    {
+		return auth()->check() && auth()->user()->user_type === UserTypeEnum::ARCHITECT;
+	}
+}
+
+if (!function_exists('isJournalist')) {
+    function isJournalist()
+    {
+		return auth()->check() && auth()->user()->user_type === UserTypeEnum::JOURNALIST;
+	}
 }
