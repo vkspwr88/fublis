@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Mail\User\Architect\Signup;
+namespace App\Mail\User\Journalist\Signup;
 
 use App\Http\Controllers\Users\SettingController;
 use App\Models\Guest;
@@ -41,7 +41,7 @@ class VerificationMail extends Mailable
     public function content(): Content
     {
         return new Content(
-            markdown: 'emails.user.architect.signup.verification-email',
+            markdown: 'emails.user.journalist.signup.verification-email',
 			with: [
 				'senderEmail' => $this->guest->email,
 				'guest' => $this->guest,

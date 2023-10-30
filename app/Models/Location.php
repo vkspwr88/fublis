@@ -27,4 +27,9 @@ class Location extends Model
 	{
 		return $this->hasMany(Project::class);
 	}
+
+	public function publications(): HasMany
+	{
+		return $this->hasMany(Publication::class);
+	}
 }

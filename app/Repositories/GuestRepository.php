@@ -2,7 +2,7 @@
 
 namespace App\Repositories;
 
-use App\Http\Controllers\SettingController;
+use App\Http\Controllers\Users\SettingController;
 use App\Interfaces\GuestRepositoryInterface;
 use App\Models\Guest;
 use Carbon\Carbon;

@@ -20,19 +20,23 @@ class Company extends Model
 		'name' => NameCast::class,
 	];
 
-	public function category(): BelongsTo{
+	public function category(): BelongsTo
+	{
 		return $this->belongsTo(Category::class);
 	}
 
-	public function location(): BelongsTo{
+	public function location(): BelongsTo
+	{
 		return $this->belongsTo(Location::class);
 	}
 
-	public function teamSize(): BelongsTo{
+	public function teamSize(): BelongsTo
+	{
 		return $this->belongsTo(TeamSize::class);
 	}
 
-	public function architects(): HasMany{
+	public function architects(): HasMany
+	{
 		return $this->hasMany(Architect::class);
 	}
 }

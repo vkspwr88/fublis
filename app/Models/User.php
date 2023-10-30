@@ -62,7 +62,13 @@ class User extends Authenticatable implements Authorizable
 		$this->attributes['password'] = Hash::make($value);
 	}
 
-	public function architect(): HasOne{
+	public function architect(): HasOne
+	{
 		return $this->hasOne(Architect::class);
+	}
+
+	public function journalist(): HasOne
+	{
+		return $this->hasOne(Journalist::class);
 	}
 }

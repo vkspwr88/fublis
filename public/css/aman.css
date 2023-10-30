@@ -566,6 +566,31 @@ a.text-purple:hover{
 	display: block;
 }
 
+#searchBox input{
+	position: absolute;
+	opacity: 0;
+	height: 0;
+	width: 0;
+}
+.search-list:hover{
+	background: var(--fublis-gray-50);
+	cursor: pointer;
+}
+
+input:checked + .search-list{
+	background: var(--fublis-gray-100);
+}
+
+.search-list .checked{
+	right: 10px;
+	top: 10px;
+	font-size: 22px;
+	opacity: 0;
+}
+input:checked+.search-list .checked{
+	opacity: 1;
+}
+
 
 
 

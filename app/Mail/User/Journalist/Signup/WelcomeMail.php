@@ -1,9 +1,7 @@
 <?php
 
-namespace App\Mail\User\Architect\Signup;
+namespace App\Mail\User\Journalist\Signup;
 
-use App\Http\Controllers\Users\SettingController;
-use App\Models\Guest;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
@@ -11,7 +9,7 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class VerificationMail extends Mailable
+class WelcomeMail extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -19,7 +17,7 @@ class VerificationMail extends Mailable
      * Create a new message instance.
      */
     public function __construct(
-		public Guest $guest,
+		public string $email,
 	)
     {
         //
@@ -31,7 +29,7 @@ class VerificationMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Verify your email address',
+            subject: 'Welcome to Fublis',
         );
     }
 
@@ -41,13 +39,10 @@ class VerificationMail extends Mailable
     public function content(): Content
     {
         return new Content(
-            markdown: 'emails.user.architect.signup.verification-email',
+            markdown: 'emails.user.journalist.signup.welcome-email',
 			with: [
-				'senderEmail' => $this->guest->email,
-				'guest' => $this->guest,
-				'otp' => (string)$this->guest->email_otp,
-				'emailVerificationTimeout' => SettingController::getValue('EMAIL_VERIFICATION_TIMEOUT'),
-			]
+				'senderEmail' => $this->email,
+			],
         );
     }
 

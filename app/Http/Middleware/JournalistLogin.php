@@ -7,7 +7,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class ArchitectLogin
+class JournalistLogin
 {
     /**
      * Handle an incoming request.
@@ -16,9 +16,9 @@ class ArchitectLogin
      */
     public function handle(Request $request, Closure $next): Response
     {
-		if(auth()->check() && auth()->user()->user_type === UserTypeEnum::ARCHITECT){
+        if(auth()->check() && auth()->user()->user_type === UserTypeEnum::JOURNALIST){
 			return $next($request);
 		}
-		return to_route('architect.login');
+		return to_route('journalist.login');
     }
 }
