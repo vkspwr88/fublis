@@ -14,8 +14,6 @@ Route::middleware(JournalistLogin::class)->group(function() {
 		Route::get('/create', [Journalists\CallController::class, 'create'])->name('create');
 		Route::get('/{call}/view', [Journalists\CallController::class, 'view'])->name('view');
 		Route::get('/{call}/edit', [Journalists\CallController::class, 'edit'])->name('edit');
-		//Route::get('/{success}', [Journalists\CallController::class, 'success'])->name('press-release.success');
-		//Route::get('/{success}/edit', [Journalists\CallController::class, 'index'])->name('article');
 	});
 
 	Route::name('media-kit.')->prefix('media-kit')->group(function () {
