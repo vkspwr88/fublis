@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class JournalistPosition extends Model
+class Language extends Model
 {
     use HasFactory, HasUuids, SoftDeletes;
 
@@ -17,8 +17,8 @@ class JournalistPosition extends Model
 		'name' => NameCast::class,
 	];
 
-	public function journalists(): HasMany
+	public function call(): HasMany
 	{
-		return $this->hasMany(Journalist::class);
+		return $this->hasMany(Call::class);
 	}
 }

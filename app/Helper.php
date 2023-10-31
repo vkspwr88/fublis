@@ -32,3 +32,10 @@ if (!function_exists('isJournalist')) {
 		return auth()->check() && auth()->user()->user_type === UserTypeEnum::JOURNALIST;
 	}
 }
+
+if (!function_exists('trimWebsiteUrl')) {
+    function trimWebsiteUrl($url)
+    {
+		return str()->remove('http://', $url);
+	}
+}

@@ -39,7 +39,7 @@
 						<div class="col">
 							<p class="text-purple-800 fs-6 fw-medium m-0 p-0">{{ $mediaKit->architect->company->name }}</p>
 							<p class="fs-6 m-0 p-0">
-								<a href="{{ $mediaKit->architect->company->website }}" class="text-secondary">{{ str()->remove('http://', $mediaKit->architect->company->website) }}</a>
+								<a href="{{ $mediaKit->architect->company->website }}" class="text-secondary">{{ trimWebsiteUrl($mediaKit->architect->company->website) }}</a>
 							</p>
 						</div>
 					</div>

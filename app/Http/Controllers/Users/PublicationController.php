@@ -19,4 +19,9 @@ class PublicationController extends Controller
 	{
 		return Publication::create($details);
 	}
+
+	public static function findById(string $id)
+	{
+		return Publication::find($id);
+	}
 }

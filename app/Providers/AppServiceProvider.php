@@ -36,5 +36,15 @@ class AppServiceProvider extends ServiceProvider
 		Livewire::component('journalist-signup-add-publication-step', Components\Journalists\Signup\Steps\AddPublicationStepComponent::class);
 		Livewire::component('journalist-signup-add-profile-step', Components\Journalists\Signup\Steps\AddProfileStepComponent::class);
 		Livewire::component('journalist-signup-success-step', Components\Journalists\Signup\Steps\SuccessStepComponent::class);
-    }
+
+		Livewire::component('journalist-calls-create-wizard', Components\Journalists\Calls\Create\CreateWizardComponent::class);
+		Livewire::component('journalist-calls-create-step', Components\Journalists\Calls\Create\Steps\CreateStepComponent::class);
+		Livewire::component('journalist-calls-preview-step', Components\Journalists\Calls\Create\Steps\PreviewStepComponent::class);
+		Livewire::component('journalist-calls-success-step', Components\Journalists\Calls\Create\Steps\SuccessStepComponent::class);
+
+		Livewire::component('journalist-calls-edit-wizard', Components\Journalists\Calls\Edit\EditWizardComponent::class);
+		Livewire::component('journalist-calls-edit-step', Components\Journalists\Calls\Edit\Steps\EditStepComponent::class);
+		Livewire::component('journalist-calls-edit-preview-step', Components\Journalists\Calls\Edit\Steps\PreviewStepComponent::class);
+
+	}
 }

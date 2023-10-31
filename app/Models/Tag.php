@@ -30,4 +30,9 @@ class Tag extends Model
 	{
 		return $this->morphedByMany(Project::class, 'taggable');
 	}
+
+	public function calls(): MorphToMany
+	{
+		return $this->morphedByMany(Tag::class, 'taggable');
+	}
 }

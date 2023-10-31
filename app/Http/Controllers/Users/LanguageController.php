@@ -3,18 +3,18 @@
 namespace App\Http\Controllers\Users;
 
 use App\Http\Controllers\Controller;
-use App\Models\Location;
+use App\Models\Language;
 use Illuminate\Http\Request;
 
-class LocationController extends Controller
+class LanguageController extends Controller
 {
     public static function getAll()
 	{
-		return Location::all();
+		return Language::all();
 	}
 
 	public static function findById(string $id)
 	{
-		return Location::find($id);
+		return Language::find($id);
 	}
 }
