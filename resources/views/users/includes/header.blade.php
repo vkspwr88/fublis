@@ -23,7 +23,7 @@
 							<a class="nav-link" href="{{ route('journalist.call.create') }}">Invite Story</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link {{ request()->segment(2) === 'media-kit' ? 'active fw-medium' : '' }}" {{ request()->segment(2) === 'media-kit' ? 'aria-current=page' : '' }} href="{{ route('architect.media-kit.index') }}">Media Kits</a>
+							<a class="nav-link {{ request()->segment(2) === 'media-kit' ? 'active fw-medium' : '' }}" {{ request()->segment(2) === 'media-kit' ? 'aria-current=page' : '' }} href="{{ route('journalist.media-kit.index') }}">Media Kits</a>
 						</li>
 					@else
 						<li class="nav-item">
@@ -51,7 +51,7 @@
 						</ul>
 					</li>
 				</ul>
-				<form class="d-flex my-5 my-xl-0" role="search">
+				<form class="d-flex my-5 my-xl-0" aria-label="search">
 					<div class="input-group">
 						<label class="input-group-text bg-white" for="headerSearchInput"><i class="bi bi-search"></i></label>
 						<input id="headerSearchInput" class="form-control border-start-0 shadow-none ps-0" type="search" placeholder="Search journalists, publications" aria-label="Search">

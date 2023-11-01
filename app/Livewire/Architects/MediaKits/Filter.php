@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Architects\MediaKits;
 
-use App\Http\Controllers\Users\Architects\MediaKitController;
+use App\Http\Controllers\Users\MediaKitController;
 use App\Http\Controllers\Users\CategoryController;
 use Livewire\Component;
 
