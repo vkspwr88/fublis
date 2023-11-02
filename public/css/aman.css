@@ -45,6 +45,9 @@ a{
 	border-top-right-radius: var(--bs-border-radius-xl) !important;
 }
 
+.text-gray-100{
+	color: var(--fublis-gray-100) !important;
+}
 .text-gray-300{
 	color: var(--fublis-gray-300) !important;
 }
@@ -53,6 +56,9 @@ a{
 }
 .text-gray-600{
 	color: var(--fublis-gray-600) !important;
+}
+.text-gray-700{
+	color: var(--fublis-gray-700) !important;
 }
 .text-gray-900{
 	color: var(--fublis-gray-900) !important;
@@ -82,6 +88,9 @@ a.text-purple-600:hover{
 	color: var(--fublis-pink-200) !important;
 }
 
+.border-gray-100{
+	border-color: var(--fublis-gray-100) !important;
+}
 .border-gray-300{
 	border-color: var(--fublis-gray-300) !important;
 }
@@ -95,6 +104,9 @@ a.text-purple-600:hover{
 .bg-gray-50{
 	background: var(--fublis-gray-50) !important;
 }
+.bg-gray-100{
+	background: var(--fublis-gray-100) !important;
+}
 .bg-gray-200{
 	background: var(--fublis-gray-200) !important;
 }
@@ -103,6 +115,9 @@ a.text-purple-600:hover{
 }
 .bg-purple-50{
 	background: var(--fublis-purple-50) !important;
+}
+.bg-purple-100{
+	background: var(--fublis-purple-100) !important;
 }
 .bg-purple-600{
 	background: var(--fublis-purple-600) !important;

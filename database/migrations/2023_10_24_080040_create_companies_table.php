@@ -19,6 +19,8 @@ return new class extends Migration
 			$table->foreignIdFor(Models\Location::class);
 			$table->foreignIdFor(Models\Category::class);
 			$table->foreignIdFor(Models\TeamSize::class);
+			$table->year('starting_year')->nullable();
+			$table->string('instagram')->nullable();
             $table->timestamps();
 			$table->softDeletes();
 			$table->primary('id');

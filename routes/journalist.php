@@ -32,6 +32,8 @@ Route::middleware(JournalistLogin::class)->group(function() {
 
 	Route::name('brand.')->prefix('brand')->group(function () {
 		Route::get('/', [Journalists\BrandController::class, 'index'])->name('index');
+		Route::get('/{brand}', [Journalists\BrandController::class, 'view'])->name('view');
+		Route::get('/architect/{architect}', [Journalists\BrandController::class, 'architect'])->name('architect');
 	});
 
 	Route::name('submission.')->prefix('submission')->group(function () {
