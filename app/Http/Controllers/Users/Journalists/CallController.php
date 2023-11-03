@@ -74,4 +74,6 @@ class CallController extends Controller
 
 		return CallController::findById($callId);
 	}
+
+	/* public static function getCallsByJournalistId */
 }

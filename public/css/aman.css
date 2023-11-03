@@ -606,6 +606,14 @@ input:checked+.search-list .checked{
 	opacity: 1;
 }
 
+.list-radio + div{
+	color: var(--fublis-gray-500);
+}
+.list-radio:checked + div{
+	background: var(--fublis-white);
+	color: var(--fublis-gray-700);
+}
+
 
 
 

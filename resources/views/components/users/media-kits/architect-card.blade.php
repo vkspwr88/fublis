@@ -4,15 +4,18 @@
 			@php
 				if (str()->contains($mediaKit->story_type, 'PressRelease')){
 					$title = 'Press Release';
-					$route = route('journalist.media-kit.press-release.view', ['mediaKit' => $mediaKit->id]);
+					$viewRoute = route('architect.media-kit.press-release.view', ['mediaKit' => $mediaKit->id]);
+					$editRoute = route('architect.media-kit.press-release.edit', ['mediaKit' => $mediaKit->id]);
 				}
 				elseif (str()->contains($mediaKit->story_type, 'Article')){
 					$title = 'Article';
-					$route = route('journalist.media-kit.article.view', ['mediaKit' => $mediaKit->id]);
+					$viewRoute = route('architect.media-kit.article.view', ['mediaKit' => $mediaKit->id]);
+					$editRoute = route('architect.media-kit.article.edit', ['mediaKit' => $mediaKit->id]);
 				}
 				elseif (str()->contains($mediaKit->story_type, 'Project')){
 					$title = 'Project';
-					$route = route('journalist.media-kit.project.view', ['mediaKit' => $mediaKit->id]);
+					$viewRoute = route('architect.media-kit.project.view', ['mediaKit' => $mediaKit->id]);
+					$editRoute = route('architect.media-kit.project.edit', ['mediaKit' => $mediaKit->id]);
 				}
 			@endphp
 			<div class="row">
@@ -24,7 +27,9 @@
 						<p class="text-secondary fs-6 fw-semibold col m-0">{{ $title }}</p>
 						<p class="text-end text-secondary fs-6 fw-semibold col m-0">{{ $mediaKit->category->name }}</p>
 					</div>
-					<h5 class="card-title text-dark fs-5 fw-semibold m-0 py-2">{{ $mediaKit->story->title }}</h5>
+					<h5 class="card-title fs-5 fw-semibold m-0 py-2">
+						<a href="{{ $viewRoute }}" class="text-dark">{{ $mediaKit->story->title }}</a>
+					</h5>
 					<div class="row align-items-center py-2">
 						<div class="col">
 							<p class="text-dark fs-6 fw-bold m-0">
@@ -36,8 +41,8 @@
 					<p class="card-text text-dark fs-6 m-0 py-2">{{ $mediaKit->story->concept_note }}</p>
 					<div class="row justify-content-center pt-2 position-relative" style="z-index: 2;">
 						<p class="fs-6 fw-bold col m-0">
-							<a href="{{ $route }}" class="btn btn-primary btn-sm rounded-pill">
-								View Media Kit <i class="bi bi-arrow-up-right small"></i>
+							<a href="{{ $editRoute }}" class="text-purple-600">
+								Edit Story <i class="bi bi-arrow-up-right small"></i>
 							</a>
 						</p>
 						<p class="text-end fs-5 fw-bold col m-0">

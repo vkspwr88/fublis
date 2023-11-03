@@ -21,7 +21,7 @@
 					</div>
 				</div>
 			</div>
-			
+
 			<div class="col-12">
 				<p class="m-0 text-secondary">RENESA is an award winning creative consultancy firm dealing in Architectural & Interior design consulting across India.</p>
 			</div>
@@ -37,7 +37,7 @@
 						<img src="{{ $architect->company->profileImage ? Storage::url($architect->company->profileImage) : 'https://via.placeholder.com/48x48' }}" style="max-width: 48px; max-height: 48px;" alt=".." class="img-fluid rounded-circle">
 					</div>
 					<div class="col">
-						<h6 class="fs-5 fw-medium m-0 p-0">
+						<h6 class="fs-6 fw-medium m-0 p-0">
 							<a href="{{ route('journalist.brand.view', ['brand' => $architect->company->id]) }}" class="text-dark">
 								{{ $architect->company->name }}
 							</a>

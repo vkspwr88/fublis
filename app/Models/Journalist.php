@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Journalist extends Model
 {
@@ -40,5 +41,10 @@ class Journalist extends Model
 	public function position(): BelongsTo
 	{
 		return $this->belongsTo(JournalistPosition::class, 'journalist_position_id');
+	}
+
+	public function calls(): HasMany
+	{
+		return $this->hasMany(Call::class);
 	}
 }

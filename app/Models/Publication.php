@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Publication extends Model
 {
@@ -60,5 +61,10 @@ class Publication extends Model
 			'publication_id',
 			'publication_type_id',
 		);
+	}
+
+	public function calls(): HasMany
+	{
+		return $this->hasMany(Call::class);
 	}
 }

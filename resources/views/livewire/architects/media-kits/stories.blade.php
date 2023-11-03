@@ -1,4 +1,4 @@
-<div class="row g-4">
+{{-- <div class="row g-4">
 	@forelse ($mediaKits as $mediaKit)
 		@if (str()->contains($mediaKit->story_type, 'PressRelease'))
 			<livewire:architects.media-kits.press-releases.view :pressRelease="$mediaKit" :key="$mediaKit->id" />
@@ -19,4 +19,5 @@
 		</div>
 	</div>
 	@endforelse
-</div>
+</div> --}}
+<x-users.media-kits.architect-list :mediaKits="$mediaKits" />
