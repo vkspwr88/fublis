@@ -2,8 +2,10 @@
 
 namespace App\Services;
 
+use App\Models\Call;
 use App\Models\Journalist;
 use App\Models\Publication;
+use Carbon\Carbon;
 
 class PitchStoryService
 {
@@ -15,6 +17,7 @@ class PitchStoryService
 									'location',
 									'categories',
 								])
+								->latest()
 								->get();
 		}
 	}
@@ -34,7 +37,26 @@ class PitchStoryService
 									//'location',
 									//'categories',
 								])
+								->latest()
 								->get();
+		}
+	}
+
+	public function filterCalls(array $data)
+	{
+		if($data['location'] == '' && empty($data['publicationTypes']) && empty($data['categories'])){
+			return Call::with([
+							'publication' => [
+								'profileImage'
+							],
+							'journalist' => [
+								'user'
+							],
+							'category',
+						])
+						->where('submission_end_date', '>', Carbon::now())
+						->latest()
+						->get();
 		}
 	}
 }

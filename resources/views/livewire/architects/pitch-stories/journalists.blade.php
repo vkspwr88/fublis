@@ -34,7 +34,7 @@
 	</div>
 	<div class="col-lg-8">
 		<div class="row g-4">
-			@foreach ($journalists as $journalist)
+			@forelse ($journalists as $journalist)
 			<div class="col-12">
 				<div class="card border-0 rounded-3 bg-white shadow">
 					<div class="card-body">
@@ -69,7 +69,7 @@
 									<div class="col-sm-5">
 										<div class="row align-items-center g-2">
 											<div class="col-auto">
-												<img src="{{ $journalist->publications[0]->profileImage ? Storage::url($journalist->publications[0]->profileImage->image_path) : 'https://via.placeholder.com/150x150' }}" style="max-width: 30px; max-height: 30px;" class="img-fluid rounded-circle" alt="...">
+												<img src="{{ $journalist->publications[0]->profileImage ? Storage::url($journalist->publications[0]->profileImage->image_path) : 'https://via.placeholder.com/30x30' }}" style="max-width: 30px; max-height: 30px;" class="img-fluid rounded-circle" alt="..." />
 											</div>
 											<div class="col">
 												<p class="fs-6 m-0 p-0 fw-bold">
@@ -93,7 +93,15 @@
 					</div>
 				</div>
 			</div>
-			@endforeach
+			@empty
+			<div class="col-12">
+				<div class="card border-0 rounded-3 bg-white shadow">
+					<div class="card-body">
+						<h5 class="fs-5 text-purple-700 text-center">No Result Found</h5>
+					</div>
+				</div>
+			</div>
+			@endforelse
 		</div>
 	</div>
 

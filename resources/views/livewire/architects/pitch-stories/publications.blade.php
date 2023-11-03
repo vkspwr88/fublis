@@ -31,7 +31,7 @@
 	</div>
 	<div class="col-lg-8">
 		<div class="row g-4">
-			@foreach ($publications as $publication)
+			@forelse ($publications as $publication)
 			<div class="col-12">
 				<div class="card border-0 rounded-3 bg-white shadow">
 					<div class="card-body">
@@ -87,7 +87,15 @@
 					</div>
 				</div>
 			</div>
-			@endforeach
+			@empty
+			<div class="col-12">
+				<div class="card border-0 rounded-3 bg-white shadow">
+					<div class="card-body">
+						<h5 class="fs-5 text-purple-700 text-center">No Result Found</h5>
+					</div>
+				</div>
+			</div>
+			@endforelse
 		</div>
 	</div>
 
