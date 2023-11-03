@@ -34,55 +34,21 @@ Route::middleware(ArchitectLogin::class)->group(function() {
 			Route::get('/{mediaKit}', [Architects\MediaKits\ProjectController::class, 'view'])->name('view');
 			Route::get('/{mediaKit}/edit', [Architects\MediaKits\ProjectController::class, 'edit'])->name('edit');
 		});
-
-		/* Route::get('/article/{id}', function(){
-			return view('users.pages.architects.media-kit.article.view');
-		})->name('article.view');
-		Route::get('/article/{id}/edit', function(){
-			return view('users.pages.architects.media-kit.article.edit');
-		})->name('article.edit');
-		Route::get('/project/{id}', function(){
-			return view('users.pages.architects.media-kit.project.view');
-		})->name('project.view');
-		Route::get('/project/{id}/edit', function(){
-			return view('users.pages.architects.media-kit.project.edit');
-		})->name('project.edit'); */
 	});
 
 	Route::name('pitch-story.')->prefix('pitch-story')->group(function () {
-		Route::get('/', function(){
-			return view('users.pages.architects.pitch-story.publication.index', [
-				'categories' => array(),
-				'publicationTypes' => array(),
-			]);
-		})->name('index');
+		Route::get('/', [Architects\PitchStories\PublicationController::class, 'index'])->name('index');
 		Route::name('publications.')->prefix('publications')->group(function () {
-			Route::get('/', function(){
-				return view('users.pages.architects.pitch-story.publication.index', [
-					'categories' => array(),
-					'publicationTypes' => array(),
-				]);
-			})->name('index');
-			Route::get('/{id}', function(){
-				return view('users.pages.architects.pitch-story.publication.view');
-			})->name('view');
+			Route::get('/', [Architects\PitchStories\PublicationController::class, 'index'])->name('index');
+			Route::get('/{publication}', [Architects\PitchStories\PublicationController::class, 'view'])->name('view');
 		});
 		Route::name('journalists.')->prefix('journalists')->group(function () {
-			Route::get('/', function(){
-				return view('users.pages.architects.pitch-story.journalist.index', [
-					'categories' => array(),
-					'publicationTypes' => array(),
-					'roleTypes' => array(),
-				]);
-			})->name('index');
+			Route::get('/', [Architects\PitchStories\JournalistController::class, 'index'])->name('index');
+			Route::get('/{journalist}', [Architects\PitchStories\JournalistController::class, 'view'])->name('view');
 		});
 		Route::name('calls.')->prefix('calls')->group(function () {
-			Route::get('/', function(){
-				return view('users.pages.architects.pitch-story.call.index', [
-					'categories' => array(),
-					'publicationTypes' => array(),
-				]);
-			})->name('index');
+			Route::get('/', [Architects\PitchStories\CallController::class, 'index'])->name('index');
+			Route::get('/{call}', [Architects\PitchStories\CallController::class, 'view'])->name('view');
 		});
 	});
 });
