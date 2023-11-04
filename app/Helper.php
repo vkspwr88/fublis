@@ -9,13 +9,6 @@ if (!function_exists('filterFileName')) {
 		return Arr::last(
 			explode('/', $fileName)
 		);
-		/* $fileName = explode('/', $fileName);
-		dd(Arr::last($fileName));
-		$filter = json_decode($fileName);
-		$filter = str_replace( ['"', '{', '}'], '', $filter);
-		$filter = str_replace( ':', ': ', $filter);
-		$filter = str_replace( ',', ', ', $filter);
-        return $filter; */
     }
 }
 
@@ -38,4 +31,15 @@ if (!function_exists('trimWebsiteUrl')) {
     {
 		return str()->remove('http://', $url);
 	}
+}
+
+if (!function_exists('showModelName')) {
+    function showModelName($model)
+    {
+		return str()->headline(
+					Arr::last(
+						explode('\\', $model)
+					)
+				);
+    }
 }

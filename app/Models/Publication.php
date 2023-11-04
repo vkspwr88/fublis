@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 
 class Publication extends Model
@@ -22,7 +23,7 @@ class Publication extends Model
 	public function journalists(): BelongsToMany
 	{
 		return $this->belongsToMany(
-			Publication::class,
+			Journalist::class,
 			'journalist_publications',
 			'publication_id',
 			'journalist_id',
@@ -32,7 +33,7 @@ class Publication extends Model
 	public function associatedJournalists(): BelongsToMany
 	{
 		return $this->belongsToMany(
-			Publication::class,
+			Journalist::class,
 			'associated_publications',
 			'publication_id',
 			'journalist_id',
@@ -72,5 +73,10 @@ class Publication extends Model
 	public function profileImage(): MorphOne
 	{
 		return $this->morphOne(Image::class, 'imaggable');
+	}
+
+	public function pitches(): MorphMany
+	{
+		return $this->morphMany(Pitch::class, 'pitchable');
 	}
 }

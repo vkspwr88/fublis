@@ -4,8 +4,10 @@ namespace App\Services;
 
 use App\Models\Call;
 use App\Models\Journalist;
+use App\Models\Pitch;
 use App\Models\Publication;
 use Carbon\Carbon;
+use Exception;
 
 class PitchStoryService
 {
@@ -58,5 +60,30 @@ class PitchStoryService
 						->latest()
 						->get();
 		}
+	}
+
+	public function createPitchStory($model, array $details)
+	{
+		try{
+			$model->pitches()->create([
+				'journalist_id' => $details['journalist'],
+				'media_kit_id' => $details['mediaKit'],
+				'subject' => $details['subject'],
+				'message' => $details['message'],
+			]);
+		}
+		catch(Exception $exp){
+			dd($exp->getMessage());
+			return false;
+		}
+		return true;
+	}
+
+	public function isStoryPitched($journalistId, $mediaKitId)
+	{
+		return Pitch::where([
+			'journalist_id' => $journalistId,
+			'media_kit_id' => $mediaKitId,
+		])->first();
 	}
 }

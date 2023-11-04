@@ -560,6 +560,10 @@ a.text-purple:hover{
 	display: none;
 }
 
+.custom-radio+.card label{
+	cursor: pointer;
+}
+
 .custom-radio:checked + .card{
 	border-color: var(--fublis-purple-600) !important;
 }

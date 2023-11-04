@@ -24,3 +24,5 @@
 	<livewire:architects.pitch-stories.calls />
 </div>
 @endsection
+
+@include('users.includes.architect.pitch-story-modals-script')
