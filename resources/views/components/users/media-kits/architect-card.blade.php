@@ -18,7 +18,7 @@
 					$editRoute = route('architect.media-kit.project.edit', ['mediaKit' => $mediaKit->id]);
 				}
 			@endphp
-			<div class="row">
+			<div class="row g-4">
 				<div class="col-md-4">
 					<img src="{{ Storage::url($mediaKit->story->cover_image_path) }}" class="img-fluid" style="max-width: 300px; max-height: 300px;" alt="...">
 				</div>

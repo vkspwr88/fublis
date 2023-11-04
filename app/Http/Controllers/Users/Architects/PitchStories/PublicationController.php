@@ -15,6 +15,18 @@ class PublicationController extends Controller
 
 	public function view(Publication $publication)
 	{
-		return view('users.pages.architects.pitch-story.publication.view');
+		$publication->load([
+			'profileImage',
+			'location',
+			'categories',
+			'journalists' => [
+				'profileImage',
+				'user',
+				'position',
+			],
+		]);
+		return view('users.pages.architects.pitch-story.publication.view', [
+			'publication' => $publication,
+		]);
 	}
 }

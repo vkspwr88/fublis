@@ -21,7 +21,8 @@ return new class extends Migration
 			$table->foreignIdFor(Models\TeamSize::class);
 			$table->year('starting_year')->nullable();
 			$table->string('instagram')->nullable();
-            $table->timestamps();
+            $table->string('about_me')->nullable();
+			$table->timestamps();
 			$table->softDeletes();
 			$table->primary('id');
         });

@@ -2,7 +2,7 @@
 	<div class="col-sm-3">
 		<div class="row g-3">
 			<div class="col-12">
-				<img src="{{ $brand->profileImage ? Storage::url($brand->profileImage) : 'https://via.placeholder.com/150x150' }}" style="max-width: 150px; max-height: 150px;" class="img-fluid" alt="logo">
+				<img src="{{ $brand->profileImage ? Storage::url($brand->profileImage->image_path) : 'https://via.placeholder.com/150x150' }}" style="max-width: 150px; max-height: 150px;" class="img-fluid" alt="logo">
 			</div>
 			<div class="col-12">
 				<h4 class="text-dark fs-5 fw-semibold m-0 p-0">{{ $brand->name }}</h4>
@@ -100,7 +100,7 @@
 				@foreach ($brand->architects as $architect)
 				<div class="row g-2 align-items-center">
 					<div class="col-auto">
-						<img src="{{ $architect->profileImage ? Storage::url($architect->profileImage) : 'https://via.placeholder.com/48x48' }}" style="max-width: 48px; max-height: 48px;" alt=".." class="img-fluid rounded-circle">
+						<img src="{{ $architect->profileImage ? Storage::url($architect->profileImage->image_path) : 'https://via.placeholder.com/48x48' }}" style="max-width: 48px; max-height: 48px;" alt=".." class="img-fluid rounded-circle">
 					</div>
 					<div class="col">
 						<a href="{{ route('journalist.brand.architect', ['architect' => $architect->id]) }}">

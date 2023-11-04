@@ -1,5 +1,5 @@
 <div class="row">
-	<div class="col-lg-4">
+	<div class="col-lg-auto">
 		<div class="filter-btn text-end pb-3">
 			<button class="btn btn-primary rounded-0" data-bs-toggle="collapse" data-bs-target="#collapsedFilter" aria-expanded="false" aria-controls="collapsedFilter">
 				<i class="bi bi-filter"></i>
@@ -32,7 +32,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="col-lg-8">
+	<div class="col-lg">
 		<div class="row g-4">
 			@forelse ($journalists as $journalist)
 			<div class="col-12">

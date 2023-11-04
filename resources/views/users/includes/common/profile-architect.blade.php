@@ -2,7 +2,7 @@
 	<div class="col-sm-3">
 		<div class="row g-3">
 			<div class="col-12">
-				<img src="{{ $architect->profileImage ? Storage::url($architect->profileImage) : 'https://via.placeholder.com/150x150' }}" style="max-width: 150px; max-height: 150px;" class="img-fluid" alt="logo">
+				<img src="{{ $architect->profileImage ? Storage::url($architect->profileImage->image_path) : 'https://via.placeholder.com/150x150' }}" style="max-width: 150px; max-height: 150px;" class="img-fluid" alt="logo">
 			</div>
 			<div class="col-12">
 				<h4 class="text-dark fs-5 fw-semibold m-0 p-0">{{ $architect->name }}</h4>
@@ -34,7 +34,7 @@
 			<div class="col-12">
 				<div class="row g-2 align-items-center">
 					<div class="col-auto">
-						<img src="{{ $architect->company->profileImage ? Storage::url($architect->company->profileImage) : 'https://via.placeholder.com/48x48' }}" style="max-width: 48px; max-height: 48px;" alt=".." class="img-fluid rounded-circle">
+						<img src="{{ $architect->company->profileImage ? Storage::url($architect->company->profileImage->image_path) : 'https://via.placeholder.com/48x48' }}" style="max-width: 48px; max-height: 48px;" alt=".." class="img-fluid rounded-circle">
 					</div>
 					<div class="col">
 						<h6 class="fs-6 fw-medium m-0 p-0">
