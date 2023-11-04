@@ -19,6 +19,8 @@ return new class extends Migration
 			$table->text('linked_profile');
 			$table->text('published_article_link');
 			$table->text('publishing_platform_link');
+			$table->foreignIdFor(Models\Location::class)->nullable();
+			$table->foreignIdFor(Models\Language::class)->nullable();
             $table->timestamps();
 			$table->softDeletes();
         });

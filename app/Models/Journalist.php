@@ -20,6 +20,16 @@ class Journalist extends Model
 		return $this->belongsTo(User::class);
 	}
 
+	public function language(): BelongsTo
+	{
+		return $this->belongsTo(Language::class);
+	}
+
+	public function location(): BelongsTo
+	{
+		return $this->belongsTo(Location::class);
+	}
+
 	public function publications(): BelongsToMany
 	{
 		return $this->belongsToMany(

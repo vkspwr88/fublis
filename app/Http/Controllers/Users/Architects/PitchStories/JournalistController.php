@@ -15,6 +15,20 @@ class JournalistController extends Controller
 
 	public function view(Journalist $journalist)
 	{
-		return view('users.pages.architects.pitch-story.journalist.view');
+		$journalist->load([
+			'user',
+			'profileImage',
+			'language',
+			'location',
+			'publications' => [
+				'profileImage'
+			],
+			'associatedPublications' => [
+				'profileImage'
+			],
+		]);
+		return view('users.pages.architects.pitch-story.journalist.view', [
+			'journalist' => $journalist,
+		]);
 	}
 }
