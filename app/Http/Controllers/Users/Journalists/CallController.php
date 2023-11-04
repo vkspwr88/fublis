@@ -33,6 +33,7 @@ class CallController extends Controller
 		$this->loadModel($call);
 		return view('users.pages.journalists.calls.view', [
 			'title' => $call->title,
+			'submittedBy' => auth()->user()->name,
 			'description' => $call->description,
 			'submissionEndsDate' => $call->submission_end_date,
 			'publication' => $call->publication,
@@ -52,7 +53,9 @@ class CallController extends Controller
 			'category',
 			'location',
 			'language',
-			'publication',
+			'publication' => [
+				'profileImage'
+			],
 			'tags',
 		]);
 	}

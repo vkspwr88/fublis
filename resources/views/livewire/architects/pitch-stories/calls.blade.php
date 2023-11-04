@@ -48,7 +48,11 @@
 								<div class="row align-items-center pb-3 g-3">
 									<div class="col-md-7">
 										<div class="row justify-content-center align-items-center text-center text-md-start">
-											<p class="col-12 text-dark fs-5 fw-semibold m-0">{{ $call->title }}</p>
+											<p class="col-12 fs-5 fw-semibold m-0">
+												<a href="{{ route('architect.pitch-story.calls.view', ['call' => $call->id]) }}" class="text-dark">
+													{{ $call->title }}
+												</a>
+											</p>
 											<p class="col-12 text-secondary fs-6 m-0">Deadline: {{ \Carbon\Carbon::parse($call->submission_end_date)->format('jS F Y') }}{{-- 17th March 2023 --}}</p>
 										</div>
 									</div>

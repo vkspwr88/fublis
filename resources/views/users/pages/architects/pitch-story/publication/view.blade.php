@@ -37,7 +37,7 @@
 				<div class="col-12">
 					<div class="d-grid">
 						<button type="button" class="btn btn-primary fw-medium">
-							Submit Story
+							Submit Story <x-users.spinners.white-btn />
 						</button>
 					</div>
 				</div>

@@ -17,7 +17,7 @@
 					<li class="breadcrumb-item fublis-breadcrumb-item">
 						<a href="{{ route('architect.pitch-story.journalists.index') }}" class="text-secondary fs-6 fw-medium">Journalists</a>
 					</li>
-					<li class="breadcrumb-item fublis-breadcrumb-item text-purple-600 fs-6 fw-medium" aria-current="page">{{ $journalist->name }}</li>
+					<li class="breadcrumb-item fublis-breadcrumb-item text-purple-600 fs-6 fw-medium" aria-current="page">{{ $journalist->user->name }}</li>
 				</ol>
 			</nav>
 		</div>
@@ -40,7 +40,7 @@
 				<div class="col-12">
 					<div class="d-grid">
 						<button type="button" class="btn btn-primary fw-medium">
-							Submit Story
+							Submit Story <x-users.spinners.white-btn />
 						</button>
 					</div>
 				</div>
