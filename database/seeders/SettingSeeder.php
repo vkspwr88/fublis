@@ -15,7 +15,7 @@ class SettingSeeder extends Seeder
     {
         $data = [
 			[
-				'setting_key' => 'EMAIL_VERIFICATION_TIMEOUT',
+				'setting_key' => 'email verification timeout',
 				'setting_value' => '5',
 				'remarks' => 'Email verification timeout during signup',
 			],
