@@ -12,5 +12,6 @@
 
 	@include('users.includes.architect.setting-nav', ['setting' => 'Password'])
 
+	<livewire:architects.settings.password />
 </div>
 @endsection
