@@ -12,7 +12,7 @@
 									<form class="py-3" wire:submit="add">
 										<div class="mb-3">
 											<label for="inputCompanyName" class="form-label text-dark fs-6 fw-medium">Company Name</label>
-											<input type="text" class="form-control  @error('companyName') is-invalid @enderror" id="inputCompanyName" placeholder="Name of your brand / studio">
+											<input type="text" class="form-control  @error('companyName') is-invalid @enderror" id="inputCompanyName" placeholder="Name of your brand / studio" wire:model="companyName">
 											@error('companyName')<div class="invalid-feedback">{{ $message }}</div>@enderror
 										</div>
 										<div class="mb-3">
