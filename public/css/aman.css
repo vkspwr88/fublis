@@ -405,6 +405,11 @@ a.text-purple:hover{
 	max-height: 40px !important;
 }
 
+.img-48{
+	max-width: 48px !important;
+	max-height: 48px !important;
+}
+
 .img-50{
 	max-width: 50px !important;
 	max-height: 50px !important;

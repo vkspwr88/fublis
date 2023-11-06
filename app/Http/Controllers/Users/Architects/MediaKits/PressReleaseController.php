@@ -34,7 +34,10 @@ class PressReleaseController extends Controller
 			'story.photographs',
 			'category',
 			'architect' => [
-				'company',
+				'company' => [
+					'profileImage'
+				],
+				'profileImage',
 				'user',
 				'position'
 			]

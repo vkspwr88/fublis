@@ -44,7 +44,10 @@ class ProjectController extends Controller
 			],
 			'category',
 			'architect' => [
-				'company',
+				'company' => [
+					'profileImage'
+				],
+				'profileImage',
 				'user',
 				'position'
 			]

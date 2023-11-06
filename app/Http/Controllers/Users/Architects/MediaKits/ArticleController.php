@@ -34,7 +34,10 @@ class ArticleController extends Controller
 			'story.images',
 			'category',
 			'architect' => [
-				'company',
+				'company' => [
+					'profileImage'
+				],
+				'profileImage',
 				'user',
 				'position'
 			]
