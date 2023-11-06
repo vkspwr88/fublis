@@ -89,8 +89,8 @@ class AddCompanyStepComponent extends StepComponent
 	public function data()
 	{
 		return [
-			'website' => 'http://' . $this->website,
 			'companyName' => $this->companyName,
+			'website' => 'http://' . $this->website,
 			'location' => $this->location,
 			'category' => $this->category,
 			'teamSize' => $this->teamSize,
