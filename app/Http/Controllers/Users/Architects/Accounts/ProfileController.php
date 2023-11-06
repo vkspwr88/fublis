@@ -9,31 +9,31 @@ class ProfileController extends Controller
 {
     public function index()
 	{
-		return view('users.pages.architects.accounts.settings.index');
+		return view('users.pages.architects.accounts.profile.index');
 	}
 
 	public function analytic()
 	{
-		return view('users.pages.architects.accounts.settings.analytic');
+		return view('users.pages.architects.accounts.profile.analytic');
 	}
 
 	public function alert()
 	{
-		return view('users.pages.architects.accounts.settings.alert');
+		return view('users.pages.architects.accounts.profile.alert');
 	}
 
 	public function notification()
 	{
-		return view('users.pages.architects.accounts.settings.notification');
+		return view('users.pages.architects.accounts.profile.notification');
 	}
 
 	public function message()
 	{
-		return view('users.pages.architects.accounts.settings.message');
+		return view('users.pages.architects.accounts.profile.message');
 	}
 
 	public function inviteColleague()
 	{
-		return view('users.pages.architects.accounts.settings.invite-colleague');
+		return view('users.pages.architects.accounts.profile.invite-colleague');
 	}
 }

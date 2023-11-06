@@ -78,4 +78,30 @@ class SettingService
 		return true;
 
 	}
+
+	public function updatePassword(array $details)
+	{
+		try{
+			DB::beginTransaction();
+
+			$updated = User::find(auth()->id())
+							->update([
+								'password' => $details['newPassword'],
+							]);
+			
+			throw_if(
+				!$updated,
+				Exception::class,
+				'Unable to update password.',
+			);
+
+			DB::commit();
+		}
+		catch(Exception $exp){
+			DB::rollBack();
+			dd($exp->getMessage());
+			return false;
+		}
+		return true;
+	}
 }

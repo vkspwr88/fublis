@@ -46,6 +46,7 @@ class Company extends Component
 		$this->location = $company->location_id;
 		$this->aboutMe = $company->about_me;
 		$this->profileImageOld = $company->profileImage;
+		$this->resetValidation();
 	}
 
 	public function boot()

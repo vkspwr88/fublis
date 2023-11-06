@@ -15,24 +15,24 @@
 			<div class="row">
 				<label for="inputPassword" class="col-md-4 col-form-label text-dark fs-6 fw-medium">Current password</label>
 				<div class="col-md-8">
-					<input type="text" id="inputPassword" class="form-control @error('password') is-invalid @enderror" wire:model="password">
+					<input type="password" id="inputPassword" class="form-control @error('password') is-invalid @enderror" wire:model="password">
 					@error('password')<div class="invalid-feedback">{{ $message }}</div>@enderror
 				</div>
 			</div>
 			<hr class="border-gray-300">
 			<div class="row">
-				<label for="inputNewPassword" class="col-md-4 col-form-label text-dark fs-6 fw-medium">New password</label>
+				<label for="inputConfirmNewPassword" class="col-md-4 col-form-label text-dark fs-6 fw-medium">New password</label>
 				<div class="col-md-8">
-					<input type="text" id="inputNewPassword" class="form-control @error('newPassword') is-invalid @enderror" wire:model="newPassword">
-					@error('newPassword')<div class="invalid-feedback">{{ $message }}</div>@enderror
+					<input type="password" id="inputConfirmNewPassword" class="form-control @error('newPassword_confirmation') is-invalid @enderror" wire:model="newPassword_confirmation">
+					@error('newPassword_confirmation')<div class="invalid-feedback">{{ $message }}</div>@enderror
 				</div>
 			</div>
 			<hr class="border-gray-300">
 			<div class="row">
-				<label for="inputConfirmNewPassword" class="col-md-4 col-form-label text-dark fs-6 fw-medium">Confirm new password</label>
+				<label for="inputNewPassword" class="col-md-4 col-form-label text-dark fs-6 fw-medium">Confirm new password</label>
 				<div class="col-md-8">
-					<input type="text" id="inputConfirmNewPassword" class="form-control @error('confirmNewPassword') is-invalid @enderror" wire:model="confirmNewPassword">
-					@error('confirmNewPassword')<div class="invalid-feedback">{{ $message }}</div>@enderror
+					<input type="password" id="inputNewPassword" class="form-control @error('newPassword') is-invalid @enderror" wire:model="newPassword">
+					@error('newPassword')<div class="invalid-feedback">{{ $message }}</div>@enderror
 				</div>
 			</div>
 			<hr class="border-gray-300">

@@ -56,6 +56,7 @@ class PersonalInfo extends Component
 	public function refresh()
 	{
 		$this->mount();
+		$this->resetValidation();
 	}
 
 	public function finishUpload($name, $tmpPath, $isMultiple)

@@ -2,13 +2,28 @@
 
 namespace App\Livewire\Architects\Settings;
 
+use App\Services\Architects\SettingService;
 use Livewire\Component;
 
 class Password extends Component
 {
-	public string $password;
-	public string $newPassword;
-	public string $confirmNewPassword;
+	public string $password = '';
+	public string $newPassword = '';
+	public string $newPassword_confirmation = '';
+
+	private SettingService $settingService;
+
+	public function mount()
+	{
+		$this->password = '';
+		$this->newPassword = '';
+		$this->newPassword_confirmation = '';
+	}
+
+	public function boot()
+	{
+		$this->settingService = app()->make(SettingService::class);
+	}
 
     public function render()
     {
@@ -18,14 +33,15 @@ class Password extends Component
 	public function refresh()
 	{
 		$this->mount();
+		$this->resetValidation();
 	}
 
 	public function rules()
 	{
 		return [
-			'password' => 'required',
-			'newPassword' => 'required',
-			'confirmNewPassword' => 'required',
+			'password' => 'required|current_password:web',
+			'newPassword_confirmation' => 'required',
+			'newPassword' => 'required|confirmed',
 		];
 	}
 
@@ -33,8 +49,10 @@ class Password extends Component
 	{
 		return [
 			'password.required' => 'Enter the :attribute.',
+			'password.current_password' => 'The :attribute is incorrect.',
+			'newPassword_confirmation.required' => 'Enter the :attribute.',
 			'newPassword.required' => 'Enter the :attribute.',
-			'confirmNewPassword.required' => 'Enter the :attribute.',
+			'newPassword.confirmed' => 'The :attribute does not match.',
 		];
 	}
 
@@ -42,14 +60,25 @@ class Password extends Component
 	{
 		return [
 			'password' => 'current password',
-			'newPassword' => 'new password',
-			'confirmNewPassword' => 'confirm new password',
+			'newPassword_confirmation' => 'new password',
+			'newPassword' => 'confirm new password',
 		];
 	}
 
 	public function update()
 	{
 		$validated = $this->validate();
-		dd($validated);
+		//dd($validated);
+		if($this->settingService->updatePassword($validated)){
+			$this->dispatch('alert', [
+				'type' => 'success',
+				'message' => 'You have successfully updated the password.'
+			]);
+			return to_route('architect.account.profile.setting.password');
+		}
+		$this->dispatch('alert', [
+			'type' => 'warning',
+			'message' => 'We are facing problem in updating the password. Please try again or contact support.'
+		]);
 	}
 }
