@@ -301,6 +301,10 @@ a.text-purple:hover{
 	border-color: var(--fublis-purple-600);
 }
 
+.dropdown-item.active, .dropdown-item:active{
+	background-color: var(--fublis-purple-600);
+}
+
 .divider{
 	border-color: var(--fublis-divider-color);
 }
