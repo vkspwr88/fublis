@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('press_releases', function (Blueprint $table) {
-            $table->uuid('id');
+            $table->uuid('id')->primary();
 			$table->string('cover_image_path');
 			$table->string('title');
 			$table->string('image_credits');
@@ -22,7 +22,6 @@ return new class extends Migration
 			$table->text('press_release_doc_link')->nullable();
 			$table->text('photographs_link')->nullable();
             $table->timestamps();
-			$table->primary('id');
         });
     }
 

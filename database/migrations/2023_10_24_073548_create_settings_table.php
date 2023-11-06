@@ -12,13 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('settings', function (Blueprint $table) {
-            $table->uuid('id');
+            $table->uuid('id')->primary();
 			$table->string('setting_key')->unique();
 			$table->string('setting_value');
 			$table->text('remarks');
             $table->timestamps();
 			$table->softDeletes();
-			$table->primary('id');
         });
     }
 

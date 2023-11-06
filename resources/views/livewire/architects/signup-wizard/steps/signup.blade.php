@@ -29,7 +29,9 @@
 											<div id="passwordHelpBlock" class="form-text">Must be at least 8 characters.</div>
 										</div>
 										<div class="d-grid gap-3">
-											<button class="btn btn-primary fs-6 fw-semibold" type="submit">Get started</button>
+											<button class="btn btn-primary fs-6 fw-semibold" type="submit">
+												Get started <x-users.spinners.white-btn />
+											</button>
 											<button class="btn btn-white fs-6 fw-semibold" type="button">
 												<svg xmlns="http://www.w3.org/2000/svg" width="25" height="24" viewBox="0 0 25 24" fill="none">
 													<g clip-path="url(#clip0_950_3927)">

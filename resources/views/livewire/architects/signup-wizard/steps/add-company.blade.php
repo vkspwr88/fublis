@@ -12,7 +12,7 @@
 									<form class="py-3" wire:submit="add">
 										<div class="mb-3">
 											<label for="inputCompanyName" class="form-label text-dark fs-6 fw-medium">Company Name</label>
-											<input type="text" class="form-control  @error('companyName') is-invalid @enderror" id="inputCompanyName" placeholder="Name of your brand / studio" wire:model.live="companyName">
+											<input type="text" class="form-control  @error('companyName') is-invalid @enderror" id="inputCompanyName" placeholder="Name of your brand / studio">
 											@error('companyName')<div class="invalid-feedback">{{ $message }}</div>@enderror
 										</div>
 										<div class="mb-3">
@@ -64,7 +64,9 @@
 											@error('position')<div class="invalid-feedback">{{ $message }}</div>@enderror
 										</div>
 										<div class="d-grid">
-											<button class="btn btn-primary fs-6 fw-semibold" type="submit">Submit</button>
+											<button class="btn btn-primary fs-6 fw-semibold" type="submit">
+												Submit <x-users.spinners.white-btn />
+											</button>
 										</div>
 									</form>
 								</div>

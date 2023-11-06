@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('areas', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('name')->unique();
+            $table->timestamps();
+			$table->softDeletes();
         });
     }
 

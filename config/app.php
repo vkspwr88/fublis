@@ -160,6 +160,7 @@ return [
          * Package Service Providers...
          */
 		App\Providers\RepositoryServiceProvider::class,
+		App\Providers\ViewServiceProvider::class,
         /*
          * Application Service Providers...
          */

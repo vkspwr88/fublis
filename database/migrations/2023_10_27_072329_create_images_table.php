@@ -12,12 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('images', function (Blueprint $table) {
-            $table->uuid('id');
+            $table->uuid('id')->primary();
 			$table->string('image_type'); // For particular property
 			$table->string('image_path');
 			$table->uuidMorphs('imaggable');
             $table->timestamps();
-			$table->primary('id');
         });
     }
 

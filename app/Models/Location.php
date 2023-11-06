@@ -19,7 +19,13 @@ class Location extends Model
 		'name' => NameCast::class,
 	];
 
-	public function companies(): HasMany{
+	public function architects(): HasMany
+	{
+		return $this->hasMany(Architect::class);
+	}
+
+	public function companies(): HasMany
+	{
 		return $this->hasMany(Company::class);
 	}
 

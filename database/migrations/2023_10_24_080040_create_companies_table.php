@@ -13,18 +13,20 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('companies', function (Blueprint $table) {
-            $table->uuid('id');
+            $table->uuid('id')->primary();
 			$table->string('name')->unique();
 			$table->string('website');
 			$table->foreignIdFor(Models\Location::class);
 			$table->foreignIdFor(Models\Category::class);
 			$table->foreignIdFor(Models\TeamSize::class);
 			$table->year('starting_year')->nullable();
+			$table->string('twitter')->nullable();
+			$table->string('facebook')->nullable();
 			$table->string('instagram')->nullable();
+			$table->string('linkedin')->nullable();
             $table->string('about_me')->nullable();
 			$table->timestamps();
 			$table->softDeletes();
-			$table->primary('id');
         });
     }
 

@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\TeamSize;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -21,6 +23,18 @@ class DatabaseSeeder extends Seeder
 
 		$this->call([
 			UserSeeder::class,
+			ArchitectPositionSeeder::class,
+			AreaSeeder::class,
+			BuildingTypologySeeder::class,
+			CategorySeeder::class,
+			JournalistPositionSeeder::class,
+			LanguageSeeder::class,
+			LocationSeeder::class,
+			ProjectAccessSeeder::class,
+			ProjectStatusSeeder::class,
+			PublicationTypeSeeder::class,
+			SettingSeeder::class,
+			TeamSizeSeeder::class,
 		]);
     }
 }

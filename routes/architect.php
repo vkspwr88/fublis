@@ -51,4 +51,23 @@ Route::middleware(ArchitectLogin::class)->group(function() {
 			Route::get('/{call}', [Architects\PitchStories\CallController::class, 'view'])->name('view');
 		});
 	});
+
+	Route::name('account.')->prefix('account')->group(function () {
+		Route::get('/studio', [Architects\Accounts\StudioController::class, 'index'])->name('studio');
+		Route::name('profile.')->prefix('profile')->group(function () {
+			Route::get('/', [Architects\Accounts\ProfileController::class, 'index'])->name('index');
+			Route::get('/analytics', [Architects\Accounts\ProfileController::class, 'analytic'])->name('analytic');
+			Route::get('/alerts', [Architects\Accounts\ProfileController::class, 'alert'])->name('alert');
+			Route::get('/notifications', [Architects\Accounts\ProfileController::class, 'notification'])->name('notification');
+			Route::get('/messages', [Architects\Accounts\ProfileController::class, 'message'])->name('message');
+			Route::get('/invite-colleague', [Architects\Accounts\ProfileController::class, 'inviteColleague'])->name('invite-colleague');
+			Route::name('setting.')->prefix('settings')->group(function () {
+				Route::get('/personal-info', [Architects\Accounts\SettingController::class, 'personalInfo'])->name('personal-info');
+				Route::get('/company-profile', [Architects\Accounts\SettingController::class, 'companyProfile'])->name('company-profile');
+				Route::get('/password', [Architects\Accounts\SettingController::class, 'password'])->name('password');
+				Route::get('/team', [Architects\Accounts\SettingController::class, 'team'])->name('team');
+				Route::get('/billing', [Architects\Accounts\SettingController::class, 'billing'])->name('billing');
+			});
+		});
+	});
 });

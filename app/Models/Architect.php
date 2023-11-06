@@ -17,15 +17,23 @@ class Architect extends Model
 
 	protected $guarded = [];
 
-	public function user(): BelongsTo{
+	public function user(): BelongsTo
+	{
 		return $this->belongsTo(User::class);
 	}
 
-	public function company(): BelongsTo{
+	public function company(): BelongsTo
+	{
 		return $this->belongsTo(Company::class);
 	}
 
-	public function position(): BelongsTo{
+	public function location(): BelongsTo
+	{
+		return $this->belongsTo(Location::class);
+	}
+
+	public function position(): BelongsTo
+	{
 		return $this->belongsTo(ArchitectPosition::class, 'architect_position_id');
 	}
 

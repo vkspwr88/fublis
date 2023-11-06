@@ -218,10 +218,23 @@ a.text-purple:hover{
 	border-color:  #ced4da;
 }
 
-#profileNav li a{
+/* #profileNav li a{
 	height: 40px;
 	width: 40px;
 	font-size: 20px;
+} */
+
+#profileNav li.nav-icon a{
+	height: 30px;
+	width: 30px;
+	font-size: 15px;
+	padding: 5px;
+}
+
+.navbar-nav .dropdown-menu.profile-dropdown{
+	right: 0;
+	left: auto;
+	top: 45px;
 }
 
 /* #profileNav li a i{
@@ -381,6 +394,26 @@ a.text-purple:hover{
 	top: 40px;
 	z-index: 99;
 	overflow-y: scroll;
+}
+
+.img-40{
+	max-width: 40px !important;
+	max-height: 40px !important;
+}
+
+.img-50{
+	max-width: 50px !important;
+	max-height: 50px !important;
+}
+
+.img-64{
+	max-width: 64px !important;
+	max-height: 64px !important;
+}
+
+.img-150{
+	max-width: 150px !important;
+	max-height: 150px !important;
 }
 
 /************************ START BLOG ************************/
@@ -621,13 +654,10 @@ input:checked+.search-list .checked{
 	color: var(--fublis-gray-700);
 }
 
-
-
-
-
-
-
-
+.setting-nav .nav-item{
+	position: relative;
+  	bottom: -1px;
+}
 
 @media(max-width: 992px){
 	.filter-btn{

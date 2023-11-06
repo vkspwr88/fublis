@@ -13,13 +13,14 @@ class TeamSize extends Model
 {
     use HasFactory, SoftDeletes, HasUuids;
 
-	protected $guarded = [];
+	//protected $guarded = [];
 
 	/* protected $casts = [
 		'name' => NameCast::class,
 	]; */
 
-	public function companies(): HasMany{
+	public function companies(): HasMany
+	{
 		return $this->hasMany(Company::class);
 	}
 }

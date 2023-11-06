@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('articles', function (Blueprint $table) {
-            $table->uuid('id');
+            $table->uuid('id')->primary();
 			$table->string('cover_image_path');
 			$table->string('title');
 			$table->string('text_credits');
@@ -24,7 +24,6 @@ return new class extends Migration
 			$table->text('company_profile_link')->nullable();
 			$table->text('images_link')->nullable();
             $table->timestamps();
-			$table->primary('id');
         });
     }
 

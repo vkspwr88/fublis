@@ -53,10 +53,17 @@
 											</div> --}}
 										</div>
 										<div class="d-grid">
-											<button class="btn btn-primary fs-6 fw-semibold" type="submit">Verify email</button>
+											<button class="btn btn-primary fs-6 fw-semibold" type="submit">
+												Verify email <x-users.spinners.white-btn wire:target="verify" />
+											</button>
 										</div>
 									</form>
-									<p class="card-text text-center text-secondary fs-6 m-0 py-2">Didn't receive the email? <a href="javascript:;" class="text-purple-700 fw-semibold" wire:click="resend">Click to resend</a></p>
+									<p class="card-text text-center text-secondary fs-6 m-0 py-2">
+										Didn't receive the email?
+										<a href="javascript:;" class="text-purple-700 fw-semibold" wire:click="resend">
+											Click to resend <x-users.spinners.primary-btn wire:target="resend" />
+										</a>
+									</p>
 									<p class="card-text text-center fs-6 fw-semibold m-0 py-2"><a href="javascript:;" class="text-secondary" wire:click="previousStep"><i class="bi bi-arrow-left"></i> Back to signup</a></p>
 								</div>
 							</div>

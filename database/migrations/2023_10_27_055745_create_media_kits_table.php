@@ -14,13 +14,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('media_kits', function (Blueprint $table) {
-            $table->uuid('id');
+            $table->uuid('id')->primary();
 			$table->foreignIdFor(Architect::class);
 			$table->uuidMorphs('story');
 			$table->foreignIdFor(Category::class);
             $table->timestamps();
-			$table->primary('id');
-        });
+		});
     }
 
     /**

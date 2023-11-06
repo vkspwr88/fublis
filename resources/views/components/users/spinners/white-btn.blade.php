@@ -1,3 +1,3 @@
-<div wire:loading class="spinner-border spinner-border-sm text-white" role="status">
+<span wire:loading class="spinner-border spinner-border-sm text-white" role="status" {{ $attributes }}>
 	<span class="visually-hidden">Loading...</span>
-</div>
+</span>
