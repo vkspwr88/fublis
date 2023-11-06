@@ -12,9 +12,9 @@ class SettingController extends Controller
 		return view('users.pages.architects.accounts.settings.personal-info');
 	}
 
-	public function companyProfile()
+	public function company()
 	{
-		return view('users.pages.architects.accounts.settings.company-profile');
+		return view('users.pages.architects.accounts.settings.company');
 	}
 
 	public function password()

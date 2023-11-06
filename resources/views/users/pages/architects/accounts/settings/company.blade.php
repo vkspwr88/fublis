@@ -10,7 +10,8 @@
 
 	<hr class="border-gray-300 my-4">
 
-	@include('users.includes.architect.setting-nav', ['setting' => 'Company Profile'])
+	@include('users.includes.architect.setting-nav', ['setting' => 'Company'])
 
+	<livewire:architects.settings.company />
 </div>
 @endsection

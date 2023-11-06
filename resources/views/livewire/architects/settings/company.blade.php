@@ -1,9 +1,9 @@
 <form wire:submit="update">
 	<div class="row pt-4 g-4 justify-content-end align-items-end">
 		<div class="col">
-			<h4 class="text-dark fs-6 fw-semibold m-0 p-0">Personal info</h4>
+			<h4 class="text-dark fs-6 fw-semibold m-0 p-0">Company</h4>
 			<p class="text-secondary fs-6 m-0 p-0">
-				<small>Update your photo and personal details here.</small>
+				<small>Update company details here.</small>
 			</p>
 		</div>
 		<div class="col-auto">
@@ -15,7 +15,7 @@
 				</div>
 				<div class="col-auto">
 					<button type="submit" class="btn btn-primary fw-medium">
-						Save <x-users.spinners.white-btn />
+						Save <x-users.spinners.white-btn wire:target="update" />
 					</button>
 				</div>
 			</div>
@@ -27,25 +27,27 @@
 	<div class="row">
 		<div class="col-md-12">
 			<div class="row">
-				<label for="inputName" class="col-md-4 col-form-label text-dark fs-6 fw-medium">Name</label>
+				<label for="inputCompany" class="col-md-4 col-form-label text-dark fs-6 fw-medium">Company Name</label>
 				<div class="col-md-8">
-					<input type="text" id="inputName" class="form-control @error('name') is-invalid @enderror" wire:model="name">
-					@error('name')<div class="invalid-feedback">{{ $message }}</div>@enderror
+					<input type="text" id="inputCompany" class="form-control @error('company') is-invalid @enderror" wire:model="company">
+					@error('company')<div class="invalid-feedback">{{ $message }}</div>@enderror
 				</div>
 			</div>
 			<hr class="border-gray-300">
 			<div class="row">
-				<label for="inputName" class="col-md-4 col-form-label text-dark fs-6 fw-medium">Email address</label>
+				<label for="inputWebsite" class="col-md-4 col-form-label text-dark fs-6 fw-medium">Company Website</label>
 				<div class="col-md-8">
-					<input type="text" id="inputName" class="form-control @error('email') is-invalid @enderror" wire:model="email">
-					@error('email')<div class="invalid-feedback">{{ $message }}</div>@enderror
+					<div class="input-group">
+						<span class="input-group-text bg-white text-secondary" id="websiteAddon">http://</span>
+						<input type="text" id="inputWebsite" class="form-control @error('website') is-invalid @enderror" wire:model="website">
+						@error('website')<div class="invalid-feedback">{{ $message }}</div>@enderror
+					</div>
 				</div>
 			</div>
 			<hr class="border-gray-300">
 			<div class="row">
 				<div class="col-md-4">
-					<label for="inputText" class="col-form-label text-dark fs-6 fw-medium">Your photo</label>
-					<label class="d-block form-text text-secondary fs-7 m-0">This will be displayed on your profile.</label>
+					<label for="inputText" class="col-form-label text-dark fs-6 fw-medium">Company Logo</label>
 				</div>
 				<div class="col-md-8">
 					<div class="row g-2">
@@ -103,42 +105,46 @@
 			</div>
 			<hr class="border-gray-300">
 			<div class="row mb-3">
-				<label for="inputCompany" class="col-md-4 col-form-label text-dark fs-6 fw-medium">Company</label>
+				<label class="col-md-4 col-form-label text-dark fs-6 fw-medium">Social profiles</label>
 				<div class="col-md-8">
-					<input type="text" readonly id="inputCompany" class="form-control @error('company') is-invalid @enderror" wire:model="company">
-					@error('company')<div class="invalid-feedback">{{ $message }}</div>@enderror
-				</div>
-			</div>
-			{{-- <div class="row mb-3">
-				<label for="selectCompany" class="col-md-4 col-form-label text-dark fs-6 fw-medium">Company</label>
-				<div class="col-md-8">
-					<select id="selectCompany" class="form-select @error('location') is-invalid @enderror" wire:model="location">
-						<option value="">Select Company</option>
-						@foreach ($locations as $location)
-							<option value="{{ $location->id }}">{{ $location->name }}</option>
-						@endforeach
-					</select>
-					@error('location')<div class="invalid-feedback">{{ $message }}</div>@enderror
-				</div>
-			</div> --}}
-			<div class="row">
-				<label for="selectRole" class="col-md-4 col-form-label text-dark fs-6 fw-medium">Role</label>
-				<div class="col-md-8">
-					<select id="selectRole" class="form-select @error('position') is-invalid @enderror" wire:model="position">
-						<option value="">Select Role</option>
-						@foreach ($positions as $position)
-							<option value="{{ $position->id }}">{{ $position->name }}</option>
-						@endforeach
-					</select>
-					@error('position')<div class="invalid-feedback">{{ $message }}</div>@enderror
+					<div class="row g-3">
+						<div class="col-12">
+							<div class="input-group">
+								<span class="input-group-text bg-white text-secondary" id="twitterAddon">{{ $twitterDomain }}</span>
+								<input type="text" class="form-control @error('twitter') is-invalid @enderror" wire:model="twitter">
+								@error('twitter')<div class="invalid-feedback">{{ $message }}</div>@enderror
+							</div>
+						</div>
+						<div class="col-12">
+							<div class="input-group">
+								<span class="input-group-text bg-white text-secondary" id="facebookAddon">{{ $facebookDomain }}</span>
+								<input type="text" class="form-control @error('facebook') is-invalid @enderror" wire:model="facebook">
+								@error('facebook')<div class="invalid-feedback">{{ $message }}</div>@enderror
+							</div>
+						</div>
+						<div class="col-12">
+							<div class="input-group">
+								<span class="input-group-text bg-white text-secondary" id="instagramAddon">{{ $instagramDomain }}</span>
+								<input type="text" class="form-control @error('instagram') is-invalid @enderror" wire:model="instagram">
+								@error('instagram')<div class="invalid-feedback">{{ $message }}</div>@enderror
+							</div>
+						</div>
+						<div class="col-12">
+							<div class="input-group">
+								<span class="input-group-text bg-white text-secondary" id="linkedinAddon">{{ $linkedinDomain }}</span>
+								<input type="text" class="form-control @error('linkedin') is-invalid @enderror" wire:model="linkedin">
+								@error('linkedin')<div class="invalid-feedback">{{ $message }}</div>@enderror
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 			<hr class="border-gray-300">
 			<div class="row">
-				<label for="selectLocation" class="col-md-4 col-form-label text-dark fs-6 fw-medium">Country</label>
+				<label for="selectLocation" class="col-md-4 col-form-label text-dark fs-6 fw-medium">Location</label>
 				<div class="col-md-8">
 					<select id="selectLocation" class="form-select @error('location') is-invalid @enderror" wire:model="location">
-						<option value="">Select Country</option>
+						<option value="">Select Location</option>
 						@foreach ($locations as $location)
 							<option value="{{ $location->id }}">{{ $location->name }}</option>
 						@endforeach
@@ -149,8 +155,8 @@
 			<hr class="border-gray-300">
 			<div class="row mb-3">
 				<div class="col-md-4">
-					<label for="inputAboutMe" class="col-form-label text-dark fs-6 fw-medium">Bio</label>
-					<label class="d-block form-text text-secondary fs-7 m-0">Write a short introduction about yourself.</label>
+					<label for="inputAboutMe" class="col-form-label text-dark fs-6 fw-medium">About your company</label>
+					<label class="d-block form-text text-secondary fs-7 m-0">Write a short introduction.</label>
 				</div>
 				<div class="col-md-8">
 					<textarea id="inputAboutMe" class="form-control @error('aboutMe') is-invalid @enderror" wire:model="aboutMe" rows="6"></textarea>

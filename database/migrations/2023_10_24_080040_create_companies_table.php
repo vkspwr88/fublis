@@ -24,7 +24,7 @@ return new class extends Migration
 			$table->string('facebook')->nullable();
 			$table->string('instagram')->nullable();
 			$table->string('linkedin')->nullable();
-            $table->string('about_me')->nullable();
+            $table->text('about_me')->nullable();
 			$table->timestamps();
 			$table->softDeletes();
         });

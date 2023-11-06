@@ -13,8 +13,5 @@
 	@include('users.includes.architect.setting-nav', ['setting' => 'Personal Info'])
 
 	<livewire:architects.settings.personal-info />
-
-
-
 </div>
 @endsection

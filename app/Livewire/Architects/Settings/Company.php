@@ -2,9 +2,9 @@
 
 namespace App\Livewire\Architects\Settings;
 
-use App\Http\Controllers\Users\Architects\PositionController;
 use App\Http\Controllers\Users\LocationController;
 use App\Services\Architects\SettingService;
+use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule as ValidationRule;
 use Livewire\Attributes\Rule;
@@ -12,17 +12,23 @@ use Livewire\Component;
 use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
 use Livewire\WithFileUploads;
 
-class PersonalInfo extends Component
+class Company extends Component
 {
-	use WithFileUploads;
+    use WithFileUploads;
 
 	#[Rule('nullable|image|mimes:svg,png,jpg,gif|max:3100|dimensions:max_width=400,max_height=400')]
 	public $profileImageOld;
 	public $profileImage;
-	public $name;
-	public $email;
 	public $company;
-	public $position;
+	public $website;
+	public $twitterDomain = 'twitter.com/';
+	public $twitter;
+	public $facebookDomain = 'facebook.com/';
+	public $facebook;
+	public $instagramDomain = 'instagram.com/company/';
+	public $instagram;
+	public $linkedinDomain = 'linkedin.com/company/';
+	public $linkedin;
 	public $location;
 	public $aboutMe;
 
@@ -30,14 +36,16 @@ class PersonalInfo extends Component
 
 	public function mount()
 	{
-		$architect = auth()->user()->architect->load(['company', 'profileImage']);
-		$this->name = auth()->user()->name;
-		$this->email = auth()->user()->email;
-		$this->company = $architect->company->name;
-		$this->position = $architect->architect_position_id;
-		$this->location = $architect->location_id;
-		$this->aboutMe = $architect->about_me;
-		$this->profileImageOld = $architect->profileImage;
+		$company = auth()->user()->architect->company->load(['profileImage']);
+		$this->company = $company->name;
+		$this->website = trimWebsiteUrl($company->website);
+		$this->twitter = $company->twitter;
+		$this->facebook = $company->facebook;
+		$this->instagram = $company->instagram;
+		$this->linkedin = $company->linkedin;
+		$this->location = $company->location_id;
+		$this->aboutMe = $company->about_me;
+		$this->profileImageOld = $company->profileImage;
 	}
 
 	public function boot()
@@ -45,18 +53,12 @@ class PersonalInfo extends Component
 		$this->settingService = app()->make(SettingService::class);
 	}
 
-    public function render()
+	public function render()
     {
-        return view('livewire.architects.settings.personal-info', [
+        return view('livewire.architects.settings.company', [
 			'locations' => LocationController::getAll(),
-			'positions' => PositionController::getAll(),
 		]);
     }
-
-	public function refresh()
-	{
-		$this->mount();
-	}
 
 	public function finishUpload($name, $tmpPath, $isMultiple)
     {
@@ -82,14 +84,13 @@ class PersonalInfo extends Component
 	public function rules()
 	{
 		return [
-			'name' => 'required',
-			'email' => [
+			'company' => [
 				'required',
-				'email:rfc,dns',
-				ValidationRule::unique('users')->ignore(auth()->id()),
+				ValidationRule::unique('companies', 'name')
+								->where(fn (Builder $query) => $query->where('name', '!=', $this->company)),
 			],
+			'website' => 'required|url',
 			'profileImage' => 'nullable|image|mimes:svg,png,jpg,gif|max:3100|dimensions:max_width=400,max_height=400',
-			'position' => 'required|exists:architect_positions,id',
 			'location' => 'required|exists:locations,id',
 			'aboutMe' => 'required|max:275',
 		];
@@ -98,17 +99,15 @@ class PersonalInfo extends Component
 	public function messages()
 	{
 		return [
-			'name.required' => 'Enter the :attribute.',
-			'email.required' => 'Enter the :attribute.',
-			'email.email' => 'Enter valid :attribute.',
-			'email.unique' => 'The :attribute is already registerred.',
+			'company.required' => 'Enter the :attribute.',
+			'company.unique' => 'Enter the unique :attribute.',
+			'website.required' => 'Enter the :attribute.',
+			'website.url' => 'Enter the valid :attribute.',
 			'profileImage.required' => 'Upload the :attribute.',
 			'profileImage.image' => 'The :attribute supports only image.',
 			'profileImage.mimes' => 'The :attribute supports only svg, png, jpg or gif.',
 			'profileImage.max' => 'Maximum allowed size to upload :attribute 3MB.',
 			'profileImage.dimensions' => 'Maximum allowed dimension for the :attribute is 400x400px.',
-			'position.required' => 'Select the :attribute.',
-			'position.exists' => 'Select the valid :attribute.',
 			'location.required' => 'Select the :attribute.',
 			'location.exists' => 'Select the valid :attribute.',
 			'aboutMe.required' => 'Enter the :attribute.',
@@ -119,33 +118,52 @@ class PersonalInfo extends Component
 	public function validationAttributes()
 	{
 		return [
-			'name' => 'full name',
-			'email' => 'amail address',
-			'profileImage' => 'profile image',
-			'position' => 'role',
-			'location' => 'country',
-			'aboutMe' => 'bio',
+			'company' => 'company name',
+			'website' => 'company website',
+			'profileImage' => 'company logo',
+			'location' => 'location',
+			'aboutMe' => 'company details',
 		];
+	}
+
+	public function data()
+	{
+		return [
+			'company' => $this->company,
+			'website' => 'http://' . $this->website,
+			'profileImage' => $this->profileImage,
+			'twitter' => $this->twitter ? $this->twitterDomain . $this->twitter : '',
+			'facebook' => $this->facebook ? $this->facebookDomain . $this->facebook : '',
+			'instagram' => $this->instagram ? $this->instagramDomain . $this->instagram : '',
+			'linkedin' => $this->linkedin ? $this->linkedinDomain . $this->linkedin : '',
+			'location' => $this->location,
+			'aboutMe' => $this->aboutMe,
+		];
+	}
+
+	public function refresh()
+	{
+		$this->mount();
 	}
 
 	public function update()
 	{
-		$validated = $this->validate($this->rules(), $this->messages(), $this->validationAttributes());
+		$validated = Validator::make($this->data(), $this->rules(), $this->messages(), $this->validationAttributes())->validate();
 		if(!$this->profileImageOld && !$this->profileImage){
-			$this->addError('profileImage', 'Upload profile image.');
+			$this->addError('profileImage', 'Upload company logo.');
 			return;
 		}
 		//dd($validated);
-		if($this->settingService->updatePersonalInfo($validated)){
+		if($this->settingService->updateCompany($validated)){
 			$this->dispatch('alert', [
 				'type' => 'success',
-				'message' => 'You have successfully updated the personal info.'
+				'message' => 'You have successfully updated the company details.'
 			]);
-			return to_route('architect.account.profile.setting.personal-info');
+			return to_route('architect.account.profile.setting.company');
 		}
 		$this->dispatch('alert', [
 			'type' => 'warning',
-			'message' => 'We are facing problem in updating the personal info. Please try again or contact support.'
+			'message' => 'We are facing problem in updating the company details. Please try again or contact support.'
 		]);
 	}
 }

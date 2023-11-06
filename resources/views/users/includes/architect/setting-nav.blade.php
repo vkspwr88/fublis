@@ -5,8 +5,8 @@
 			'name' => 'Personal Info',
 		],
 		[
-			'route' => route('architect.account.profile.setting.company-profile'),
-			'name' => 'Company Profile',
+			'route' => route('architect.account.profile.setting.company'),
+			'name' => 'Company',
 		],
 		[
 			'route' => route('architect.account.profile.setting.password'),

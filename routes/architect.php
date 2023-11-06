@@ -63,7 +63,7 @@ Route::middleware(ArchitectLogin::class)->group(function() {
 			Route::get('/invite-colleague', [Architects\Accounts\ProfileController::class, 'inviteColleague'])->name('invite-colleague');
 			Route::name('setting.')->prefix('settings')->group(function () {
 				Route::get('/personal-info', [Architects\Accounts\SettingController::class, 'personalInfo'])->name('personal-info');
-				Route::get('/company-profile', [Architects\Accounts\SettingController::class, 'companyProfile'])->name('company-profile');
+				Route::get('/company', [Architects\Accounts\SettingController::class, 'company'])->name('company');
 				Route::get('/password', [Architects\Accounts\SettingController::class, 'password'])->name('password');
 				Route::get('/team', [Architects\Accounts\SettingController::class, 'team'])->name('team');
 				Route::get('/billing', [Architects\Accounts\SettingController::class, 'billing'])->name('billing');

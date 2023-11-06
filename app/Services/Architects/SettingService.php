@@ -44,4 +44,38 @@ class SettingService
 		}
 		return true;
 	}
+
+	public function updateCompany(array $details)
+	{
+		try{
+			DB::beginTransaction();
+			$company = auth()->user()->architect->company;
+			$company->update([
+						'name' => $details['company'],
+						'website' => $details['website'],
+						'location_id' => $details['location'],
+						'twitter' => $details['twitter'] ?? null,
+						'facebook' => $details['facebook'] ?? null,
+						'instagram' => $details['instagram'] ?? null,
+						'linkedin' => $details['linkedin'] ?? null,
+						'about_me' => $details['aboutMe'],
+					]);
+
+			if(!empty($details['profileImage'])){
+				ImageController::create($company->profileImage(), [
+					'image_type' => 'logo',
+					'image_path' => FileController::upload($details['profileImage'], 'images/companies/logos'),
+				]);
+			}
+
+			DB::commit();
+		}
+		catch(Exception $exp){
+			DB::rollBack();
+			dd($exp->getMessage());
+			return false;
+		}
+		return true;
+
+	}
 }
