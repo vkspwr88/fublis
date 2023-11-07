@@ -45,7 +45,7 @@
 				<img class="img-fluid img-40 rounded-circle" src="{{ $profileImage }}" alt="..." />
 			</a>
 			<ul class="dropdown-menu profile-dropdown">
-				<li><a class="dropdown-item" href="{{ route('architect.account.studio') }}">Studio</a></li>
+				<li><a class="dropdown-item" href="{{ route('architect.account.studio.index') }}">Studio</a></li>
 				<li><a class="dropdown-item" href="{{ route('architect.account.profile.index') }}">Profile</a></li>
 				<li><a class="dropdown-item" href="{{ route('architect.account.profile.analytic') }}">Analytics</a></li>
 				<li><a class="dropdown-item" href="{{ route('architect.account.profile.alert') }}">Alerts</a></li>

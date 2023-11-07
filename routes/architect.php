@@ -53,7 +53,10 @@ Route::middleware(ArchitectLogin::class)->group(function() {
 	});
 
 	Route::name('account.')->prefix('account')->group(function () {
-		Route::get('/studio', [Architects\Accounts\StudioController::class, 'index'])->name('studio');
+		Route::name('studio.')->prefix('studio')->group(function () {
+			Route::get('/', [Architects\Accounts\StudioController::class, 'index'])->name('index');
+			Route::get('/other', [Architects\Accounts\StudioController::class, 'other'])->name('other');
+		});
 		Route::name('profile.')->prefix('profile')->group(function () {
 			Route::get('/', [Architects\Accounts\ProfileController::class, 'index'])->name('index');
 			Route::get('/analytics', [Architects\Accounts\ProfileController::class, 'analytic'])->name('analytic');

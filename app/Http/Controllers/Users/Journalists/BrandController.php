@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Users\Journalists;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Users\CompanyController;
 use App\Models\Architect;
 use App\Models\Company;
 use Illuminate\Http\Request;
@@ -21,6 +22,7 @@ class BrandController extends Controller
 		}
 
 		$brand->load([
+			'profileImage',
 			'category',
 			'location',
 			'teamSize',
@@ -35,15 +37,12 @@ class BrandController extends Controller
 				'category',
 			],
 		]);
+		$brand = CompanyController::loadModel($brand);
+
 		//dd($brand->mediaKits->pluck('story')->pluck('tags')->flatten()->pluck('name')->unique());
 		return view('users.pages.journalists.brands.view', [
 			'brand' => $brand,
-			'tags' => $brand->mediaKits
-							->pluck('story')
-							->pluck('tags')
-							->flatten()
-							->pluck('name')
-							->unique()
+			'tags' => CompanyController::loadTags($brand),
 		]);
 	}
 
