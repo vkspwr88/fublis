@@ -20,7 +20,7 @@
 			@endphp
 			<div class="row g-4">
 				<div class="col-md-4">
-					<img src="{{ Storage::url($mediaKit->story->cover_image_path) }}" class="img-fluid" alt="...">
+					<img src="{{ Storage::url($mediaKit->story->cover_image_path) }}" class="img-square" alt="...">
 				</div>
 				<div class="col-md-8">
 					<div class="row justify-content-center pb-2">
@@ -33,7 +33,7 @@
 					<div class="row align-items-center py-2">
 						<div class="col">
 							<p class="text-dark fs-6 fw-bold m-0">
-								<img class="img-fluid rounded-circle me-2" src="{{ $mediaKit->architect->company->profileImage ? Storage::url($mediaKit->architect->company->profileImage->image_path) : 'https://via.placeholder.com/30x30' }}" style="max-width: 30px; max-height: 30px;" alt="..." />
+								<img class="rounded-circle me-2 img-square img-30" src="{{ $mediaKit->architect->company->profileImage ? Storage::url($mediaKit->architect->company->profileImage->image_path) : 'https://via.placeholder.com/30x30' }}" alt="..." />
 								{{ $mediaKit->architect->company->name }}
 							</p>
 						</div>

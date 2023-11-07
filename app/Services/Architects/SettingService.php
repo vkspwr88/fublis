@@ -8,6 +8,7 @@ use App\Models\Architect;
 use App\Models\User;
 use Exception;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class SettingService
 {
@@ -29,7 +30,7 @@ class SettingService
 						]);
 
 			if(!empty($details['profileImage'])){
-				ImageController::create(auth()->user()->architect->profileImage(), [
+				ImageController::updateOrCreate(auth()->user()->architect->profileImage(), [
 					'image_type' => 'profile',
 					'image_path' => FileController::upload($details['profileImage'], 'images/architects/profile'),
 				]);
@@ -62,13 +63,14 @@ class SettingService
 					]);
 
 			if(!empty($details['profileImage'])){
-				ImageController::create($company->profileImage(), [
+				ImageController::updateOrCreate($company->profileImage(), [
 					'image_type' => 'logo',
 					'image_path' => FileController::upload($details['profileImage'], 'images/companies/logos'),
 				]);
 			}
 
 			DB::commit();
+			//Storage::delete('file.jpg');
 		}
 		catch(Exception $exp){
 			DB::rollBack();

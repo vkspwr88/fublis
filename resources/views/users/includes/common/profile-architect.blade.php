@@ -2,7 +2,7 @@
 	<div class="col-md-4 col-lg-3">
 		<div class="row g-3">
 			<div class="col-12">
-				<img src="{{ $architect->profileImage ? Storage::url($architect->profileImage->image_path) : 'https://via.placeholder.com/150x150' }}" style="max-width: 150px; max-height: 150px;" class="img-fluid" alt="logo">
+				<img src="{{ $architect->profileImage ? Storage::url($architect->profileImage->image_path) : 'https://via.placeholder.com/150x150' }}" class="img-square img-150" alt="logo">
 			</div>
 			<div class="col-12">
 				<h4 class="text-dark fs-5 fw-semibold m-0 p-0">{{ $architect->user->name }}</h4>
@@ -59,7 +59,7 @@
 			<div class="col-12">
 				<div class="row g-2 align-items-center">
 					<div class="col-auto">
-						<img src="{{ $architect->company->profileImage ? Storage::url($architect->company->profileImage->image_path) : 'https://via.placeholder.com/48x48' }}" style="max-width: 48px; max-height: 48px;" alt=".." class="img-fluid rounded-circle">
+						<img src="{{ $architect->company->profileImage ? Storage::url($architect->company->profileImage->image_path) : 'https://via.placeholder.com/48x48' }}" alt=".." class="rounded-circle img-square img-48">
 					</div>
 					<div class="col">
 						<h6 class="fs-6 fw-medium m-0 p-0">

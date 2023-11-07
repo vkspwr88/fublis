@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Users\Architects\Accounts;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Users\ArchitectController;
+use App\Http\Controllers\Users\MediaKitController;
 use App\Models\Architect;
 use Illuminate\Http\Request;
 
@@ -25,7 +26,9 @@ class ProfileController extends Controller
 
 	public function analytic()
 	{
-		return view('users.pages.architects.accounts.profile.analytic');
+		return view('users.pages.architects.accounts.profile.analytic', [
+			'mediaKits' => MediaKitController::getUserMediaKitsAnalytics(auth()->id()),
+		]);
 	}
 
 	public function alert()

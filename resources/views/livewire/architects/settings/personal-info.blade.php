@@ -15,7 +15,7 @@
 				</div>
 				<div class="col-auto">
 					<button type="submit" class="btn btn-primary fw-medium">
-						Save <x-users.spinners.white-btn />
+						Save <x-users.spinners.white-btn wire:target="update" />
 					</button>
 				</div>
 			</div>

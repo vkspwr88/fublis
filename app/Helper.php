@@ -43,3 +43,18 @@ if (!function_exists('showModelName')) {
 				);
     }
 }
+
+if (!function_exists('getMediaKitViewUrl')) {
+    function getMediaKitViewUrl($model, $id)
+    {
+		if($model === 'Press Release'){
+			return route('architect.media-kit.press-release.view', ['mediaKit' => $id]);
+		}
+		if($model === 'Project'){
+			return route('architect.media-kit.project.view', ['mediaKit' => $id]);
+		}
+		if($model === 'Article'){
+			return route('architect.media-kit.article.view', ['mediaKit' => $id]);
+		}
+    }
+}

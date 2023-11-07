@@ -33,7 +33,7 @@
 			<div class="col-8">
 				<div class="row g-2">
 					<div class="col-auto">
-						<img class="rounded-circle img-48" src="{{ $mediaKit->architect->company->profileImage ? Storage::url($mediaKit->architect->company->profileImage->image_path) : 'https://via.placeholder.com/48x48' }}" alt="..." />
+						<img class="rounded-circle img-square img-48" src="{{ $mediaKit->architect->company->profileImage ? Storage::url($mediaKit->architect->company->profileImage->image_path) : 'https://via.placeholder.com/48x48' }}" alt="..." />
 					</div>
 					<div class="col">
 						<p class="text-purple-800 fs-6 fw-medium m-0 p-0">{{ $mediaKit->architect->company->name }}</p>
@@ -152,7 +152,7 @@
 				<p class="text-dark fs-6 m-0 pb-2">Media Contact</p>
 				<div class="row g-3 align-items-center">
 					<div class="col-auto">
-						<img class="rounded-circle img-48" src="{{ $mediaKit->architect->profileImage ? Storage::url($mediaKit->architect->profileImage->image_path) : 'https://via.placeholder.com/48x48' }}" alt="..." />
+						<img class="rounded-circle img-square img-48" src="{{ $mediaKit->architect->profileImage ? Storage::url($mediaKit->architect->profileImage->image_path) : 'https://via.placeholder.com/48x48' }}" alt="..." />
 					</div>
 					<div class="col-auto">
 						<p class="text-purple-800 fs-6 fw-medium m-0 p-0">{{ $mediaKit->architect->user->name }}</p>

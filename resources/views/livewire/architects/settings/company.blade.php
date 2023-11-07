@@ -110,28 +110,28 @@
 					<div class="row g-3">
 						<div class="col-12">
 							<div class="input-group">
-								<span class="input-group-text bg-white text-secondary" id="twitterAddon">{{ $twitterDomain }}</span>
+								<span class="input-group-text bg-white text-secondary" id="twitterAddon">{{__('social-domains.twitter')}}</span>
 								<input type="text" class="form-control @error('twitter') is-invalid @enderror" wire:model="twitter">
 								@error('twitter')<div class="invalid-feedback">{{ $message }}</div>@enderror
 							</div>
 						</div>
 						<div class="col-12">
 							<div class="input-group">
-								<span class="input-group-text bg-white text-secondary" id="facebookAddon">{{ $facebookDomain }}</span>
+								<span class="input-group-text bg-white text-secondary" id="facebookAddon">{{__('social-domains.facebook')}}</span>
 								<input type="text" class="form-control @error('facebook') is-invalid @enderror" wire:model="facebook">
 								@error('facebook')<div class="invalid-feedback">{{ $message }}</div>@enderror
 							</div>
 						</div>
 						<div class="col-12">
 							<div class="input-group">
-								<span class="input-group-text bg-white text-secondary" id="instagramAddon">{{ $instagramDomain }}</span>
+								<span class="input-group-text bg-white text-secondary" id="instagramAddon">{{__('social-domains.instagram')}}</span>
 								<input type="text" class="form-control @error('instagram') is-invalid @enderror" wire:model="instagram">
 								@error('instagram')<div class="invalid-feedback">{{ $message }}</div>@enderror
 							</div>
 						</div>
 						<div class="col-12">
 							<div class="input-group">
-								<span class="input-group-text bg-white text-secondary" id="linkedinAddon">{{ $linkedinDomain }}</span>
+								<span class="input-group-text bg-white text-secondary" id="linkedinAddon">{{__('social-domains.linkedin')}}</span>
 								<input type="text" class="form-control @error('linkedin') is-invalid @enderror" wire:model="linkedin">
 								@error('linkedin')<div class="invalid-feedback">{{ $message }}</div>@enderror
 							</div>

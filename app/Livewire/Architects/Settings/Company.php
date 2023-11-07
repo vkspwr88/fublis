@@ -21,13 +21,9 @@ class Company extends Component
 	public $profileImage;
 	public $company;
 	public $website;
-	public $twitterDomain = 'twitter.com/';
 	public $twitter;
-	public $facebookDomain = 'facebook.com/';
 	public $facebook;
-	public $instagramDomain = 'instagram.com/company/';
 	public $instagram;
-	public $linkedinDomain = 'linkedin.com/company/';
 	public $linkedin;
 	public $location;
 	public $aboutMe;
@@ -94,6 +90,10 @@ class Company extends Component
 			'profileImage' => 'nullable|image|mimes:svg,png,jpg,gif|max:3100|dimensions:max_width=400,max_height=400',
 			'location' => 'required|exists:locations,id',
 			'aboutMe' => 'required|max:275',
+			'twitter' => 'nullable',
+			'facebook' => 'nullable',
+			'instagram' => 'nullable',
+			'linkedin' => 'nullable',
 		];
 	}
 
@@ -133,10 +133,10 @@ class Company extends Component
 			'company' => $this->company,
 			'website' => 'http://' . $this->website,
 			'profileImage' => $this->profileImage,
-			'twitter' => $this->twitter ? $this->twitterDomain . $this->twitter : '',
-			'facebook' => $this->facebook ? $this->facebookDomain . $this->facebook : '',
-			'instagram' => $this->instagram ? $this->instagramDomain . $this->instagram : '',
-			'linkedin' => $this->linkedin ? $this->linkedinDomain . $this->linkedin : '',
+			'twitter' => $this->twitter ? $this->twitter : '',
+			'facebook' => $this->facebook ? $this->facebook : '',
+			'instagram' => $this->instagram ? $this->instagram : '',
+			'linkedin' => $this->linkedin ? $this->linkedin : '',
 			'location' => $this->location,
 			'aboutMe' => $this->aboutMe,
 		];

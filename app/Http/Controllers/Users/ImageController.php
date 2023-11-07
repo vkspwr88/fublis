@@ -12,4 +12,12 @@ class ImageController extends Controller
 	{
 		$poly->create($details);
 	}
+
+	public static function updateOrCreate($poly, $details)
+	{
+		$poly->updateOrCreate(
+			['image_type' => $details['image_type']],
+			['image_path' => $details['image_path']],
+		);
+	}
 }

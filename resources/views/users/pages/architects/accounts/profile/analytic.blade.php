@@ -70,8 +70,37 @@
 							<th class="text-secondary fs-7">Downloads</th>
 							<th class="text-secondary fs-7">Track Story</th>
 						</tr>
-						
+						@forelse ($mediaKits as $mediaKit)
 						<tr>
+							<td class="py-4">
+								<div class="row align-items-center g-1">
+									<div class="col-auto">
+										<img class="rounded-circle img-32" src="{{ Storage::url($mediaKit->story->cover_image_path) }}" alt="..." />
+									</div>
+									<div class="col">
+										<h6 class="text-dark fs-7 fw-medium m-0 p-0">{{ $mediaKit->story->title }}</h6>
+										<p class="text-secondary fs-8 m-0 p-0">{{ showModelName($mediaKit->story_type) }}</p>
+									</div>
+								</div>
+							</td>
+							<td class="py-4">
+								<span class="btn btn-outline-success btn-sm">{{ $mediaKit->view_count }}</span>
+							</td>
+							<td class="py-4">
+								<span class="btn btn-outline-success btn-sm">{{ $mediaKit->download_count }}</span>
+							</td>
+							<td class="py-4">
+								<a href="{{ getMediaKitViewUrl( showModelName($mediaKit->story_type), $mediaKit->id ) }}" class="btn btn-primary btn-sm">Track</a>
+							</td>
+						</tr>
+						@empty
+						<tr>
+							<th colspan="4">
+								<h4 class="fs-5 text-center text-purple-800">No Media Kit Added</h4>
+							</th>
+						</tr>
+						@endforelse
+						{{-- <tr>
 							<td class="py-4">
 								<div class="row align-items-center g-1">
 									<div class="col-auto">
@@ -114,7 +143,7 @@
 							<td class="py-4">
 								<a href="#" class="btn btn-primary btn-sm">Track</a>
 							</td>
-						</tr>
+						</tr> --}}
 					</table>
 				</div>
 			</div>

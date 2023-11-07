@@ -32,4 +32,9 @@ class MediaKit extends Model
 	{
 		return $this->hasMany(Pitch::class);
 	}
+
+	public function analytics(): HasMany
+	{
+		return $this->hasMany(Analytic::class);
+	}
 }

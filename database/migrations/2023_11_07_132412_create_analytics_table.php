@@ -1,6 +1,7 @@
 <?php
 
-use App\Models;
+use App\Models\Journalist;
+use App\Models\MediaKit;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -12,15 +13,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('architects', function (Blueprint $table) {
+        Schema::create('analytics', function (Blueprint $table) {
             $table->uuid('id')->primary();
-			$table->foreignIdFor(Models\User::class);
-			$table->foreignIdFor(Models\Company::class);
-			$table->foreignIdFor(Models\ArchitectPosition::class);
-			$table->foreignIdFor(Models\Location::class)->nullable();
-            $table->text('about_me')->nullable();
+			$table->foreignIdFor(MediaKit::class);
+			$table->foreignIdFor(Journalist::class);
+			$table->uuidMorphs('data');
             $table->timestamps();
-			$table->softDeletes();
         });
     }
 
@@ -29,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('architects');
+        Schema::dropIfExists('analytics');
     }
 };

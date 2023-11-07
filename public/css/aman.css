@@ -413,9 +413,21 @@ a.text-purple:hover{
 	border-top-right-radius: var(--bs-border-radius-lg) !important;
 }
 
+.img-square {
+	position: relative;
+  	width: 100%;
+	object-fit: cover;
+	aspect-ratio: 1 / 1;
+}
+
+.img-30{
+	max-width: 30px !important;
+	max-height: 30px !important;	
+}
+
 .img-32{
 	max-width: 32px !important;
-	max-height: 32px !important;
+	max-height: 32px !important;	
 }
 
 .img-40{

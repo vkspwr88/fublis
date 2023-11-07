@@ -2,7 +2,7 @@
 	<div class="col-md-4 col-lg-3">
 		<div class="row g-3">
 			<div class="col-12">
-				<img src="{{ $brand->profileImage ? Storage::url($brand->profileImage->image_path) : 'https://via.placeholder.com/150x150' }}" style="max-width: 150px; max-height: 150px;" class="img-fluid" alt="logo">
+				<img src="{{ $brand->profileImage ? Storage::url($brand->profileImage->image_path) : 'https://via.placeholder.com/150x150' }}"  class="img-square img-150" alt="logo">
 			</div>
 			<div class="col-12">
 				<h4 class="text-dark fs-5 fw-semibold m-0 p-0">{{ $brand->name }}</h4>
@@ -90,7 +90,9 @@
 						</svg>
 					</div>
 					<div class="col">
-						<span class="badge rounded-pill text-gray-700 bg-gray-200">{{ $brand->twitter }}</span>
+						<a href="https://{{ __('social-domains.twitter') . $brand->twitter }}" target="_blank">
+							<span class="badge rounded-pill text-gray-700 bg-gray-200">{{ $brand->twitter }}</span>
+						</a>
 					</div>
 				</div>
 			</div>
@@ -104,7 +106,9 @@
 						</svg>
 					</div>
 					<div class="col">
-						<span class="badge rounded-pill text-gray-700 bg-gray-200">{{ $brand->facebook }}</span>
+						<a href="https://{{ __('social-domains.facebook') . $brand->facebook }}" target="_blank">
+							<span class="badge rounded-pill text-gray-700 bg-gray-200">{{ $brand->facebook }}</span>
+						</a>
 					</div>
 				</div>
 			</div>
@@ -118,7 +122,9 @@
 						</svg>
 					</div>
 					<div class="col">
-						<span class="badge rounded-pill text-gray-700 bg-gray-200">{{ $brand->instagram }}</span>
+						<a href="https://{{ __('social-domains.instagram') . $brand->instagram }}" target="_blank">
+							<span class="badge rounded-pill text-gray-700 bg-gray-200">{{ $brand->instagram }}</span>
+						</a>
 					</div>
 				</div>
 			</div>
@@ -132,7 +138,9 @@
 						  </svg>
 					</div>
 					<div class="col">
-						<span class="badge rounded-pill text-gray-700 bg-gray-200">{{ $brand->linkedin }}</span>
+						<a href="https://{{ __('social-domains.linkedin') . $brand->linkedin }}" target="_blank">
+							<span class="badge rounded-pill text-gray-700 bg-gray-200">{{ $brand->linkedin }}</span>
+						</a>
 					</div>
 				</div>
 			</div>
@@ -169,7 +177,7 @@
 				@foreach ($brand->architects as $architect)
 				<div class="row g-2 align-items-center">
 					<div class="col-auto">
-						<img src="{{ $architect->profileImage ? Storage::url($architect->profileImage->image_path) : 'https://via.placeholder.com/48x48' }}" style="max-width: 48px; max-height: 48px;" alt=".." class="img-fluid rounded-circle">
+						<img src="{{ $architect->profileImage ? Storage::url($architect->profileImage->image_path) : 'https://via.placeholder.com/48x48' }}" alt=".." class="rounded-circle img-square img-48">
 					</div>
 					<div class="col">
 						<a href="{{ route('journalist.brand.architect', ['architect' => $architect->id]) }}">
@@ -211,7 +219,7 @@
 				</div>
 			</div>
 			<div class="col-12">
-				<x-users.media-kits.journalist-list :mediaKits="$brand->mediaKits->sortByDesc('created_at')" />
+				<x-users.media-kits.architect-list :mediaKits="$brand->mediaKits->sortByDesc('created_at')" />
 			</div>
 		</div>
 	</div>

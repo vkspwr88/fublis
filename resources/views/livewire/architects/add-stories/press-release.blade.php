@@ -270,7 +270,9 @@
 	<hr class="border-gray-300">
 	<div class="text-end">
 		<button class="btn btn-white fs-6 fw-semibold" type="button">Preview</button>
-		<button class="btn btn-primary fs-6 fw-semibold" type="submit">Submit Press Release</button>
+		<button class="btn btn-primary fs-6 fw-semibold" type="submit">
+			Submit Press Release <x-users.spinners.white-btn wire:target="add" />
+		</button>
 	</div>
 	<script>
 		function fileUpload(element) {
