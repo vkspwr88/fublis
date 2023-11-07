@@ -19,4 +19,22 @@ class ArchitectController extends Controller
 						])->where('user_id', $userId)
 						->first();
 	}
+
+	public static function loadModel($model)
+	{
+		return $model->load([
+							'profileImage',
+							'position',
+							'user',
+							'company' => [
+								'profileImage',
+								'location'
+							],
+							'mediaKits' => [
+								'story.tags',
+								'architect.company.profileImage',
+								'category',
+							],
+						]);
+	}
 }

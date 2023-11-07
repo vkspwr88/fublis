@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Users\Journalists;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Users\ArchitectController;
 use App\Http\Controllers\Users\CompanyController;
 use App\Models\Architect;
 use App\Models\Company;
@@ -51,20 +52,7 @@ class BrandController extends Controller
 		if(!$architect){
 			return abort(404);
 		}
-		$architect->load([
-			'profileImage',
-			'position',
-			'user',
-			'company' => [
-				'profileImage',
-				'location'
-			],
-			'mediaKits' => [
-				'story.tags',
-				'architect.company.profileImage',
-				'category',
-			],
-		]);
+		$architect = ArchitectController::loadModel($architect);
 		return view('users.pages.journalists.brands.architect', [
 			'architect' => $architect
 		]);

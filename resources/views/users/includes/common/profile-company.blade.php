@@ -1,5 +1,5 @@
-<div class="row">
-	<div class="col-sm-3">
+<div class="row gx-2 gy-4">
+	<div class="col-md-4 col-lg-3">
 		<div class="row g-3">
 			<div class="col-12">
 				<img src="{{ $brand->profileImage ? Storage::url($brand->profileImage->image_path) : 'https://via.placeholder.com/150x150' }}" style="max-width: 150px; max-height: 150px;" class="img-fluid" alt="logo">
@@ -189,10 +189,10 @@
 			@endif
 		</div>
 	</div>
-	<div class="col-sm-9">
+	<div class="col-md-8 col-lg-9">
 		<div class="row g-4">
 			<div class="col-12">
-				<div class="row align-items-center">
+				<div class="row align-items-center g-3">
 					<div class="col-auto">
 						<span class="badge rounded-pill text-purple-700 bg-purple-100">Press Release <a href="#" class="ms-2 text-purple-700">X</i></a></span>
 						<span class="badge rounded-pill text-purple-700 bg-purple-100">India <a href="#" class="ms-2 text-purple-700">X</a></span>
