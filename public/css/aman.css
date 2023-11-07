@@ -400,6 +400,24 @@ a.text-purple:hover{
 	overflow-y: scroll;
 }
 
+.fs-7{
+	font-size: 0.9rem !important;
+}
+
+.fs-8{
+	font-size: 0.8rem !important;
+}
+
+.rounded-top-3 {
+	border-top-left-radius: var(--bs-border-radius-lg) !important;
+	border-top-right-radius: var(--bs-border-radius-lg) !important;
+}
+
+.img-32{
+	max-width: 32px !important;
+	max-height: 32px !important;
+}
+
 .img-40{
 	max-width: 40px !important;
 	max-height: 40px !important;
