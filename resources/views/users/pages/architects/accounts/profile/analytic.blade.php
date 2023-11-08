@@ -61,7 +61,7 @@
 							</td>
 						</tr>
 					</table>
-				</div>				
+				</div>
 				<div class="card-body">
 					<table class="table">
 						<tr>
@@ -75,7 +75,7 @@
 							<td class="py-4">
 								<div class="row align-items-center g-1">
 									<div class="col-auto">
-										<img class="rounded-circle img-32" src="{{ Storage::url($mediaKit->story->cover_image_path) }}" alt="..." />
+										<img class="rounded-circle img-square img-32" src="{{ Storage::url($mediaKit->story->cover_image_path) }}" alt="..." />
 									</div>
 									<div class="col">
 										<h6 class="text-dark fs-7 fw-medium m-0 p-0">{{ $mediaKit->story->title }}</h6>

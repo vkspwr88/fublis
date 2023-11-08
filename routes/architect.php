@@ -22,6 +22,7 @@ Route::middleware(ArchitectLogin::class)->group(function() {
 
 	Route::name('media-kit.')->prefix('media-kit')->group(function () {
 		Route::get('/', [Architects\MediaKitController::class, 'index'])->name('index');
+		Route::get('/{media_kit}', [Architects\MediaKitController::class, 'view'])->name('view');
 		Route::name('press-release.')->prefix('press-release')->group(function () {
 			Route::get('/{mediaKit}', [Architects\MediaKits\PressReleaseController::class, 'view'])->name('view');
 			Route::get('/{mediaKit}/edit', [Architects\MediaKits\PressReleaseController::class, 'edit'])->name('edit');
@@ -73,4 +74,7 @@ Route::middleware(ArchitectLogin::class)->group(function() {
 			});
 		});
 	});
+
+	Route::get('/journalist/{journalist_id}', [Architects\AddStoryController::class, 'index'])->name('journalist');
+	Route::get('/publication/{publication_id}', [Architects\AddStoryController::class, 'index'])->name('publication');
 });

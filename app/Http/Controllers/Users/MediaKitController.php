@@ -34,10 +34,10 @@ class MediaKitController extends Controller
 						})->with(['story', 'analytics'])
 						->withCount([
 							'analytics as view_count' => function (Builder $query) {
-								$query->where('data_type', 'App/Model/MediaKitView');
+								$query->where('data_type', 'App\Models\MediaKitView');
 							},
 							'analytics as download_count' => function (Builder $query) {
-								$query->where('data_type', 'App/Model/MediaKitDownload');
+								$query->where('data_type', 'App\Models\MediaKitDownload');
 							},
 						])
 						->get();
