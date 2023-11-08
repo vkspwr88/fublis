@@ -11,7 +11,7 @@
 									<h5 class="card-title text-purple-900 fs-3 fw-semibold m-0 py-3">Great!<br>You're all set to go.</h5>
 									<p class="card-text text-secondary fs-6 fw-normal m-0 py-3">Start exploring the media kits readily available to publish. You can also use Fublis to invite stories that match your requirements for the upcoming issues.</p>
 									<p class="card-text m-0 py-3">
-										<a class="btn btn-primary fs-6 fw-semibold" href="{{ route('architect.add-story.index') }}">Let Go!</a>
+										<a class="btn btn-primary fs-6 fw-semibold" href="{{ route('journalist.media-kit.index') }}">Let Go!</a>
 									</p>
 								</div>
 							</div>

@@ -13,7 +13,7 @@
 										@if($new)
 											<div class="mb-3">
 												<label for="inputPublicationName" class="form-label text-dark fs-6 fw-medium">Search for your Publication</label>
-												<input type="text" class="form-control  @error('publicationName') is-invalid @enderror" id="inputPublicationName" placeholder="Name of your brand / studio" wire:model.live="publicationName">
+												<input type="text" class="form-control  @error('publicationName') is-invalid @enderror" id="inputPublicationName" placeholder="Name of your brand / studio" wire:model="publicationName">
 												@error('publicationName')<div class="invalid-feedback">{{ $message }}</div>@enderror
 											</div>
 											<div class="mb-3">
@@ -120,12 +120,14 @@
 													</div>
 												</div>
 												<div class="mb-3">
-													<a href="javascript:;" class="text-secondary" wire:click="$set('new', true)">Can't find?</a>
+													<a href="javascript:;" class="text-secondary" wire:click="setNew">Can't find?</a>
 												</div>
 											@endif
 										@endif
 										<div class="d-grid">
-											<button class="btn btn-primary fs-6 fw-semibold" type="submit">Submit</button>
+											<button class="btn btn-primary fs-6 fw-semibold" type="submit">
+												Submit <x-users.spinners.white-btn wire:target="add" />
+											</button>
 										</div>
 									</form>
 								</div>

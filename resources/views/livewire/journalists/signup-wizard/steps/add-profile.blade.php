@@ -45,7 +45,9 @@
 											</div>
 										</div>
 										<div class="d-grid">
-											<button class="btn btn-primary fs-6 fw-semibold" type="submit">Submit</button>
+											<button class="btn btn-primary fs-6 fw-semibold" type="submit">
+												Submit <x-users.spinners.white-btn wire:target="add" />
+											</button>
 										</div>
 									</form>
 								</div>

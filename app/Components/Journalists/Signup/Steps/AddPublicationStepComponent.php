@@ -56,6 +56,12 @@ class AddPublicationStepComponent extends StepComponent
 		];
 	}
 
+	public function setNew()
+	{
+		$this->new = true;
+		$this->publicationName = $this->searchPublicationName;
+	}
+
 	public function rules()
 	{
 		return [

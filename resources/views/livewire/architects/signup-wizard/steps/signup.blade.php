@@ -30,7 +30,7 @@
 										</div>
 										<div class="d-grid gap-3">
 											<button class="btn btn-primary fs-6 fw-semibold" type="submit">
-												Get started <x-users.spinners.white-btn />
+												Get started <x-users.spinners.white-btn wire:target="signup" />
 											</button>
 											<button class="btn btn-white fs-6 fw-semibold" type="button">
 												<svg xmlns="http://www.w3.org/2000/svg" width="25" height="24" viewBox="0 0 25 24" fill="none">
