@@ -53,12 +53,12 @@
 				<div class="card-header rounded-top-3 bg-white">
 					<table class="table m-0 p-0">
 						<tr>
-							<td class="border-0">
+							<th class="border-0">
 								<div class="input-group">
 									<label class="input-group-text bg-white" for="filterSearchInput"><i class="bi bi-search"></i></label>
 									<input id="filterSearchInput" class="form-control border-start-0 shadow-none ps-0" type="search" placeholder="Search Media Kit" aria-label="Search" />
 								</div>
-							</td>
+							</th>
 						</tr>
 					</table>
 				</div>

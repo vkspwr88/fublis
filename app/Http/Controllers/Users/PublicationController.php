@@ -24,4 +24,9 @@ class PublicationController extends Controller
 	{
 		return Publication::find($id);
 	}
+
+	public static function getAll()
+	{
+		return Publication::all();
+	}
 }

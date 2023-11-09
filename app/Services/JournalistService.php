@@ -110,10 +110,16 @@ class JournalistService
 				'published_article_link' => $details['publishedArticleLink'],
 				'publishing_platform_link' => $details['publishingPlatformLink'],
 			]);
+
+			$publication->added_by = $journalist->id;
+			$publication->save();
+			
 			// attach journalist with publication
-			$journalist->publications()->attach($publicationId);
+			$journalist->publications()->attach($publicationId, [
+				'journalist_position_id' => $details['position'],
+			]);
 			// attach journalist with associated publication
-			$journalist->associatedPublications()->attach($publicationId);
+			//$journalist->associatedPublications()->attach($publicationId);
 
 			DB::commit();
 			// send welcome email in queue

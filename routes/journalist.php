@@ -40,5 +40,18 @@ Route::middleware(JournalistLogin::class)->group(function() {
 		Route::get('/', [Journalists\SubmissionController::class, 'index'])->name('index');
 	});
 
-
+	Route::name('account.')->prefix('account')->group(function () {
+		Route::name('profile.')->prefix('profile')->group(function () {
+			Route::get('/', [Journalists\Accounts\ProfileController::class, 'index'])->name('index');
+			Route::get('/notifications', [Journalists\Accounts\ProfileController::class, 'notification'])->name('notification');
+			Route::get('/messages', [Journalists\Accounts\ProfileController::class, 'message'])->name('message');
+			Route::get('/invite-colleague', [Journalists\Accounts\ProfileController::class, 'inviteColleague'])->name('invite-colleague');
+			Route::name('setting.')->prefix('settings')->group(function () {
+				Route::get('/personal-info', [Journalists\Accounts\SettingController::class, 'personalInfo'])->name('personal-info');
+				Route::get('/password', [Journalists\Accounts\SettingController::class, 'password'])->name('password');
+				Route::get('/your-publications', [Journalists\Accounts\SettingController::class, 'publication'])->name('publication');
+				Route::get('/associated-publications', [Journalists\Accounts\SettingController::class, 'associatedPublication'])->name('associated-publication');
+			});
+		});
+	});
 });

@@ -39,14 +39,14 @@
 		</li>
 		<li class="nav-item px-2 px-xl-1 dropdown">
 			<a href="javascript:;" class="nav-link rounded-circle p-0 {{-- dropdown-toggle --}}" role="button" data-bs-toggle="dropdown">
-				<img class="img-fluid img-40 rounded-circle" src="https://via.placeholder.com/40x40" alt="..." />
+				<img class="rounded-circle img-40 img-square" src="{{ $profileImage }}" alt="..." />
 			</a>
 			<ul class="dropdown-menu profile-dropdown">
-				<li><a class="dropdown-item" href="#">Profile</a></li>
-				<li><a class="dropdown-item" href="#">Notifications</a></li>
-				<li><a class="dropdown-item" href="#">Messages</a></li>
-				<li><a class="dropdown-item" href="#">Invite Colleague</a></li>
-				<li><a class="dropdown-item" href="#">Settings</a></li>
+				<li><a class="dropdown-item" href="{{ route('journalist.account.profile.index') }}">Profile</a></li>
+				<li><a class="dropdown-item" href="{{ route('journalist.account.profile.notification') }}">Notifications</a></li>
+				<li><a class="dropdown-item" href="{{ route('journalist.account.profile.message') }}">Messages</a></li>
+				<li><a class="dropdown-item" href="{{ route('journalist.account.profile.invite-colleague') }}">Invite Colleague</a></li>
+				<li><a class="dropdown-item" href="{{ route('journalist.account.profile.setting.personal-info') }}">Settings</a></li>
 				<li><a class="dropdown-item" href="{{ route('journalist.logout') }}">Log Out</a></li>
 			</ul>
 		</li>

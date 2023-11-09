@@ -42,7 +42,7 @@
 		</li>
 		<li class="nav-item px-2 px-xl-1 dropdown">
 			<a href="javascript:;" class="nav-link rounded-circle p-0" role="button" data-bs-toggle="dropdown">
-				<img class="img-fluid img-40 rounded-circle" src="{{ $profileImage }}" alt="..." />
+				<img class="rounded-circle img-40 img-square" src="{{ $profileImage }}" alt="..." />
 			</a>
 			<ul class="dropdown-menu profile-dropdown">
 				<li><a class="dropdown-item" href="{{ route('architect.account.studio.index') }}">Studio</a></li>

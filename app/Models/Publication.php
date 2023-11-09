@@ -30,6 +30,28 @@ class Publication extends Model
 		);
 	}
 
+	/* public function position($journalistId, $publicationId)
+	{
+		return $this->hasOne(
+			JournalistPublication::class,
+			'publication_id',
+		);
+					->where([
+						'journalist_id' => $journalistId,
+						'publication_id' => $publicationId
+					]);
+	} */
+
+	/* public function positions(): BelongsToMany
+	{
+		return $this->belongsToMany(
+			Journalist::class,
+			'journalist_publications',
+			'publication_id',
+			'journalist_position_id',
+		);
+	} */
+
 	public function associatedJournalists(): BelongsToMany
 	{
 		return $this->belongsToMany(
@@ -46,7 +68,7 @@ class Publication extends Model
 			Category::class,
 			'publication_categories',
 			'publication_id',
-			'Category_id',
+			'category_id',
 		);
 	}
 
@@ -79,4 +101,10 @@ class Publication extends Model
 	{
 		return $this->morphMany(Pitch::class, 'pitchable');
 	}
+
+	public function language(): BelongsTo
+	{
+		return $this->belongsTo(Language::class);
+	}
+
 }
