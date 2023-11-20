@@ -38,11 +38,11 @@
 						<div class="row gx-2 gy-4">
 							<div class="col-sm-3">
 								<div class="d-block mx-auto text-center">
-									<img src="{{ $publication->profileImage ? Storage::url($publication->profileImage->image_path) : 'https://via.placeholder.com/150x150' }}" style="max-width: 150px; max-height: 150px;" class="img-fluid" alt="...">
+									<img src="{{ $publication->profileImage ? Storage::url($publication->profileImage->image_path) : 'https://via.placeholder.com/150x150' }}" class="img-square img-150" alt="...">
 								</div>
 							</div>
 							<div class="col-sm-9">
-								<div class="row align-items-center pb-2">
+								<div class="row align-items-center pb-4">
 									<p class="fs-6 col m-0">
 										<span class="badge rounded-pill text-bg-secondary mb-1"><i class="bi bi-geo-alt"></i> {{ $publication->location->name }}</span>
 										<span class="badge rounded-pill text-bg-secondary mb-1">Website</span>
@@ -50,12 +50,12 @@
 									</p>
 									<p class="text-end fs-6 col m-0">
 										<button type="button" class="btn btn-primary btn-sm fw-medium" wire:click="showContact('{{ $publication->id }}')">
-											Pitch Story <x-users.spinners.white-btn />
+											Pitch Story <x-users.spinners.white-btn wire:target="showContact('{{ $publication->id }}')" />
 										</button>
 									</p>
 								</div>
 								<div class="row justify-content-end align-items-end g-4">
-									<div class="col-md-4">
+									<div class="col">
 										<div class="row justify-content-center">
 											<div class="col-12">
 												<p class="fw-medium m-0 py-2">
@@ -63,7 +63,7 @@
 												</p>
 											</div>
 											<div class="col-12">
-												<h5 class="fs-5 fw-semibold m-0 pt-3">
+												<h5 class="fs-6 fw-semibold m-0 pt-3">
 													<a href="{{ route('architect.pitch-story.publications.view', ['publication' => $publication->id]) }}" class="text-dark">
 														{{ $publication->name }}
 													</a>
@@ -76,7 +76,7 @@
 											</div>
 										</div>
 									</div>
-									<div class="col-md-8">
+									<div class="col-auto">
 										<div class="d-flex justify-content-end align-items-center flex-wrap fw-medium">
 											@foreach ($publication->categories as $category)
 												<span class="badge rounded-pill bg-purple-50 text-purple-700">{{ $category->name }}</span>

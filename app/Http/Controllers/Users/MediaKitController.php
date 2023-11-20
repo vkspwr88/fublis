@@ -13,15 +13,15 @@ class MediaKitController extends Controller
 	{
 		return [
 			[
-				'id' => 'press-release',
+				'id' => 'App\Models\PressRelease',
 				'name' => 'Press Releases',
 			],
 			[
-				'id' => 'project',
+				'id' => 'App\Models\Project',
 				'name' => 'Projects',
 			],
 			[
-				'id' => 'article',
+				'id' => 'App\Models\Article',
 				'name' => 'Articles',
 			],
 		];

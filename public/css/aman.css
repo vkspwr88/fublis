@@ -7,7 +7,7 @@
 	--fublis-gray-600: #475467;
 	--fublis-gray-700: #344054;
 	--fublis-gray-900: #101828;
-	--fublis-indigo-50: #EEF4FF;
+	--fublis-indigo-50: #EEF4FF;.filter-checkbox:checked, .form-check-input:checked
 	--fublis-indigo-700: #3538CD;
 	--fublis-pink-50: #FDF2FA;
 	--fublis-pink-100: #F4EBFF;
@@ -297,8 +297,13 @@ a.text-purple:hover{
 }
 
 .filter-checkbox:checked, .form-check-input:checked{
-	background-color: var(--fublis-purple-600);
+	/* background-color: var(--fublis-purple-600); */
+	background-color: var(--fublis-purple-50);
 	border-color: var(--fublis-purple-600);
+}
+
+.filter-checkbox:checked[type="checkbox"]{
+	background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cpath fill='none' stroke='%237F56D9' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='m6 10 3 3 6-6'/%3e%3c/svg%3e");
 }
 
 .dropdown-item.active, .dropdown-item:active{
@@ -422,12 +427,12 @@ a.text-purple:hover{
 
 .img-30{
 	max-width: 30px !important;
-	max-height: 30px !important;	
+	max-height: 30px !important;
 }
 
 .img-32{
 	max-width: 32px !important;
-	max-height: 32px !important;	
+	max-height: 32px !important;
 }
 
 .img-40{

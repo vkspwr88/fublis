@@ -41,11 +41,11 @@
 						<div class="row gx-2 gy-4">
 							<div class="col-sm-3">
 								<div class="d-block mx-auto text-center">
-									<img src="{{ $journalist->profileImage ? Storage::url($journalist->profileImage->image_path) : 'https://via.placeholder.com/150x150' }}" style="max-width: 150px; max-height: 150px;" class="img-fluid" alt="...">
+									<img src="{{ $journalist->profileImage ? Storage::url($journalist->profileImage->image_path) : 'https://via.placeholder.com/150x150' }}" class="img-square img-150" alt="...">
 								</div>
 							</div>
 							<div class="col-sm-9">
-								<div class="row align-items-center pb-2">
+								<div class="row align-items-center pb-4">
 									<p class="fs-6 col m-0">
 										<span class="badge rounded-pill text-bg-secondary mb-1"><i class="bi bi-geo-alt"></i> {{ $journalist->publications[0]->location->name }}</span>
 										<span class="badge rounded-pill text-bg-secondary mb-1">Website</span>
@@ -53,7 +53,7 @@
 									</p>
 									<p class="text-end fs-6 col m-0">
 										<button type="button" class="btn btn-primary btn-sm fw-medium" wire:click="showMediaKit('{{ $journalist->id }}')">
-											Submit Story <x-users.spinners.white-btn />
+											Submit Story <x-users.spinners.white-btn wire:target="showMediaKit('{{ $journalist->id }}')" />
 										</button>
 									</p>
 								</div>
@@ -68,7 +68,7 @@
 									</div>
 								</div>
 								<div class="row align-items-center">
-									<div class="col-sm-5">
+									<div class="col">
 										<div class="row align-items-center g-2">
 											<div class="col-auto">
 												<img src="{{ $journalist->publications[0]->profileImage ? Storage::url($journalist->publications[0]->profileImage->image_path) : 'https://via.placeholder.com/30x30' }}" style="max-width: 30px; max-height: 30px;" class="img-fluid rounded-circle" alt="..." />
@@ -82,7 +82,7 @@
 											</div>
 										</div>
 									</div>
-									<div class="col-sm-7">
+									<div class="col-auto">
 										<div class="d-flex justify-content-end align-items-center flex-wrap fw-medium">
 											@foreach ($journalist->publications[0]->categories as $category)
 												<span class="badge rounded-pill bg-purple-50 text-purple-700">{{ $category->name }}</span>

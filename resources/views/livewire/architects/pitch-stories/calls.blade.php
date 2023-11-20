@@ -60,7 +60,7 @@
 										<div class="row justify-content-center align-items-end">
 											<p class="col text-center text-md-end fs-6 m-0">
 												<button type="button" class="btn btn-primary btn-sm fw-medium" wire:click="showMediaKit('{{ $call->id }}')">
-													Submit Story <x-users.spinners.white-btn />
+													Submit Story <x-users.spinners.white-btn wire:target="showMediaKit('{{ $call->id }}')" />
 												</button>
 											</p>
 										</div>
@@ -72,7 +72,7 @@
 											<div class="col-12">
 												<div class="row justify-content-center justify-content-md-start align-items-center">
 													<div class="col-auto">
-														<img src="{{ $call->publication->profileImage ? Storage::url($call->publications->profileImage->image_path) : 'https://via.placeholder.com/45x45' }}" style="max-width: 45px; max-height: 45px;" class="img-fluid rounded-circle" alt="..." />
+														<img src="{{ $call->publication->profileImage ? Storage::url($call->publications->profileImage->image_path) : 'https://via.placeholder.com/45x45' }}" class="img-sqaure img-45 rounded-circle" alt="..." />
 													</div>
 													<div class="col-auto fs-6">
 														<p class="fw-semibold m-0 p-0">

@@ -29,26 +29,6 @@
 
 	<hr class="border-gray-300 my-4">
 
-	<div class="row">
-		<div class="col-lg-auto">
-			<div class="filter-btn text-end pb-3">
-				<button class="btn btn-primary rounded-0" data-bs-toggle="collapse" data-bs-target="#collapsedFilter" aria-expanded="false" aria-controls="collapsedFilter">
-					<i class="bi bi-filter"></i>
-				</button>
-			</div>
-			<div class="position-relative">
-				<div class="filter-container p-0 rounded-3" id="collapsedFilter">
-					<div class="card border-0 rounded-3 bg-white shadow">
-						<div class="card-body">
-							<livewire:architects.media-kits.filter />
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="col-lg">
-			<livewire:architects.media-kits.stories />
-		</div>
-	</div>
+	<livewire:architects.media-kits.index />
 </div>
 @endsection
