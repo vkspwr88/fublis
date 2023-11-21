@@ -75,6 +75,8 @@
 	</div>
 	<div class="text-end">
 		<button class="btn btn-white fs-6 fw-semibold" type="button">Cancel</button>
-		<button class="btn btn-primary fs-6 fw-semibold" type="submit">Next</button>
+		<button class="btn btn-primary fs-6 fw-semibold" type="submit">
+			Next <x-users.spinners.white-btn wire:target="preview" />
+		</button>
 	</div>
 </form>

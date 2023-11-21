@@ -1,4 +1,4 @@
-<h2 class="m-0 py-2 text-secondary fs-3 fw-semibold">{{ $title }}</h2>
+<h2 class="m-0 py-2 text-secondary fs-3 fw-semibold text-capitalize">{{ $title }}</h2>
 	<p class="m-0 py-2 text-secondary">
 		<span class="fw-medium"><i>submitted by</i></span>
 		<span class="text-purple-700 fw-bold">{{ $submittedBy }}</span>
@@ -25,7 +25,7 @@
 		<div class="col-md-8">
 			<div class="row align-items-center">
 				<div class="col-auto">
-					<img class="rounded-circle img-fluid" src="{{ $publication->profileImage ? $publication->profileImage->image_path : 'https://via.placeholder.com/45x45' }}" style="max-width: 45px; max-height: 45px;" alt=".." />
+					<img class="rounded-circle img-square img-45" src="{{ $publication->profileImage ? Storage::url($publication->profileImage->image_path) : 'https://via.placeholder.com/45x45' }}" alt=".." />
 				</div>
 				<div class="col">
 					<p class="text-secondary fw-semibold m-0 p-0">{{ $publication->name }}</p>
@@ -42,13 +42,13 @@
 		<div class="col-md-8">
 			<div class="row justify-content-start gx-1 gy-3">
 				<div class="col-auto">
-					<span class="badge rounded-pill bg-purple-50 text-purple-700 fw-medium">{{ $category->name }}</span>
+					<span class="badge rounded-pill bg-purple-100 text-purple-700 fw-medium">{{ $category->name }}</span>
 				</div>
 				<div class="col-auto">
-					<span class="badge rounded-pill bg-purple-50 text-purple-700 fw-medium">{{ $language->name }}</span>
+					<span class="badge rounded-pill bg-purple-100 text-purple-700 fw-medium">{{ $language->name }}</span>
 				</div>
 				<div class="col-auto">
-					<span class="badge rounded-pill bg-purple-50 text-purple-700 fw-medium">{{ $location->name }}</span>
+					<span class="badge rounded-pill bg-purple-100 text-purple-700 fw-medium">{{ $location->name }}</span>
 				</div>
 			</div>
 		</div>

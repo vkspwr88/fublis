@@ -28,8 +28,12 @@
 			<div class="row g-4">
 				<div class="col">
 					<div class="text-end">
-						<button class="btn btn-white fw-semibold" type="button" wire:click="previousStep">Cancel</button>
-						<button class="btn btn-primary fw-semibold" type="button" wire:click="create">Invite Stories</button>
+						<button class="btn btn-white fw-semibold" type="button" wire:click="previousStep">
+							Cancel <x-users.spinners.primary-btn wire:target="previousStep" />
+						</button>
+						<button class="btn btn-primary fw-semibold" type="button" wire:click="create">
+							Invite Stories <x-users.spinners.white-btn wire:target="create" />
+						</button>
 					</div>
 				</div>
 			</div>

@@ -440,6 +440,11 @@ a.text-purple:hover{
 	max-height: 40px !important;
 }
 
+.img-45{
+	max-width: 45px !important;
+	max-height: 45px !important;
+}
+
 .img-48{
 	max-width: 48px !important;
 	max-height: 48px !important;
@@ -701,6 +706,15 @@ input:checked+.search-list .checked{
 .setting-nav .nav-item{
 	position: relative;
   	bottom: -1px;
+}
+
+.datepicker td, .datepicker th{
+	width: 30px;
+	height: 30px;
+}
+.datepicker table tr td.active.active, .datepicker table tr td.active:hover, .datepicker table tr td.active:hover.active, .datepicker table tr td.active:hover:hover{
+	background-color: var(--fublis-purple-700);
+	background-image: none;
 }
 
 @media(max-width: 992px){

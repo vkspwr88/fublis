@@ -10,7 +10,16 @@ class CallController extends Controller
 {
     public function index()
 	{
-		$calls = Call::with(['journalist.user', 'publication', 'publication', 'tags'])->latest()->get();
+		$calls = Call::with([
+						'journalist.user',
+						'publication.profileImage',
+						'tags',
+						'location',
+						'category',
+						'language',
+					])
+					->latest()
+					->get();
 		return view('users.pages.journalists.calls.index', [
 			'calls' => $calls,
 		]);

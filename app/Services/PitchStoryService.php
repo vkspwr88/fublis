@@ -99,7 +99,21 @@ class PitchStoryService
 
 	public function filterCalls(array $data)
 	{
-		if($data['location'] == '' && empty($data['publicationTypes']) && empty($data['categories'])){
+		$calls = Call::with([
+							'publication' => [
+								'profileImage'
+							],
+							'journalist' => [
+								'user'
+							],
+							'category',
+							'language',
+						])
+						->where('submission_end_date', '>', Carbon::now())
+						->where('title', 'like', '%' . $data['name'] . '%')
+						->latest()
+						->get();
+		/* if($data['location'] == '' && empty($data['publicationTypes']) && empty($data['categories'])){
 			return Call::with([
 							'publication' => [
 								'profileImage'
@@ -112,7 +126,31 @@ class PitchStoryService
 						->where('submission_end_date', '>', Carbon::now())
 						->latest()
 						->get();
+		} */
+
+		if($data['location'] != ''){
+			$calls = $calls->where('location_id', $data['location']);
 		}
+
+		if($data['deadline'] != '' && get_class($data['deadline']) == 'Carbon\Carbon'){
+			$calls = $calls->where('submission_end_date', '<=', $data['deadline']);
+		}
+
+		if(!empty($data['publicationTypes'])){
+			$publications = Publication::whereHas('publicationTypes', function(Builder $query) use($data) {
+				$query->whereIn('publication_type_id', $data['publicationTypes']);
+			})->get()->pluck('id');
+			$filter = Call::whereHas('publication', function(Builder $query) use($publications) {
+				$query->whereIn('id', $publications);
+			})->get()->pluck('id');
+			$calls = $calls->find($filter);
+		}
+
+		if(!empty($data['categories'])){
+			$calls = $calls->whereIn('category_id', $data['categories']);
+		}
+
+		return $calls;
 	}
 
 	public function createPitchStory($model, array $details)

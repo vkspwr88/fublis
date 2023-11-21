@@ -66,7 +66,7 @@
 									<div class="col-auto">
 										<div class="row">
 											<div class="col-auto">
-												<img class="rounded-circle" src="https://via.placeholder.com/45x45" alt=".." />
+												<img class="rounded-circle img-square img-45" src="{{ $call->publication->profileImage ? Storage::url($call->publication->profileImage->image_path) : "https://via.placeholder.com/45x45" }}" alt=".." />
 											</div>
 											<div class="col">
 												<p class="text-secondary fw-semibold m-0 p-0">{{ $call->publication->name }}</p>
