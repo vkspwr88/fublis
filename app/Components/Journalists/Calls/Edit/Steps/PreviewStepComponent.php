@@ -24,6 +24,7 @@ class PreviewStepComponent extends StepComponent
 		return view('livewire.journalists.calls.edit-wizard.steps.preview', [
 			'category' => CategoryController::findById($call['category']),
 			'title' => $call['title'],
+			'submittedBy' => auth()->user()->name,
 			'description' => $call['description'],
 			'location' => LocationController::findById($call['location']),
 			'publication' => PublicationController::findById($call['publication']),

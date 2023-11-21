@@ -4,6 +4,7 @@ namespace App\Components\Journalists\Calls\Edit;
 
 use App\Components\Journalists\Calls\Edit\Steps;
 use App\Support\Journalists\Calls\EditWizardState;
+use Carbon\Carbon;
 use Spatie\LivewireWizard\Components\WizardComponent;
 
 class EditWizardComponent extends WizardComponent
@@ -25,7 +26,7 @@ class EditWizardComponent extends WizardComponent
 				'location' => $this->call->location_id,
 				'publication' => $this->call->publication_id,
 				'language' => $this->call->language_id,
-				'submissionEndsDate' => $this->call->submission_end_date,
+				'submissionEndsDate' => Carbon::parse($this->call->submission_end_date)->format('d-M-Y'),
 				'callId' => $this->call->id,
 			],
         ];

@@ -39,7 +39,7 @@ class EditStepComponent extends StepComponent
             'location' => 'required|exists:locations,id',
             'publication' => 'required|exists:publications,id',
             'language' => 'required|exists:languages,id',
-			'submissionEndsDate' => 'required|date_format:d/m/y|after:tomorrow',
+			'submissionEndsDate' => 'required|date_format:d-M-Y|after:tomorrow',
         ];
     }
 
@@ -57,7 +57,7 @@ class EditStepComponent extends StepComponent
             'publication.required' => 'Select the :attribute.',
             'language.required' => 'Select the :attribute.',
             'submissionEndsDate.required' => 'Select the :attribute.',
-            'submissionEndsDate.date_format' => 'Enter the :attribute in dd/mm/yy format.',
+            'submissionEndsDate.date_format' => 'Enter the :attribute in 01-Jan-1990 format.',
             'submissionEndsDate.after' => 'The :attribute can be any date after tomorrow.',
             '*.exists' => 'Select the valid :attribute.',
         ];

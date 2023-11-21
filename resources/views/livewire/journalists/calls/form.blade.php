@@ -69,7 +69,7 @@
 	<div class="row mb-3">
 		<label for="inputSubmissionEndsDate" class="col-md-4 col-form-label text-dark fs-6 fw-medium">Submission ends</label>
 		<div class="col-md-8">
-			<input type="text" id="inputSubmissionEndsDate" class="form-control @error('submissionEndsDate') is-invalid @enderror" wire:model="submissionEndsDate">
+			<input type="text" id="inputSubmissionEndsDate" class="form-control datepicker @error('submissionEndsDate') is-invalid @enderror" wire:model="submissionEndsDate">
 			@error('submissionEndsDate')<div class="invalid-feedback">{{ $message }}</div>@enderror
 		</div>
 	</div>

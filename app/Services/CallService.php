@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Http\Controllers\Users\Journalists\CallController;
 use App\Http\Controllers\Users\TagController;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Support\Facades\DB;
 
@@ -22,7 +23,7 @@ class CallService
 				'location_id' => $details['location'],
 				'publication_id' => $details['publication'],
 				'language_id' => $details['language'],
-				'submission_end_date' => $details['submissionEndsDate'],
+				'submission_end_date' => Carbon::parse($details['submissionEndsDate']),
 			]);
 			// attach tags
 			TagController::attachTags($call, [
@@ -52,7 +53,7 @@ class CallService
 				'location_id' => $details['location'],
 				'publication_id' => $details['publication'],
 				'language_id' => $details['language'],
-				'submission_end_date' => $details['submissionEndsDate'],
+				'submission_end_date' => Carbon::parse($details['submissionEndsDate']),
 			]);
 
 			// attach tags

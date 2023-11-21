@@ -113,20 +113,6 @@ class PitchStoryService
 						->where('title', 'like', '%' . $data['name'] . '%')
 						->latest()
 						->get();
-		/* if($data['location'] == '' && empty($data['publicationTypes']) && empty($data['categories'])){
-			return Call::with([
-							'publication' => [
-								'profileImage'
-							],
-							'journalist' => [
-								'user'
-							],
-							'category',
-						])
-						->where('submission_end_date', '>', Carbon::now())
-						->latest()
-						->get();
-		} */
 
 		if($data['location'] != ''){
 			$calls = $calls->where('location_id', $data['location']);
