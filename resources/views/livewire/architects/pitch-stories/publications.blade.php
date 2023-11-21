@@ -6,47 +6,74 @@
 			</button>
 		</div>
 		<div class="position-relative">
-			<div class="filter-container" id="collapsedFilter">
-				<form wire:submit="search">
-					@include('users.includes.architect.pitch-story-nav-types', ['type' => 'publication'])
-					<div class="input-group mb-4">
-						<label class="input-group-text bg-white" for="filterSearchInput"><i class="bi bi-search"></i></label>
-						<input id="filterSearchInput" class="form-control border-start-0 shadow-none ps-0" type="search" placeholder="Search by name" aria-label="Search" />
+			<div class="filter-container p-0 rounded-3" id="collapsedFilter">
+				<div class="card border-0 rounded-3 bg-white shadow">
+					<div class="card-body">
+						<form wire:submit="search">
+							@include('users.includes.architect.pitch-story-nav-types', ['type' => 'publication'])
+							<div class="input-group mb-4">
+								<label class="input-group-text bg-white" for="filterSearchInput"><i class="bi bi-search"></i></label>
+								<input id="filterSearchInput" class="form-control border-start-0 shadow-none ps-0" type="search" placeholder="Search by name" aria-label="Search" wire:model="name" />
+							</div>
+							<x-users.filter.header text="Location" />
+							<x-users.filter.select type="location" :list="$locations" model="selectedLocation" />
+							<hr class="divider">
+							<x-users.filter.header text="Publication Types" />
+							<div class="d-grid mb-2">
+								<button type="button" class="btn btn-light fw-semibold text-start" wire:click="selectAll('publication-type')">View all</button>
+							</div>
+							<x-users.filter.checkbox-list type="publication-type" :list="$publicationTypes" model="selectedPubliationTypes" />
+							<hr class="divider">
+							<x-users.filter.header text="Categories" />
+							<div class="d-grid mb-2">
+								<button type="button" class="btn btn-light fw-semibold text-start" wire:click="selectAll('category')">View all</button>
+							</div>
+							<x-users.filter.checkbox-list type="category" :list="$categories" model="selectedCategories" />
+							<hr class="divider">
+							<div class="d-grid gap-2">
+								<button type="submit" class="btn btn-white text-capitalize">
+									search
+									<x-users.spinners.primary-btn wire:target="search" />
+								</button>
+								<button type="button" class="btn btn-danger text-capitalize" wire:click="clear">
+									clear
+									<x-users.spinners.white-btn wire:target="clear" />
+								</button>
+							</div>
+						</form>
 					</div>
-					<x-users.filter.header text="Location" />
-					<x-users.filter.select type="location" :list="$locations" model="selectedLocation" />
-					<hr class="divider">
-					<x-users.filter.header text="Publication Types" />
-					<x-users.filter.checkbox-list type="publication-type" :list="$publicationTypes" model="selectedPubliationTypes" />
-					<hr class="divider">
-					<x-users.filter.header text="Categories" />
-					<x-users.filter.checkbox-list type="category" :list="$categories" model="selectedCategories" />
-					<hr class="divider">
-					<div class="d-grid">
-						<button type="submit" class="btn btn-white text-capitalize">search</button>
-					</div>
-				</form>
+				</div>
 			</div>
 		</div>
 	</div>
 	<div class="col-lg">
+		@if($publications->count() > 0)
 		<div class="row g-4">
-			@forelse ($publications as $publication)
+			@foreach ($publications as $publication)
 			<div class="col-12">
 				<div class="card border-0 rounded-3 bg-white shadow">
 					<div class="card-body">
 						<div class="row gx-2 gy-4">
-							<div class="col-sm-3">
+							<div class="col-sm-auto">
 								<div class="d-block mx-auto text-center">
 									<img src="{{ $publication->profileImage ? Storage::url($publication->profileImage->image_path) : 'https://via.placeholder.com/150x150' }}" class="img-square img-150" alt="...">
 								</div>
 							</div>
-							<div class="col-sm-9">
+							<div class="col-sm">
 								<div class="row align-items-center pb-4">
 									<p class="fs-6 col m-0">
-										<span class="badge rounded-pill text-bg-secondary mb-1"><i class="bi bi-geo-alt"></i> {{ $publication->location->name }}</span>
-										<span class="badge rounded-pill text-bg-secondary mb-1">Website</span>
-										<span class="badge rounded-pill text-bg-secondary mb-1">English</span>
+										<span class="badge rounded-pill text-bg-secondary mb-1">
+											<i class="bi bi-geo-alt"></i>
+											{{ $publication->location->name }}
+										</span>
+										@foreach ($publication->publicationTypes as $publicationType)
+										<span class="badge rounded-pill text-bg-secondary mb-1">{{ $publicationType->name }}</span>
+										@endforeach
+										@if($publication->language)
+										<span class="badge rounded-pill text-bg-secondary mb-1">
+											{{ $publication->language->name }}
+										</span>
+										@endif
 									</p>
 									<p class="text-end fs-6 col m-0">
 										<button type="button" class="btn btn-primary btn-sm fw-medium" wire:click="showContact('{{ $publication->id }}')">
@@ -89,7 +116,11 @@
 					</div>
 				</div>
 			</div>
-			@empty
+			@endforeach
+		</div>
+		{{ $publications->links('vendor.livewire.custom-pagination') }}
+		@else
+		<div class="row">
 			<div class="col-12">
 				<div class="card border-0 rounded-3 bg-white shadow">
 					<div class="card-body">
@@ -97,8 +128,8 @@
 					</div>
 				</div>
 			</div>
-			@endforelse
 		</div>
+		@endif
 	</div>
 
 	@include('users.includes.architect.pitch-story-modals')

@@ -18,7 +18,7 @@ class Index extends Component
 
 	private MediaKitService $mediaKitService;
 
-	public $categories = [];
+	public $categories;
 	public $mediaKitTypes = [];
 	public $selectedMediaKitTypes = [];
 	public $selectedCategories = [];

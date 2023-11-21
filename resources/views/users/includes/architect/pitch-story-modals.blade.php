@@ -25,7 +25,7 @@
 										<div class="col-12">
 											<div class="row align-items-center g-3">
 												<div class="col-auto">
-													<img class="rounded-circle img-fluid" alt="..." src="{{ $journalist->profileImage ? $journalist->profileImage->image_path : 'https://via.placeholder.com/50x50' }}" style="max-width: 50px; max-height: 50px;" />
+													<img class="rounded-circle img-square img-50" alt="..." src="{{ $journalist->profileImage ? Storage::url($journalist->profileImage->image_path) : 'https://via.placeholder.com/50x50' }}" />
 												</div>
 												<div class="col">
 													<div class="row align-items-center g-1">
@@ -89,7 +89,7 @@
 										<div class="col-12">
 											<div class="row align-items-center g-3">
 											<div class="col-auto">
-												<img class="rounded-circle img-fluid" alt="..." src="https://via.placeholder.com/50x50" />
+												<img class="rounded-circle img-square img-50" alt="..." src="{{ Storage::url($mediaKit->story->cover_image_path) }}" />
 											</div>
 												<div class="col">
 													<div class="row align-items-center g-1">
