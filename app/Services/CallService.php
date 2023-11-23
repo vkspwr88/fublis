@@ -4,8 +4,10 @@ namespace App\Services;
 
 use App\Http\Controllers\Users\Journalists\CallController;
 use App\Http\Controllers\Users\TagController;
+use App\Models\Call;
 use Carbon\Carbon;
 use Exception;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\DB;
 
 class CallService
@@ -72,10 +74,38 @@ class CallService
 		return true;
 	}
 
-	public function filterSubmission(string $callId)
+	public function filterSubmission(array $data)
 	{
-		if($callId == ""){
-			return [];
+		$submissions = Call::with([
+								'pitches',
+								'mediaKits' => [
+									'story',
+									'category',
+									'architect.company'
+								],
+							])
+							->where('journalist_id', auth()->user()->journalist->id)
+							->whereHas(
+								'mediaKits',
+							)
+							->latest()
+							->get();
+		if($data['call'] != ""){
+			$submissions = $submissions->find($data['call']);
 		}
+		//dd($data, $submissions, $submissions->mediaKits);
+		return $submissions;
+	}
+
+	public function searchCalls(array $data)
+	{
+		return Call::whereHas('journalist', function(Builder $query) use($data){
+						$query->where([
+							['journalist_id', auth()->user()->journalist->id],
+							['title', 'like', '%' . $data['name'] . '%']
+						]);
+					})
+					->latest()
+					->get();
 	}
 }

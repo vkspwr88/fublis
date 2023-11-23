@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\Call;
 use App\Models\MediaKit;
 use Illuminate\Database\Eloquent\Builder;
 
@@ -35,17 +36,45 @@ class MediaKitService
 								})
 								->latest()
 								->get();
-		/* if(empty($data['location']) && empty($data['mediaKits']) && empty($data['categories'])){
-			return MediaKit::with(['story', 'category', 'architect.company'])
-							->latest()
-							->get();
-		} */
 		if(!empty($data['categories'])){
 			$mediaKits = $mediaKits->whereIn('category_id', $data['categories']);
 		}
 		if(!empty($data['mediaKitTypes'])){
 			$mediaKits = $mediaKits->whereIn('story_type', $data['mediaKitTypes']);
 		}
+		//dd($mediaKits);
+		return $mediaKits;
+	}
+
+	public function filterSubmission(array $data)
+	{
+		$mediaKits = MediaKit::with([
+								'story',
+								'category',
+								'architect.company',
+								'pitch.pitchable',
+							])
+							->whereHas('pitch')
+							/* ->where([
+								['journalist_id', auth()->user()->journalist->id],
+								['title', 'like', '%' . $data['name'] . '%']
+							]) */
+							->whereHasMorph(
+								'pitch.pitchable',
+								Call::class,
+								function (Builder $query) use($data) {
+									$query->where([
+										['journalist_id', auth()->user()->journalist->id],
+										['title', 'like', '%' . $data['name'] . '%']
+									]);
+								}
+							)
+							->latest()
+							->get();
+		if($data['call'] != ""){
+			return [];
+		}
+		dd($mediaKits);
 		return $mediaKits;
 	}
 }

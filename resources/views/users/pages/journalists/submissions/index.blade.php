@@ -21,22 +21,6 @@
 
 	<hr class="border-gray-300 my-4">
 
-	<div class="row">
-		<div class="col-lg-4">
-			<div class="filter-btn text-end pb-3">
-				<button class="btn btn-primary rounded-0" data-bs-toggle="collapse" data-bs-target="#collapsedFilter" aria-expanded="false" aria-controls="collapsedFilter">
-					<i class="bi bi-filter"></i>
-				</button>
-			</div>
-			<div class="position-relative">
-				<div class="filter-container" id="collapsedFilter">
-					<livewire:journalists.submissions.filter />
-				</div>
-			</div>
-		</div>
-		<div class="col-lg-8">
-			<livewire:journalists.submissions.media-kits />
-		</div>
-	</div>
+	<livewire:journalists.submissions.index />
 </div>
 @endsection

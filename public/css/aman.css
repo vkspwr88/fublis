@@ -7,7 +7,7 @@
 	--fublis-gray-600: #475467;
 	--fublis-gray-700: #344054;
 	--fublis-gray-900: #101828;
-	--fublis-indigo-50: #EEF4FF;.filter-checkbox:checked, .form-check-input:checked
+	--fublis-indigo-50: #EEF4FF;
 	--fublis-indigo-700: #3538CD;
 	--fublis-pink-50: #FDF2FA;
 	--fublis-pink-100: #F4EBFF;
@@ -698,9 +698,14 @@ input:checked+.search-list .checked{
 .list-radio + div{
 	color: var(--fublis-gray-500);
 }
+
+.list-radio + div>label{
+	cursor: pointer;
+}
+
 .list-radio:checked + div{
-	background: var(--fublis-white);
-	color: var(--fublis-gray-700);
+	background: var(--fublis-gray-100);
+	color: #000;
 }
 
 .setting-nav .nav-item{
