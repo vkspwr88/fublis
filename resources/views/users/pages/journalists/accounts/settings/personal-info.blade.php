@@ -6,7 +6,7 @@
 <div class="container py-5">
 	@include('users.includes.journalist.setting-breadcrumb')
 
-	@include('users.includes.journalist.setting-header')
+	@include('users.includes.journalist.profile-header', ['headerTitle' => 'Account Details'])
 
 	<hr class="border-gray-300 my-4">
 

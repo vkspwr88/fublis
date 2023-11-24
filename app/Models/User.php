@@ -77,4 +77,9 @@ class User extends Authenticatable implements Authorizable
 	{
 		return $this->hasMany(Notification::class);
 	}
+
+	public function invitations(): HasMany
+	{
+		return $this->hasMany(InviteColleague::class, 'invited_by');
+	}
 }

@@ -128,5 +128,8 @@ class Posts extends Component
 		$this->selectedCategory = '';
 		$this->postUrl = '';
 		$this->selectedPublication = '';
+		$this->metaTitle = '';
+		$this->metaContent = '';
+		$this->showMeta = false;
 	}
 }

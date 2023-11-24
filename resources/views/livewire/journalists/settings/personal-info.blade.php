@@ -35,9 +35,9 @@
 			</div>
 			<hr class="border-gray-300">
 			<div class="row">
-				<label for="inputName" class="col-md-4 col-form-label text-dark fs-6 fw-medium">Email address</label>
+				<label for="inputEmail" class="col-md-4 col-form-label text-dark fs-6 fw-medium">Email address</label>
 				<div class="col-md-8">
-					<input type="text" id="inputName" class="form-control @error('email') is-invalid @enderror" wire:model="email">
+					<input type="text" id="inputEmail" class="form-control @error('email') is-invalid @enderror" wire:model="email">
 					@error('email')<div class="invalid-feedback">{{ $message }}</div>@enderror
 				</div>
 			</div>
