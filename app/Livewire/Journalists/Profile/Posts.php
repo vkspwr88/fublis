@@ -5,6 +5,8 @@ namespace App\Livewire\Journalists\Profile;
 use App\Http\Controllers\Users\CategoryController;
 use App\Http\Controllers\Users\PublicationController;
 use App\Services\JournalistPostService;
+use Illuminate\Support\Facades\Validator;
+use Livewire\Attributes\Rule;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -18,6 +20,9 @@ class Posts extends Component
 	public $selectedCategory;
 	public $selectedPublication;
 	public $postUrl;
+	public $showMeta = false;
+	public string $metaTitle = '';
+	public string $metaContent = '';
 
 	//public $posts;
 	public $journalist;
@@ -73,9 +78,34 @@ class Posts extends Component
 		];
 	}
 
+	public function loadMeta()
+	{
+		$this->showMeta = false;
+		Validator::make(
+			["postUrl" => $this->postUrl],
+			['postUrl' => 'required|url'],
+			[
+				'required' => 'Enter the :attribute.',
+				'url' => 'Enter the valid :attribute started with https://.',
+			],
+			['postUrl' => 'url']
+		)->validate();
+		//dd($validated);
+		$metaTags = get_meta_tags($this->postUrl);
+		if(isset($metaTags['twitter:title']) && isset($metaTags['description'])){
+			$this->showMeta = true;
+			$this->metaTitle = $metaTags['twitter:title'];
+			$this->metaContent = $metaTags['description'];
+		}
+	}
+
+
 	public function save()
 	{
+		//dd(get_meta_tags($this->postUrl));
 		$validated = $this->validate($this->rules(), $this->messages(), $this->validationAttributes());
+		$validated['metaTitle'] = $this->metaTitle;
+		$validated['metaContent'] = $this->metaContent;
 		//dd($validated);
 		if($this->postService->createPost($validated)){
 			$this->dispatch('alert', [

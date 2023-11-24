@@ -722,6 +722,13 @@ input:checked+.search-list .checked{
 	background-image: none;
 }
 
+trix-editor{
+	border: 2px dashed var(--fublis-purple-700);
+	color: #212529;
+  	background-color: #fff;
+	min-height: 20em;
+}
+
 @media(max-width: 992px){
 	.filter-btn{
 		display: block;

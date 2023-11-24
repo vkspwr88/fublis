@@ -45,7 +45,7 @@
 								<div class="col-md">
 									<div class="row justify-content-end align-items-center">
 										<div class="col-auto">
-											<select wire:model="selectedCategory" class="form-select">
+											<select wire:model="selectedCategory" class="form-select @error('selectedCategory') is-invalid @enderror">
 												<option value="">Select Category</option>
 												@foreach ($categories as $category)
 													<option value="{{ $category->id }}">{{ $category->name }}</option>
@@ -57,12 +57,21 @@
 							</div>
 						</div>
 						<div class="col-12">
-							<textarea class="form-control text-dark rounded-3 border-0" rows="2" placeholder="Insert URL here" style="background: #CACACA" wire:model="postUrl"></textarea>
+							<textarea class="form-control text-dark rounded-3 border-0 @error('postUrl') is-invalid @enderror" rows="2" placeholder="Insert URL here" style="background: #CACACA" wire:model="postUrl" wire:blur="loadMeta"></textarea>
+							<div class="mt-2">
+								<x-users.spinners.primary-btn wire:target="loadMeta" style="height: 30px; width: 30px;" />
+							</div>
 						</div>
+						@if($showMeta)
+						<div class="col-12 text-dark">
+							<h4 class="fs-5 fw-semibold">{{ $metaTitle }}</h4>
+							<p class="fs-6">{{ $metaContent }}</p>
+						</div>
+						@endif
 						<div class="col-12">
 							<div class="row align-items-center">
 								<div class="col-auto">
-									<select class="form-select" wire:model="selectedPublication">
+									<select class="form-select @error('selectedPublication') is-invalid @enderror" wire:model="selectedPublication">
 										<option value="">Select Publication</option>
 										@foreach ($publications as $publication)
 											<option value="{{ $publication->id }}">{{ $publication->name }}</option>

@@ -5,6 +5,7 @@
 		<div class="col-12" wire:key="{{ $post->id }}">
 			<div class="card rounded-4 shadow border-0">
 				<div class="card-body">
+					<a href="{{ $post->post_url }}" class="stretched-link" target="_blank"></a>
 					<div class="row g-3">
 						<div class="col-12">
 							<div class="row justify-content-center pb-2">
@@ -12,8 +13,9 @@
 								<p class="text-end text-secondary fs-6 fw-semibold col m-0">{{ $post->category->name }}</p>
 							</div>
 						</div>
-						<div class="col-12">
-							{{ $post->post_url }}
+						<div class="col-12 text-dark">
+							<h4 class="fs-5 fw-semibold">{{ $post->meta_title }}</h4>
+							<p class="fs-6">{{ $post->meta_content }}</p>
 						</div>
 						<div class="col-12">
 							<div class="row align-items-center">

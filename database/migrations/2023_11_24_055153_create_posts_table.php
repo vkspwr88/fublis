@@ -21,6 +21,8 @@ return new class extends Migration
 			$table->foreignIdFor(Category::class);
 			$table->foreignIdFor(Publication::class);
 			$table->text('post_url');
+			$table->text('meta_title');
+			$table->text('meta_content');
             $table->timestamps();
         });
     }

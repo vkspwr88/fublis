@@ -11,7 +11,7 @@
 	</div>
 	<div class="d-grid gap-3">
 		<button class="btn btn-primary fs-6 fw-semibold" type="submit">
-			Log In <x-users.spinners.white-btn />
+			Log In <x-users.spinners.white-btn wire:target="login" />
 		</button>
 		{{-- <button class="btn btn-white fs-6 fw-semibold" type="button">
 			<svg xmlns="http://www.w3.org/2000/svg" width="25" height="24" viewBox="0 0 25 24" fill="none">

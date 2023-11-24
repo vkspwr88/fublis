@@ -25,6 +25,8 @@ class JournalistPostService
 				'category_id' => $data['selectedCategory'],
 				'publication_id' => $data['selectedPublication'],
 				'post_url' => $data['postUrl'],
+				'meta_title' => $data['metaTitle'],
+				'meta_content' => $data['metaContent'],
 				'journalist_id' => auth()->user()->journalist->id,
 			]);
 			DB::commit();

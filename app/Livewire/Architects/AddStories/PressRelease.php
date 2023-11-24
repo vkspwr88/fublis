@@ -6,6 +6,7 @@ ini_set('max_execution_time', 300);
 use App\Http\Controllers\Users\CategoryController;
 use App\Services\AddStoryService;
 use Illuminate\Support\Facades\Validator;
+use Livewire\Attributes\Renderless;
 use Livewire\Attributes\Rule;
 use Livewire\Component;
 use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
@@ -21,6 +22,7 @@ class PressRelease extends Component
 	public $imageCredits;
 	public $category;
 	public $conceptNote;
+	public int $conceptNoteLength;
 	public $pressReleaseWrite;
 	#[Rule('nullable|file|mimes:pdf,doc,docs')]
 	public $pressReleaseFile;
@@ -37,6 +39,11 @@ class PressRelease extends Component
 			'categories' => CategoryController::getAll(),
 		]);
     }
+
+	public function mount()
+	{
+		$this->conceptNoteLength = 275;
+	}
 
 	public function boot()
 	{
@@ -63,6 +70,12 @@ class PressRelease extends Component
         }
         $this->syncInput($name, $file);
     }
+
+	#[Renderless]
+	public function characterCount()
+	{
+		$this->conceptNoteLength = 275 - str()->length($this->conceptNote);
+	}
 
 	public function rules()
 	{
@@ -141,8 +154,14 @@ class PressRelease extends Component
 		];
 	}
 
+	/* public function setContent($content)
+	{
+		$this->pressReleaseWrite = $content;
+	} */
+
 	public function add()
 	{
+		//dd($this->pressReleaseWrite, $this->conceptNote);
 		//dd($this->tags);
 		//dd($this->pressReleaseFile, $this->pressReleaseLink, $this->photographsFiles, $this->photographsLink);
 		//$validated = $this->validate();

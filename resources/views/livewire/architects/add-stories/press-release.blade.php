@@ -82,9 +82,9 @@
 			<label class="d-block form-text text-secondary fs-7 m-0">Write in 50-75 words (this text will be used in pitch to journalists)</label>
 		</div>
 		<div class="col-md-8">
-			<textarea id="inputConceptNote" class="form-control @error('conceptNote') is-invalid @enderror" wire:model="conceptNote" rows="6"></textarea>
+			<textarea id="inputConceptNote" class="form-control @error('conceptNote') is-invalid @enderror" wire:model="conceptNote" wire:keydown.debounce="characterCount" rows="6"></textarea>
 			@error('conceptNote')<div class="invalid-feedback">{{ $message }}</div>@enderror
-			<div id="conceptNoteHelp" class="form-text">275 characters left</div>
+			<div id="conceptNoteHelp" class="form-text {{ $conceptNoteLength < 0 ? 'text-danger' : '' }}">{{ $conceptNoteLength }} characters left</div>
 		</div>
 	</div>
 	<div class="row">
@@ -93,7 +93,9 @@
 			<label class="d-block form-text text-secondary fs-7 m-0">Add the text in 300-500 words</label>
 		</div>
 		<div class="col-md-8">
-			<textarea id="inputPressReleaseWrite" class="form-control @error('pressReleaseWrite') is-invalid @enderror" wire:model="pressReleaseWrite" rows="8"></textarea>
+			{{-- <input id="inputPressReleaseWrite" type="hidden" name="pressReleaseWrite" value="{{ $pressReleaseWrite }}">
+  			<trix-editor input="inputPressReleaseWrite" class="trix-content"></trix-editor> --}}
+			<textarea id="" class="form-control @error('pressReleaseWrite') is-invalid @enderror" wire:model="pressReleaseWrite" rows="8"></textarea>
 			@error('pressReleaseWrite')<div class="invalid-feedback">{{ $message }}</div>@enderror
 		</div>
 	</div>
@@ -340,5 +342,12 @@
 				},
 			};
 		}
+
+		/* const trixEditor = document.getElementById('inputPressReleaseWrite');
+		addEventListener("trix-blur", (event)=>{
+			@this.set('pressReleaseWrite', trixEditor.getAttribute('value'));
+		})
+
+		const trixEditorElement = document.querySelector("trix-editor") */
 	</script>
 </form>
