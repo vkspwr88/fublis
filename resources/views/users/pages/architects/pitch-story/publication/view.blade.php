@@ -183,3 +183,6 @@
 	</div>
 </div>
 @endsection
+
+@include('users.includes.architect.pitch-story-modals-script')
+

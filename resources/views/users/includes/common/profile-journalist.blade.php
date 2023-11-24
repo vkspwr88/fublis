@@ -9,15 +9,13 @@
 				<p class="m-0 p-0">{{ $journalist->position->name }}</p>
 			</div>
 			<div class="col-12">
+				@if($viewAs == 'architect')
+				<livewire:architects.journalist-pitch :journalist="$journalist" />
+				@elseif ($viewAs == 'journalist')
 				<div class="d-grid">
-					@if($viewAs == 'architect')
-					<button type="button" class="btn btn-primary fw-medium" wire:click="test">
-						Submit Story <x-users.spinners.white-btn wire:target="test" />
-					</button>
-					@elseif ($viewAs == 'journalist')
 					<a href="{{ route('journalist.account.profile.setting.personal-info') }}" class="btn btn-primary fw-medium">Edit Profile</a>
-					@endif
 				</div>
+				@endif
 			</div>
 			<div class="col-12">
 				<div class="row g-2">
@@ -100,4 +98,7 @@
 			<livewire:journalists.profile.posts :journalist="$journalist" />
 		@endif
 	</div>
+	@if ($viewAs == 'architect')
+
+	@endif
 </div>

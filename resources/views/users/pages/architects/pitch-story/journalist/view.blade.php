@@ -23,7 +23,7 @@
 		</div>
 	</div>
 
-	@include('users.includes.architect.pitch-story-header', ['headerTitle' => 'Submit your stories to call for submissions'])
+	@include('users.includes.architect.pitch-story-header', ['headerTitle' => 'Submit your stories to ' . $journalist->user->name])
 
 	<hr class="border-gray-300 my-4">
 
@@ -32,3 +32,5 @@
 	])
 </div>
 @endsection
+
+@include('users.includes.architect.pitch-story-modals-script')
