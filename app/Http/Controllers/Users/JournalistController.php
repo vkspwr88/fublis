@@ -12,4 +12,22 @@ class JournalistController extends Controller
 	{
 		return Journalist::find($id);
 	}
+
+	public static function loadModel($model)
+	{
+		return $model->load([
+						'user',
+						'profileImage',
+						'language',
+						'location',
+						'publications' => [
+							'profileImage',
+							'categories'
+						],
+						'associatedPublications' => [
+							'profileImage',
+							'categories'
+						],
+					]);
+	}
 }

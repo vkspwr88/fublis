@@ -12,12 +12,12 @@
 						<a href="{{ route('home') }}" class="text-secondary fs-6 fw-medium"><i class="bi bi-house"></i></a>
 					</li>
 					<li class="breadcrumb-item fublis-breadcrumb-item">
-						<a href="javascript:;" class="text-secondary fs-6 fw-medium">People</a>
+						<a href="javascript:;" class="text-secondary fs-6 fw-medium">Publications</a>
 					</li>
 					<li class="breadcrumb-item fublis-breadcrumb-item">
-						<a href="javascript:;" class="text-secondary fs-6 fw-medium">{{ $architect->company->category->name }}</a>
+						<a href="javascript:;" class="text-secondary fs-6 fw-medium">Journalists</a>
 					</li>
-					<li class="breadcrumb-item fublis-breadcrumb-item text-purple-600 fs-6 fw-medium" aria-current="page">{{ $architect->user->name }}</li>
+					<li class="breadcrumb-item fublis-breadcrumb-item text-purple-600 fs-6 fw-medium" aria-current="page">Your Profile</li>
 				</ol>
 			</nav>
 		</div>
@@ -47,8 +47,8 @@
 
 	<hr class="border-gray-300 my-4">
 
-	@include('users.includes.common.profile-architect', [
-		'viewAs' => 'architect',
+	@include('users.includes.common.profile-journalist', [
+		'viewAs' => 'journalist',
 	])
 </div>
 @endsection

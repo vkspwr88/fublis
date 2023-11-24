@@ -29,4 +29,9 @@ class PublicationController extends Controller
 	{
 		return Publication::all();
 	}
+
+	public static function getAllPublications($journalist)
+	{
+		return $journalist->publications->concat($journalist->associatedPublications);
+	}
 }

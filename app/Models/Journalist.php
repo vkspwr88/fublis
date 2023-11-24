@@ -69,4 +69,9 @@ class Journalist extends Model
 	{
 		return $this->morphMany(Pitch::class, 'pitchable');
 	}
+
+	public function posts(): HasMany
+	{
+		return $this->hasMany(Post::class);
+	}
 }

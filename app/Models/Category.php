@@ -39,4 +39,9 @@ class Category extends Model
 			'publication_id',
 		);
 	}
+
+	public function posts(): HasMany
+	{
+		return $this->hasMany(Post::class);
+	}
 }

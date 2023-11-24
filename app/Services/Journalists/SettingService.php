@@ -25,6 +25,7 @@ class SettingService
 			Journalist::where('user_id', auth()->id())
 						->update([
 							'journalist_position_id' => $details['position'],
+							'language_id' => $details['language'],
 							'location_id' => $details['location'],
 							'about_me' => $details['aboutMe'],
 						]);
@@ -92,7 +93,7 @@ class SettingService
 				// publication types
 				$publication->publicationTypes()->sync($details['selectedPublicationTypes']);
 			}
-			
+
 			// publication logo
 			if(!empty($details['profileImage'])){
 				ImageController::updateOrCreate($publication->profileImage(), [
@@ -137,7 +138,7 @@ class SettingService
 							->update([
 								'password' => $details['newPassword'],
 							]);
-			
+
 			throw_if(
 				!$updated,
 				Exception::class,
@@ -200,7 +201,7 @@ class SettingService
 				// publication types
 				$publication->publicationTypes()->sync($details['selectedPublicationTypes']);
 			}
-			
+
 			// publication logo
 			if(!empty($details['profileImage'])){
 				ImageController::updateOrCreate($publication->profileImage(), [

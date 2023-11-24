@@ -135,6 +135,19 @@
 			</div>
 			<hr class="border-gray-300">
 			<div class="row">
+				<label for="selectLanguage" class="col-md-4 col-form-label text-dark fs-6 fw-medium">Language</label>
+				<div class="col-md-8">
+					<select id="selectLanguage" class="form-select @error('language') is-invalid @enderror" wire:model="language">
+						<option value="">Select Language</option>
+						@foreach ($languages as $language)
+							<option value="{{ $language->id }}">{{ $language->name }}</option>
+						@endforeach
+					</select>
+					@error('language')<div class="invalid-feedback">{{ $message }}</div>@enderror
+				</div>
+			</div>
+			<hr class="border-gray-300">
+			<div class="row">
 				<label for="selectLocation" class="col-md-4 col-form-label text-dark fs-6 fw-medium">Country</label>
 				<div class="col-md-8">
 					<select id="selectLocation" class="form-select @error('location') is-invalid @enderror" wire:model="location">

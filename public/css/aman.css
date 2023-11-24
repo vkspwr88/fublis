@@ -704,8 +704,8 @@ input:checked+.search-list .checked{
 }
 
 .list-radio:checked + div{
-	background: var(--fublis-gray-100);
-	color: #000;
+	background: var(--fublis-gray-100) !important;
+	color: #000 !important;
 }
 
 .setting-nav .nav-item{

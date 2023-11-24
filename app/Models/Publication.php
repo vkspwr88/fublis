@@ -107,4 +107,8 @@ class Publication extends Model
 		return $this->belongsTo(Language::class);
 	}
 
+	public function posts(): HasMany
+	{
+		return $this->hasMany(Post::class);
+	}
 }

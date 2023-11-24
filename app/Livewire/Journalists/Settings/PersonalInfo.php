@@ -3,6 +3,7 @@
 namespace App\Livewire\Journalists\Settings;
 
 use App\Http\Controllers\Users\JournalistPositionController;
+use App\Http\Controllers\Users\LanguageController;
 use App\Http\Controllers\Users\LocationController;
 use App\Services\Journalists\SettingService;
 use Illuminate\Validation\Rule as ValidationRule;
@@ -23,6 +24,7 @@ class PersonalInfo extends Component
 	public $company;
 	public $position;
 	public $location;
+	public $language;
 	public $aboutMe;
 
 	private SettingService $settingService;
@@ -34,6 +36,7 @@ class PersonalInfo extends Component
 		$this->email = auth()->user()->email;
 		$this->position = $journalist->journalist_position_id;
 		$this->location = $journalist->location_id;
+		$this->language = $journalist->language_id;
 		$this->aboutMe = $journalist->about_me;
 		$this->profileImageOld = $journalist->profileImage;
 	}
@@ -47,6 +50,7 @@ class PersonalInfo extends Component
     {
         return view('livewire.journalists.settings.personal-info', [
 			'locations' => LocationController::getAll(),
+			'languages' => LanguageController::getAll(),
 			'positions' => JournalistPositionController::getAll(),
 		]);
     }
@@ -89,6 +93,7 @@ class PersonalInfo extends Component
 			],
 			'profileImage' => 'nullable|image|mimes:svg,png,jpg,gif|max:3100|dimensions:max_width=400,max_height=400',
 			'position' => 'required|exists:journalist_positions,id',
+			'language' => 'required|exists:languages,id',
 			'location' => 'required|exists:locations,id',
 			'aboutMe' => 'required|max:275',
 		];
@@ -108,6 +113,8 @@ class PersonalInfo extends Component
 			'profileImage.dimensions' => 'Maximum allowed dimension for the :attribute is 400x400px.',
 			'position.required' => 'Select the :attribute.',
 			'position.exists' => 'Select the valid :attribute.',
+			'language.required' => 'Select the :attribute.',
+			'language.exists' => 'Select the valid :attribute.',
 			'location.required' => 'Select the :attribute.',
 			'location.exists' => 'Select the valid :attribute.',
 			'aboutMe.required' => 'Enter the :attribute.',
@@ -122,6 +129,7 @@ class PersonalInfo extends Component
 			'email' => 'amail address',
 			'profileImage' => 'photo',
 			'position' => 'role',
+			'language' => 'language',
 			'location' => 'country',
 			'aboutMe' => 'bio',
 		];
