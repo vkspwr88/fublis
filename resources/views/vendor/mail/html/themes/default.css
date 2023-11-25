@@ -11,7 +11,7 @@ body *:not(html):not(style):not(br):not(tr):not(code) {
 body {
     -webkit-text-size-adjust: none;
     background-color: #ffffff;
-    color: #718096;
+    color: #344054;
     height: 100%;
     line-height: 1.4;
     margin: 0;
@@ -235,6 +235,7 @@ img {
     text-decoration: none;
 	background: transparent;
 	box-shadow: none;
+	font-weight: bold;
 }
 
 .button-blue,
@@ -308,4 +309,12 @@ img {
 	text-align: center;
 	color: var(--primary-600, #7F56D9);
 	margin-right: 1rem;
+}
+
+.text-dark{
+	color: #344054 !important;
+}
+
+.im{
+	color: #344054;
 }

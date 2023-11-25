@@ -3,6 +3,7 @@
 namespace App\Livewire\Common\InviteColleague;
 
 use App\Services\InviteColleagueService;
+use Illuminate\Validation\Rule;
 use Livewire\Attributes\Renderless;
 use Livewire\Component;
 
@@ -46,6 +47,7 @@ class Form extends Component
 			'email' => [
 				'required',
 				'email:rfc,dns',
+				Rule::unique('users')->ignore(auth()->id()),
 			],
 			'inviteMessage' => 'required|max:275',
 		];
@@ -57,6 +59,7 @@ class Form extends Component
 			'name.required' => 'Enter the :attribute.',
 			'email.required' => 'Enter the :attribute.',
 			'email.email' => 'Enter valid :attribute.',
+			'email.unique' => 'The :attribute is already registerred.',
 			'inviteMessage.required' => 'Enter the :attribute.',
 			'inviteMessage.max' => 'The :attribute allows only 275 characters.',
 		];
@@ -66,7 +69,7 @@ class Form extends Component
 	{
 		return [
 			'name' => 'full name',
-			'email' => 'amail address',
+			'email' => 'email address',
 			'inviteMessage' => 'invite message',
 		];
 	}

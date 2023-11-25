@@ -3,8 +3,10 @@
 namespace App\Services;
 
 use App\Http\Controllers\Users\InviteColleagueController;
+use App\Mail\User\InvitationMail;
 use Exception;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 
 class InviteColleagueService
 {
@@ -18,6 +20,7 @@ class InviteColleagueService
 				'email' => $data['email'],
 				'message' => $data['inviteMessage'],
 			]);
+			Mail::to($inviteColleage->email)->queue(new InvitationMail($inviteColleage));
 			DB::commit();
 		}
 		catch(Exception $exp){

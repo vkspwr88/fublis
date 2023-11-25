@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Mail\User\Architect\Signup;
+namespace App\Mail\User;
 
+use App\Models\InviteColleague;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
@@ -9,7 +10,7 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class WelcomeMail extends Mailable implements ShouldQueue
+class InvitationMail extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
 
@@ -17,7 +18,7 @@ class WelcomeMail extends Mailable implements ShouldQueue
      * Create a new message instance.
      */
     public function __construct(
-		public string $email,
+		public InviteColleague $inviteColleague,
 	)
     {
         //
@@ -29,7 +30,7 @@ class WelcomeMail extends Mailable implements ShouldQueue
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Welcome to Fublis',
+            subject: 'Invitation Mail',
         );
     }
 
@@ -39,9 +40,11 @@ class WelcomeMail extends Mailable implements ShouldQueue
     public function content(): Content
     {
         return new Content(
-            markdown: 'emails.user.architect.signup.welcome-email',
+            markdown: 'emails.user.invitation-email',
 			with: [
-				'senderEmail' => $this->email,
+				'senderEmail' => $this->inviteColleague->email,
+				'inviteColleague' => $this->inviteColleague->load('user'),
+				'invitationUrl' => '#',
 			],
         );
     }

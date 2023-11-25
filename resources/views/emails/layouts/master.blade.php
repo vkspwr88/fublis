@@ -10,8 +10,10 @@ Thanks,
 <br>
 The Team
 </p>
-<p style="margin-bottom: 20px;">
-This email was sent to {{ $senderEmail }}. If you'd rather not receive this kind of email, you can <a href="#" class="link">unsubscribe</a> or <a href="#" class="link">manage your email preferences</a>.
+<p style="margin-bottom: 20px; color: #98A2B3;">
+<small>
+This email was sent to <span class="link">{{ $senderEmail }}</span>. If you'd rather not receive this kind of email, you can <a href="#" class="link">unsubscribe</a> or <a href="#" class="link">manage your email preferences</a>.
+</small>
 </p>
 <p style="margin-bottom: 40px;">
 &copy; {{ date('Y') }} XXXXXX, 100 XXXXXX XXXXXX, XXXXXX 1111111
