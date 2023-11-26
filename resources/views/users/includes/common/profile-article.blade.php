@@ -65,18 +65,20 @@
 				<p class="text-dark fs-6 m-0">Description</p>
 			</div>
 			<div class="col text-end">
-				<a class="btn btn-primary fs-6 fw-medium" href="{{ Storage::download($mediaKit->story->article_doc_path) }}" target="_blank">Download</a>
+				<a class="btn btn-primary fs-6 fw-medium" href="{{ $mediaKit->story->article_doc_path ? Storage::download($mediaKit->story->article_doc_path) : $mediaKit->story->article_doc_link }}" target="_blank">Download</a>
 			</div>
 		</div>
+		@if($mediaKit->story->images_link)
 		<hr class="border-gray-300">
 		<div class="row align-items-center">
 			<div class="col">
 				<p class="text-dark fs-6 m-0">Gallery</p>
 			</div>
 			<div class="col text-end">
-				<a class="btn btn-primary fs-6 fw-medium" href="{{ Storage::download($mediaKit->story->article_doc_path) }}" target="_blank">Download</a>
+				<button class="btn btn-primary fs-6 fw-medium" href="{{ $mediaKit->story->images_link }}" target="_blank">Download</button>
 			</div>
 		</div>
+		@endif
 		<hr class="border-gray-300">
 		<div class="row">
 			<div class="col-12">

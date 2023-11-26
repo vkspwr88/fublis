@@ -224,7 +224,6 @@
 				@elseif ($viewAs == 'journalist')
 				<x-users.media-kits.journalist-list :mediaKits="$mediaKits" />
 				@endif
-
 			</div>
 		</div>
 	</div>
