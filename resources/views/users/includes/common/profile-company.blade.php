@@ -219,7 +219,7 @@
 				</div>
 			</div>
 			<div class="col-12">
-				<x-users.media-kits.architect-list :mediaKits="$brand->mediaKits->sortByDesc('created_at')" />
+				<x-users.media-kits.architect-list :mediaKits="$mediaKits" />
 			</div>
 		</div>
 	</div>

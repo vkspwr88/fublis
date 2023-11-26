@@ -12,7 +12,7 @@ class StudioController extends Controller
 {
     public function index()
 	{
-		$brand = Company::whereHas('architects', function (Builder $query) {
+		/* $brand = Company::whereHas('architects', function (Builder $query) {
 							$query->where('user_id', auth()->id());
 						})->first();
 		//dd($brand);
@@ -20,10 +20,14 @@ class StudioController extends Controller
 			return abort(404);
 		}
 		$brand = CompanyController::loadModel($brand);
-
+		//dd($brand->mediaKits->paginate(2));
 		return view('users.pages.architects.accounts.studio.index', [
 			'brand' => $brand,
+			'mediaKits' => $brand->mediaKits->sortByDesc('created_at')->paginate(1),
 			'tags' => CompanyController::loadTags($brand),
+		]); */
+		return view('users.pages.architects.accounts.studio.index', [
+			'brand' => CompanyController::getArchitectCompany(auth()->id()),
 		]);
 	}
 

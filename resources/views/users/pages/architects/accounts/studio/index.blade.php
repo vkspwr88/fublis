@@ -47,9 +47,6 @@
 
 	<hr class="border-gray-300 my-4">
 
-	@include('users.includes.common.profile-company', [
-		'viewAs' => 'architect',
-	])
-
+	<livewire:architects.account.studio />
 </div>
 @endsection
