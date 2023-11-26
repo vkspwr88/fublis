@@ -12,13 +12,8 @@ class ProfileController extends Controller
 {
     public function index()
 	{
-		$architect = Architect::where('user_id', auth()->id())
-								->first();
-		//dd($brand);
-		if(!$architect){
-			return abort(404);
-		}
-		$architect = ArchitectController::loadModel($architect);
+		$architect = ArchitectController::getArchitect(auth()->id());
+		//$architect = ArchitectController::loadModel($architect);
 		return view('users.pages.architects.accounts.profile.index', [
 			'architect' => $architect,
 		]);

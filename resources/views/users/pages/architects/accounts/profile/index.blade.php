@@ -47,8 +47,6 @@
 
 	<hr class="border-gray-300 my-4">
 
-	@include('users.includes.common.profile-architect', [
-		'viewAs' => 'architect',
-	])
+	<livewire:architects.account.profile :architect="$architect" />
 </div>
 @endsection

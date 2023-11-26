@@ -8,6 +8,17 @@ use Illuminate\Http\Request;
 
 class ArchitectController extends Controller
 {
+	public static function getArchitect(string $userId)
+	{
+		$architect = Architect::where('user_id', $userId)
+								->first();
+		//dd($brand);
+		if(!$architect){
+			return abort(404);
+		}
+		return $architect;
+	}
+
     public static function getArchitectDetailsByUserId(string $userId)
 	{
 		return Architect::with([

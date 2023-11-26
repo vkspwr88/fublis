@@ -1,3 +1,3 @@
-<div>
-    {{-- A good traveler has no fixed plans and is not intent upon arriving. --}}
-</div>
+@include('users.includes.common.profile-architect', [
+	'viewAs' => 'architect',
+])
