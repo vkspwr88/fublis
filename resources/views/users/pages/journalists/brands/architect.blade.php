@@ -27,9 +27,6 @@
 
 	<hr class="border-gray-300 my-4">
 
-	@include('users.includes.common.profile-architect', [
-		'viewAs' => 'journalist',
-		'architect' => $architect,
-	])
+	<livewire:journalists.brands.architect :architect="$architect" />
 </div>
 @endsection

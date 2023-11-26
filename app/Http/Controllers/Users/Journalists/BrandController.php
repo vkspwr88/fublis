@@ -53,7 +53,7 @@ class BrandController extends Controller
 		if(!$architect){
 			return abort(404);
 		}
-		$architect = ArchitectController::loadModel($architect);
+		//$architect = ArchitectController::loadModel($architect);
 		return view('users.pages.journalists.brands.architect', [
 			'architect' => $architect
 		]);

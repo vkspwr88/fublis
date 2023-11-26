@@ -1,3 +1,4 @@
-<div>
-    {{-- Success is as dangerous as failure. --}}
-</div>
+@include('users.includes.common.profile-architect', [
+	'viewAs' => 'journalist',
+	/* 'architect' => $architect, */
+])
