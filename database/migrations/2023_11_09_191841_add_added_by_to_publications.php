@@ -13,7 +13,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('publications', function (Blueprint $table) {
-            $table->foreignIdFor(Journalist::class, 'added_by')->after('language_id');
+            $table->foreignIdFor(Journalist::class, 'added_by')->nullable()->after('language_id');
         });
     }
 
