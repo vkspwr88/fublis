@@ -219,7 +219,12 @@
 				</div>
 			</div>
 			<div class="col-12">
+				@if ($viewAs == 'architect')
 				<x-users.media-kits.architect-list :mediaKits="$mediaKits" />
+				@elseif ($viewAs == 'journalist')
+				<x-users.media-kits.journalist-list :mediaKits="$mediaKits" />
+				@endif
+
 			</div>
 		</div>
 	</div>
