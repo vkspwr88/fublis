@@ -22,7 +22,7 @@ class BrandController extends Controller
 			return abort(404);
 		}
 
-		$brand->load([
+		/* $brand->load([
 			'profileImage',
 			'category',
 			'location',
@@ -37,13 +37,14 @@ class BrandController extends Controller
 				'architect.company.profileImage',
 				'category',
 			],
-		]);
-		$brand = CompanyController::loadModel($brand);
+		]); */
+		//$brand = CompanyController::loadModel($brand);
 
 		//dd($brand->mediaKits->pluck('story')->pluck('tags')->flatten()->pluck('name')->unique());
 		return view('users.pages.journalists.brands.view', [
 			'brand' => $brand,
-			'tags' => CompanyController::loadTags($brand),
+			/* 'mediaKits' => $brand->mediaKits->sortByDesc('created_at')->paginate(5),
+			'tags' => CompanyController::loadTags($brand), */
 		]);
 	}
 

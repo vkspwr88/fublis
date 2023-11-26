@@ -24,8 +24,6 @@
 
 	<hr class="border-gray-300 my-4">
 
-	@include('users.includes.common.profile-company', [
-		'viewAs' => 'journalist',
-	])
+	<livewire:journalists.brands.profile :brand="$brand" />
 </div>
 @endsection
