@@ -10,6 +10,11 @@ class InvitationController extends Controller
 {
     public function index(InviteColleague $invitation, string $type)
 	{
+		if(!$invitation){
+			return abort(404);
+		}
+		session()->put('sender', $type);
+		session()->put('invitation', $invitation);
 		if($type == 'architect'){
 			return to_route('architect.signup');
 		}

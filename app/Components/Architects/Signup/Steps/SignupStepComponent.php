@@ -15,6 +15,15 @@ class SignupStepComponent extends StepComponent
 
 	private ArchitectService $architectService;
 
+	public function mount()
+	{
+		if(checkInvitation('architect')){
+			$invitation = session()->get('invitation');
+			$this->name = $invitation->name;
+			$this->email = $invitation->email;
+		}
+	}
+
 	public function render()
 	{
 		return view('livewire.architects.signup-wizard.steps.signup');
@@ -69,6 +78,10 @@ class SignupStepComponent extends StepComponent
 		$validated['user_type'] = UserTypeEnum::ARCHITECT;
 
 		if($this->architectService->registerGuest($validated)){
+			if(checkInvitation('architect')){
+				$this->showStep('architect-signup-add-company-step');
+				return;
+			}
 			$this->nextStep();
 			$this->dispatch('alert', [
 				'type' => 'success',

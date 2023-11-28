@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Enums\Users\Architects\UserRoleEnum;
 use App\Enums\Users\UserTypeEnum;
 use App\Http\Controllers\Users\CompanyController;
 use App\Interfaces\GuestRepositoryInterface;
@@ -9,6 +10,7 @@ use App\Interfaces\UserRepositoryInterface;
 use App\Mail\User\Architect\Signup\VerificationMail;
 use App\Mail\User\Architect\Signup\WelcomeMail;
 use App\Models\Architect;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -39,8 +41,14 @@ class ArchitectService
 		$guest = $this->guestRepository->createGuest($details);
 		// add guest id in session
 		session()->put('guest_id', $guest->id);
-		// send verification email
-		$this->sendVerificationEmail($guest);
+		if(checkInvitation('architect')){
+			$guest->email_verified_at = Carbon::now();
+			$guest->save();
+		}
+		else{
+			// send verification email
+			$this->sendVerificationEmail($guest);
+		}
 		return true;
 	}
 
@@ -98,6 +106,29 @@ class ArchitectService
 				'company_id' => $company->id,
 				'architect_position_id' => $details['position'],
 			]);
+			if(checkInvitation('architect')){
+				$invitation = session()->get('invitation');
+				$invitation->is_accepted = true;
+				$invitation->save();
+
+				$invitedUser = $this->userRepository->getInvitedArchitectUserById($invitation->invited_by);
+				if($invitedUser->architect->company->name == $company->name){
+					if($invitation->user_role){
+						$architect->user_role = $invitation->user_role;
+					}
+					else{
+						$architect->user_role = UserRoleEnum::READ_ONLY;
+						$architect->save();
+					}
+				}
+
+			}
+			else{
+				if(!$company->wasRecentlyCreated){
+					$architect->user_role = UserRoleEnum::READ_ONLY;
+					$architect->save();
+				}
+			}
 			DB::commit();
 			// send welcome email in queue
 			Mail::to($guest->email)->queue(new WelcomeMail($guest->email));

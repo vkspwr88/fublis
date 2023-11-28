@@ -17,4 +17,14 @@ class UserRepository implements UserRepositoryInterface
 	{
 		return User::create($details);
 	}
+
+	public function getInvitedArchitectUserById(string $id){
+		return User::find($id)
+					->load('architect.company');
+	}
+
+	public function getInvitedJournalistUserById(string $id){
+		return User::find($id)
+					->load('journalist.publications');
+	}
 }

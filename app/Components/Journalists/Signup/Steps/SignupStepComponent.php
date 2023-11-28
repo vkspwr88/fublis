@@ -15,6 +15,15 @@ class SignupStepComponent extends StepComponent
 
 	private JournalistService $journalistService;
 
+	public function mount()
+	{
+		if(checkInvitation('journalist')){
+			$invitation = session()->get('invitation');
+			$this->name = $invitation->name;
+			$this->email = $invitation->email;
+		}
+	}
+
 	public function render()
 	{
 		return view('livewire.journalists.signup-wizard.steps.signup');
@@ -69,6 +78,10 @@ class SignupStepComponent extends StepComponent
 		$validated['user_type'] = UserTypeEnum::JOURNALIST;
 
 		if($this->journalistService->registerGuest($validated)){
+			if(checkInvitation('journalist')){
+				$this->showStep('journalist-signup-add-publication-step');
+				return;
+			}
 			$this->nextStep();
 			$this->dispatch('alert', [
 				'type' => 'success',

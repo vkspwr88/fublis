@@ -11,6 +11,7 @@ use App\Mail\User\Journalist\Signup\VerificationMail;
 use App\Mail\User\Journalist\Signup\WelcomeMail;
 use App\Models\Architect;
 use App\Models\Journalist;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -41,8 +42,14 @@ class JournalistService
 		$guest = $this->guestRepository->createGuest($details);
 		// add guest id in session
 		session()->put('guest_id', $guest->id);
-		// send verification email
-		$this->sendVerificationEmail($guest);
+		if(checkInvitation('journalist')){
+			$guest->email_verified_at = Carbon::now();
+			$guest->save();
+		}
+		else{
+			// send verification email
+			$this->sendVerificationEmail($guest);
+		}
 		return true;
 	}
 
@@ -101,6 +108,7 @@ class JournalistService
 			// if old, retrieve publication record
 			else{
 				$publicationId = $details['publication']['publication_id'];
+				$publication = PublicationController::findById($publicationId);
 			}
 			// insert journalist record
 			$journalist = Journalist::create([
@@ -113,13 +121,19 @@ class JournalistService
 
 			$publication->added_by = $journalist->id;
 			$publication->save();
-			
+
 			// attach journalist with publication
 			$journalist->publications()->attach($publicationId, [
 				'journalist_position_id' => $details['position'],
 			]);
 			// attach journalist with associated publication
 			//$journalist->associatedPublications()->attach($publicationId);
+
+			if(checkInvitation('journalist')){
+				$invitation = session()->get('invitation');
+				$invitation->is_accepted = true;
+				$invitation->save();
+			}
 
 			DB::commit();
 			// send welcome email in queue

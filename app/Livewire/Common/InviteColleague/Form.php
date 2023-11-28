@@ -91,6 +91,7 @@ class Form extends Component
 				'message' => 'You have successfully sent the invitation.'
 			]);
 			$this->reset();
+			$this->sender = $validated['type'];
 			return;
 			//return to_route('journalist.account.profile.invite-colleague');
 		}

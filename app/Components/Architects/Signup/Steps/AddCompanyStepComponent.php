@@ -3,6 +3,7 @@
 namespace App\Components\Architects\Signup\Steps;
 
 use App\Http\Controllers;
+use App\Interfaces\UserRepositoryInterface;
 use App\Services\ArchitectService;
 use Illuminate\Support\Facades\Validator;
 use Spatie\LivewireWizard\Components\StepComponent;
@@ -17,10 +18,26 @@ class AddCompanyStepComponent extends StepComponent
 	public $position;
 
 	private ArchitectService $architectService;
+	private UserRepositoryInterface $userRepository;
 
 	public function boot()
 	{
 		$this->architectService = app()->make(ArchitectService::class);
+		$this->userRepository = app()->make(UserRepositoryInterface::class);
+	}
+
+	public function mount()
+	{
+		if(checkInvitation('architect')){
+			$invitation = session()->get('invitation');
+			$invitedUser = $this->userRepository->getInvitedArchitectUserById($invitation->invited_by);
+			//dd($invitation, $invitedUser);
+			$this->companyName = $invitedUser->architect->company->name;
+			$this->website = trimWebsiteUrl($invitedUser->architect->company->website);
+			$this->location = $invitedUser->architect->company->location_id;
+			$this->category = $invitedUser->architect->company->category_id;
+			$this->teamSize = $invitedUser->architect->company->team_size_id;
+		}
 	}
 
 	public function render()

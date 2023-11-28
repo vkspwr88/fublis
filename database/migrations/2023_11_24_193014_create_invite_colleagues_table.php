@@ -17,7 +17,8 @@ return new class extends Migration
 			$table->foreignIdFor(User::class, 'invited_by');
 			$table->string('name');
 			$table->string('email');
-			$table->text('message');
+			$table->text('message')->nullable();
+			$table->text('user_role')->nullable();
 			$table->boolean('is_accepted')->default(0);
             $table->timestamps();
         });

@@ -174,19 +174,23 @@
 				<h4 class="fs-5 text-dark fw-semibold">Team Members</h4>
 			</div>
 			<div class="col-12">
-				@foreach ($brand->architects as $architect)
-				<div class="row g-2 align-items-center">
-					<div class="col-auto">
-						<img src="{{ $architect->profileImage ? Storage::url($architect->profileImage->image_path) : 'https://via.placeholder.com/48x48' }}" alt=".." class="rounded-circle img-square img-48">
+				<div class="row g-2">
+					@foreach ($brand->architects as $architect)
+					<div class="col-12">
+						<div class="row g-2 align-items-center">
+							<div class="col-auto">
+								<img src="{{ $architect->profileImage ? Storage::url($architect->profileImage->image_path) : 'https://via.placeholder.com/48x48' }}" alt=".." class="rounded-circle img-square img-48">
+							</div>
+							<div class="col">
+								<a href="{{ route('journalist.brand.architect', ['architect' => $architect->id]) }}">
+									<h6 class="text-purple-800 fw-medium m-0 p-0">{{ $architect->user->name }}</h6>
+									<p class="text-secondary m-0 p-0">{{ $architect->position->name }}</p>
+								</a>
+							</div>
+						</div>
 					</div>
-					<div class="col">
-						<a href="{{ route('journalist.brand.architect', ['architect' => $architect->id]) }}">
-							<h6 class="text-purple-800 fw-medium m-0 p-0">{{ $architect->user->name }}</h6>
-							<p class="text-secondary m-0 p-0">{{ $architect->position->name }}</p>
-						</a>
-					</div>
+					@endforeach
 				</div>
-				@endforeach
 			</div>
 			@if ($viewAs === 'architect')
 			<div class="col-12">

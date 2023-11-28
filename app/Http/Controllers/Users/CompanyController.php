@@ -27,7 +27,11 @@ class CompanyController extends Controller
 
 	public static function createCompany($details)
 	{
-		return Company::firstOrCreate($details);
+		//return Company::firstOrCreate($details);
+		return Company::firstOrCreate(
+			['name' => $details['name']],
+			$details
+		);
 	}
 
 	public static function getMediaContacts()

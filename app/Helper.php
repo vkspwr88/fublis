@@ -58,3 +58,13 @@ if (!function_exists('getMediaKitViewUrl')) {
 		}
     }
 }
+
+if (!function_exists('checkInvitation')) {
+    function checkInvitation($sender)
+    {
+		if(session()->has('sender') && session()->has('invitation') && session()->get('sender') == $sender){
+			return true;
+		}
+		return false;
+    }
+}

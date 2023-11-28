@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\Users\Architects\UserRoleEnum;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -16,6 +17,10 @@ class Architect extends Model
     use HasFactory, SoftDeletes, HasUuids;
 
 	protected $guarded = [];
+
+	protected $casts = [
+		'user_role' => UserRoleEnum::class,
+	];
 
 	public function user(): BelongsTo
 	{

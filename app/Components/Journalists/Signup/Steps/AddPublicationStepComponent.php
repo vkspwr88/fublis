@@ -4,6 +4,7 @@ namespace App\Components\Journalists\Signup\Steps;
 
 use App\Http\Controllers;
 use App\Http\Controllers\Users\PublicationController;
+use App\Interfaces\UserRepositoryInterface;
 use App\Services\JournalistService;
 use Illuminate\Support\Facades\Validator;
 use Spatie\LivewireWizard\Components\StepComponent;
@@ -23,10 +24,22 @@ class AddPublicationStepComponent extends StepComponent
 	public $checkedCategories = [];
 
 	private JournalistService $journalistService;
+	private UserRepositoryInterface $userRepository;
 
 	public function boot()
 	{
 		$this->journalistService = app()->make(JournalistService::class);
+		$this->userRepository = app()->make(UserRepositoryInterface::class);
+	}
+
+	public function mount()
+	{
+		if(checkInvitation('journalist')){
+			$invitation = session()->get('invitation');
+			$invitedUser = $this->userRepository->getInvitedJournalistUserById($invitation->invited_by);
+			$this->searchPublicationName = $invitedUser->journalist->publications[0]->name;
+			$this->selectedPublication = $invitedUser->journalist->publications[0]->id;
+		}
 	}
 
 	public function render()
@@ -126,22 +139,11 @@ class AddPublicationStepComponent extends StepComponent
 						);
 		//dd($validated);
 		$this->nextStep();
-		$this->dispatch('alert', [
-			'type' => 'success',
-			'message' => 'You have successfully added your publication.'
-		]);
-		//return;
-		/* if($this->journalistService->addCompany($validated)){
-			$this->nextStep();
+		if($this->new){
 			$this->dispatch('alert', [
 				'type' => 'success',
-				'message' => 'You have successfully created your company.'
+				'message' => 'You have successfully added your publication.'
 			]);
-			return;
 		}
-		$this->dispatch('alert', [
-			'type' => 'warning',
-			'message' => 'We are facing problem in adding company. Please contact support.'
-		]); */
 	}
 }
