@@ -20,7 +20,7 @@ class InviteColleagueService
 				'email' => $data['email'],
 				'message' => $data['inviteMessage'],
 			]);
-			Mail::to($inviteColleage->email)->queue(new InvitationMail($inviteColleage));
+			Mail::to($inviteColleage->email)->queue(new InvitationMail($inviteColleage, $data['type']));
 			DB::commit();
 		}
 		catch(Exception $exp){

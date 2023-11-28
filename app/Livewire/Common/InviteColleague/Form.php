@@ -13,6 +13,7 @@ class Form extends Component
 
 	public $name;
 	public $email;
+	public $sender;
 	public $inviteMessage;
 	public int $inviteMessageLength = 275;
 
@@ -20,6 +21,11 @@ class Form extends Component
 	{
 		$this->inviteMessageLength = 275;
 	} */
+
+	public function mount(string $sender)
+	{
+		$this->sender = $sender;
+	}
 
 	public function boot()
 	{
@@ -77,6 +83,7 @@ class Form extends Component
 	public function submit()
 	{
 		$validated = $this->validate($this->rules(), $this->messages(), $this->validationAttributes());
+		$validated['type'] = $this->sender;
 		//dd($validated);
 		if($this->inviteColleagueService->sendInvitation($validated)){
 			$this->dispatch('alert', [

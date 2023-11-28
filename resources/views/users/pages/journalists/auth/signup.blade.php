@@ -10,7 +10,8 @@
 	<livewire:journalist-signup-wizard />
 </div>
 @push('scripts')
-<script>
+<script src="{{ asset('js/otp.js') }}"></script>
+{{-- <script>
 	let inputAllowed = false;
 	$(document).on('keydown', '.otp-inputs', function (e) {
 		if (48 > e.which || e.which > 57){
@@ -31,6 +32,6 @@
 			$(this).next('.otp-inputs').focus();
 		}
 	});
-</script>
+</script> --}}
 @endpush
 @endsection

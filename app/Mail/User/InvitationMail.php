@@ -19,6 +19,7 @@ class InvitationMail extends Mailable implements ShouldQueue
      */
     public function __construct(
 		public InviteColleague $inviteColleague,
+		public string $type,
 	)
     {
         //
@@ -44,7 +45,10 @@ class InvitationMail extends Mailable implements ShouldQueue
 			with: [
 				'senderEmail' => $this->inviteColleague->email,
 				'inviteColleague' => $this->inviteColleague->load('user'),
-				'invitationUrl' => '#',
+				'invitationUrl' => route('invitation', [
+					'invitation' => $this->inviteColleague->id,
+					'type' => $this->type,
+				]),
 			],
         );
     }

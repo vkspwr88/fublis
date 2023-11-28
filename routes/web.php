@@ -34,3 +34,5 @@ Route::get('/blogs', [Users\BlogController::class, 'index'])->name('blogs.index'
 Route::get('/newsletter/subscribe/{token}', [Users\SubscribeNewsletterController::class, 'verify'])->name('subscribe.newsletter.verify');
 
 Route::get('/blogs/{slug}', [Users\BlogController::class, 'show'])->name('blogs.show');
+
+Route::get('/invitation/{invitation}/{type}', [Users\InvitationController::class, 'index'])->name('invitation');

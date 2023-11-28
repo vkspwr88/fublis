@@ -42,6 +42,6 @@
 
 	<hr class="border-gray-300 my-4">
 
-	<livewire:common.invite-colleague.form />
+	<livewire:common.invite-colleague.form sender="architect" />
 </div>
 @endsection
