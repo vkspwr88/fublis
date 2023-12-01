@@ -45,6 +45,10 @@ a{
 	border-top-right-radius: var(--bs-border-radius-xl) !important;
 }
 
+.cursor-pointer{
+	cursor: pointer;
+}
+
 .text-gray-100{
 	color: var(--fublis-gray-100) !important;
 }
@@ -285,7 +289,7 @@ a.text-purple-600:hover{
 	border-color: var(--fublis-purple-600);
 }
 
-.filter-checkbox:checked[type="checkbox"]{
+.filter-checkbox:checked[type="checkbox"], .form-check-input:checked[type="checkbox"]{
 	background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cpath fill='none' stroke='%237F56D9' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='m6 10 3 3 6-6'/%3e%3c/svg%3e");
 }
 
@@ -710,6 +714,31 @@ trix-editor{
 	color: #212529;
   	background-color: #fff;
 	min-height: 20em;
+}
+
+.select2-container{
+	width: 100% !important;
+}
+
+.select2-container--default .select2-selection--single{
+	background-color: #fff;
+	border: 1px solid #ced4da;
+	border-radius: 0.375rem;
+	height: auto;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+	color: #212529;
+	line-height: 1.5;
+	font-size: 1rem;
+}
+
+.select2-container .select2-selection--single .select2-selection__rendered {
+	padding: .375rem 2.25rem .375rem .75rem;
+  	-moz-padding-start: calc(0.75rem - 3px);
+}
+.select2-container--default .select2-selection--single .select2-selection__arrow{
+	height: 37px;
 }
 
 @media(max-width: 992px){

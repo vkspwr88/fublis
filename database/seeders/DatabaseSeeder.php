@@ -22,14 +22,15 @@ class DatabaseSeeder extends Seeder
         // ]);
 
 		$this->call([
-			//UserSeeder::class,
+			CountryStateCityTableSeeder::class,
+			UserSeeder::class,
 			ArchitectPositionSeeder::class,
 			AreaSeeder::class,
 			BuildingTypologySeeder::class,
 			CategorySeeder::class,
 			JournalistPositionSeeder::class,
 			LanguageSeeder::class,
-			LocationSeeder::class,
+			//LocationSeeder::class,
 			ProjectAccessSeeder::class,
 			ProjectStatusSeeder::class,
 			PublicationTypeSeeder::class,

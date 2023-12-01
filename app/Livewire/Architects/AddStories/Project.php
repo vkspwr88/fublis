@@ -38,6 +38,7 @@ class Project extends Component
 	#[Rule('required|image|mimes:svg,png,jpg,gif|max:3100|dimensions:max_width=800,max_height=400')]
 	public $coverImage;
 	public $projectBrief;
+	public int $projectBriefLength;
 	#[Rule('nullable|file|mimes:pdf,doc,docs')]
 	public $projectFile;
 	public $projectLink;
@@ -62,9 +63,19 @@ class Project extends Component
 		]);
     }
 
+	public function mount()
+	{
+		$this->characterCount();
+	}
+
 	public function boot()
 	{
 		$this->addStoryService = app()->make(AddStoryService::class);
+	}
+
+	public function characterCount()
+	{
+		$this->projectBriefLength = 275 - str()->length($this->projectBrief);
 	}
 
 	public function finishUpload($name, $tmpPath, $isMultiple)
@@ -111,9 +122,11 @@ class Project extends Component
 			'projectFile' => 'nullable|file|mimes:pdf,doc,docs',
 			'projectLink' => 'nullable|required_without:projectFile|url',
 			'photographsFiles' => 'required|array',
-			'photographsFiles.*' => 'image|mimes:svg,png,jpg,gif',
+			'photographsFiles.*' => 'file|extensions:zip,svg,png,jpg,gif',
+			//'photographsFiles.*' => 'image|mimes:svg,png,jpg,gif',
 			'drawingsFiles' => 'required|array',
-			'drawingsFiles.*' => 'image|mimes:svg,png,jpg,gif',
+			'drawingsFiles.*' => 'file|extensions:zip,svg,png,jpg,gif',
+			//'drawingsFiles.*' => 'image|mimes:svg,png,jpg,gif',
 			'tags' => 'required|array',
 			'mediaContact' => 'required',
 			'mediaKitAccess' => 'required',
@@ -151,11 +164,11 @@ class Project extends Component
 			'projectLink.url' => 'Enter the valid :attribute.',
 			'projectLink.required_without' => 'Enter the :attribute or upload the file.',
 			'photographsFiles.required' => 'Upload the :attribute.',
-			'photographsFiles.*.image' => 'The :attribute supports only image.',
-			'photographsFiles.*.mimes' => 'The :attribute supports only svg, png, jpg or gif.',
+			'photographsFiles.*.file' => 'The :attribute supports only file.',
+			'photographsFiles.*.extensions' => 'The :attribute supports only zip, svg, png, jpg or gif.',
 			'drawingsFiles.required' => 'Upload the :attribute.',
-			'drawingsFiles.*.image' => 'The :attribute supports only image.',
-			'drawingsFiles.*.mimes' => 'The :attribute supports only svg, png, jpg or gif.',
+			'drawingsFiles.*.file' => 'The :attribute supports only file.',
+			'drawingsFiles.*.extensions' => 'The :attribute supports only zip, svg, png, jpg or gif.',
 			'tags.required' => 'Enter the :attribute.',
 			'mediaContact.required' => 'Enter the :attribute.',
 			'mediaKitAccess.required' => 'Enter the :attribute.',

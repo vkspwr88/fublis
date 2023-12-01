@@ -6,12 +6,20 @@ use App\Http\Controllers\Controller;
 use App\Models\Company;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 
 class CompanyController extends Controller
 {
     public static function getAll()
 	{
 		return Company::all();
+	}
+
+	public static function search($field, $string){
+		return Company::with('location')
+							->where($field, 'like', '%' . $string . '%')
+							->orderBy('name', 'desc')
+							->get();
 	}
 
 	public static function getArchitectCompany($userId)
@@ -28,16 +36,35 @@ class CompanyController extends Controller
 	public static function createCompany($details)
 	{
 		//return Company::firstOrCreate($details);
+		$details = Arr::add(
+							$details,
+							'slug',
+							CompanyController::generateSlug($details['name'])
+						);
 		return Company::firstOrCreate(
 			['name' => $details['name']],
 			$details
 		);
 	}
 
+	public static function generateSlug($name)
+	{
+		$count = Company::where('name', $name)->count();
+		if($count > 0){
+			$name .= $count;
+		}
+		return str()->replace(
+							' ',
+							'-',
+							str()->headline($name)
+						);
+	}
+
 	public static function getMediaContacts()
 	{
-		$user = auth()->user()->load('architect.company.architects.user');
-		return $user->architect->company->architects;
+		/* $user = auth()->user()->load('architect.company.architects.user');
+		return $user->architect->company->architects; */
+		return auth()->user()->architect->company->architects;
 		//dd(auth()->user()->load('architect.company.architects')->pluck(['id', 'name']));
 	}
 

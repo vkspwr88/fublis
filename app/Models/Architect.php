@@ -22,6 +22,11 @@ class Architect extends Model
 		'user_role' => UserRoleEnum::class,
 	];
 
+	public function getRouteKey(): mixed
+	{
+		return $this->slug;
+	}
+
 	public function user(): BelongsTo
 	{
 		return $this->belongsTo(User::class);

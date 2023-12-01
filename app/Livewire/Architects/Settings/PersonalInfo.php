@@ -25,6 +25,7 @@ class PersonalInfo extends Component
 	public $position;
 	public $location;
 	public $aboutMe;
+	public int $aboutMeLength;
 
 	private SettingService $settingService;
 
@@ -38,6 +39,7 @@ class PersonalInfo extends Component
 		$this->location = $architect->location_id;
 		$this->aboutMe = $architect->about_me;
 		$this->profileImageOld = $architect->profileImage;
+		$this->characterCount();
 	}
 
 	public function boot()
@@ -52,6 +54,11 @@ class PersonalInfo extends Component
 			'positions' => PositionController::getAll(),
 		]);
     }
+
+	public function characterCount()
+	{
+		$this->aboutMeLength = 275 - str()->length($this->aboutMe);
+	}
 
 	public function refresh()
 	{

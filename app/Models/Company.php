@@ -24,6 +24,11 @@ class Company extends Model
 		'name' => NameCast::class,
 	];
 
+	public function getRouteKey(): mixed
+	{
+		return $this->slug;
+	}
+
 	public function category(): BelongsTo
 	{
 		return $this->belongsTo(Category::class);

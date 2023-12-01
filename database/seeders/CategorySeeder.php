@@ -18,13 +18,55 @@ class CategorySeeder extends Seeder
 				'name' => 'architecture',
 			],
 			[
-				'name' => 'home decor',
+				'name' => 'home & decor',
 			],
 			[
-				'name' => 'interior design',
+				'name' => 'Automative',
 			],
 			[
-				'name' => 'automative',
+				'name' => 'Business',
+			],
+			[
+				'name' => 'Education',
+			],
+			[
+				'name' => 'Gadgets',
+			],
+			[
+				'name' => 'Entertainment',
+			],
+			[
+				'name' => 'Fashion',
+			],
+			[
+				'name' => 'Fitness',
+			],
+			[
+				'name' => 'Food',
+			],
+			[
+				'name' => 'Health',
+			],
+			[
+				'name' => 'Life & Style',
+			],
+			[
+				'name' => 'Music',
+			],
+			[
+				'name' => 'Product Design',
+			],
+			[
+				'name' => 'Sports',
+			],
+			[
+				'name' => 'Startups',
+			],
+			[
+				'name' => 'Technology',
+			],
+			[
+				'name' => 'Travel',
 			],
 		];
 

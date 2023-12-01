@@ -10,12 +10,19 @@ use Spatie\LivewireWizard\Components\StepComponent;
 
 class AddCompanyStepComponent extends StepComponent
 {
+	public $searchCompanyName;
+	public $showList = false;
+	public $selectedCompany;
+
+	public $new = false;
 	public $companyName;
 	public $website;
 	public $location;
-	public $category;
-	public $teamSize;
-	public $position;
+	public $selectedCountry;
+	public $selectedCity;
+	public $selectedCategory;
+	public $selectedTeamSize;
+	public $selectedPosition;
 
 	private ArchitectService $architectService;
 	private UserRepositoryInterface $userRepository;
@@ -28,27 +35,49 @@ class AddCompanyStepComponent extends StepComponent
 
 	public function mount()
 	{
+		//$this->countries = Controllers\Users\LocationController::getCountries();
+		$this->selectedCountry = 101;
 		if(checkInvitation('architect')){
 			$invitation = session()->get('invitation');
 			$invitedUser = $this->userRepository->getInvitedArchitectUserById($invitation->invited_by);
 			//dd($invitation, $invitedUser);
-			$this->companyName = $invitedUser->architect->company->name;
+			$this->searchCompanyName = $invitedUser->architect->company->name;
+			$this->selectedCompany = $invitedUser->architect->company->id;
+
+			/* $this->companyName = $invitedUser->architect->company->name;
 			$this->website = trimWebsiteUrl($invitedUser->architect->company->website);
 			$this->location = $invitedUser->architect->company->location_id;
-			$this->category = $invitedUser->architect->company->category_id;
-			$this->teamSize = $invitedUser->architect->company->team_size_id;
+			$this->selectedCategory = $invitedUser->architect->company->category_id;
+			$this->selectedTeamSize = $invitedUser->architect->company->team_size_id; */
 		}
+		//$this->positions = Controllers\Users\Architects\PositionController::getAll();
+		//$this->getCities();
 	}
 
 	public function render()
 	{
-		return view('livewire.architects.signup-wizard.steps.add-company', [
-			//'companies' => Controllers\Users\CompanyController::getAll(),
-			'locations' => Controllers\Users\LocationController::getAll(),
-			'categories' => Controllers\Users\CategoryController::getAll(),
-			'teamSizes' => Controllers\Users\TeamSizeController::getAll(),
-			'positions' => Controllers\Users\Architects\PositionController::getAll(),
-		]);
+		//dd(Controllers\Users\LocationController::getCountries());
+		$data = [];
+		if($this->new){
+			$data = [
+				'locations' => Controllers\Users\LocationController::getAll(),
+				'categories' => Controllers\Users\CategoryController::getAll(),
+				'teamSizes' => Controllers\Users\TeamSizeController::getAll(),
+				'countries' => Controllers\Users\LocationController::getCountries(),
+				'cities' => Controllers\Users\LocationController::getCitiesByCountry($this->selectedCountry)->sortBy('name'),
+			];
+			//$this->countries = Controllers\Users\LocationController::getCountries();
+			//$this->getCities();
+		}
+		else{
+			if($this->searchCompanyName){
+				$this->showList = true;
+				$data['companies'] = Controllers\Users\CompanyController::search('name', $this->searchCompanyName);
+			}
+		}
+		//$this->positions = Controllers\Users\Architects\PositionController::getAll();
+		$data['positions'] = Controllers\Users\Architects\PositionController::getAll();
+		return view('livewire.architects.signup-wizard.steps.add-company', $data);
 	}
 
 	public function stepInfo(): array
@@ -57,6 +86,12 @@ class AddCompanyStepComponent extends StepComponent
 			'title' => 'Add your company',
 			'subtitle' => 'Add your company name & location',
 		];
+	}
+
+	public function setNew()
+	{
+		$this->new = true;
+		$this->companyName = $this->searchCompanyName;
 	}
 
 	/* protected function prepareForValidation(): void
@@ -71,10 +106,12 @@ class AddCompanyStepComponent extends StepComponent
 		return [
 			'companyName' => 'required',
 			'website' => 'required|url',
-			'location' => 'required',
-			'category' => 'required',
-			'teamSize' => 'required',
-			'position' => 'required',
+			'selectedCountry' => 'required|exists:countries,id',
+			'selectedCity' => 'required|exists:cities,name',
+			//'location' => 'required',
+			'selectedCategory' => 'required|exists:categories,id',
+			'selectedTeamSize' => 'required|exists:team_sizes,id',
+			'selectedPosition' => 'required|exists:architect_positions,id',
 		];
 	}
 
@@ -84,10 +121,13 @@ class AddCompanyStepComponent extends StepComponent
 			'companyName.required' => 'Enter the :attribute.',
 			'website.required' => 'Enter the :attribute.',
 			'website.url' => 'Enter the valid :attribute.',
-			'location.required' => 'Enter the :attribute.',
-			'category.required' => 'Enter the :attribute.',
-			'teamSize.required' => 'Enter the :attribute.',
-			'position.required' => 'Enter the :attribute.',
+			//'location.required' => 'Select the :attribute.',
+			'selectedCountry.required' => 'Select the :attribute.',
+			'selectedCity.required' => 'Select the :attribute.',
+			'selectedCategory.required' => 'Select the :attribute.',
+			'selectedTeamSize.required' => 'Select the :attribute.',
+			'selectedPosition.required' => 'Select the :attribute.',
+			'*.exists' => 'Select the valid :attribute.',
 		];
 	}
 
@@ -96,10 +136,12 @@ class AddCompanyStepComponent extends StepComponent
 		return [
 			'companyName' => 'company name',
 			'website' => 'website url',
-			'location' => 'location',
-			'category' => 'category',
-			'teamSize' => 'team size',
-			'position' => 'position',
+			//'location' => 'location',
+			'selectedCountry' => 'country',
+			'selectedCity' => 'city',
+			'selectedCategory' => 'category',
+			'selectedTeamSize' => 'team size',
+			'selectedPosition' => 'position',
 		];
 	}
 
@@ -108,10 +150,12 @@ class AddCompanyStepComponent extends StepComponent
 		return [
 			'companyName' => $this->companyName,
 			'website' => 'http://' . $this->website,
-			'location' => $this->location,
-			'category' => $this->category,
-			'teamSize' => $this->teamSize,
-			'position' => $this->position,
+			//'location' => $this->location,
+			'selectedCountry' => $this->selectedCountry,
+			'selectedCity' => $this->selectedCity,
+			'selectedCategory' => $this->selectedCategory,
+			'selectedTeamSize' => $this->selectedTeamSize,
+			'selectedPosition' => $this->selectedPosition,
 		];
 	}
 
@@ -120,15 +164,33 @@ class AddCompanyStepComponent extends StepComponent
 		/* $this->merge([
 			'website' => 'http://' . $this->website,
 		]); */
-		$validated = Validator::make($this->data(), $this->rules(), $this->messages(), $this->validationAttributes())->validate();
-		//dd($validated);
+		$validated = $this->new ?
+							Validator::make($this->data(), $this->rules(), $this->messages(), $this->validationAttributes())->validate() :
+							$this->validate(
+								[
+									'selectedCompany' => 'required|exists:companies,id',
+									'selectedPosition' => 'required|exists:architect_positions,id',
+								],
+								[
+									'*.required' => 'Select the :attribute.',
+									'*.exists' => 'Select the valid :attribute.',
+								],
+								[
+									'selectedCompany' => 'company',
+									'selectedPosition' => 'position',
+								]
+							);
 		$validated['password'] = $this->state()->guest()['password'];
+		$validated['new'] = $this->new;
+		//dd($validated);
 		if($this->architectService->addCompany($validated)){
 			$this->nextStep();
-			$this->dispatch('alert', [
-				'type' => 'success',
-				'message' => 'You have successfully created your company.'
-			]);
+			if($this->new){
+				$this->dispatch('alert', [
+					'type' => 'success',
+					'message' => 'You have successfully created your company.'
+				]);
+			}
 			return;
 		}
 		$this->dispatch('alert', [

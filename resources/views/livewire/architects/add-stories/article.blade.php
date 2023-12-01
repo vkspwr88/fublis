@@ -24,7 +24,7 @@
 									</div>
 								</div>
 								<p class="card-text text-center text-secondary fs-6 m-0 py-2">
-									<label for="inputCoverImage"><span class="text-purple-700 fw-semibold">Click to upload</span></label> or drag and drop
+									<label for="inputCoverImage"><span class="text-purple-700 fw-semibold cursor-pointer">Click to upload</span></label> or drag and drop
 								</p>
 								<input type="file" id="inputCoverImage" class="d-none" @change="handleFileSelect">
 								<p class="card-text text-center text-secondary fs-6 m-0 py-2">SVG, PNG, JPG or GIF (max. 800x400px)</p>
@@ -82,9 +82,9 @@
 			<label class="d-block form-text text-secondary fs-7 m-0">Write in 50-75 words (this text will be used in pitch to journalists)</label>
 		</div>
 		<div class="col-md-8">
-			<textarea id="inputPreviewText" class="form-control @error('previewText') is-invalid @enderror" wire:model="previewText" rows="6"></textarea>
+			<textarea id="inputPreviewText" class="form-control @error('previewText') is-invalid @enderror" wire:model="previewText" wire:keydown.debounce="characterCount" rows="6"></textarea>
 			@error('previewText')<div class="invalid-feedback">{{ $message }}</div>@enderror
-			<div id="previewTextHelp" class="form-text">275 characters left</div>
+			<div id="previewTextHelp" class="form-text {{ $previewTextLength < 0 ? 'text-danger' : '' }}">{{ $previewTextLength }} characters left</div>
 		</div>
 	</div>
 	<hr class="border-gray-300">
@@ -113,7 +113,7 @@
 									</div>
 								</div>
 								<p class="card-text text-center text-secondary fs-6 m-0 py-2">
-									<label for="inputArticleFile"><span class="text-purple-700 fw-semibold">Click to upload</span></label> or drag and drop
+									<label for="inputArticleFile"><span class="text-purple-700 fw-semibold cursor-pointer">Click to upload</span></label> or drag and drop
 								</p>
 								<input type="file" id="inputArticleFile" class="d-none" @change="handleFileSelect">
 								@if($articleFile)
@@ -170,7 +170,7 @@
 									</div>
 								</div>
 								<p class="card-text text-center text-secondary fs-6 m-0 py-2">
-									<label for="inputCompanyProfileFile"><span class="text-purple-700 fw-semibold">Click to upload</span></label> or drag and drop
+									<label for="inputCompanyProfileFile"><span class="text-purple-700 fw-semibold cursor-pointer">Click to upload</span></label> or drag and drop
 								</p>
 								<input type="file" id="inputCompanyProfileFile" class="d-none" @change="handleFileSelect">
 								@if($companyProfileFile)
@@ -224,7 +224,7 @@
 									</div>
 								</div>
 								<p class="card-text text-center text-secondary fs-6 m-0 py-2">
-									<label for="inputImagesFiles"><span class="text-purple-700 fw-semibold">Click to upload</span></label> or drag and drop
+									<label for="inputImagesFiles"><span class="text-purple-700 fw-semibold cursor-pointer">Click to upload</span></label> or drag and drop
 								</p>
 								<input type="file" id="inputImagesFiles" class="d-none" @change="handleFilesSelect" multiple>
 								@if(count($imagesFiles) > 0)

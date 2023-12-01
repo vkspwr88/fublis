@@ -4,7 +4,9 @@ namespace App\Services;
 
 use App\Enums\Users\Architects\UserRoleEnum;
 use App\Enums\Users\UserTypeEnum;
+use App\Http\Controllers\Users\ArchitectController;
 use App\Http\Controllers\Users\CompanyController;
+use App\Http\Controllers\Users\LocationController;
 use App\Interfaces\GuestRepositoryInterface;
 use App\Interfaces\UserRepositoryInterface;
 use App\Mail\User\Architect\Signup\VerificationMail;
@@ -92,19 +94,32 @@ class ArchitectService
 				'user_type' => UserTypeEnum::ARCHITECT,
 				'email_verified_at' => $guest->email_verified_at,
 			]);
-			// insert company record
-			$company = CompanyController::createCompany([
-				'name' => $details['companyName'],
-				'website' => $details['website'],
-				'location_id' => $details['location'],
-				'category_id' => $details['category'],
-				'team_size_id' => $details['teamSize'],
-			]);
+			// check publication
+			// if new, insert company record
+			if($details['new']){
+				// insert location record
+				$location = LocationController::createLocation([
+					'name' => $details['selectedCity'],
+				]);
+
+				$company = CompanyController::createCompany([
+					'name' => $details['companyName'],
+					'website' => $details['website'],
+					'location_id' => $location->id,
+					'category_id' => $details['selectedCategory'],
+					'team_size_id' => $details['selectedTeamSize'],
+				]);
+				$companyId = $company->id;
+			}
+			else{
+				$companyId = $details['selectedCompany'];
+			}
 			// insert architect record
-			$architect = Architect::create([
+			$architect = ArchitectController::createArchitect([
+				'slug' => ArchitectController::generateSlug($user->name),
 				'user_id' => $user->id,
-				'company_id' => $company->id,
-				'architect_position_id' => $details['position'],
+				'company_id' => $companyId,
+				'architect_position_id' => $details['selectedPosition'],
 			]);
 			if(checkInvitation('architect')){
 				$invitation = session()->get('invitation');
@@ -123,12 +138,12 @@ class ArchitectService
 				}
 
 			}
-			else{
+			/* else{
 				if(!$company->wasRecentlyCreated){
 					$architect->user_role = UserRoleEnum::READ_ONLY;
 					$architect->save();
 				}
-			}
+			} */
 			DB::commit();
 			// send welcome email in queue
 			Mail::to($guest->email)->queue(new WelcomeMail($guest->email));

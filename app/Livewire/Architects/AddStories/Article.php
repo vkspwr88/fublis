@@ -22,6 +22,7 @@ class Article extends Component
 	public $textCredits;
 	public $category;
 	public $previewText;
+	public int $previewTextLength;
 	#[Rule('nullable|file|mimes:pdf,doc,docs')]
 	public $articleFile;
 	public $articleLink;
@@ -35,6 +36,11 @@ class Article extends Component
 
 	private AddStoryService $addStoryService;
 
+	public function mount()
+	{
+		$this->characterCount();
+	}
+
 	public function render()
     {
         return view('livewire.architects.add-stories.article', [
@@ -45,6 +51,11 @@ class Article extends Component
 	public function boot()
 	{
 		$this->addStoryService = app()->make(AddStoryService::class);
+	}
+
+	public function characterCount()
+	{
+		$this->previewTextLength = 275 - str()->length($this->previewText);
 	}
 
 	public function finishUpload($name, $tmpPath, $isMultiple)

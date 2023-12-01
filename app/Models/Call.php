@@ -20,6 +20,10 @@ class Call extends Model
 		'title' => NameCast::class,
 	];
 
+	public function getRouteKey(): mixed
+	{
+		return $this->slug;
+	}
 
 	public function journalist(): BelongsTo
 	{

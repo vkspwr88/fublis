@@ -19,7 +19,9 @@ class AddPublicationStepComponent extends StepComponent
 	public $new = false;
 	public $publicationName;
 	public $website;
-	public $location;
+	//public $location;
+	public $selectedCountry;
+	public $selectedCity;
 	public $checkedPublicationTypes = [];
 	public $checkedCategories = [];
 
@@ -34,6 +36,7 @@ class AddPublicationStepComponent extends StepComponent
 
 	public function mount()
 	{
+		$this->selectedCountry = 101;
 		if(checkInvitation('journalist')){
 			$invitation = session()->get('invitation');
 			$invitedUser = $this->userRepository->getInvitedJournalistUserById($invitation->invited_by);
@@ -47,9 +50,11 @@ class AddPublicationStepComponent extends StepComponent
 		$data = [];
 		if($this->new){
 			$data = [
-				'locations' => Controllers\Users\LocationController::getAll(),
+				//'locations' => Controllers\Users\LocationController::getAll(),
 				'categories' => Controllers\Users\CategoryController::getAll(),
 				'publicationTypes' => Controllers\Users\PublicationTypeController::getAll(),
+				'countries' => Controllers\Users\LocationController::getCountries(),
+				'cities' => Controllers\Users\LocationController::getCitiesByCountry($this->selectedCountry)->sortBy('name'),
 			];
 		}
 		else{
@@ -80,7 +85,9 @@ class AddPublicationStepComponent extends StepComponent
 		return [
 			'publicationName' => 'required',
 			'website' => 'required|url',
-			'location' => 'required',
+			//'location' => 'required',
+			'selectedCountry' => 'required|exists:countries,id',
+			'selectedCity' => 'required|exists:cities,name',
 			'checkedPublicationTypes' => 'required|array',
 			'checkedPublicationTypes.*' => 'exists:publication_types,id',
 			'checkedCategories' => 'required|array',
@@ -94,7 +101,10 @@ class AddPublicationStepComponent extends StepComponent
 			'publicationName.required' => 'Enter the :attribute.',
 			'website.required' => 'Enter the :attribute.',
 			'website.url' => 'Enter the valid :attribute.',
-			'location.required' => 'Select the :attribute.',
+			//'location.required' => 'Select the :attribute.',
+			'selectedCountry.required' => 'Select the :attribute.',
+			'selectedCity.required' => 'Select the :attribute.',
+			'*.exists' => 'Check the valid :attribute.',
 			'checkedPublicationTypes.required' => 'Check the :attribute.',
 			'checkedPublicationTypes.array' => 'Check atleast one :attribute.',
 			'checkedPublicationTypes.*.exists' => 'Check the valid :attribute.',
@@ -109,7 +119,9 @@ class AddPublicationStepComponent extends StepComponent
 		return [
 			'publicationName' => 'publication name',
 			'website' => 'website url',
-			'location' => 'location',
+			//'location' => 'location',
+			'selectedCountry' => 'country',
+			'selectedCity' => 'city',
 			'checkedPublicationTypes' => 'publication type',
 			'checkedCategories' => 'category',
 		];
@@ -120,7 +132,9 @@ class AddPublicationStepComponent extends StepComponent
 		return [
 			'publicationName' => $this->publicationName,
 			'website' => 'http://' . $this->website,
-			'location' => $this->location,
+			//'location' => $this->location,
+			'selectedCountry' => $this->selectedCountry,
+			'selectedCity' => $this->selectedCity,
 			'checkedPublicationTypes' => $this->checkedPublicationTypes,
 			'checkedCategories' => $this->checkedCategories,
 		];

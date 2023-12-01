@@ -27,6 +27,7 @@ class Company extends Component
 	public $linkedin;
 	public $location;
 	public $aboutMe;
+	public int $aboutMeLength;
 
 	private SettingService $settingService;
 
@@ -43,6 +44,7 @@ class Company extends Component
 		$this->aboutMe = $company->about_me;
 		$this->profileImageOld = $company->profileImage;
 		$this->resetValidation();
+		$this->characterCount();
 	}
 
 	public function boot()
@@ -56,6 +58,11 @@ class Company extends Component
 			'locations' => LocationController::getAll(),
 		]);
     }
+
+	public function characterCount()
+	{
+		$this->aboutMeLength = 275 - str()->length($this->aboutMe);
+	}
 
 	public function finishUpload($name, $tmpPath, $isMultiple)
     {

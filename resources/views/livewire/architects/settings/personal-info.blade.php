@@ -50,8 +50,18 @@
 				<div class="col-md-8">
 					<div class="row g-2">
 						<div class="col-auto">
+							@php
+								$profileImageSrc = 'https://via.placeholder.com/64x64';
+								//if(method_exists($profileImage, 'temporaryUrl')){
+								if($profileImage && method_exists($profileImage, 'temporaryUrl')){
+									$profileImageSrc = $profileImage->temporaryUrl();
+								}
+								elseif ($profileImageOld) {
+									$profileImageSrc = Storage::url($profileImageOld->image_path);
+								}
+							@endphp
 							<p class="m-0 p-0">
-								<img class="img-fluid img-64 rounded-circle" src="{{ $profileImageOld ? Storage::url($profileImageOld->image_path) : 'https://via.placeholder.com/64x64' }}" alt="..." />
+								<img class="img-fluid img-64 rounded-circle" src="{{ $profileImageSrc }}" alt="..." />
 							</p>
 						</div>
 						<div class="col">
@@ -153,9 +163,9 @@
 					<label class="d-block form-text text-secondary fs-7 m-0">Write a short introduction about yourself.</label>
 				</div>
 				<div class="col-md-8">
-					<textarea id="inputAboutMe" class="form-control @error('aboutMe') is-invalid @enderror" wire:model="aboutMe" rows="6"></textarea>
+					<textarea id="inputAboutMe" class="form-control @error('aboutMe') is-invalid @enderror" wire:model="aboutMe" wire:keydown.debounce="characterCount" rows="6"></textarea>
 					@error('aboutMe')<div class="invalid-feedback">{{ $message }}</div>@enderror
-					<div id="aboutMeHelp" class="form-text">275 characters left</div>
+					<div id="aboutMeHelp" class="form-text {{ $aboutMeLength < 0 ? 'text-danger' : '' }}">{{ $aboutMeLength }} characters left</div>
 				</div>
 			</div>
 			<script>

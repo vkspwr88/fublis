@@ -15,6 +15,11 @@ class Journalist extends Model
 {
     use HasFactory, HasUuids;
 
+	public function getRouteKey(): mixed
+	{
+		return $this->slug;
+	}
+
 	public function user(): BelongsTo
 	{
 		return $this->belongsTo(User::class);

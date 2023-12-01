@@ -21,7 +21,22 @@ class AreaSeeder extends Seeder
 				'name' => 'hectare',
 			],
 			[
+				'name' => 'sq. in.',
+			],
+			[
 				'name' => 'sq. ft.',
+			],
+			[
+				'name' => 'sq. yd.',
+			],
+			[
+				'name' => 'sq. mi.',
+			],
+			[
+				'name' => 'sq. m.',
+			],
+			[
+				'name' => 'sq. km.',
 			]
 		];
 

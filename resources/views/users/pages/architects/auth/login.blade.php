@@ -16,6 +16,7 @@
 									{{-- <p class="card-text text-secondary fs-6 fw-normal m-0 py-2">Create your free account</p> --}}
 									<livewire:architects.auth.login />
 									<p class="card-text text-center text-secondary fs-6 m-0 py-2">Don't have an account? <a href="{{ route('architect.signup') }}" class="text-purple-700 fw-semibold">Sign Up</a></p>
+									<p class="card-text text-center text-secondary fs-6 m-0 py-2"><a href="{{ route('architect.signup') }}" class="text-purple-700 fw-semibold">Forgot Password?</a></p>
 								</div>
 							</div>
 						</div>

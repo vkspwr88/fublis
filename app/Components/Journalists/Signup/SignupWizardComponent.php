@@ -11,6 +11,7 @@ class SignupWizardComponent extends WizardComponent
 	public function steps() : array
     {
         return [
+			//Steps\AddPublicationStepComponent::class,
             Steps\SignupStepComponent::class,
             Steps\EmailVerificationStepComponent::class,
 			Steps\AddPublicationStepComponent::class,

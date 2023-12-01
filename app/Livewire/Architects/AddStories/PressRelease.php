@@ -42,7 +42,7 @@ class PressRelease extends Component
 
 	public function mount()
 	{
-		$this->conceptNoteLength = 275;
+		$this->characterCount();
 	}
 
 	public function boot()
@@ -71,10 +71,11 @@ class PressRelease extends Component
         $this->syncInput($name, $file);
     }
 
-	#[Renderless]
+	//#[Renderless]
 	public function characterCount()
 	{
 		$this->conceptNoteLength = 275 - str()->length($this->conceptNote);
+		//dd($this->conceptNoteLength, str()->length($this->conceptNote));
 	}
 
 	public function rules()

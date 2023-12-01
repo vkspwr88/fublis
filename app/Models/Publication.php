@@ -20,6 +20,11 @@ class Publication extends Model
 		'name' => NameCast::class,
 	];
 
+	public function getRouteKey(): mixed
+	{
+		return $this->slug;
+	}
+
 	public function journalists(): BelongsToMany
 	{
 		return $this->belongsToMany(

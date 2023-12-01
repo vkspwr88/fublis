@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\Users\Architects;
 use App\Http\Middleware\ArchitectLogin;
-use App\Models\Architect;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/signup', [Architects\Auth\SignupController::class, 'index'])->name('signup');
@@ -24,16 +23,16 @@ Route::middleware(ArchitectLogin::class)->group(function() {
 		Route::get('/', [Architects\MediaKitController::class, 'index'])->name('index');
 		Route::get('/{media_kit}', [Architects\MediaKitController::class, 'view'])->name('view');
 		Route::name('press-release.')->prefix('press-release')->group(function () {
-			Route::get('/{mediaKit}', [Architects\MediaKits\PressReleaseController::class, 'view'])->name('view');
-			Route::get('/{mediaKit}/edit', [Architects\MediaKits\PressReleaseController::class, 'edit'])->name('edit');
+			Route::get('/{mediaKit:slug}', [Architects\MediaKits\PressReleaseController::class, 'view'])->name('view');
+			Route::get('/{mediaKit:slug}/edit', [Architects\MediaKits\PressReleaseController::class, 'edit'])->name('edit');
 		});
 		Route::name('article.')->prefix('article')->group(function () {
-			Route::get('/{mediaKit}', [Architects\MediaKits\ArticleController::class, 'view'])->name('view');
-			Route::get('/{mediaKit}/edit', [Architects\MediaKits\ArticleController::class, 'edit'])->name('edit');
+			Route::get('/{mediaKit:slug}', [Architects\MediaKits\ArticleController::class, 'view'])->name('view');
+			Route::get('/{mediaKit:slug}/edit', [Architects\MediaKits\ArticleController::class, 'edit'])->name('edit');
 		});
 		Route::name('project.')->prefix('project')->group(function () {
-			Route::get('/{mediaKit}', [Architects\MediaKits\ProjectController::class, 'view'])->name('view');
-			Route::get('/{mediaKit}/edit', [Architects\MediaKits\ProjectController::class, 'edit'])->name('edit');
+			Route::get('/{mediaKit:slug}', [Architects\MediaKits\ProjectController::class, 'view'])->name('view');
+			Route::get('/{mediaKit:slug}/edit', [Architects\MediaKits\ProjectController::class, 'edit'])->name('edit');
 		});
 	});
 
@@ -75,6 +74,6 @@ Route::middleware(ArchitectLogin::class)->group(function() {
 		});
 	});
 
-	Route::get('/journalist/{journalist_id}', [Architects\AddStoryController::class, 'index'])->name('journalist');
-	Route::get('/publication/{publication_id}', [Architects\AddStoryController::class, 'index'])->name('publication');
+	Route::get('/journalist/{journalist_id:slug}', [Architects\AddStoryController::class, 'index'])->name('journalist');
+	Route::get('/publication/{publication_id:slug}', [Architects\AddStoryController::class, 'index'])->name('publication');
 });

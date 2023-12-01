@@ -26,3 +26,15 @@ window.addEventListener('alert', event => {
             toastr.info(message, title ?? '', options);
     };
 });
+
+function togglePassword(element){
+	const toggleBtn = element + 'Toggle';
+	if($(element).attr('type') === 'password'){
+		$(element).attr('type', 'text');
+		$(toggleBtn).html('<i class="bi bi-eye-slash"></i>');
+	}
+	else{
+		$(element).attr('type', 'password');
+		$(toggleBtn).html('<i class="bi bi-eye"></i>');
+	}
+}

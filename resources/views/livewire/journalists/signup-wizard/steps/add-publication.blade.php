@@ -12,8 +12,8 @@
 									<form class="py-3" wire:submit="add">
 										@if($new)
 											<div class="mb-3">
-												<label for="inputPublicationName" class="form-label text-dark fs-6 fw-medium">Search for your Publication</label>
-												<input type="text" class="form-control  @error('publicationName') is-invalid @enderror" id="inputPublicationName" placeholder="Name of your brand / studio" wire:model="publicationName">
+												<label for="inputPublicationName" class="form-label text-dark fs-6 fw-medium">Enter your Publication</label>
+												<input type="text" class="form-control  @error('publicationName') is-invalid @enderror" id="inputPublicationName" placeholder="Enter publication name" wire:model="publicationName">
 												@error('publicationName')<div class="invalid-feedback">{{ $message }}</div>@enderror
 											</div>
 											<div class="mb-3">
@@ -24,7 +24,7 @@
 													@error('website')<div class="invalid-feedback">{{ $message }}</div>@enderror
 												</div>
 											</div>
-											<div class="mb-3">
+											{{-- <div class="mb-3">
 												<label for="selectLocation" class="form-label text-dark fs-6 fw-medium">Location</label>
 												<select class="form-select @error('location') is-invalid @enderror" id="selectLocation" wire:model="location">
 													<option value="">Select Location</option>
@@ -33,6 +33,26 @@
 													@endforeach
 												</select>
 												@error('location')<div class="invalid-feedback">{{ $message }}</div>@enderror
+											</div> --}}
+											<div class="mb-3">
+												<label for="selectCountry" class="form-label text-dark fs-6 fw-medium">Country</label>
+												<select class="form-select @error('country') is-invalid @enderror" id="selectCountry" wire:model.live="selectedCountry">
+													<option value="">Select Country</option>
+													@foreach ($countries as $country)
+													<option value="{{ $country->id }}">{{ str()->headline($country->name) }}</option>
+													@endforeach
+												</select>
+												@error('selectedCountry')<div class="invalid-feedback">{{ $message }}</div>@enderror
+											</div>
+											<div class="mb-3">
+												<label for="selectCity" class="form-label text-dark fs-6 fw-medium">City</label>
+												<select class="form-select @error('selectedCity') is-invalid @enderror" id="selectCity" wire:model="selectedCity">
+													<option value="">Select City</option>
+													@foreach ($cities as $city)
+													<option value="{{ $city->name }}">{{ str()->headline($city->name) }}</option>
+													@endforeach
+												</select>
+												@error('selectedCity')<div class="invalid-feedback">{{ $message }}</div>@enderror
 											</div>
 											<div class="mb-3">
 												<label class="form-label text-dark fs-6 fw-medium">Publication Type</label>

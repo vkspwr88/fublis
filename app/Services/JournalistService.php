@@ -4,6 +4,8 @@ namespace App\Services;
 
 use App\Enums\Users\UserTypeEnum;
 use App\Http\Controllers\Users\CompanyController;
+use App\Http\Controllers\Users\JournalistController;
+use App\Http\Controllers\Users\LocationController;
 use App\Http\Controllers\Users\PublicationController;
 use App\Interfaces\GuestRepositoryInterface;
 use App\Interfaces\UserRepositoryInterface;
@@ -96,10 +98,14 @@ class JournalistService
 			// check publication
 			// if new, insert publication record
 			if($details['publication']['new']){
+				// insert location record
+				$location = LocationController::createLocation([
+					'name' => $details['publication']['selectedCity'],
+				]);
 				$publication = PublicationController::createPublication([
 					'name' => $details['publication']['publicationName'],
 					'website' => $details['publication']['website'],
-					'location_id' => $details['publication']['location'],
+					'location_id' => $location->id,
 				]);
 				$publication->categories()->attach($details['publication']['categories']);
 				$publication->publicationTypes()->attach($details['publication']['publicationTypes']);
@@ -111,7 +117,8 @@ class JournalistService
 				$publication = PublicationController::findById($publicationId);
 			}
 			// insert journalist record
-			$journalist = Journalist::create([
+			$journalist = JournalistController::createJournalist([
+				'slug' => JournalistController::generateSlug($user->name),
 				'user_id' => $user->id,
 				'journalist_position_id' => $details['position'],
 				'linked_profile' => $details['linkedinProfile'],

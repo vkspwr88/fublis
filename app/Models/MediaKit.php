@@ -13,6 +13,11 @@ class MediaKit extends Model
 {
     use HasFactory, HasUuids;
 
+	public function getRouteKey(): mixed
+	{
+		return $this->slug;
+	}
+
 	public function story(): MorphTo
 	{
 		return $this->morphTo();

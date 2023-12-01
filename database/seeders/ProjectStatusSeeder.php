@@ -20,6 +20,9 @@ class ProjectStatusSeeder extends Seeder
 			[
 				'name' => 'under construction',
 			],
+			[
+				'name' => 'concept',
+			],
 		];
 
 		foreach($data as $row){

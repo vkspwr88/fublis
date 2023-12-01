@@ -24,8 +24,13 @@
 										</div>
 										<div class="mb-3">
 											<label for="inputPassword" class="form-label">Password<span class="text-danger">*</span></label>
-											<input type="password" class="form-control @error('password') is-invalid @enderror" id="inputPassword" placeholder="Create a password" aria-describedby="passwordHelpBlock" wire:model="password">
-											@error('password')<div class="invalid-feedback">{{ $message }}</div>@enderror
+											<div class="input-group">
+												<input type="password" class="form-control border-end-0 @error('password') is-invalid @enderror" id="inputPassword" placeholder="Create a password" aria-describedby="passwordHelpBlock" wire:model="password">
+												<button id="inputPasswordToggle" class="btn btn-outline-white border border-start-0 @error('password') border-danger @enderror" type="button" onclick="togglePassword('#inputPassword')">
+													<i class="bi bi-eye"></i>
+												</button>
+											</div>
+											@error('password')<div class="error">{{ $message }}</div>@enderror
 											<div id="passwordHelpBlock" class="form-text">Must be at least 8 characters.</div>
 										</div>
 										<div class="d-grid gap-3">

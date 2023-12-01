@@ -24,7 +24,7 @@
 									</div>
 								</div>
 								<p class="card-text text-center text-secondary fs-6 m-0 py-2">
-									<label for="inputCoverImage"><span class="text-purple-700 fw-semibold">Click to upload</span></label> or drag and drop
+									<label for="inputCoverImage"><span class="text-purple-700 fw-semibold cursor-pointer">Click to upload</span></label> or drag and drop
 								</p>
 								<input type="file" id="inputCoverImage" class="d-none" accept="image/svg,image/png,image/jpg,image/gif" @change="handleFileSelect">
 								<p class="card-text text-center text-secondary fs-6 m-0 py-2">SVG, PNG, JPG or GIF (max. 800x400px)</p>
@@ -125,7 +125,7 @@
 									</div>
 								</div>
 								<p class="card-text text-center text-secondary fs-6 m-0 py-2">
-									<label for="inputPressReleaseFile"><span class="text-purple-700 fw-semibold">Click to upload</span></label> or drag and drop
+									<label for="inputPressReleaseFile"><span class="text-purple-700 fw-semibold cursor-pointer">Click to upload</span></label> or drag and drop
 								</p>
 								<input type="file" id="inputPressReleaseFile" class="d-none" accept="application/pdf,application/doc,application/docs" @change="handleFileSelect">
 								@if($pressReleaseFile)
@@ -180,7 +180,7 @@
 									</div>
 								</div>
 								<p class="card-text text-center text-secondary fs-6 m-0 py-2">
-									<label for="inputPhotographsFiles"><span class="text-purple-700 fw-semibold">Click to upload</span></label> or drag and drop
+									<label for="inputPhotographsFiles"><span class="text-purple-700 fw-semibold cursor-pointer">Click to upload</span></label> or drag and drop
 								</p>
 								<input type="file" id="inputPhotographsFiles" class="d-none" accept="image/svg,image/png,image/jpg,image/gif" @change="handleFilesSelect" multiple>
 								@if(count($photographsFiles) > 0)

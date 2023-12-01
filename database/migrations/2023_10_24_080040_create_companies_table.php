@@ -14,7 +14,7 @@ return new class extends Migration
     {
         Schema::create('companies', function (Blueprint $table) {
             $table->uuid('id')->primary();
-			$table->string('name')->unique();
+			$table->string('name');
 			$table->string('website');
 			$table->foreignIdFor(Models\Location::class);
 			$table->foreignIdFor(Models\Category::class);
