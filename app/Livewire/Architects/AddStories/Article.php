@@ -3,7 +3,6 @@
 namespace App\Livewire\Architects\AddStories;
 
 ini_set('max_execution_time', 300);
-
 use App\Http\Controllers\Users\CategoryController;
 use App\Services\AddStoryService;
 use Illuminate\Support\Facades\Validator;

@@ -8,7 +8,11 @@ Route::get('/signup', [Journalists\Auth\SignupController::class, 'index'])->name
 Route::get('/login', [Journalists\Auth\LoginController::class, 'index'])->name('login');
 Route::get('/logout', [Journalists\Auth\LogoutController::class, 'index'])->name('logout');
 
+
 Route::middleware(JournalistLogin::class)->group(function() {
+	Route::post('/download/{mediaKit:slug}', [Journalists\DownloadController::class, 'index'])->name('download');
+	Route::post('/download/{mediaKit:slug}/bulk', [Journalists\DownloadController::class, 'bulk'])->name('download.bulk');
+
 	Route::name('call.')->prefix('invite-story')->group(function () {
 		Route::get('/', [Journalists\CallController::class, 'index'])->name('index');
 		Route::get('/create', [Journalists\CallController::class, 'create'])->name('create');

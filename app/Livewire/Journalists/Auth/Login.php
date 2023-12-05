@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Journalists\Auth;
 
+use App\Enums\Users\UserTypeEnum;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
@@ -45,6 +46,7 @@ class Login extends Component
 	public function login()
 	{
 		$validated = $this->validate();
+		$validated['user_type'] = UserTypeEnum::JOURNALIST;
 
 		if(!Auth::validate($validated)){
             return $this->addError('password', trans('auth.failed'));

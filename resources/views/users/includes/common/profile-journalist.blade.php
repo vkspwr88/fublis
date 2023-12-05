@@ -75,7 +75,7 @@
 						<p class="text-secondary m-0 p-0"><a href="{{ $publication->website }}" class="text-secondary" target="_blank">{{ trimWebsiteUrl($publication->website) }}</a></p>
 					</div>
 					<div class="col-auto">
-						<a href="{{ route('architect.pitch-story.publications.view', ['publication' => $publication->id]) }}" class="btn btn-primary fw-medium p-2">
+						<a href="{{ route('architect.pitch-story.publications.view', ['publication' => $publication->slug]) }}" class="btn btn-primary fw-medium p-2">
 							<i class="bi bi-send-fill"></i>
 						</a>
 					</div>

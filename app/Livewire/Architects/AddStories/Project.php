@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Architects\AddStories;
 
+ini_set('max_execution_time', 300);
 use App\Http\Controllers\Users\AreaController;
 use App\Http\Controllers\Users\BuildingTypologyController;
 use App\Http\Controllers\Users\CategoryController;
@@ -26,7 +27,9 @@ class Project extends Component
 	public $siteAreaUnit;
 	public $builtUpArea;
 	public $builtUpAreaUnit;
-	public $location;
+	//public $location;
+	public $selectedCountry;
+	public $selectedCity;
 	public $status;
 	public $materials;
 	public $buildingTypology;
@@ -55,7 +58,9 @@ class Project extends Component
         return view('livewire.architects.add-stories.project', [
 			'categories' => CategoryController::getAll(),
 			'areas' => AreaController::getAll(),
-			'locations' => LocationController::getAll(),
+			//'locations' => LocationController::getAll(),
+			'countries' => LocationController::getCountries(),
+			'cities' => LocationController::getCitiesByCountry($this->selectedCountry)->sortBy('name'),
 			'statuses' => ProjectStatusController::getAll(),
 			'buildingTypologies' => BuildingTypologyController::getAll(),
 			'mediaContacts' => CompanyController::getMediaContacts(),
@@ -66,6 +71,7 @@ class Project extends Component
 	public function mount()
 	{
 		$this->characterCount();
+		$this->selectedCountry = 101;
 	}
 
 	public function boot()
@@ -108,7 +114,9 @@ class Project extends Component
 			'siteAreaUnit' => 'required',
 			'builtUpArea' => 'required|numeric',
 			'builtUpAreaUnit' => 'required',
-			'location' => 'required',
+			//'location' => 'required',
+			'selectedCountry' => 'required|exists:countries,id',
+			'selectedCity' => 'required|exists:cities,name',
 			'status' => 'required',
 			'materials' => 'required',
 			'buildingTypology' => 'required',
@@ -122,10 +130,10 @@ class Project extends Component
 			'projectFile' => 'nullable|file|mimes:pdf,doc,docs',
 			'projectLink' => 'nullable|required_without:projectFile|url',
 			'photographsFiles' => 'required|array',
-			'photographsFiles.*' => 'file|extensions:zip,svg,png,jpg,gif',
+			'photographsFiles.*' => 'file|mimes:zip,svg,png,jpg,gif',
 			//'photographsFiles.*' => 'image|mimes:svg,png,jpg,gif',
 			'drawingsFiles' => 'required|array',
-			'drawingsFiles.*' => 'file|extensions:zip,svg,png,jpg,gif',
+			'drawingsFiles.*' => 'file|mimes:zip,svg,png,jpg,gif',
 			//'drawingsFiles.*' => 'image|mimes:svg,png,jpg,gif',
 			'tags' => 'required|array',
 			'mediaContact' => 'required',
@@ -144,7 +152,10 @@ class Project extends Component
 			'builtUpArea.required' => 'Enter the :attribute.',
 			'builtUpArea.numeric' => 'Enter the :attribute in numbers.',
 			'builtUpAreaUnit.required' => 'Select the :attribute.',
-			'location.required' => 'Select the :attribute.',
+			//'location.required' => 'Select the :attribute.',
+			'selectedCountry.required' => 'Select the :attribute.',
+			'selectedCity.required' => 'Select the :attribute.',
+			'*.exists' => 'Select the valid :attribute.',
 			'status.required' => 'Select the :attribute.',
 			'materials.required' => 'Enter the :attribute.',
 			'buildingTypology.required' => 'Select the :attribute.',
@@ -165,10 +176,10 @@ class Project extends Component
 			'projectLink.required_without' => 'Enter the :attribute or upload the file.',
 			'photographsFiles.required' => 'Upload the :attribute.',
 			'photographsFiles.*.file' => 'The :attribute supports only file.',
-			'photographsFiles.*.extensions' => 'The :attribute supports only zip, svg, png, jpg or gif.',
+			'photographsFiles.*.mimes' => 'The :attribute supports only zip, svg, png, jpg or gif.',
 			'drawingsFiles.required' => 'Upload the :attribute.',
 			'drawingsFiles.*.file' => 'The :attribute supports only file.',
-			'drawingsFiles.*.extensions' => 'The :attribute supports only zip, svg, png, jpg or gif.',
+			'drawingsFiles.*.mimes' => 'The :attribute supports only zip, svg, png, jpg or gif.',
 			'tags.required' => 'Enter the :attribute.',
 			'mediaContact.required' => 'Enter the :attribute.',
 			'mediaKitAccess.required' => 'Enter the :attribute.',
@@ -184,7 +195,9 @@ class Project extends Component
 			'siteAreaUnit' => 'site area unit',
 			'builtUpArea' => 'built up area',
 			'builtUpAreaUnit' => 'built up area unit',
-			'location' => 'location',
+			//'location' => 'location',
+			'selectedCountry' => 'country',
+			'selectedCity' => 'city',
 			'status' => 'status',
 			'materials' => 'materials',
 			'buildingTypology' => 'building typology',
@@ -214,7 +227,9 @@ class Project extends Component
 			'siteAreaUnit' => $this->siteAreaUnit,
 			'builtUpArea' => $this->builtUpArea,
 			'builtUpAreaUnit' => $this->builtUpAreaUnit,
-			'location' => $this->location,
+			//'location' => $this->location,
+			'selectedCountry' => $this->selectedCountry,
+			'selectedCity' => $this->selectedCity,
 			'status' => $this->status,
 			'materials' => $this->materials,
 			'buildingTypology' => $this->buildingTypology,

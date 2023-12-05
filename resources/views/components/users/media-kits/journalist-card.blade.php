@@ -4,15 +4,15 @@
 			@php
 				if (str()->contains($mediaKit->story_type, 'PressRelease')){
 					$title = 'Press Release';
-					$route = route('journalist.media-kit.press-release.view', ['mediaKit' => $mediaKit->id]);
+					$route = route('journalist.media-kit.press-release.view', ['mediaKit' => $mediaKit->slug]);
 				}
 				elseif (str()->contains($mediaKit->story_type, 'Article')){
 					$title = 'Article';
-					$route = route('journalist.media-kit.article.view', ['mediaKit' => $mediaKit->id]);
+					$route = route('journalist.media-kit.article.view', ['mediaKit' => $mediaKit->slug]);
 				}
 				elseif (str()->contains($mediaKit->story_type, 'Project')){
 					$title = 'Project';
-					$route = route('journalist.media-kit.project.view', ['mediaKit' => $mediaKit->id]);
+					$route = route('journalist.media-kit.project.view', ['mediaKit' => $mediaKit->slug]);
 				}
 			@endphp
 			<div class="row">
@@ -27,9 +27,11 @@
 					<h5 class="card-title text-dark fs-5 fw-semibold m-0 py-2">{{ $mediaKit->story->title }}</h5>
 					<div class="row align-items-center py-2">
 						<div class="col">
-							<p class="text-dark fs-6 fw-bold m-0">
-								<img class="rounded-circle img-square img-30 me-2" src="{{ $mediaKit->architect->company->profileImage ? Storage::url($mediaKit->architect->company->profileImage->image_path) : 'https://via.placeholder.com/30x30' }}" alt="..." />
-								{{ $mediaKit->architect->company->name }}
+							<p class="fs-6 fw-bold m-0">
+								<a class="text-dark" href="{{ route('journalist.brand.view', ['brand' => $mediaKit->architect->company->slug]) }}">
+									<img class="rounded-circle img-square img-30 me-2" src="{{ $mediaKit->architect->company->profileImage ? Storage::url($mediaKit->architect->company->profileImage->image_path) : 'https://via.placeholder.com/30x30' }}" alt="..." />
+									{{ $mediaKit->architect->company->name }}
+								</a>
 							</p>
 						</div>
 					</div>

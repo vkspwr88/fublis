@@ -4,18 +4,18 @@
 			@php
 				if (str()->contains($mediaKit->story_type, 'PressRelease')){
 					$title = 'Press Release';
-					$viewRoute = route('architect.media-kit.press-release.view', ['mediaKit' => $mediaKit->id]);
-					$editRoute = route('architect.media-kit.press-release.edit', ['mediaKit' => $mediaKit->id]);
+					$viewRoute = route('architect.media-kit.press-release.view', ['mediaKit' => $mediaKit->slug]);
+					$editRoute = route('architect.media-kit.press-release.edit', ['mediaKit' => $mediaKit->slug]);
 				}
 				elseif (str()->contains($mediaKit->story_type, 'Article')){
 					$title = 'Article';
-					$viewRoute = route('architect.media-kit.article.view', ['mediaKit' => $mediaKit->id]);
-					$editRoute = route('architect.media-kit.article.edit', ['mediaKit' => $mediaKit->id]);
+					$viewRoute = route('architect.media-kit.article.view', ['mediaKit' => $mediaKit->slug]);
+					$editRoute = route('architect.media-kit.article.edit', ['mediaKit' => $mediaKit->slug]);
 				}
 				elseif (str()->contains($mediaKit->story_type, 'Project')){
 					$title = 'Project';
-					$viewRoute = route('architect.media-kit.project.view', ['mediaKit' => $mediaKit->id]);
-					$editRoute = route('architect.media-kit.project.edit', ['mediaKit' => $mediaKit->id]);
+					$viewRoute = route('architect.media-kit.project.view', ['mediaKit' => $mediaKit->slug]);
+					$editRoute = route('architect.media-kit.project.edit', ['mediaKit' => $mediaKit->slug]);
 				}
 			@endphp
 			<div class="row g-4">
@@ -33,8 +33,10 @@
 					<div class="row align-items-center py-2">
 						<div class="col">
 							<p class="text-dark fs-6 fw-bold m-0">
-								<img class="rounded-circle me-2 img-square img-30" src="{{ $mediaKit->architect->company->profileImage ? Storage::url($mediaKit->architect->company->profileImage->image_path) : 'https://via.placeholder.com/30x30' }}" alt="..." />
-								{{ $mediaKit->architect->company->name }}
+								<a class="text-dark" href="{{ route('architect.account.studio.index') }}">
+									<img class="rounded-circle me-2 img-square img-30" src="{{ $mediaKit->architect->company->profileImage ? Storage::url($mediaKit->architect->company->profileImage->image_path) : 'https://via.placeholder.com/30x30' }}" alt="..." />
+									{{ $mediaKit->architect->company->name }}
+								</a>
 							</p>
 						</div>
 					</div>

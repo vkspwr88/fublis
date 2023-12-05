@@ -284,7 +284,6 @@ a.text-purple-600:hover{
 }
 
 .filter-checkbox:checked, .form-check-input:checked{
-	/* background-color: var(--fublis-purple-600); */
 	background-color: var(--fublis-purple-50);
 	border-color: var(--fublis-purple-600);
 }

@@ -182,10 +182,19 @@
 								<img src="{{ $architect->profileImage ? Storage::url($architect->profileImage->image_path) : 'https://via.placeholder.com/48x48' }}" alt=".." class="rounded-circle img-square img-48">
 							</div>
 							<div class="col">
-								<a href="{{ route('journalist.brand.architect', ['architect' => $architect->id]) }}">
-									<h6 class="text-purple-800 fw-medium m-0 p-0">{{ $architect->user->name }}</h6>
-									<p class="text-secondary m-0 p-0">{{ $architect->position->name }}</p>
-								</a>
+								<h6 class="fw-medium m-0 p-0">
+									@if ($viewAs === 'architect')
+									<a class="text-purple-800" href="{{ route('architect.account.profile.index') }}">
+										{{ $architect->user->name }}
+									</a>
+									@elseif ($viewAs === 'journalist')
+									<a class="text-purple-800" href="{{ route('journalist.brand.architect', ['architect' => $architect->slug]) }}">
+										{{ $architect->user->name }}
+									</a>
+									@endif
+									
+								</h6>
+								<p class="text-secondary m-0 p-0">{{ $architect->position->name }}</p>
 							</div>
 						</div>
 					</div>

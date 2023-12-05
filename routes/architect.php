@@ -9,6 +9,9 @@ Route::get('/login', [Architects\Auth\LoginController::class, 'index'])->name('l
 Route::get('/logout', [Architects\Auth\LogoutController::class, 'index'])->name('logout');
 
 Route::middleware(ArchitectLogin::class)->group(function() {
+	Route::post('/download/{mediaKit:slug}', [Architects\DownloadController::class, 'index'])->name('download');
+	Route::post('/download/{mediaKit:slug}/bulk', [Architects\DownloadController::class, 'bulk'])->name('download.bulk');
+
 	Route::name('add-story.')->prefix('add-story')->group(function () {
 		Route::get('/', [Architects\AddStoryController::class, 'index'])->name('index');
 		Route::get('/press-release', [Architects\AddStories\PressReleaseController::class, 'index'])->name('press-release');

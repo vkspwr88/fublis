@@ -2,8 +2,10 @@
 
 namespace App\Services;
 
+use App\Http\Controllers\Users\Architects\MediaKitController;
 use App\Http\Controllers\Users\FileController;
 use App\Http\Controllers\Users\ImageController;
+use App\Http\Controllers\Users\LocationController;
 use App\Http\Controllers\Users\TagController;
 use App\Models\Article;
 use App\Models\PressRelease;
@@ -29,11 +31,10 @@ class AddStoryService
 				'photographs_link' => $details['photographsLink'],
 			]);
 			// create media kit
-			$pressRelease->mediakit()
-							->create([
-								'architect_id' => auth()->user()->architect->id,
-								'category_id' => $details['category'],
-							]);
+			MediaKitController::createMediaKit($pressRelease, [
+				'architect_id' => auth()->user()->architect->id,
+				'category_id' => $details['category'],
+			]);
 			// create images
 			if(count($details['photographsFiles']) > 0){
 				foreach($details['photographsFiles'] as $photograph){
@@ -112,6 +113,10 @@ class AddStoryService
 	{
 		try{
             DB::beginTransaction();
+			// insert location record
+			$location = LocationController::createLocation([
+				'name' => $details['selectedCity'],
+			]);
 			// create project
 			$project = Project::create([
 				'title' => $details['projectTitle'],
@@ -119,7 +124,7 @@ class AddStoryService
 				'site_area_id' => $details['siteAreaUnit'],
 				'built_up_area' => $details['builtUpArea'],
 				'built_up_area_id' => $details['builtUpAreaUnit'],
-				'location_id' => $details['location'],
+				'location_id' => $location->id,
 				'project_status_id' => $details['status'],
 				'materials' => $details['materials'],
 				'building_typology_id' => $details['buildingTypology'],
@@ -136,11 +141,10 @@ class AddStoryService
 				'project_access_id' => $details['mediaKitAccess'],
 			]);
 			// create media kit
-			$project->mediakit()
-							->create([
-								'architect_id' => auth()->user()->architect->id,
-								'category_id' => $details['category'],
-							]);
+			MediaKitController::createMediaKit($project, [
+				'architect_id' => auth()->user()->architect->id,
+				'category_id' => $details['category'],
+			]);
 			// create images (photographs)
 			if(count($details['photographsFiles']) > 0){
 				foreach($details['photographsFiles'] as $image){
@@ -191,11 +195,11 @@ class AddStoryService
 				'images_link' => $details['imagesLink'],
 			]);
 			// create media kit
-			$article->mediakit()
-							->create([
-								'architect_id' => auth()->user()->architect->id,
-								'category_id' => $details['category'],
-							]);
+			// create media kit
+			MediaKitController::createMediaKit($article, [
+				'architect_id' => auth()->user()->architect->id,
+				'category_id' => $details['category'],
+			]);
 			// create images
 			if(count($details['imagesFiles']) > 0){
 				foreach($details['imagesFiles'] as $image){

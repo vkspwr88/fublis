@@ -68,7 +68,7 @@
 								{{ $architect->company->name }}
 							</a>
 							@elseif ($viewAs === 'journalist')
-							<a href="{{ route('journalist.brand.view', ['brand' => $architect->company->id]) }}" class="text-dark">
+							<a href="{{ route('journalist.brand.view', ['brand' => $architect->company->slug]) }}" class="text-dark">
 								{{ $architect->company->name }}
 							</a>
 							@endif

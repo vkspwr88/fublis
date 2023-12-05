@@ -39,7 +39,7 @@ class ProjectController extends Controller
 				'builtUpAreaUnit',
 				'projectStatus',
 				'buildingTypology',
-				'mediaContact',
+				'mediaContact.user',
 				'projectAccess',
 			],
 			'category',

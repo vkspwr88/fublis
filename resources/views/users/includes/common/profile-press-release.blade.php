@@ -17,7 +17,7 @@
 		<div class="row g-4">
 			@foreach ($mediaKit->story->photographs as $photograph)
 			<div class="col-md-4">
-				<img src="{{ Storage::url($photograph->image_path) }}" style="max-width: 250px; max-height: 164px;" alt="" class="img-fluid" />
+				<img src="{{ Storage::url($photograph->image_path) }}" width="250" height="164" {{-- style="max-width: 250px; max-height: 164px;" --}} alt="" class="img-fluid" />
 			</div>
 			@endforeach
 		</div>
@@ -31,7 +31,17 @@
 						<img class="rounded-circle img-square img-48" src="{{ $mediaKit->architect->company->profileImage ? Storage::url($mediaKit->architect->company->profileImage->image_path) : 'https://via.placeholder.com/48x48' }}" alt="..." />
 					</div>
 					<div class="col">
-						<p class="text-purple-800 fs-6 fw-medium m-0 p-0">{{ $mediaKit->architect->company->name }}</p>
+						<p class="fs-6 fw-medium m-0 p-0">
+							@if ($viewAs == 'architect')
+							<a class="text-purple-800" href="{{ route('architect.account.studio.index') }}">
+								{{ $mediaKit->architect->company->name }}
+							</a>
+							@elseif ($viewAs == 'journalist')
+							<a class="text-purple-800" href="{{ route('journalist.brand.view', ['brand' => $mediaKit->architect->company->slug]) }}">
+								{{ $mediaKit->architect->company->name }}
+							</a>
+							@endif
+						</p>
 						<p class="fs-6 m-0 p-0">
 							<a href="{{ $mediaKit->architect->company->website }}" class="text-secondary">{{ trimWebsiteUrl($mediaKit->architect->company->website) }}</a>
 						</p>
@@ -42,7 +52,7 @@
 				<div class="row g-2 justify-content-end">
 					@if($allowedEdit)
 					<div class="col-auto">
-						<a href="{{ route('architect.media-kit.article.edit', ['mediaKit' => $mediaKit->id]) }}" class="text-purple-600">
+						<a href="{{ route('architect.media-kit.article.edit', ['mediaKit' => $mediaKit->slug]) }}" class="text-purple-600">
 							<i class="bi bi-pencil-square"></i>
 						</a>
 					</div>
@@ -67,20 +77,50 @@
 				<p class="text-dark fs-6 m-0">Description</p>
 			</div>
 			<div class="col text-end">
-				<a class="btn btn-primary fs-6 fw-medium" href="{{ $mediaKit->story->press_release_doc_path ? Storage::download($mediaKit->story->press_release_doc_path) : $mediaKit->story->press_release_doc_link }}" target="_blank">Download</a>
+				@if ($mediaKit->story->press_release_doc_path)
+					@if ($viewAs == 'architect')
+						<form action="{{ route('architect.download', ['mediaKit' => $mediaKit->slug]) }}" method="post">
+							@csrf
+							<input type="hidden" value="{{ $mediaKit->story->press_release_doc_path }}" name="file">
+							<button type="submit" class="btn btn-primary fs-6 fw-medium">Download</button>
+						</form>
+					@elseif ($viewAs == 'journalist')
+						<form action="{{ route('journalist.download', ['mediaKit' => $mediaKit->slug]) }}" method="post">
+							@csrf
+							<input type="hidden" value="{{ $mediaKit->story->press_release_doc_path }}" name="file">
+							<button type="submit" class="btn btn-primary fs-6 fw-medium">Download</button>
+						</form>
+					@endif
+				@else
+				<a class="btn btn-primary fs-6 fw-medium" href="{{ $mediaKit->story->press_release_doc_link }}" target="_blank">Download</a>
+				@endif
 			</div>
 		</div>
-		@if($mediaKit->story->photographs_link)
 		<hr class="border-gray-300">
 		<div class="row align-items-center">
 			<div class="col">
 				<p class="text-dark fs-6 m-0">Gallery</p>
 			</div>
 			<div class="col text-end">
-				<button class="btn btn-primary fs-6 fw-medium" href="{{ $mediaKit->story->photographs_link }}" target="_blank">Download</button>
+				@if($mediaKit->story->photographs_link)
+					<a class="btn btn-primary fs-6 fw-medium" href="{{ $mediaKit->story->photographs_link }}" target="_blank">Download</a>
+				@else
+					@if ($viewAs == 'architect')
+						<form action="{{ route('architect.download.bulk', ['mediaKit' => $mediaKit->slug]) }}" method="post">
+							@csrf
+							<input type="hidden" value="photographs" name="file">
+							<button type="submit" class="btn btn-primary fs-6 fw-medium">Download</button>
+						</form>
+					@elseif ($viewAs == 'journalist')
+						<form action="{{ route('journalist.download.bulk', ['mediaKit' => $mediaKit->slug]) }}" method="post">
+							@csrf
+							<input type="hidden" value="photographs" name="file">
+							<button type="submit" class="btn btn-primary fs-6 fw-medium">Download</button>
+						</form>
+					@endif
+				@endif
 			</div>
 		</div>
-		@endif
 		<hr class="border-gray-300">
 		<div class="row">
 			<div class="col-12">
@@ -90,7 +130,17 @@
 						<img class="rounded-circle img-square img-48" src="{{ $mediaKit->architect->profileImage ? Storage::url($mediaKit->architect->profileImage->image_path) : 'https://via.placeholder.com/48x48' }}" alt="..." />
 					</div>
 					<div class="col-auto">
-						<p class="text-purple-800 fs-6 fw-medium m-0 p-0">{{ $mediaKit->architect->user->name }}</p>
+						<p class="text-purple-800 fs-6 fw-medium m-0 p-0">
+							@if ($viewAs == 'architect')
+							<a class="text-purple-800" href="{{ route('architect.account.profile.index') }}">
+								{{ $mediaKit->architect->user->name }}
+							</a>
+							@elseif ($viewAs == 'journalist')
+							<a class="text-purple-800" href="{{ route('journalist.brand.architect', ['architect' => $mediaKit->architect->user->architect->slug]) }}">
+								{{ $mediaKit->architect->user->name }}
+							</a>
+							@endif
+						</p>
 						<p class="text-secondary fs-6 m-0 p-0">{{ $mediaKit->architect->position->name }}</p>
 					</div>
 					<div class="col-auto text-purple-700"><i class="bi bi-arrow-up-right"></i></div>
