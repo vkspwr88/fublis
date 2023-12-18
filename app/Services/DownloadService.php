@@ -37,10 +37,11 @@ class DownloadService
 
 			if ($zip->open(public_path($zipFileName), ZipArchive::CREATE) === true) {
 				$filesToZip = $imagesPath;
-				dd(public_path($zipFileName), $filesToZip);
+				//dd(public_path($zipFileName), $filesToZip);
 				foreach ($filesToZip as $file) {
 					$file = Storage::path($file);
 					$zip->addFile($file, basename($file));
+					dd($file, basename($file));
 				}
 
 				$zip->close();
