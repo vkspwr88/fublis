@@ -33,7 +33,7 @@ class DownloadService
 			}
 
 			$zip = new ZipArchive;
-			$zipFileName = str()->headline($model->slug) . '.zip';
+			$zipFileName = str()->camel($model->slug) . '.zip';
 
 			if ($zip->open(public_path($zipFileName), ZipArchive::CREATE) === true) {
 				$filesToZip = $imagesPath;
