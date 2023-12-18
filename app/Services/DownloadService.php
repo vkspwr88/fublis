@@ -4,6 +4,7 @@ namespace App\Services;
 
 use Exception;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\ValidationException;
 use ZipArchive;
 
 class DownloadService
@@ -30,22 +31,22 @@ class DownloadService
 			else{
 				return;
 			}
-			
+
 			$zip = new ZipArchive;
 			$zipFileName = $model->slug . '.zip';
-	
+
 			if ($zip->open(public_path($zipFileName), ZipArchive::CREATE) === true) {
 				$filesToZip = $imagesPath;
 				foreach ($filesToZip as $file) {
 					$file = Storage::path($file);
 					$zip->addFile($file, basename($file));
 				}
-	
+
 				$zip->close();
-	
+
 				return response()->download(public_path($zipFileName))->deleteFileAfterSend(true);
 			} else {
-				return "Failed to create the zip file.";
+				throw ValidationException::withMessages(['Failed to create the zip file.']);
 			}
 		}
 		catch(Exception $exp){
