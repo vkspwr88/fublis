@@ -43,7 +43,7 @@ class DownloadService
 					$zip->addFile($file, basename($file));
 					//dd($file, basename($file));
 				}
-				dd($zip);
+				//dd($zip);
 				$zip->close();
 
 				return response()->download(public_path($zipFileName))->deleteFileAfterSend(true);
