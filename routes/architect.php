@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Users\Architects;
+use App\Http\Controllers\Users\MessageController;
 use App\Http\Middleware\ArchitectLogin;
 use Illuminate\Support\Facades\Route;
 
@@ -65,7 +66,12 @@ Route::middleware(ArchitectLogin::class)->group(function() {
 			Route::get('/analytics', [Architects\Accounts\ProfileController::class, 'analytic'])->name('analytic');
 			Route::get('/alerts', [Architects\Accounts\ProfileController::class, 'alert'])->name('alert');
 			Route::get('/notifications', [Architects\Accounts\ProfileController::class, 'notification'])->name('notification');
-			Route::get('/messages', [Architects\Accounts\ProfileController::class, 'message'])->name('message');
+			Route::name('message.')->prefix('messages')->group(function () {
+				Route::get('/', [Architects\Accounts\Profile\MessageController::class, 'index'])->name('index');
+				Route::get('/subjects', [MessageController::class, 'subjects'])->name('subject');
+				Route::get('/chats/{id?}', [MessageController::class, 'chats'])->name('chat');
+				Route::post('/send', [MessageController::class, 'send'])->name('send');
+			});
 			Route::get('/invite-colleague', [Architects\Accounts\ProfileController::class, 'inviteColleague'])->name('invite-colleague');
 			Route::name('setting.')->prefix('settings')->group(function () {
 				Route::get('/personal-info', [Architects\Accounts\SettingController::class, 'personalInfo'])->name('personal-info');

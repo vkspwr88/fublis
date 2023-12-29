@@ -34,11 +34,6 @@ class ProfileController extends Controller
 		return view('users.pages.journalists.accounts.profile.notification');
 	}
 
-	public function message()
-	{
-		return view('users.pages.architects.accounts.profile.message');
-	}
-
 	public function inviteColleague()
 	{
 		return view('users.pages.journalists.accounts.profile.invite-colleague');

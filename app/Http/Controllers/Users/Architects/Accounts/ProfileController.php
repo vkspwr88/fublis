@@ -5,12 +5,11 @@ namespace App\Http\Controllers\Users\Architects\Accounts;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Users\ArchitectController;
 use App\Http\Controllers\Users\MediaKitController;
-use App\Models\Architect;
 use Illuminate\Http\Request;
 
 class ProfileController extends Controller
 {
-    public function index()
+	public function index()
 	{
 		$architect = ArchitectController::getArchitect(auth()->id());
 		//$architect = ArchitectController::loadModel($architect);
@@ -34,11 +33,6 @@ class ProfileController extends Controller
 	public function notification()
 	{
 		return view('users.pages.architects.accounts.profile.notification');
-	}
-
-	public function message()
-	{
-		return view('users.pages.architects.accounts.profile.message');
 	}
 
 	public function inviteColleague()

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Users\Journalists;
+use App\Http\Controllers\Users\MessageController;
 use App\Http\Middleware\JournalistLogin;
 use Illuminate\Support\Facades\Route;
 
@@ -48,7 +49,12 @@ Route::middleware(JournalistLogin::class)->group(function() {
 		Route::name('profile.')->prefix('profile')->group(function () {
 			Route::get('/', [Journalists\Accounts\ProfileController::class, 'index'])->name('index');
 			Route::get('/notifications', [Journalists\Accounts\ProfileController::class, 'notification'])->name('notification');
-			Route::get('/messages', [Journalists\Accounts\ProfileController::class, 'message'])->name('message');
+			Route::name('message.')->prefix('messages')->group(function () {
+				Route::get('/', [Journalists\Accounts\Profile\MessageController::class, 'index'])->name('index');
+				Route::get('/subjects', [MessageController::class, 'subjects'])->name('subject');
+				Route::get('/chats/{id?}', [MessageController::class, 'chats'])->name('chat');
+				Route::post('/send', [MessageController::class, 'send'])->name('send');
+			});
 			Route::get('/invite-colleague', [Journalists\Accounts\ProfileController::class, 'inviteColleague'])->name('invite-colleague');
 			Route::name('setting.')->prefix('settings')->group(function () {
 				Route::get('/personal-info', [Journalists\Accounts\SettingController::class, 'personalInfo'])->name('personal-info');

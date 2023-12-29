@@ -3,12 +3,15 @@
 namespace App\Services;
 
 use App\Models\Call;
+use App\Models\Chat;
+use App\Models\ChatMessage;
 use App\Models\Journalist;
 use App\Models\Pitch;
 use App\Models\Publication;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\DB;
 
 class PitchStoryService
 {
@@ -142,14 +145,33 @@ class PitchStoryService
 	public function createPitchStory($model, array $details)
 	{
 		try{
-			$model->pitches()->create([
+			DB::beginTransaction();
+			$pitch = $model->pitches()->create([
 				'journalist_id' => $details['journalist'],
 				'media_kit_id' => $details['mediaKit'],
 				'subject' => $details['subject'],
 				'message' => $details['message'],
 			]);
+
+			$journalist = Journalist::find($details['journalist']);
+
+			$chatService = new ChatService;
+
+			$chat = $chatService->createChat([
+				'pitch_id' => $pitch->id,
+				'sender_id' => auth()->id(),
+				'receiver_id' => $journalist->user_id,
+			]);
+
+			$chatService->createChatMessage([
+				'chat_id' => $chat->id,
+				'user_id' => auth()->id(),
+				'message' => $details['message'],
+			]);
+			DB::commit();
 		}
 		catch(Exception $exp){
+			DB::rollBack();
 			dd($exp->getMessage());
 			return false;
 		}

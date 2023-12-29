@@ -28,12 +28,12 @@
 	</form>
 	<ul id="profileNav" class="navbar-nav mt-5 mt-xl-0 ms-xl-auto flex-row align-items-center">
 		<li class="nav-item nav-icon px-2 ps-0 px-xl-1">
-			<a href="javascript:;" class="nav-link text-center text-purple-600 border border-2 border-purple-600 rounded-circle lh-1">
+			<a href="{{ route('journalist.account.profile.message.index') }}" class="nav-link text-center text-purple-600 border border-2 border-purple-600 rounded-circle lh-1">
 				<i class="bi bi-envelope"></i>
 			</a>
 		</li>
 		<li class="nav-item nav-icon px-2 px-xl-1">
-			<a href="javascript:;" class="nav-link text-center text-purple-600 border border-2 border-purple-600 rounded-circle lh-1">
+			<a href="{{ route('journalist.account.profile.notification') }}" class="nav-link text-center text-purple-600 border border-2 border-purple-600 rounded-circle lh-1">
 				<i class="bi bi-bell"></i>
 			</a>
 		</li>
@@ -44,7 +44,7 @@
 			<ul class="dropdown-menu profile-dropdown">
 				<li><a class="dropdown-item" href="{{ route('journalist.account.profile.index') }}">Profile</a></li>
 				<li><a class="dropdown-item" href="{{ route('journalist.account.profile.notification') }}">Notifications</a></li>
-				<li><a class="dropdown-item" href="{{ route('journalist.account.profile.message') }}">Messages</a></li>
+				<li><a class="dropdown-item" href="{{ route('journalist.account.profile.message.index') }}">Messages</a></li>
 				<li><a class="dropdown-item" href="{{ route('journalist.account.profile.invite-colleague') }}">Invite Colleague</a></li>
 				<li><a class="dropdown-item" href="{{ route('journalist.account.profile.setting.personal-info') }}">Settings</a></li>
 				<li><a class="dropdown-item" href="{{ route('journalist.logout') }}">Log Out</a></li>

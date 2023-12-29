@@ -22,7 +22,7 @@
   		<script type="text/javascript" src="https://unpkg.com/trix@2.0.0/dist/trix.umd.min.js"></script>
 	</head>
 
-	<body class="bg-light">
+	<body id="app1" class="bg-light">
 		@include('users.includes.header')
 		<section id="body" class="w-100 m-0 px-0 pb-0">
 			@yield('body')
