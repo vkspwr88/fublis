@@ -21,6 +21,12 @@ class InviteColleagueService
 				'message' => $data['inviteMessage'],
 			]);
 			Mail::to($inviteColleage->email)->queue(new InvitationMail($inviteColleage, $data['type']));
+			NotificationService::sendTeamInviteNotification([
+				'poly' => $inviteColleage,
+				'invited_by' => auth()->user()->name,
+				'invited_to' => $data['name'],
+				'type' => $data['type'],
+			]);
 			DB::commit();
 		}
 		catch(Exception $exp){

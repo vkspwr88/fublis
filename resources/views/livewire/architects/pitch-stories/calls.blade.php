@@ -59,7 +59,7 @@
 									<div class="col-md-7">
 										<div class="row justify-content-center align-items-center text-center text-md-start">
 											<p class="col-12 fs-5 fw-semibold m-0">
-												<a href="{{ route('architect.pitch-story.calls.view', ['call' => $call->id]) }}" class="text-dark">
+												<a href="{{ route('architect.pitch-story.calls.view', ['call' => $call->slug]) }}" class="text-dark">
 													{{ $call->title }}
 												</a>
 											</p>
@@ -86,12 +86,12 @@
 													</div>
 													<div class="col-auto fs-6">
 														<p class="fw-semibold m-0 p-0">
-															<a class="text-secondary" href="{{ route('architect.pitch-story.publications.view', ['publication' => $call->publication_id]) }}">
+															<a class="text-secondary" href="{{ route('architect.pitch-story.publications.view', ['publication' => $call->publication->slug]) }}">
 																{{ $call->publication->name }}
 															</a>
 														</p>
 														<p class="m-0 p-0 small">
-															<a class="text-secondary" href="{{ route('architect.pitch-story.journalists.view', ['journalist' => $call->journalist_id]) }}">
+															<a class="text-secondary" href="{{ route('architect.pitch-story.journalists.view', ['journalist' => $call->journalist->slug]) }}">
 																{{ $call->journalist->user->name }}
 															</a>
 														</p>

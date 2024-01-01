@@ -91,7 +91,7 @@
 											</div>
 											<div class="col-12">
 												<h5 class="fs-6 fw-semibold m-0 pt-3">
-													<a href="{{ route('architect.pitch-story.publications.view', ['publication' => $publication->id]) }}" class="text-dark">
+													<a href="{{ route('architect.pitch-story.publications.view', ['publication' => $publication->slug]) }}" class="text-dark">
 														{{ $publication->name }}
 													</a>
 												</h5>

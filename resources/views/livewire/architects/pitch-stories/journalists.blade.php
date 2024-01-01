@@ -90,7 +90,7 @@
 								<div class="row justify-content-center pb-2">
 									<div class="col">
 										<h5 class="fs-5 fw-semibold m-0">
-											<a class="text-dark" href="{{ route('architect.pitch-story.journalists.view', ['journalist' => $journalist->id]) }}">
+											<a class="text-dark" href="{{ route('architect.pitch-story.journalists.view', ['journalist' => $journalist->slug]) }}">
 												{{ $journalist->user->name }}
 											</a>
 										</h5>
@@ -105,7 +105,7 @@
 											</div>
 											<div class="col">
 												<p class="fs-6 m-0 p-0 fw-bold">
-													<a class="text-dark" href="{{ route('architect.pitch-story.publications.view', ['publication' => $journalist->publications[0]->id]) }}">
+													<a class="text-dark" href="{{ route('architect.pitch-story.publications.view', ['publication' => $journalist->publications[0]->slug]) }}">
 														<span class="small">{{ $journalist->publications[0]->name }}</span>
 													</a>
 												</p>

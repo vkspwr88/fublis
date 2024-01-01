@@ -165,7 +165,7 @@
 									<p class="text-secondary m-0 p-0">{{ $journalist->position->name }}</p>
 								</div>
 								<div class="col-auto">
-									<a href="{{ route('architect.pitch-story.journalists.view', ['journalist' => $journalist->id]) }}" class="btn btn-white btn-sm rounded-pill text-dark fw-medium py-0 px-1 border-dark">
+									<a href="{{ route('architect.pitch-story.journalists.view', ['journalist' => $journalist->slug]) }}" class="btn btn-white btn-sm rounded-pill text-dark fw-medium py-0 px-1 border-dark">
 										Contact <i class="bi bi-arrow-right"></i>
 									</a>
 								</div>

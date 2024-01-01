@@ -21,7 +21,7 @@ class EventServiceProvider extends ServiceProvider
             SendEmailVerificationNotification::class,
         ],
 		Events\SendMessage::class => [
-			//Listeners\SendMessageNotification::class,
+			Listeners\SendMessageNotification::class,
 		],
     ];
 

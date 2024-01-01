@@ -44,15 +44,15 @@ Route::middleware(ArchitectLogin::class)->group(function() {
 		Route::get('/', [Architects\PitchStories\PublicationController::class, 'index'])->name('index');
 		Route::name('publications.')->prefix('publications')->group(function () {
 			Route::get('/', [Architects\PitchStories\PublicationController::class, 'index'])->name('index');
-			Route::get('/{publication}', [Architects\PitchStories\PublicationController::class, 'view'])->name('view');
+			Route::get('/{publication:slug}', [Architects\PitchStories\PublicationController::class, 'view'])->name('view');
 		});
 		Route::name('journalists.')->prefix('journalists')->group(function () {
 			Route::get('/', [Architects\PitchStories\JournalistController::class, 'index'])->name('index');
-			Route::get('/{journalist}', [Architects\PitchStories\JournalistController::class, 'view'])->name('view');
+			Route::get('/{journalist:slug}', [Architects\PitchStories\JournalistController::class, 'view'])->name('view');
 		});
 		Route::name('calls.')->prefix('calls')->group(function () {
 			Route::get('/', [Architects\PitchStories\CallController::class, 'index'])->name('index');
-			Route::get('/{call}', [Architects\PitchStories\CallController::class, 'view'])->name('view');
+			Route::get('/{call:slug}', [Architects\PitchStories\CallController::class, 'view'])->name('view');
 		});
 	});
 
@@ -83,6 +83,6 @@ Route::middleware(ArchitectLogin::class)->group(function() {
 		});
 	});
 
-	Route::get('/journalist/{journalist_id:slug}', [Architects\AddStoryController::class, 'index'])->name('journalist');
-	Route::get('/publication/{publication_id:slug}', [Architects\AddStoryController::class, 'index'])->name('publication');
+	/* Route::get('/journalist/{journalist_id:slug}', [Architects\AddStoryController::class, 'index'])->name('journalist');
+	Route::get('/publication/{publication_id:slug}', [Architects\AddStoryController::class, 'index'])->name('publication'); */
 });
