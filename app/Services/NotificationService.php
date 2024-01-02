@@ -47,7 +47,7 @@ class NotificationService
 		$subject = $data['invited_by'];
 		$message = 'Invited <span class="text-purple-700">' . $data['invited_to'] . '</span> to the team.';
 		if($data['type'] === 'architect'){
-			$company = $data['poly']->invited_by->architect->company;
+			$company = $data['poly']->user->architect->company;
 			$users = $company->architects;
 		}
 		foreach($users as $user){

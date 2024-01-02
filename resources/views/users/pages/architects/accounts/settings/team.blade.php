@@ -12,5 +12,6 @@
 
 	@include('users.includes.architect.setting-nav', ['setting' => 'Team'])
 
+	<livewire:architects.settings.team />
 </div>
 @endsection

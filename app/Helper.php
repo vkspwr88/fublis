@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\Users\Architects\UserRoleEnum;
 use App\Enums\Users\UserTypeEnum;
 use Illuminate\Support\Arr;
 
@@ -16,6 +17,13 @@ if (!function_exists('isArchitect')) {
     function isArchitect()
     {
 		return auth()->check() && auth()->user()->user_type === UserTypeEnum::ARCHITECT;
+	}
+}
+
+if (!function_exists('isArchitectAdmin')) {
+    function isArchitectAdmin()
+    {
+		return isArchitect() && auth()->user()->architect->user_role === UserRoleEnum::ADMIN;
 	}
 }
 

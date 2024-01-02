@@ -14,7 +14,10 @@ class SettingController extends Controller
 
 	public function company()
 	{
-		return view('users.pages.architects.accounts.settings.company');
+		if(isArchitectAdmin()){
+			return view('users.pages.architects.accounts.settings.company');
+		}
+		return abort(401);
 	}
 
 	public function password()
@@ -24,11 +27,17 @@ class SettingController extends Controller
 
 	public function team()
 	{
-		return view('users.pages.architects.accounts.settings.team');
+		if(isArchitectAdmin()){
+			return view('users.pages.architects.accounts.settings.team');
+		}
+		return abort(401);
 	}
 
 	public function billing()
 	{
-		return view('users.pages.architects.accounts.settings.billing');
+		if(isArchitectAdmin()){
+			return view('users.pages.architects.accounts.settings.billing');
+		}
+		return abort(401);
 	}
 }

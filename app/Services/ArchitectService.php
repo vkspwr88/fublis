@@ -128,15 +128,15 @@ class ArchitectService
 
 				$invitedUser = $this->userRepository->getInvitedArchitectUserById($invitation->invited_by);
 				if($invitedUser->architect->company->name == $company->name){
-					if($invitation->user_role){
+					$architect->user_role = $invitation->user_role ?? UserRoleEnum::ADMIN;
+					/* if($invitation->user_role){
 						$architect->user_role = $invitation->user_role;
 					}
 					else{
-						$architect->user_role = UserRoleEnum::READ_ONLY;
-						$architect->save();
-					}
+						$architect->user_role = UserRoleEnum::ADMIN;
+					} */
+					$architect->save();
 				}
-
 			}
 			/* else{
 				if(!$company->wasRecentlyCreated){
