@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Enums\Users\Architects\UserRoleEnum;
 use App\Models\Analytic;
 use App\Models\MediaKitView;
 use App\Models\Notification;
@@ -51,14 +52,15 @@ class NotificationService
 			$users = $company->architects;
 		}
 		foreach($users as $user){
-			$data['poly']->notification()
-							->create([
-								'user_id' => $user->user_id,
-								'subject' => $subject,
-								'message' => $message,
-							]);
+			if($user->user_role === UserRoleEnum::ADMIN){
+				$data['poly']->notification()
+								->create([
+									'user_id' => $user->user_id,
+									'subject' => $subject,
+									'message' => $message,
+								]);
+			}
 		}
-
 	}
 
 	public static function sendTeamAddNotification()
@@ -66,9 +68,17 @@ class NotificationService
 
 	}
 
-	public static function sendDownloadRequestNotification()
+	public static function sendDownloadRequestNotification(array $data)
 	{
+		$subject = 'Download request';
+		$message = '<a href="' . route('architect.pitch-story.journalists.view', ['journalist' => $data['journalist_slug']]) . '" class="text-purple-700">' . $data['journalist_name'] . '</a> would like to download the media kit <a href="' . route('architect.media-kit.view', ['media_kit' => $data['media_kit_id']]) . '" class="text-purple-700">' . $data['media_kit_title'] . '</a>.';
 
+		$data['poly']->notification()
+						->create([
+							'user_id' => $data['architect_user_id'],
+							'subject' => $subject,
+							'message' => $message,
+						]);
 	}
 
 	public static function sendMessageSentNotification(array $data)

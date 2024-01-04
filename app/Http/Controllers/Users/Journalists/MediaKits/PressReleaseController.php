@@ -26,12 +26,14 @@ class PressReleaseController extends Controller
 		]);
 		return view('users.pages.journalists.media-kits.press-releases.view', [
 			'mediaKit' => $mediaKit,
+			'downloadRequest' => $mediaKit->downloadRequests->where('requested_by', auth()->id())->first(),
 		]);
 	}
 
 	public function loadModel($mediaKit)
 	{
 		return $mediaKit->load([
+			'downloadRequests',
 			'story.photographs',
 			'category',
 			'architect' => [

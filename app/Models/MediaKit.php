@@ -42,4 +42,9 @@ class MediaKit extends Model
 	{
 		return $this->hasMany(Analytic::class);
 	}
+
+	public function downloadRequests(): HasMany
+	{
+		return $this->hasMany(DownloadRequest::class);
+	}
 }

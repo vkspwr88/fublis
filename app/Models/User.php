@@ -82,4 +82,9 @@ class User extends Authenticatable implements Authorizable
 	{
 		return $this->hasMany(InviteColleague::class, 'invited_by');
 	}
+
+	public function downloadRequests(): HasMany
+	{
+		return $this->hasMany(DownloadRequest::class, 'requested_by');
+	}
 }

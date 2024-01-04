@@ -21,13 +21,13 @@ class MediaKitController extends Controller
 	public function view(MediaKit $mediaKit)
 	{
 		if (str()->contains($mediaKit->story_type, 'PressRelease')){
-			return to_route('architect.media-kit.press-release.view', ['mediaKit' => $mediaKit->id]);
+			return to_route('architect.media-kit.press-release.view', ['mediaKit' => $mediaKit->slug]);
 		}
 		if (str()->contains($mediaKit->story_type, 'Article')){
-			return to_route('architect.media-kit.article.view', ['mediaKit' => $mediaKit->id]);
+			return to_route('architect.media-kit.article.view', ['mediaKit' => $mediaKit->slug]);
 		}
 		if (str()->contains($mediaKit->story_type, 'Project')){
-			return to_route('architect.media-kit.project.view', ['mediaKit' => $mediaKit->id]);
+			return to_route('architect.media-kit.project.view', ['mediaKit' => $mediaKit->slug]);
 		}
 	}
 

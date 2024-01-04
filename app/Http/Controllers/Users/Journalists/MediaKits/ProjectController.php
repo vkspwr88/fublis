@@ -15,6 +15,8 @@ class ProjectController extends Controller
 			return abort(404);
 		}
 		$mediaKit = $this->loadModel($mediaKit);
+
+		//dd($mediaKit->downloadRequests->where('requested_by', auth()->id())->first());
 		NotificationService::sendViewCountNotification([
 			'media_kit_id' => $mediaKit->id,
 			'media_kit_slug' => $mediaKit->slug,
@@ -26,12 +28,14 @@ class ProjectController extends Controller
 		]);
 		return view('users.pages.journalists.media-kits.projects.view', [
 			'mediaKit' => $mediaKit,
+			'downloadRequest' => $mediaKit->downloadRequests->where('requested_by', auth()->id())->first(),
 		]);
 	}
 
 	public function loadModel($mediaKit)
 	{
 		return $mediaKit->load([
+			'downloadRequests',
 			'story' => [
 				'photographs',
 				'location',

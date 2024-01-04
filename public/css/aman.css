@@ -3,6 +3,7 @@
 	--fublis-gray-100: #F2F4F7;
 	--fublis-gray-200: #EAECF0;
 	--fublis-gray-300: #D0D5DD;
+	--fublis-gray-400: #D9D9D9;
 	--fublis-gray-500: #667085;
 	--fublis-gray-600: #475467;
 	--fublis-gray-700: #344054;
@@ -116,6 +117,15 @@ a.text-purple-600:hover{
 }
 .bg-gray-300{
 	background: var(--fublis-gray-300) !important;
+}
+.bg-gray-400{
+	background: var(--fublis-gray-400) !important;
+}
+.bg-gray-500{
+	background: var(--fublis-gray-500) !important;
+}
+.bg-gray-600{
+	background: var(--fublis-gray-600) !important;
 }
 .bg-pink-100{
 	background: var(--fublis-pink-100) !important;

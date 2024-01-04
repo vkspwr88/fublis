@@ -12,6 +12,7 @@ Route::get('/logout', [Journalists\Auth\LogoutController::class, 'index'])->name
 
 Route::middleware(JournalistLogin::class)->group(function() {
 	Route::post('/download/{mediaKit:slug}', [Journalists\DownloadController::class, 'index'])->name('download');
+	Route::post('/download/{mediaKit:slug}/request', [Journalists\DownloadController::class, 'request'])->name('download.request');
 	Route::post('/download/{mediaKit:slug}/bulk', [Journalists\DownloadController::class, 'bulk'])->name('download.bulk');
 
 	Route::name('call.')->prefix('invite-story')->group(function () {
@@ -23,6 +24,7 @@ Route::middleware(JournalistLogin::class)->group(function() {
 
 	Route::name('media-kit.')->prefix('media-kit')->group(function () {
 		Route::get('/', [Journalists\MediaKitController::class, 'index'])->name('index');
+		Route::get('/{mediaKit}', [Journalists\MediaKitController::class, 'view'])->name('view');
 		Route::name('press-release.')->prefix('press-release')->group(function () {
 			Route::get('/{mediaKit:slug}', [Journalists\MediaKits\PressReleaseController::class, 'view'])->name('view');
 		});
