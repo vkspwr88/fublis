@@ -18,16 +18,18 @@ class EditWizardComponent extends WizardComponent
 
     public function initialState(): array
     {
+		//dd($this->call->location->name);
         return [
 			'journalist-calls-edit-step' => [
 				'category' => $this->call->category_id,
 				'title' => $this->call->title,
 				'description' => $this->call->description,
-				'location' => $this->call->location_id,
+				'selectedCity' => strtolower($this->call->location->name),
 				'publication' => $this->call->publication_id,
 				'language' => $this->call->language_id,
 				'submissionEndsDate' => Carbon::parse($this->call->submission_end_date)->format('d-M-Y'),
 				'callId' => $this->call->id,
+				'callSlug' => $this->call->slug,
 			],
         ];
     }

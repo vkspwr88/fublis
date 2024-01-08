@@ -24,7 +24,7 @@ class InviteColleagueService
 			NotificationService::sendTeamInviteNotification([
 				'poly' => $inviteColleage,
 				'invited_by' => auth()->user()->name,
-				'invited_to' => $data['name'],
+				'invited_to' => $inviteColleage->name,
 				'type' => $data['type'],
 			]);
 			DB::commit();

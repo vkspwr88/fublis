@@ -26,7 +26,8 @@ class PreviewStepComponent extends StepComponent
 			'title' => $call['title'],
 			'submittedBy' => auth()->user()->name,
 			'description' => $call['description'],
-			'location' => LocationController::findById($call['location']),
+			'selectedCity' => $call['selectedCity'],
+			// 'location' => LocationController::findById($call['location']),
 			'publication' => PublicationController::findById($call['publication']),
 			'language' => LanguageController::findById($call['language']),
 			'submissionEndsDate' => $call['submissionEndsDate'],
@@ -35,13 +36,13 @@ class PreviewStepComponent extends StepComponent
 
 	public function update()
 	{
-		//dd($this->state()->call());
+		// dd($this->state()->call());
 		if($this->callService->editInviteStory($this->state()->call())){
 			$this->dispatch('alert', [
 				'type' => 'success',
 				'message' => 'Invite story updated successfully.'
 			]);
-			return to_route('journalist.call.view', ['call' => $this->state()->call()['callId']]);
+			return to_route('journalist.call.view', ['call' => $this->state()->call()['callSlug']]);
 		}
 		$this->dispatch('alert', [
 			'type' => 'warning',

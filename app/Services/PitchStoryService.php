@@ -167,7 +167,27 @@ class PitchStoryService
 				'chat_id' => $chat->id,
 				'user_id' => auth()->id(),
 				'message' => $details['message'],
-			]);
+			], false);
+
+			if($model instanceof Call){
+				NotificationService::sendMediaKitOnCallNotification([
+					'call_slug' => $model->slug,
+					'call_title' => $model->title,
+					'sent_to_user_id' => $journalist->user_id,
+					'poly' => $pitch,
+				]);
+			}
+			else{
+				NotificationService::sendMediaKitNotification([
+					'media_kit_type' => $details['mediaKitType'],
+					'media_kit_slug' => $details['mediaKitSlug'],
+					'media_kit_title' => $details['mediaKitTitle'],
+					'sent_to_user_id' => $journalist->user_id,
+					'message' => $details['message'],
+					'poly' => $pitch,
+				]);
+			}
+
 			DB::commit();
 		}
 		catch(Exception $exp){

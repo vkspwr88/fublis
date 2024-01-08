@@ -27,6 +27,15 @@ class DownloadController extends Controller
 
     public function index(MediaKit $mediaKit, Request $request)
 	{
+		$this->notificationService->sendDownloadCountNotification([
+			'media_kit_id' => $mediaKit->id,
+			'media_kit_slug' => $mediaKit->slug,
+			'media_kit_title' => $mediaKit->story->title,
+			'journalist_id' => auth()->id(),
+			'journalist_slug' => auth()->user()->journalist->slug,
+			'journalist_name' => auth()->user()->name,
+			'architect_user_id' => $mediaKit->architect->user_id,
+		]);
 		return $this->downloadService->singleFileDownload($request->file);
 	}
 
@@ -44,6 +53,7 @@ class DownloadController extends Controller
 				'journalist_slug' => auth()->user()->journalist->slug,
 				'journalist_name' => auth()->user()->name,
 				'media_kit_id' => $mediaKit->id,
+				'media_kit_slug' => $mediaKit->slug,
 				'media_kit_title' => $mediaKit->story->title,
 			]);
 			DB::commit();
@@ -57,7 +67,7 @@ class DownloadController extends Controller
 			'type' => 'success',
 			'message' => 'Download request sent to the architect.'
 		]); */
-		return to_route('journalist.media-kit.view', ['mediaKit' => $mediaKit->id])->with([
+		return to_route('journalist.media-kit.view', ['mediaKit' => $mediaKit->slug])->with([
 			'type' => 'success',
 			'message' => 'Download request sent to the architect.',
 		]);
@@ -66,6 +76,15 @@ class DownloadController extends Controller
 
 	public function bulk(MediaKit $mediaKit, Request $request)
 	{
+		$this->notificationService->sendDownloadCountNotification([
+			'media_kit_id' => $mediaKit->id,
+			'media_kit_slug' => $mediaKit->slug,
+			'media_kit_title' => $mediaKit->story->title,
+			'journalist_id' => auth()->id(),
+			'journalist_slug' => auth()->user()->journalist->slug,
+			'journalist_name' => auth()->user()->name,
+			'architect_user_id' => $mediaKit->architect->user_id,
+		]);
 		return $this->downloadService->zipFilesDownload($mediaKit, $request->file);
 	}
 }

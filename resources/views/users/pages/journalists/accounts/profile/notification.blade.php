@@ -15,7 +15,7 @@
 						<a href="javascript:;" class="text-secondary fs-6 fw-medium">Account</a>
 					</li>
 					<li class="breadcrumb-item fublis-breadcrumb-item">
-						<a href="javascript:;" class="text-secondary fs-6 fw-medium">Profile</a>
+						<a href="{{ route('journalist.account.profile.index') }}" class="text-secondary fs-6 fw-medium">Profile</a>
 					</li>
 					<li class="breadcrumb-item fublis-breadcrumb-item text-purple-600 fs-6 fw-medium" aria-current="page">Analytics</li>
 				</ol>
@@ -25,8 +25,12 @@
 
 	@include('users.includes.journalist.profile-header', ['headerTitle' => 'Check Your Notifications'])
 
-	<hr class="border-gray-300 my-4">
+	<div class="row pt-5 pb-4">
+		<div class="col">
+			<h3 class="text-dark fs-5 fw-semibold m-0 p-0">Notifications</h3>
+		</div>
+	</div>
 
-
+	<livewire:journalists.account.notification />
 </div>
 @endsection

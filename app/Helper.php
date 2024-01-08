@@ -3,6 +3,7 @@
 use App\Enums\Users\Architects\UserRoleEnum;
 use App\Enums\Users\UserTypeEnum;
 use Illuminate\Support\Arr;
+use App\Models;
 
 if (!function_exists('filterFileName')) {
     function filterFileName($fileName)
@@ -75,4 +76,37 @@ if (!function_exists('checkInvitation')) {
 		}
 		return false;
     }
+}
+
+if (!function_exists('getArchitectNotificationType')) {
+	function getArchitectNotificationType($model)
+	{
+		if ($model instanceof Models\Analytic){
+			return 'users.includes.architect.notification.mediakit-view-notification';
+		}
+		elseif ($model instanceof Models\DownloadRequest){
+			return 'users.includes.architect.notification.mediakit-download-request-notification';
+		}
+		elseif ($model instanceof Models\ChatMessage){
+			return 'users.includes.architect.notification.receive-chat-message-notification';
+		}
+		elseif ($model instanceof Models\InviteColleague){
+			return 'users.includes.architect.notification.team-added-notification';
+		}
+	}
+}
+
+if (!function_exists('getJournalistNotificationType')) {
+	function getJournalistNotificationType($model)
+	{
+		if ($model instanceof Models\DownloadRequest){
+			return 'users.includes.journalist.notification.mediakit-download-response-notification';
+		}
+		elseif ($model instanceof Models\ChatMessage){
+			return 'users.includes.journalist.notification.receive-chat-message-notification';
+		}
+		elseif ($model instanceof Models\Pitch){
+			return'users.includes.journalist.notification.receive-media-kit-notification';
+		}
+	}
 }

@@ -14,9 +14,9 @@
 	<div class="row mb-3">
 		<label for="inputTitle" class="col-md-4 col-form-label text-dark fs-6 fw-medium">Title</label>
 		<div class="col-md-8">
-			<input type="text" id="inputTitle" class="form-control @error('title') is-invalid @enderror" wire:model="title">
+			<input type="text" id="inputTitle" class="form-control @error('title') is-invalid @enderror" wire:model="title" wire:keydown.debounce="characterCount">
 			@error('title')<div class="invalid-feedback">{{ $message }}</div>@enderror
-			<div id="titleHelp" class="form-text">80 characters left</div>
+			<div id="titleHelp" class="form-text {{ $titleTextLength < 0 ? 'text-danger' : '' }}">{{ $titleTextLength }} characters left</div>
 		</div>
 	</div>
 	<div class="row mb-3">
@@ -25,12 +25,12 @@
 			<label class="d-block form-text text-secondary fs-7 m-0">Write in 50-75 words</label>
 		</div>
 		<div class="col-md-8">
-			<textarea id="inputDescription" class="form-control @error('description') is-invalid @enderror" rows="6" wire:model="description"></textarea>
+			<textarea id="inputDescription" class="form-control @error('description') is-invalid @enderror" rows="6" wire:model="description" wire:keydown.debounce="characterCount"></textarea>
 			@error('description')<div class="invalid-feedback">{{ $message }}</div>@enderror
-			<div id="descriptionHelp" class="form-text">275 characters left</div>
+			<div id="descriptionHelp" class="form-text {{ $descriptionTextLength < 0 ? 'text-danger' : '' }}">{{ $descriptionTextLength }} characters left</div>
 		</div>
 	</div>
-	<div class="row mb-3">
+	{{-- <div class="row mb-3">
 		<label for="selectLocation" class="col-md-4 col-form-label text-dark fs-6 fw-medium">Location</label>
 		<div class="col-md-8">
 			<select class="form-select @error('location') is-invalid @enderror" id="selectLocation" wire:model="location">
@@ -40,6 +40,30 @@
 				@endforeach
 			</select>
 			@error('location')<div class="invalid-feedback">{{ $message }}</div>@enderror
+		</div>
+	</div> --}}
+	<div class="row mb-3">
+		<label for="selectCountry" class="col-md-4 col-form-label text-dark fs-6 fw-medium">Country</label>
+		<div class="col-md-8">
+			<select class="form-select @error('country') is-invalid @enderror" id="selectCountry" wire:model.live="selectedCountry">
+				<option value="">Select Country</option>
+				@foreach ($countries as $country)
+				<option value="{{ $country->id }}">{{ str()->headline($country->name) }}</option>
+				@endforeach
+			</select>
+			@error('selectedCountry')<div class="invalid-feedback">{{ $message }}</div>@enderror
+		</div>
+	</div>
+	<div class="row mb-3">
+		<label for="selectCity" class="col-md-4 col-form-label text-dark fs-6 fw-medium">City</label>
+		<div class="col-md-8">
+			<select class="form-select @error('selectedCity') is-invalid @enderror" id="selectCity" wire:model="selectedCity">
+				<option value="">Select City</option>
+				@foreach ($cities as $city)
+				<option value="{{ $city->name }}">{{ str()->headline($city->name) }}</option>
+				@endforeach
+			</select>
+			@error('selectedCity')<div class="invalid-feedback">{{ $message }}</div>@enderror
 		</div>
 	</div>
 	<div class="row mb-3">

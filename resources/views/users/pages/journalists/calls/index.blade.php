@@ -44,7 +44,7 @@
 			<div class="col-12">
 				<div class="card rounded-3 shadow">
 					<div class="card-body">
-						<a href="{{ route('journalist.call.view', ['call' => $call->id]) }}" class="stretched-link"></a>
+						<a href="{{ route('journalist.call.view', ['call' => $call->slug]) }}" class="stretched-link"></a>
 						<div class="row g-2 align-items-center">
 							<div class="col-12">
 								<div class="row align-items-center">
@@ -55,7 +55,7 @@
 									<div class="col">
 										<div class="d-flex justify-content-end">
 											<p class="m-0 py-2" style="z-index: 2;">
-												<a href="{{ route('journalist.call.edit', ['call' => $call->id]) }}" class="btn btn-primary btn-sm">Edit Call</a>
+												<a href="{{ route('journalist.call.edit', ['call' => $call->slug]) }}" class="btn btn-primary btn-sm">Edit Call</a>
 											</p>
 										</div>
 									</div>

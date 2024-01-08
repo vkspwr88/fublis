@@ -156,9 +156,13 @@ class Calls extends Component
 			]);
 			return;
 		}
+		$mediaKit = $this->mediaKits->find($this->selectedMediaKit);
 		if($this->pitchStoryService->createPitchStory($this->call, [
 			'journalist' => $this->selectedJournalist,
 			'mediaKit' => $this->selectedMediaKit,
+			'mediaKitType' => showModelName($mediaKit->story_type),
+			'mediaKitSlug' => $mediaKit->slug,
+			'mediaKitTitle' => $mediaKit->story->title,
 			'subject' => $this->subject,
 			'message' => $this->message,
 		])){

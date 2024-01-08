@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 class Pitch extends Model
@@ -25,5 +26,10 @@ class Pitch extends Model
 	public function pitchable(): MorphTo
 	{
 		return $this->morphTo();
+	}
+
+	public function notification(): MorphOne
+	{
+		return $this->morphOne(Notification::class, 'notifiable');
 	}
 }

@@ -23,6 +23,11 @@ class Analytic extends Model
 		return $this->belongsTo(Journalist::class);
 	}
 
+	public function user(): BelongsTo
+	{
+		return $this->belongsTo(User::class, 'journalist_id');
+	}
+
 	public function data(): MorphTo
 	{
 		return $this->morphTo();

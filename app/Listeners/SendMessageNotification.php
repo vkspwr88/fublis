@@ -25,7 +25,7 @@ class SendMessageNotification implements ShouldQueue
     {
         //
 		//dd($event);
-		$receiverId = $event->chat->receiver_id;
+		/* $receiverId = $event->chat->receiver_id;
 		if($event->chat->receiver_id === $event->chatMessage->user_id){
 			$receiverId = $event->chat->sender_id;
 		}
@@ -34,6 +34,6 @@ class SendMessageNotification implements ShouldQueue
 			'sent_to_user_id' => $receiverId,
 			'sent_by' => $event->chatMessage->user->name,
 			'message' => $event->chatMessage->message,
-		]);
+		]); */
     }
 }

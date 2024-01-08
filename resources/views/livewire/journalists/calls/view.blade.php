@@ -48,7 +48,7 @@
 					<span class="badge rounded-pill bg-purple-100 text-purple-700 fw-medium">{{ $language->name }}</span>
 				</div>
 				<div class="col-auto">
-					<span class="badge rounded-pill bg-purple-100 text-purple-700 fw-medium">{{ $location->name }}</span>
+					<span class="badge rounded-pill bg-purple-100 text-purple-700 fw-medium text-capitalize">{{ $selectedCity }}</span>
 				</div>
 			</div>
 		</div>

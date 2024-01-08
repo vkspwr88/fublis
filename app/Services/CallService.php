@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Http\Controllers\Users\Journalists\CallController;
+use App\Http\Controllers\Users\LocationController;
 use App\Http\Controllers\Users\TagController;
 use App\Models\Call;
 use Carbon\Carbon;
@@ -16,13 +17,18 @@ class CallService
 	{
 		try{
             DB::beginTransaction();
+			// insert location record
+			$location = LocationController::createLocation([
+				'name' => $details['selectedCity'],
+			]);
 			// create call
 			$call = CallController::createCall([
 				'journalist_id' => auth()->user()->journalist->id,
 				'category_id' => $details['category'],
 				'title' => $details['title'],
+				'slug' => $this->generateSlug($details['title']),
 				'description' => $details['description'],
-				'location_id' => $details['location'],
+				'location_id' => $location->id,
 				'publication_id' => $details['publication'],
 				'language_id' => $details['language'],
 				'submission_end_date' => Carbon::parse($details['submissionEndsDate']),
@@ -30,7 +36,7 @@ class CallService
 			// attach tags
 			TagController::attachTags($call, [
 				$call->category->name,
-				$call->location->name,
+				$location->name,
 				$call->language->name,
 			]);
 			DB::commit();
@@ -47,12 +53,16 @@ class CallService
 	{
 		try{
             DB::beginTransaction();
+			// insert location record
+			$location = LocationController::createLocation([
+				'name' => $details['selectedCity'],
+			]);
 			// update call
 			$call = CallController::updateCall($details['callId'], [
 				'category_id' => $details['category'],
 				'title' => $details['title'],
 				'description' => $details['description'],
-				'location_id' => $details['location'],
+				'location_id' => $location->id,
 				'publication_id' => $details['publication'],
 				'language_id' => $details['language'],
 				'submission_end_date' => Carbon::parse($details['submissionEndsDate']),
@@ -61,7 +71,7 @@ class CallService
 			// attach tags
 			TagController::attachTags($call, [
 				$call->category->name,
-				$call->location->name,
+				$location->name,
 				$call->language->name,
 			]);
 			DB::commit();
@@ -95,6 +105,19 @@ class CallService
 		}
 		//dd($data, $submissions, $submissions->mediaKits);
 		return $submissions;
+	}
+
+	public function generateSlug($title)
+	{
+		$count = Call::where('title', $title)->count();
+		if($count > 1){
+			$title .= $count;
+		}
+		return str()->replace(
+							' ',
+							'-',
+							str()->headline($title)
+						);
 	}
 
 	public function searchCalls(array $data)

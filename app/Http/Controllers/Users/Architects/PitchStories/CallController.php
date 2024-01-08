@@ -35,6 +35,7 @@ class CallController extends Controller
 			'submissionEndsDate' => $call->submission_end_date,
 			'publication' => $call->publication,
 			'category' => $call->category,
+			'selectedCity' => $call->location->name,
 			'location' => $call->location,
 			'language' => $call->language,
 		]);

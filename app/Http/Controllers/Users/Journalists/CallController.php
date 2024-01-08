@@ -48,6 +48,7 @@ class CallController extends Controller
 			'publication' => $call->publication,
 			'category' => $call->category,
 			'location' => $call->location,
+			'selectedCity' => $call->location->name,
 			'language' => $call->language,
 			'call' => $call,
 		]);

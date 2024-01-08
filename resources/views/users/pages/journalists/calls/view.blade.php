@@ -49,7 +49,7 @@
 				<div class="row g-4">
 					<div class="col-md-8 offset-md-4">
 						<div class="text-start">
-							<a class="btn btn-primary fw-semibold" href="{{ route('journalist.call.edit', ['call' => $call->id]) }}">Edit Call</a>
+							<a class="btn btn-primary fw-semibold" href="{{ route('journalist.call.edit', ['call' => $call->slug]) }}">Edit Call</a>
 						</div>
 					</div>
 				</div>

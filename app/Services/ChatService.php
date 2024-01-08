@@ -75,7 +75,7 @@ class ChatService
 		return Chat::create($details);
 	}
 
-	public function createChatMessage(array $details)
+	public function createChatMessage(array $details, $sentNotification = true)
 	{
 		$chatMessage = ChatMessage::create($details);
 		$chat = $chatMessage->chat;
@@ -84,6 +84,18 @@ class ChatService
 		$chat->save();
 		$chatMessage = $this->loadUserChatMessages($chatMessage);
 		broadcast(new SendMessage($chat, $chatMessage))->toOthers();
+		$receiverId = $chat->receiver_id;
+		if($chat->receiver_id === $chatMessage->user_id){
+			$receiverId = $chat->sender_id;
+		}
+		if($sentNotification){
+			NotificationService::sendMessageSentNotification([
+				'poly' => $chatMessage,
+				'sent_to_user_id' => $receiverId,
+				'sent_by' => $chatMessage->user->name,
+				'message' => $chatMessage->message,
+			]);
+		}
 		return $chatMessage;
 	}
 }
