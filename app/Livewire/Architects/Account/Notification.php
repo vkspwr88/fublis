@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Architects\Account;
 
+use App\Enums\Users\Architects\MediaKits\RequestStatusEnum;
 use App\Http\Controllers\Users\Architects\DownloadController;
 use App\Models;
 use Carbon\CarbonImmutable;
@@ -14,9 +15,16 @@ class Notification extends Component
 	public $todayNotifications;
 	public $thisWeekNotifications;
 	public $thisMonthNotifications;
+	public $isRequestWindowDisplay = false;
+	public $isManageRequestWindowDisplay = false;
+	public $pendingDownloadRequest;
+	public $studioName;
+	public $selectedRequests = [];
 
 	public function mount()
 	{
+		$this->studioName = auth()->user()->architect->company->name;
+		$this->pendingDownloadRequest = collect();
 		$this->notifications = Models\Notification::where('user_id', auth()->id())
 													->with([
 														'notifiable' => function (MorphTo $morphTo) {
@@ -35,7 +43,9 @@ class Notification extends Component
 																			'profileImage'
 																		]
 																	],
-																	'mediaKit'
+																	'mediaKit' => [
+																		'story',
+																	]
 																],
 																Models\ChatMessage::class => [
 																	'user' => [
@@ -95,7 +105,7 @@ class Notification extends Component
 		return view('livewire.architects.account.notification');
     }
 
-	public function approveMediaKitDownload($notificationId)
+	public function approveMediaKitDownload($notificationId, $showAll = false)
 	{
 		$notification = $this->notifications->find($notificationId);
 		//dd($this->notifications, $notification);
@@ -104,6 +114,9 @@ class Notification extends Component
 				'type' => 'success',
 				'message' => 'You have successfully approved the download request.'
 			]);
+			if($showAll){
+				$this->updatePendingRequest();
+			}
 			return;
 		}
 		$this->dispatch('alert', [
@@ -112,7 +125,7 @@ class Notification extends Component
 		]);
 	}
 
-	public function declineMediaKitDownload($notificationId)
+	public function declineMediaKitDownload($notificationId, $showAll = false)
 	{
 		$notification = $this->notifications->find($notificationId);
 		//dd($this->notifications, $notification);
@@ -121,6 +134,91 @@ class Notification extends Component
 				'type' => 'success',
 				'message' => 'You have successfully declined the download request.'
 			]);
+			if($showAll){
+				$this->updatePendingRequest();
+			}
+			return;
+		}
+		$this->dispatch('alert', [
+			'type' => 'warning',
+			'message' => 'We are facing problem in declining the download request. Please try again or contact support.'
+		]);
+	}
+
+	public function updatePendingRequest()
+	{
+		$this->pendingDownloadRequest = $this->notifications->filter( function($item) {
+			return $item->notifiable instanceof Models\DownloadRequest && $item->notifiable->request_status === RequestStatusEnum::PENDING;
+		});
+	}
+
+	public function showAllRequest()
+	{
+		$this->updatePendingRequest();
+		$this->isRequestWindowDisplay = true;
+	}
+
+
+
+	public function hideAllRequest()
+	{
+		$this->isRequestWindowDisplay = false;
+		$this->isManageRequestWindowDisplay = false;
+		$this->selectedRequests = [];
+	}
+
+	public function showManageAllRequest()
+	{
+		$this->isRequestWindowDisplay = false;
+		$this->isManageRequestWindowDisplay = true;
+	}
+
+	public function selectAllRequest()
+	{
+		$this->selectedRequests = $this->pendingDownloadRequest->pluck('id')->all();
+	}
+
+	public function approveSelectedMediaKitDownload()
+	{
+		if(empty($this->selectedRequests)){
+			$this->dispatch('alert', [
+				'type' => 'warning',
+				'message' => 'Select atleast one request.'
+			]);
+			return;
+		}
+
+		if(DownloadController::approveBulkRequest($this->selectedRequests)){
+			$this->dispatch('alert', [
+				'type' => 'success',
+				'message' => 'You have successfully approved the download request.'
+			]);
+			$this->updatePendingRequest();
+			$this->selectedRequests = [];
+			return;
+		}
+		$this->dispatch('alert', [
+			'type' => 'warning',
+			'message' => 'We are facing problem in approving the download request. Please try again or contact support.'
+		]);
+	}
+
+	public function declineSelectedMediaKitDownload()
+	{
+		//dd($this->selectedRequests, empty($this->selectedRequests));
+		if(empty($this->selectedRequests)){
+			$this->dispatch('alert', [
+				'type' => 'warning',
+				'message' => 'Select atleast one request.'
+			]);
+		}
+		if(DownloadController::declineBulkRequest($this->selectedRequests)){
+			$this->dispatch('alert', [
+				'type' => 'success',
+				'message' => 'You have successfully declined the download request.'
+			]);
+			$this->updatePendingRequest();
+			$this->selectedRequests = [];
 			return;
 		}
 		$this->dispatch('alert', [
