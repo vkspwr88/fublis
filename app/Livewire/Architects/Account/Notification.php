@@ -102,6 +102,7 @@ class Notification extends Component
 
     public function render()
     {
+		//dd($this->notifications);
 		return view('livewire.architects.account.notification');
     }
 

@@ -50,8 +50,18 @@
 				<div class="col-md-8">
 					<div class="row g-2">
 						<div class="col-auto">
+							@php
+								$profileImageSrc = 'https://via.placeholder.com/64x64';
+								//if(method_exists($profileImage, 'temporaryUrl')){
+								if($profileImage && method_exists($profileImage, 'temporaryUrl')){
+									$profileImageSrc = $profileImage->temporaryUrl();
+								}
+								elseif ($profileImageOld) {
+									$profileImageSrc = Storage::url($profileImageOld->image_path);
+								}
+							@endphp
 							<p class="m-0 p-0">
-								<img class="rounded-circle img-square img-64" src="{{ $profileImageOld ? Storage::url($profileImageOld->image_path) : 'https://via.placeholder.com/64x64' }}" alt="..." />
+								<img class="rounded-circle img-square img-64" src="{{ $profileImageSrc }}" alt="..." />
 							</p>
 						</div>
 						<div class="col">

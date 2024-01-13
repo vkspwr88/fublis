@@ -1,6 +1,6 @@
 <div class="row g-3">
 	<div class="col-auto">
-		<img class="img-square rounded-circle" src="{{ $notification->notifiable->mediaKit->architect->profileImage ? Storage::url($notification->notifiable->mediaKit->architect->profileImage->image_path) : 'https://via.placeholder.com/48x48' }}" alt="..." />
+		<img class="img-square rounded-circle img-48" src="{{ $notification->notifiable->mediaKit->architect->profileImage ? Storage::url($notification->notifiable->mediaKit->architect->profileImage->image_path) : 'https://via.placeholder.com/48x48' }}" alt="..." />
 	</div>
 	@if ($notification->notifiable->pitchable instanceof App\Models\Call)
 		<div class="col-auto">

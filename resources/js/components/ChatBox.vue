@@ -168,11 +168,11 @@
 								</div>
 								<div class="col-12" v-else>
 									<div class="row">
-										<div class="col-auto" v-if="chatMessage.user.architect && chatMessage.user.architect.profileImage">
-											<img :src="chatMessage.user.architect.profileImage.image_path" alt="..." class="img-square img-40 rounded-circle">
+										<div class="col-auto" v-if="chatMessage.user.architect && chatMessage.user.architect.profile_image">
+											<img :src="'/storage/' + chatMessage.user.architect.profile_image.image_path" alt="..." class="img-square img-40 rounded-circle">
 										</div>
-										<div class="col-auto" v-else-if="chatMessage.user.journalist && chatMessage.user.journalist.profileImage">
-											<img :src="chatMessage.user.journalist.profileImage.image_path" alt="..." class="img-square img-40 rounded-circle">
+										<div class="col-auto" v-else-if="chatMessage.user.journalist && chatMessage.user.journalist.profile_image">
+											<img :src="'/storage/' + chatMessage.user.journalist.profile_image.image_path" alt="..." class="img-square img-40 rounded-circle">
 										</div>
 										<div class="col-auto" v-else>
 											<img src="https://via.placeholder.com/40x40" alt="..." class="img-square img-40 rounded-circle">
