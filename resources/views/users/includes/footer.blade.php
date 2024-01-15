@@ -84,24 +84,11 @@
 						<div class="">
 							<x-users.footer.heading text="social" />
 							<ul class="nav flex-column footer-list">
-								<li class="nav-item">
-									<x-users.footer.nav-links href="javascript:;" text="twitter" />
-								</li>
-								<li class="nav-item">
-									<x-users.footer.nav-links href="javascript:;" text="linkedin" />
-								</li>
-								<li class="nav-item">
-									<x-users.footer.nav-links href="javascript:;" text="facebook" />
-								</li>
-								<li class="nav-item">
-									<x-users.footer.nav-links href="javascript:;" text="instagram" />
-								</li>
-								<li class="nav-item">
-									<x-users.footer.nav-links href="javascript:;" text="pinterest" />
-								</li>
-								<li class="nav-item">
-									<x-users.footer.nav-links href="javascript:;" text="snapchat" />
-								</li>
+								@foreach ($socialMedias as $socialMedia)
+									<li class="nav-item">
+										<x-users.footer.nav-links href="{{ $socialMedia->url }}" text="{{ $socialMedia->name }}" />
+									</li>
+								@endforeach
 							</ul>
 						</div>
 						<div class="">
@@ -142,10 +129,12 @@
 				</div>
 				<div class="col-md-5">
 					<ul id="socialNav" class="nav justify-content-center justify-content-md-end">
+						@foreach ($socialMedias as $socialMedia)
 						<li class="nav-item">
-							<a class="nav-link text-muted px-2" href="#"><i class="bi bi-twitter-x"></i></a>
+							<a class="nav-link text-muted px-2" href="{{ $socialMedia->url }}">{!! $socialMedia->icon !!}</a>
 						</li>
-						<li class="nav-item">
+						@endforeach
+						{{-- <li class="nav-item">
 							<a class="nav-link text-muted px-2" href="#"><i class="bi bi-linkedin"></i></a>
 						</li>
 						<li class="nav-item">
@@ -159,7 +148,7 @@
 						</li>
 						<li class="nav-item">
 							<a class="nav-link text-muted px-2" href="#"><i class="bi bi-dribbble"></i></a>
-						</li>
+						</li> --}}
 					  </ul>
 				</div>
 			</div>

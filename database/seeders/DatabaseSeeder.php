@@ -36,6 +36,7 @@ class DatabaseSeeder extends Seeder
 			PublicationTypeSeeder::class,
 			SettingSeeder::class,
 			TeamSizeSeeder::class,
+			SocialMediaSeeder::class,
 		]);
     }
 }
