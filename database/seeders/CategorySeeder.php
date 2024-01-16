@@ -15,151 +15,58 @@ class CategorySeeder extends Seeder
     {
         $data = [
 			[
-				'name' => 'administrator',
+				'name' => 'architecture',
 			],
 			[
-				'name' => 'architect',
+				'name' => 'home & decor',
 			],
 			[
-				'name' => 'associate',
+				'name' => 'Automative',
 			],
 			[
-				'name' => 'brand manager',
+				'name' => 'Business',
 			],
 			[
-				'name' => 'business development',
+				'name' => 'Education',
 			],
 			[
-				'name' => 'business manager',
+				'name' => 'Gadgets',
 			],
 			[
-				'name' => 'ceo',
+				'name' => 'Entertainment',
 			],
 			[
-				'name' => 'co-founder',
+				'name' => 'Fashion',
 			],
 			[
-				'name' => 'communications',
+				'name' => 'Fitness',
 			],
 			[
-				'name' => 'communications director',
+				'name' => 'Food',
 			],
 			[
-				'name' => 'communications manager',
+				'name' => 'Health',
 			],
 			[
-				'name' => 'content editor',
+				'name' => 'Life & Style',
 			],
 			[
-				'name' => 'content manager',
+				'name' => 'Music',
 			],
 			[
-				'name' => 'coo',
+				'name' => 'Product Design',
 			],
 			[
-				'name' => 'creative director',
+				'name' => 'Sports',
 			],
 			[
-				'name' => 'designer',
+				'name' => 'Startups',
 			],
 			[
-				'name' => 'director',
+				'name' => 'Technology',
 			],
 			[
-				'name' => 'fashion designer',
-			],
-			[
-				'name' => 'founder',
-			],
-			[
-				'name' => 'founder / principal architect',
-			],
-			[
-				'name' => 'graphic designer',
-			],
-			[
-				'name' => 'graphics manager',
-			],
-			[
-				'name' => 'interior architect',
-			],
-			[
-				'name' => 'intern',
-			],
-			[
-				'name' => 'legal representative',
-			],
-			[
-				'name' => 'managing director',
-			],
-			[
-				'name' => 'marketing',
-			],
-			[
-				'name' => 'marketing & communications',
-			],
-			[
-				'name' => 'marketing coordinator',
-			],
-			[
-				'name' => 'marketing director',
-			],
-			[
-				'name' => 'marketing manager',
-			],
-			[
-				'name' => 'office manager',
-			],
-			[
-				'name' => 'operations manager',
-			],
-			[
-				'name' => 'owner',
-			],
-			[
-				'name' => 'partner',
-			],
-			[
-				'name' => 'photographer',
-			],
-			[
-				'name' => 'pr representative',
-			],
-			[
-				'name' => 'president',
-			],
-			[
-				'name' => 'principal',
-			],
-			[
-				'name' => 'product designer',
-			],
-			[
-				'name' => 'public relations',
-			],
-			[
-				'name' => 'public relations director',
-			],
-			[
-				'name' => 'public relations manager',
-			],
-			[
-				'name' => 'social media manager',
-			],
-			[
-				'name' => 'studio head',
-			],
-			[
-				'name' => 'studio manager',
-			],
-			[
-				'name' => 'submissions coordinator',
-			],
-			[
-				'name' => 'writer',
-			],
-			[
-				'name' => 'writing consultant',
+				'name' => 'Travel',
 			],
 		];
 
