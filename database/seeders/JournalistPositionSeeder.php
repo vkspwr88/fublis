@@ -36,9 +36,6 @@ class JournalistPositionSeeder extends Seeder
 				'name' => 'columnist',
 			],
 			[
-				'name' => 'contributing editor',
-			],
-			[
 				'name' => 'contributing writer',
 			],
 			[
@@ -106,9 +103,6 @@ class JournalistPositionSeeder extends Seeder
 			],
 			[
 				'name' => 'production editor',
-			],
-			[
-				'name' => 'publisher',
 			],
 			[
 				'name' => 'publisher',
