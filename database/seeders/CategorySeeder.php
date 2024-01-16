@@ -15,59 +15,158 @@ class CategorySeeder extends Seeder
     {
         $data = [
 			[
-				'name' => 'architecture',
+				'name' => 'administrator',
 			],
 			[
-				'name' => 'home & decor',
+				'name' => 'architect',
 			],
 			[
-				'name' => 'Automative',
+				'name' => 'associate',
 			],
 			[
-				'name' => 'Business',
+				'name' => 'brand manager',
 			],
 			[
-				'name' => 'Education',
+				'name' => 'business development',
 			],
 			[
-				'name' => 'Gadgets',
+				'name' => 'business manager',
 			],
 			[
-				'name' => 'Entertainment',
+				'name' => 'ceo',
 			],
 			[
-				'name' => 'Fashion',
+				'name' => 'co-founder',
 			],
 			[
-				'name' => 'Fitness',
+				'name' => 'communications',
 			],
 			[
-				'name' => 'Food',
+				'name' => 'communications director',
 			],
 			[
-				'name' => 'Health',
+				'name' => 'communications manager',
 			],
 			[
-				'name' => 'Life & Style',
+				'name' => 'content editor',
 			],
 			[
-				'name' => 'Music',
+				'name' => 'content manager',
 			],
 			[
-				'name' => 'Product Design',
+				'name' => 'coo',
 			],
 			[
-				'name' => 'Sports',
+				'name' => 'creative director',
 			],
 			[
-				'name' => 'Startups',
+				'name' => 'designer',
 			],
 			[
-				'name' => 'Technology',
+				'name' => 'director',
 			],
 			[
-				'name' => 'Travel',
+				'name' => 'fashion designer',
 			],
+			[
+				'name' => 'founder',
+			],
+			[
+				'name' => 'founder / principal architect',
+			],
+			[
+				'name' => 'graphic designer',
+			],
+			[
+				'name' => 'graphics manager',
+			],
+			[
+				'name' => 'interior architect',
+			],
+			[
+				'name' => 'intern',
+			],
+			[
+				'name' => 'legal representative',
+			],
+			[
+				'name' => 'managing director',
+			],
+			[
+				'name' => 'marketing',
+			],
+			[
+				'name' => 'marketing & communications',
+			],
+			[
+				'name' => 'marketing coordinator',
+			],
+			[
+				'name' => 'marketing coordinator',
+			],
+			[
+				'name' => 'marketing director',
+			],
+			[
+				'name' => 'marketing manager',
+			],
+			[
+				'name' => 'marketing manager',
+			],
+			[
+				'name' => 'office manager',
+			],
+			[
+				'name' => 'operations manager',
+			],
+			[
+				'name' => 'owner',
+			],
+			[
+				'name' => 'partner',
+			],
+			[
+				'name' => 'photographer',
+			],
+			[
+				'name' => 'pr representative',
+			],
+			[
+				'name' => 'president',
+			],
+			[
+				'name' => 'principal',
+			],
+			[
+				'name' => 'product designer',
+			],
+			[
+				'name' => 'public relations',
+			],
+			[
+				'name' => 'public relations director',
+			],
+			[
+				'name' => 'public relations manager',
+			],
+			[
+				'name' => 'social media manager',
+			],
+			[
+				'name' => 'studio head',
+			],
+			[
+				'name' => 'studio manager',
+			],
+			[
+				'name' => 'submissions coordinator',
+			],
+			[
+				'name' => 'writer',
+			],
+			[
+				'name' => 'writing consultant',
+			],			
 		];
 
 		foreach($data as $row){
