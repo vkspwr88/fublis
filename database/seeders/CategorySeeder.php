@@ -102,13 +102,7 @@ class CategorySeeder extends Seeder
 				'name' => 'marketing coordinator',
 			],
 			[
-				'name' => 'marketing coordinator',
-			],
-			[
 				'name' => 'marketing director',
-			],
-			[
-				'name' => 'marketing manager',
 			],
 			[
 				'name' => 'marketing manager',
@@ -166,7 +160,7 @@ class CategorySeeder extends Seeder
 			],
 			[
 				'name' => 'writing consultant',
-			],			
+			],
 		];
 
 		foreach($data as $row){
