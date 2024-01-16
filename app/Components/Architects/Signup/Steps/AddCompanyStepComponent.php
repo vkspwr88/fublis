@@ -74,6 +74,9 @@ class AddCompanyStepComponent extends StepComponent
 				$this->showList = true;
 				$data['companies'] = Controllers\Users\CompanyController::search('name', $this->searchCompanyName);
 			}
+			else{
+				$data['companies'] = collect([]);
+			}
 		}
 		//$this->positions = Controllers\Users\Architects\PositionController::getAll();
 		$data['positions'] = Controllers\Users\Architects\PositionController::getAll();

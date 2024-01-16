@@ -8,4 +8,5 @@ interface UserRepositoryInterface
 	public function createUser(array $details);
 	public function getInvitedArchitectUserById(string $id);
 	public function getInvitedJournalistUserById(string $id);
+	public function checkGoogleId(string $googleId);
 }

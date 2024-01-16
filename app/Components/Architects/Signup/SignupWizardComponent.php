@@ -8,6 +8,14 @@ use Spatie\LivewireWizard\Components\WizardComponent;
 
 class SignupWizardComponent extends WizardComponent
 {
+	/* public $step;
+
+	public function mount(string $step)
+    {
+        $this->step = $step;
+		dd($step);
+    } */
+
 	public function steps() : array
     {
         return [

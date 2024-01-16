@@ -19,6 +19,7 @@ return new class extends Migration
 			$table->string('email_otp', 4)->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('user_type')->default('architect');
+            $table->string('google_id')->nullable();
             $table->string('ip_address');
             $table->timestamps();
 		});

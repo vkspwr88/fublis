@@ -7,8 +7,10 @@ use Illuminate\Http\Request;
 
 class SignupController extends Controller
 {
-    public function index()
+    public function index(string $step = 'architect-signup-step')
 	{
-		return view('users.pages.architects.auth.signup');
+		return view('users.pages.architects.auth.signup', [
+			'step' => $step
+		]);
 	}
 }

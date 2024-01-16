@@ -62,6 +62,9 @@ class AddPublicationStepComponent extends StepComponent
 				$this->showList = true;
 				$this->publications = PublicationController::search('name', $this->searchPublicationName);
 			}
+			else{
+				$this->publications = collect([]);
+			}
 		}
 		return view('livewire.journalists.signup-wizard.steps.add-publication', $data);
 	}

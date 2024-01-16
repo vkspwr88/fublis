@@ -9,4 +9,5 @@ interface GuestRepositoryInterface
 	public function getGuestById(string $id);
 	public function updateGuestEmailOtpById(string $id, string $otp);
 	public function verifyGuestEmailByOtp(string $id, string $otp);
+	public function registerAndVerifyGuest(array $details);
 }

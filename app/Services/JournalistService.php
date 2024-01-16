@@ -94,6 +94,7 @@ class JournalistService
 				'password' => $details['password'],
 				'user_type' => UserTypeEnum::JOURNALIST,
 				'email_verified_at' => $guest->email_verified_at,
+				'google_id' => $guest->google_id,
 			]);
 			// check publication
 			// if new, insert publication record

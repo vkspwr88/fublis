@@ -22,7 +22,7 @@
 		<button class="btn btn-primary fs-6 fw-semibold" type="submit">
 			Log In <x-users.spinners.white-btn wire:target="login" />
 		</button>
-		{{-- <button class="btn btn-white fs-6 fw-semibold" type="button">
+		<a href="{{ route('auth.google.index', ['userType' => 'architect']) }}" class="btn btn-white fs-6 fw-semibold" type="button">
 			<svg xmlns="http://www.w3.org/2000/svg" width="25" height="24" viewBox="0 0 25 24" fill="none">
 				<g clip-path="url(#clip0_950_3927)">
 					<path d="M24.5163 12.2763C24.5163 11.4605 24.4501 10.6404 24.309 9.83789H12.9902V14.4589H19.472C19.203 15.9492 18.3388 17.2676 17.0733 18.1054V21.1037H20.9403C23.2111 19.0137 24.5163 15.9272 24.5163 12.2763Z" fill="#4285F4"/>
@@ -35,7 +35,7 @@
 						<rect width="24" height="24" fill="white" transform="translate(0.75)"/>
 					</clipPath>
 				</defs>
-			</svg> Sign up with Google
-		</button> --}}
+			</svg> Login in with Google
+		</a>
 	</div>
 </form>

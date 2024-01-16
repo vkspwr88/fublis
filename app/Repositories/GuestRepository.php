@@ -45,4 +45,9 @@ class GuestRepository implements GuestRepositoryInterface
 						'email_verified_at' => Carbon::now(),
 					]);
 	}
+
+	public function registerAndVerifyGuest(array $details)
+	{
+		return Guest::create($details);
+	}
 }

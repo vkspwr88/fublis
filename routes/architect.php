@@ -5,7 +5,7 @@ use App\Http\Controllers\Users\MessageController;
 use App\Http\Middleware\ArchitectLogin;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/signup', [Architects\Auth\SignupController::class, 'index'])->name('signup');
+Route::get('/signup/{step?}', [Architects\Auth\SignupController::class, 'index'])->name('signup');
 Route::get('/login', [Architects\Auth\LoginController::class, 'index'])->name('login');
 Route::get('/logout', [Architects\Auth\LogoutController::class, 'index'])->name('logout');
 
