@@ -45,11 +45,11 @@ class GoogleController extends Controller
 			var_dump($response->original);
 			//$response = json_decode($response);
 			$data = $response->original;
-			if($data->success){
+			if($data['success']){
 				DB::commit();
-				return to_route($data->redirect_url);
+				return to_route($data['redirect_url']);
 			}
-			throw $data->message;
+			throw $data['message'];
 		}
 		catch(Exception $exp){
 			DB::rollBack();
