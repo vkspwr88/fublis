@@ -37,6 +37,7 @@ class AddPublicationStepComponent extends StepComponent
 
 	public function mount()
 	{
+		session()->forget('initial_state');
 		$this->selectedCountry = 101;
 		$this->selectedState = 0;
 		if(checkInvitation('journalist')){

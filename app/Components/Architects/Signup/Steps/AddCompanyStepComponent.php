@@ -37,6 +37,7 @@ class AddCompanyStepComponent extends StepComponent
 	public function mount()
 	{
 		//$this->countries = Controllers\Users\LocationController::getCountries();
+		session()->forget('initial_state');
 		$this->selectedCountry = 101;
 		$this->selectedState = 0;
 		if(checkInvitation('architect')){
