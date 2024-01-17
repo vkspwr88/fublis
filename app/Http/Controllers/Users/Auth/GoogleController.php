@@ -39,7 +39,9 @@ class GoogleController extends Controller
 			$googleUser = Socialite::driver('google')->user();
 			// dd($googleUser, $request);
 			$response = $this->googleService->checkGoogleUser($googleUser);
-			var_dump($googleUser, $response);
+			var_dump($googleUser);
+			var_dump($response);
+			var_dump($response['success']);
 			//$response = json_decode($response);
 			$data = json_decode($response->data);
 			if($data->success){
