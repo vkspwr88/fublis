@@ -41,7 +41,7 @@ class GoogleController extends Controller
 			$response = $this->googleService->checkGoogleUser($googleUser);
 			var_dump($googleUser);
 			var_dump($response);
-			var_dump($response['success']);
+			var_dump(json_decode($response));
 			//$response = json_decode($response);
 			$data = json_decode($response->data);
 			if($data->success){
