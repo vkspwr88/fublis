@@ -29,26 +29,45 @@ class Publication extends Component
 	public $profileImage;
 	public $language;
 	public $position;
-	public $location;
+	// public $location;
+	public $selectedCountry;
+	public $countries;
+	public $selectedState;
+	public $states;
+	public $selectedCity;
+	public $cities;
 	public $selectedCategories = [];
 	public $selectedPublicationTypes = [];
 	public $aboutMe;
 	public $isNew = true;
 	public $publications;
+	public $selectedPublication;
+
+	public $languages;
+	public $positions;
+	public $categories;
+	public $publicationTypes;
 
 	private SettingService $settingService;
 
+	public function mount()
+	{
+		$this->selectedCountry = 101;
+		$this->selectedState = 0;
+		$this->selectedPublication = collect([]);
+		$this->languages = LanguageController::getAll();
+		$this->positions = JournalistPositionController::getAll();
+		$this->categories = CategoryController::getAll();
+		$this->publicationTypes = PublicationTypeController::getAll();
+		$this->countries = LocationController::getCountries();
+	}
+
 	public function render()
     {
-		$this->publications = auth()->user()->journalist->publications->load('profileImage');
-		//dd($this->publications);
-        return view('livewire.journalists.settings.publication', [
-			'languages' => LanguageController::getAll(),
-			'positions' => JournalistPositionController::getAll(),
-			'locations' => LocationController::getAll(),
-			'categories' => CategoryController::getAll(),
-			'publicationTypes' => PublicationTypeController::getAll(),
-		]);
+		$this->publications = auth()->user()->journalist->publications->load(['profileImage', 'categories', 'publicationTypes', 'location']);
+		$this->states = LocationController::getStatesByCountryId($this->selectedCountry);
+		$this->cities = LocationController::getCitiesByStateId($this->selectedState);
+		return view('livewire.journalists.settings.publication');
     }
 
 	public function boot()
@@ -89,7 +108,10 @@ class Publication extends Component
 			'profileImage' => 'nullable|image|mimes:svg,png,jpg,gif|max:3100|dimensions:max_width=400,max_height=400',
 			'language' => 'required|exists:languages,id',
 			'position' => 'required|exists:journalist_positions,id',
-			'location' => 'required|exists:locations,id',
+			// 'location' => 'required|exists:locations,id',
+			'selectedCountry' => 'required|exists:countries,id',
+			'selectedState' => 'required|exists:states,id',
+			'selectedCity' => 'required|exists:cities,name',
 			'selectedCategories' => 'required',
 			'selectedCategories.*' => 'exists:categories,id',
 			'selectedPublicationTypes' => 'required',
@@ -111,15 +133,19 @@ class Publication extends Component
 			'profileImage.max' => 'Maximum allowed size to upload :attribute 3MB.',
 			'profileImage.dimensions' => 'Maximum allowed dimension for the :attribute is 400x400px.',
 			'language.required' => 'Select the :attribute.',
-			'language.exists' => 'Select the valid :attribute.',
+			// 'language.exists' => 'Select the valid :attribute.',
 			'position.required' => 'Select the :attribute.',
-			'position.exists' => 'Select the valid :attribute.',
-			'location.required' => 'Select the :attribute.',
-			'location.exists' => 'Select the valid :attribute.',
+			// 'position.exists' => 'Select the valid :attribute.',
+			// 'location.required' => 'Select the :attribute.',
+			// 'location.exists' => 'Select the valid :attribute.',
+			'selectedCountry.required' => 'Select the :attribute.',
+			'selectedState.required' => 'Select the :attribute.',
+			'selectedCity.required' => 'Select the :attribute.',
 			'selectedCategories.required' => 'Select the :attribute.',
 			'selectedPublicationTypes.required' => 'Select the :attribute.',
 			'aboutMe.required' => 'Enter the :attribute.',
 			'aboutMe.max' => 'The :attribute allows only 275 characters.',
+			'*.exists' => 'Select the valid :attribute.',
 		];
 	}
 
@@ -131,7 +157,10 @@ class Publication extends Component
 			'profileImage' => 'publication logo',
 			'language' => 'language',
 			'position' => 'role',
-			'location' => 'country',
+			// 'location' => 'location',
+			'selectedCountry' => 'country',
+			'selectedState' => 'state',
+			'selectedCity' => 'city',
 			'selectedCategories' => 'category',
 			'selectedPublicationTypes' => 'publication type',
 			'aboutMe' => 'publication details',
@@ -146,7 +175,10 @@ class Publication extends Component
 			'profileImage' => $this->profileImage,
 			'language' => $this->language,
 			'position' => $this->position,
-			'location' => $this->location,
+			// 'location' => $this->location,
+			'selectedCountry' => $this->selectedCountry,
+			'selectedState' => $this->selectedState,
+			'selectedCity' => $this->selectedCity,
 			'selectedCategories' => $this->selectedCategories,
 			'selectedPublicationTypes' => $this->selectedPublicationTypes,
 			'aboutMe' => $this->aboutMe,
@@ -156,23 +188,26 @@ class Publication extends Component
 	public function edit(string $publicationId)
 	{
 		$this->isNew = false;
-		$publication = $this->publications->find($publicationId)->load(['profileImage', 'categories', 'publicationTypes']);
-		//dd($publication);
-		$this->publicationName = $publication->name;
-		$this->website = trimWebsiteUrl($publication->website);
-		$this->location = $publication->location_id;
+		$this->selectedPublication = $this->publications->find($publicationId);
+		$this->publicationName = $this->selectedPublication->name;
+		$this->website = trimWebsiteUrl($this->selectedPublication->website);
+		// $this->location = $publication->location_id;
 		$this->position = JournalistPublication::where([
 													'publication_id' => $publicationId,
 													'journalist_id' => auth()->user()->journalist->id,
 												])
 												->first()
 												->journalist_position_id;
-		$this->language = $publication->language_id;
-		$this->selectedCategories = $publication->categories->pluck('id');
-		$this->selectedPublicationTypes = $publication->publicationTypes->pluck('id');
-		$this->aboutMe = $publication->about_me;
-		$this->profileImageOld = $publication->profileImage;
+		$this->language = $this->selectedPublication->language_id;
+		$this->selectedCategories = $this->selectedPublication->categories->pluck('id');
+		$this->selectedPublicationTypes = $this->selectedPublication->publicationTypes->pluck('id');
+		$this->aboutMe = $this->selectedPublication->about_me;
+		$this->profileImageOld = $this->selectedPublication->profileImage;
 		$this->publicationId = $publicationId;
+		$city = LocationController::getCityByCityName($this->selectedPublication->location->name);
+		$this->selectedCity = $city->name;
+		$this->selectedState = $city->state->id;
+		$this->selectedCountry = $city->state->country->id;
 	}
 
 	public function add()
@@ -180,7 +215,7 @@ class Publication extends Component
 		$this->isNew = true;
 		$this->publicationName = '';
 		$this->website = '';
-		$this->location = '';
+		// $this->location = '';
 		$this->language = '';
 		$this->position = '';
 		$this->selectedCategories = [];
@@ -190,7 +225,11 @@ class Publication extends Component
 		$this->profileImageOld = '';
 		$this->profileImage = '';
 		$this->resetValidation();
-		$this->render();
+		// $this->mount();
+		// $this->render();
+		$this->selectedCountry = 101;
+		$this->selectedState = 0;
+		$this->selectedPublication = collect([]);
 	}
 
 	public function refresh()
@@ -216,6 +255,7 @@ class Publication extends Component
 
 	public function update()
 	{
+		// dd($this->selectedCity, $this->selectedState);
 		//dd($this->selectedCategories);
 		$validated = Validator::make($this->data(), $this->rules(), $this->messages(), $this->validationAttributes())->validate();
 		if( (!$this->isNew && !$this->profileImageOld && !$this->profileImage) || ($this->isNew && !$this->profileImage) ){

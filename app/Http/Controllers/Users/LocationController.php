@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Users;
 
 use App\Http\Controllers\Controller;
+use App\Models\City;
 use App\Models\Country;
 use App\Models\Location;
 use App\Models\State;
@@ -38,6 +39,26 @@ class LocationController extends Controller
 
 	}
 
+	public static function getStatesByCountryId(int $countryId)
+	{
+		return State::where([
+						'status' => 'active',
+						'country_id' => $countryId,
+					])
+					->orderBy('name')
+					->get();
+	}
+
+	public static function getCitiesByStateId(int $stateId)
+	{
+		return City::where([
+						'status' => 'active',
+						'state_id' => $stateId,
+					])
+					->orderBy('name')
+					->get();
+	}
+
 	public static function getCitiesByCountry(int $countryId)
 	{
 		return Country::whereHas('cities', function (Builder $query) {
@@ -49,5 +70,13 @@ class LocationController extends Controller
 							])
 							->first()
 							->cities;
+	}
+
+	public static function getCityByCityName(string $name)
+	{
+		return City::where([
+						'name' => strtolower($name)
+					])->first()
+					->load('state.country');
 	}
 }

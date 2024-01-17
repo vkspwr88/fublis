@@ -90,7 +90,7 @@
 								<span class="btn btn-outline-success btn-sm">{{ $mediaKit->download_count }}</span>
 							</td>
 							<td class="py-4">
-								<a href="{{ getMediaKitViewUrl( showModelName($mediaKit->story_type), $mediaKit->id ) }}" class="btn btn-primary btn-sm">Track</a>
+								<a href="{{ getMediaKitViewUrl( showModelName($mediaKit->story_type), $mediaKit->slug ) }}" class="btn btn-primary btn-sm">Track</a>
 							</td>
 						</tr>
 						@empty

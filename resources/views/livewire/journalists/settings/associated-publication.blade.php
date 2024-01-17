@@ -60,12 +60,25 @@
 					<h4 class="text-dark fs-6 fw-semibold m-0 p-0 mb-4">Add new Publication</h4>
 				</div>
 				<div class="col-md-8">
-					<select name="" id="" class="form-select">
-						<option value="">Select Publication</option>
-						@foreach ($allPublications as $publication)
-							<option value="{{ $publication->id }}">{{ $publication->name }}</option>
-						@endforeach
-					</select>
+					<div class="input-group">
+						<select class="form-select @error('selectNewPublication') is-invalid @enderror" wire:model="selectNewPublication">
+							<option value="">Select Publication</option>
+							@foreach ($allPublications as $publication)
+								<option value="{{ $publication->id }}">{{ $publication->name }}</option>
+							@endforeach
+						</select>
+						<select class="form-select @error('selectNewPosition') is-invalid @enderror" wire:model="selectNewPosition">
+							<option value="">Select Role</option>
+							@foreach ($positions as $position)
+								<option value="{{ $position->id }}">{{ $position->name }}</option>
+							@endforeach
+						</select>
+						<button class="btn btn-primary fw-medium" type="button" wire:click="addAssociate">
+							Add <x-users.spinners.white-btn wire:target="addAssociate" />
+						</button>
+					</div>
+					@error('selectNewPublication')<div class="error">{{ $message }}</div>@enderror
+					@error('selectNewPosition')<div class="error">{{ $message }}</div>@enderror
 				</div>
 			</div>
 			<div class="row">
@@ -182,7 +195,7 @@
 				</div>
 			</div>
 			<hr class="border-gray-300">
-			<div class="row">
+			{{-- <div class="row">
 				<label for="selectLocation" class="col-md-4 col-form-label text-dark fs-6 fw-medium">Country</label>
 				<div class="col-md-8">
 					<select id="selectLocation" class="form-select @error('location') is-invalid @enderror" wire:model="location">
@@ -192,6 +205,42 @@
 						@endforeach
 					</select>
 					@error('location')<div class="invalid-feedback">{{ $message }}</div>@enderror
+				</div>
+			</div> --}}
+			<div class="row mb-3">
+				<label for="selectCountry" class="col-md-4 col-form-label text-dark fs-6 fw-medium">Country</label>
+				<div class="col-md-8">
+					<select class="form-select @error('selectedCountry') is-invalid @enderror" id="selectCountry" wire:model.live="selectedCountry">
+						<option value="">Select Country</option>
+						@foreach ($countries as $country)
+						<option value="{{ $country->id }}">{{ str()->headline($country->name) }}</option>
+						@endforeach
+					</select>
+					@error('selectedCountry')<div class="invalid-feedback">{{ $message }}</div>@enderror
+				</div>
+			</div>
+			<div class="row mb-3">
+				<label for="selectState" class="col-md-4 col-form-label text-dark fs-6 fw-medium">State</label>
+				<div class="col-md-8">
+					<select class="form-select @error('selectedState') is-invalid @enderror" id="selectState" wire:model.live="selectedState">
+						<option value="">Select State</option>
+						@foreach ($states as $state)
+						<option value="{{ $state->id }}">{{ str()->headline($state->name) }}</option>
+						@endforeach
+					</select>
+					@error('selectedState')<div class="invalid-feedback">{{ $message }}</div>@enderror
+				</div>
+			</div>
+			<div class="row">
+				<label for="selectCity" class="col-md-4 col-form-label text-dark fs-6 fw-medium">City</label>
+				<div class="col-md-8">
+					<select class="form-select @error('selectedCity') is-invalid @enderror" id="selectCity" wire:model="selectedCity">
+						<option value="">Select City</option>
+						@foreach ($cities as $city)
+						<option value="{{ $city->name }}">{{ str()->headline($city->name) }}</option>
+						@endforeach
+					</select>
+					@error('selectedCity')<div class="invalid-feedback">{{ $message }}</div>@enderror
 				</div>
 			</div>
 			<hr class="border-gray-300">

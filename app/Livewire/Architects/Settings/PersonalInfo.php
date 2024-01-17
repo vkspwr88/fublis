@@ -23,7 +23,10 @@ class PersonalInfo extends Component
 	public $email;
 	public $company;
 	public $position;
-	public $location;
+	// public $location;
+	public $selectedCountry;
+	public $selectedState;
+	public $selectedCity;
 	public $aboutMe;
 	public int $aboutMeLength;
 
@@ -31,15 +34,23 @@ class PersonalInfo extends Component
 
 	public function mount()
 	{
-		$architect = auth()->user()->architect->load(['company', 'profileImage']);
+		$architect = auth()->user()->architect->load(['company', 'profileImage', 'location']);
 		$this->name = auth()->user()->name;
 		$this->email = auth()->user()->email;
 		$this->company = $architect->company->name;
 		$this->position = $architect->architect_position_id;
-		$this->location = $architect->location_id;
+		// $this->location = $architect->location_id;
 		$this->aboutMe = $architect->about_me;
 		$this->profileImageOld = $architect->profileImage;
 		$this->characterCount();
+		$this->selectedCountry = 101;
+		$this->selectedState = 0;
+		if($architect->location){
+			$city = LocationController::getCityByCityName($architect->location->name);
+			$this->selectedCity = $city->name;
+			$this->selectedState = $city->state->id;
+			$this->selectedCountry = $city->state->country->id;
+		}
 	}
 
 	public function boot()
@@ -50,7 +61,10 @@ class PersonalInfo extends Component
     public function render()
     {
         return view('livewire.architects.settings.personal-info', [
-			'locations' => LocationController::getAll(),
+			// 'locations' => LocationController::getAll(),
+			'countries' => LocationController::getCountries(),
+			'states' => LocationController::getStatesByCountryId($this->selectedCountry),
+			'cities' => LocationController::getCitiesByStateId($this->selectedState),
 			'positions' => PositionController::getAll(),
 		]);
     }
@@ -98,7 +112,10 @@ class PersonalInfo extends Component
 			],
 			'profileImage' => 'nullable|image|mimes:svg,png,jpg,gif|max:3100|dimensions:max_width=400,max_height=400',
 			'position' => 'required|exists:architect_positions,id',
-			'location' => 'required|exists:locations,id',
+			// 'location' => 'required|exists:locations,id',
+			'selectedCountry' => 'required|exists:countries,id',
+			'selectedState' => 'required|exists:states,id',
+			'selectedCity' => 'required|exists:cities,name',
 			'aboutMe' => 'required|max:275',
 		];
 	}
@@ -116,11 +133,15 @@ class PersonalInfo extends Component
 			'profileImage.max' => 'Maximum allowed size to upload :attribute 3MB.',
 			'profileImage.dimensions' => 'Maximum allowed dimension for the :attribute is 400x400px.',
 			'position.required' => 'Select the :attribute.',
-			'position.exists' => 'Select the valid :attribute.',
-			'location.required' => 'Select the :attribute.',
-			'location.exists' => 'Select the valid :attribute.',
+			// 'position.exists' => 'Select the valid :attribute.',
+			// 'location.required' => 'Select the :attribute.',
+			// 'location.exists' => 'Select the valid :attribute.',
+			'selectedCountry.required' => 'Select the :attribute.',
+			'selectedState.required' => 'Select the :attribute.',
+			'selectedCity.required' => 'Select the :attribute.',
 			'aboutMe.required' => 'Enter the :attribute.',
 			'aboutMe.max' => 'The :attribute allows only 275 characters.',
+			'*.exists' => 'Select the valid :attribute.',
 		];
 	}
 
@@ -131,7 +152,10 @@ class PersonalInfo extends Component
 			'email' => 'amail address',
 			'profileImage' => 'profile image',
 			'position' => 'role',
-			'location' => 'country',
+			// 'location' => 'location',
+			'selectedCountry' => 'country',
+			'selectedState' => 'state',
+			'selectedCity' => 'city',
 			'aboutMe' => 'bio',
 		];
 	}
@@ -149,7 +173,8 @@ class PersonalInfo extends Component
 				'type' => 'success',
 				'message' => 'You have successfully updated the personal info.'
 			]);
-			return to_route('architect.account.profile.setting.personal-info');
+			return;
+			//return to_route('architect.account.profile.setting.personal-info');
 		}
 		$this->dispatch('alert', [
 			'type' => 'warning',

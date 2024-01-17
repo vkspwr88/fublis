@@ -4,6 +4,7 @@ namespace App\Services\Journalists;
 
 use App\Http\Controllers\Users\FileController;
 use App\Http\Controllers\Users\ImageController;
+use App\Http\Controllers\Users\LocationController;
 use App\Http\Controllers\Users\PublicationController;
 use App\Models\Journalist;
 use App\Models\User;
@@ -22,11 +23,15 @@ class SettingService
 						'email' => $details['email'],
 					]);
 
+			// insert location record
+			$location = LocationController::createLocation([
+				'name' => $details['selectedCity'],
+			]);
 			Journalist::where('user_id', auth()->id())
 						->update([
 							'journalist_position_id' => $details['position'],
 							'language_id' => $details['language'],
-							'location_id' => $details['location'],
+							'location_id' => $location->id,
 							'about_me' => $details['aboutMe'],
 						]);
 
@@ -52,11 +57,15 @@ class SettingService
 		try{
 			DB::beginTransaction();
 			$journalist = auth()->user()->journalist;
+			// insert location record
+			$location = LocationController::createLocation([
+				'name' => $details['selectedCity'],
+			]);
 			if($details['new']){
 				$publication = PublicationController::createPublication([
 					'name' => $details['publicationName'],
 					'website' => $details['website'],
-					'location_id' => $details['location'],
+					'location_id' => $location->id,
 					'language_id' => $details['language'],
 					'about_me' => $details['aboutMe'],
 					'added_by' => $journalist->id,
@@ -75,7 +84,7 @@ class SettingService
 				$publication->update([
 					'name' => $details['publicationName'],
 					'website' => $details['website'],
-					'location_id' => $details['location'],
+					'location_id' => $location->id,
 					'language_id' => $details['language'],
 					'about_me' => $details['aboutMe'],
 				]);
@@ -159,12 +168,16 @@ class SettingService
 	{
 		try{
 			DB::beginTransaction();
+			// insert location record
+			$location = LocationController::createLocation([
+				'name' => $details['selectedCity'],
+			]);
 			$journalist = auth()->user()->journalist;
 			if($details['new']){
 				$publication = PublicationController::createPublication([
 					'name' => $details['publicationName'],
 					'website' => $details['website'],
-					'location_id' => $details['location'],
+					'location_id' => $location->id,
 					'language_id' => $details['language'],
 					'about_me' => $details['aboutMe'],
 					'added_by' => $journalist->id,
@@ -183,7 +196,7 @@ class SettingService
 				$publication->update([
 					'name' => $details['publicationName'],
 					'website' => $details['website'],
-					'location_id' => $details['location'],
+					'location_id' => $location->id,
 					'language_id' => $details['language'],
 					'about_me' => $details['aboutMe'],
 				]);
@@ -227,6 +240,25 @@ class SettingService
 			DB::beginTransaction();
 			$journalist = auth()->user()->journalist;
 			$journalist->associatedPublications()->detach($publicationId);
+			DB::commit();
+		}
+		catch(Exception $exp){
+			DB::rollBack();
+			dd($exp->getMessage());
+			return false;
+		}
+		return true;
+	}
+
+	public function addAssociatedPublication(array $details)
+	{
+		try{
+			DB::beginTransaction();
+			$journalist = auth()->user()->journalist;
+			$journalist->associatedPublications()->attach(
+				$details['publication_id'], [
+					'journalist_position_id' => $details['journalist_position_id'],
+				]);
 			DB::commit();
 		}
 		catch(Exception $exp){

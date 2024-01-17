@@ -4,6 +4,7 @@ namespace App\Services\Architects;
 
 use App\Http\Controllers\Users\FileController;
 use App\Http\Controllers\Users\ImageController;
+use App\Http\Controllers\Users\LocationController;
 use App\Models\Architect;
 use App\Models\User;
 use Exception;
@@ -21,11 +22,15 @@ class SettingService
 						'name' => $details['name'],
 						'email' => $details['email'],
 					]);
-
+			
+			// insert location record
+			$location = LocationController::createLocation([
+				'name' => $details['selectedCity'],
+			]);
 			Architect::where('user_id', auth()->id())
 						->update([
 							'architect_position_id' => $details['position'],
-							'location_id' => $details['location'],
+							'location_id' => $location->id,
 							'about_me' => $details['aboutMe'],
 						]);
 
@@ -50,11 +55,15 @@ class SettingService
 	{
 		try{
 			DB::beginTransaction();
+			// insert location record
+			$location = LocationController::createLocation([
+				'name' => $details['selectedCity'],
+			]);
 			$company = auth()->user()->architect->company;
 			$company->update([
 						'name' => $details['company'],
 						'website' => $details['website'],
-						'location_id' => $details['location'],
+						'location_id' => $location->id,
 						'twitter' => $details['twitter'] ?? null,
 						'facebook' => $details['facebook'] ?? null,
 						'instagram' => $details['instagram'] ?? null,

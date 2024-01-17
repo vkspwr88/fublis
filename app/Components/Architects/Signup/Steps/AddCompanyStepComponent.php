@@ -19,6 +19,7 @@ class AddCompanyStepComponent extends StepComponent
 	public $website;
 	public $location;
 	public $selectedCountry;
+	public $selectedState;
 	public $selectedCity;
 	public $selectedCategory;
 	public $selectedTeamSize;
@@ -37,6 +38,7 @@ class AddCompanyStepComponent extends StepComponent
 	{
 		//$this->countries = Controllers\Users\LocationController::getCountries();
 		$this->selectedCountry = 101;
+		$this->selectedState = 0;
 		if(checkInvitation('architect')){
 			$invitation = session()->get('invitation');
 			$invitedUser = $this->userRepository->getInvitedArchitectUserById($invitation->invited_by);
@@ -64,7 +66,8 @@ class AddCompanyStepComponent extends StepComponent
 				'categories' => Controllers\Users\CategoryController::getAll(),
 				'teamSizes' => Controllers\Users\TeamSizeController::getAll(),
 				'countries' => Controllers\Users\LocationController::getCountries(),
-				'cities' => Controllers\Users\LocationController::getCitiesByCountry($this->selectedCountry)->sortBy('name'),
+				'states' => Controllers\Users\LocationController::getStatesByCountryId($this->selectedCountry),
+				'cities' => Controllers\Users\LocationController::getCitiesByStateId($this->selectedState),
 			];
 			//$this->countries = Controllers\Users\LocationController::getCountries();
 			//$this->getCities();
@@ -110,6 +113,7 @@ class AddCompanyStepComponent extends StepComponent
 			'companyName' => 'required',
 			'website' => 'required|url',
 			'selectedCountry' => 'required|exists:countries,id',
+			'selectedState' => 'required|exists:states,id',
 			'selectedCity' => 'required|exists:cities,name',
 			//'location' => 'required',
 			'selectedCategory' => 'required|exists:categories,id',
@@ -126,6 +130,7 @@ class AddCompanyStepComponent extends StepComponent
 			'website.url' => 'Enter the valid :attribute.',
 			//'location.required' => 'Select the :attribute.',
 			'selectedCountry.required' => 'Select the :attribute.',
+			'selectedState.required' => 'Select the :attribute.',
 			'selectedCity.required' => 'Select the :attribute.',
 			'selectedCategory.required' => 'Select the :attribute.',
 			'selectedTeamSize.required' => 'Select the :attribute.',
@@ -141,6 +146,7 @@ class AddCompanyStepComponent extends StepComponent
 			'website' => 'website url',
 			//'location' => 'location',
 			'selectedCountry' => 'country',
+			'selectedState' => 'state',
 			'selectedCity' => 'city',
 			'selectedCategory' => 'category',
 			'selectedTeamSize' => 'team size',
@@ -155,6 +161,7 @@ class AddCompanyStepComponent extends StepComponent
 			'website' => 'http://' . $this->website,
 			//'location' => $this->location,
 			'selectedCountry' => $this->selectedCountry,
+			'selectedState' => $this->selectedState,
 			'selectedCity' => $this->selectedCity,
 			'selectedCategory' => $this->selectedCategory,
 			'selectedTeamSize' => $this->selectedTeamSize,

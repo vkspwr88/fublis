@@ -29,6 +29,7 @@ class Project extends Component
 	public $builtUpAreaUnit;
 	//public $location;
 	public $selectedCountry;
+	public $selectedState;
 	public $selectedCity;
 	public $status;
 	public $materials;
@@ -60,7 +61,9 @@ class Project extends Component
 			'areas' => AreaController::getAll(),
 			//'locations' => LocationController::getAll(),
 			'countries' => LocationController::getCountries(),
-			'cities' => LocationController::getCitiesByCountry($this->selectedCountry)->sortBy('name'),
+			'states' => LocationController::getStatesByCountryId($this->selectedCountry),
+			'cities' => LocationController::getCitiesByStateId($this->selectedState),
+			// 'cities' => LocationController::getCitiesByCountry($this->selectedCountry)->sortBy('name'),
 			'statuses' => ProjectStatusController::getAll(),
 			'buildingTypologies' => BuildingTypologyController::getAll(),
 			'mediaContacts' => CompanyController::getMediaContacts(),
@@ -72,6 +75,7 @@ class Project extends Component
 	{
 		$this->characterCount();
 		$this->selectedCountry = 101;
+		$this->selectedState = 0;
 	}
 
 	public function boot()
@@ -116,6 +120,7 @@ class Project extends Component
 			'builtUpAreaUnit' => 'required',
 			//'location' => 'required',
 			'selectedCountry' => 'required|exists:countries,id',
+			'selectedState' => 'required|exists:states,id',
 			'selectedCity' => 'required|exists:cities,name',
 			'status' => 'required',
 			'materials' => 'required',
@@ -154,6 +159,7 @@ class Project extends Component
 			'builtUpAreaUnit.required' => 'Select the :attribute.',
 			//'location.required' => 'Select the :attribute.',
 			'selectedCountry.required' => 'Select the :attribute.',
+			'selectedState.required' => 'Select the :attribute.',
 			'selectedCity.required' => 'Select the :attribute.',
 			'*.exists' => 'Select the valid :attribute.',
 			'status.required' => 'Select the :attribute.',
@@ -197,6 +203,7 @@ class Project extends Component
 			'builtUpAreaUnit' => 'built up area unit',
 			//'location' => 'location',
 			'selectedCountry' => 'country',
+			'selectedState' => 'state',
 			'selectedCity' => 'city',
 			'status' => 'status',
 			'materials' => 'materials',
@@ -229,6 +236,7 @@ class Project extends Component
 			'builtUpAreaUnit' => $this->builtUpAreaUnit,
 			//'location' => $this->location,
 			'selectedCountry' => $this->selectedCountry,
+			'selectedState' => $this->selectedState,
 			'selectedCity' => $this->selectedCity,
 			'status' => $this->status,
 			'materials' => $this->materials,

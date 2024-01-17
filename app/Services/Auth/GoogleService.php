@@ -2,6 +2,7 @@
 
 namespace App\Services\Auth;
 
+use App\Enums\Users\UserTypeEnum;
 use App\Interfaces\GuestRepositoryInterface;
 use App\Interfaces\UserRepositoryInterface;
 use Carbon\Carbon;
@@ -19,18 +20,19 @@ class GoogleService
 	{
 		$this->guestRepository = $guestRepository;
 		$this->userRepository = $userRepository;
-	}	
+	}
 	
 	public function checkGoogleUser($googleUser)
 	{
 		// check email exists
 		$user = $this->userRepository->isEmailExist($googleUser->email);
+		$userType = session()->get('user_type');
 		if($user){
 			if($this->userRepository->checkGoogleId($user->google_id)){
 				// login user according to user type
 				Auth::login($user);
 				$redirectUrl = route('architect.signup', ['step' => 'architect-signup-success-step']);
-				if($googleUser->userType === 'journalist'){
+				if($userType === UserTypeEnum::JOURNALIST){
 					$redirectUrl = route('journalist.signup', ['step' => 'journalist-signup-success-step']);
 				}
 				
@@ -54,7 +56,7 @@ class GoogleService
 				'email' => $googleUser->email,
 				'password' => uniqid(),
 				'email_verified_at' => Carbon::now(),
-				'user_type' => $googleUser->userType,
+				'user_type' => $userType,
 				'google_id' => $googleUser->id,
 				'ip_address' => request()->ip(),
 			]);
@@ -62,7 +64,7 @@ class GoogleService
 
 			// redirect to after verify otp step
 			$redirectUrl = route('architect.signup', ['step' => 'architect-signup-add-company-step']);
-			if($googleUser->userType === 'journalist'){
+			if($userType === UserTypeEnum::JOURNALIST){
 				$redirectUrl = route('journalist.signup', ['step' => 'journalist-signup-add-publication-step']);
 			}
 			

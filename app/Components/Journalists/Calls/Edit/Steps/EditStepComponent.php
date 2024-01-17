@@ -14,6 +14,7 @@ class EditStepComponent extends StepComponent
 	public $description;
 	// public $location;
 	public $selectedCountry;
+	public $selectedState;
 	public $selectedCity;
 	public $publication;
 	public $language;
@@ -23,24 +24,27 @@ class EditStepComponent extends StepComponent
 	public int $descriptionTextLength;
 	public int $titleTextLength;
 
+	public function mount()
+	{
+		$this->characterCount();
+		$city = LocationController::getCityByCityName($this->selectedCity);
+		$this->selectedState = $city->state->id;
+		$this->selectedCountry = $city->state->country->id;
+	}
+
 	public function render()
 	{
 		return view('livewire.journalists.calls.edit-wizard.steps.edit', [
 			'categories' => CategoryController::getAll(),
 			// 'locations' => LocationController::getAll(),
 			'countries' => LocationController::getCountries(),
-			'cities' => LocationController::getCitiesByCountry($this->selectedCountry)->sortBy('name'),
+			'states' => LocationController::getStatesByCountryId($this->selectedCountry),
+			'cities' => LocationController::getCitiesByStateId($this->selectedState),
 			'publications' => auth()->user()
 									->journalist
 									->publications,
 			'languages' => LanguageController::getAll(),
 		]);
-	}
-
-	public function mount()
-	{
-		$this->characterCount();
-		$this->selectedCountry = 101;
 	}
 
 	public function characterCount()
@@ -58,6 +62,7 @@ class EditStepComponent extends StepComponent
 			// 'description' => 'required|min:50|max:275',
             // 'location' => 'required|exists:locations,id',
 			'selectedCountry' => 'required|exists:countries,id',
+			'selectedState' => 'required|exists:states,id',
 			'selectedCity' => 'required|exists:cities,name',
             'publication' => 'required|exists:publications,id',
             'language' => 'required|exists:languages,id',
@@ -77,6 +82,7 @@ class EditStepComponent extends StepComponent
 			'title.max' => 'The :attribute is limited 275 characters.',
             // 'location.required' => 'Select the :attribute.',
 			'selectedCountry.required' => 'Select the :attribute.',
+			'selectedState.required' => 'Select the :attribute.',
 			'selectedCity.required' => 'Select the :attribute.',
             'publication.required' => 'Select the :attribute.',
             'language.required' => 'Select the :attribute.',
@@ -95,6 +101,7 @@ class EditStepComponent extends StepComponent
 			'description' => 'story requirements description',
             // 'location' => 'location',
 			'selectedCountry' => 'country',
+			'selectedState' => 'state',
 			'selectedCity' => 'city',
             'publication' => 'publication title',
             'language' => 'language',
