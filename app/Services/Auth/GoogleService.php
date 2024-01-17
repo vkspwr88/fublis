@@ -21,7 +21,7 @@ class GoogleService
 		$this->guestRepository = $guestRepository;
 		$this->userRepository = $userRepository;
 	}
-	
+
 	public function checkGoogleUser($googleUser)
 	{
 		// check email exists
@@ -36,7 +36,7 @@ class GoogleService
 					$redirectUrl = route('journalist.signup', ['step' => 'journalist-signup-success-step']);
 				} */
 				$redirectUrl = route('home');
-				
+
 				return response()->json([
 					'success' => true,
 					'message' => 'You have successfully log in with the google account.',
@@ -52,23 +52,37 @@ class GoogleService
 		}
 		else{
 			// reguster and verify guest
+			$password = uniqid();
 			$guest = $this->guestRepository->registerAndVerifyGuest([
 				'name' => $googleUser->name,
 				'email' => $googleUser->email,
-				'password' => uniqid(),
+				'password' => $password,
 				'email_verified_at' => Carbon::now(),
 				'user_type' => $userType,
 				'google_id' => $googleUser->id,
 				'ip_address' => request()->ip(),
 			]);
 			session()->put('guest_id', $guest->id);
-
 			// redirect to after verify otp step
-			$redirectUrl = route('architect.signup', ['step' => 'architect-signup-add-company-step']);
 			if($userType === UserTypeEnum::JOURNALIST){
+				session()->put('initial_state', [
+					'journalist-signup-step' => [
+						'email' => $googleUser->email,
+						'password' => $password,
+					],
+				]);
 				$redirectUrl = route('journalist.signup', ['step' => 'journalist-signup-add-publication-step']);
 			}
-			
+			elseif($userType === UserTypeEnum::ARCHITECT){
+				session()->put('initial_state', [
+					'architect-signup-step' => [
+						'email' => $googleUser->email,
+						'password' => $password,
+					],
+				]);
+				$redirectUrl = route('architect.signup', ['step' => 'architect-signup-add-company-step']);
+			}
+
 			return response()->json([
 				'success' => true,
 				'message' => 'You have successfully created the google account.',

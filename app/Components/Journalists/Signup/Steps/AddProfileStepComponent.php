@@ -83,7 +83,7 @@ class AddProfileStepComponent extends StepComponent
 	public function add()
 	{
 		$validated = Validator::make($this->data(), $this->rules(), $this->messages(), $this->validationAttributes())->validate();
-		$validated['password'] = $this->state()->guest()['password'] ? $this->state()->guest()['password'] : rand(10000000, 99999999);
+		$validated['password'] = $this->state()->guest()['password'];
 		$validated['publication'] = $this->state()->publication();
 		//dd($validated);
 		if($this->journalistService->addJournalist($validated)){
