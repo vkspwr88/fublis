@@ -39,13 +39,14 @@ class GoogleController extends Controller
 			$googleUser = Socialite::driver('google')->user();
 			// dd($googleUser, $request);
 			$response = $this->googleService->checkGoogleUser($googleUser);
-			dd($googleUser, $response);
-			$response = json_decode($response);
-			if($response->success){
+			//dd($googleUser, $response);
+			//$response = json_decode($response);
+			$data = json_decode($response->data);
+			if($data->success){
 				DB::commit();
-				return to_route($response->redirect_url);
+				return to_route($data->redirect_url);
 			}
-			throw $response->message;
+			throw $data->message;
 		}
 		catch(Exception $exp){
 			DB::rollBack();
