@@ -43,6 +43,7 @@ class SignupStepComponent extends StepComponent
 
 	public function rules()
     {
+		// vikas@re-thinkingthefuture.com
         return [
             'name' => 'required|min:3',
 			'email' => 'required|email:rfc,dns|unique:users,email',
