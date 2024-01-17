@@ -47,7 +47,7 @@ class GoogleController extends Controller
 			$data = $response->original;
 			if($data['success']){
 				DB::commit();
-				return to_route($data['redirect_url']);
+				return redirect()->to($data['redirect_url']);
 			}
 			throw $data['message'];
 		}
