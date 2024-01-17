@@ -44,7 +44,7 @@ class GoogleController extends Controller
 			echo "<hr>";
 			var_dump($response->original);
 			//$response = json_decode($response);
-			$data = json_decode($response->data);
+			$data = $response->original;
 			if($data->success){
 				DB::commit();
 				return to_route($data->redirect_url);
