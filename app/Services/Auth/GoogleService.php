@@ -28,13 +28,14 @@ class GoogleService
 		$user = $this->userRepository->isEmailExist($googleUser->email);
 		$userType = session()->get('user_type');
 		if($user){
-			if($this->userRepository->checkGoogleId($googleUser->google_id)){
+			if($user->google_id === $googleUser->id){
 				// login user according to user type
 				Auth::login($user);
-				$redirectUrl = route('architect.signup', ['step' => 'architect-signup-success-step']);
+				/* $redirectUrl = route('architect.signup', ['step' => 'architect-signup-success-step']);
 				if($userType === UserTypeEnum::JOURNALIST){
 					$redirectUrl = route('journalist.signup', ['step' => 'journalist-signup-success-step']);
-				}
+				} */
+				$redirectUrl = route('home');
 				
 				return response()->json([
 					'success' => true,
