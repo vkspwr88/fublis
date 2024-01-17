@@ -11,6 +11,9 @@
 								<div class="card-body px-5">
 									<h5 class="card-title text-dark fs-3 fw-semibold m-0 py-2">Sign up</h5>
 									<p class="card-text text-secondary fs-6 fw-normal m-0 py-2">Create your free account</p>
+									@foreach($errors as $error)
+											{{$error}}
+									@endforeach
 									<form class="py-3" wire:submit="signup">
 										<div class="mb-3">
 											<label for="inputName" class="form-label text-dark fs-6 fw-medium">Name<span class="text-danger">*</span></label>
