@@ -28,7 +28,7 @@ class UserRepository implements UserRepositoryInterface
 					->load('journalist.publications');
 	}
 
-	public function checkGoogleId(string $googleId)
+	public function checkGoogleId($googleId)
 	{
 		return User::where('google_id', $googleId)
 					->first();
