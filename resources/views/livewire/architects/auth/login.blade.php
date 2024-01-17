@@ -1,4 +1,5 @@
 <form class="py-3" wire:submit="login">
+	@include('users.includes.error-alert')
 	<div class="mb-3">
 		<label for="inputEmail" class="form-label text-dark fs-6 fw-medium">Email<span class="text-danger">*</span></label>
 		<input type="email" class="form-control @error('email') is-invalid @enderror" id="inputEmail" placeholder="Enter your email" wire:model="email">
