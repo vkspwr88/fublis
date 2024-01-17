@@ -10,7 +10,7 @@ class SignupWizardState extends State
 	{
 		$journalistSignupStepState = $this->forStep('journalist-signup-step');
 		return [
-			'email' => $journalistSignupStepState['email'],
+			// 'email' => $journalistSignupStepState['email'],
 			'password' => $journalistSignupStepState['password'],
 		];
 	}
