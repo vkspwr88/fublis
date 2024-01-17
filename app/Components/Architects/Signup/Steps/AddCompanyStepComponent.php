@@ -190,7 +190,7 @@ class AddCompanyStepComponent extends StepComponent
 									'selectedPosition' => 'position',
 								]
 							);
-		$validated['password'] = $this->state()->guest() ? $this->state()->guest()['password'] : rand(10000000, 99999999);
+		$validated['password'] = $this->state()->guest()['password'];
 		$validated['new'] = $this->new;
 		//dd($validated);
 		if($this->architectService->addCompany($validated)){
