@@ -32,7 +32,7 @@ Route::get('/blank', function () {
 
 Route::name('auth.')->prefix('auth')->group(function () {
 	Route::name('google.')->prefix('google')->controller(Users\Auth\GoogleController::class)->group(function () {
-		Route::get('/user/{userType?}', 'index')->name('index');
+		Route::get('/user/{userType?}/{loginType?}', 'index')->name('index');
 		Route::get('/callback', 'callback')->name('callback');
 	});
 });

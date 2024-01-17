@@ -22,10 +22,11 @@ class GoogleController extends Controller
 		$this->googleService = $googleService;
 	}
 
-	public function index(UserTypeEnum $userType)
+	public function index(UserTypeEnum $userType, $loginType)
 	{
 		//dd($userType);
 		session()->put('user_type', $userType);
+		session()->put('login_type', $loginType);
 		return Socialite::driver('google')
 						//->with(['user_type' => $userType])
 						->redirect();
