@@ -28,7 +28,7 @@ class GoogleService
 		$user = $this->userRepository->isEmailExist($googleUser->email);
 		$userType = session()->get('user_type');
 		if($user){
-			if($this->userRepository->checkGoogleId($user->google_id)){
+			if($this->userRepository->checkGoogleId($googleUser->google_id)){
 				// login user according to user type
 				Auth::login($user);
 				$redirectUrl = route('architect.signup', ['step' => 'architect-signup-success-step']);
