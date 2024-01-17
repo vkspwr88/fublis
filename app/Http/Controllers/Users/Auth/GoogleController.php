@@ -8,6 +8,7 @@ use App\Services\Auth\GoogleService;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\ValidationException;
 use Laravel\Socialite\Facades\Socialite;
 
 class GoogleController extends Controller
@@ -49,11 +50,12 @@ class GoogleController extends Controller
 				DB::commit();
 				return redirect()->to($data['redirect_url']);
 			}
-			throw $data['message'];
+			throw ValidationException::withMessages([$data['message']]);
 		}
 		catch(Exception $exp){
 			DB::rollBack();
 			dd($exp->getMessage());
+			return back()->withErrors($exp->getMessage());
 		}
 	}
 }
