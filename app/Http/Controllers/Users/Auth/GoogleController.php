@@ -41,9 +41,9 @@ class GoogleController extends Controller
 			// dd($googleUser, $request);
 			$response = $this->googleService->checkGoogleUser($googleUser);
 			// var_dump($googleUser);
-			var_dump($response);
-			echo "<hr>";
-			var_dump($response->original);
+			// var_dump($response);
+			// echo "<hr>";
+			// var_dump($response->original);
 			//$response = json_decode($response);
 			$data = $response->original;
 			if($data['success']){
@@ -54,7 +54,7 @@ class GoogleController extends Controller
 		}
 		catch(Exception $exp){
 			DB::rollBack();
-			dd($exp->getMessage());
+			// dd($exp->getMessage());
 			return back()->withErrors($exp->getMessage());
 		}
 	}
