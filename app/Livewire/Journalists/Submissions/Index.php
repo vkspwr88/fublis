@@ -35,7 +35,7 @@ class Index extends Component
 			//'name' => $this->name,
 			'call' => $this->selectedCall,
 		]);
-		dd($submission);
+		dd($submission->count());
         return view('livewire.journalists.submissions.index', [
 			'mediaKits' => ($submission->mediaKits ? $submission->mediaKits : collect([]))->paginate(5),
 		]);
