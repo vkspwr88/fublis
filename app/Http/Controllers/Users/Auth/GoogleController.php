@@ -39,6 +39,7 @@ class GoogleController extends Controller
 			$googleUser = Socialite::driver('google')->user();
 			// dd($googleUser, $request);
 			$response = $this->googleService->checkGoogleUser($googleUser);
+			dd($response);
 			$response = json_decode($response);
 			if($response->success){
 				DB::commit();
