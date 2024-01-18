@@ -25,12 +25,12 @@ class DownloadController extends Controller
 
     public function index(MediaKit $mediaKit, Request $request)
 	{
-		return $this->downloadService->singleFileDownload($request->file);
+		return $this->downloadService->singleFileDownload($mediaKit->slug, $request->file, $request->type);
 	}
 
 	public function bulk(MediaKit $mediaKit, Request $request)
 	{
-		return $this->downloadService->zipFilesDownload($mediaKit, $request->file);
+		return $this->downloadService->zipFilesDownload($mediaKit, $request->file, $request->type);
 	}
 
 	public static function getDownloadRequests(array $ids){

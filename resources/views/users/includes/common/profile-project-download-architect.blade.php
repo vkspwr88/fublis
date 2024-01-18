@@ -7,6 +7,7 @@
 			<form class="m-0 p-0" action="{{ route('architect.download', ['mediaKit' => $mediaKit->slug]) }}" method="post">
 				@csrf
 				<input type="hidden" value="{{ $mediaKit->story->project_doc_path }}" name="file">
+				<input type="hidden" name="type" value="Description">
 				<button type="submit" class="btn btn-primary fs-6 fw-medium">Download</button>
 			</form>
 		@else
@@ -23,6 +24,7 @@
 		<form class="m-0 p-0" action="{{ route('architect.download.bulk', ['mediaKit' => $mediaKit->slug]) }}" method="post">
 			@csrf
 			<input type="hidden" value="photographs" name="file">
+			<input type="hidden" name="type" value="Gallery">
 			<button type="submit" class="btn btn-primary fs-6 fw-medium">Download</button>
 		</form>
 	</div>
@@ -36,6 +38,7 @@
 		<form class="m-0 p-0" action="{{ route('architect.download.bulk', ['mediaKit' => $mediaKit->slug]) }}" method="post">
 			@csrf
 			<input type="hidden" value="drawings" name="file">
+			<input type="hidden" name="type" value="Drawings">
 			<button type="submit" class="btn btn-primary fs-6 fw-medium">Download</button>
 		</form>
 	</div>

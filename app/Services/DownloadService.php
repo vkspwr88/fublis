@@ -9,12 +9,13 @@ use ZipArchive;
 
 class DownloadService
 {
-	public function singleFileDownload($file)
+	public function singleFileDownload($slug, $file, $type)
 	{
-		return Storage::download($file);
+		$name = ucfirst(str()->camel($slug)) . '-' . $type;
+		return Storage::download($file, $name);
 	}
 
-	public function zipFilesDownload($model, $file)
+	public function zipFilesDownload($model, $file, $type)
 	{
 		try{
 			if($file === 'images'){
@@ -33,7 +34,7 @@ class DownloadService
 			}
 
 			$zip = new ZipArchive;
-			$zipFileName = str()->camel($model->slug) . '.zip';
+			$zipFileName = ucfirst(str()->camel($model->slug)) . '-' . $type . '.zip';
 
 			if ($zip->open(public_path($zipFileName), ZipArchive::CREATE) === true) {
 				$filesToZip = $imagesPath;
