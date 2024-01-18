@@ -38,7 +38,7 @@ class RouteServiceProvider extends ServiceProvider
 
 			Route::middleware('web')
 				->name('architect.')
-                ->prefix('architect')
+                /* ->prefix('architect') */
                 ->group(base_path('routes/architect.php'));
 
 			Route::middleware('web')

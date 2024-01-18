@@ -27,7 +27,7 @@ Route::middleware(ArchitectLogin::class)->group(function() {
 		});
 	});
 
-	Route::name('architect.')->prefix('architect')->group(function () {
+	Route::prefix('architect')->group(function () {
 
 		Route::post('/download/{mediaKit:slug}', [Architects\DownloadController::class, 'index'])->name('download');
 		Route::post('/download/{mediaKit:slug}/bulk', [Architects\DownloadController::class, 'bulk'])->name('download.bulk');
@@ -40,7 +40,7 @@ Route::middleware(ArchitectLogin::class)->group(function() {
 			Route::get('/article/success', [Architects\AddStoryController::class, 'success'])->name('article.success');
 			Route::get('/project', [Architects\AddStories\ProjectController::class, 'index'])->name('project');
 			Route::get('/project/success', [Architects\AddStoryController::class, 'success'])->name('project.success');
-		});	
+		});
 
 		Route::name('pitch-story.')->prefix('pitch-story')->group(function () {
 			Route::get('/', [Architects\PitchStories\PublicationController::class, 'index'])->name('index');

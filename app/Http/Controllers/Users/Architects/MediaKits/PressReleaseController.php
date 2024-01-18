@@ -31,7 +31,10 @@ class PressReleaseController extends Controller
 	public function loadModel($mediaKit)
 	{
 		return $mediaKit->load([
-			'story.photographs',
+			'story' => [
+				'photographs',
+				'tags',
+			],
 			'category',
 			'architect' => [
 				'company' => [

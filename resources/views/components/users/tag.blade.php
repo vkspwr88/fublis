@@ -1,0 +1,1 @@
+<span class="badge rounded-pill bg-purple-100 text-purple-700 fs-6 fw-medium">{{ $name }}</span>

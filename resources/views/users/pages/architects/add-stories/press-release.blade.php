@@ -2,7 +2,7 @@
 
 {!! seo() !!}
 
-@push('styles')
+{{-- @push('styles')
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.css" rel="stylesheet" />
 <style>
 	.bootstrap-tagsinput{
@@ -14,7 +14,7 @@
   		border-radius: 15px;
 	}
 </style>
-@endpush
+@endpush --}}
 
 @section('body')
 <div class="container py-5">
@@ -28,13 +28,13 @@
 	</div>
 </div>
 @endsection
-
+{{-- 
 @push('scripts')
 <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.js"></script>
 <script>
 	$('#inputTags').tagsinput({
-		allowDuplicates: true,
+		allowDuplicates: false,
 		trimValue: true,
 		confirmKeys: [13, 44],
 		/* typeahead: {
@@ -42,4 +42,4 @@
   		} */
 	});
 </script>
-@endpush
+@endpush --}}

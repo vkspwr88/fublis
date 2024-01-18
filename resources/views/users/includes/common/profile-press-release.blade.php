@@ -3,10 +3,12 @@
 		<h1 class="text-dark fs-2 fw-semibold m-0 py-2">{{ $mediaKit->story->title }}</h1>
 		<div class="row justify-content-center g-2 py-3">
 			<div class="col-auto">
-				<span class="badge rounded-pill bg-purple-50 text-purple-700 fs-6 fw-medium">Press Release</span>
+				<x-users.tag name="Press Release" />
+				{{-- <span class="badge rounded-pill bg-purple-50 text-purple-700 fs-6 fw-medium">Press Release</span> --}}
 			</div>
 			<div class="col-auto">
-				<span class="badge rounded-pill bg-purple-50 text-purple-700 fs-6 fw-medium">{{ $mediaKit->category->name }}</span>
+				<x-users.tag :name="{{ $mediaKit->category->name }}" />
+				{{-- <span class="badge rounded-pill bg-purple-50 text-purple-700 fs-6 fw-medium">{{ $mediaKit->category->name }}</span> --}}
 			</div>
 		</div>
 		<div class="row mb-4">
@@ -103,5 +105,20 @@
 				</div>
 			</div>
 		</div>
+		@if($mediaKit->story->tags->count())
+			<hr class="border-gray-300">
+			<div class="row">
+				<div class="col-12">
+					<p class="text-dark fs-6 m-0 pb-2">Tags</p>
+					<div class="row justify-content-center g-2 py-3">
+						@foreach ($mediaKit->story->tags as $tag)
+							<div class="col-auto">
+								<x-users.tag :name="$tag" />
+							</div>
+						@endforeach
+					</div>
+				</div>
+			</div>
+		@endif
 	</div>
 </div>

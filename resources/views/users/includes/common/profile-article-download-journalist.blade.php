@@ -9,6 +9,7 @@
 					<form class="m-0 p-0" action="{{ route('journalist.download', ['mediaKit' => $mediaKit->slug]) }}" method="post">
 						@csrf
 						<input type="hidden" value="{{ $mediaKit->story->article_doc_path }}" name="file">
+						<input type="hidden" name="type" value="Description">
 						<button type="submit" class="btn btn-primary fs-6 fw-medium">Download</button>
 					</form>
 				@else
@@ -29,6 +30,7 @@
 					<form class="m-0 p-0" action="{{ route('journalist.download.bulk', ['mediaKit' => $mediaKit->slug]) }}" method="post">
 						@csrf
 						<input type="hidden" value="images" name="file">
+						<input type="hidden" name="type" value="Gallery">
 						<button type="submit" class="btn btn-primary fs-6 fw-medium">Download</button>
 					</form>
 				@endif
