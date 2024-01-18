@@ -240,7 +240,7 @@
 	<div class="row mb-3">
 		<div class="col-md-4">
 			<label for="inputProjectBrief" class="col-form-label text-dark fs-6 fw-medium">Project Brief</label>
-			<label class="d-block form-text text-secondary fs-7 m-0">Describe the project in 50 words</label>
+			<label class="d-block form-text text-secondary fs-7 m-0">Write in 50-75 words (this text will be used in pitch to journalists)</label>
 		</div>
 		<div class="col-md-8">
 			<textarea id="inputProjectBrief" class="form-control @error('projectBrief') is-invalid @enderror" wire:model="projectBrief" wire:keydown.debounce="characterCount" rows="8"></textarea>

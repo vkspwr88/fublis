@@ -54,7 +54,7 @@ class Article extends Component
 
 	public function characterCount()
 	{
-		$this->previewTextLength = 275 - str()->length($this->previewText);
+		$this->previewTextLength = 550 - str()->length($this->previewText);
 	}
 
 	public function finishUpload($name, $tmpPath, $isMultiple)
@@ -85,7 +85,7 @@ class Article extends Component
 			'articleTitle' => 'required',
 			'textCredits' => 'required',
 			'category' => 'required',
-			'previewText' => 'required|max:275',
+			'previewText' => 'required|max:550',
 			'articleFile' => 'nullable|file|mimes:pdf,doc,docs',
 			'articleLink' => 'nullable|required_without:articleFile|url',
 			'articleWrite' => 'required',
@@ -114,7 +114,7 @@ class Article extends Component
 			'articleLink.url' => 'Enter the valid :attribute.',
 			'articleLink.required_without' => 'Enter the :attribute or upload the file.',
 			'articleWrite.required' => 'Enter the :attribute.',
-			'articleWrite.max' => 'The :attribute allows only 275 characters.',
+			'articleWrite.max' => 'The :attribute allows only 550 characters.',
 			'companyProfileFile.mimes' => 'The :attribute supports only pdf, doc or docs.',
 			'companyProfileLink.url' => 'Enter the valid :attribute.',
 			'companyProfileLink.required_without' => 'Enter the :attribute or upload the file.',

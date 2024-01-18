@@ -74,8 +74,7 @@ class PressRelease extends Component
 	//#[Renderless]
 	public function characterCount()
 	{
-		$this->conceptNoteLength = 275 - str()->length($this->conceptNote);
-		//dd($this->conceptNoteLength, str()->length($this->conceptNote));
+		$this->conceptNoteLength = 550 - str()->length($this->conceptNote);
 	}
 
 	public function rules()
@@ -85,7 +84,7 @@ class PressRelease extends Component
 			'pressReleaseTitle' => 'required',
 			'imageCredits' => 'required',
 			'category' => 'required',
-			'conceptNote' => 'required|max:275',
+			'conceptNote' => 'required|max:550',
 			'pressReleaseWrite' => 'required',
 			'pressReleaseFile' => 'nullable|file|mimes:pdf,doc,docs',
 			'pressReleaseLink' => 'nullable|required_without:pressReleaseFile|url',
@@ -109,7 +108,7 @@ class PressRelease extends Component
 			'category.required' => 'Select the :attribute.',
 			'conceptNote.required' => 'Enter the :attribute.',
 			'pressReleaseWrite.required' => 'Enter the :attribute.',
-			'pressReleaseWrite.max' => 'The :attribute allows only 275 characters.',
+			'pressReleaseWrite.max' => 'The :attribute allows only 550 characters.',
 			'pressReleaseFile.mimes' => 'The :attribute supports only odf, doc or docs.',
 			'pressReleaseLink.url' => 'Enter the valid :attribute.',
 			'pressReleaseLink.required_without' => 'Enter the :attribute or upload the file.',

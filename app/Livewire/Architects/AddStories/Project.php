@@ -122,7 +122,7 @@ class Project extends Component
 
 	public function characterCount()
 	{
-		$this->projectBriefLength = 275 - str()->length($this->projectBrief);
+		$this->projectBriefLength = 550 - str()->length($this->projectBrief);
 	}
 
 	public function finishUpload($name, $tmpPath, $isMultiple)
@@ -169,7 +169,7 @@ class Project extends Component
 			'consultants' => 'required',
 			'designTeam' => 'required',
 			'coverImage' => 'required|image|mimes:svg,png,jpg,gif|max:3100|dimensions:max_width=800,max_height=400',
-			'projectBrief' => 'required|max:275',
+			'projectBrief' => 'required|max:550',
 			'projectFile' => 'nullable|file|mimes:pdf,doc,docs',
 			'projectLink' => 'nullable|required_without:projectFile|url',
 			'photographsFiles' => 'required|array',
@@ -214,7 +214,7 @@ class Project extends Component
 			'coverImage.max' => 'Maximum allowed size to upload :attribute 3MB.',
 			'coverImage.dimensions' => 'Maximum allowed dimension for the :attribute is 800x400px.',
 			'projectBrief.required' => 'Enter the :attribute.',
-			'projectBrief.max' => 'The :attribute allows only 275 characters.',
+			'projectBrief.max' => 'The :attribute allows only 550 characters.',
 			'projectFile.mimes' => 'The :attribute supports only odf, doc or docs.',
 			'projectLink.url' => 'Enter the valid :attribute.',
 			'projectLink.required_without' => 'Enter the :attribute or upload the file.',
