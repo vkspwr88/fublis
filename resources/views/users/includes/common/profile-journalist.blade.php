@@ -64,14 +64,18 @@
 			<div class="col-12">
 				<h6 class="text-dark fs-6 fw-semibold">Associated Publications</h6>
 			</div>
-			@foreach ($journalist->associatedPublications as $publication)
+			@foreach ($journalist->publications->merge($journalist->associatedPublications) as $publication)
 			<div class="col-12">
 				<div class="row g-1 align-items-center">
 					<div class="col-auto">
 						<img src="{{ $publication->profileImage ? Storage::url($publication->profileImage->image_path) : 'https://via.placeholder.com/48x48' }}" style="max-width: 48px; max-height: 48px;" alt=".." class="img-fluid rounded-circle">
 					</div>
 					<div class="col">
-						<h6 class="text-purple-800 fw-medium m-0 p-0">{{ $publication->name }}</h6>
+						<h6 class="fw-medium m-0 p-0">
+							<a href="{{ route('architect.pitch-story.publications.view', ['publication' => $publication->slug]) }}" class="text-purple-800">
+								{{ $publication->name }}
+							</a>
+						</h6>
 						<p class="text-secondary m-0 p-0"><a href="{{ $publication->website }}" class="text-secondary" target="_blank">{{ trimWebsiteUrl($publication->website) }}</a></p>
 					</div>
 					<div class="col-auto">

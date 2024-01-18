@@ -154,7 +154,7 @@
 						<div class="col-12">
 							<h6 class="text-dark fs-6 fw-semibold">Associated Journalists</h6>
 						</div>
-						@foreach ($publication->journalists as $journalist)
+						@foreach ($publication->journalists->merge($publication->associatedJournalists) as $journalist)
 						<div class="col-12">
 							<div class="row g-1 align-items-center">
 								<div class="col-auto">

@@ -24,6 +24,11 @@ class PublicationController extends Controller
 				'user',
 				'position',
 			],
+			'associatedJournalists' => [
+				'profileImage',
+				'user',
+				'position',
+			],
 		]);
 		return view('users.pages.architects.pitch-story.publication.view', [
 			'publication' => $publication,
