@@ -5,6 +5,7 @@ namespace App\Livewire\Architects\AddStories;
 ini_set('max_execution_time', 300);
 use App\Http\Controllers\Users\AreaController;
 use App\Http\Controllers\Users\BuildingTypologyController;
+use App\Http\Controllers\Users\BuildingUseController;
 use App\Http\Controllers\Users\CategoryController;
 use App\Http\Controllers\Users\CompanyController;
 use App\Http\Controllers\Users\LocationController;
@@ -34,6 +35,7 @@ class Project extends Component
 	public $status;
 	public $materials;
 	public $buildingTypology;
+	public $buildingUse;
 	public $imageCredits;
 	public $textCredits;
 	public $renderCredits;
@@ -51,12 +53,54 @@ class Project extends Component
 	public $tags = [];
 	public $mediaContact;
 	public $mediaKitAccess;
+	public $showOtherFields;
+
+	public $categories;
+	public $areas;
+	public $countries;
+	public $states;
+	public $cities;
+	public $statuses;
+	public $buildingTypologies;
+	public $buildingUses;
+	public $mediaContacts;
+	public $projectAccess;
 
 	private AddStoryService $addStoryService;
 
+	public function mount()
+	{
+		$this->characterCount();
+		$this->selectedCountry = 101;
+		$this->selectedState = 0;
+		/* $this->buildingTypology = '';
+		$this->showOtherFields = false; */
+
+		$this->categories = CategoryController::getAll();
+		$this->areas = AreaController::getAll();
+		$this->countries = LocationController::getCountries();
+		$this->statuses = ProjectStatusController::getAll();
+		$this->buildingTypologies = BuildingTypologyController::getAll();
+		$this->mediaContacts = CompanyController::getMediaContacts();
+		$this->projectAccess = ProjectAccessController::getAll();
+	}
+
     public function render()
     {
-        return view('livewire.architects.add-stories.project', [
+		$this->states = LocationController::getStatesByCountryId($this->selectedCountry);
+		$this->cities = LocationController::getCitiesByStateId($this->selectedState);
+		$category = $this->categories->find($this->category);
+		if($category && ($category->name === 'Architecture' || $category->name === 'Interior Design')){
+			$this->showOtherFields = true;
+			$this->buildingUses = BuildingUseController::getAllByTypologyId($this->buildingTypology);
+		}
+		else{
+			$this->showOtherFields = false;
+			$this->buildingTypology = '';
+		}
+
+		return view('livewire.architects.add-stories.project');
+        /* return view('livewire.architects.add-stories.project', [
 			'categories' => CategoryController::getAll(),
 			'areas' => AreaController::getAll(),
 			//'locations' => LocationController::getAll(),
@@ -68,15 +112,8 @@ class Project extends Component
 			'buildingTypologies' => BuildingTypologyController::getAll(),
 			'mediaContacts' => CompanyController::getMediaContacts(),
 			'projectAccess' => ProjectAccessController::getAll(),
-		]);
+		]); */
     }
-
-	public function mount()
-	{
-		$this->characterCount();
-		$this->selectedCountry = 101;
-		$this->selectedState = 0;
-	}
 
 	public function boot()
 	{
@@ -114,17 +151,18 @@ class Project extends Component
 		return [
 			'projectTitle' => 'required',
 			'category' => 'required',
-			'siteArea' => 'required|numeric',
-			'siteAreaUnit' => 'required',
-			'builtUpArea' => 'required|numeric',
-			'builtUpAreaUnit' => 'required',
+			'siteArea' => 'nullable|numeric',
+			'siteAreaUnit' => 'nullable',
+			'builtUpArea' => 'nullable|numeric',
+			'builtUpAreaUnit' => 'nullable',
+			'materials' => 'nullable',
+			'buildingTypology' => 'nullable',
+			'buildingUse' => 'nullable',
 			//'location' => 'required',
 			'selectedCountry' => 'required|exists:countries,id',
 			'selectedState' => 'required|exists:states,id',
 			'selectedCity' => 'required|exists:cities,name',
 			'status' => 'required',
-			'materials' => 'required',
-			'buildingTypology' => 'required',
 			'imageCredits' => 'required',
 			'textCredits' => 'required',
 			'renderCredits' => 'required',
@@ -208,6 +246,7 @@ class Project extends Component
 			'status' => 'status',
 			'materials' => 'materials',
 			'buildingTypology' => 'building typology',
+			'buildingUse' => 'building use',
 			'imageCredits' => 'image credits',
 			'textCredits' => 'text credits',
 			'renderCredits' => 'render credits',
@@ -241,6 +280,7 @@ class Project extends Component
 			'status' => $this->status,
 			'materials' => $this->materials,
 			'buildingTypology' => $this->buildingTypology,
+			'buildingUse' => $this->buildingUse,
 			'imageCredits' => $this->imageCredits,
 			'textCredits' => $this->textCredits,
 			'renderCredits' => $this->renderCredits,

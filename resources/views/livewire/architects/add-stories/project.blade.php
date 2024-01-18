@@ -9,7 +9,7 @@
 	<div class="row">
 		<label for="selectCategory" class="col-md-4 col-form-label text-dark fs-6 fw-medium">Category</label>
 		<div class="col-md-8">
-			<select id="selectCategory" class="form-select @error('category') is-invalid @enderror" wire:model="category">
+			<select id="selectCategory" class="form-select @error('category') is-invalid @enderror" wire:model.live="category">
 				<option value="">Select Category</option>
 				@foreach ($categories as $category)
 					<option value="{{ $category->id }}">{{ $category->name }}</option>
@@ -19,38 +19,71 @@
 		</div>
 	</div>
 	<hr class="border-gray-300">
-	<div class="row mb-3">
-		<label for="inputSiteArea" class="col-md-4 col-form-label text-dark fs-6 fw-medium">Site Area</label>
-		<div class="col-md-8">
-			<div class="input-group">
-				<input type="text" id="inputSiteArea" class="form-control @error('siteArea') is-invalid @enderror" wire:model="siteArea">
-				<select id="selectSiteArea" class="form-select @error('siteAreaUnit') is-invalid @enderror" wire:model="siteAreaUnit" style="max-width: 140px;">
-					<option value="">Select</option>
-					@foreach ($areas as $area)
-						<option value="{{ $area->id }}">{{ $area->name }}</option>
-					@endforeach
-				</select>
-				@error('siteArea')<div class="invalid-feedback">{{ $message }}</div>@enderror
-				@error('siteAreaUnit')<div class="invalid-feedback">{{ $message }}</div>@enderror
+	@if($showOtherFields)
+		<div class="row mb-3">
+			<label for="inputSiteArea" class="col-md-4 col-form-label text-dark fs-6 fw-medium">Site Area</label>
+			<div class="col-md-8">
+				<div class="input-group">
+					<input type="text" id="inputSiteArea" class="form-control @error('siteArea') is-invalid @enderror" wire:model="siteArea">
+					<select id="selectSiteArea" class="form-select @error('siteAreaUnit') is-invalid @enderror" wire:model="siteAreaUnit" style="max-width: 140px;">
+						<option value="">Select</option>
+						@foreach ($areas as $area)
+							<option value="{{ $area->id }}">{{ $area->name }}</option>
+						@endforeach
+					</select>
+					@error('siteArea')<div class="invalid-feedback">{{ $message }}</div>@enderror
+					@error('siteAreaUnit')<div class="invalid-feedback">{{ $message }}</div>@enderror
+				</div>
 			</div>
 		</div>
-	</div>
-	<div class="row mb-3">
-		<label for="inputBuiltUpArea" class="col-md-4 col-form-label text-dark fs-6 fw-medium">Built Up Area</label>
-		<div class="col-md-8">
-			<div class="input-group">
-				<input type="text" id="inputBuiltUpArea" class="form-control @error('builtUpArea') is-invalid @enderror" wire:model="builtUpArea">
-				<select id="selectBuiltUpArea" class="form-select @error('builtUpAreaUnit') is-invalid @enderror" wire:model="builtUpAreaUnit" style="max-width: 140px;">
-					<option value="">Select</option>
-					@foreach ($areas as $area)
-						<option value="{{ $area->id }}">{{ $area->name }}</option>
-					@endforeach
-				</select>
-				@error('builtUpArea')<div class="invalid-feedback">{{ $message }}</div>@enderror
-				@error('builtUpAreaUnit')<div class="invalid-feedback">{{ $message }}</div>@enderror
+		<div class="row mb-3">
+			<label for="inputBuiltUpArea" class="col-md-4 col-form-label text-dark fs-6 fw-medium">Built Up Area</label>
+			<div class="col-md-8">
+				<div class="input-group">
+					<input type="text" id="inputBuiltUpArea" class="form-control @error('builtUpArea') is-invalid @enderror" wire:model="builtUpArea">
+					<select id="selectBuiltUpArea" class="form-select @error('builtUpAreaUnit') is-invalid @enderror" wire:model="builtUpAreaUnit" style="max-width: 140px;">
+						<option value="">Select</option>
+						@foreach ($areas as $area)
+							<option value="{{ $area->id }}">{{ $area->name }}</option>
+						@endforeach
+					</select>
+					@error('builtUpArea')<div class="invalid-feedback">{{ $message }}</div>@enderror
+					@error('builtUpAreaUnit')<div class="invalid-feedback">{{ $message }}</div>@enderror
+				</div>
 			</div>
 		</div>
-	</div>
+		<div class="row mb-3">
+			<label for="inputMaterials" class="col-md-4 col-form-label text-dark fs-6 fw-medium">Materials</label>
+			<div class="col-md-8">
+				<input type="text" id="inputMaterials" class="form-control @error('materials') is-invalid @enderror" wire:model="materials">
+				@error('materials')<div class="invalid-feedback">{{ $message }}</div>@enderror
+			</div>
+		</div>
+		<div class="row mb-3">
+			<label for="selectBuildingTypology" class="col-md-4 col-form-label text-dark fs-6 fw-medium">Building Typology</label>
+			<div class="col-md-8">
+				<select id="selectBuildingTypology" class="form-select @error('buildingTypology') is-invalid @enderror" wire:model.live="buildingTypology">
+					<option value="">Select Building Typology</option>
+					@foreach ($buildingTypologies as $buildingTypology)
+						<option value="{{ $buildingTypology->id }}">{{ $buildingTypology->name }}</option>
+					@endforeach
+				</select>
+				@error('buildingTypology')<div class="invalid-feedback">{{ $message }}</div>@enderror
+			</div>
+		</div>
+		<div class="row mb-3">
+			<label for="selectBuildingUse" class="col-md-4 col-form-label text-dark fs-6 fw-medium">Building Use</label>
+			<div class="col-md-8">
+				<select id="selectBuildingUse" class="form-select @error('buildingUse') is-invalid @enderror" wire:model="buildingUse">
+					<option value="">Select Building Use</option>
+					@foreach ($buildingUses as $buildingUse)
+						<option value="{{ $buildingUse->id }}">{{ $buildingUse->name }}</option>
+					@endforeach
+				</select>
+				@error('buildingUse')<div class="invalid-feedback">{{ $message }}</div>@enderror
+			</div>
+		</div>
+	@endif
 	{{-- <div class="row mb-3">
 		<label for="selectLocation" class="col-md-4 col-form-label text-dark fs-6 fw-medium">Location</label>
 		<div class="col-md-8">
@@ -109,25 +142,6 @@
 				@endforeach
 			</select>
 			@error('status')<div class="invalid-feedback">{{ $message }}</div>@enderror
-		</div>
-	</div>
-	<div class="row mb-3">
-		<label for="inputMaterials" class="col-md-4 col-form-label text-dark fs-6 fw-medium">Materials</label>
-		<div class="col-md-8">
-			<input type="text" id="inputMaterials" class="form-control @error('materials') is-invalid @enderror" wire:model="materials">
-			@error('materials')<div class="invalid-feedback">{{ $message }}</div>@enderror
-		</div>
-	</div>
-	<div class="row mb-3">
-		<label for="selectBuildingTypology" class="col-md-4 col-form-label text-dark fs-6 fw-medium">Building Typology</label>
-		<div class="col-md-8">
-			<select id="selectBuildingTypology" class="form-select @error('buildingTypology') is-invalid @enderror" wire:model="buildingTypology">
-				<option value="">Select Building Typology</option>
-				@foreach ($buildingTypologies as $buildingTypology)
-					<option value="{{ $buildingTypology->id }}">{{ $buildingTypology->name }}</option>
-				@endforeach
-			</select>
-			@error('buildingTypology')<div class="invalid-feedback">{{ $message }}</div>@enderror
 		</div>
 	</div>
 	<div class="row mb-3">

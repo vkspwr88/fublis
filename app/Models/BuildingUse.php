@@ -6,10 +6,11 @@ use App\Casts\NameCast;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class BuildingTypology extends Model
+class BuildingUse extends Model
 {
     use HasFactory, HasUuids, SoftDeletes;
 
@@ -17,13 +18,13 @@ class BuildingTypology extends Model
 		'name' => NameCast::class,
 	];
 
-	/* public function projects(): HasMany
+	public function projects(): HasMany
 	{
 		return $this->hasMany(Project::class);
-	} */
+	}
 
-	public function buildingUses(): HasMany
+	public function buildingTypology(): BelongsTo
 	{
-		return $this->hasMany(BuildingUse::class);
+		return $this->belongsTo(BuildingTypology::class);
 	}
 }

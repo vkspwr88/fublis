@@ -15,14 +15,14 @@ return new class extends Migration
         Schema::create('projects', function (Blueprint $table) {
             $table->uuid('id')->primary();
 			$table->string('title');
-			$table->double('site_area');
-			$table->foreignIdFor(Models\Area::class, 'site_area_id');
-			$table->double('built_up_area');
-			$table->foreignIdFor(Models\Area::class, 'built_up_area_id');
+			$table->double('site_area')->nullable();
+			$table->foreignIdFor(Models\Area::class, 'site_area_id')->nullable();
+			$table->double('built_up_area')->nullable();
+			$table->foreignIdFor(Models\Area::class, 'built_up_area_id')->nullable();
 			$table->foreignIdFor(Models\Location::class);
 			$table->foreignIdFor(Models\ProjectStatus::class);
-			$table->string('materials');
-			$table->foreignIdFor(Models\BuildingTypology::class);
+			$table->string('materials')->nullable();
+			$table->foreignIdFor(Models\BuildingUse::class)->nullable();
 			$table->string('image_credits');
 			$table->string('text_credits');
 			$table->string('render_credits');

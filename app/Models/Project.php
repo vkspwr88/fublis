@@ -53,9 +53,14 @@ class Project extends Model
 		return $this->belongsTo(ProjectStatus::class);
 	}
 
-	public function buildingTypology(): BelongsTo
+	/* public function buildingTypology(): BelongsTo
 	{
 		return $this->belongsTo(BuildingTypology::class);
+	} */
+
+	public function buildingUse(): BelongsTo
+	{
+		return $this->belongsTo(BuildingUse::class);
 	}
 
 	public function mediaContact(): BelongsTo
