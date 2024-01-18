@@ -122,35 +122,16 @@
 																	</div>
 																</div>
 															@endforelse
-															{{-- <div class="col-12">
-																<input id="radio2" type="radio" value="2" wire:model="selectedPublication">
-																<div class="search-list position-relative p-2 my-1">
-																	<label for="radio2" class="text-secondary fs-6 w-100">
-																		<span class="fw-bold text-dark">Rethinking The Future</span>
-																		<span>Worldwide</span>
-																		<span class="checked position-absolute text-purple-600">
-																			<i class="bi bi-check-lg"></i>
-																		</span>
-																	</label>
-																</div>
-															</div>
-															<div class="col-12">
-																<input id="radio3" type="radio" value="3" wire:model="selectedPublication">
-																<div class="search-list position-relative p-2 my-1">
-																	<label for="radio3" class="text-secondary fs-6 w-100">
-																		<span class="fw-bold text-dark">Rethinking The Life</span>
-																		<span>Worldwide</span>
-																		<span class="checked position-absolute text-purple-600">
-																			<i class="bi bi-check-lg"></i>
-																		</span>
-																	</label>
-																</div>
-															</div> --}}
 														</div>
 													</div>
 												</div>
 												<div class="mb-3">
-													<a href="javascript:;" class="text-secondary" wire:click="setNew">Can't find?</a>
+													<p class="m-0 text-secondary">
+														Can't find?
+														<a href="javascript:;" class="ms-1 btn btn-sm btn-primary fs-6 fw-semibold rounded-pill text-capitalize" wire:click="setNew">
+															add your publication <x-users.spinners.white-btn wire:target="setNew" />
+														</a>
+													</p>
 												</div>
 											@endif
 										@endif

@@ -118,7 +118,12 @@
 													</div>
 												</div>
 												<div class="mb-3">
-													<a href="javascript:;" class="text-secondary" wire:click="setNew">Can't find?</a>
+													<p class="m-0 text-secondary">
+														Can't find?
+														<a href="javascript:;" class="ms-1 btn btn-sm btn-primary fs-6 fw-semibold rounded-pill text-capitalize" wire:click="setNew">
+															add your company <x-users.spinners.white-btn wire:target="setNew" />
+														</a>
+													</p>
 												</div>
 											@endif
 										@endif
