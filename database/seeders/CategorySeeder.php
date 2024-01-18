@@ -18,9 +18,6 @@ class CategorySeeder extends Seeder
 				'name' => 'architecture',
 			],
 			[
-				'name' => 'home & decor',
-			],
-			[
 				'name' => 'Automative',
 			],
 			[
@@ -28,9 +25,6 @@ class CategorySeeder extends Seeder
 			],
 			[
 				'name' => 'Education',
-			],
-			[
-				'name' => 'Gadgets',
 			],
 			[
 				'name' => 'Entertainment',
@@ -45,7 +39,16 @@ class CategorySeeder extends Seeder
 				'name' => 'Food',
 			],
 			[
+				'name' => 'Gadgets',
+			],
+			[
 				'name' => 'Health',
+			],
+			[
+				'name' => 'home & decor',
+			],
+			[
+				'name' => 'Interior Design',
 			],
 			[
 				'name' => 'Life & Style',
