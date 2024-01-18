@@ -163,6 +163,7 @@ class AddPublicationStepComponent extends StepComponent
 							]
 						);
 		//dd($validated);
+		$this->website = 'http://' . $this->website;
 		$this->nextStep();
 		if($this->new){
 			$this->dispatch('alert', [

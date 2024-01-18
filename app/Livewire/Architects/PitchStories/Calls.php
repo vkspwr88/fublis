@@ -32,9 +32,9 @@ class Calls extends Component
 	public $selectedCall = '';
 	public $call = [];
 	public $selectedJournalist = '';
-	public $journalist = [];
+	public $journalist;
 	public $selectedMediaKit = '';
-	public $mediaKits = [];
+	public $mediaKits;
 	public $subject = '';
 	public $message = '';
 
@@ -45,6 +45,8 @@ class Calls extends Component
 
 	public function mount()
 	{
+		$this->journalist = collect([]);
+		$this->mediaKits = collect([]);
 		$this->name = '';
 		$this->selectedLocation = '';
 		$this->selectedDeadline = '';

@@ -30,9 +30,9 @@ class Publications extends Component
 
 	public $publication;
 	public $selectedJournalist = '';
-	public $journalists = [];
+	public $journalists;
 	public $selectedMediaKit = '';
-	public $mediaKits = [];
+	public $mediaKits;
 	public $subject = '';
 	public $message = '';
 
@@ -43,6 +43,8 @@ class Publications extends Component
 
 	public function mount()
 	{
+		$this->journalists = collect([]);
+		$this->mediaKits = collect([]);
 		$this->name = '';
 		$this->selectedLocation = '';
 		$this->locations = LocationController::getAll();

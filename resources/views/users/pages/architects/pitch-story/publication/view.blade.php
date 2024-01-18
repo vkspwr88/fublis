@@ -37,7 +37,7 @@
 				<div class="col-12">
 					<div class="d-grid">
 						<button type="button" class="btn btn-primary fw-medium">
-							Submit Story <x-users.spinners.white-btn />
+							Submit Story {{-- <x-users.spinners.white-btn /> --}}
 						</button>
 					</div>
 				</div>
@@ -161,12 +161,16 @@
 									<img src="{{ $journalist->profileImage ? Storage::url($journalist->profileImage->image_path) : 'https://via.placeholder.com/48x48' }}" style="max-width: 48px; max-height: 48px;" alt=".." class="img-fluid rounded-circle">
 								</div>
 								<div class="col">
-									<h6 class="text-purple-800 fw-medium m-0 p-0">{{ $journalist->user->name }}</h6>
+									<h6 class="fw-medium m-0 p-0">
+										<a href="{{ route('architect.pitch-story.journalists.view', ['journalist' => $journalist->slug]) }}" class="text-purple-800">
+											{{ $journalist->user->name }}
+										</a>
+									</h6>
 									<p class="text-secondary m-0 p-0">{{ $journalist->position->name }}</p>
 								</div>
 								<div class="col-auto">
 									<a href="{{ route('architect.pitch-story.journalists.view', ['journalist' => $journalist->slug]) }}" class="btn btn-white btn-sm rounded-pill text-dark fw-medium py-0 px-1 border-dark">
-										Contact <i class="bi bi-arrow-right"></i>
+										Pitch <i class="bi bi-arrow-right"></i>
 									</a>
 								</div>
 							</div>
@@ -178,6 +182,7 @@
 		</div>
 		<div class="col-md-12 col-lg-5 col-xl-6">
 			<div class="card rounded-4 shadow h-100 border-0 bg-gray-300">
+				<iframe class="w-100 h-100 rounded-4" title="{{ $publication->name }}" src="{{ $publication->website }}"></iframe>
 			</div>
 		</div>
 	</div>

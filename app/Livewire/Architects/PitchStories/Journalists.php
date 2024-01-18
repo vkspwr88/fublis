@@ -31,9 +31,9 @@ class Journalists extends Component
 	public $selectedPositions = [];
 
 	public $selectedJournalist = '';
-	public $journalist = [];
+	public $journalist;
 	public $selectedMediaKit = '';
-	public $mediaKits = [];
+	public $mediaKits;
 	public $subject = '';
 	public $message = '';
 
@@ -44,6 +44,8 @@ class Journalists extends Component
 
 	public function mount()
 	{
+		$this->journalist = collect([]);
+		$this->mediaKits = collect([]);
 		$this->name = '';
 		$this->locations = LocationController::getAll();
 		$this->publicationTypes = PublicationTypeController::getAll();
