@@ -62,14 +62,4 @@ class Project extends Model
 	{
 		return $this->belongsTo(BuildingUse::class);
 	}
-
-	public function mediaContact(): BelongsTo
-	{
-		return $this->belongsTo(Architect::class);
-	}
-
-	public function projectAccess(): BelongsTo
-	{
-		return $this->belongsTo(ProjectAccess::class);
-	}
 }

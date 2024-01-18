@@ -23,17 +23,17 @@ return new class extends Migration
 			$table->foreignIdFor(Models\ProjectStatus::class);
 			$table->string('materials')->nullable();
 			$table->foreignIdFor(Models\BuildingUse::class)->nullable();
-			$table->string('image_credits');
-			$table->string('text_credits');
-			$table->string('render_credits');
-			$table->text('consultants');
-			$table->text('design_team');
+			$table->string('image_credits')->nullable();
+			$table->string('text_credits')->nullable();
+			$table->string('render_credits')->nullable();
+			$table->text('consultants')->nullable();
+			$table->text('design_team')->nullable();
 			$table->text('cover_image_path');
 			$table->text('project_brief');
 			$table->text('project_doc_path')->nullable();
 			$table->text('project_doc_link')->nullable();
-			$table->foreignIdFor(Models\Architect::class, 'media_contact_id');
-			$table->foreignIdFor(Models\ProjectAccess::class);
+			/* $table->foreignIdFor(Models\Architect::class, 'media_contact_id');
+			$table->foreignIdFor(Models\ProjectAccess::class); */
             $table->timestamps();
         });
     }

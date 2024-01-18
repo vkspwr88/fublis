@@ -4,6 +4,8 @@ namespace App\Livewire\Architects\AddStories;
 
 ini_set('max_execution_time', 300);
 use App\Http\Controllers\Users\CategoryController;
+use App\Http\Controllers\Users\CompanyController;
+use App\Http\Controllers\Users\ProjectAccessController;
 use App\Services\AddStoryService;
 use Illuminate\Support\Facades\Validator;
 use Livewire\Attributes\Rule;
@@ -32,19 +34,25 @@ class Article extends Component
 	public $imagesFiles = [];
 	public $imagesLink;
 	public $tags = [];
+	public $categories;
+	public $mediaContacts;
+	public $projectAccess;
+	public $mediaContact;
+	public $mediaKitAccess;
 
 	private AddStoryService $addStoryService;
 
 	public function mount()
 	{
 		$this->characterCount();
+		$this->categories = CategoryController::getAll();
+		$this->mediaContacts = CompanyController::getMediaContacts();
+		$this->projectAccess = ProjectAccessController::getAll();
 	}
 
 	public function render()
     {
-        return view('livewire.architects.add-stories.article', [
-			'categories' => CategoryController::getAll(),
-		]);
+        return view('livewire.architects.add-stories.article');
     }
 
 	public function boot()
@@ -88,13 +96,17 @@ class Article extends Component
 			'previewText' => 'required|max:550',
 			'articleFile' => 'nullable|file|mimes:pdf,doc,docs',
 			'articleLink' => 'nullable|required_without:articleFile|url',
-			'articleWrite' => 'required',
+			'articleWrite' => 'nullable',
 			'companyProfileFile' => 'nullable|file|mimes:pdf,doc,docs',
 			'companyProfileLink' => 'nullable|required_without:companyProfileFile|url',
 			'imagesFiles' => 'nullable|array',
-			'imagesFiles.*' => 'image|mimes:svg,png,jpg,gif',
-			'imagesLink' => 'nullable|required_without:imagesFiles|url',
-			'tags' => 'required|array',
+			'imagesFiles.*' => 'nullable|image|mimes:svg,png,jpg,gif',
+			'imagesLink' => 'nullable|url',
+			/* 'imagesFiles.*' => 'image|mimes:svg,png,jpg,gif',
+			'imagesLink' => 'nullable|required_without:imagesFiles|url', */
+			'tags' => 'nullable|array',
+			'mediaContact' => 'required',
+			'mediaKitAccess' => 'required',
 		];
 	}
 
@@ -123,6 +135,8 @@ class Article extends Component
 			'imagesLink.url' => 'Enter the valid :attribute.',
 			'imagesLink.required_without' => 'Enter the :attribute or upload the file.',
 			'tags.required' => 'Enter the :attribute.',
+			'mediaContact.required' => 'Select the :attribute.',
+			'mediaKitAccess.required' => 'Select the :attribute.',
 		];
 	}
 
@@ -142,6 +156,8 @@ class Article extends Component
 			'imagesFiles' => 'images',
 			'imagesLink' => 'images links',
 			'tags' => 'tags',
+			'mediaContact' => 'media contact',
+			'mediaKitAccess' => 'media kit access',
 		];
 	}
 
@@ -161,6 +177,8 @@ class Article extends Component
 			'imagesFiles' => $this->imagesFiles,
 			'imagesLink' => $this->imagesLink ? 'http://' . $this->imagesLink : null,
 			'tags' => $this->tags,
+			'mediaContact' => $this->mediaContact,
+			'mediaKitAccess' => $this->mediaKitAccess,
 		];
 	}
 

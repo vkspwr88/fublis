@@ -1,13 +1,13 @@
 <form wire:submit="add" class="pt-4">
 	<div class="row mb-3">
-		<label for="inputProjectTitle" class="col-md-4 col-form-label text-dark fs-6 fw-medium">Title</label>
+		<label for="inputProjectTitle" class="col-md-4 col-form-label text-dark fs-6 fw-medium">Title <span class="text-danger">*</span></label>
 		<div class="col-md-8">
 			<input type="text" id="inputProjectTitle" class="form-control @error('projectTitle') is-invalid @enderror" wire:model="projectTitle">
 			@error('projectTitle')<div class="invalid-feedback">{{ $message }}</div>@enderror
 		</div>
 	</div>
 	<div class="row">
-		<label for="selectCategory" class="col-md-4 col-form-label text-dark fs-6 fw-medium">Category</label>
+		<label for="selectCategory" class="col-md-4 col-form-label text-dark fs-6 fw-medium">Category <span class="text-danger">*</span></label>
 		<div class="col-md-8">
 			<select id="selectCategory" class="form-select @error('category') is-invalid @enderror" wire:model.live="category">
 				<option value="">Select Category</option>
@@ -97,7 +97,7 @@
 		</div>
 	</div> --}}
 	<div class="row mb-3">
-		<label for="selectCountry" class="col-md-4 col-form-label text-dark fs-6 fw-medium">Country</label>
+		<label for="selectCountry" class="col-md-4 col-form-label text-dark fs-6 fw-medium">Country <span class="text-danger">*</span></label>
 		<div class="col-md-8">
 			<select class="form-select @error('selectedCountry') is-invalid @enderror" id="selectCountry" wire:model.live="selectedCountry">
 				<option value="">Select Country</option>
@@ -109,7 +109,7 @@
 		</div>
 	</div>
 	<div class="row mb-3">
-		<label for="selectState" class="col-md-4 col-form-label text-dark fs-6 fw-medium">State</label>
+		<label for="selectState" class="col-md-4 col-form-label text-dark fs-6 fw-medium">State <span class="text-danger">*</span></label>
 		<div class="col-md-8">
 			<select class="form-select @error('selectedState') is-invalid @enderror" id="selectState" wire:model.live="selectedState">
 				<option value="">Select State</option>
@@ -121,7 +121,7 @@
 		</div>
 	</div>
 	<div class="row mb-3">
-		<label for="selectCity" class="col-md-4 col-form-label text-dark fs-6 fw-medium">City</label>
+		<label for="selectCity" class="col-md-4 col-form-label text-dark fs-6 fw-medium">City <span class="text-danger">*</span></label>
 		<div class="col-md-8">
 			<select class="form-select @error('selectedCity') is-invalid @enderror" id="selectCity" wire:model="selectedCity">
 				<option value="">Select City</option>
@@ -133,7 +133,7 @@
 		</div>
 	</div>
 	<div class="row mb-3">
-		<label for="selectStatus" class="col-md-4 col-form-label text-dark fs-6 fw-medium">Status</label>
+		<label for="selectStatus" class="col-md-4 col-form-label text-dark fs-6 fw-medium">Status <span class="text-danger">*</span></label>
 		<div class="col-md-8">
 			<select id="selectStatus" class="form-select @error('status') is-invalid @enderror" wire:model="status">
 				<option value="">Select Status</option>
@@ -188,7 +188,7 @@
 	<hr class="border-gray-300">
 	<div class="row">
 		<div class="col-md-4">
-			<label for="inputText" class="col-form-label text-dark fs-6 fw-medium">Cover Image</label>
+			<label for="inputText" class="col-form-label text-dark fs-6 fw-medium">Cover Image <span class="text-danger">*</span></label>
 			<label class="d-block form-text text-secondary fs-7 m-0">This will be displayed on your media kit.</label>
 		</div>
 		<div class="col-md-8">
@@ -239,7 +239,7 @@
 	<hr class="border-gray-300">
 	<div class="row mb-3">
 		<div class="col-md-4">
-			<label for="inputProjectBrief" class="col-form-label text-dark fs-6 fw-medium">Project Brief</label>
+			<label for="inputProjectBrief" class="col-form-label text-dark fs-6 fw-medium">Project Brief <span class="text-danger">*</span></label>
 			<label class="d-block form-text text-secondary fs-7 m-0">Write in 50-75 words (this text will be used in pitch to journalists)</label>
 		</div>
 		<div class="col-md-8">
@@ -250,7 +250,7 @@
 	</div>
 	<div class="row">
 		<div class="col-md-4">
-			<label for="inputpProjectFile" class="col-form-label text-dark fs-6 fw-medium">Upload Project Text</label>
+			<label for="inputpProjectFile" class="col-form-label text-dark fs-6 fw-medium">Upload Project Text <span class="text-danger">*</span></label>
 			<label class="d-block form-text text-secondary fs-7 m-0">Add the text in 500-800 words</label>
 		</div>
 		<div class="col-md-8">
@@ -441,7 +441,7 @@
 	</div>
 	<div class="row mb-3">
 		<div class="col-md-4">
-			<label for="selectMediaContact" class="col-form-label text-dark fs-6 fw-medium">Select Media Contact</label>
+			<label for="selectMediaContact" class="col-form-label text-dark fs-6 fw-medium">Select Media Contact <span class="text-danger">*</span></label>
 			<label class="d-block form-text text-secondary fs-7 m-0">Pick the team member who can best respond to journalists queries</label>
 		</div>
 		<div class="col-md-8">
@@ -454,9 +454,9 @@
 			@error('mediaContact')<div class="invalid-feedback">{{ $message }}</div>@enderror
 		</div>
 	</div>
-	<div class="row mb-3">
+	<div class="row">
 		<div class="col-md-4">
-			<label for="selectMediaKitAccess" class="col-form-label text-dark fs-6 fw-medium">Media Kit Access</label>
+			<label for="selectMediaKitAccess" class="col-form-label text-dark fs-6 fw-medium">Media Kit Access <span class="text-danger">*</span></label>
 			<label class="d-block form-text text-secondary fs-7 m-0">Set level of access for journalists</label>
 		</div>
 		<div class="col-md-8">

@@ -34,6 +34,8 @@ class AddStoryService
 			MediaKitController::createMediaKit($pressRelease, [
 				'architect_id' => auth()->user()->architect->id,
 				'category_id' => $details['category'],
+				'media_contact_id' => $details['mediaContact'],
+				'project_access_id' => $details['mediaKitAccess'],
 			]);
 			// create images
 			if(count($details['photographsFiles']) > 0){
@@ -137,13 +139,13 @@ class AddStoryService
 				'project_brief' => $details['projectBrief'],
 				'project_doc_path' => $details['projectFile'] ? FileController::upload($details['projectFile'], 'documents/projects') : null,
 				'project_doc_link' => $details['projectLink'],
-				'media_contact_id' => $details['mediaContact'],
-				'project_access_id' => $details['mediaKitAccess'],
 			]);
 			// create media kit
 			MediaKitController::createMediaKit($project, [
 				'architect_id' => auth()->user()->architect->id,
 				'category_id' => $details['category'],
+				'media_contact_id' => $details['mediaContact'],
+				'project_access_id' => $details['mediaKitAccess'],
 			]);
 			// create images (photographs)
 			if(count($details['photographsFiles']) > 0){
@@ -199,6 +201,8 @@ class AddStoryService
 			MediaKitController::createMediaKit($article, [
 				'architect_id' => auth()->user()->architect->id,
 				'category_id' => $details['category'],
+				'media_contact_id' => $details['mediaContact'],
+				'project_access_id' => $details['mediaKitAccess'],
 			]);
 			// create images
 			if(count($details['imagesFiles']) > 0){

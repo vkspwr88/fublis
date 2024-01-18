@@ -1,7 +1,7 @@
 <form wire:submit="add" class="pt-4">
 	<div class="row">
 		<div class="col-md-4">
-			<label for="inputText" class="col-form-label text-dark fs-6 fw-medium">Cover Image</label>
+			<label for="inputText" class="col-form-label text-dark fs-6 fw-medium">Cover Image <span class="text-danger">*</span></label>
 			<label class="d-block form-text text-secondary fs-7 m-0">This will be displayed on your media kit.</label>
 		</div>
 		<div class="col-md-8">
@@ -51,21 +51,21 @@
 	</div>
 	<hr class="border-gray-300">
 	<div class="row mb-3">
-		<label for="inputArticleTitle" class="col-md-4 col-form-label text-dark fs-6 fw-medium">Article Title</label>
+		<label for="inputArticleTitle" class="col-md-4 col-form-label text-dark fs-6 fw-medium">Article Title <span class="text-danger">*</span></label>
 		<div class="col-md-8">
 			<input type="text" id="inputArticleTitle" class="form-control @error('articleTitle') is-invalid @enderror" wire:model="articleTitle">
 			@error('articleTitle')<div class="invalid-feedback">{{ $message }}</div>@enderror
 		</div>
 	</div>
 	<div class="row mb-3">
-		<label for="inputTextCredits" class="col-md-4 col-form-label text-dark fs-6 fw-medium">Text Credits</label>
+		<label for="inputTextCredits" class="col-md-4 col-form-label text-dark fs-6 fw-medium">Text Credits <span class="text-danger">*</span></label>
 		<div class="col-md-8">
 			<input type="text" id="inputTextCredits" class="form-control @error('textCredits') is-invalid @enderror" wire:model="textCredits">
 			@error('textCredits')<div class="invalid-feedback">{{ $message }}</div>@enderror
 		</div>
 	</div>
 	<div class="row mb-3">
-		<label for="selectCategory" class="col-md-4 col-form-label text-dark fs-6 fw-medium">Category</label>
+		<label for="selectCategory" class="col-md-4 col-form-label text-dark fs-6 fw-medium">Category <span class="text-danger">*</span></label>
 		<div class="col-md-8">
 			<select id="selectCategory" class="form-select @error('category') is-invalid @enderror" wire:model="category">
 				<option value="">Select Category</option>
@@ -78,7 +78,7 @@
 	</div>
 	<div class="row">
 		<div class="col-md-4">
-			<label for="inputPreviewText" class="col-form-label text-dark fs-6 fw-medium">Add Preview Text</label>
+			<label for="inputPreviewText" class="col-form-label text-dark fs-6 fw-medium">Add Preview Text <span class="text-danger">*</span></label>
 			<label class="d-block form-text text-secondary fs-7 m-0">Write in 50-75 words (this text will be used in pitch to journalists)</label>
 		</div>
 		<div class="col-md-8">
@@ -90,7 +90,7 @@
 	<hr class="border-gray-300">
 	<div class="row">
 		<div class="col-md-4">
-			<label for="inputArticleWrite" class="col-form-label text-dark fs-6 fw-medium">Upload Article</label>
+			<label for="inputArticleWrite" class="col-form-label text-dark fs-6 fw-medium">Upload Article <span class="text-danger">*</span></label>
 			<label class="d-block form-text text-secondary fs-7 m-0">Add the text in 500-1000 words</label>
 		</div>
 		<div class="col-md-8">
@@ -256,7 +256,7 @@
 		</div>
 	</div>
 	<hr class="border-gray-300">
-	<div class="row">
+	<div class="row mb-3">
 		<label for="inputTags" class="col-md-4 col-form-label text-dark fs-6 fw-medium">Tags</label>
 		<div class="col-md-8">
 			<div x-data="{tags: @entangle('tags'), newTag: '' }">
@@ -286,6 +286,36 @@
 			</div>
 			<div id="tagsHelpBlock" class="form-text">Press enter, dot or space to add tags.</div>
 			@error('tags')<div class="error">{{ $message }}</div>@enderror
+		</div>
+	</div>
+	<div class="row mb-3">
+		<div class="col-md-4">
+			<label for="selectMediaContact" class="col-form-label text-dark fs-6 fw-medium">Select Media Contact <span class="text-danger">*</span></label>
+			<label class="d-block form-text text-secondary fs-7 m-0">Pick the team member who can best respond to journalists queries</label>
+		</div>
+		<div class="col-md-8">
+			<select id="selectMediaContact" class="form-select @error('mediaContact') is-invalid @enderror" wire:model="mediaContact">
+				<option value="">Select Media Contact</option>
+				@foreach ($mediaContacts as $mediaContact)
+					<option value="{{ $mediaContact->id }}">{{ $mediaContact->user->name }}</option>
+				@endforeach
+			</select>
+			@error('mediaContact')<div class="invalid-feedback">{{ $message }}</div>@enderror
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-4">
+			<label for="selectMediaKitAccess" class="col-form-label text-dark fs-6 fw-medium">Media Kit Access <span class="text-danger">*</span></label>
+			<label class="d-block form-text text-secondary fs-7 m-0">Set level of access for journalists</label>
+		</div>
+		<div class="col-md-8">
+			<select id="selectMediaKitAccess" class="form-select @error('mediaKitAccess') is-invalid @enderror" wire:model="mediaKitAccess">
+				<option value="">Select Media Kit Access</option>
+				@foreach ($projectAccess as $mediaKitAccess)
+					<option value="{{ $mediaKitAccess->id }}">{{ $mediaKitAccess->name }}</option>
+				@endforeach
+			</select>
+			@error('mediaKitAccess')<div class="invalid-feedback">{{ $message }}</div>@enderror
 		</div>
 	</div>
 	<hr class="border-gray-300">

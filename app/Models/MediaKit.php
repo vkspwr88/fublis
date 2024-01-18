@@ -47,4 +47,14 @@ class MediaKit extends Model
 	{
 		return $this->hasMany(DownloadRequest::class);
 	}
+
+	public function mediaContact(): BelongsTo
+	{
+		return $this->belongsTo(Architect::class);
+	}
+
+	public function projectAccess(): BelongsTo
+	{
+		return $this->belongsTo(ProjectAccess::class);
+	}
 }

@@ -19,7 +19,7 @@ return new class extends Migration
 			$table->text('preview_text');
 			$table->text('article_doc_path')->nullable();
 			$table->text('article_doc_link')->nullable();
-			$table->text('article_writeup');
+			$table->text('article_writeup')->nullable();
 			$table->text('company_profile_path')->nullable();
 			$table->text('company_profile_link')->nullable();
 			$table->text('images_link')->nullable();

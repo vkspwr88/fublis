@@ -15,7 +15,7 @@ return new class extends Migration
             $table->uuid('id')->primary();
 			$table->string('cover_image_path');
 			$table->string('title');
-			$table->string('image_credits');
+			$table->string('image_credits')->nullable();
 			$table->text('concept_note');
 			$table->text('press_release_writeup');
 			$table->text('press_release_doc_path')->nullable();

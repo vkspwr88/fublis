@@ -4,6 +4,8 @@ namespace App\Livewire\Architects\AddStories;
 
 ini_set('max_execution_time', 300);
 use App\Http\Controllers\Users\CategoryController;
+use App\Http\Controllers\Users\CompanyController;
+use App\Http\Controllers\Users\ProjectAccessController;
 use App\Services\AddStoryService;
 use Illuminate\Support\Facades\Validator;
 use Livewire\Attributes\Renderless;
@@ -30,19 +32,25 @@ class PressRelease extends Component
 	public $photographsFiles = [];
 	public $photographsLink;
 	public $tags = [];
+	public $categories;
+	public $mediaContacts;
+	public $projectAccess;
+	public $mediaContact;
+	public $mediaKitAccess;
 
 	private AddStoryService $addStoryService;
 
     public function render()
     {
-        return view('livewire.architects.add-stories.press-release', [
-			'categories' => CategoryController::getAll(),
-		]);
+        return view('livewire.architects.add-stories.press-release');
     }
 
 	public function mount()
 	{
 		$this->characterCount();
+		$this->categories = CategoryController::getAll();
+		$this->mediaContacts = CompanyController::getMediaContacts();
+		$this->projectAccess = ProjectAccessController::getAll();
 	}
 
 	public function boot()
@@ -82,16 +90,20 @@ class PressRelease extends Component
 		return [
 			'coverImage' => 'required|image|mimes:svg,png,jpg,gif|max:3100|dimensions:max_width=800,max_height=400',
 			'pressReleaseTitle' => 'required',
-			'imageCredits' => 'required',
+			'imageCredits' => 'nullable',
 			'category' => 'required',
 			'conceptNote' => 'required|max:550',
 			'pressReleaseWrite' => 'required',
 			'pressReleaseFile' => 'nullable|file|mimes:pdf,doc,docs',
 			'pressReleaseLink' => 'nullable|required_without:pressReleaseFile|url',
 			'photographsFiles' => 'nullable|array',
-			'photographsFiles.*' => 'image|mimes:svg,png,jpg,gif',
-			'photographsLink' => 'nullable|required_without:photographsFiles|url',
-			'tags' => 'required|array',
+			'photographsFiles.*' => 'nullable|image|mimes:svg,png,jpg,gif',
+			'photographsLink' => 'nullable|url',
+			/* 'photographsFiles.*' => 'image|mimes:svg,png,jpg,gif',
+			'photographsLink' => 'nullable|required_without:photographsFiles|url', */
+			'tags' => 'nullable|array',
+			'mediaContact' => 'required',
+			'mediaKitAccess' => 'required',
 		];
 	}
 
@@ -117,6 +129,8 @@ class PressRelease extends Component
 			'photographsLink.url' => 'Enter the valid :attribute.',
 			'photographsLink.required_without' => 'Enter the :attribute or upload the file.',
 			'tags.required' => 'Enter the :attribute.',
+			'mediaContact.required' => 'Select the :attribute.',
+			'mediaKitAccess.required' => 'Select the :attribute.',
 		];
 	}
 
@@ -134,6 +148,8 @@ class PressRelease extends Component
 			'photographsFiles' => 'photographs',
 			'photographsLink' => 'photographs links',
 			'tags' => 'tags',
+			'mediaContact' => 'media contact',
+			'mediaKitAccess' => 'media kit access',
 		];
 	}
 
@@ -151,6 +167,8 @@ class PressRelease extends Component
 			'photographsFiles' => $this->photographsFiles,
 			'photographsLink' => $this->photographsLink ? 'http://' . $this->photographsLink : null,
 			'tags' => $this->tags,
+			'mediaContact' => $this->mediaContact,
+			'mediaKitAccess' => $this->mediaKitAccess,
 		];
 	}
 

@@ -12,8 +12,8 @@ class ProjectAccess extends Model
 {
     use HasFactory, HasUuids, SoftDeletes;
 
-	public function projects(): HasMany
+	public function mediaKits(): HasMany
 	{
-		return $this->hasMany(Project::class);
+		return $this->hasMany(MediaKit::class);
 	}
 }
