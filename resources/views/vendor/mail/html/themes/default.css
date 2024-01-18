@@ -297,7 +297,7 @@ img {
     word-break: break-all;
 }
 
-.otp-box{
+/* .otp-box{
 	display: inline-block;
 	border: 2px solid var(--primary-600, #7F56D9);
 	border-radius: 0.5rem;
@@ -309,6 +309,28 @@ img {
 	text-align: center;
 	color: var(--primary-600, #7F56D9);
 	margin-right: 1rem;
+} */
+
+.mb-3{
+	margin-bottom: 1rem;
+}
+
+.otp-box{
+	display: inline-block;
+	border: 2px solid var(--primary-600, #7F56D9);
+	border-radius: 0.5rem;
+	width: 4rem;
+	height: 4rem;
+	font-weight: 500;
+	line-height: 4rem;
+	text-align: center;
+	color: var(--primary-600, #7F56D9);
+	margin-right: 0.25rem;
+	padding: 0;
+}
+
+.otp-box span{
+	font-size: 3rem;
 }
 
 .text-dark{
@@ -318,3 +340,4 @@ img {
 .im{
 	color: #344054;
 }
+
