@@ -49,7 +49,9 @@ class Project extends Component
 	public $projectFile;
 	public $projectLink;
 	public $photographsFiles = [];
+	public $photographsLink;
 	public $drawingsFiles = [];
+	public $drawingsLink;
 	public $tags = [];
 	public $mediaContact;
 	public $mediaKitAccess;
@@ -174,8 +176,10 @@ class Project extends Component
 			'projectLink' => 'nullable|required_without:projectFile|url',
 			'photographsFiles' => 'nullable|array',
 			'photographsFiles.*' => 'nullable|file|mimes:zip,svg,png,jpg,gif',
+			'photographsLink' => 'nullable|required_without:photographsFiles|url',
 			'drawingsFiles' => 'nullable|array',
 			'drawingsFiles.*' => 'nullable|file|mimes:zip,svg,png,jpg,gif',
+			'drawingsLink' => 'nullable|required_without:drawingsFiles|url',
 			/* 'photographsFiles' => 'required|array',
 			'photographsFiles.*' => 'file|mimes:zip,svg,png,jpg,gif', */
 			//'photographsFiles.*' => 'image|mimes:svg,png,jpg,gif',
@@ -220,7 +224,6 @@ class Project extends Component
 			'projectBrief.required' => 'Enter the :attribute.',
 			'projectBrief.max' => 'The :attribute allows only 550 characters.',
 			'projectFile.mimes' => 'The :attribute supports only odf, doc or docs.',
-			'projectLink.url' => 'Enter the valid :attribute.',
 			'projectLink.required_without' => 'Enter the :attribute or upload the file.',
 			'photographsFiles.required' => 'Upload the :attribute.',
 			'photographsFiles.*.file' => 'The :attribute supports only file.',
@@ -231,6 +234,7 @@ class Project extends Component
 			'tags.required' => 'Enter the :attribute.',
 			'mediaContact.required' => 'Select the :attribute.',
 			'mediaKitAccess.required' => 'Select the :attribute.',
+			'*.url' => 'Enter the valid :attribute.',
 		];
 	}
 
@@ -261,7 +265,9 @@ class Project extends Component
 			'projectFile' => 'project document',
 			'projectLink' => 'project link',
 			'photographsFiles' => 'photographs',
+			'photographsLink' => 'photographs link',
 			'drawingsFiles' => 'drawings',
+			'drawingsLink' => 'drawings link',
 			'tags' => 'tags',
 			'mediaContact' => 'media contact',
 			'mediaKitAccess' => 'media kit access',
@@ -295,7 +301,9 @@ class Project extends Component
 			'projectFile' => $this->projectFile,
 			'projectLink' => $this->projectLink ? 'http://' . $this->projectLink : null,
 			'photographsFiles' => $this->photographsFiles,
+			'photographsLink' => $this->photographsLink,
 			'drawingsFiles' => $this->drawingsFiles,
+			'drawingsLink' => $this->drawingsLink,
 			'tags' => $this->tags,
 			'mediaContact' => $this->mediaContact,
 			'mediaKitAccess' => $this->mediaKitAccess,
@@ -311,7 +319,7 @@ class Project extends Component
 				'type' => 'success',
 				'message' => 'You have successfully created project.'
 			]);
-			return to_route('architect.add-story.press-release.success');
+			return to_route('architect.add-story.project.success');
 		}
 		$this->dispatch('alert', [
 			'type' => 'warning',

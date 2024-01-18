@@ -32,6 +32,8 @@ return new class extends Migration
 			$table->text('project_brief');
 			$table->text('project_doc_path')->nullable();
 			$table->text('project_doc_link')->nullable();
+			$table->text('photographs_link')->nullable();
+			$table->text('drawings_link')->nullable();
 			/* $table->foreignIdFor(Models\Architect::class, 'media_contact_id');
 			$table->foreignIdFor(Models\ProjectAccess::class); */
             $table->timestamps();
