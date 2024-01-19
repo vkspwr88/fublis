@@ -3,20 +3,28 @@
 		<div class="card-body">
 			@php
 				if (str()->contains($mediaKit->story_type, 'PressRelease')){
-					$title = 'Press Release';
+					$mediaKitTitle = 'Press Release';
+					$mediaKitHeading = $mediaKit->story->concept_note;
+					$mediaKitBody = $mediaKitHeading;
 					$viewRoute = route('architect.media-kit.press-release.view', ['mediaKit' => $mediaKit->slug]);
 					$editRoute = route('architect.media-kit.press-release.edit', ['mediaKit' => $mediaKit->slug]);
 				}
 				elseif (str()->contains($mediaKit->story_type, 'Article')){
-					$title = 'Article';
+					$mediaKitTitle = 'Article';
+					$mediaKitHeading = $mediaKit->story->preview_text;
+					$mediaKitBody = $mediaKitHeading;
 					$viewRoute = route('architect.media-kit.article.view', ['mediaKit' => $mediaKit->slug]);
 					$editRoute = route('architect.media-kit.article.edit', ['mediaKit' => $mediaKit->slug]);
 				}
 				elseif (str()->contains($mediaKit->story_type, 'Project')){
-					$title = 'Project';
+					$mediaKitTitle = 'Project';
+					$mediaKitHeading = $mediaKit->story->project_brief;
+					$mediaKitBody = $mediaKitHeading;
 					$viewRoute = route('architect.media-kit.project.view', ['mediaKit' => $mediaKit->slug]);
 					$editRoute = route('architect.media-kit.project.edit', ['mediaKit' => $mediaKit->slug]);
 				}
+				$mediaKitHeading = str()->length($mediaKitHeading) < 150 ? $mediaKitHeading : str()->substr($mediaKitHeading, 0, 149) . '...';
+				// echo str()->length($mediaKitHeading);
 			@endphp
 			<div class="row g-4">
 				<div class="col-md-4">
@@ -24,11 +32,11 @@
 				</div>
 				<div class="col-md-8">
 					<div class="row justify-content-center pb-2">
-						<p class="text-secondary fs-6 fw-semibold col m-0">{{ $title }}</p>
+						<p class="text-secondary fs-6 fw-semibold col m-0">{{ $mediaKitTitle }}</p>
 						<p class="text-end text-secondary fs-6 fw-semibold col m-0">{{ $mediaKit->category->name }}</p>
 					</div>
 					<h5 class="card-title fs-5 fw-semibold m-0 py-2">
-						<a href="{{ $viewRoute }}" class="text-dark">{{ $mediaKit->story->title }}</a>
+						<a href="{{ $viewRoute }}" class="text-dark">{{ $mediaKitHeading }}</a>
 					</h5>
 					<div class="row align-items-center py-2">
 						<div class="col">
@@ -40,7 +48,7 @@
 							</p>
 						</div>
 					</div>
-					<p class="card-text text-dark fs-6 m-0 py-2">{{ $mediaKit->story->concept_note }}</p>
+					<p class="card-text text-dark m-0 py-2 fs-7">{{ $mediaKitBody }}</p>
 					<div class="row justify-content-center pt-2 position-relative" style="z-index: 2;">
 						<p class="fs-6 fw-bold col m-0">
 							<a href="{{ $editRoute }}" class="text-purple-600">
@@ -48,9 +56,9 @@
 							</a>
 						</p>
 						<p class="text-end fs-5 fw-bold col m-0">
-							<a href="#" class="text-purple-600">
-								<i class="bi bi-share-fill"></i>
-							</a>
+							<button type="button" class="btn btn-primary fs-6 fw-medium">
+								Pitch
+							</button>
 						</p>
 					</div>
 				</div>
