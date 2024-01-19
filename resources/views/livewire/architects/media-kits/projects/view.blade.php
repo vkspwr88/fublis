@@ -20,7 +20,7 @@
 							</p>
 						</div>
 					</div>
-					<p class="card-text text-dark fs-6 m-0 py-2">{{ $project->story->project_brief }}</p>
+					<p class="card-text text-dark fs-6 m-0 py-2">{!! nl2br(e($project->story->project_brief)) !!}</p>
 					<div class="row justify-content-center pt-2 position-relative" style="z-index: 2;">
 						<p class="fs-6 fw-bold col m-0">
 							<a href="{{ route('architect.media-kit.project.edit', ['mediaKit' => $project->id]) }}" class="text-purple-600">

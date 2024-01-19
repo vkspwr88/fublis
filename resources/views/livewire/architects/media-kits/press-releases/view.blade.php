@@ -20,7 +20,7 @@
 							</p>
 						</div>
 					</div>
-					<p class="card-text text-dark fs-6 m-0 py-2">{{ $pressRelease->story->concept_note }}</p>
+					<p class="card-text text-dark fs-6 m-0 py-2">{!! nl2br(e($pressRelease->story->project_brief)) !!}</p>
 					<div class="row justify-content-center pt-2 position-relative" style="z-index: 2;">
 						<p class="fs-6 fw-bold col m-0">
 							<a href="{{ route('architect.media-kit.press-release.edit', ['mediaKit' => $pressRelease->id]) }}" class="text-purple-600">
