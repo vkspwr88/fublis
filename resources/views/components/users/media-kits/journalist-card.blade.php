@@ -3,17 +3,24 @@
 		<div class="card-body">
 			@php
 				if (str()->contains($mediaKit->story_type, 'PressRelease')){
-					$title = 'Press Release';
+					$mediaKitTitle = 'Press Release';
+					$mediaKitHeading = $mediaKit->story->concept_note;
+					$mediaKitBody = $mediaKitHeading;
 					$route = route('journalist.media-kit.press-release.view', ['mediaKit' => $mediaKit->slug]);
 				}
 				elseif (str()->contains($mediaKit->story_type, 'Article')){
-					$title = 'Article';
+					$mediaKitTitle = 'Article';
+					$mediaKitHeading = $mediaKit->story->preview_text;
+					$mediaKitBody = $mediaKitHeading;
 					$route = route('journalist.media-kit.article.view', ['mediaKit' => $mediaKit->slug]);
 				}
 				elseif (str()->contains($mediaKit->story_type, 'Project')){
-					$title = 'Project';
+					$mediaKitTitle = 'Project';
+					$mediaKitHeading = $mediaKit->story->project_brief;
+					$mediaKitBody = $mediaKitHeading;
 					$route = route('journalist.media-kit.project.view', ['mediaKit' => $mediaKit->slug]);
 				}
+				$mediaKitHeading = str()->length($mediaKitHeading) < 150 ? $mediaKitHeading : str()->substr($mediaKitHeading, 0, 149) . '...';
 			@endphp
 			<div class="row">
 				<div class="col-md-4">
@@ -21,10 +28,10 @@
 				</div>
 				<div class="col-md-8">
 					<div class="row justify-content-center pb-2">
-						<p class="text-secondary fs-6 fw-semibold col m-0">{{ $title }}</p>
+						<p class="text-secondary fs-6 fw-semibold col m-0">{{ $mediaKitTitle }}</p>
 						<p class="text-end text-secondary fs-6 fw-semibold col m-0">{{ $mediaKit->category->name }}</p>
 					</div>
-					<h5 class="card-title text-dark fs-5 fw-semibold m-0 py-2">{{ $mediaKit->story->title }}</h5>
+					<h5 class="card-title text-dark fs-5 fw-semibold m-0 py-2">{{ $mediaKitHeading }}</h5>
 					<div class="row align-items-center py-2">
 						<div class="col">
 							<p class="fs-6 fw-bold m-0">
@@ -35,7 +42,7 @@
 							</p>
 						</div>
 					</div>
-					<p class="card-text text-dark fs-6 m-0 py-2">{{ $mediaKit->story->concept_note }}</p>
+					<p class="card-text text-dark fs-7 m-0 py-2">{{ $mediaKitBody }}</p>
 					<div class="row justify-content-center pt-2 position-relative" style="z-index: 2;">
 						<p class="fs-6 fw-bold col m-0">
 							<a href="{{ $route }}" class="btn btn-primary btn-sm rounded-pill">

@@ -38,10 +38,3 @@ function togglePassword(element){
 		$(toggleBtn).html('<i class="bi bi-eye"></i>');
 	}
 }
-
-function shortingText(value){
-    if(value.length <= 150) {
-        return value;
-    }
-    return value.substring(0, 150) + '...';
-}

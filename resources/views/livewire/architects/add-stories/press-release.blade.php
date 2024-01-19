@@ -26,7 +26,7 @@
 								<p class="card-text text-center text-secondary fs-6 m-0 py-2">
 									<label for="inputCoverImage"><span class="text-purple-700 fw-semibold cursor-pointer">Click to upload</span></label> or drag and drop
 								</p>
-								<input type="file" id="inputCoverImage" class="d-none" accept="image/svg,image/png,image/jpg,image/gif" @change="handleFileSelect">
+								<input type="file" id="inputCoverImage" class="d-none" @change="handleFileSelect">
 								<p class="card-text text-center text-secondary fs-6 m-0 py-2">SVG, PNG, JPG or GIF (max. 800x400px)</p>
 								@if($coverImage)
 									<ul class="mt-3 list-disc">
@@ -127,7 +127,7 @@
 								<p class="card-text text-center text-secondary fs-6 m-0 py-2">
 									<label for="inputPressReleaseFile"><span class="text-purple-700 fw-semibold cursor-pointer">Click to upload</span></label> or drag and drop
 								</p>
-								<input type="file" id="inputPressReleaseFile" class="d-none" accept="application/pdf,application/doc,application/docs" @change="handleFileSelect">
+								<input type="file" id="inputPressReleaseFile" class="d-none" @change="handleFileSelect">
 								@if($pressReleaseFile)
 									<ul class="mt-3 list-disc">
 										<li>
@@ -182,7 +182,7 @@
 								<p class="card-text text-center text-secondary fs-6 m-0 py-2">
 									<label for="inputPhotographsFiles"><span class="text-purple-700 fw-semibold cursor-pointer">Click to upload</span></label> or drag and drop
 								</p>
-								<input type="file" id="inputPhotographsFiles" class="d-none" accept="image/svg,image/png,image/jpg,image/gif" @change="handleFilesSelect" multiple>
+								<input type="file" id="inputPhotographsFiles" class="d-none" @change="handleFilesSelect" multiple>
 								@if(count($photographsFiles) > 0)
 									<ul class="mt-3 list-disc">
 										@foreach ($photographsFiles as $photographsFile)

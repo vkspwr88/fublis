@@ -17,34 +17,38 @@
 				@endif
 			</div>
 		</div>
-		<hr class="border-gray-300">
-		<div class="row align-items-center">
-			<div class="col-auto">
-				<p class="text-dark fs-6 m-0">Gallery</p>
+		@if ($mediaKit->story->photographs_link || $mediaKit->story->photographs->where('image_type', 'photographs')->count() > 0)
+			<hr class="border-gray-300">
+			<div class="row align-items-center">
+				<div class="col-auto">
+					<p class="text-dark fs-6 m-0">Gallery</p>
+				</div>
+				<div class="col text-end">
+					<form class="m-0 p-0" action="{{ route('journalist.download.bulk', ['mediaKit' => $mediaKit->slug]) }}" method="post">
+						@csrf
+						<input type="hidden" value="photographs" name="file">
+						<input type="hidden" name="type" value="Gallery">
+						<button type="submit" class="btn btn-primary fs-6 fw-medium">Download</button>
+					</form>
+				</div>
 			</div>
-			<div class="col text-end">
-				<form class="m-0 p-0" action="{{ route('journalist.download.bulk', ['mediaKit' => $mediaKit->slug]) }}" method="post">
-					@csrf
-					<input type="hidden" value="photographs" name="file">
-					<input type="hidden" name="type" value="Gallery">
-					<button type="submit" class="btn btn-primary fs-6 fw-medium">Download</button>
-				</form>
+		@endif
+		@if ($mediaKit->story->drawings_link || $mediaKit->story->drawings->where('image_type', 'drawings')->count() > 0)
+			<hr class="border-gray-300">
+			<div class="row align-items-center">
+				<div class="col-auto">
+					<p class="text-dark fs-6 m-0">Render/Drawings</p>
+				</div>
+				<div class="col text-end">
+					<form class="m-0 p-0" action="{{ route('journalist.download.bulk', ['mediaKit' => $mediaKit->slug]) }}" method="post">
+						@csrf
+						<input type="hidden" value="drawings" name="file">
+						<input type="hidden" name="type" value="Drawings">
+						<button type="submit" class="btn btn-primary fs-6 fw-medium">Download</button>
+					</form>
+				</div>
 			</div>
-		</div>
-		<hr class="border-gray-300">
-		<div class="row align-items-center">
-			<div class="col-auto">
-				<p class="text-dark fs-6 m-0">Render/Drawings</p>
-			</div>
-			<div class="col text-end">
-				<form class="m-0 p-0" action="{{ route('journalist.download.bulk', ['mediaKit' => $mediaKit->slug]) }}" method="post">
-					@csrf
-					<input type="hidden" value="drawings" name="file">
-					<input type="hidden" name="type" value="Drawings">
-					<button type="submit" class="btn btn-primary fs-6 fw-medium">Download</button>
-				</form>
-			</div>
-		</div>
+		@endif
 	@else
 		<div class="row">
 			<div class="col">
