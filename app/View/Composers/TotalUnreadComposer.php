@@ -18,10 +18,10 @@ class TotalUnreadComposer
     public function compose(View $view): void
     {
 		$view->with([
-			// 'totalUnreadNotifications' => NotificationController::getTotalUnread(),
-			// 'totalUnreadMessages' => MessageController::getTotalUnread(),
-			'totalUnreadNotifications' => 9,
-			'totalUnreadMessages' => 10,
+			'totalUnreadNotifications' => NotificationController::getTotalUnread(),
+			'totalUnreadMessages' => MessageController::getTotalUnread(),
+			// 'totalUnreadNotifications' => 9,
+			// 'totalUnreadMessages' => 10,
 		]);
 	}
 }
