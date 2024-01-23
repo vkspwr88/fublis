@@ -133,5 +133,4 @@
 	</div>
 
 	@include('users.includes.architect.pitch-story-modals')
-	@include('users.includes.architect.pitch-story-modals-success-publication')
 </div>

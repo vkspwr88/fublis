@@ -4,6 +4,7 @@ use App\Enums\Users\Architects\UserRoleEnum;
 use App\Enums\Users\UserTypeEnum;
 use Illuminate\Support\Arr;
 use App\Models;
+use Carbon\Carbon;
 
 if (!function_exists('filterFileName')) {
     function filterFileName($fileName)
@@ -51,6 +52,22 @@ if (!function_exists('showModelName')) {
 					)
 				);
     }
+}
+
+if (!function_exists('getProjectBrief')) {
+	function getProjectBrief($mediaKit)
+	{
+		$type = showModelName($mediaKit->story_type);
+		if($type === 'Press Release'){
+			return $mediaKit->story->concept_note;
+		}
+		elseif($type === 'Article'){
+			return $mediaKit->story->preview_text;
+		}
+		elseif($type === 'Project'){
+			return $mediaKit->story->project_brief;
+		}
+	}
 }
 
 if (!function_exists('getMediaKitViewUrl')) {
@@ -108,5 +125,12 @@ if (!function_exists('getJournalistNotificationType')) {
 		elseif ($model instanceof Models\Pitch){
 			return'users.includes.journalist.notification.receive-media-kit-notification';
 		}
+	}
+}
+
+if (!function_exists('formatDate')) {
+	function formatDate($date)
+	{
+		return Carbon::parse($date)->format('jS F Y');
 	}
 }

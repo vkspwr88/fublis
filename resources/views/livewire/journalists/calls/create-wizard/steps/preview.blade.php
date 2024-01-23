@@ -23,7 +23,7 @@
 	<hr class="border-gray-300 my-4">
 	<div class="row justify-content-center">
 		<div class="col-md-9">
-			@include('livewire.journalists.calls.view')
+			@include('livewire.journalists.calls.view', ['viewAs' => 'journalist'])
 			<hr class="border-gray-300 my-3">
 			<div class="row g-4">
 				<div class="col">

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Users\Architects\Accounts;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Users\ArchitectController;
 use App\Http\Controllers\Users\MediaKitController;
+use App\Http\Controllers\Users\NotificationController;
 use Illuminate\Http\Request;
 
 class ProfileController extends Controller
@@ -32,6 +33,7 @@ class ProfileController extends Controller
 
 	public function notification()
 	{
+		NotificationController::markAsRead();
 		return view('users.pages.architects.accounts.profile.notification');
 	}
 

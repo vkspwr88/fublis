@@ -15,19 +15,49 @@ class LanguageSeeder extends Seeder
     {
         $data = [
 			[
-				'name' => 'english',
+				'name' => 'English',
 			],
 			[
-				'name' => 'spanish',
+				'name' => 'Arabic',
 			],
 			[
-				'name' => 'french',
+				'name' => 'French',
 			],
 			[
-				'name' => 'german',
+				'name' => 'German',
 			],
 			[
-				'name' => 'italian',
+				'name' => 'Hindi',
+			],
+			[
+				'name' => 'Indonesian',
+			],
+			[
+				'name' => 'Italian',
+			],
+			[
+				'name' => 'Japanese',
+			],
+			[
+				'name' => 'Korean',
+			],
+			[
+				'name' => 'Mandarin Chinese',
+			],
+			[
+				'name' => 'Portuguese',
+			],
+			[
+				'name' => 'Russian',
+			],
+			[
+				'name' => 'Spanish',
+			],
+			[
+				'name' => 'Turkish',
+			],
+			[
+				'name' => 'Vietnamese',
 			],
 		];
 

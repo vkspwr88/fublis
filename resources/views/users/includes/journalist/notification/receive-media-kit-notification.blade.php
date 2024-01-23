@@ -24,5 +24,9 @@
 				"{!! $notification->message !!}"
 			</p>
 		</div>
+		<div class="col text-end">
+			<a href="{{ route('journalist.media-kit.view', ['mediaKit' => $notification->notifiable->mediaKit->slug]) }}" class="btn btn-primary fs-6 fw-medium">View Media Kit</a>
+			<a href="{{ route('journalist.account.profile.message.index', ['chat' => $notification->notifiable->mediaKit->slug]) }}" class="btn btn-primary fs-6 fw-medium">Read Full Message</a>
+		</div>
 	@endif
 </div>

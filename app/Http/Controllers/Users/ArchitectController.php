@@ -45,7 +45,7 @@ class ArchitectController extends Controller
 							'user',
 							'profileImage',
 							'position',
-							'location',
+							'location.state.country',
 							'company',
 						])->where('user_id', $userId)
 						->first();
@@ -56,6 +56,7 @@ class ArchitectController extends Controller
 		return $model->load([
 							'profileImage',
 							'position',
+							'location',
 							'user',
 							'company' => [
 								'profileImage',

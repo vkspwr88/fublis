@@ -66,7 +66,7 @@ class SettingService
 					'name' => $details['publicationName'],
 					'website' => $details['website'],
 					'location_id' => $location->id,
-					'language_id' => $details['language'],
+					// 'language_id' => $details['language'],
 					'about_me' => $details['aboutMe'],
 					'added_by' => $journalist->id,
 				]);
@@ -78,6 +78,10 @@ class SettingService
 				$publication->categories()->sync($details['selectedCategories']);
 				// publication types
 				$publication->publicationTypes()->sync($details['selectedPublicationTypes']);
+				// publish from
+				$publication->publishFrom()->sync($details['selectedPublishFrom']);
+				// publication languages
+				$publication->languages()->sync($details['selectedLanguages']);
 			}
 			else{
 				$publication = PublicationController::findById($details['publicationId']);
@@ -85,7 +89,7 @@ class SettingService
 					'name' => $details['publicationName'],
 					'website' => $details['website'],
 					'location_id' => $location->id,
-					'language_id' => $details['language'],
+					// 'language_id' => $details['language'],
 					'about_me' => $details['aboutMe'],
 				]);
 				// journalist position in publication
@@ -101,6 +105,10 @@ class SettingService
 				$publication->categories()->sync($details['selectedCategories']);
 				// publication types
 				$publication->publicationTypes()->sync($details['selectedPublicationTypes']);
+				// publish from
+				$publication->publishFrom()->sync($details['selectedPublishFrom']);
+				// publication languages
+				$publication->languages()->sync($details['selectedLanguages']);
 			}
 
 			// publication logo
@@ -178,7 +186,7 @@ class SettingService
 					'name' => $details['publicationName'],
 					'website' => $details['website'],
 					'location_id' => $location->id,
-					'language_id' => $details['language'],
+					// 'language_id' => $details['language'],
 					'about_me' => $details['aboutMe'],
 					'added_by' => $journalist->id,
 				]);
@@ -190,6 +198,10 @@ class SettingService
 				$publication->categories()->sync($details['selectedCategories']);
 				// publication types
 				$publication->publicationTypes()->sync($details['selectedPublicationTypes']);
+				// publish from
+				$publication->publishFrom()->sync($details['selectedPublishFrom']);
+				// publication languages
+				$publication->languages()->sync($details['selectedLanguages']);
 			}
 			else{
 				$publication = PublicationController::findById($details['publicationId']);
@@ -197,7 +209,7 @@ class SettingService
 					'name' => $details['publicationName'],
 					'website' => $details['website'],
 					'location_id' => $location->id,
-					'language_id' => $details['language'],
+					// 'language_id' => $details['language'],
 					'about_me' => $details['aboutMe'],
 				]);
 				// journalist position in publication
@@ -213,6 +225,10 @@ class SettingService
 				$publication->categories()->sync($details['selectedCategories']);
 				// publication types
 				$publication->publicationTypes()->sync($details['selectedPublicationTypes']);
+				// publish from
+				$publication->publishFrom()->sync($details['selectedPublishFrom']);
+				// publication languages
+				$publication->languages()->sync($details['selectedLanguages']);
 			}
 
 			// publication logo

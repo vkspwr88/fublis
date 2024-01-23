@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Users;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Users\StoreMessageRequest;
+use App\Models\Chat;
 use App\Services\ChatService;
 use Illuminate\Http\Request;
 
@@ -35,5 +36,16 @@ class MessageController extends Controller
 			'user_id' => auth()->id(),
 			'message' => $validated['newMessage'],
 		]);
+	}
+	
+	public static function getTotalUnread()
+	{
+		return Chat::where([
+			'sender_id' => auth()->id(),
+			'sender_unread' => true,
+		])->count + Chat::where([
+			'receiver_id' => auth()->id(),
+			'receiver_unread' => true,
+		])->count;
 	}
 }

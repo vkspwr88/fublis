@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+use App\Models\PublishFrom;
 use App\Models\TeamSize;
 use Illuminate\Database\Seeder;
 
@@ -34,6 +35,7 @@ class DatabaseSeeder extends Seeder
 			ProjectAccessSeeder::class,
 			ProjectStatusSeeder::class,
 			PublicationTypeSeeder::class,
+			PublishFrom::class,
 			SettingSeeder::class,
 			TeamSizeSeeder::class,
 			SocialMediaSeeder::class,

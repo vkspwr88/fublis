@@ -109,6 +109,8 @@ class JournalistService
 					'location_id' => $location->id,
 				]);
 				$publication->categories()->attach($details['publication']['categories']);
+				$publication->languages()->attach($details['publication']['languages']);
+				$publication->publishFrom()->attach($details['publication']['publishFrom']);
 				$publication->publicationTypes()->attach($details['publication']['publicationTypes']);
 				$publicationId = $publication->id;
 			}

@@ -1,4 +1,5 @@
 <div class="row g-3">
+	@if($journalist->user_id === auth()->id())
 	<div class="col-12">
 		<div class="card rounded-4 shadow border-0 bg-light">
 			<div class="card-body">
@@ -95,5 +96,6 @@
 			</div>
 		</div>
 	</div>
+	@endif
 	<x-users.profile.journalist-post :posts="$posts" />
 </div>

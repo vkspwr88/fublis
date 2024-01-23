@@ -12,4 +12,7 @@
 			"{!! $notification->message !!}"
 		</p>
 	</div>
+	<div class="col text-end">
+		<a href="{{ route('journalist.account.profile.message.index', ['chat' => $notification->notifiable->chat_id, 'chatMessage' => $notification->notifiable->id]) }}" class="btn btn-primary">View Message</a>
+	</div>
 </div>

@@ -8,10 +8,12 @@ use App\Http\Controllers\Users\LocationController;
 use App\Http\Controllers\Users\PublicationTypeController;
 use App\Services\PitchStoryService;
 use Carbon\Carbon;
+use Livewire\Attributes\Lazy;
 use Livewire\Attributes\Renderless;
 use Livewire\Component;
 use Livewire\WithPagination;
 
+#[Lazy]
 class Calls extends Component
 {
 	use WithPagination;
@@ -28,9 +30,12 @@ class Calls extends Component
 	public $selectedPubliationTypes = [];
 	public $selectedCategories = [];
 
+	public $associatedPublications;
+	public $selectedAssociatedPublication;
+
 	public $journalists = [];
 	public $selectedCall = '';
-	public $call = [];
+	public $call;
 	public $selectedJournalist = '';
 	public $journalist;
 	public $selectedMediaKit = '';
@@ -45,6 +50,7 @@ class Calls extends Component
 
 	public function mount()
 	{
+		$this->associatedPublications = collect([]);
 		$this->journalist = collect([]);
 		$this->mediaKits = collect([]);
 		$this->name = '';
@@ -112,7 +118,8 @@ class Calls extends Component
 								'journalist' => [
 									'publications',
 									'user',
-								]
+								],
+								'publication'
 							]);
 		$this->selectedJournalist = $this->call->journalist_id;
 		$this->journalist = $this->call->journalist;
@@ -136,7 +143,9 @@ class Calls extends Component
 		}
 		$mediaKit = $this->mediaKits->find($this->selectedMediaKit);
 		$this->subject = 'New ' . showModelName($mediaKit->story_type) . ' | ' . $mediaKit->story->title;
-		$this->message = "Hi " . $this->journalist->user->name . ",\n\nI'm writing to you about our latest story " . $mediaKit->story->title . " for your consideration.\n\n[Concept note] The site located in a rural town of Thottara, 12kms away from Mannarkkad town. Site was a contour site with a level difference of about 10m from West to East with a slope of 1:8m.\n\nIt would be great to have it published in " . $this->journalist->publications[0]->name . ". I would be happy to share any more information that you might need.\n\nRegards,\n" . auth()->user()->name . "";
+		// $this->message = "Hi " . $this->journalist->user->name . ",\n\nI'm writing to you about our latest story " . $mediaKit->story->title . " for your consideration.\n\n[Concept note] The site located in a rural town of Thottara, 12kms away from Mannarkkad town. Site was a contour site with a level difference of about 10m from West to East with a slope of 1:8m.\n\nIt would be great to have it published in " . $this->journalist->publications[0]->name . ". I would be happy to share any more information that you might need.\n\nRegards,\n" . auth()->user()->name . "";
+		$this->message = "Hi " . $this->journalist->user->name . ",\n\nI'm writing to you about our latest story <a href='" . route('journalist.media-kit.view', ['mediaKit' => $mediaKit->slug]) . "' class='text-purple-800'>" . $mediaKit->story->title . "</a> for your consideration.\n\n" . getProjectBrief($mediaKit) . "\n\nIt would be great to have it published in " . $this->call->publication->name . ". I would be happy to share any more information that you might need.\n\nRegards,\n" . auth()->user()->name . "";
+		// $this->message = "Hi " . $this->journalist->user->name . ",\n\n" . getProjectBrief($mediaKit) . "\n\nRegards,\n" . auth()->user()->name . "";
 		$this->dispatch('hide-select-mediakit-modal');
 		$this->dispatch('show-send-message-modal');
 	}
@@ -167,9 +176,10 @@ class Calls extends Component
 			'mediaKitTitle' => $mediaKit->story->title,
 			'subject' => $this->subject,
 			'message' => $this->message,
+			'publicationId' => $this->call->publication_id,
 		])){
 			$this->dispatch('hide-send-message-modal');
-			$this->dispatch('show-pitch-success-modal');
+			$this->dispatch('show-pitch-call-success-modal');
 			return;
 		}
 		$this->dispatch('alert', [

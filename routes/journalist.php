@@ -17,6 +17,7 @@ Route::middleware(JournalistLogin::class)->group(function() {
 
 	Route::name('call.')->prefix('invite-story')->group(function () {
 		Route::get('/', [Journalists\CallController::class, 'index'])->name('index');
+		Route::get('/all', [Journalists\CallController::class, 'all'])->name('all');
 		Route::get('/create', [Journalists\CallController::class, 'create'])->name('create');
 		Route::get('/{call:slug}/view', [Journalists\CallController::class, 'view'])->name('view');
 		Route::get('/{call:slug}/edit', [Journalists\CallController::class, 'edit'])->name('edit');
@@ -50,6 +51,15 @@ Route::middleware(JournalistLogin::class)->group(function() {
 	Route::name('account.')->prefix('account')->group(function () {
 		Route::name('profile.')->prefix('profile')->group(function () {
 			Route::get('/', [Journalists\Accounts\ProfileController::class, 'index'])->name('index');
+			Route::name('journalists.')->prefix('journalists')->group(function () {
+				Route::get('/', [Journalists\Accounts\Profile\JournalistController::class, 'index'])->name('index');
+				Route::get('/{journalist:slug}', [Journalists\Accounts\Profile\JournalistController::class, 'view'])->name('view');
+			});
+			Route::name('publications.')->prefix('publications')->group(function () {
+				Route::get('/', [Journalists\Accounts\Profile\PublicationController::class, 'index'])->name('index');
+				Route::get('/{publication:slug}', [Journalists\Accounts\Profile\PublicationController::class, 'view'])->name('view');
+			});
+
 			Route::get('/notifications', [Journalists\Accounts\ProfileController::class, 'notification'])->name('notification');
 			Route::name('message.')->prefix('messages')->group(function () {
 				Route::get('/', [Journalists\Accounts\Profile\MessageController::class, 'index'])->name('index');

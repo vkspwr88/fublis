@@ -15,7 +15,7 @@ class MessageController extends Controller
 		$this->chatService = $chatService;
 	}
 
-    public function index()
+    public function index(Request $request)
 	{
 		$subjects = $this->chatService->getUserChats();
 		$chatId = $subjects->count() ? $subjects[0]->id : '';

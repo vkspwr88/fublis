@@ -28,11 +28,24 @@
 								</p>
 								<input type="file" id="inputCoverImage" class="d-none" @change="handleFileSelect">
 								<p class="card-text text-center text-secondary fs-6 m-0 py-2">SVG, PNG, JPG or GIF (max. 800x400px)</p>
+								{{-- @php
+									$profileImageSrc = 'https://via.placeholder.com/64x64';
+									//if(method_exists($profileImage, 'temporaryUrl')){
+									if($profileImage && method_exists($profileImage, 'temporaryUrl')){
+										$profileImageSrc = $profileImage->temporaryUrl();
+									}
+									elseif ($profileImageOld) {
+										$profileImageSrc = Storage::url($profileImageOld->image_path);
+									}
+								@endphp --}}
 								@if($coverImage)
-									<ul class="mt-3 list-disc">
+									<ul class="mt-3 text-center" style="list-style: none;">
 										<li>
-											{{ $coverImage->getClientOriginalName() }}
-											<button type="button" class="btn btn-link text-danger text-decoration-none" @click="removeUpload('{{ $coverImage->getFilename() }}')">X</button>
+											<img class="img-fluid img-thumbnail" src="{{ $coverImage->temporaryUrl() }}" alt="">
+											{{-- {{ $coverImage->getClientOriginalName() }} --}}
+										</li>
+										<li class="mt-2">
+											<button type="button" class="btn btn-primary fs-6 fw-medium" @click="removeUpload('{{ $coverImage->getFilename() }}')">Remove</button>
 										</li>
 									</ul>
 								@endif
@@ -158,7 +171,7 @@
 	<div class="row">
 		<div class="col-md-4">
 			<label for="inputText" class="col-form-label text-dark fs-6 fw-medium">Upload Photographs</label>
-			<label class="d-block form-text text-secondary fs-7 m-0">Choose the best high-resolution images</label>
+			<label class="d-block form-text text-secondary fs-7 m-0">Choose the best images (maximum upload limit 4MB each image)</label>
 		</div>
 		<div class="col-md-8">
 			<div class="card mb-2">
@@ -180,22 +193,22 @@
 									</div>
 								</div>
 								<p class="card-text text-center text-secondary fs-6 m-0 py-2">
-									<label for="inputPhotographsFiles"><span class="text-purple-700 fw-semibold cursor-pointer">Click to upload</span></label> or drag and drop
+									<label for="photographsFiles"><span class="text-purple-700 fw-semibold cursor-pointer">Click to upload</span></label> or drag and drop
 								</p>
-								<input type="file" id="inputPhotographsFiles" class="d-none" @change="handleFilesSelect" multiple>
+								<input type="file" id="photographsFiles" class="d-none" @change="handleFilesSelect" multiple>
 								@if(count($photographsFiles) > 0)
-									<ul class="mt-3 list-disc">
+									<ul class="d-flex flex-wrap mt-3" style="list-style: none;">
 										@foreach ($photographsFiles as $photographsFile)
-										<li>
-											{{ $photographsFile->getClientOriginalName() }}
-											<button type="button" class="btn btn-link text-danger text-decoration-none" @click="removeUpload('{{ $photographsFile->getFilename() }}')">X</button>
-										</li>
+											<li class="position-relative p-2">
+												<img class="img-fluid img-thumbnail" width="150" src="{{ $photographsFile->temporaryUrl() }}" alt="">
+												<button type="button" class="btn btn-sm btn-secondary rounded-circle text-decoration-none position-absolute end-0 top-0" @click="removeUpload('{{ $photographsFile->getFilename() }}')">X</button>
+											</li>
 										@endforeach
 									</ul>
 								@endif
 								<div x-show="isUploading" style="display: none;">
 									<div class="progress">
-										<div class="progress-bar bg-primary" role="progressbar" aria-valuemin="0" aria-valuemax="100" :style="`width: ${progress}%;`"></div>
+										<div class="progress-bar bg-primary" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="transition: width 1s" :style="`width: ${progress}%;`"></div>
 									</div>
 								</div>
 							</div>
@@ -227,6 +240,7 @@
 				</div>
 			</div>
 			@error('photographsFiles')<div class="error">{{ $message }}</div>@enderror
+			@error('photographsFiles.*')<div class="error">{{ $message }}</div>@enderror
 			<div class="input-group">
 				<span class="input-group-text bg-white" id="basic-addon1">http://</span>
 				<input type="text" class="form-control @error('photographsLink') is-invalid @enderror" wire:model="photographsLink" placeholder="Insert drive link" aria-describedby="basic-addon1">
@@ -287,13 +301,13 @@
 				handleFileSelect(event) {
 					if (event.target.files.length) {
 						//console.log(event.target);
-						console.log('uploading');
+						// console.log('uploading single');
 						this.uploadFile(event.target.files[0])
 					}
 				},
 				handleFileDrop(event) {
 					if (event.dataTransfer.files.length > 0) {
-						console.log('dropping&uploading');
+						// console.log('dropping&uploading');
 						this.uploadFile(event.dataTransfer.files[0])
 					}
 				},
@@ -309,11 +323,13 @@
 							console.log('error', error)
 						},
 						function (event) {  //upload progress was made
+							// console.log('progress', event.detail.progress);
 							$this.progress = event.detail.progress
 						}
 					)
 				},
 				handleFilesSelect(event) {
+					// console.log('uploading multiple');
 					if (event.target.files.length) {
 						this.uploadFiles(event.target.files)
 					}
@@ -324,18 +340,27 @@
 					}
 				},
 				uploadFiles(files) {
-					const $this = this
-					this.isUploading = true
+					const $this = this;
+					this.isUploading = true;
+					// const selector = document.querySelector('#' + element);
+					// const filesList = [...selector.files, files];
+					// let images = Livewire.all()[0].snapshot.data[element][0];
+					// console.log('old images', images);
 					@this.uploadMultiple(element, files,
 						function (success) {  //upload was a success and was finished
-							$this.isUploading = false
-							$this.progress = 0
+							$this.isUploading = false;
+							$this.progress = 0;
+							// let newImages = Livewire.all()[0].snapshot.data[element][0];
+							// console.log('new images', newImages);
+							// Livewire.all()[0].snapshot.data[element][0] = images.concat(newImages);
+							// console.log('merged images', Livewire.all()[0].snapshot.data[element]);
 						},
 						function(error) {  //an error occured
 							console.log('error', error)
 						},
 						function (event) {  //upload progress was made
-							$this.progress = event.detail.progress
+							// console.log('progress', event.detail.progress);
+							$this.progress = event.detail.progress;
 						}
 					)
 				},

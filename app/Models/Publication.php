@@ -92,6 +92,26 @@ class Publication extends Model
 		);
 	}
 
+	public function languages(): BelongsToMany
+	{
+		return $this->belongsToMany(
+			Language::class,
+			'publication_languages',
+			'publication_id',
+			'language_id',
+		);
+	}
+
+	public function publishFrom(): BelongsToMany
+	{
+		return $this->belongsToMany(
+			PublishFrom::class,
+			'publication_publish_froms',
+			'publication_id',
+			'publish_from_id',
+		);
+	}
+
 	public function calls(): HasMany
 	{
 		return $this->hasMany(Call::class);

@@ -20,7 +20,7 @@ class JournalistController extends Controller
 						'user',
 						'profileImage',
 						'language',
-						'location',
+						'location.state.country',
 						'publications' => [
 							'profileImage',
 							'categories'

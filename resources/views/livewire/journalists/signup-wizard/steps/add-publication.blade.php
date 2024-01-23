@@ -65,6 +65,34 @@
 												@error('selectedCity')<div class="invalid-feedback">{{ $message }}</div>@enderror
 											</div>
 											<div class="mb-3">
+												<label class="form-label text-dark fs-6 fw-medium">Language</label>
+												<div class="row">
+													@foreach ($languages as $language)
+													<div class="col-6">
+														<div class="form-check">
+															<input class="form-check-input" type="checkbox" value="{{ $language->id }}" id="language-{{ $language->id }}" wire:model="checkedLanguage">
+															<label class="form-check-label" for="language-{{ $language->id }}">{{ $language->name }}</label>
+														</div>
+													</div>
+													@endforeach
+												</div>
+												@error('checkedLanguage')<div class="error">{{ $message }}</div>@enderror
+											</div>
+											<div class="mb-3">
+												<label class="form-label text-dark fs-6 fw-medium">Publish Stories From</label>
+												<div class="row">
+													@foreach ($publishFrom as $publish)
+													<div class="col-6">
+														<div class="form-check">
+															<input class="form-check-input" type="checkbox" value="{{ $publish->id }}" id="publish-{{ $publish->id }}" wire:model="checkedPublishFrom">
+															<label class="form-check-label" for="publish-{{ $publish->id }}">{{ $publish->name }}</label>
+														</div>
+													</div>
+													@endforeach
+												</div>
+												@error('checkedPublishFrom')<div class="error">{{ $message }}</div>@enderror
+											</div>
+											<div class="mb-3">
 												<label class="form-label text-dark fs-6 fw-medium">Publication Type</label>
 												<div class="row">
 													@foreach ($publicationTypes as $publicationType)

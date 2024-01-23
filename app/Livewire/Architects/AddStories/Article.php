@@ -101,7 +101,7 @@ class Article extends Component
 			'companyProfileLink' => 'nullable|url',
 			// 'companyProfileLink' => 'nullable|required_without:companyProfileFile|url',
 			'imagesFiles' => 'nullable|array',
-			'imagesFiles.*' => 'nullable|image|mimes:svg,png,jpg,gif',
+			'imagesFiles.*' => 'nullable|image|mimes:svg,png,jpg,gif|max:4200',
 			'imagesLink' => 'nullable|url',
 			/* 'imagesFiles.*' => 'image|mimes:svg,png,jpg,gif',
 			'imagesLink' => 'nullable|required_without:imagesFiles|url', */
@@ -133,6 +133,7 @@ class Article extends Component
 			'companyProfileLink.required_without' => 'Enter the :attribute or upload the file.',
 			'imagesFiles.*.image' => 'The :attribute supports only image.',
 			'imagesFiles.*.mimes' => 'The :attribute supports only svg, png, jpg or gif.',
+			'imagesFiles.*.max' => 'Maximum allowed size to upload :attribute 4MB.',
 			'imagesLink.url' => 'Enter the valid :attribute.',
 			'imagesLink.required_without' => 'Enter the :attribute or upload the file.',
 			'tags.required' => 'Enter the :attribute.',

@@ -238,6 +238,11 @@ a.text-purple-600:hover{
 	top: 45px;
 }
 
+.notification-badge{
+	width: 20px;
+	height: 20px;
+}
+
 .footer-logo{
 	width: 130px;
 }

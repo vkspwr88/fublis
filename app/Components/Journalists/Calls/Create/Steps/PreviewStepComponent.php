@@ -6,6 +6,7 @@ use App\Http\Controllers\Users\CategoryController;
 use App\Http\Controllers\Users\LanguageController;
 use App\Http\Controllers\Users\LocationController;
 use App\Http\Controllers\Users\PublicationController;
+use App\Http\Controllers\Users\PublishFromController;
 use App\Services\CallService;
 use Spatie\LivewireWizard\Components\StepComponent;
 
@@ -27,7 +28,10 @@ class PreviewStepComponent extends StepComponent
 			'submittedBy' => auth()->user()->name,
 			'description' => $call['description'],
 			'selectedCity' => $call['selectedCity'],
+			'selectedStateName' => $call['selectedStateName'],
+			'selectedCountryName' => $call['selectedCountryName'],
 			// 'location' => LocationController::findById($call['location']),
+			'selectedPublishFrom' => PublishFromController::findById($call['selectedPublishFrom']),
 			'publication' => PublicationController::findById($call['publication']),
 			'language' => LanguageController::findById($call['language']),
 			'submissionEndsDate' => $call['submissionEndsDate'],

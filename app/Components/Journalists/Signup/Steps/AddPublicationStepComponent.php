@@ -23,6 +23,8 @@ class AddPublicationStepComponent extends StepComponent
 	public $selectedCountry;
 	public $selectedState;
 	public $selectedCity;
+	public $checkedLanguage = [];
+	public $checkedPublishFrom = [];
 	public $checkedPublicationTypes = [];
 	public $checkedCategories = [];
 
@@ -55,6 +57,8 @@ class AddPublicationStepComponent extends StepComponent
 			$data = [
 				//'locations' => Controllers\Users\LocationController::getAll(),
 				'categories' => Controllers\Users\CategoryController::getAll(),
+				'languages' => Controllers\Users\LanguageController::getAll(),
+				'publishFrom' => Controllers\Users\PublishFromController::getAll(),
 				'publicationTypes' => Controllers\Users\PublicationTypeController::getAll(),
 				'countries' => Controllers\Users\LocationController::getCountries(),
 				'states' => Controllers\Users\LocationController::getStatesByCountryId($this->selectedCountry),
@@ -96,6 +100,10 @@ class AddPublicationStepComponent extends StepComponent
 			'selectedCountry' => 'required|exists:countries,id',
 			'selectedState' => 'required|exists:states,id',
 			'selectedCity' => 'required|exists:cities,name',
+			'checkedLanguage' => 'required|array',
+			'checkedLanguage.*' => 'exists:languages,id',
+			'checkedPublishFrom' => 'required|array',
+			'checkedPublishFrom.*' => 'exists:publish_from,id',
 			'checkedPublicationTypes' => 'required|array',
 			'checkedPublicationTypes.*' => 'exists:publication_types,id',
 			'checkedCategories' => 'required|array',
@@ -113,13 +121,16 @@ class AddPublicationStepComponent extends StepComponent
 			'selectedCountry.required' => 'Select the :attribute.',
 			'selectedState.required' => 'Select the :attribute.',
 			'selectedCity.required' => 'Select the :attribute.',
-			'*.exists' => 'Check the valid :attribute.',
+			'checkedLanguage.required' => 'Check the :attribute.',
+			'checkedPublishFrom.required' => 'Check the :attribute.',
 			'checkedPublicationTypes.required' => 'Check the :attribute.',
-			'checkedPublicationTypes.array' => 'Check atleast one :attribute.',
-			'checkedPublicationTypes.*.exists' => 'Check the valid :attribute.',
+			// 'checkedPublicationTypes.array' => 'Check atleast one :attribute.',
+			// 'checkedPublicationTypes.*.exists' => 'Check the valid :attribute.',
 			'checkedCategories.required' => 'Check the :attribute.',
-			'checkedCategories.array' => 'Check atleast one :attribute.',
-			'checkedCategories.*.exists' => 'Check the valid :attribute.',
+			// 'checkedCategories.array' => 'Check atleast one :attribute.',
+			'*.array' => 'Check atleast one :attribute.',
+			'*.exists' => 'Select the valid :attribute.',
+			'*.*.exists' => 'Check the valid :attribute.',
 		];
 	}
 
@@ -132,6 +143,8 @@ class AddPublicationStepComponent extends StepComponent
 			'selectedCountry' => 'country',
 			'selectedState' => 'state',
 			'selectedCity' => 'city',
+			'checkedLanguage' => 'language',
+			'checkedPublishFrom' => 'publish from',
 			'checkedPublicationTypes' => 'publication type',
 			'checkedCategories' => 'category',
 		];
@@ -146,6 +159,8 @@ class AddPublicationStepComponent extends StepComponent
 			'selectedCountry' => $this->selectedCountry,
 			'selectedState' => $this->selectedState,
 			'selectedCity' => $this->selectedCity,
+			'checkedLanguage' => $this->checkedLanguage,
+			'checkedPublishFrom' => $this->checkedPublishFrom,
 			'checkedPublicationTypes' => $this->checkedPublicationTypes,
 			'checkedCategories' => $this->checkedCategories,
 		];

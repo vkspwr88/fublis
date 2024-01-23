@@ -1,5 +1,12 @@
 @push('scripts')
 	<script>
+		window.addEventListener('hide-select-publication-modal', event => {
+			$('#selectPublicationModal').modal('hide');
+		});
+		window.addEventListener('show-select-publication-modal', event => {
+			$('#selectPublicationModal').modal('show');
+		});
+
 		window.addEventListener('hide-select-contact-modal', event => {
 			$('#selectContactModal').modal('hide');
 		});
@@ -21,11 +28,25 @@
 			$('#sendMessageModal').modal('show');
 		});
 
-		window.addEventListener('hide-pitch-success-modal', event => {
-			$('#pitchSuccessModal').modal('hide');
+		window.addEventListener('hide-pitch-publication-success-modal', event => {
+			$('#pitchPublicationSuccessModal').modal('hide');
 		});
-		window.addEventListener('show-pitch-success-modal', event => {
-			$('#pitchSuccessModal').modal('show');
+		window.addEventListener('show-pitch-publication-success-modal', event => {
+			$('#pitchPublicationSuccessModal').modal('show');
+		});
+
+		window.addEventListener('hide-pitch-journalist-success-modal', event => {
+			$('#pitchJournalistSuccessModal').modal('hide');
+		});
+		window.addEventListener('show-pitch-journalist-success-modal', event => {
+			$('#pitchJournalistSuccessModal').modal('show');
+		});
+
+		window.addEventListener('hide-pitch-call-success-modal', event => {
+			$('#pitchCallSuccessModal').modal('hide');
+		});
+		window.addEventListener('show-pitch-call-success-modal', event => {
+			$('#pitchCallSuccessModal').modal('show');
 		});
 	</script>
 @endpush

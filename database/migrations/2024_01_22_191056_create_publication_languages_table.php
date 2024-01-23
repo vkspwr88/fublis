@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Language;
+use App\Models\Publication;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -12,8 +13,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('publications', function (Blueprint $table) {
-            $table->foreignIdFor(Language::class)->nullable()->after('location_id');
+        Schema::create('publication_languages', function (Blueprint $table) {
+            $table->foreignIdFor(Publication::class);
+			$table->foreignIdFor(Language::class);
         });
     }
 
@@ -22,8 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('publications', function (Blueprint $table) {
-            $table->dropColumn('language_id');
-        });
+        Schema::dropIfExists('publication_languages');
     }
 };

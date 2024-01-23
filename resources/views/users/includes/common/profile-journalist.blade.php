@@ -10,13 +10,14 @@
 			</div>
 			<div class="col-12">
 				@if($viewAs == 'architect')
-				<livewire:architects.journalist-pitch :journalist="$journalist" />
-				@elseif ($viewAs == 'journalist')
+				<livewire:architects.pitch-stories.journalist-view :journalist="$journalist" />
+				@elseif ($viewAs == 'journalist' && $journalist->user_id === auth()->id())
 				<div class="d-grid">
 					<a href="{{ route('journalist.account.profile.setting.personal-info') }}" class="btn btn-primary fw-medium">Edit Profile</a>
 				</div>
 				@endif
 			</div>
+			@if ($journalist->location)
 			<div class="col-12">
 				<div class="row g-2">
 					<div class="col-auto">
@@ -26,10 +27,17 @@
 						</svg>
 					</div>
 					<div class="col">
-						<span class="badge rounded-pill text-gray-700 bg-gray-200">{{ $journalist->location->name ?? '-' }}</span>
+						<span class="badge rounded-pill text-gray-700 bg-gray-200 text-capitalize">
+							{{ $journalist->location->city()->first()->state->country->name }}
+						</span>
+						<span class="badge rounded-pill text-gray-700 bg-gray-200 text-capitalize">
+							{{ $journalist->location->city()->first()->state->name }}
+						</span>
+						<span class="badge rounded-pill text-gray-700 bg-gray-200">{{ $journalist->location->name }}</span>
 					</div>
 				</div>
 			</div>
+			@endif
 			<div class="col-12">
 				<div class="row g-2">
 					<div class="col-auto">
@@ -71,22 +79,34 @@
 						<img src="{{ $publication->profileImage ? Storage::url($publication->profileImage->image_path) : 'https://via.placeholder.com/48x48' }}" style="max-width: 48px; max-height: 48px;" alt=".." class="img-fluid rounded-circle">
 					</div>
 					<div class="col">
-						<h6 class="fw-medium m-0 p-0">
+						<h6 class="fs-6 fw-medium m-0 p-0">
+							@if ($viewAs == 'architect')
 							<a href="{{ route('architect.pitch-story.publications.view', ['publication' => $publication->slug]) }}" class="text-purple-800">
 								{{ $publication->name }}
 							</a>
+							@elseif ($viewAs == 'journalist')
+							<a href="{{ route('journalist.account.profile.publications.view', ['publication' => $publication->slug]) }}" class="text-purple-800">
+								{{ $publication->name }}
+							</a>
+							@endif
 						</h6>
-						<p class="text-secondary m-0 p-0"><a href="{{ $publication->website }}" class="text-secondary" target="_blank">{{ trimWebsiteUrl($publication->website) }}</a></p>
+						<p class="fs-7 text-secondary m-0 p-0">
+							<small>
+								<a href="{{ $publication->website }}" class="text-secondary" target="_blank">
+									{{ trimWebsiteUrl($publication->website) }}
+								</a>
+							</small>
+						</p>
 					</div>
-					<div class="col-auto">
+					{{-- <div class="col-auto">
 						<a href="{{ route('architect.pitch-story.publications.view', ['publication' => $publication->slug]) }}" class="btn btn-primary fw-medium p-2">
 							<i class="bi bi-send-fill"></i>
 						</a>
-					</div>
+					</div> --}}
 				</div>
 			</div>
 			@endforeach
-			@if ($viewAs == 'journalist')
+			@if ($viewAs == 'journalist' && $journalist->user_id === auth()->id())
 			<div class="col-12">
 				<div class="d-grid">
 					<a href="{{ route('journalist.account.profile.setting.publication') }}" class="btn btn-primary fw-medium">Add Publication</a>

@@ -60,14 +60,15 @@ class PressRelease extends Component
 
 	public function finishUpload($name, $tmpPath, $isMultiple)
     {
-		$this->cleanupOldUploads();
+		/* $this->cleanupOldUploads();
+		dd($name, $tmpPath, $isMultiple);
 		if ($isMultiple) {
             $file = collect($tmpPath)->map(function ($i) {
                 return TemporaryUploadedFile::createFromLivewire($i);
             })->toArray();
             $this->emitSelf('upload:finished', $name, collect($file)->map->getFilename()->toArray());
         } else {
-            $file = TemporaryUploadedFile::createFromLivewire($tmpPath[0]);
+			$file = TemporaryUploadedFile::createFromLivewire($tmpPath[0]);
             $this->emitSelf('upload:finished', $name, [$file->getFilename()]);
 
             // If the property is an array, but the upload ISNT set to "multiple"
@@ -76,7 +77,16 @@ class PressRelease extends Component
                 $file = array_merge($value, [$file]);
             }
         }
-        $this->syncInput($name, $file);
+        $this->syncInput($name, $file); */
+		dd($name, $tmpPath, $isMultiple);
+
+		$this->cleanupOldUploads();
+        $files = collect($tmpPath)->map(function ($i) {
+            return TemporaryUploadedFile::createFromLivewire($i);
+        })->toArray();
+        $this->emitSelf('upload:finished', $name, collect($files)->map->getFilename()->toArray());
+        $files = array_merge($this->getPropertyValue($name), $files);
+        $this->syncInput($name, $files);
     }
 
 	//#[Renderless]
@@ -97,7 +107,7 @@ class PressRelease extends Component
 			'pressReleaseFile' => 'nullable|file|mimes:pdf,doc,docs',
 			'pressReleaseLink' => 'nullable|required_without:pressReleaseFile|url',
 			'photographsFiles' => 'nullable|array',
-			'photographsFiles.*' => 'nullable|image|mimes:svg,png,jpg,gif',
+			'photographsFiles.*' => 'nullable|image|mimes:svg,png,jpg,gif|max:4200',
 			'photographsLink' => 'nullable|url',
 			/* 'photographsFiles.*' => 'image|mimes:svg,png,jpg,gif',
 			'photographsLink' => 'nullable|required_without:photographsFiles|url', */
@@ -126,6 +136,7 @@ class PressRelease extends Component
 			'pressReleaseLink.required_without' => 'Enter the :attribute or upload the file.',
 			'photographsFiles.*.image' => 'The :attribute supports only image.',
 			'photographsFiles.*.mimes' => 'The :attribute supports only svg, png, jpg or gif.',
+			'photographsFiles.*.max' => 'Maximum allowed size to upload :attribute 4MB.',
 			'photographsLink.url' => 'Enter the valid :attribute.',
 			'photographsLink.required_without' => 'Enter the :attribute or upload the file.',
 			'tags.required' => 'Enter the :attribute.',
@@ -179,6 +190,7 @@ class PressRelease extends Component
 
 	public function add()
 	{
+		dd($this->photographsFiles);
 		//dd($this->pressReleaseWrite, $this->conceptNote);
 		//dd($this->tags);
 		//dd($this->pressReleaseFile, $this->pressReleaseLink, $this->photographsFiles, $this->photographsLink);

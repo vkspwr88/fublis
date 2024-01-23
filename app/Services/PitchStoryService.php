@@ -151,6 +151,7 @@ class PitchStoryService
 				'media_kit_id' => $details['mediaKit'],
 				'subject' => $details['subject'],
 				'message' => $details['message'],
+				'publication_id' => $details['publicationId'],
 			]);
 
 			$journalist = Journalist::find($details['journalist']);
@@ -184,7 +185,8 @@ class PitchStoryService
 					'media_kit_title' => $details['mediaKitTitle'],
 					'sent_to_user_id' => $journalist->user_id,
 					'message' => $details['message'],
-					'poly' => $pitch,
+					// 'poly' => $pitch,
+					'poly' => $chat,
 				]);
 			}
 

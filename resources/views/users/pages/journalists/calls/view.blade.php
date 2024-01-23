@@ -45,14 +45,16 @@
 		<div class="row justify-content-center">
 			<div class="col-md-9">
 				@include('livewire.journalists.calls.view')
-				<hr class="border-gray-300 my-3">
-				<div class="row g-4">
-					<div class="col-md-8 offset-md-4">
-						<div class="text-start">
-							<a class="btn btn-primary fw-semibold" href="{{ route('journalist.call.edit', ['call' => $call->slug]) }}">Edit Call</a>
+				@if ($call->journalist->user_id === auth()->id())
+					<hr class="border-gray-300 my-3">
+					<div class="row g-4">
+						<div class="col-md-8 offset-md-4">
+							<div class="text-start">
+								<a class="btn btn-primary fw-semibold" href="{{ route('journalist.call.edit', ['call' => $call->slug]) }}">Edit Call</a>
+							</div>
 						</div>
 					</div>
-				</div>
+				@endif
 			</div>
 		</div>
 	</div>

@@ -45,6 +45,11 @@ class Call extends Model
 		return $this->belongsTo(Location::class);
 	}
 
+	public function publishFrom(): BelongsTo
+	{
+		return $this->belongsTo(PublishFrom::class);
+	}
+
 	public function language(): BelongsTo
 	{
 		return $this->belongsTo(Language::class);

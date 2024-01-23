@@ -57,6 +57,9 @@ class CategorySeeder extends Seeder
 				'name' => 'Music',
 			],
 			[
+				'name' => 'News',
+			],
+			[
 				'name' => 'Product Design',
 			],
 			[

@@ -25,6 +25,14 @@
 						</svg>
 					</div>
 					<div class="col">
+						<span class="badge rounded-pill text-gray-700 bg-gray-200 text-capitalize">
+							{{ $architect->location->city()->first()->state->country->name }}
+						</span>
+						<span class="badge rounded-pill text-gray-700 bg-gray-200 text-capitalize">
+							{{ $architect->location->city()->first()->state->name }}
+						</span>
+						{{-- <span class="badge rounded-pill text-gray-700 bg-gray-200">{{ $architect->location->state->country->name }}</span>
+						<span class="badge rounded-pill text-gray-700 bg-gray-200">{{ $architect->location->state->name }}</span> --}}
 						<span class="badge rounded-pill text-gray-700 bg-gray-200">{{ $architect->location->name }}</span>
 					</div>
 				</div>

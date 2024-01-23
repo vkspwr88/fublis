@@ -8,6 +8,7 @@ use App\Http\Controllers\Users\LanguageController;
 use App\Http\Controllers\Users\LocationController;
 use App\Http\Controllers\Users\PublicationController;
 use App\Http\Controllers\Users\PublicationTypeController;
+use App\Http\Controllers\Users\PublishFromController;
 use App\Models\JournalistPublication;
 use App\Services\Journalists\SettingService;
 use Illuminate\Database\Query\Builder;
@@ -32,7 +33,7 @@ class AssociatedPublication extends Component
 	public $profileImageOld;
 	#[Rule('nullable|image|mimes:svg,png,jpg,gif|max:3100|dimensions:max_width=400,max_height=400')]
 	public $profileImage;
-	public $language;
+	// public $language;
 	public $position;
 	// public $location;
 	public $selectedCountry;
@@ -42,6 +43,8 @@ class AssociatedPublication extends Component
 	public $selectedCity;
 	public $cities;
 	public $selectedCategories = [];
+	public $selectedLanguages = [];
+	public $selectedPublishFrom = [];
 	public $selectedPublicationTypes = [];
 	public $aboutMe;
 	public $isNew = true;
@@ -51,6 +54,7 @@ class AssociatedPublication extends Component
 	public $languages;
 	public $positions;
 	public $categories;
+	public $publishFrom;
 	public $publicationTypes;
 
 	private SettingService $settingService;
@@ -63,6 +67,7 @@ class AssociatedPublication extends Component
 		$this->languages = LanguageController::getAll();
 		$this->positions = JournalistPositionController::getAll();
 		$this->categories = CategoryController::getAll();
+		$this->publishFrom = PublishFromController::getAll();
 		$this->publicationTypes = PublicationTypeController::getAll();
 		$this->countries = LocationController::getCountries();
 	}
@@ -117,7 +122,7 @@ class AssociatedPublication extends Component
 			],
 			'website' => 'required|url',
 			'profileImage' => 'nullable|image|mimes:svg,png,jpg,gif|max:3100|dimensions:max_width=400,max_height=400',
-			'language' => 'required|exists:languages,id',
+			// 'language' => 'required|exists:languages,id',
 			'position' => 'required|exists:journalist_positions,id',
 			// 'location' => 'required|exists:locations,id',
 			'selectedCountry' => 'required|exists:countries,id',
@@ -125,6 +130,10 @@ class AssociatedPublication extends Component
 			'selectedCity' => 'required|exists:cities,name',
 			'selectedCategories' => 'required',
 			'selectedCategories.*' => 'exists:categories,id',
+			'selectedLanguages' => 'required',
+			'selectedLanguages.*' => 'exists:languages,id',
+			'selectedPublishFrom' => 'required',
+			'selectedPublishFrom.*' => 'exists:publish_from,id',
 			'selectedPublicationTypes' => 'required',
 			'selectedPublicationTypes.*' => 'exists:publication_types,id',
 			'aboutMe' => 'required|max:275',
@@ -143,7 +152,7 @@ class AssociatedPublication extends Component
 			'profileImage.mimes' => 'The :attribute supports only svg, png, jpg or gif.',
 			'profileImage.max' => 'Maximum allowed size to upload :attribute 3MB.',
 			'profileImage.dimensions' => 'Maximum allowed dimension for the :attribute is 400x400px.',
-			'language.required' => 'Select the :attribute.',
+			// 'language.required' => 'Select the :attribute.',
 			// 'language.exists' => 'Select the valid :attribute.',
 			'position.required' => 'Select the :attribute.',
 			// 'position.exists' => 'Select the valid :attribute.',
@@ -153,10 +162,13 @@ class AssociatedPublication extends Component
 			'selectedState.required' => 'Select the :attribute.',
 			'selectedCity.required' => 'Select the :attribute.',
 			'selectedCategories.required' => 'Select the :attribute.',
+			'selectedLanguages.required' => 'Select the :attribute.',
+			'selectedPublishFrom.required' => 'Select the :attribute.',
 			'selectedPublicationTypes.required' => 'Select the :attribute.',
 			'aboutMe.required' => 'Enter the :attribute.',
 			'aboutMe.max' => 'The :attribute allows only 275 characters.',
 			'*.exists' => 'Select the valid :attribute.',
+			'*.*.exists' => 'Select the valid :attribute.',
 		];
 	}
 
@@ -173,6 +185,8 @@ class AssociatedPublication extends Component
 			'selectedState' => 'state',
 			'selectedCity' => 'city',
 			'selectedCategories' => 'category',
+			'selectedLanguages' => 'language',
+			'selectedPublishFrom' => 'publish from',
 			'selectedPublicationTypes' => 'publication type',
 			'aboutMe' => 'publication details',
 		];
@@ -184,13 +198,15 @@ class AssociatedPublication extends Component
 			'publicationName' => $this->publicationName,
 			'website' => 'http://' . $this->website,
 			'profileImage' => $this->profileImage,
-			'language' => $this->language,
+			// 'language' => $this->language,
 			'position' => $this->position,
 			// 'location' => $this->location,
 			'selectedCountry' => $this->selectedCountry,
 			'selectedState' => $this->selectedState,
 			'selectedCity' => $this->selectedCity,
 			'selectedCategories' => $this->selectedCategories,
+			'selectedLanguages' => $this->selectedLanguages,
+			'selectedPublishFrom' => $this->selectedPublishFrom,
 			'selectedPublicationTypes' => $this->selectedPublicationTypes,
 			'aboutMe' => $this->aboutMe,
 		];
@@ -209,9 +225,11 @@ class AssociatedPublication extends Component
 												])
 												->first()
 												->journalist_position_id;
-		$this->language = $this->selectedPublication->language_id;
+		// $this->language = $this->selectedPublication->language_id;
+		$this->selectedLanguages = $this->selectedPublication->languages->pluck('id');
 		$this->selectedCategories = $this->selectedPublication->categories->pluck('id');
 		$this->selectedPublicationTypes = $this->selectedPublication->publicationTypes->pluck('id');
+		$this->selectedPublishFrom = $this->selectedPublication->publishFrom->pluck('id');
 		$this->aboutMe = $this->selectedPublication->about_me;
 		$this->profileImageOld = $this->selectedPublication->profileImage;
 		$this->publicationId = $publicationId;
@@ -227,10 +245,12 @@ class AssociatedPublication extends Component
 		$this->publicationName = '';
 		$this->website = '';
 		// $this->location = '';
-		$this->language = '';
+		// $this->language = '';
+		$this->selectedLanguages = [];
 		$this->position = '';
 		$this->selectedCategories = [];
 		$this->selectedPublicationTypes = [];
+		$this->selectedPublishFrom = [];
 		$this->aboutMe = '';
 		$this->publicationId = '';
 		$this->profileImageOld = '';

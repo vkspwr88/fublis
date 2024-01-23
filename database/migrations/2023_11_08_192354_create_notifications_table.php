@@ -16,8 +16,9 @@ return new class extends Migration
             $table->uuid('id')->primary();
 			$table->foreignIdFor(User::class);
 			$table->uuidMorphs('notifiable');
-			$table->string('subject');
+			$table->text('subject');
 			$table->text('message');
+			$table->boolean('unread')->default(true);
             $table->timestamps();
         });
     }

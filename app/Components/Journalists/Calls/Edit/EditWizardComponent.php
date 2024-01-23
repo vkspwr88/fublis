@@ -25,6 +25,7 @@ class EditWizardComponent extends WizardComponent
 				'title' => $this->call->title,
 				'description' => $this->call->description,
 				'selectedCity' => strtolower($this->call->location->name),
+				'selectedPublishFrom' => $this->call->publish_from_id,
 				'publication' => $this->call->publication_id,
 				'language' => $this->call->language_id,
 				'submissionEndsDate' => Carbon::parse($this->call->submission_end_date)->format('d-M-Y'),

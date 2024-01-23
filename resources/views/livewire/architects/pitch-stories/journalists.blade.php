@@ -82,8 +82,8 @@
 										@endif
 									</p>
 									<p class="text-end fs-6 col m-0">
-										<button type="button" class="btn btn-primary btn-sm fw-medium" wire:click="showMediaKit('{{ $journalist->id }}')">
-											Submit Story <x-users.spinners.white-btn wire:target="showMediaKit('{{ $journalist->id }}')" />
+										<button type="button" class="btn btn-primary btn-sm fw-medium" wire:click="pitchJournalist('{{ $journalist->id }}')">
+											Submit Story <x-users.spinners.white-btn wire:target="pitchJournalist('{{ $journalist->id }}')" />
 										</button>
 									</p>
 								</div>
@@ -142,5 +142,4 @@
 	</div>
 
 	@include('users.includes.architect.pitch-story-modals')
-	@include('users.includes.architect.pitch-story-modals-success-journalist')
 </div>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Users\Journalists\Accounts;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Users\CategoryController;
 use App\Http\Controllers\Users\JournalistController;
+use App\Http\Controllers\Users\NotificationController;
 use App\Http\Controllers\Users\PublicationController;
 use App\Models\Journalist;
 use Illuminate\Http\Request;
@@ -31,6 +32,7 @@ class ProfileController extends Controller
 
 	public function notification()
 	{
+		NotificationController::markAsRead();
 		return view('users.pages.journalists.accounts.profile.notification');
 	}
 

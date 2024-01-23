@@ -27,6 +27,7 @@
 				</div>
 			</div>
 			@endif
+			@if ($brand->location)
 			<div class="col-12">
 				<div class="row g-2">
 					<div class="col-auto">
@@ -36,10 +37,19 @@
 						</svg>
 					</div>
 					<div class="col">
+						<span class="badge rounded-pill text-gray-700 bg-gray-200 text-capitalize">
+							{{ $brand->location->city()->first()->state->country->name }}
+						</span>
+						<span class="badge rounded-pill text-gray-700 bg-gray-200 text-capitalize">
+							{{ $brand->location->city()->first()->state->name }}
+						</span>
+						{{-- <span class="badge rounded-pill text-gray-700 bg-gray-200">{{ $brand->location->state->country->name }}</span>
+						<span class="badge rounded-pill text-gray-700 bg-gray-200">{{ $brand->location->state->name }}</span> --}}
 						<span class="badge rounded-pill text-gray-700 bg-gray-200">{{ $brand->location->name }}</span>
 					</div>
 				</div>
 			</div>
+			@endif
 			<div class="col-12">
 				<div class="row g-2">
 					<div class="col-auto">

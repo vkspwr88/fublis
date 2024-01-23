@@ -2,6 +2,7 @@
 
 use App\Models\Journalist;
 use App\Models\MediaKit;
+use App\Models\Publication;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -19,6 +20,7 @@ return new class extends Migration
 			$table->foreignIdFor(MediaKit::class);
 			$table->string('subject');
 			$table->text('message');
+			$table->foreignIdFor(Publication::class);
 			$table->uuidMorphs('pitchable');
             $table->timestamps();
         });

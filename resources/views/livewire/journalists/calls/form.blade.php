@@ -79,6 +79,22 @@
 		</div>
 	</div>
 	<div class="row mb-3">
+		<label for="" class="col-md-4 col-form-label text-dark fs-6 fw-medium">Entries Invited</label>
+		<div class="col-md-8">
+			<div class="row">
+				@foreach ($publishFrom as $publish)
+				<div class="col-6">
+					<div class="form-check">
+						<input class="form-check-input" type="radio" value="{{ $publish->id }}" id="publish-{{ $publish->id }}" wire:model="selectedPublishFrom">
+						<label class="form-check-label" for="publish-{{ $publish->id }}">{{ $publish->name }}</label>
+					</div>
+				</div>
+				@endforeach
+			</div>
+			@error('selectedPublishFrom')<div class="error">{{ $message }}</div>@enderror
+		</div>
+	</div>
+	<div class="row mb-3">
 		<label for="selectPublication" class="col-md-4 col-form-label text-dark fs-6 fw-medium">Publication Title</label>
 		<div class="col-md-8">
 			<select class="form-select @error('publication') is-invalid @enderror" id="selectPublication" wire:model="publication">

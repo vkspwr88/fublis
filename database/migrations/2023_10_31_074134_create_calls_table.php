@@ -21,6 +21,7 @@ return new class extends Migration
 			$table->foreignIdFor(Models\Location::class);
 			$table->foreignIdFor(Models\Publication::class);
 			$table->foreignIdFor(Models\Language::class);
+			$table->foreignIdFor(Models\PublishFrom::class);
 			$table->date('submission_end_date');
             $table->timestamps();
         });

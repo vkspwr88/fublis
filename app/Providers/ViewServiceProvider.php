@@ -2,9 +2,7 @@
 
 namespace App\Providers;
 
-use App\View\Composers\ProfileComposer;
-use App\View\Composers\ProfileImageComposer;
-use App\View\Composers\SocialMediaComposer;
+use App\View\Composers;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
@@ -23,7 +21,8 @@ class ViewServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        View::composer('users.includes.header', ProfileImageComposer::class);
-        View::composer('users.includes.footer', SocialMediaComposer::class);
+        View::composer('users.includes.header', Composers\ProfileImageComposer::class);
+        View::composer('users.includes.header', Composers\TotalUnreadComposer::class);
+        View::composer('users.includes.footer', Composers\SocialMediaComposer::class);
     }
 }

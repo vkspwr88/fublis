@@ -18,7 +18,9 @@ return new class extends Migration
 			$table->foreignIdFor(Pitch::class);
 			$table->foreignIdFor(User::class, 'sender_id');
 			$table->foreignIdFor(User::class, 'receiver_id');
-			$table->boolean('is_unread')->default(true);
+			$table->boolean('sender_unread')->default(true);
+			$table->boolean('receiver_unread')->default(true);
+			// $table->boolean('is_unread')->default(true);
             $table->timestamps();
         });
     }

@@ -30,6 +30,9 @@ class PublicationTypeSeeder extends Seeder
 				'name' => 'blog',
 			],
 			[
+				'name' => 'online news',
+			],
+			[
 				'name' => 'other',
 			],
 		];

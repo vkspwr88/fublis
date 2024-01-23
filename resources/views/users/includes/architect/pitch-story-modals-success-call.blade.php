@@ -1,4 +1,4 @@
-<div wire:ignore.self class="modal fade" id="pitchSuccessModal" tabindex="-1" aria-labelledby="pitchSuccessLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+<div wire:ignore.self class="modal fade" id="pitchCallSuccessModal" tabindex="-1" aria-labelledby="pitchSuccessLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
 	<div class="modal-dialog modal-dialog-centered">
 		<div class="modal-content">
 			<div class="modal-header justify-content-center border-0">

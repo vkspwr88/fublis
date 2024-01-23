@@ -13,6 +13,9 @@
 					You can check story responses in your Conversations or
 					<br/>
 					<a href="{{ route('journalist.call.create') }}" class="text-purple-600">post another call</a> for submissions.
+					<br>
+					<br>
+					<a href="{{ route('journalist.call.index') }}" class="btn btn-primary fs-6 fw-medium">Okay</a>
 				</p>
 			</div>
 		</div>

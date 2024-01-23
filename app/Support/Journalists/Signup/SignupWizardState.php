@@ -26,6 +26,8 @@ class SignupWizardState extends State
 				//'location' => $journalistSignupAddPublicationStepState['location'],
 				'selectedCountry' => $journalistSignupAddPublicationStepState['selectedCountry'],
 				'selectedCity' => $journalistSignupAddPublicationStepState['selectedCity'],
+				'languages' => $journalistSignupAddPublicationStepState['checkedLanguage'],
+				'publishFrom' => $journalistSignupAddPublicationStepState['checkedPublishFrom'],
 				'publicationTypes' => $journalistSignupAddPublicationStepState['checkedPublicationTypes'],
 				'categories' => $journalistSignupAddPublicationStepState['checkedCategories'],
 			];

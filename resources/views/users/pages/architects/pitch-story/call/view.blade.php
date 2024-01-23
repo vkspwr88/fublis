@@ -26,18 +26,9 @@
 
 	<div class="row justify-content-center">
 		<div class="col-md-9">
-			@include('livewire.journalists.calls.view')
+			@include('livewire.journalists.calls.view', ['viewAs' => 'architect'])
 			<hr class="border-gray-300 my-3">
-			<div class="row g-4">
-				<div class="col-md-8 offset-md-4">
-					<div class="text-start">
-						<button type="button" class="btn btn-primary fw-semibold">
-							Submit Story <x-users.spinners.white-btn />
-						</button>
-					</div>
-				</div>
-			</div>
-		</div>
+			<livewire:architects.pitch-stories.call-view :call="$call" />
 	</div>
 </div>
 @endsection

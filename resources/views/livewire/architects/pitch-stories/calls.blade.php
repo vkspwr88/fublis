@@ -63,7 +63,7 @@
 													{{ $call->title }}
 												</a>
 											</p>
-											<p class="col-12 text-secondary fs-6 m-0">Deadline: {{ \Carbon\Carbon::parse($call->submission_end_date)->format('jS F Y') }}{{-- 17th March 2023 --}}</p>
+											<p class="col-12 text-secondary fs-6 m-0">Deadline: {{ formatDate($call->submission_end_date) }}</p>
 										</div>
 									</div>
 									<div class="col-md-5">
@@ -134,5 +134,4 @@
 	</div>
 
 	@include('users.includes.architect.pitch-story-modals')
-	@include('users.includes.architect.pitch-story-modals-success-call')
 </div>

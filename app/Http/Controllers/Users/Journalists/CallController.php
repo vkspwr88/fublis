@@ -4,13 +4,17 @@ namespace App\Http\Controllers\Users\Journalists;
 
 use App\Http\Controllers\Controller;
 use App\Models\Call;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 
 class CallController extends Controller
 {
     public function index()
 	{
-		$calls = Call::with([
+		$calls = Call::whereHas('journalist', function (Builder $query) {
+						$query->where('user_id', auth()->id());
+					})
+					->with([
 						'journalist.user',
 						'publication.profileImage',
 						'tags',
@@ -25,6 +29,23 @@ class CallController extends Controller
 		]);
 	}
 
+	public function all()
+	{
+		$calls = Call::with([
+						'journalist.user',
+						'publication.profileImage',
+						'tags',
+						'location',
+						'category',
+						'language',
+					])
+					->latest()
+					->get();
+		return view('users.pages.journalists.calls.all', [
+			'calls' => $calls,
+		]);
+	}
+
 	public function create()
 	{
 		return view('users.pages.journalists.calls.create');
@@ -32,9 +53,12 @@ class CallController extends Controller
 
 	public function edit(Call $call)
 	{
-		return view('users.pages.journalists.calls.edit', [
-			'call' => $this->loadModel($call),
-		]);
+		if($call->journalist->user_id === auth()->id()){
+			return view('users.pages.journalists.calls.edit', [
+				'call' => $this->loadModel($call),
+			]);
+		}
+		return abort(501);
 	}
 
 	public function view(Call $call)
