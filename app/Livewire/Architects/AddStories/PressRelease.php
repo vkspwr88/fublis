@@ -190,7 +190,7 @@ class PressRelease extends Component
 
 	public function add()
 	{
-		dd($this->photographsFiles);
+		// dd($this->photographsFiles);
 		//dd($this->pressReleaseWrite, $this->conceptNote);
 		//dd($this->tags);
 		//dd($this->pressReleaseFile, $this->pressReleaseLink, $this->photographsFiles, $this->photographsLink);

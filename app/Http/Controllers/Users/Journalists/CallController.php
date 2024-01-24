@@ -58,12 +58,13 @@ class CallController extends Controller
 				'call' => $this->loadModel($call),
 			]);
 		}
-		return abort(501);
+		return abort(401);
 	}
 
 	public function view(Call $call)
 	{
 		$this->loadModel($call);
+		$city = $call->location->city()->first();
 		return view('users.pages.journalists.calls.view', [
 			'title' => $call->title,
 			'submittedBy' => auth()->user()->name,
@@ -73,7 +74,10 @@ class CallController extends Controller
 			'category' => $call->category,
 			'location' => $call->location,
 			'selectedCity' => $call->location->name,
+			'selectedStateName' => $city->state->name,
+			'selectedCountryName' => $city->state->country->name,
 			'language' => $call->language,
+			'publishFrom' => $call->publishFrom,
 			'call' => $call,
 		]);
 	}
@@ -90,6 +94,7 @@ class CallController extends Controller
 			'publication' => [
 				'profileImage'
 			],
+			'publishFrom',
 			'tags',
 		]);
 	}

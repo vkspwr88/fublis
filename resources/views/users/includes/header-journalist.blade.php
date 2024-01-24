@@ -1,13 +1,13 @@
 <div class="offcanvas-body">
 	<ul id="headerNav" class="navbar-nav ms-xl-5 me-xl-auto mb-2 mb-xl-0">
 		<li class="nav-item dropdown">
-			<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+			<a class="nav-link dropdown-toggle {{ ( (request()->segment(2) === 'invite-story' && request()->segment(3) === 'create') || (request()->segment(2) === 'invite-story' && request()->segment(3) == '') || (request()->segment(2) === 'submission' && request()->segment(3) == '') ) ? 'active fw-medium' : '' }}" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
 				Invite Story
 			</a>
 			<ul class="dropdown-menu">
-				<li><a class="dropdown-item" href="{{ route('journalist.call.create') }}">Invite Story</a></li>
-				<li><a class="dropdown-item" href="{{ route('journalist.call.index') }}">Your Calls</a></li>
-				<li><a class="dropdown-item" href="{{ route('journalist.submission.index') }}">Submissions</a></li>
+				<li><a class="dropdown-item {{ (request()->segment(2) === 'invite-story' && request()->segment(3) === 'create') ? 'active fw-medium' : '' }}" href="{{ route('journalist.call.create') }}">Invite Story</a></li>
+				<li><a class="dropdown-item {{ (request()->segment(2) === 'invite-story' && request()->segment(3) == '') ? 'active fw-medium' : '' }}" href="{{ route('journalist.call.index') }}">Your Calls</a></li>
+				<li><a class="dropdown-item {{ (request()->segment(2) === 'submission' && request()->segment(3) == '') ? 'active fw-medium' : '' }}" href="{{ route('journalist.submission.index') }}">Submissions</a></li>
 			</ul>
 		</li>
 		{{-- <li class="nav-item">
@@ -20,13 +20,13 @@
 			<a class="nav-link {{ request()->segment(2) === 'media-kit' ? 'active fw-medium' : '' }}" {{ request()->segment(2) === 'media-kit' ? 'aria-current=page' : '' }} href="{{ route('journalist.media-kit.index') }}">Media Kits</a>
 		</li>
 		<li class="nav-item dropdown">
-			<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+			<a class="nav-link dropdown-toggle {{ ( (request()->segment(2) === 'invite-story' && request()->segment(3) === 'all') || (request()->segment(4) === 'publications' && request()->segment(5) == '') || (request()->segment(4) === 'journalists' && request()->segment(5) == '')) ? 'active fw-medium' : '' }}" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
 				Calls
 			</a>
 			<ul class="dropdown-menu">
-				<li><a class="dropdown-item" href="{{ route('journalist.call.all') }}">Calls</a></li>
-				<li><a class="dropdown-item" href="{{ route('journalist.account.profile.publications.index') }}">Publications</a></li>
-				<li><a class="dropdown-item" href="{{ route('journalist.account.profile.journalists.index') }}">Journalists</a></li>
+				<li><a class="dropdown-item {{ (request()->segment(2) === 'invite-story' && request()->segment(3) === 'all') ? 'active fw-medium' : '' }}" href="{{ route('journalist.call.all') }}">Calls</a></li>
+				<li><a class="dropdown-item {{ (request()->segment(4) === 'publications' && request()->segment(5) == '') ? 'active fw-medium' : '' }}" href="{{ route('journalist.account.profile.publications.index') }}">Publications</a></li>
+				<li><a class="dropdown-item {{ (request()->segment(4) === 'journalists' && request()->segment(5) == '') ? 'active fw-medium' : '' }}" href="{{ route('journalist.account.profile.journalists.index') }}">Journalists</a></li>
 			</ul>
 		</li>
 		<li class="nav-item dropdown">
@@ -50,7 +50,7 @@
 		</div>
 	</form>
 	<ul id="profileNav" class="navbar-nav mt-5 mt-xl-0 ms-xl-auto flex-row align-items-center">
-		<li class="nav-item nav-icon px-2 ps-0 px-xl-1">
+		{{-- <li class="nav-item nav-icon px-2 ps-0 px-xl-1">
 			<a href="{{ route('journalist.account.profile.message.index') }}" class="nav-link text-center text-purple-600 border border-2 border-purple-600 rounded-circle lh-1 position-relative">
 				<i class="bi bi-envelope"></i>
 				@if ($totalUnreadMessages)
@@ -64,8 +64,10 @@
 					</span>
 				@endif
 			</a>
-		</li>
-		<li class="nav-item nav-icon px-2 px-xl-1">
+		</li> --}}
+		<livewire:common.header.message />
+		<livewire:common.header.notification />
+		{{-- <li class="nav-item nav-icon px-2 px-xl-1">
 			<a href="{{ route('journalist.account.profile.notification') }}" class="nav-link text-center text-purple-600 border border-2 border-purple-600 rounded-circle lh-1 position-relative">
 				<i class="bi bi-bell"></i>
 				@if ($totalUnreadNotifications)
@@ -79,7 +81,7 @@
 					</span>
 				@endif
 			</a>
-		</li>
+		</li> --}}
 		<li class="nav-item px-2 px-xl-1 dropdown">
 			<a href="javascript:;" class="nav-link rounded-circle p-0 {{-- dropdown-toggle --}}" role="button" data-bs-toggle="dropdown">
 				<img class="rounded-circle img-40 img-square" src="{{ $profileImage }}" alt="..." />

@@ -5,7 +5,7 @@
 		@if(isArchitect())
 			<a href="{{ route('architect.pitch-story.journalists.view', ['journalist' => $call->journalist->slug]) }}" class="text-purple-700">{{ $submittedBy }}</a>
 		@elseif (isJournalist())
-			<a href="{{ route('journalist.account.profile.journalists.view', ['journalist' => $call->journalist->slug]) }}" class="text-purple-700">{{ $submittedBy }}</a>
+			<a href="{{ route('journalist.account.profile.journalists.view', ['journalist' => $journalistSlug ?? $call->journalist->slug]) }}" class="text-purple-700">{{ $submittedBy }}</a>
 		@endif
 	</span>
 </p>
@@ -62,6 +62,7 @@
 		</div>
 	</div>
 </div>
+<hr class="border-gray-300 my-3">
 <div class="row g-4">
 	<div class="col-md-4">
 		<p class="text-secondary fw-semibold m-0 p-0">Tags</p>

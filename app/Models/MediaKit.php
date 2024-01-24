@@ -50,7 +50,7 @@ class MediaKit extends Model
 
 	public function mediaContact(): BelongsTo
 	{
-		return $this->belongsTo(Architect::class);
+		return $this->belongsTo(Architect::class, 'media_contact_id');
 	}
 
 	public function projectAccess(): BelongsTo

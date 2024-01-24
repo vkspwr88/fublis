@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Users\Journalists\MediaKits;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Users\MediaKitController;
 use App\Models\MediaKit;
 use App\Services\NotificationService;
 use Illuminate\Http\Request;
@@ -14,7 +15,7 @@ class ArticleController extends Controller
 		if(!$mediaKit){
 			return abort(404);
 		}
-		$mediaKit = $this->loadModel($mediaKit);
+		$mediaKit = MediaKitController::loadModel($mediaKit, 'article');
 		NotificationService::sendViewCountNotification([
 			'media_kit_id' => $mediaKit->id,
 			'media_kit_slug' => $mediaKit->slug,
@@ -27,20 +28,6 @@ class ArticleController extends Controller
 		return view('users.pages.journalists.media-kits.articles.view', [
 			'mediaKit' => $mediaKit,
 			'downloadRequest' => $mediaKit->downloadRequests->where('requested_by', auth()->id())->first(),
-		]);
-	}
-
-	public function loadModel($mediaKit)
-	{
-		return $mediaKit->load([
-			'downloadRequests',
-			'story.images',
-			'category',
-			'architect' => [
-				'company',
-				'user',
-				'position'
-			]
 		]);
 	}
 }

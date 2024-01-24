@@ -17,7 +17,7 @@
 				@endif
 			</div>
 		</div>
-		@if ($mediaKit->story->photographs_link || $mediaKit->story->photographs->where('image_type', 'photographs')->count() > 0)
+		@if ( $mediaKit->story->photographs_link || ($mediaKit->story->photographs && $mediaKit->story->photographs->where('image_type', 'photographs')->count() > 0) )
 			<hr class="border-gray-300">
 			<div class="row align-items-center">
 				<div class="col-auto">
@@ -33,7 +33,7 @@
 				</div>
 			</div>
 		@endif
-		@if ($mediaKit->story->drawings_link || $mediaKit->story->drawings->where('image_type', 'drawings')->count() > 0)
+		@if ( $mediaKit->story->drawings_link || ($mediaKit->story->photographs && $mediaKit->story->photographs->where('image_type', 'drawings')->count() > 0) )
 			<hr class="border-gray-300">
 			<div class="row align-items-center">
 				<div class="col-auto">

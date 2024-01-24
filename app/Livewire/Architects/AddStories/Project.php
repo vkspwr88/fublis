@@ -176,10 +176,10 @@ class Project extends Component
 			'projectLink' => 'nullable|required_without:projectFile|url',
 			'photographsFiles' => 'nullable|array',
 			'photographsFiles.*' => 'nullable|file|mimes:zip,svg,png,jpg,gif|max:4200',
-			'photographsLink' => 'nullable|required_without:photographsFiles|url',
+			'photographsLink' => 'nullable|url',
 			'drawingsFiles' => 'nullable|array',
 			'drawingsFiles.*' => 'nullable|file|mimes:zip,svg,png,jpg,gif|max:4200',
-			'drawingsLink' => 'nullable|required_without:drawingsFiles|url',
+			'drawingsLink' => 'nullable|url',
 			/* 'photographsFiles' => 'required|array',
 			'photographsFiles.*' => 'file|mimes:zip,svg,png,jpg,gif', */
 			//'photographsFiles.*' => 'image|mimes:svg,png,jpg,gif',

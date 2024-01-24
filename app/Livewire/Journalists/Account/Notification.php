@@ -40,6 +40,21 @@ class Notification extends Component
 																		]
 																	]
 																],
+																Models\Chat::class => [
+																	'pitch' => [
+																		'mediaKit' => [
+																			'architect' => [
+																				'user',
+																				'profileImage'
+																			],
+																		],
+																	],
+																	/* 'user' => [
+																		'architect' => [
+																			'profileImage'
+																		]
+																	] */
+																],
 																Models\Pitch::class => [
 																	'mediaKit' => [
 																		'architect' => [

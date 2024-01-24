@@ -18,7 +18,7 @@ class NotificationController extends Controller
 
 	public static function getTotalUnread()
 	{
-		Notification::where([
+		return Notification::where([
 			'user_id' => auth()->id(),
 			'unread' => true,
 		])->count();

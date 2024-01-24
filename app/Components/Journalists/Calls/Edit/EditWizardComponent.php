@@ -31,6 +31,7 @@ class EditWizardComponent extends WizardComponent
 				'submissionEndsDate' => Carbon::parse($this->call->submission_end_date)->format('d-M-Y'),
 				'callId' => $this->call->id,
 				'callSlug' => $this->call->slug,
+				'journalistSlug' => $this->call->journalist->slug,
 			],
         ];
     }

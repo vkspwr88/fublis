@@ -122,6 +122,9 @@ if (!function_exists('getJournalistNotificationType')) {
 		elseif ($model instanceof Models\ChatMessage){
 			return 'users.includes.journalist.notification.receive-chat-message-notification';
 		}
+		elseif ($model instanceof Models\Chat){
+			return 'users.includes.journalist.notification.receive-chat-notification';
+		}
 		elseif ($model instanceof Models\Pitch){
 			return'users.includes.journalist.notification.receive-media-kit-notification';
 		}

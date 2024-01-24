@@ -53,4 +53,16 @@ class PublicationController extends Controller
 	{
 		return $journalist->publications->concat($journalist->associatedPublications);
 	}
+
+	public static function loadModel($publication)
+	{
+		return $publication->load([
+			'profileImage',
+			'categories',
+			'publicationTypes',
+			'location',
+			'publishFrom',
+			'languages'
+		]);
+	}
 }

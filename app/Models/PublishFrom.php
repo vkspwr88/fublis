@@ -28,7 +28,7 @@ class PublishFrom extends Model
 		);
 	}
 
-	public function call(): HasMany
+	public function calls(): HasMany
 	{
 		return $this->hasMany(Call::class);
 	}

@@ -31,6 +31,7 @@ class CallService
 				'location_id' => $location->id,
 				'publication_id' => $details['publication'],
 				'language_id' => $details['language'],
+				'publish_from_id' => $details['selectedPublishFrom'],
 				'submission_end_date' => Carbon::parse($details['submissionEndsDate']),
 			]);
 			// attach tags
@@ -65,6 +66,7 @@ class CallService
 				'location_id' => $location->id,
 				'publication_id' => $details['publication'],
 				'language_id' => $details['language'],
+				'publish_from_id' => $details['selectedPublishFrom'],
 				'submission_end_date' => Carbon::parse($details['submissionEndsDate']),
 			]);
 

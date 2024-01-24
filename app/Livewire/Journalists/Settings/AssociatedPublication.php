@@ -74,7 +74,7 @@ class AssociatedPublication extends Component
 
 	public function render()
     {
-		$this->publications = auth()->user()->journalist->associatedPublications->load(['profileImage', 'categories', 'publicationTypes', 'location']);
+		$this->publications = PublicationController::loadModel(auth()->user()->journalist->associatedPublications);
 		$allAssociatedPublications = Arr::collapse([
 											$this->publications->modelKeys(),
 											auth()->user()->journalist->publications->modelKeys(),
@@ -133,7 +133,7 @@ class AssociatedPublication extends Component
 			'selectedLanguages' => 'required',
 			'selectedLanguages.*' => 'exists:languages,id',
 			'selectedPublishFrom' => 'required',
-			'selectedPublishFrom.*' => 'exists:publish_from,id',
+			'selectedPublishFrom.*' => 'exists:publish_froms,id',
 			'selectedPublicationTypes' => 'required',
 			'selectedPublicationTypes.*' => 'exists:publication_types,id',
 			'aboutMe' => 'required|max:275',

@@ -6,6 +6,7 @@ use App\Http\Controllers\Users\CategoryController;
 use App\Http\Controllers\Users\JournalistPositionController;
 use App\Http\Controllers\Users\LanguageController;
 use App\Http\Controllers\Users\LocationController;
+use App\Http\Controllers\Users\PublicationController;
 use App\Http\Controllers\Users\PublicationTypeController;
 use App\Http\Controllers\Users\PublishFromController;
 use App\Models\JournalistPublication;
@@ -68,7 +69,7 @@ class Publication extends Component
 
 	public function render()
     {
-		$this->publications = auth()->user()->journalist->publications->load(['profileImage', 'categories', 'publicationTypes', 'location']);
+		$this->publications = PublicationController::loadModel(auth()->user()->journalist->publications);
 		$this->states = LocationController::getStatesByCountryId($this->selectedCountry);
 		$this->cities = LocationController::getCitiesByStateId($this->selectedState);
 		return view('livewire.journalists.settings.publication');
@@ -121,7 +122,7 @@ class Publication extends Component
 			'selectedLanguages' => 'required',
 			'selectedLanguages.*' => 'exists:languages,id',
 			'selectedPublishFrom' => 'required',
-			'selectedPublishFrom.*' => 'exists:publish_from,id',
+			'selectedPublishFrom.*' => 'exists:publish_froms,id',
 			'selectedPublicationTypes' => 'required',
 			'selectedPublicationTypes.*' => 'exists:publication_types,id',
 			'aboutMe' => 'required|max:275',

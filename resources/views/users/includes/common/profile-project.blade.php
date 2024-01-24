@@ -3,13 +3,13 @@
 		<h1 class="text-dark fs-2 fw-semibold m-0 py-2">{{ $mediaKit->story->title }}</h1>
 		<div class="row justify-content-center g-2 py-3">
 			<div class="col-auto">
-				<span class="badge rounded-pill bg-purple-50 text-purple-700 fs-6 fw-medium">Project</span>
+				<x-users.tag name="Project" />
 			</div>
 			<div class="col-auto">
-				<span class="badge rounded-pill bg-purple-50 text-purple-700 fs-6 fw-medium">{{ $mediaKit->category->name }}</span>
+				<x-users.tag :name="$mediaKit->category->name" />
 			</div>
 			<div class="col-auto">
-				<span class="badge rounded-pill bg-purple-50 text-purple-700 fs-6 fw-medium">{{ $mediaKit->story->location->name }}</span>
+				<x-users.tag :name="$mediaKit->story->location->name" />
 			</div>
 		</div>
 		<div class="row mb-4">
@@ -28,48 +28,7 @@
 		</div>
 	</div>
 	<div class="col-md-4">
-		<p class="text-dark fs-6 py-2">Submitted By</p>
-		<div class="row align-items-center">
-			<div class="col-8">
-				<div class="row g-2">
-					<div class="col-auto">
-						<img class="rounded-circle img-square img-48" src="{{ $mediaKit->architect->company->profileImage ? Storage::url($mediaKit->architect->company->profileImage->image_path) : 'https://via.placeholder.com/48x48' }}" alt="..." />
-					</div>
-					<div class="col">
-						<p class="fs-6 fw-medium m-0 p-0">
-							@if ($viewAs == 'architect')
-							<a class="text-purple-800" href="{{ route('architect.account.studio.index') }}">
-								{{ $mediaKit->architect->company->name }}
-							</a>
-							@elseif ($viewAs == 'journalist')
-							<a class="text-purple-800" href="{{ route('journalist.brand.view', ['brand' => $mediaKit->architect->company->slug]) }}">
-								{{ $mediaKit->architect->company->name }}
-							</a>
-							@endif
-						</p>
-						<p class="fs-6 m-0 p-0">
-							<a href="{{ $mediaKit->architect->company->website }}" class="text-secondary" target="_blank">{{ trimWebsiteUrl($mediaKit->architect->company->website) }}</a>
-						</p>
-					</div>
-				</div>
-			</div>
-			<div class="col-4">
-				<div class="row g-2 justify-content-end">
-					@if($allowedEdit)
-					<div class="col-auto">
-						<a href="{{ route('architect.media-kit.press-release.edit', ['mediaKit' => $mediaKit->slug]) }}" class="text-purple-600">
-							<i class="bi bi-pencil-square"></i>
-						</a>
-					</div>
-					@endif
-					<div class="col-auto">
-						<a href="javascript:;" class="text-purple-600">
-							<i class="bi bi-share-fill"></i>
-						</a>
-					</div>
-				</div>
-			</div>
-		</div>
+		@include('users.includes.common.media-kit-submitted-by')
 		<hr class="border-gray-300">
 		<div class="row">
 			<div class="col-12">
@@ -78,20 +37,35 @@
 					<div class="col">
 						<p class="m-0 p-0 text-secondary fs-6">
 							<span class="fw-bold">Location </span>
-							<span>- {{ $mediaKit->story->location->name }}</span>
+							<span class="text-capitalize">
+								- {{ $mediaKit->story->location->name }}, {{ $mediaKit->story->location->city()->first()->state->name }}, {{ $mediaKit->story->location->city()->first()->state->country->name }}
+							</span>
 						</p>
 					</div>
 				</div>
-				<div class="row g-2 pb-2">
-					<div class="col-auto"><p class="mx-auto my-1"><i class="bi bi-textarea"></i></p></div>
-					<div class="col">
-						<p class="m-0 p-0 text-secondary fs-6">
-							<span class="fw-bold">Area </span>
-							<span>- {{ $mediaKit->story->site_area }} {{ $mediaKit->story->siteAreaUnit->name }}</span>
-						</p>
+				@if ($mediaKit->story->site_area)
+					<div class="row g-2 pb-2">
+						<div class="col-auto"><p class="mx-auto my-1"><i class="bi bi-textarea"></i></p></div>
+						<div class="col">
+							<p class="m-0 p-0 text-secondary fs-6">
+								<span class="fw-bold">Site Area </span>
+								<span>- {{ $mediaKit->story->site_area }} {{ $mediaKit->story->siteAreaUnit->name }}</span>
+							</p>
+						</div>
 					</div>
-				</div>
-				<div class="row g-2 pb-2">
+				@endif
+				@if ($mediaKit->story->built_up_area)
+					<div class="row g-2 pb-2">
+						<div class="col-auto"><p class="mx-auto my-1"><i class="bi bi-textarea"></i></p></div>
+						<div class="col">
+							<p class="m-0 p-0 text-secondary fs-6">
+								<span class="fw-bold">Built Up Area </span>
+								<span>- {{ $mediaKit->story->built_up_area }} {{ $mediaKit->story->builtUpAreaUnit->name }}</span>
+							</p>
+						</div>
+					</div>
+				@endif
+				{{-- <div class="row g-2 pb-2">
 					<div class="col-auto"><p class="mx-auto my-1"><i class="bi bi-calendar4"></i></p></div>
 					<div class="col">
 						<p class="m-0 p-0 text-secondary fs-6">
@@ -99,43 +73,62 @@
 							<span>- 2021</span>
 						</p>
 					</div>
-				</div>
-				<div class="row g-2 pb-2">
-					<div class="col-auto"><p class="mx-auto my-1"><i class="bi bi-building"></i></p></div>
-					<div class="col">
-						<p class="m-0 p-0 text-secondary fs-6">
-							<span class="fw-bold">Typology </span>
-							<span>- {{ $mediaKit->story->buildingTypology->name }}</span>
-						</p>
+				</div> --}}
+				@if ($mediaKit->story->buildingUse)
+					@if ($mediaKit->story->buildingUse->buildingTypology)
+					<div class="row g-2 pb-2">
+						<div class="col-auto"><p class="mx-auto my-1"><i class="bi bi-building"></i></p></div>
+						<div class="col">
+							<p class="m-0 p-0 text-secondary fs-6">
+								<span class="fw-bold">Typology </span>
+								<span>- {{ $mediaKit->story->buildingUse->buildingTypology->name }}</span>
+							</p>
+						</div>
 					</div>
-				</div>
-				<div class="row g-2 pb-2">
-					<div class="col-auto"><p class="mx-auto my-1"><i class="bi bi-pencil"></i></p></div>
-					<div class="col">
-						<p class="m-0 p-0 text-secondary fs-6">
-							<span class="fw-bold">Text Credits </span>
-							<span>- {{ $mediaKit->story->text_credits }}</span>
-						</p>
+					@endif
+					<div class="row g-2 pb-2">
+						<div class="col-auto"><p class="mx-auto my-1"><i class="bi bi-building"></i></p></div>
+						<div class="col">
+							<p class="m-0 p-0 text-secondary fs-6">
+								<span class="fw-bold">Use </span>
+								<span>- {{ $mediaKit->story->buildingUse->name }}</span>
+							</p>
+						</div>
 					</div>
-				</div>
-				<div class="row g-2 pb-2">
-					<div class="col-auto"><p class="mx-auto my-1"><i class="bi bi-camera"></i></p></div>
-					<div class="col">
-						<p class="m-0 p-0 text-secondary fs-6">
-							<span class="fw-bold">Photography Credits </span>
-							<span>- {{ $mediaKit->story->image_credits }}</span>
-						</p>
+				@endif
+				@if ($mediaKit->story->text_credits)
+					<div class="row g-2 pb-2">
+						<div class="col-auto"><p class="mx-auto my-1"><i class="bi bi-pencil"></i></p></div>
+						<div class="col">
+							<p class="m-0 p-0 text-secondary fs-6">
+								<span class="fw-bold">Text Credits </span>
+								<span>- {{ $mediaKit->story->text_credits }}</span>
+							</p>
+						</div>
 					</div>
-				</div>
-				<div class="row g-2 pb-2">
-					<div class="col-auto"><p class="mx-auto my-1"><i class="bi bi-people"></i></p></div>
-					<div class="col">
-						<p class="m-0 p-0 text-secondary fs-6">
-							<span class="fw-bold">Design Team </span>
-							<span>- {{ $mediaKit->story->design_team }}</span>
-						</p>
+				@endif
+				@if ($mediaKit->story->image_credits)
+					<div class="row g-2 pb-2">
+						<div class="col-auto"><p class="mx-auto my-1"><i class="bi bi-camera"></i></p></div>
+						<div class="col">
+							<p class="m-0 p-0 text-secondary fs-6">
+								<span class="fw-bold">Photography Credits </span>
+								<span>- {{ $mediaKit->story->image_credits }}</span>
+							</p>
+						</div>
 					</div>
-				</div>
+				@endif
+				@if ($mediaKit->story->design_team)
+					<div class="row g-2 pb-2">
+						<div class="col-auto"><p class="mx-auto my-1"><i class="bi bi-people"></i></p></div>
+						<div class="col">
+							<p class="m-0 p-0 text-secondary fs-6">
+								<span class="fw-bold">Design Team </span>
+								<span>- {{ $mediaKit->story->design_team }}</span>
+							</p>
+						</div>
+					</div>
+				@endif
 			</div>
 		</div>
 		<hr class="border-gray-300">
@@ -145,45 +138,7 @@
 			@include('users.includes.common.profile-project-download-journalist')
 		@endif
 		<hr class="border-gray-300">
-		<div class="row">
-			<div class="col-12">
-				<p class="text-dark fs-6 m-0 pb-2">Media Contact</p>
-				<div class="row g-3 align-items-center">
-					<div class="col-auto">
-						<img class="rounded-circle img-square img-48" src="{{ $mediaKit->architect->profileImage ? Storage::url($mediaKit->architect->profileImage->image_path) : 'https://via.placeholder.com/48x48' }}" alt="..." />
-					</div>
-					<div class="col-auto">
-						<p class="fs-6 fw-medium m-0 p-0">
-							@if ($viewAs == 'architect')
-							<a class="text-purple-800" href="{{ route('architect.account.profile.index') }}">
-								{{ $mediaKit->story->mediaContact->user->name }}
-							</a>
-							@elseif ($viewAs == 'journalist')
-							<a class="text-purple-800" href="{{ route('journalist.brand.architect', ['architect' => $mediaKit->story->mediaContact->user->architect->slug]) }}">
-								{{ $mediaKit->story->mediaContact->user->name }}
-							</a>
-							@endif
-						</p>
-						<p class="text-secondary fs-6 m-0 p-0">{{ $mediaKit->architect->position->name }}</p>
-					</div>
-					<div class="col-auto text-purple-700"><i class="bi bi-arrow-up-right"></i></div>
-				</div>
-			</div>
-		</div>
-		@if($mediaKit->story->tags->count())
-			<hr class="border-gray-300">
-			<div class="row">
-				<div class="col-12">
-					<p class="text-dark fs-6 m-0 pb-2">Tags</p>
-					<div class="row justify-content-center g-2 py-3">
-						@foreach ($mediaKit->story->tags as $tag)
-							<div class="col-auto">
-								<x-users.tag :name="$tag" />
-							</div>
-						@endforeach
-					</div>
-				</div>
-			</div>
-		@endif
+		@include('users.includes.common.media-kit-media-contact')
+		@include('users.includes.common.media-kit-tags')
 	</div>
 </div>

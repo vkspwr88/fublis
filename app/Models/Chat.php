@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
 
 class Chat extends Model
 {
@@ -31,5 +32,10 @@ class Chat extends Model
 
 	public function latestMessage(): HasOne {
 		return $this->hasOne(ChatMessage::class)->latestOfMany();
+	}
+
+	public function notification(): MorphOne
+	{
+		return $this->morphOne(Notification::class, 'notifiable');
 	}
 }

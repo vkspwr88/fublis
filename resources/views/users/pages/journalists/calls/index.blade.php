@@ -69,8 +69,14 @@
 												<img class="rounded-circle img-square img-45" src="{{ $call->publication->profileImage ? Storage::url($call->publication->profileImage->image_path) : "https://via.placeholder.com/45x45" }}" alt=".." />
 											</div>
 											<div class="col">
-												<p class="text-secondary fw-semibold m-0 p-0">{{ $call->publication->name }}</p>
-												<p class="text-secondary m-0 p-0"><span class="small">{{ $call->journalist->user->name }}</span></p>
+												<p class="fw-semibold m-0 p-0">
+													<a href="{{ route('journalist.account.profile.publications.view', ['publication' => $call->publication->slug]) }}" class="text-secondary" style="z-index: 2;">{{ $call->publication->name }}</a>
+												</p>
+												<p class="m-0 p-0">
+													<span class="small">
+														<a href="{{ route('journalist.account.profile.journalists.view', ['journalist' => $call->journalist->slug]) }}" class="text-secondary" style="z-index: 2;">{{ $call->journalist->user->name }}</a>
+													</span>
+												</p>
 											</div>
 										</div>
 									</div>

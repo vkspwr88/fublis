@@ -28,6 +28,8 @@ class AddPublicationStepComponent extends StepComponent
 	public $checkedPublicationTypes = [];
 	public $checkedCategories = [];
 
+	public $languages;
+
 	private JournalistService $journalistService;
 	private UserRepositoryInterface $userRepository;
 
@@ -48,6 +50,8 @@ class AddPublicationStepComponent extends StepComponent
 			$this->searchPublicationName = $invitedUser->journalist->publications[0]->name;
 			$this->selectedPublication = $invitedUser->journalist->publications[0]->id;
 		}
+		$this->languages = Controllers\Users\LanguageController::getAll();
+		$this->checkedLanguage[] = Controllers\Users\LanguageController::findByName('english')->id;
 	}
 
 	public function render()
@@ -57,13 +61,14 @@ class AddPublicationStepComponent extends StepComponent
 			$data = [
 				//'locations' => Controllers\Users\LocationController::getAll(),
 				'categories' => Controllers\Users\CategoryController::getAll(),
-				'languages' => Controllers\Users\LanguageController::getAll(),
+				// 'languages' => Controllers\Users\LanguageController::getAll(),
 				'publishFrom' => Controllers\Users\PublishFromController::getAll(),
 				'publicationTypes' => Controllers\Users\PublicationTypeController::getAll(),
 				'countries' => Controllers\Users\LocationController::getCountries(),
 				'states' => Controllers\Users\LocationController::getStatesByCountryId($this->selectedCountry),
 				'cities' => Controllers\Users\LocationController::getCitiesByStateId($this->selectedState),
 			];
+			
 		}
 		else{
 			if($this->searchPublicationName){
@@ -103,7 +108,7 @@ class AddPublicationStepComponent extends StepComponent
 			'checkedLanguage' => 'required|array',
 			'checkedLanguage.*' => 'exists:languages,id',
 			'checkedPublishFrom' => 'required|array',
-			'checkedPublishFrom.*' => 'exists:publish_from,id',
+			'checkedPublishFrom.*' => 'exists:publish_froms,id',
 			'checkedPublicationTypes' => 'required|array',
 			'checkedPublicationTypes.*' => 'exists:publication_types,id',
 			'checkedCategories' => 'required|array',

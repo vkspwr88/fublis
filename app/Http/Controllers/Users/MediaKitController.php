@@ -42,4 +42,83 @@ class MediaKitController extends Controller
 						])
 						->get();
 	}
+
+	public static function loadModel($mediaKit, $type)
+	{
+		if($type === 'press-release'){
+			return $mediaKit->load([
+				'downloadRequests',
+				'story' => [
+					'photographs',
+					'tags',
+				],
+				'category',
+				'architect' => [
+					'company' => [
+						'profileImage'
+					],
+					'profileImage',
+					'user',
+					'position'
+				],
+				'mediaContact' => [
+					'user',
+					'profileImage',
+					'position',
+				],
+				'projectAccess',
+			]);
+		}
+		if($type === 'project'){
+			return $mediaKit->load([
+				'downloadRequests',
+				'story' => [
+					'photographs',
+					'location',
+					'siteAreaUnit',
+					'builtUpAreaUnit',
+					'projectStatus',
+					'buildingUse' => [
+						'buildingTypology'
+					],
+				],
+				'category',
+				'architect' => [
+					'company' => [
+						'profileImage'
+					],
+					'profileImage',
+					'user',
+					'position'
+				],
+				'mediaContact' => [
+					'user',
+					'profileImage',
+					'position',
+				],
+				'projectAccess',
+			]);
+		}
+		if($type === 'article'){
+			return $mediaKit->load([
+				'downloadRequests',
+				'story.images',
+				'category',
+				'architect' => [
+					'company' => [
+						'profileImage'
+					],
+					'profileImage',
+					'user',
+					'position'
+				],
+				'mediaContact' => [
+					'user',
+					'profileImage',
+					'position',
+				],
+				'projectAccess',
+			]);
+		}
+	}
 }

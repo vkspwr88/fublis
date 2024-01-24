@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Users\Journalists\MediaKits;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Users\MediaKitController;
 use App\Models\MediaKit;
 use App\Services\NotificationService;
 use Illuminate\Http\Request;
@@ -14,7 +15,7 @@ class ProjectController extends Controller
 		if(!$mediaKit){
 			return abort(404);
 		}
-		$mediaKit = $this->loadModel($mediaKit);
+		$mediaKit = MediaKitController::loadModel($mediaKit, 'project');
 
 		//dd($mediaKit->downloadRequests->where('requested_by', auth()->id())->first());
 		NotificationService::sendViewCountNotification([
@@ -29,29 +30,6 @@ class ProjectController extends Controller
 		return view('users.pages.journalists.media-kits.projects.view', [
 			'mediaKit' => $mediaKit,
 			'downloadRequest' => $mediaKit->downloadRequests->where('requested_by', auth()->id())->first(),
-		]);
-	}
-
-	public function loadModel($mediaKit)
-	{
-		return $mediaKit->load([
-			'downloadRequests',
-			'story' => [
-				'photographs',
-				'location',
-				'siteAreaUnit',
-				'builtUpAreaUnit',
-				'projectStatus',
-				'buildingTypology',
-				'mediaContact',
-				'projectAccess',
-			],
-			'category',
-			'architect' => [
-				'company',
-				'user',
-				'position'
-			]
 		]);
 	}
 }

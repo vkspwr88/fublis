@@ -22,11 +22,13 @@ class CallController extends Controller
 			'category',
 			'location',
 			'language',
+			'publishFrom',
 			'publication' => [
 				'profileImage'
 			],
 			'tags',
 		]);
+		$city = $call->location->city()->first()->load('state.country');
 		return view('users.pages.architects.pitch-story.call.view', [
 			'call' => $call,
 			'title' => $call->title,
@@ -34,8 +36,11 @@ class CallController extends Controller
 			'description' => $call->description,
 			'submissionEndsDate' => $call->submission_end_date,
 			'publication' => $call->publication,
+			'publishFrom' => $call->publishFrom,
 			'category' => $call->category,
 			'selectedCity' => $call->location->name,
+			'selectedStateName' => $city->state->name,
+			'selectedCountryName' => $city->state->country->name,
 			'location' => $call->location,
 			'language' => $call->language,
 		]);

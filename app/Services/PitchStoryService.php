@@ -186,7 +186,7 @@ class PitchStoryService
 					'sent_to_user_id' => $journalist->user_id,
 					'message' => $details['message'],
 					// 'poly' => $pitch,
-					'poly' => $chat,
+					'poly' => $pitch,
 				]);
 			}
 

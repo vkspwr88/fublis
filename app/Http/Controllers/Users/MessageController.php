@@ -43,9 +43,9 @@ class MessageController extends Controller
 		return Chat::where([
 			'sender_id' => auth()->id(),
 			'sender_unread' => true,
-		])->count + Chat::where([
+		])->count() + Chat::where([
 			'receiver_id' => auth()->id(),
 			'receiver_unread' => true,
-		])->count;
+		])->count();
 	}
 }

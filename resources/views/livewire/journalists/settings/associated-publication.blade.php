@@ -23,8 +23,12 @@
 							<img class="rounded-circle img-square img-48" src="{{ $publication->profileImage ? Storage::url($publication->profileImage->image_path) : 'https://via.placeholder.com/48x48' }}" alt="..." />
 						</div>
 						<div class="col-auto">
-							<h6 class="fs-6 text-purple-700 fw-medium m-0 p-0">{{ $publication->name }}</h6>
-							<p class="fs-6 text-secondary m-0 p-0">{{ trimWebsiteUrl($publication->website) }}</p>
+							<h6 class="fs-6 fw-medium m-0 p-0">
+								<a href="{{ route('journalist.account.profile.publications.view', ['publication' => $publication->slug]) }}" class="text-purple-700">{{ $publication->name }}</a>
+							</h6>
+							<p class="fs-7 m-0 p-0">
+								<a href="{{ $publication->website }}" class="text-secondary">{{ trimWebsiteUrl($publication->website) }}</a>
+							</p>
 						</div>
 						{{-- <div class="col-auto ms-4 align-self-end">
 							<a href="javascript:;" class="text-purple-700" wire:click="edit('{{ $publication->id }}')">
@@ -173,13 +177,17 @@
 			<div class="row mb-3">
 				<label for="selectLanguage" class="col-md-4 col-form-label text-dark fs-6 fw-medium">Language</label>
 				<div class="col-md-8">
-					<select id="selectLanguage" class="form-select @error('language') is-invalid @enderror" wire:model="language">
-						<option value="">Select Language</option>
+					<div class="row">
 						@foreach ($languages as $language)
-							<option value="{{ $language->id }}">{{ $language->name }}</option>
+						<div class="col-6">
+							<div class="form-check">
+								<input class="form-check-input" type="checkbox" value="{{ $language->id }}" id="language-{{ $language->id }}" wire:model="selectedLanguages">
+								<label class="form-check-label" for="language-{{ $language->id }}">{{ $language->name }}</label>
+							</div>
+						</div>
 						@endforeach
-					</select>
-					@error('language')<div class="invalid-feedback">{{ $message }}</div>@enderror
+					</div>
+					@error('selectedLanguages')<div class="invalid-feedback">{{ $message }}</div>@enderror
 				</div>
 			</div>
 			<div class="row">
@@ -261,6 +269,22 @@
 				</div>
 			</div>
 			<hr class="border-gray-300">
+			<div class="row mb-3">
+				<label class="col-md-4 col-form-label text-dark fs-6 fw-medium">Publish Stories From</label>
+				<div class="col-md-8">
+					<div class="row">
+						@foreach ($publishFrom as $publish)
+						<div class="col-6">
+							<div class="form-check">
+								<input class="form-check-input" type="checkbox" value="{{ $publish->id }}" id="publish-{{ $publish->id }}" wire:model="selectedPublishFrom">
+								<label class="form-check-label" for="publish-{{ $publish->id }}">{{ $publish->name }}</label>
+							</div>
+						</div>
+						@endforeach
+					</div>
+				</div>
+				@error('selectedPublishFrom')<div class="error">{{ $message }}</div>@enderror
+			</div>
 			<div class="row">
 				<label class="col-md-4 col-form-label text-dark fs-6 fw-medium">Publication Type</label>
 				<div class="col-md-8">

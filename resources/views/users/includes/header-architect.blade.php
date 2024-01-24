@@ -4,7 +4,7 @@
 			<a class="nav-link {{ request()->segment(2) === 'add-story' ? 'active fw-medium' : '' }}" {{ request()->segment(2) === 'add-story' ? 'aria-current=page' : '' }} href="{{ route('architect.add-story.index') }}">Add Story</a>
 		</li>
 		<li class="nav-item">
-			<a class="nav-link {{ request()->segment(2) === 'media-kit' ? 'active fw-medium' : '' }}" {{ request()->segment(2) === 'media-kit' ? 'aria-current=page' : '' }} href="{{ route('architect.media-kit.index') }}">Media Kits</a>
+			<a class="nav-link {{ request()->segment(1) === 'media-kit' ? 'active fw-medium' : '' }}" {{ request()->segment(2) === 'media-kit' ? 'aria-current=page' : '' }} href="{{ route('architect.media-kit.index') }}">Media Kits</a>
 		</li>
 		<li class="nav-item">
 			<a class="nav-link {{ request()->segment(2) === 'pitch-story' ? 'active fw-medium' : '' }}" {{ request()->segment(2) === 'pitch-story' ? 'aria-current=page' : '' }} href="{{ route('architect.pitch-story.index') }}">Pitch Story</a>
@@ -30,7 +30,7 @@
 		</div>
 	</form>
 	<ul id="profileNav" class="navbar-nav mt-5 mt-xl-0 ms-xl-auto flex-row align-items-center">
-		<li class="nav-item nav-icon px-2 ps-0 px-xl-1">
+		{{-- <li class="nav-item nav-icon px-2 ps-0 px-xl-1">
 			<a href="{{ route('architect.account.profile.message.index') }}" class="nav-link text-center text-purple-600 border border-2 border-purple-600 rounded-circle lh-1 position-relative">
 				<i class="bi bi-envelope"></i>
 				@if ($totalUnreadMessages)
@@ -59,7 +59,9 @@
 					</span>
 				@endif
 			</a>
-		</li>
+		</li> --}}
+		<livewire:common.header.message />
+		<livewire:common.header.notification />
 		<li class="nav-item px-2 px-xl-1 dropdown">
 			<a href="javascript:;" class="nav-link rounded-circle p-0" role="button" data-bs-toggle="dropdown">
 				<img class="rounded-circle img-40 img-square" src="{{ $profileImage }}" alt="..." />

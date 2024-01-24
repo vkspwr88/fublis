@@ -52,8 +52,8 @@ class EditStepComponent extends StepComponent
 	{
 		$this->states = LocationController::getStatesByCountryId($this->selectedCountry);
 		$this->cities = LocationController::getCitiesByStateId($this->selectedState);
-		$this->selectedCountryName = $this->countries->find($this->selectedCountry);
-		$this->selectedStateName = $this->states->find($this->selectedState);
+		$this->selectedCountryName = $this->countries->find($this->selectedCountry)->name;
+		$this->selectedStateName = $this->states->find($this->selectedState)->name;
 		return view('livewire.journalists.calls.edit-wizard.steps.edit');
 	}
 
@@ -75,7 +75,7 @@ class EditStepComponent extends StepComponent
 			'selectedState' => 'required|exists:states,id',
 			'selectedCity' => 'required|exists:cities,name',
             'publication' => 'required|exists:publications,id',
-            'selectedPublishFrom' => 'required|exists:publish_from,id',
+            'selectedPublishFrom' => 'required|exists:publish_froms,id',
             'language' => 'required|exists:languages,id',
 			'submissionEndsDate' => 'required|date_format:d-M-Y|after:tomorrow',
         ];

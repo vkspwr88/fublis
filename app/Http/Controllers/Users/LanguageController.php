@@ -17,4 +17,9 @@ class LanguageController extends Controller
 	{
 		return Language::find($id);
 	}
+
+	public static function findByName(string $name)
+	{
+		return Language::where('name', $name)->first();
+	}
 }

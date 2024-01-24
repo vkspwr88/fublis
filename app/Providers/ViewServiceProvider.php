@@ -22,7 +22,7 @@ class ViewServiceProvider extends ServiceProvider
     public function boot(): void
     {
         View::composer('users.includes.header', Composers\ProfileImageComposer::class);
-        View::composer('users.includes.header', Composers\TotalUnreadComposer::class);
+        // View::composer('users.includes.header', Composers\TotalUnreadComposer::class);
         View::composer('users.includes.footer', Composers\SocialMediaComposer::class);
     }
 }
