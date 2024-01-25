@@ -73,7 +73,7 @@ class CompanyController extends Controller
 		return $brand->load([
 			'profileImage',
 			'category',
-			'location.state.country',
+			'location',
 			'teamSize',
 			'architects' => [
 				'profileImage',

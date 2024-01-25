@@ -14,7 +14,7 @@ class BrandService
 								'category',
 								'location'
 							])
-							->whereHas('mediaKit')
+							// ->whereHas('mediaKit')
 							->where('name', 'like', '%' . $data['name'] . '%')
 							->latest()
 							->get();
