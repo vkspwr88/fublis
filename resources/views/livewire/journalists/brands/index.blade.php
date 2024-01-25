@@ -67,7 +67,7 @@
 										</span>
 									</p>
 									<p class="text-end fs-6 col m-0">
-										<a href="{{ route('journalist.brand.view', ['brand' => $brand->id]) }}" class="btn btn-primary btn-sm rounded-pill">
+										<a href="{{ route('journalist.brand.view', ['brand' => $brand->slug]) }}" class="btn btn-primary btn-sm rounded-pill">
 											View Media Kits <i class="bi bi-arrow-up-right small"></i>
 										</a>
 									</p>
