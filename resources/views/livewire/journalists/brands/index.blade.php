@@ -74,8 +74,8 @@
 								</div>
 								<div class="row g-2">
 									<div class="col-12">
-										<h5 class="fs-5 fw-semibold m-0 pt-3 text-dark">
-											{{ $brand->name }}
+										<h5 class="fs-5 fw-semibold m-0 pt-3">
+											<a href="{{ route('journalist.brand.view', ['brand' => $brand->slug]) }}" class="text-dark">{{ $brand->name }}</a>
 										</h5>
 										<p class="fs-6 m-0 p-0">
 											<a href="{{ $brand->website }}" class="text-secondary small" target="_blank">{{ trimWebsiteUrl($brand->website) }}</a>

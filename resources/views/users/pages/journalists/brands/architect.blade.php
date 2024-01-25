@@ -15,7 +15,7 @@
 						<a href="{{ route('journalist.brand.index') }}" class="text-secondary fs-6 fw-medium">Brands</i></a>
 					</li>
 					<li class="breadcrumb-item fublis-breadcrumb-item">
-						<a href="{{ route('journalist.brand.view', ['brand' => $architect->company->id]) }}" class="text-secondary fs-6 fw-medium">{{ $architect->company->name }}</i></a>
+						<a href="{{ route('journalist.brand.view', ['brand' => $architect->company->slug]) }}" class="text-secondary fs-6 fw-medium">{{ $architect->company->name }}</i></a>
 					</li>
 					<li class="breadcrumb-item fublis-breadcrumb-item text-purple-600 fs-6 fw-medium" aria-current="page">{{ $architect->user->name }}</li>
 				</ol>
