@@ -40,7 +40,7 @@ class CreateStepComponent extends StepComponent
 		$this->states = LocationController::getStatesByCountryId($this->selectedCountry);
 		$this->cities = LocationController::getCitiesByStateId($this->selectedState);
 		$this->selectedCountryName = $this->countries->find($this->selectedCountry)->name;
-		$this->selectedStateName = $this->states->find($this->selectedState)->name;
+		$this->selectedStateName = $this->states->find($this->selectedState) ? $this->states->find($this->selectedState)->name : '';
 		return view('livewire.journalists.calls.create-wizard.steps.create');
 	}
 
@@ -123,7 +123,7 @@ class CreateStepComponent extends StepComponent
 
 	public function preview()
 	{
-		$validated = $this->validate();
+		$this->validate();
 		//dd($validated);
 		//$this->data = $validated;
 		$this->nextStep();
