@@ -34,9 +34,12 @@
                     <div class="row justify-content-center pb-2">
                         <div class="col">
                             <h5 class="fs-5 fw-semibold m-0">
-                                <a class="text-dark" href="{{ route('architect.pitch-story.journalists.view', ['journalist' => $journalist->slug]) }}">
-                                    {{ $journalist->user->name }}
-                                </a>
+								@if(isArchitect())
+									<a class="text-dark" href="{{ route('architect.pitch-story.journalists.view', ['journalist' => $journalist->slug]) }}">{{ $journalist->user->name }}</a>
+								@endif
+								@if(isJournalist())
+									<a class="text-dark" href="{{ route('journalist.account.profile.journalists.view', ['journalist' => $journalist->slug]) }}">{{ $journalist->user->name }}</a>
+								@endif
                             </h5>
                             <p class="text-secondary fs-6 m-0 p-0"><span class="small">{{ $journalist->position->name }}</span></p>
                         </div>
