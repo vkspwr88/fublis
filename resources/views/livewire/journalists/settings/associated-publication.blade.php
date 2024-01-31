@@ -92,7 +92,8 @@
 				</div>
 			</div>
 			<hr class="border-gray-300">
-			<div class="row">
+			@include('users.includes.journalist.publication-form')
+			{{-- <div class="row">
 				<label for="inputPublication" class="col-md-4 col-form-label text-dark fs-6 fw-medium">Publication Name</label>
 				<div class="col-md-8">
 					<input type="text" id="inputPublication" class="form-control @error('publicationName') is-invalid @enderror" wire:model="publicationName">
@@ -160,18 +161,6 @@
 				</div>
 			</div>
 			<hr class="border-gray-300">
-			{{-- <div class="row">
-				<label for="selectLocation" class="col-md-4 col-form-label text-dark fs-6 fw-medium">Country</label>
-				<div class="col-md-8">
-					<select id="selectLocation" class="form-select @error('location') is-invalid @enderror" wire:model="location">
-						<option value="">Select Country</option>
-						@foreach ($locations as $location)
-							<option value="{{ $location->id }}">{{ $location->name }}</option>
-						@endforeach
-					</select>
-					@error('location')<div class="invalid-feedback">{{ $message }}</div>@enderror
-				</div>
-			</div> --}}
 			<div class="row mb-3">
 				<label for="selectCountry" class="col-md-4 col-form-label text-dark fs-6 fw-medium">Country</label>
 				<div class="col-md-8">
@@ -282,7 +271,7 @@
 						Save <x-users.spinners.white-btn wire:target="update" />
 					</button>
 				</div>
-			</div>
+			</div> --}}
 		</div>
 	</div>
 	@include('users.includes.common.file-upload-script')

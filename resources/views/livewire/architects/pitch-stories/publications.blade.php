@@ -47,7 +47,8 @@
 		</div>
 	</div>
 	<div class="col-lg">
-		@if($publications->count() > 0)
+		<x-users.publications.full-list :publications="$publications" />
+		{{-- @if($publications->count() > 0)
 		<div class="row g-4">
 			@foreach ($publications as $publication)
 			<div class="col-12">
@@ -84,11 +85,13 @@
 								<div class="row justify-content-end align-items-end g-4">
 									<div class="col">
 										<div class="row justify-content-center">
+											@if($publication->monthly_visitors)
 											<div class="col-12">
 												<p class="fw-medium m-0 py-2">
-													<span class="badge rounded-pill bg-purple-50 text-purple-700">23.3K monthly visits</span>
+													<span class="badge rounded-pill bg-purple-50 text-purple-700">{{ $publication->monthly_visitors }} monthly visits</span>
 												</p>
 											</div>
+											@endif
 											<div class="col-12">
 												<h5 class="fs-6 fw-semibold m-0 pt-3">
 													<a href="{{ route('architect.pitch-story.publications.view', ['publication' => $publication->slug]) }}" class="text-dark">
@@ -129,7 +132,7 @@
 				</div>
 			</div>
 		</div>
-		@endif
+		@endif --}}
 	</div>
 
 	@include('users.includes.architect.pitch-story-modals')

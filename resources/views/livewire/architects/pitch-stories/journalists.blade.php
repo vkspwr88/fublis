@@ -53,7 +53,8 @@
 		</div>
 	</div>
 	<div class="col-lg">
-		@if($journalists->count() > 0)
+		<x-users.journalists.full-list :journalists="$journalists" />
+		{{-- @if($journalists->count() > 0)
 		<div class="row g-4">
 			@foreach ($journalists as $journalist)
 			<div class="col-12">
@@ -138,7 +139,7 @@
 				</div>
 			</div>
 		</div>
-		@endif
+		@endif --}}
 	</div>
 
 	@include('users.includes.architect.pitch-story-modals')

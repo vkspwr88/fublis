@@ -53,7 +53,8 @@
 		</div>
 	</div>
 	<div class="col-lg">
-		@if($journalists->count() > 0)
+		<x-users.journalists.full-list :journalists="$journalists" />
+		{{-- @if($journalists->count() > 0)
 		<div class="row g-4">
 			@foreach ($journalists as $journalist)
 			<div class="col-12">
@@ -81,11 +82,6 @@
 										</span>
 										@endif
 									</p>
-									{{-- <p class="text-end fs-6 col m-0">
-										<button type="button" class="btn btn-primary btn-sm fw-medium" wire:click="pitchJournalist('{{ $journalist->id }}')">
-											Submit Story <x-users.spinners.white-btn wire:target="pitchJournalist('{{ $journalist->id }}')" />
-										</button>
-									</p> --}}
 								</div>
 								<div class="row justify-content-center pb-2">
 									<div class="col">
@@ -138,6 +134,6 @@
 				</div>
 			</div>
 		</div>
-		@endif
+		@endif --}}
 	</div>
 </div>

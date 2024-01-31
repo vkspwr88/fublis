@@ -46,6 +46,7 @@ class AssociatedPublication extends Component
 	public $selectedLanguages = [];
 	public $selectedPublishFrom = [];
 	public $selectedPublicationTypes = [];
+	public $monthlyVisitors;
 	public $aboutMe;
 	public $isNew = true;
 	public $publications;
@@ -137,6 +138,7 @@ class AssociatedPublication extends Component
 			'selectedPublishFrom.*' => 'exists:publish_froms,id',
 			'selectedPublicationTypes' => 'required',
 			'selectedPublicationTypes.*' => 'exists:publication_types,id',
+			'monthlyVisitors' => 'nullable',
 			'aboutMe' => 'required|max:275',
 		];
 	}
@@ -208,6 +210,7 @@ class AssociatedPublication extends Component
 			'selectedLanguages' => $this->selectedLanguages,
 			'selectedPublishFrom' => $this->selectedPublishFrom,
 			'selectedPublicationTypes' => $this->selectedPublicationTypes,
+			'monthlyVisitors' => $this->monthlyVisitors,
 			'aboutMe' => $this->aboutMe,
 		];
 	}
@@ -230,6 +233,7 @@ class AssociatedPublication extends Component
 		$this->selectedCategories = $this->selectedPublication->categories->pluck('id');
 		$this->selectedPublicationTypes = $this->selectedPublication->publicationTypes->pluck('id');
 		$this->selectedPublishFrom = $this->selectedPublication->publishFrom->pluck('id');
+		$this->monthlyVisitors = $this->selectedPublication->monthly_visitors;
 		$this->aboutMe = $this->selectedPublication->about_me;
 		$this->profileImageOld = $this->selectedPublication->profileImage;
 		$this->publicationId = $publicationId;
@@ -251,6 +255,7 @@ class AssociatedPublication extends Component
 		$this->selectedCategories = [];
 		$this->selectedPublicationTypes = [];
 		$this->selectedPublishFrom = [];
+		$this->monthlyVisitors = '';
 		$this->aboutMe = '';
 		$this->publicationId = '';
 		$this->profileImageOld = '';

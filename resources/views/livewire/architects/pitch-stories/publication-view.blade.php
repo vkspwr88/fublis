@@ -49,32 +49,36 @@
 						</div>
 					</div>
 				</div>
-				<div class="col-12">
-					<div class="row g-2">
-						<div class="col-auto">
-							<svg xmlns="http://www.w3.org/2000/svg" height="19" fill="currentColor" class="bi bi-file-bar-graph-fill text-secondary" viewBox="0 0 16 16">
-								<path d="M12 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm-2 11.5v-6a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm-2.5.5a.5.5 0 0 1-.5-.5v-4a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.5.5h-1zm-3 0a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5h-1z"/>
-							  </svg>
-						</div>
-						<div class="col">
-							<span class="badge rounded-pill text-gray-700 bg-gray-200">800K monthly visits</span>
-						</div>
-					</div>
-				</div>
-				<div class="col-12">
-					<div class="row g-2">
-						<div class="col-auto">
-							<svg xmlns="http://www.w3.org/2000/svg" height="19" fill="currentColor" class="bi bi-calendar2-minus text-secondary" viewBox="0 0 16 16">
-								<path d="M5.5 10.5A.5.5 0 0 1 6 10h4a.5.5 0 0 1 0 1H6a.5.5 0 0 1-.5-.5z"/>
-								<path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM2 2a1 1 0 0 0-1 1v11a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1H2z"/>
-								<path d="M2.5 4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H3a.5.5 0 0 1-.5-.5V4z"/>
-							</svg>
-						</div>
-						<div class="col">
-							<span class="badge rounded-pill text-gray-700 bg-gray-200">{{ $publication->starting_year ?? '-' }}</span>
+				@if($publication->monthly_visitors)
+					<div class="col-12">
+						<div class="row g-2">
+							<div class="col-auto">
+								<svg xmlns="http://www.w3.org/2000/svg" height="19" fill="currentColor" class="bi bi-file-bar-graph-fill text-secondary" viewBox="0 0 16 16">
+									<path d="M12 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm-2 11.5v-6a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm-2.5.5a.5.5 0 0 1-.5-.5v-4a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.5.5h-1zm-3 0a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5h-1z"/>
+								</svg>
+							</div>
+							<div class="col">
+								<span class="badge rounded-pill text-gray-700 bg-gray-200">{{ $publication->monthly_visitors }} monthly visits</span>
+							</div>
 						</div>
 					</div>
-				</div>
+				@endif
+				@if($publication->starting_year)
+					<div class="col-12">
+						<div class="row g-2">
+							<div class="col-auto">
+								<svg xmlns="http://www.w3.org/2000/svg" height="19" fill="currentColor" class="bi bi-calendar2-minus text-secondary" viewBox="0 0 16 16">
+									<path d="M5.5 10.5A.5.5 0 0 1 6 10h4a.5.5 0 0 1 0 1H6a.5.5 0 0 1-.5-.5z"/>
+									<path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM2 2a1 1 0 0 0-1 1v11a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1H2z"/>
+									<path d="M2.5 4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H3a.5.5 0 0 1-.5-.5V4z"/>
+								</svg>
+							</div>
+							<div class="col">
+								<span class="badge rounded-pill text-gray-700 bg-gray-200">{{ $publication->starting_year }}</span>
+							</div>
+						</div>
+					</div>
+				@endif
 				<div class="col-12">
 					<div class="row g-2">
 						<div class="col-auto">

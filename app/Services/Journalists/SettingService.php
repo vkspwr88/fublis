@@ -67,6 +67,7 @@ class SettingService
 					'website' => $details['website'],
 					'location_id' => $location->id,
 					// 'language_id' => $details['language'],
+					'monthly_visitors' => $details['monthlyVisitors'],
 					'about_me' => $details['aboutMe'],
 					'added_by' => $journalist->id,
 				]);
@@ -90,6 +91,7 @@ class SettingService
 					'website' => $details['website'],
 					'location_id' => $location->id,
 					// 'language_id' => $details['language'],
+					'monthly_visitors' => $details['monthlyVisitors'],
 					'about_me' => $details['aboutMe'],
 				]);
 				// journalist position in publication
@@ -186,6 +188,7 @@ class SettingService
 					'name' => $details['publicationName'],
 					'website' => $details['website'],
 					'location_id' => $location->id,
+					'monthly_visitors' => $details['monthlyVisitors'],
 					// 'language_id' => $details['language'],
 					'about_me' => $details['aboutMe'],
 					'added_by' => $journalist->id,
@@ -209,6 +212,7 @@ class SettingService
 					'name' => $details['publicationName'],
 					'website' => $details['website'],
 					'location_id' => $location->id,
+					'monthly_visitors' => $details['monthlyVisitors'],
 					// 'language_id' => $details['language'],
 					'about_me' => $details['aboutMe'],
 				]);

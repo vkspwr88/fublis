@@ -47,7 +47,8 @@
 		</div>
 	</div>
 	<div class="col-lg">
-		@if($publications->count() > 0)
+		<x-users.publications.full-list :publications="$publications" />
+		{{-- @if($publications->count() > 0)
 		<div class="row g-4">
 			@foreach ($publications as $publication)
 			<div class="col-12">
@@ -75,20 +76,17 @@
 										</span>
 										@endif
 									</p>
-									{{-- <p class="text-end fs-6 col m-0">
-										<button type="button" class="btn btn-primary btn-sm fw-medium" wire:click="showContact('{{ $publication->id }}')">
-											Pitch Story <x-users.spinners.white-btn wire:target="showContact('{{ $publication->id }}')" />
-										</button>
-									</p> --}}
 								</div>
 								<div class="row justify-content-end align-items-end g-4">
 									<div class="col">
 										<div class="row justify-content-center">
+											@if($publication->monthly_visitors)
 											<div class="col-12">
 												<p class="fw-medium m-0 py-2">
-													<span class="badge rounded-pill bg-purple-50 text-purple-700">23.3K monthly visits</span>
+													<span class="badge rounded-pill bg-purple-50 text-purple-700">{{ $publication->monthly_visitors }} monthly visits</span>
 												</p>
 											</div>
+											@endif
 											<div class="col-12">
 												<h5 class="fs-6 fw-semibold m-0 pt-3">
 													<a href="{{ route('journalist.account.profile.publications.view', ['publication' => $publication->slug]) }}" class="text-dark">
@@ -129,6 +127,6 @@
 				</div>
 			</div>
 		</div>
-		@endif
+		@endif --}}
 	</div>
 </div>
