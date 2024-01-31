@@ -8,7 +8,7 @@
 							<img src="{{ $publication->profileImage ? Storage::url($publication->profileImage->image_path) : 'https://via.placeholder.com/150x150' }}" class="img-square img-150" alt="...">
 						</div>
 					</div>
-					<div class="col-sm">
+					<div class="col-sm d-flex flex-column justify-content-between">
 						<div class="row align-items-center pb-4">
 							<p class="fs-6 col m-0">
 								<span class="badge rounded-pill text-bg-secondary mb-1">
