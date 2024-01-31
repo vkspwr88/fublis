@@ -48,6 +48,7 @@ class AssociatedPublication extends Component
 	public $selectedPublicationTypes = [];
 	public $monthlyVisitors;
 	public $aboutMe;
+	public int $aboutMeLength;
 	public $isNew = true;
 	public $publications;
 	public $selectedPublication;
@@ -71,6 +72,7 @@ class AssociatedPublication extends Component
 		$this->publishFrom = PublishFromController::getAll();
 		$this->publicationTypes = PublicationTypeController::getAll();
 		$this->countries = LocationController::getCountries();
+		$this->characterCount();
 	}
 
 	public function render()
@@ -86,6 +88,11 @@ class AssociatedPublication extends Component
 			'allPublications' => PublicationController::getAll()->except($allAssociatedPublications),
 		]);
     }
+
+	public function characterCount()
+	{
+		$this->aboutMeLength = 275 - str()->length($this->aboutMe);
+	}
 
 	public function boot()
 	{
@@ -241,6 +248,7 @@ class AssociatedPublication extends Component
 		$this->selectedCity = $city->name;
 		$this->selectedState = $city->state->id;
 		$this->selectedCountry = $city->state->country->id;
+		$this->characterCount();
 	}
 
 	public function add()
@@ -264,6 +272,7 @@ class AssociatedPublication extends Component
 		$this->selectedCountry = 101;
 		$this->selectedState = 0;
 		$this->selectedPublication = collect([]);
+		$this->characterCount();
 	}
 
 	public function refresh()

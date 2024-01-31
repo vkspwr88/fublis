@@ -43,6 +43,7 @@ class Publication extends Component
 	public $selectedPublicationTypes = [];
 	public $monthlyVisitors;
 	public $aboutMe;
+	public int $aboutMeLength;
 	public $isNew = true;
 	public $publications;
 	public $selectedPublication;
@@ -66,6 +67,7 @@ class Publication extends Component
 		$this->publishFrom = PublishFromController::getAll();
 		$this->publicationTypes = PublicationTypeController::getAll();
 		$this->countries = LocationController::getCountries();
+		$this->characterCount();
 	}
 
 	public function render()
@@ -75,6 +77,11 @@ class Publication extends Component
 		$this->cities = LocationController::getCitiesByStateId($this->selectedState);
 		return view('livewire.journalists.settings.publication');
     }
+
+	public function characterCount()
+	{
+		$this->aboutMeLength = 275 - str()->length($this->aboutMe);
+	}
 
 	public function boot()
 	{
@@ -229,6 +236,7 @@ class Publication extends Component
 		$this->selectedCity = $city->name;
 		$this->selectedState = $city->state->id;
 		$this->selectedCountry = $city->state->country->id;
+		$this->characterCount();
 	}
 
 	public function add()

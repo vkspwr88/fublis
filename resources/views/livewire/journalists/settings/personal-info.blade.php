@@ -169,9 +169,9 @@
 					<label class="d-block form-text text-secondary fs-7 m-0">Write a short introduction about yourself.</label>
 				</div>
 				<div class="col-md-8">
-					<textarea id="inputAboutMe" class="form-control @error('aboutMe') is-invalid @enderror" wire:model="aboutMe" rows="6"></textarea>
+					<textarea id="inputAboutMe" class="form-control @error('aboutMe') is-invalid @enderror" wire:model.live="aboutMe" rows="6"></textarea>
 					@error('aboutMe')<div class="invalid-feedback">{{ $message }}</div>@enderror
-					<div id="aboutMeHelp" class="form-text">275 characters left</div>
+					<div id="aboutMeHelp" class="form-text {{ $aboutMeLength < 0 ? 'text-danger' : '' }}">{{ $aboutMeLength }} characters left</div>
 				</div>
 			</div>
 		</div>

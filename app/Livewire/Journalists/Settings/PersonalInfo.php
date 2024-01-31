@@ -29,6 +29,7 @@ class PersonalInfo extends Component
 	public $selectedCity;
 	public $language;
 	public $aboutMe;
+	public int $aboutMeLength;
 
 	private SettingService $settingService;
 
@@ -41,6 +42,7 @@ class PersonalInfo extends Component
 		// $this->location = $journalist->location_id;
 		$this->language = $journalist->language_id;
 		$this->aboutMe = $journalist->about_me;
+		$this->characterCount();
 		$this->profileImageOld = $journalist->profileImage;
 		$this->selectedCountry = 101;
 		$this->selectedState = 0;
@@ -68,6 +70,11 @@ class PersonalInfo extends Component
 			'positions' => JournalistPositionController::getAll(),
 		]);
     }
+
+	public function characterCount()
+	{
+		$this->aboutMeLength = 275 - str()->length($this->aboutMe);
+	}
 
 	public function refresh()
 	{
