@@ -43,3 +43,6 @@
 	});
 </script>
 @endpush --}}
+
+@include('users.includes.architect.add-story.media-kit-form-script')
+

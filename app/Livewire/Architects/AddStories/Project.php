@@ -45,7 +45,7 @@ class Project extends Component
 	public $coverImage;
 	public $projectBrief;
 	public int $projectBriefLength;
-	#[Rule('nullable|file|mimes:pdf,doc,docs')]
+	#[Rule('nullable|file|mimes:pdf,doc,docs,docx')]
 	public $projectFile;
 	public $projectLink;
 	public $photographsFiles = [];
@@ -170,15 +170,15 @@ class Project extends Component
 			'renderCredits' => 'nullable',
 			'consultants' => 'nullable',
 			'designTeam' => 'nullable',
-			'coverImage' => 'required|image|mimes:svg,png,jpg,gif|max:3100|dimensions:max_width=800,max_height=400',
-			'projectBrief' => 'required|max:550',
-			'projectFile' => 'nullable|file|mimes:pdf,doc,docs',
+			'coverImage' => __('validations/rules.coverImage') . '|' . __('validations/rules.imageMimes'),
+			'projectBrief' => 'required|' . __('validations/rules.mediaKitBriefCharacters'),
+			'projectFile' => 'nullable|file|' . __('validations/rules.wordMimes'),
 			'projectLink' => 'nullable|required_without:projectFile|url',
 			'photographsFiles' => 'nullable|array',
-			'photographsFiles.*' => 'nullable|file|mimes:zip,svg,png,jpg,gif|max:4200',
+			'photographsFiles.*' => 'nullable|file|' . __('validations/rules.zipPlusImageMimes') . '|' . __('validations/rules.bulkFilesSize'),
 			'photographsLink' => 'nullable|url',
 			'drawingsFiles' => 'nullable|array',
-			'drawingsFiles.*' => 'nullable|file|mimes:zip,svg,png,jpg,gif|max:4200',
+			'drawingsFiles.*' => 'nullable|file|' . __('validations/rules.zipPlusImageMimes') . '|' . __('validations/rules.bulkFilesSize'),
 			'drawingsLink' => 'nullable|url',
 			/* 'photographsFiles' => 'required|array',
 			'photographsFiles.*' => 'file|mimes:zip,svg,png,jpg,gif', */
@@ -217,22 +217,22 @@ class Project extends Component
 			'consultants.required' => 'Enter the :attribute.',
 			'designTeam.required' => 'Enter the :attribute.',
 			'coverImage.required' => 'Upload the :attribute.',
-			'coverImage.image' => 'The :attribute supports only image.',
-			'coverImage.mimes' => 'The :attribute supports only svg, png, jpg or gif.',
-			'coverImage.max' => 'Maximum allowed size to upload :attribute 3MB.',
-			'coverImage.dimensions' => 'Maximum allowed dimension for the :attribute is 800x400px.',
+			'coverImage.image' => __('validations/messages.image'),
+			'coverImage.mimes' => __('validations/messages.imageMimes'),
+			'coverImage.max' => __('validations/messages.coverImage.max'),
+			'coverImage.dimensions' => __('validations/messages.coverImage.dimensions'),
 			'projectBrief.required' => 'Enter the :attribute.',
-			'projectBrief.max' => 'The :attribute allows only 550 characters.',
-			'projectFile.mimes' => 'The :attribute supports only odf, doc or docs.',
+			'projectBrief.max' => __('validations/messages.mediaKitBriefCharacters'),
+			'projectFile.mimes' => 'The :attribute supports only pdf, doc, docs or docx.',
 			'projectLink.required_without' => 'Enter the :attribute or upload the file.',
 			'photographsFiles.required' => 'Upload the :attribute.',
 			'photographsFiles.*.file' => 'The :attribute supports only file.',
-			'photographsFiles.*.mimes' => 'The :attribute supports only zip, svg, png, jpg or gif.',
-			'photographsFiles.*.max' => 'Maximum allowed size to upload :attribute 4MB.',
+			'photographsFiles.*.mimes' => __('validations/messages.zipPlusImageMimes'),
+			'photographsFiles.*.max' => __('validations/messages.bulkFilesSize'),
 			'drawingsFiles.required' => 'Upload the :attribute.',
 			'drawingsFiles.*.file' => 'The :attribute supports only file.',
-			'drawingsFiles.*.mimes' => 'The :attribute supports only zip, svg, png, jpg or gif.',
-			'drawingsFiles.*.max' => 'Maximum allowed size to upload :attribute 4MB.',
+			'drawingsFiles.*.mimes' => __('validations/messages.zipPlusImageMimes'),
+			'drawingsFiles.*.max' => __('validations/messages.bulkFilesSize'),
 			'tags.required' => 'Enter the :attribute.',
 			'mediaContact.required' => 'Select the :attribute.',
 			'mediaKitAccess.required' => 'Select the :attribute.',

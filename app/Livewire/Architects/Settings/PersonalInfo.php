@@ -16,7 +16,7 @@ class PersonalInfo extends Component
 {
 	use WithFileUploads;
 
-	#[Rule('nullable|image|mimes:svg,png,jpg,gif|max:3100|dimensions:max_width=400,max_height=400')]
+	// #[Rule('nullable|image|mimes:svg,png,jpg,gif|max:3100|dimensions:max_width=400,max_height=400')]
 	public $profileImageOld;
 	public $profileImage;
 	public $name;
@@ -110,7 +110,8 @@ class PersonalInfo extends Component
 				'email:rfc,dns',
 				ValidationRule::unique('users')->ignore(auth()->id()),
 			],
-			'profileImage' => 'nullable|image|mimes:svg,png,jpg,gif|max:3100|dimensions:max_width=400,max_height=400',
+			'profileImage' => __('validations/rules.profileImage') . '|' . __('validations/rules.imageMimes'),
+			// 'profileImage' => 'nullable|image|mimes:svg,png,jpg,gif|max:3100|dimensions:max_width=400,max_height=400',
 			'position' => 'required|exists:architect_positions,id',
 			// 'location' => 'required|exists:locations,id',
 			'selectedCountry' => 'required|exists:countries,id',
@@ -127,11 +128,10 @@ class PersonalInfo extends Component
 			'email.required' => 'Enter the :attribute.',
 			'email.email' => 'Enter valid :attribute.',
 			'email.unique' => 'The :attribute is already registerred.',
-			'profileImage.required' => 'Upload the :attribute.',
-			'profileImage.image' => 'The :attribute supports only image.',
-			'profileImage.mimes' => 'The :attribute supports only svg, png, jpg or gif.',
-			'profileImage.max' => 'Maximum allowed size to upload :attribute 3MB.',
-			'profileImage.dimensions' => 'Maximum allowed dimension for the :attribute is 400x400px.',
+			'profileImage.image' => __('validations/messages.image'),
+			'profileImage.mimes' => __('validations/messages.imageMimes'),
+			'profileImage.max' => __('validations/messages.profileImage.max'),
+			'profileImage.dimensions' => __('validations/messages.profileImage.dimensions'),
 			'position.required' => 'Select the :attribute.',
 			// 'position.exists' => 'Select the valid :attribute.',
 			// 'location.required' => 'Select the :attribute.',

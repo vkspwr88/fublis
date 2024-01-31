@@ -15,3 +15,5 @@
 	<livewire:journalists.settings.associated-publication />
 </div>
 @endsection
+
+@include('users.includes.common.profile-script')

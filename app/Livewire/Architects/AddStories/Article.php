@@ -24,11 +24,11 @@ class Article extends Component
 	public $category;
 	public $previewText;
 	public int $previewTextLength;
-	#[Rule('nullable|file|mimes:pdf,doc,docs')]
+	#[Rule('nullable|file|mimes:pdf,doc,docs,docx')]
 	public $articleFile;
 	public $articleLink;
 	public $articleWrite;
-	#[Rule('nullable|file|mimes:pdf,doc,docs')]
+	#[Rule('nullable|file|mimes:pdf,doc,docs,docx')]
 	public $companyProfileFile;
 	public $companyProfileLink;
 	public $imagesFiles = [];
@@ -89,19 +89,19 @@ class Article extends Component
 	public function rules()
 	{
 		return [
-			'coverImage' => 'required|image|mimes:svg,png,jpg,gif|max:3100|dimensions:max_width=800,max_height=400',
+			'coverImage' => __('validations/rules.coverImage') . '|' . __('validations/rules.imageMimes'),
 			'articleTitle' => 'required',
 			'textCredits' => 'required',
 			'category' => 'required',
-			'previewText' => 'required|max:550',
-			'articleFile' => 'nullable|file|mimes:pdf,doc,docs',
+			'previewText' => 'required|' . __('validations/rules.mediaKitBriefCharacters'),
+			'articleFile' => 'nullable|file|' . __('validations/rules.wordMimes'),
 			'articleLink' => 'nullable|required_without:articleFile|url',
 			'articleWrite' => 'nullable',
-			'companyProfileFile' => 'nullable|file|mimes:pdf,doc,docs',
+			'companyProfileFile' => 'nullable|file|' . __('validations/rules.wordMimes'),
 			'companyProfileLink' => 'nullable|url',
 			// 'companyProfileLink' => 'nullable|required_without:companyProfileFile|url',
 			'imagesFiles' => 'nullable|array',
-			'imagesFiles.*' => 'nullable|image|mimes:svg,png,jpg,gif|max:4200',
+			'imagesFiles.*' => 'nullable|image|' . __('validations/rules.imageMimes') . '|' . __('validations/rules.bulkFilesSize'),
 			'imagesLink' => 'nullable|url',
 			/* 'imagesFiles.*' => 'image|mimes:svg,png,jpg,gif',
 			'imagesLink' => 'nullable|required_without:imagesFiles|url', */
@@ -115,25 +115,26 @@ class Article extends Component
 	{
 		return [
 			'coverImage.required' => 'Upload the :attribute.',
-			'coverImage.image' => 'The :attribute supports only image.',
-			'coverImage.mimes' => 'The :attribute supports only svg, png, jpg or gif.',
-			'coverImage.max' => 'Maximum allowed size to upload :attribute 3MB.',
-			'coverImage.dimensions' => 'Maximum allowed dimension for the :attribute is 800x400px.',
+			'coverImage.image' => __('validations/messages.image'),
+			// 'coverImage.image' => 'The :attribute supports only image.',
+			'coverImage.mimes' => __('validations/messages.imageMimes') /* 'The :attribute supports only svg, png, jpg or gif.' */,
+			'coverImage.max' => __('validations/messages.coverImage.max'),
+			'coverImage.dimensions' => __('validations/messages.coverImage.dimensions'),
 			'articleTitle.required' => 'Enter the :attribute.',
 			'textCredits.required' => 'Enter the :attribute.',
 			'category.required' => 'Select the :attribute.',
 			'previewText.required' => 'Enter the :attribute.',
-			'articleFile.mimes' => 'The :attribute supports only pdf, doc or docs.',
+			'articleFile.mimes' => 'The :attribute supports only pdf, doc, docs or docx.',
 			'articleLink.url' => 'Enter the valid :attribute.',
 			'articleLink.required_without' => 'Enter the :attribute or upload the file.',
 			'articleWrite.required' => 'Enter the :attribute.',
-			'articleWrite.max' => 'The :attribute allows only 550 characters.',
-			'companyProfileFile.mimes' => 'The :attribute supports only pdf, doc or docs.',
+			'articleWrite.max' => __('validations/messages.mediaKitBriefCharacters'),
+			'companyProfileFile.mimes' => 'The :attribute supports only pdf, doc, docs or docx.',
 			'companyProfileLink.url' => 'Enter the valid :attribute.',
 			'companyProfileLink.required_without' => 'Enter the :attribute or upload the file.',
-			'imagesFiles.*.image' => 'The :attribute supports only image.',
-			'imagesFiles.*.mimes' => 'The :attribute supports only svg, png, jpg or gif.',
-			'imagesFiles.*.max' => 'Maximum allowed size to upload :attribute 4MB.',
+			'imagesFiles.*.image' => __('validations/messages.image'),
+			'imagesFiles.*.mimes' => __('validations/messages.imageMimes'),
+			'imagesFiles.*.max' => __('validations/messages.bulkFilesSize'),
 			'imagesLink.url' => 'Enter the valid :attribute.',
 			'imagesLink.required_without' => 'Enter the :attribute or upload the file.',
 			'tags.required' => 'Enter the :attribute.',

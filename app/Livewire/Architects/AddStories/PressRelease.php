@@ -8,6 +8,7 @@ use App\Http\Controllers\Users\CompanyController;
 use App\Http\Controllers\Users\ProjectAccessController;
 use App\Services\AddStoryService;
 use Illuminate\Support\Facades\Validator;
+use Livewire\Attributes\On;
 use Livewire\Attributes\Renderless;
 use Livewire\Attributes\Rule;
 use Livewire\Component;
@@ -18,7 +19,7 @@ class PressRelease extends Component
 {
 	use WithFileUploads;
 
-	#[Rule('required|image|mimes:svg,png,jpg,gif|max:3100|dimensions:max_width=800,max_height=400')]
+	#[Rule('image')]
 	public $coverImage;
 	public $pressReleaseTitle;
 	public $imageCredits;
@@ -26,7 +27,7 @@ class PressRelease extends Component
 	public $conceptNote;
 	public int $conceptNoteLength;
 	public $pressReleaseWrite;
-	#[Rule('nullable|file|mimes:pdf,doc,docs')]
+	// #[Rule('nullable|file|mimes:pdf,doc,docs,docx')]
 	public $pressReleaseFile;
 	public $pressReleaseLink;
 	public $photographsFiles = [];
@@ -37,6 +38,7 @@ class PressRelease extends Component
 	public $projectAccess;
 	public $mediaContact;
 	public $mediaKitAccess;
+	public $croppedImage;
 
 	private AddStoryService $addStoryService;
 
@@ -98,16 +100,16 @@ class PressRelease extends Component
 	public function rules()
 	{
 		return [
-			'coverImage' => 'required|image|mimes:svg,png,jpg,gif|max:3100|dimensions:max_width=800,max_height=400',
+			'coverImage' => __('validations/rules.coverImage') . '|' . __('validations/rules.imageMimes'),
 			'pressReleaseTitle' => 'required',
 			'imageCredits' => 'nullable',
 			'category' => 'required',
-			'conceptNote' => 'required|max:550',
+			'conceptNote' => 'required|' . __('validations/rules.mediaKitBriefCharacters'),
 			'pressReleaseWrite' => 'required',
-			'pressReleaseFile' => 'nullable|file|mimes:pdf,doc,docs',
+			'pressReleaseFile' => 'nullable|file|' . __('validations/rules.wordMimes'),
 			'pressReleaseLink' => 'nullable|required_without:pressReleaseFile|url',
 			'photographsFiles' => 'nullable|array',
-			'photographsFiles.*' => 'nullable|image|mimes:svg,png,jpg,gif|max:4200',
+			'photographsFiles.*' => 'nullable|image|' . __('validations/rules.imageMimes') . '|' . __('validations/rules.bulkFilesSize'),
 			'photographsLink' => 'nullable|url',
 			/* 'photographsFiles.*' => 'image|mimes:svg,png,jpg,gif',
 			'photographsLink' => 'nullable|required_without:photographsFiles|url', */
@@ -121,22 +123,23 @@ class PressRelease extends Component
 	{
 		return [
 			'coverImage.required' => 'Upload the :attribute.',
-			'coverImage.image' => 'The :attribute supports only image.',
-			'coverImage.mimes' => 'The :attribute supports only svg, png, jpg or gif.',
-			'coverImage.max' => 'Maximum allowed size to upload :attribute 3MB.',
-			'coverImage.dimensions' => 'Maximum allowed dimension for the :attribute is 800x400px.',
+			'coverImage.image' => __('validations/messages.image'),
+			// 'coverImage.image' => 'The :attribute supports only image.',
+			'coverImage.mimes' => __('validations/messages.imageMimes') /* 'The :attribute supports only svg, png, jpg or gif.' */,
+			'coverImage.max' => __('validations/messages.coverImage.max'),
+			'coverImage.dimensions' => __('validations/messages.coverImage.dimensions'),
 			'pressReleaseTitle.required' => 'Enter the :attribute.',
 			'imageCredits.required' => 'Enter the :attribute.',
 			'category.required' => 'Select the :attribute.',
 			'conceptNote.required' => 'Enter the :attribute.',
 			'pressReleaseWrite.required' => 'Enter the :attribute.',
-			'pressReleaseWrite.max' => 'The :attribute allows only 550 characters.',
-			'pressReleaseFile.mimes' => 'The :attribute supports only odf, doc or docs.',
+			'pressReleaseWrite.max' => __('validations/messages.mediaKitBriefCharacters'),
+			'pressReleaseFile.mimes' => __('validations/messages.wordMimes'),
 			'pressReleaseLink.url' => 'Enter the valid :attribute.',
 			'pressReleaseLink.required_without' => 'Enter the :attribute or upload the file.',
-			'photographsFiles.*.image' => 'The :attribute supports only image.',
-			'photographsFiles.*.mimes' => 'The :attribute supports only svg, png, jpg or gif.',
-			'photographsFiles.*.max' => 'Maximum allowed size to upload :attribute 4MB.',
+			'photographsFiles.*.image' => __('validations/messages.image'),
+			'photographsFiles.*.mimes' => __('validations/messages.imageMimes'),
+			'photographsFiles.*.max' => __('validations/messages.bulkFilesSize'),
 			'photographsLink.url' => 'Enter the valid :attribute.',
 			'photographsLink.required_without' => 'Enter the :attribute or upload the file.',
 			'tags.required' => 'Enter the :attribute.',

@@ -64,50 +64,7 @@
 								<img class="img-fluid img-64 rounded-circle" src="{{ $profileImageSrc }}" alt="..." />
 							</p>
 						</div>
-						<div class="col">
-							<div class="card">
-								<div class="card-body bg-white rounded-3 border border-light">
-									<div class="row align-items-center">
-										<div class="col-12" x-data="fileUpload('profileImage')">
-											<div
-												x-on:drop="isDropping = false"
-												x-on:drop.prevent="handleFileDrop($event)"
-												x-on:dragover.prevent="isDropping = true"
-												x-on:dragleave.prevent="isDropping = false"
-											>
-												<div class="position-absolute top-0 bottom-0 start-0 end-0 z-30 flex justify-content-center align-items-center bg-primary opacity-75 rounded-2" x-show="isDropping" style="display: none;">
-													<span class="fs-4 text-white">Release file to upload!</span>
-												</div>
-												<div class="d-flex justify-content-center align-items-center">
-													<div class="upload-icon rounded-circle text-gray-600 fs-5">
-														<i class="bi bi-cloud-upload"></i>
-													</div>
-												</div>
-												<p class="card-text text-center text-secondary fs-6 m-0 py-2">
-													<label for="inputProfileImage"><span class="text-purple-700 fw-semibold">Click to upload</span></label> or drag and drop
-												</p>
-												<input type="file" id="inputProfileImage" class="d-none" @change="handleFileSelect">
-												<p class="card-text text-center text-secondary fs-6 m-0 py-2">SVG, PNG, JPG or GIF (max. 400x400px)</p>
-												@if($profileImage)
-													<ul class="mt-3 list-disc">
-														<li>
-															{{ $profileImage->getClientOriginalName() }}
-															<button type="button" class="btn btn-link text-danger text-decoration-none" @click="removeUpload('{{ $profileImage->getFilename() }}')">X</button>
-														</li>
-													</ul>
-												@endif
-												<div x-show="isUploading" style="display: none;">
-													<div class="progress">
-														<div class="progress-bar bg-primary" role="progressbar" aria-valuemin="0" aria-valuemax="100" :style="`width: ${progress}%;`"></div>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							@error('profileImage')<div class="error">{{ $message }}</div>@enderror
-						</div>
+						@include('users.includes.common.profile-image-field')
 					</div>
 				</div>
 			</div>
@@ -204,73 +161,7 @@
 					<div id="aboutMeHelp" class="form-text {{ $aboutMeLength < 0 ? 'text-danger' : '' }}">{{ $aboutMeLength }} characters left</div>
 				</div>
 			</div>
-			<script>
-				function fileUpload(element) {
-					return {
-						isDropping: false,
-						isUploading: false,
-						progress: 0,
-						handleFileSelect(event) {
-							if (event.target.files.length) {
-								//console.log(event.target);
-								console.log('uploading');
-								this.uploadFile(event.target.files[0])
-							}
-						},
-						handleFileDrop(event) {
-							if (event.dataTransfer.files.length > 0) {
-								console.log('dropping&uploading');
-								this.uploadFile(event.dataTransfer.files[0])
-							}
-						},
-						uploadFile(file) {
-							const $this = this
-							this.isUploading = true
-							@this.upload(element, file,
-								function (success) {  //upload was a success and was finished
-									$this.isUploading = false
-									$this.progress = 0
-								},
-								function(error) {  //an error occured
-									console.log('error', error)
-								},
-								function (event) {  //upload progress was made
-									$this.progress = event.detail.progress
-								}
-							)
-						},
-						handleFilesSelect(event) {
-							if (event.target.files.length) {
-								this.uploadFiles(event.target.files)
-							}
-						},
-						handleFilesDrop(event) {
-							if (event.dataTransfer.files.length > 0) {
-								this.uploadFiles(event.dataTransfer.files)
-							}
-						},
-						uploadFiles(files) {
-							const $this = this
-							this.isUploading = true
-							@this.uploadMultiple(element, files,
-								function (success) {  //upload was a success and was finished
-									$this.isUploading = false
-									$this.progress = 0
-								},
-								function(error) {  //an error occured
-									console.log('error', error)
-								},
-								function (event) {  //upload progress was made
-									$this.progress = event.detail.progress
-								}
-							)
-						},
-						removeUpload(filename) {
-							@this.removeUpload(element, filename)
-						},
-					};
-				}
-			</script>
 		</div>
 	</div>
+	@include('users.includes.common.file-upload-script')
 </form>

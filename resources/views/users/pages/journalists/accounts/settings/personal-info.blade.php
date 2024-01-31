@@ -15,3 +15,5 @@
 	<livewire:journalists.settings.personal-info />
 </div>
 @endsection
+
+@include('users.includes.common.profile-script')

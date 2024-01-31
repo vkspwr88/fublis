@@ -15,3 +15,5 @@
 	<livewire:architects.settings.company />
 </div>
 @endsection
+
+@include('users.includes.common.profile-script')
