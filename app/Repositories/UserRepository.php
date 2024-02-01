@@ -13,6 +13,15 @@ class UserRepository implements UserRepositoryInterface
 					->first();
 	}
 
+	public function isUserExist(array $details)
+	{
+		return User::where([
+						'email' => $details['email'],
+						'user_type' => $details['user_type'],
+					])
+					->first();
+	}
+
 	public function createUser(array $details): User
 	{
 		return User::create($details);

@@ -261,6 +261,7 @@ class Publication extends Component
 		$this->selectedCountry = 101;
 		$this->selectedState = 0;
 		$this->selectedPublication = collect([]);
+		$this->characterCount();
 	}
 
 	public function refresh()

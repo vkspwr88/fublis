@@ -19,6 +19,11 @@ class SettingSeeder extends Seeder
 				'setting_value' => '5',
 				'remarks' => 'Email verification timeout during signup',
 			],
+			[
+				'setting_key' => 'reset password timeout',
+				'setting_value' => '60',
+				'remarks' => 'Reset password timeout during forgot password',
+			],
 		];
 
 		foreach($data as $row){

@@ -5,9 +5,13 @@ use App\Http\Controllers\Users\MessageController;
 use App\Http\Middleware\ArchitectLogin;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/signup/{step?}', [Architects\Auth\SignupController::class, 'index'])->name('signup');
-Route::get('/login', [Architects\Auth\LoginController::class, 'index'])->name('login');
-Route::get('/logout', [Architects\Auth\LogoutController::class, 'index'])->name('logout');
+Route::prefix('architect')->middleware('guest')->group(function () {
+	Route::get('/signup/{step?}', [Architects\Auth\SignupController::class, 'index'])->name('signup');
+	Route::get('/login', [Architects\Auth\LoginController::class, 'index'])->name('login');
+	Route::get('/logout', [Architects\Auth\LogoutController::class, 'index'])->name('logout');
+	Route::get('/forgot-password', [Architects\Auth\ForgotPasswordController::class, 'index'])->name('forgot');
+	Route::get('/reset-password/{token}/{email}', [Architects\Auth\ResetPasswordController::class, 'index'])->name('reset');
+});
 
 Route::middleware(ArchitectLogin::class)->group(function() {
 	Route::name('media-kit.')->prefix('media-kit')->group(function () {

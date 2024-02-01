@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/signup/{step?}', [Journalists\Auth\SignupController::class, 'index'])->name('signup');
 Route::get('/login', [Journalists\Auth\LoginController::class, 'index'])->name('login');
 Route::get('/logout', [Journalists\Auth\LogoutController::class, 'index'])->name('logout');
+Route::get('/forgot-password', [Journalists\Auth\ForgotPasswordController::class, 'index'])->name('forgot');
+Route::get('/reset-password/{token}/{email}', [Journalists\Auth\ResetPasswordController::class, 'index'])->name('reset');
 
 
 Route::middleware(JournalistLogin::class)->group(function() {
