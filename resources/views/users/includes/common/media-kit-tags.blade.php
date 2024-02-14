@@ -6,7 +6,11 @@
 			<div class="row g-2 py-3">
 				@foreach ($mediaKit->story->tags as $tag)
 					<div class="col-auto">
-						<x-users.tag :name="$tag->name" />
+						@isset($tag->name)
+							<x-users.tag :name="$tag->name" />
+						@else
+							<x-users.tag :name="$tag" />
+						@endisset
 					</div>
 				@endforeach
 			</div>

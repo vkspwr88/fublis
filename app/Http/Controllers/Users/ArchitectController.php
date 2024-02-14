@@ -69,4 +69,9 @@ class ArchitectController extends Controller
 							],
 						]);
 	}
+
+	public static function findById(string $id)
+	{
+		return Architect::find($id);
+	}
 }

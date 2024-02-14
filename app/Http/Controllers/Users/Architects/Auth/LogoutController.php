@@ -9,10 +9,12 @@ use Illuminate\Support\Facades\Session;
 
 class LogoutController extends Controller
 {
-    public function index()
+    public function index(Request $request)
 	{
-		Session::flush();
 		Auth::logout();
+		Session::flush();
+		$request->session()->invalidate();
+		$request->session()->regenerateToken();
 		return to_route('architect.login');
 	}
 }

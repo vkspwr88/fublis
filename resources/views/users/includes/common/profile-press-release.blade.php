@@ -1,6 +1,6 @@
 <div class="row g-4">
 	<div class="col-md-8">
-		<h1 class="text-dark fs-2 fw-semibold m-0 py-2">{{ $mediaKit->story->title }}</h1>
+		<h1 class="text-dark fs-2 fw-semibold m-0 py-2">{{ str()->headline($mediaKit->story->title) }}</h1>
 		<div class="row justify-content-center g-2 py-3">
 			<div class="col-auto">
 				<x-users.tag name="Press Release" />
@@ -18,6 +18,11 @@
 			@foreach ($mediaKit->story->photographs as $photograph)
 			<div class="col-md-4">
 				<img src="{{ Storage::url($photograph->image_path) }}" width="250" height="164" {{-- style="max-width: 250px; max-height: 164px;" --}} alt="" class="img-fluid" />
+			</div>
+			@endforeach
+			@foreach ($mediaKit->story->draftPhotographs as $photograph)
+			<div class="col-md-4">
+				<img src="{{ Storage::url($photograph) }}" width="250" height="164" {{-- style="max-width: 250px; max-height: 164px;" --}} alt="" class="img-fluid" />
 			</div>
 			@endforeach
 		</div>

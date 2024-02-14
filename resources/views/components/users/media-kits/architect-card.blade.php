@@ -4,26 +4,27 @@
 			@php
 				if (str()->contains($mediaKit->story_type, 'PressRelease')){
 					$mediaKitTitle = 'Press Release';
-					$mediaKitHeading = $mediaKit->story->concept_note;
-					$mediaKitBody = $mediaKitHeading;
+					$mediaKitHeading = $mediaKit->story->title;
+					$mediaKitBody = $mediaKit->story->concept_note;
 					$viewRoute = route('architect.media-kit.press-release.view', ['mediaKit' => $mediaKit->slug]);
 					$editRoute = route('architect.media-kit.press-release.edit', ['mediaKit' => $mediaKit->slug]);
 				}
 				elseif (str()->contains($mediaKit->story_type, 'Article')){
 					$mediaKitTitle = 'Article';
-					$mediaKitHeading = $mediaKit->story->preview_text;
-					$mediaKitBody = $mediaKitHeading;
+					$mediaKitHeading = $mediaKit->story->title;
+					$mediaKitBody = $mediaKit->story->preview_text;
 					$viewRoute = route('architect.media-kit.article.view', ['mediaKit' => $mediaKit->slug]);
 					$editRoute = route('architect.media-kit.article.edit', ['mediaKit' => $mediaKit->slug]);
 				}
 				elseif (str()->contains($mediaKit->story_type, 'Project')){
 					$mediaKitTitle = 'Project';
-					$mediaKitHeading = $mediaKit->story->project_brief;
-					$mediaKitBody = $mediaKitHeading;
+					$mediaKitHeading = $mediaKit->story->title;
+					$mediaKitBody = $mediaKit->story->project_brief;
 					$viewRoute = route('architect.media-kit.project.view', ['mediaKit' => $mediaKit->slug]);
 					$editRoute = route('architect.media-kit.project.edit', ['mediaKit' => $mediaKit->slug]);
 				}
 				$mediaKitHeading = str()->length($mediaKitHeading) < 150 ? $mediaKitHeading : str()->substr($mediaKitHeading, 0, 149) . '...';
+				$mediaKitBody = str()->length($mediaKitBody) < 150 ? $mediaKitBody : str()->substr($mediaKitBody, 0, 149) . '...';
 				// echo str()->length($mediaKitHeading);
 			@endphp
 			<div class="row g-4">

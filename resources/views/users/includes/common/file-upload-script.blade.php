@@ -96,24 +96,15 @@
 			uploadFiles(files) {
 				const $this = this;
 				this.isUploading = true;
-				// const selector = document.querySelector('#' + element);
-				// const filesList = [...selector.files, files];
-				// let images = Livewire.all()[0].snapshot.data[element][0];
-				// console.log('old images', images);
 				@this.uploadMultiple(element, files,
 					function (success) {  //upload was a success and was finished
 						$this.isUploading = false;
 						$this.progress = 0;
-						// let newImages = Livewire.all()[0].snapshot.data[element][0];
-						// console.log('new images', newImages);
-						// Livewire.all()[0].snapshot.data[element][0] = images.concat(newImages);
-						// console.log('merged images', Livewire.all()[0].snapshot.data[element]);
 					},
 					function(error) {  //an error occured
 						console.log('error', error)
 					},
 					function (event) {  //upload progress was made
-						// console.log('progress', event.detail.progress);
 						$this.progress = event.detail.progress;
 					}
 				)

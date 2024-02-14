@@ -1,4 +1,6 @@
-<form wire:submit="edit" class="pt-4">
+@include('users.includes.architect.add-story.press-release-form', ['edit' => true])
+
+{{-- <form wire:submit="edit" class="pt-4">
 	<div class="row">
 		<div class="col-md-4">
 			<label for="inputText" class="col-form-label text-dark fs-6 fw-medium">Cover Image</label>
@@ -235,7 +237,7 @@
 										@keydown.enter.prevent="if (newTag.trim() !== '') tags.push(newTag.trim().toLowerCase()); newTag = ''"
 										@keydown.period.prevent="if (newTag.trim() !== '') tags.push(newTag.trim().toLowerCase()); newTag = ''"
 										@keydown.space.prevent="if (newTag.trim() !== '') tags.push(newTag.trim().toLowerCase()); newTag = ''"
-										{{-- @keydown.backspace="if (newTag.trim() === '') tags.pop()" --}}
+										{{-- @keydown.backspace="if (newTag.trim() === '') tags.pop()" --
 										x-model="newTag"
 						>
 						<div class="mt-2">
@@ -326,4 +328,4 @@
 			};
 		}
 	</script>
-</form>
+</form> --}}

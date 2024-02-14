@@ -57,6 +57,11 @@ class Architect extends Model
 		return $this->hasMany(MediaKit::class);
 	}
 
+	public function mediaKitDrafts(): HasMany
+	{
+		return $this->hasMany(MediaKitDraft::class);
+	}
+
 	public function latestMediaKits(): HasOne
 	{
 		return $this->hasOne(MediaKit::class)->latestOfMany();

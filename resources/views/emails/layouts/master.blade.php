@@ -1,6 +1,6 @@
 <x-mail::message>
 <p style="margin-bottom: 30px;">
-<img src="{{ url(env('COMPANY_LOGO')) }}" alt="{{ env('COMPANY_NAME') }}" style="width: 150px;" />
+<img src="{{ url(env('COMPANY_EMAIL_LOGO')) }}" alt="{{ env('COMPANY_NAME') }}" style="width: 150px;" />
 </p>
 <div style="padding: 40px 0;">
 @yield('body')
@@ -19,7 +19,7 @@ This email was sent to <span class="link">{{ $senderEmail }}</span>. If you'd ra
 &copy; {{ date('Y') }} XXXXXX, 100 XXXXXX XXXXXX, XXXXXX 1111111
 </p>
 <p style="float: left;">
-<img src="{{ url(env('COMPANY_LOGO')) }}" alt="{{ env('COMPANY_NAME') }}" style="width: 150px;" />
+<img src="{{ url(env('COMPANY_EMAIL_LOGO')) }}" alt="{{ env('COMPANY_NAME') }}" style="width: 150px;" />
 </p>
 <p style="float: right; margin-top: 10px;">
 <a href="#"><img src="{{ asset('images/social/tw.png') }}" alt="twitter" style="width: 25px; height: 25px; margin-right: 10px;"></a>

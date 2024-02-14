@@ -4,27 +4,27 @@
 	<div class="row mb-3">
 		<label for="inputPressReleaseTitle" class="col-md-4 col-form-label text-dark fs-6 fw-medium">Press Release Title <span class="text-danger">*</span></label>
 		<div class="col-md-8">
-			<input type="text" id="inputPressReleaseTitle" class="form-control @error('pressReleaseTitle') is-invalid @enderror" wire:model="pressReleaseTitle">
-			@error('pressReleaseTitle')<div class="invalid-feedback">{{ $message }}</div>@enderror
+			<input type="text" id="inputPressReleaseTitle" class="form-control @error('form.pressReleaseTitle') is-invalid @enderror" wire:model="form.pressReleaseTitle">
+			@error('form.pressReleaseTitle')<div class="invalid-feedback">{{ $message }}</div>@enderror
 		</div>
 	</div>
 	<div class="row mb-3">
 		<label for="inputImageCredits" class="col-md-4 col-form-label text-dark fs-6 fw-medium">Image Credits</label>
 		<div class="col-md-8">
-			<input type="text" id="inputImageCredits" class="form-control @error('imageCredits') is-invalid @enderror" wire:model="imageCredits">
-			@error('imageCredits')<div class="invalid-feedback">{{ $message }}</div>@enderror
+			<input type="text" id="inputImageCredits" class="form-control @error('form.imageCredits') is-invalid @enderror" wire:model="form.imageCredits">
+			@error('form.imageCredits')<div class="invalid-feedback">{{ $message }}</div>@enderror
 		</div>
 	</div>
 	<div class="row mb-3">
 		<label for="selectCategory" class="col-md-4 col-form-label text-dark fs-6 fw-medium">Category <span class="text-danger">*</span></label>
 		<div class="col-md-8">
-			<select id="selectCategory" class="form-select @error('category') is-invalid @enderror" wire:model="category">
+			<select id="selectCategory" class="form-select @error('form.category') is-invalid @enderror" wire:model="form.category">
 				<option value="">Select Category</option>
-				@foreach ($categories as $category)
+				@foreach ($form->categories as $category)
 					<option value="{{ $category->id }}">{{ $category->name }}</option>
 				@endforeach
 			</select>
-			@error('category')<div class="invalid-feedback">{{ $message }}</div>@enderror
+			@error('form.category')<div class="invalid-feedback">{{ $message }}</div>@enderror
 		</div>
 	</div>
 	<div class="row mb-3">
@@ -33,9 +33,9 @@
 			<label class="d-block form-text text-secondary fs-7 m-0">Write in 50-75 words (this text will be used in pitch to journalists)</label>
 		</div>
 		<div class="col-md-8">
-			<textarea id="inputConceptNote" class="form-control @error('conceptNote') is-invalid @enderror" wire:model="conceptNote" wire:keydown.debounce="characterCount" rows="6"></textarea>
-			@error('conceptNote')<div class="invalid-feedback">{{ $message }}</div>@enderror
-			<div id="conceptNoteHelp" class="form-text {{ $conceptNoteLength < 0 ? 'text-danger' : '' }}">{{ $conceptNoteLength }} characters left</div>
+			<textarea id="inputConceptNote" class="form-control @error('form.conceptNote') is-invalid @enderror" wire:model="form.conceptNote" wire:keydown.debounce.1000ms="characterCount" rows="6"></textarea>
+			@error('form.conceptNote')<div class="invalid-feedback">{{ $message }}</div>@enderror
+			<div id="conceptNoteHelp" class="form-text {{ $form->conceptNoteLength < 0 ? 'text-danger' : '' }}">{{ $form->conceptNoteLength }} characters left</div>
 		</div>
 	</div>
 	<div class="row">
@@ -46,8 +46,8 @@
 		<div class="col-md-8">
 			{{-- <input id="inputPressReleaseWrite" type="hidden" name="pressReleaseWrite" value="{{ $pressReleaseWrite }}">
   			<trix-editor input="inputPressReleaseWrite" class="trix-content"></trix-editor> --}}
-			<textarea id="" class="form-control @error('pressReleaseWrite') is-invalid @enderror" wire:model="pressReleaseWrite" rows="8"></textarea>
-			@error('pressReleaseWrite')<div class="invalid-feedback">{{ $message }}</div>@enderror
+			<textarea id="" class="form-control @error('form.pressReleaseWrite') is-invalid @enderror" wire:model="form.pressReleaseWrite" rows="8"></textarea>
+			@error('form.pressReleaseWrite')<div class="invalid-feedback">{{ $message }}</div>@enderror
 		</div>
 	</div>
 	<hr class="border-gray-300">
@@ -60,7 +60,7 @@
 			<div class="card mb-2">
 				<div class="card-body bg-white rounded-3 border border-light">
 					<div class="row align-items-center">
-						<div class="col-12" x-data="fileUpload('pressReleaseFile')">
+						<div class="col-12" x-data="fileUpload('form.pressReleaseFile')">
 							<div
 								x-on:drop="isDropping = false"
 								x-on:drop.prevent="handleFileDrop($event)"
@@ -79,12 +79,19 @@
 									<label for="pressReleaseFile"><span class="text-purple-700 fw-semibold cursor-pointer">Click to upload</span></label> or drag and drop
 								</p>
 								<input type="file" id="pressReleaseFile" class="d-none" @change="handleFileSelect">
-								@if($pressReleaseFile)
+								@if($form->pressReleaseFile)
 									<ul class="mt-3 list-disc">
-										<li>
-											{{ $pressReleaseFile->getClientOriginalName() }}
-											<button type="button" class="btn btn-link text-danger text-decoration-none" @click="removeUpload('{{ $pressReleaseFile->getFilename() }}')">X</button>
-										</li>
+										@if(method_exists($form->pressReleaseFile, 'getClientOriginalName'))
+											<li>
+												{{ $form->pressReleaseFile->getClientOriginalName() }}
+												<button type="button" class="btn btn-link text-danger text-decoration-none" @click="removeUpload('{{ $form->pressReleaseFile->getFilename() }}')">X</button>
+											</li>
+										@else
+											<li style="list-style: none;">
+												<a href="{{ Storage::url($form->pressReleaseFile) }}" class="text-purple-700">See Document</a>
+												{{-- <button type="button" class="btn btn-link text-danger text-decoration-none" @click="removeUpload('{{ $form->pressReleaseFile->getFilename() }}')">X</button> --}}
+											</li>
+										@endif
 									</ul>
 								@endif
 								<div x-show="isUploading" style="display: none;">
@@ -97,11 +104,11 @@
 					</div>
 				</div>
 			</div>
-			@error('pressReleaseFile')<div class="error">{{ $message }}</div>@enderror
+			@error('form.pressReleaseFile')<div class="error">{{ $message }}</div>@enderror
 			<div class="input-group">
 				<span class="input-group-text bg-white" id="basic-addon1">http://</span>
-				<input type="text" class="form-control @error('pressReleaseLink') is-invalid @enderror" wire:model="pressReleaseLink" placeholder="Insert drive link" aria-describedby="basic-addon1">
-				@error('pressReleaseLink')<div class="invalid-feedback">{{ $message }}</div>@enderror
+				<input type="text" class="form-control @error('form.pressReleaseLink') is-invalid @enderror" wire:model="form.pressReleaseLink" placeholder="Insert drive link" aria-describedby="basic-addon1">
+				@error('form.pressReleaseLink')<div class="invalid-feedback">{{ $message }}</div>@enderror
 			</div>
 		</div>
 	</div>
@@ -115,7 +122,7 @@
 			<div class="card mb-2">
 				<div class="card-body bg-white rounded-3 border border-light">
 					<div class="row align-items-center">
-						<div class="col-12" x-data="fileUpload('photographsFiles')">
+						<div class="col-12" x-data="fileUpload('form.photographsFiles')">
 							<div
 								x-on:drop="isDropping = false"
 								x-on:drop.prevent="handleFilesDrop($event)"
@@ -134,13 +141,26 @@
 									<label for="photographsFiles"><span class="text-purple-700 fw-semibold cursor-pointer">Click to upload</span></label> or drag and drop
 								</p>
 								<input type="file" id="photographsFiles" class="d-none" @change="handleFilesSelect" multiple>
-								@if(count($photographsFiles) > 0)
+								@if(count($form->photographsFiles) > 0 || count($form->oldPhotographsFiles) > 0)
 									<ul class="d-flex flex-wrap mt-3" style="list-style: none;">
-										@foreach ($photographsFiles as $photographsFile)
+										@foreach ($form->oldPhotographsFiles as $photographsFile)
 											<li class="position-relative p-2">
-												<img class="img-fluid img-thumbnail" width="150" src="{{ $photographsFile->temporaryUrl() }}" alt="">
-												<button type="button" class="btn btn-sm btn-secondary rounded-circle text-decoration-none position-absolute end-0 top-0" @click="removeUpload('{{ $photographsFile->getFilename() }}')">X</button>
+												<img class="img-fluid img-thumbnail" width="150" src="{{ Storage::url($photographsFile->image_path) }}" alt="">
+												<button type="button" class="btn btn-sm btn-secondary rounded-circle text-decoration-none position-absolute end-0 top-0" wire:click="removeImage('{{ $photographsFile->id }}')">X</button>
 											</li>
+										@endforeach
+										@foreach ($form->photographsFiles as $key => $photographsFile)
+											@if(method_exists($photographsFile, 'temporaryUrl'))
+												<li class="position-relative p-2">
+													<img class="img-fluid img-thumbnail" width="150" src="{{ $photographsFile->temporaryUrl() }}" alt="">
+													<button type="button" class="btn btn-sm btn-secondary rounded-circle text-decoration-none position-absolute end-0 top-0" @click="removeUpload('{{ $photographsFile->getFilename() }}')">X</button>
+												</li>
+											@else
+												<li class="position-relative p-2">
+													<img class="img-fluid img-thumbnail" width="150" src="{{ Storage::url($photographsFile) }}" alt="">
+													<button type="button" class="btn btn-sm btn-secondary rounded-circle text-decoration-none position-absolute end-0 top-0" wire:click="removeImage({{ $key }})">X</button>
+												</li>
+											@endif
 										@endforeach
 									</ul>
 								@endif
@@ -177,12 +197,12 @@
 					</div>
 				</div>
 			</div>
-			@error('photographsFiles')<div class="error">{{ $message }}</div>@enderror
-			@error('photographsFiles.*')<div class="error">{{ $message }}</div>@enderror
+			@error('form.photographsFiles')<div class="error">{{ $message }}</div>@enderror
+			@error('form.photographsFiles.*')<div class="error">{{ $message }}</div>@enderror
 			<div class="input-group">
 				<span class="input-group-text bg-white" id="basic-addon1">http://</span>
-				<input type="text" class="form-control @error('photographsLink') is-invalid @enderror" wire:model="photographsLink" placeholder="Insert drive link" aria-describedby="basic-addon1">
-				@error('photographsLink')<div class="invalid-feedback">{{ $message }}</div>@enderror
+				<input type="text" class="form-control @error('form.photographsLink') is-invalid @enderror" wire:model="form.photographsLink" placeholder="Insert drive link" aria-describedby="basic-addon1">
+				@error('form.photographsLink')<div class="invalid-feedback">{{ $message }}</div>@enderror
 			</div>
 		</div>
 	</div>
@@ -199,13 +219,13 @@
 			<label class="d-block form-text text-secondary fs-7 m-0">Pick the team member who can best respond to journalists queries</label>
 		</div>
 		<div class="col-md-8">
-			<select id="selectMediaContact" class="form-select @error('mediaContact') is-invalid @enderror" wire:model="mediaContact">
+			<select id="selectMediaContact" class="form-select @error('form.mediaContact') is-invalid @enderror" wire:model="form.mediaContact">
 				<option value="">Select Media Contact</option>
-				@foreach ($mediaContacts as $mediaContact)
+				@foreach ($form->mediaContacts as $mediaContact)
 					<option value="{{ $mediaContact->id }}">{{ $mediaContact->user->name }}</option>
 				@endforeach
 			</select>
-			@error('mediaContact')<div class="invalid-feedback">{{ $message }}</div>@enderror
+			@error('form.mediaContact')<div class="invalid-feedback">{{ $message }}</div>@enderror
 		</div>
 	</div>
 	<div class="row">
@@ -214,20 +234,27 @@
 			<label class="d-block form-text text-secondary fs-7 m-0">Set level of access for journalists</label>
 		</div>
 		<div class="col-md-8">
-			<select id="selectMediaKitAccess" class="form-select @error('mediaKitAccess') is-invalid @enderror" wire:model="mediaKitAccess">
+			<select id="selectMediaKitAccess" class="form-select @error('form.mediaKitAccess') is-invalid @enderror" wire:model="form.mediaKitAccess">
 				<option value="">Select Media Kit Access</option>
-				@foreach ($projectAccess as $mediaKitAccess)
+				@foreach ($form->projectAccess as $mediaKitAccess)
 					<option value="{{ $mediaKitAccess->id }}">{{ $mediaKitAccess->name }}</option>
 				@endforeach
 			</select>
-			@error('mediaKitAccess')<div class="invalid-feedback">{{ $message }}</div>@enderror
+			@error('form.mediaKitAccess')<div class="invalid-feedback">{{ $message }}</div>@enderror
 		</div>
 	</div>
 	<hr class="border-gray-300">
 	<div class="text-end">
-		<button class="btn btn-white fs-6 fw-semibold" type="button">Preview</button>
+		@empty($edit)
+			<button class="btn btn-white fs-6 fw-semibold" type="button" wire:click="draft">
+				Save as Draft <x-users.spinners.primary-btn wire:target="draft" />
+			</button>
+		@endempty
+		<button class="btn btn-white fs-6 fw-semibold" type="button" wire:click="preview">
+			Preview <x-users.spinners.primary-btn wire:target="preview" />
+		</button>
 		<button class="btn btn-primary fs-6 fw-semibold" type="submit">
-			Submit Press Release <x-users.spinners.white-btn wire:target="add" />
+			{{ isset($edit) ? 'Edit Press Release' : 'Submit Press Release' }} <x-users.spinners.white-btn wire:target="add" />
 		</button>
 	</div>
 	@include('users.includes.common.file-upload-script', ['width' => 800, 'height' => 400])

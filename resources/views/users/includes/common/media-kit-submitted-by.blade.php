@@ -28,11 +28,22 @@
 	<div class="col">
 		<div class="row g-2 justify-content-end">
 			@if($allowedEdit)
-			<div class="col-auto">
-				<a href="{{ route('architect.media-kit.press-release.edit', ['mediaKit' => $mediaKit->slug]) }}" class="text-purple-600">
-					<i class="bi bi-pencil-square"></i>
-				</a>
-			</div>
+				<div class="col-auto">
+					{{-- @empty($drafted)
+						<a href="{{ route('architect.media-kit.press-release.edit', ['mediaKit' => $mediaKit->slug]) }}" class="text-purple-600">
+							<i class="bi bi-pencil-square"></i>
+						</a>
+					@endempty --}}
+					@isset($drafted)
+						<a href="{{ route('architect.add-story.article.draft', ['mediaKitDraft' => $mediaKit->id]) }}" class="text-purple-600">
+							<i class="bi bi-pencil-square"></i>
+						</a>
+					@else
+						<a href="{{ route('architect.media-kit.press-release.edit', ['mediaKit' => $mediaKit->slug]) }}" class="text-purple-600">
+							<i class="bi bi-pencil-square"></i>
+						</a>
+					@endisset
+				</div>
 			@endif
 			{{-- <div class="col-auto">
 				<a href="javascript:;" class="text-purple-600">

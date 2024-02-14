@@ -1,11 +1,11 @@
 <div>
-	<div x-data="{tags: @entangle('tags'), newTag: '' }">
+	<div x-data="{tags: @entangle('form.tags'), newTag: '' }">
 		<template x-for="tag in tags">
 			<input type="hidden" :value="tag" name="tags">
 		 </template>
 		<div class="max-w-sm w-full ">
 			<div class="tags-input">
-				<input class="form-control @error('tags') is-invalid @enderror"
+				<input class="form-control @error('form.tags') is-invalid @enderror"
 								@keydown.enter.prevent="if (newTag.trim() !== '') tags.push(newTag.trim().toLowerCase()); newTag = ''"
 								@input.debounce="if (newTag.includes(',')) { tags.push(newTag.split(',')[0].trim().toLowerCase()); newTag = ''; }"
 								{{-- @keydown.space.prevent="if (newTag.trim() !== '') tags.push(newTag.trim().toLowerCase()); newTag = ''" --}}
@@ -25,5 +25,5 @@
 		 </div>
 	</div>
 	<div id="tagsHelpBlock" class="form-text">Press enter or comma to add tags.</div>
-	@error('tags')<div class="invalid-feedback">{{ $message }}</div>@enderror
+	@error('form->tags')<div class="invalid-feedback">{{ $message }}</div>@enderror
 </div>

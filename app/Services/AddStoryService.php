@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\DB;
 
 class AddStoryService
 {
-	public function addPressRelease(array $details)
+	public function addPressRelease(array $details, $draftId = null)
 	{
 		try{
             DB::beginTransaction();
@@ -68,8 +68,26 @@ class AddStoryService
 		try{
             DB::beginTransaction();
 
-			// create press release
-			$pressRelease = PressRelease::create([
+			// find media kit
+			$mediaKit = MediaKitController::findById($mediaKitId);
+			MediaKitController::isAuthorized($mediaKit);
+			$pressRelease = $mediaKit->story;
+			$slug = $mediaKit->slug;
+			if($pressRelease->title != $details['pressReleaseTitle']){
+				$slug = MediaKitController::generateSlug($details['pressReleaseTitle']);
+			}
+
+			// update media kit
+			$mediaKit->update([
+				// 'architect_id' => auth()->user()->architect->id,
+				'category_id' => $details['category'],
+				'media_contact_id' => $details['mediaContact'],
+				'project_access_id' => $details['mediaKitAccess'],
+				'slug' => $slug,
+			]);
+			
+			// update press release
+			$pressRelease->update([
 				'cover_image_path' => FileController::upload($details['coverImage'], 'images/press-releases/cover-images'),
 				'title' => $details['pressReleaseTitle'],
 				'image_credits' => $details['imageCredits'],
@@ -79,13 +97,8 @@ class AddStoryService
 				'press_release_doc_link' => $details['pressReleaseLink'],
 				'photographs_link' => $details['photographsLink'],
 			]);
-			// create media kit
-			$pressRelease->mediakit()
-							->create([
-								'architect_id' => auth()->user()->architect->id,
-								'category_id' => $details['category'],
-							]);
-			// create images
+
+			// create new images
 			if(count($details['photographsFiles']) > 0){
 				foreach($details['photographsFiles'] as $photograph){
 					ImageController::create($pressRelease->photographs(), [
@@ -94,7 +107,8 @@ class AddStoryService
 					]);
 				}
 			}
-			// create tags
+
+			// update tags
 			TagController::attachTags($pressRelease, $details['tags']);
 
 			DB::commit();

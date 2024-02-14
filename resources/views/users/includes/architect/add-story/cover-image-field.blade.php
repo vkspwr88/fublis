@@ -7,7 +7,7 @@
 		<div class="card">
 			<div class="card-body bg-white rounded-3 border border-light">
 				<div class="row align-items-center g-4">
-					<div class="col-12" x-data="fileUpload('coverImage')">
+					<div class="col-12" x-data="fileUpload('form.coverImage')">
 						<div
 							x-on:drop="isDropping = false"
 							x-on:drop.prevent="handleCropFileDrop($event)"
@@ -27,15 +27,22 @@
 							</p>
 							<input type="file" id="coverImage" class="d-none" @change="handleCropFileSelect">
 							<p class="card-text text-center text-secondary fs-6 m-0 py-2">{{ __('text.coverImage') }}</p>
-							@if($coverImage)
+							@if($form->coverImage)
 								<ul class="mt-3 text-center" style="list-style: none;">
-									<li>
-										<img class="img-fluid img-thumbnail" src="{{ $coverImage->temporaryUrl() }}" alt="">
-										{{-- {{ $coverImage->getClientOriginalName() }} --}}
-									</li>
-									<li class="mt-2">
-										<button type="button" class="btn btn-primary fs-6 fw-medium" @click="removeUpload('{{ $coverImage->getFilename() }}')">Remove</button>
-									</li>
+									@if(method_exists($form->coverImage, 'temporaryUrl'))
+										<li>
+											<img class="img-fluid img-thumbnail" src="{{ $form->coverImage->temporaryUrl() }}" alt="">
+											{{-- {{ $coverImage->getClientOriginalName() }} --}}
+										</li>
+										<li class="mt-2">
+											<button type="button" class="btn btn-primary fs-6 fw-medium" @click="removeUpload('{{ $form->coverImage->getFilename() }}')">Remove</button>
+										</li>
+									@else
+										<li>
+											<img class="img-fluid img-thumbnail" src="{{ Storage::url($form->coverImage) }}" alt="">
+											{{-- {{ $coverImage->getClientOriginalName() }} --}}
+										</li>
+									@endif
 								</ul>
 							@endif
 							<div x-show="isUploading" style="display: none;">
@@ -49,6 +56,6 @@
 				</div>
 			</div>
 		</div>
-		@error('coverImage')<div class="error">{{ $message }}</div>@enderror
+		@error('form.coverImage')<div class="error">{{ $message }}</div>@enderror
 	</div>
 </div>

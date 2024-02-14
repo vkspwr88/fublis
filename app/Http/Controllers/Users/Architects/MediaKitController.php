@@ -20,6 +20,7 @@ class MediaKitController extends Controller
 
 	public function view(MediaKit $mediaKit)
 	{
+		MediaKitController::check($mediaKit);
 		if (str()->contains($mediaKit->story_type, 'PressRelease')){
 			return to_route('architect.media-kit.press-release.view', ['mediaKit' => $mediaKit->slug]);
 		}
@@ -58,5 +59,25 @@ class MediaKitController extends Controller
 							'-',
 							str()->headline($name)
 						);
+	}
+
+	public static function check($mediaKit)
+	{
+		if(!$mediaKit){
+			return abort(404);
+		}
+	}
+
+	public static function isAuthorized($mediaKit)
+	{
+		MediaKitController::check($mediaKit);
+		if($mediaKit->architect_id != auth()->user()->architect->id){
+			return abort(401);
+		}
+	}
+
+	public static function findById(string $id)
+	{
+		return MediaKit::findOrFail($id);
 	}
 }

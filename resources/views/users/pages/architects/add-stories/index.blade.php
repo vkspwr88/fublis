@@ -58,7 +58,7 @@
 										<p class="card-text text-secondary fs-6 fw-normal m-0">Tell about latest event/collaboration</p>
 									</div>
 								</div>
-								<a href="{{ route('architect.add-story.press-release') }}" class="stretched-link"></a>
+								<a href="{{ route('architect.add-story.press-release.index') }}" class="stretched-link"></a>
 							</div>
 						</div>
 					</div>
@@ -114,7 +114,7 @@
 										<p class="card-text text-secondary fs-6 fw-normal m-0">Share your latest work</p>
 									</div>
 								</div>
-								<a href="{{ route('architect.add-story.project') }}" class="stretched-link"></a>
+								<a href="{{ route('architect.add-story.project.index') }}" class="stretched-link"></a>
 							</div>
 						</div>
 					</div>
@@ -170,7 +170,7 @@
 										<p class="card-text text-secondary fs-6 fw-normal m-0">Share your perspective</p>
 									</div>
 								</div>
-								<a href="{{ route('architect.add-story.article') }}" class="stretched-link"></a>
+								<a href="{{ route('architect.add-story.article.index') }}" class="stretched-link"></a>
 							</div>
 						</div>
 					</div>

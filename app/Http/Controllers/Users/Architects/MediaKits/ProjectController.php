@@ -25,6 +25,9 @@ class ProjectController extends Controller
 		if(!$mediaKit){
 			return abort(404);
 		}
+		if($mediaKit->architect_id != auth()->user()->architect->id){
+			return abort(401);
+		}
 		return view('users.pages.architects.media-kits.projects.edit', [
 			'mediaKit' => MediaKitController::loadModel($mediaKit, 'project'),
 		]);

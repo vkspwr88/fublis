@@ -8,7 +8,7 @@
 		'class2' => 'step-incomplete',
 		'class3' => 'step-incomplete',
 	];
-	if(in_array($currentRoute, ['architect.add-story.press-release', 'architect.add-story.project', 'architect.add-story.article'])){
+	if(in_array($currentRoute, ['architect.add-story.press-release.index', 'architect.add-story.project.index', 'architect.add-story.article.index', 'architect.add-story.press-release.draft', 'architect.add-story.project.draft', 'architect.add-story.article.draft'])){
 		$currentStep = 2;
 		$stepsArr['class1'] = 'step-complete';
 		$stepsArr['class2'] = 'step-current';

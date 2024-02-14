@@ -38,12 +38,28 @@ Route::middleware(ArchitectLogin::class)->group(function() {
 
 		Route::name('add-story.')->prefix('add-story')->group(function () {
 			Route::get('/', [Architects\AddStoryController::class, 'index'])->name('index');
-			Route::get('/press-release', [Architects\AddStories\PressReleaseController::class, 'index'])->name('press-release');
-			Route::get('/press-release/success', [Architects\AddStoryController::class, 'success'])->name('press-release.success');
-			Route::get('/article', [Architects\AddStories\ArticleController::class, 'index'])->name('article');
-			Route::get('/article/success', [Architects\AddStoryController::class, 'success'])->name('article.success');
-			Route::get('/project', [Architects\AddStories\ProjectController::class, 'index'])->name('project');
-			Route::get('/project/success', [Architects\AddStoryController::class, 'success'])->name('project.success');
+			Route::name('draft.')->prefix('draft')->group(function () {
+				Route::get('/', [Architects\MediaKitDraftController::class, 'index'])->name('index');
+				Route::get('/{mediaKitDraft}', [Architects\MediaKitDraftController::class, 'view'])->name('view');
+			});
+			Route::name('press-release.')->prefix('press-release')->group(function () {
+				Route::get('/', [Architects\AddStories\PressReleaseController::class, 'index'])->name('index');
+				Route::get('/draft/{mediaKitDraft}', [Architects\AddStories\PressReleaseController::class, 'draft'])->name('draft');
+				Route::get('/preview/{mediaKitDraft}', [Architects\AddStories\PressReleaseController::class, 'preview'])->name('preview');
+				Route::get('/success', [Architects\AddStoryController::class, 'success'])->name('success');
+			});
+			Route::name('article.')->prefix('article')->group(function () {
+				Route::get('/', [Architects\AddStories\ArticleController::class, 'index'])->name('index');
+				Route::get('/draft/{mediaKitDraft}', [Architects\AddStories\ArticleController::class, 'draft'])->name('draft');
+				Route::get('/preview/{mediaKitDraft}', [Architects\AddStories\ArticleController::class, 'preview'])->name('preview');
+				Route::get('/success', [Architects\AddStoryController::class, 'success'])->name('success');
+			});
+			Route::name('project.')->prefix('project')->group(function () {
+				Route::get('/', [Architects\AddStories\ProjectController::class, 'index'])->name('index');
+				Route::get('/draft/{mediaKitDraft}', [Architects\AddStories\ProjectController::class, 'draft'])->name('draft');
+				Route::get('/preview/{mediaKitDraft}', [Architects\AddStories\ProjectController::class, 'preview'])->name('preview');
+				Route::get('/success', [Architects\AddStoryController::class, 'success'])->name('success');
+			});
 		});
 
 		Route::name('pitch-story.')->prefix('pitch-story')->group(function () {
