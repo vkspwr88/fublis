@@ -22,6 +22,11 @@ class LocationController extends Controller
 		return Location::find($id);
 	}
 
+	public static function findByName(string $name)
+	{
+		return Location::where('name', $name)->first();
+	}
+
 	public static function createLocation(array $details)
 	{
 		return Location::firstOrCreate($details);

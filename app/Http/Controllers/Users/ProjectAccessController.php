@@ -12,4 +12,8 @@ class ProjectAccessController extends Controller
 	{
 		return ProjectAccess::all();
 	}
+	public static function findById(string $id)
+	{
+		return ProjectAccess::find($id);
+	}
 }

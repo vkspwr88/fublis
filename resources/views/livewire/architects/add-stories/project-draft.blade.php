@@ -1,3 +1,2 @@
-<div>
-    {{-- Nothing in the world is as soft and yielding as water. --}}
-</div>
+@include('users.includes.architect.add-story.project-form')
+

@@ -1,6 +1,6 @@
 <div class="row g-4">
 	<div class="col-md-8">
-		<h1 class="text-dark fs-2 fw-semibold m-0 py-2">{{ $mediaKit->story->title }}</h1>
+		<h1 class="text-dark fs-2 fw-semibold m-0 py-2">{{ str()->headline($mediaKit->story->title) }}</h1>
 		<div class="row justify-content-center g-2 py-3">
 			<div class="col-auto">
 				<x-users.tag name="Project" />

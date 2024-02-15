@@ -1,3 +1,1 @@
-<div>
-    {{-- Success is as dangerous as failure. --}}
-</div>
+@include('users.includes.architect.add-story.article-form', ['edit' => true])

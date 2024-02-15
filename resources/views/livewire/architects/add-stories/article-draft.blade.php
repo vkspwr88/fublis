@@ -1,3 +1,1 @@
-<div>
-    {{-- In work, do what you enjoy. --}}
-</div>
+@include('users.includes.architect.add-story.article-form')

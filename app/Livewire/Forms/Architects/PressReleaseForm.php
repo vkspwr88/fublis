@@ -191,7 +191,6 @@ class PressReleaseForm extends Form
 	// update the draft media kit data
 	public function updateDraftMediaKit($draftId)
 	{
-		// dd($this->all());
 		$details = [
 			'media_kit_type' => 'press-release',
 			'architect_id' => auth()->user()->architect->id,
@@ -232,13 +231,19 @@ class PressReleaseForm extends Form
 		$this->conceptNote = $content->conceptNote;
 		$this->pressReleaseWrite = $content->pressReleaseWrite;
 		$this->pressReleaseFile = $content->pressReleaseFile;
-		$this->pressReleaseLink = $content->pressReleaseLink;
+		$this->pressReleaseLink = trimWebsiteUrl($content->pressReleaseLink);
 		$this->photographsFiles = $content->photographsFiles;
-		$this->photographsLink = $content->photographsLink;
+		$this->photographsLink = trimWebsiteUrl($content->photographsLink);
 		$this->tags = $content->tags;
 		$this->mediaContact = $content->mediaContact;
 		$this->mediaKitAccess = $content->mediaKitAccess;
 		// $this->characterCount();
+	}
+
+	public function updateFields()
+	{
+		$this->pressReleaseLink = trimWebsiteUrl($this->pressReleaseLink) ? 'http://' . $this->pressReleaseLink : null;
+		$this->photographsLink = trimWebsiteUrl($this->photographsLink) ? 'http://' . $this->photographsLink : null;
 	}
 
 	// public function store($type = 'new', $draftId = null)
@@ -255,8 +260,7 @@ class PressReleaseForm extends Form
 		// elseif($type == 'drafted'){
 		// 	dd($this->all());
 		// }
-		$this->pressReleaseLink = $this->pressReleaseLink ? 'http://' . $this->pressReleaseLink : null;
-		$this->photographsLink = $this->photographsLink ? 'http://' . $this->photographsLink : null;
+		$this->updateFields();
 		$this->validate();
 		$addStoryService = new AddStoryService();
 		return $addStoryService->addPressRelease($this->all());
@@ -264,8 +268,7 @@ class PressReleaseForm extends Form
 
 	public function update($mediaKitId)
 	{
-		$this->pressReleaseLink = $this->pressReleaseLink ? 'http://' . $this->pressReleaseLink : null;
-		$this->photographsLink = $this->photographsLink ? 'http://' . $this->photographsLink : null;
+		$this->updateFields();
 		$this->validate();
 		$addStoryService = new AddStoryService();
 		return $addStoryService->editPressRelease($mediaKitId, $this->all());
@@ -274,6 +277,7 @@ class PressReleaseForm extends Form
 	// preview functionality
 	public function preview($type, $draftId = null)
 	{
+		$this->updateFields();
 		if($type == 'create'){
 			$this->validate();
 			$mediaKitDraft = $this->draftMediaKit();

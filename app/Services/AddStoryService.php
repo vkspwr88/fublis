@@ -154,6 +154,8 @@ class AddStoryService
 				'project_brief' => $details['projectBrief'],
 				'project_doc_path' => $details['projectFile'] ? FileController::upload($details['projectFile'], 'documents/projects') : null,
 				'project_doc_link' => $details['projectLink'],
+				'photographs_link' => $details['photographsLink'],
+				'drawings_link' => $details['drawingsLink'],
 			]);
 			// create media kit
 			MediaKitController::createMediaKit($project, [
@@ -181,6 +183,90 @@ class AddStoryService
 				}
 			}
 			// create tags
+			TagController::attachTags($project, $details['tags']);
+
+			DB::commit();
+		}
+		catch(Exception $exp){
+            DB::rollBack();
+
+			dd($exp->getMessage());
+            return false;
+        }
+		return true;
+	}
+
+	public function editProject(string $mediaKitId, array $details)
+	{
+		try{
+            DB::beginTransaction();
+
+			// find media kit
+			$mediaKit = MediaKitController::findById($mediaKitId);
+			MediaKitController::isAuthorized($mediaKit);
+			$project = $mediaKit->story;
+			$slug = $mediaKit->slug;
+			if($project->title != $details['projectTitle']){
+				$slug = MediaKitController::generateSlug($details['projectTitle']);
+			}
+
+			// update media kit
+			$mediaKit->update([
+				'category_id' => $details['category'],
+				'media_contact_id' => $details['mediaContact'],
+				'project_access_id' => $details['mediaKitAccess'],
+				'slug' => $slug,
+			]);
+
+			// insert location record
+			$location = LocationController::createLocation([
+				'name' => $details['selectedCity'],
+			]);
+
+			// update project
+			$project->update([
+				'title' => $details['projectTitle'],
+				'site_area' => $details['siteArea'],
+				'site_area_id' => $details['siteAreaUnit'],
+				'built_up_area' => $details['builtUpArea'],
+				'built_up_area_id' => $details['builtUpAreaUnit'],
+				'location_id' => $location->id,
+				'project_status_id' => $details['status'],
+				'materials' => $details['materials'],
+				// 'building_typology_id' => $details['buildingTypology'],
+				'building_use_id' => $details['buildingUse'],
+				'image_credits' => $details['imageCredits'],
+				'text_credits' => $details['textCredits'],
+				'render_credits' => $details['renderCredits'],
+				'consultants' => $details['consultants'],
+				'design_team' => $details['designTeam'],
+				'cover_image_path' => FileController::upload($details['coverImage'], 'images/projects/cover-images'),
+				'project_brief' => $details['projectBrief'],
+				'project_doc_path' => $details['projectFile'] ? FileController::upload($details['projectFile'], 'documents/projects') : null,
+				'project_doc_link' => $details['projectLink'],
+				'photographs_link' => $details['photographsLink'],
+				'drawings_link' => $details['drawingsLink'],
+			]);
+
+			// create images (photographs)
+			if(count($details['photographsFiles']) > 0){
+				foreach($details['photographsFiles'] as $image){
+					ImageController::create($project->photographs(), [
+						'image_type' => 'photographs',
+						'image_path' => FileController::upload($image, 'images/projects/photographs'),
+					]);
+				}
+			}
+			// create images (drawings)
+			if(count($details['drawingsFiles']) > 0){
+				foreach($details['drawingsFiles'] as $image){
+					ImageController::create($project->photographs(), [
+						'image_type' => 'drawings',
+						'image_path' => FileController::upload($image, 'images/projects/drawings'),
+					]);
+				}
+			}
+			// update tags
 			TagController::attachTags($project, $details['tags']);
 
 			DB::commit();
@@ -229,6 +315,66 @@ class AddStoryService
 				}
 			}
 			// create tags
+			TagController::attachTags($article, $details['tags']);
+
+			DB::commit();
+		}
+		catch(Exception $exp){
+            DB::rollBack();
+
+			dd($exp->getMessage());
+            return false;
+        }
+		return true;
+	}
+
+	public function editArticle(string $mediaKitId, array $details)
+	{
+		try{
+            DB::beginTransaction();
+
+			// find media kit
+			$mediaKit = MediaKitController::findById($mediaKitId);
+			MediaKitController::isAuthorized($mediaKit);
+			$article = $mediaKit->story;
+			$slug = $mediaKit->slug;
+			if($article->title != $details['articleTitle']){
+				$slug = MediaKitController::generateSlug($details['articleTitle']);
+			}
+
+			// update media kit
+			$mediaKit->update([
+				// 'architect_id' => auth()->user()->architect->id,
+				'category_id' => $details['category'],
+				'media_contact_id' => $details['mediaContact'],
+				'project_access_id' => $details['mediaKitAccess'],
+				'slug' => $slug,
+			]);
+
+			// update article
+			$article->update([
+				'cover_image_path' => FileController::upload($details['coverImage'], 'images/articles/cover-images'),
+				'title' => $details['articleTitle'],
+				'text_credits' => $details['textCredits'],
+				'preview_text' => $details['previewText'],
+				'article_doc_path' => $details['articleFile'] ? FileController::upload($details['articleFile'], 'documents/articles') : null,
+				'article_doc_link' => $details['articleLink'],
+				'article_writeup' => $details['articleWrite'],
+				'company_profile_path' => $details['companyProfileFile'] ? FileController::upload($details['companyProfileFile'], 'documents/articles/company-profiles') : null,
+				'company_profile_link' => $details['companyProfileLink'],
+				'images_link' => $details['imagesLink'],
+			]);
+
+			// create images
+			if(count($details['imagesFiles']) > 0){
+				foreach($details['imagesFiles'] as $image){
+					ImageController::create($article->images(), [
+						'image_type' => 'images',
+						'image_path' => FileController::upload($image, 'images/articles/images'),
+					]);
+				}
+			}
+			// update tags
 			TagController::attachTags($article, $details['tags']);
 
 			DB::commit();

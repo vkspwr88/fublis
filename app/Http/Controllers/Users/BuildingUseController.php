@@ -14,4 +14,9 @@ class BuildingUseController extends Controller
 							->orderBy('name')
 							->get();
 	}
+
+	public static function findById(string $id)
+	{
+		return BuildingUse::find($id);
+	}
 }

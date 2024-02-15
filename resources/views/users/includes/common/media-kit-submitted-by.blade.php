@@ -8,13 +8,13 @@
 			<div class="col">
 				<p class="fs-6 fw-medium m-0 p-0">
 					@if ($viewAs == 'architect')
-					<a class="text-purple-800" href="{{ route('architect.account.studio.index') }}">
-						{{ $mediaKit->architect->company->name }}
-					</a>
+						<a class="text-purple-800" href="{{ route('architect.account.studio.index') }}">
+							{{ $mediaKit->architect->company->name }}
+						</a>
 					@elseif ($viewAs == 'journalist')
-					<a class="text-purple-800" href="{{ route('journalist.brand.view', ['brand' => $mediaKit->architect->company->slug]) }}">
-						{{ $mediaKit->architect->company->name }}
-					</a>
+						<a class="text-purple-800" href="{{ route('journalist.brand.view', ['brand' => $mediaKit->architect->company->slug]) }}">
+							{{ $mediaKit->architect->company->name }}
+						</a>
 					@endif
 				</p>
 				<p class="fs-6 m-0 p-0">
@@ -35,11 +35,11 @@
 						</a>
 					@endempty --}}
 					@isset($drafted)
-						<a href="{{ route('architect.add-story.article.draft', ['mediaKitDraft' => $mediaKit->id]) }}" class="text-purple-600">
+						<a href="{{ route('architect.add-story.draft.view', ['mediaKitDraft' => $mediaKit->id]) }}" class="text-purple-600">
 							<i class="bi bi-pencil-square"></i>
 						</a>
 					@else
-						<a href="{{ route('architect.media-kit.press-release.edit', ['mediaKit' => $mediaKit->slug]) }}" class="text-purple-600">
+						<a href="{{ route('architect.media-kit.edit', ['mediaKit' => $mediaKit->slug]) }}" class="text-purple-600">
 							<i class="bi bi-pencil-square"></i>
 						</a>
 					@endisset

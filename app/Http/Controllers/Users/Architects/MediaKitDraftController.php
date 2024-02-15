@@ -42,7 +42,7 @@ class MediaKitDraftController extends Controller
 
 	public static function deleteById(string $id)
 	{
-		return MediaKitDraft::findById($id)->delete();
+		return MediaKitDraftController::findById($id)->delete();
 	}
 
 	public static function update(string $id, array $details)
@@ -86,9 +86,9 @@ class MediaKitDraftController extends Controller
 					'conceptNote' => $content['conceptNote'],
 					'pressReleaseWrite' => $content['pressReleaseWrite'],
 					'pressReleaseFile' => $content['pressReleaseFile'],
-					'pressReleaseLink' => $content['pressReleaseLink'] ? 'http://' . $content['pressReleaseLink'] : null,
+					'pressReleaseLink' => $content['pressReleaseLink'],
 					'photographsFiles' => $content['photographsFiles'],
-					'photographsLink' => $content['photographsLink'] ? 'http://' . $content['photographsLink'] : null,
+					'photographsLink' => $content['photographsLink'],
 					'tags' => $content['tags'],
 					'mediaContact' => $content['mediaContact'],
 					'mediaKitAccess' => $content['mediaKitAccess'],
@@ -96,10 +96,90 @@ class MediaKitDraftController extends Controller
 			];
 		}
 		elseif($details['media_kit_type'] == 'project'){
-
+			$content['coverImage'] = MediaKitDraftController::checkFile($content['coverImage'], 'images/projects/cover-images');
+			$content['projectFile'] = MediaKitDraftController::checkFile($content['projectFile'], 'documents/projects');
+			if(count($content['photographsFiles']) > 0){
+				$photographsFiles = $content['photographsFiles'];
+				$content['photographsFiles'] = array();
+				foreach($photographsFiles as $image){
+					$content['photographsFiles'][] = MediaKitDraftController::checkFile($image, 'images/projects/photographs');
+				}
+			}
+			if(count($content['drawingsFiles']) > 0){
+				$drawingsFiles = $content['drawingsFiles'];
+				$content['drawingsFiles'] = array();
+				foreach($drawingsFiles as $image){
+					$content['drawingsFiles'][] = MediaKitDraftController::checkFile($image, 'images/projects/drawings');
+				}
+			}
+			$newDetails = [
+				'media_kit_type' => $details['media_kit_type'],
+				'architect_id' => $details['architect_id'],
+				'content' => json_encode([
+					'projectTitle' => $content['projectTitle'],
+					'category' => $content['category'],
+					'siteArea' => $content['siteArea'],
+					'siteAreaUnit' => $content['siteAreaUnit'],
+					'builtUpArea' => $content['builtUpArea'],
+					'builtUpAreaUnit' => $content['builtUpAreaUnit'],
+					'materials' => $content['materials'],
+					'buildingTypology' => $content['buildingTypology'],
+					'buildingUse' => $content['buildingUse'],
+					'selectedCountry' => $content['selectedCountry'],
+					'selectedState' => $content['selectedState'],
+					'selectedCity' => $content['selectedCity'],
+					'status' => $content['status'],
+					'imageCredits' => $content['imageCredits'],
+					'textCredits' => $content['textCredits'],
+					'renderCredits' => $content['renderCredits'],
+					'consultants' => $content['consultants'],
+					'designTeam' => $content['designTeam'],
+					'coverImage' => $content['coverImage'],
+					'projectBrief' => $content['projectBrief'],
+					'projectFile' => $content['projectFile'],
+					'projectLink' => $content['projectLink'],
+					'photographsFiles' => $content['photographsFiles'],
+					'photographsLink' => $content['photographsLink'],
+					'drawingsFiles' => $content['drawingsFiles'],
+					'drawingsLink' => $content['drawingsLink'],
+					'tags' => $content['tags'],
+					'mediaContact' => $content['mediaContact'],
+					'mediaKitAccess' => $content['mediaKitAccess'],
+				]),
+			];
 		}
 		elseif($details['media_kit_type'] == 'article'){
-
+			$content['coverImage'] = MediaKitDraftController::checkFile($content['coverImage'], 'images/articles/cover-images');
+			$content['articleFile'] = MediaKitDraftController::checkFile($content['articleFile'], 'documents/articles');
+			$content['companyProfileFile'] = MediaKitDraftController::checkFile($content['companyProfileFile'], 'documents/articles/company-profiles');
+			if(count($content['imagesFiles']) > 0){
+				$imagesFiles = $content['imagesFiles'];
+				$content['imagesFiles'] = array();
+				foreach($imagesFiles as $image){
+					$content['imagesFiles'][] = MediaKitDraftController::checkFile($image, 'images/articles/images');
+				}
+			}
+			$newDetails = [
+				'media_kit_type' => $details['media_kit_type'],
+				'architect_id' => $details['architect_id'],
+				'content' => json_encode([
+					'coverImage' => $content['coverImage'],
+					'articleTitle' => $content['articleTitle'],
+					'textCredits' => $content['textCredits'],
+					'category' => $content['category'],
+					'previewText' => $content['previewText'],
+					'articleWrite' => $content['articleWrite'],
+					'articleFile' => $content['articleFile'],
+					'articleLink' => $content['articleLink'],
+					'companyProfileFile' => $content['companyProfileFile'],
+					'companyProfileLink' => $content['companyProfileLink'],
+					'imagesFiles' => $content['imagesFiles'],
+					'imagesLink' => $content['imagesLink'],
+					'tags' => $content['tags'],
+					'mediaContact' => $content['mediaContact'],
+					'mediaKitAccess' => $content['mediaKitAccess'],
+				]),
+			];
 		}
 		return $newDetails;
 	}

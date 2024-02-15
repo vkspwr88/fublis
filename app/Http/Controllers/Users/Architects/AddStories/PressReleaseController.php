@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\Users\ArchitectController;
 use App\Http\Controllers\Users\Architects\MediaKitDraftController;
 use App\Http\Controllers\Users\CategoryController;
+use App\Http\Controllers\Users\ProjectAccessController;
 use App\Models\MediaKitDraft;
 use Illuminate\Http\Request;
 
@@ -37,40 +38,15 @@ class PressReleaseController extends Controller
 			],
 		]);
 		$content = json_decode($mediaKitDraft->content);
-		/* $mediaKit = [
-			'downloadRequests',
-			'story' => [
-				'title',
-				'photographs',
-				'tags',
-			],
-			'category',
-			'architect' => [
-				'company' => [
-					'profileImage'
-				],
-				'profileImage',
-				'user',
-				'position'
-			],
-			'mediaContact' => [
-				'user',
-				'profileImage',
-				'position',
-			],
-			'projectAccess',
-		]; */
-		// $category = CategoryController::findById($content->category);
-		// $mediaContact = ArchitectController::findById($content->mediaContact)->load('profileImage', 'position', 'user');
 		$mediaKit = [
 			'id' => $mediaKitDraft->id,
 			'story' => (object)[
 				'title' => $content->pressReleaseTitle,
 				'press_release_writeup' => $content->pressReleaseWrite,
 				'cover_image_path' => $content->coverImage,
-				'press_release_doc_path' => $content->coverImage,
-				'press_release_doc_link' => $content->coverImage,
-				'photographs_link' => $content->coverImage,
+				'press_release_doc_path' => $content->pressReleaseFile,
+				'press_release_doc_link' => $content->pressReleaseLink,
+				'photographs_link' => $content->photographsLink,
 				'photographs' => [],
 				'draftPhotographs' => $content->photographsFiles,
 				'tags' => collect($content->tags),
@@ -78,6 +54,7 @@ class PressReleaseController extends Controller
 			'architect' => $mediaKitDraft->architect,
 			'category' => CategoryController::findById($content->category),
 			'mediaContact' => ArchitectController::findById($content->mediaContact)->load('profileImage', 'position', 'user'),
+			'mediaKitAccess' => ProjectAccessController::findById($content->mediaKitAccess),
 		];
 		// dd((object)$mediaKit, $mediaKitDraft, $content);
 		return view('users.pages.architects.add-stories.press-releases.preview', [

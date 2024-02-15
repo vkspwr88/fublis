@@ -249,10 +249,10 @@
 			<button class="btn btn-white fs-6 fw-semibold" type="button" wire:click="draft">
 				Save as Draft <x-users.spinners.primary-btn wire:target="draft" />
 			</button>
+			<button class="btn btn-white fs-6 fw-semibold" type="button" wire:click="preview">
+				Preview <x-users.spinners.primary-btn wire:target="preview" />
+			</button>
 		@endempty
-		<button class="btn btn-white fs-6 fw-semibold" type="button" wire:click="preview">
-			Preview <x-users.spinners.primary-btn wire:target="preview" />
-		</button>
 		<button class="btn btn-primary fs-6 fw-semibold" type="submit">
 			{{ isset($edit) ? 'Edit Press Release' : 'Submit Press Release' }} <x-users.spinners.white-btn wire:target="add" />
 		</button>

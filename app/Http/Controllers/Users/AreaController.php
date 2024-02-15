@@ -12,4 +12,9 @@ class AreaController extends Controller
 	{
 		return Area::all();
 	}
+
+	public static function findById(string $id)
+	{
+		return Area::find($id);
+	}
 }

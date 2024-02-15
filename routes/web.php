@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Users;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,6 +26,16 @@ Route::get('/privacy-policy', function () {
 Route::get('/blank', function () {
     return view('users.pages.blank');
 })->name('blank');
+
+Route::get('clear-cache', function(){
+    Artisan::call('route:clear');
+    Artisan::call('route:cache');
+    Artisan::call('config:cache');
+    Artisan::call('cache:clear');
+    Artisan::call('view:clear');
+    Artisan::call('view:cache');
+    return 'All cache cleared';
+});
 
 /* Route::get('/email', function () {
     return (new VerifySubscriber())->render();

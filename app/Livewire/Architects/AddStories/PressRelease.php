@@ -12,7 +12,7 @@ use Livewire\WithFileUploads;
 class PressRelease extends Component
 {
     use WithFileUploads;
-	
+
 	public PressReleaseForm $form;
 
     public function render()
@@ -33,18 +33,21 @@ class PressRelease extends Component
 		$this->form->characterCount();
 	}
 
-	public function finishUpload($name, $tmpPath, $isMultiple)
+	public function _finishUpload($name, $tmpPath, $isMultiple)
     {
-		/* $this->cleanupOldUploads();
-		dd($name, $tmpPath, $isMultiple);
-		if ($isMultiple) {
+        $this->cleanupOldUploads();
+
+        if ($isMultiple) {
             $file = collect($tmpPath)->map(function ($i) {
                 return TemporaryUploadedFile::createFromLivewire($i);
             })->toArray();
-            $this->emitSelf('upload:finished', $name, collect($file)->map->getFilename()->toArray());
+            $this->dispatch('upload:finished', name: $name, tmpFilenames: collect($file)->map->getFilename()->toArray())->self();
+            if (is_array($value = $this->getPropertyValue($name))) {
+                $file = array_merge($value, $file);
+            }
         } else {
-			$file = TemporaryUploadedFile::createFromLivewire($tmpPath[0]);
-            $this->emitSelf('upload:finished', $name, [$file->getFilename()]);
+            $file = TemporaryUploadedFile::createFromLivewire($tmpPath[0]);
+            $this->dispatch('upload:finished', name: $name, tmpFilenames: [$file->getFilename()])->self();
 
             // If the property is an array, but the upload ISNT set to "multiple"
             // then APPEND the upload to the array, rather than replacing it.
@@ -52,16 +55,8 @@ class PressRelease extends Component
                 $file = array_merge($value, [$file]);
             }
         }
-        $this->syncInput($name, $file); */
-		dd($name, $tmpPath, $isMultiple);
 
-		$this->cleanupOldUploads();
-        $files = collect($tmpPath)->map(function ($i) {
-            return TemporaryUploadedFile::createFromLivewire($i);
-        })->toArray();
-        $this->emitSelf('upload:finished', $name, collect($files)->map->getFilename()->toArray());
-        $files = array_merge($this->getPropertyValue($name), $files);
-        $this->syncInput($name, $files);
+        app('livewire')->updateProperty($this, $name, $file);
     }
 
 	public function add()

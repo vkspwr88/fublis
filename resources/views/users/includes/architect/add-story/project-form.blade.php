@@ -2,37 +2,37 @@
 	<div class="row mb-3">
 		<label for="inputProjectTitle" class="col-md-4 col-form-label text-dark fs-6 fw-medium">Title <span class="text-danger">*</span></label>
 		<div class="col-md-8">
-			<input type="text" id="inputProjectTitle" class="form-control @error('projectTitle') is-invalid @enderror" wire:model="projectTitle">
-			@error('projectTitle')<div class="invalid-feedback">{{ $message }}</div>@enderror
+			<input type="text" id="inputProjectTitle" class="form-control @error('form.projectTitle') is-invalid @enderror" wire:model="form.projectTitle">
+			@error('form.projectTitle')<div class="invalid-feedback">{{ $message }}</div>@enderror
 		</div>
 	</div>
 	<div class="row">
 		<label for="selectCategory" class="col-md-4 col-form-label text-dark fs-6 fw-medium">Category <span class="text-danger">*</span></label>
 		<div class="col-md-8">
-			<select id="selectCategory" class="form-select @error('category') is-invalid @enderror" wire:model.live="category">
+			<select id="selectCategory" class="form-select @error('form.category') is-invalid @enderror" wire:model.live="form.category">
 				<option value="">Select Category</option>
-				@foreach ($categories as $category)
+				@foreach ($form->categories as $category)
 					<option value="{{ $category->id }}">{{ $category->name }}</option>
 				@endforeach
 			</select>
-			@error('category')<div class="invalid-feedback">{{ $message }}</div>@enderror
+			@error('form.category')<div class="invalid-feedback">{{ $message }}</div>@enderror
 		</div>
 	</div>
 	<hr class="border-gray-300">
-	@if($showOtherFields)
+	@if($form->showOtherFields)
 		<div class="row mb-3">
 			<label for="inputSiteArea" class="col-md-4 col-form-label text-dark fs-6 fw-medium">Site Area</label>
 			<div class="col-md-8">
 				<div class="input-group">
-					<input type="text" id="inputSiteArea" class="form-control @error('siteArea') is-invalid @enderror" wire:model="siteArea">
-					<select id="selectSiteArea" class="form-select @error('siteAreaUnit') is-invalid @enderror" wire:model="siteAreaUnit" style="max-width: 140px;">
+					<input type="text" id="inputSiteArea" class="form-control @error('form.siteArea') is-invalid @enderror" wire:model="form.siteArea">
+					<select id="selectSiteArea" class="form-select @error('form.siteAreaUnit') is-invalid @enderror" wire:model="form.siteAreaUnit" style="max-width: 140px;">
 						<option value="">Select</option>
-						@foreach ($areas as $area)
+						@foreach ($form->areas as $area)
 							<option value="{{ $area->id }}">{{ $area->name }}</option>
 						@endforeach
 					</select>
-					@error('siteArea')<div class="invalid-feedback">{{ $message }}</div>@enderror
-					@error('siteAreaUnit')<div class="invalid-feedback">{{ $message }}</div>@enderror
+					@error('form.siteArea')<div class="invalid-feedback">{{ $message }}</div>@enderror
+					@error('form.siteAreaUnit')<div class="invalid-feedback">{{ $message }}</div>@enderror
 				</div>
 			</div>
 		</div>
@@ -40,47 +40,47 @@
 			<label for="inputBuiltUpArea" class="col-md-4 col-form-label text-dark fs-6 fw-medium">Built Up Area</label>
 			<div class="col-md-8">
 				<div class="input-group">
-					<input type="text" id="inputBuiltUpArea" class="form-control @error('builtUpArea') is-invalid @enderror" wire:model="builtUpArea">
-					<select id="selectBuiltUpArea" class="form-select @error('builtUpAreaUnit') is-invalid @enderror" wire:model="builtUpAreaUnit" style="max-width: 140px;">
+					<input type="text" id="inputBuiltUpArea" class="form-control @error('form.builtUpArea') is-invalid @enderror" wire:model="form.builtUpArea">
+					<select id="selectBuiltUpArea" class="form-select @error('form.builtUpAreaUnit') is-invalid @enderror" wire:model="form.builtUpAreaUnit" style="max-width: 140px;">
 						<option value="">Select</option>
-						@foreach ($areas as $area)
+						@foreach ($form->areas as $area)
 							<option value="{{ $area->id }}">{{ $area->name }}</option>
 						@endforeach
 					</select>
-					@error('builtUpArea')<div class="invalid-feedback">{{ $message }}</div>@enderror
-					@error('builtUpAreaUnit')<div class="invalid-feedback">{{ $message }}</div>@enderror
+					@error('form.builtUpArea')<div class="invalid-feedback">{{ $message }}</div>@enderror
+					@error('form.builtUpAreaUnit')<div class="invalid-feedback">{{ $message }}</div>@enderror
 				</div>
 			</div>
 		</div>
 		<div class="row mb-3">
 			<label for="inputMaterials" class="col-md-4 col-form-label text-dark fs-6 fw-medium">Materials</label>
 			<div class="col-md-8">
-				<input type="text" id="inputMaterials" class="form-control @error('materials') is-invalid @enderror" wire:model="materials">
-				@error('materials')<div class="invalid-feedback">{{ $message }}</div>@enderror
+				<input type="text" id="inputMaterials" class="form-control @error('form.materials') is-invalid @enderror" wire:model="form.materials">
+				@error('form.materials')<div class="invalid-feedback">{{ $message }}</div>@enderror
 			</div>
 		</div>
 		<div class="row mb-3">
 			<label for="selectBuildingTypology" class="col-md-4 col-form-label text-dark fs-6 fw-medium">Building Typology</label>
 			<div class="col-md-8">
-				<select id="selectBuildingTypology" class="form-select @error('buildingTypology') is-invalid @enderror" wire:model.live="buildingTypology">
+				<select id="selectBuildingTypology" class="form-select @error('form.buildingTypology') is-invalid @enderror" wire:model.live="form.buildingTypology">
 					<option value="">Select Building Typology</option>
-					@foreach ($buildingTypologies as $buildingTypology)
+					@foreach ($form->buildingTypologies as $buildingTypology)
 						<option value="{{ $buildingTypology->id }}">{{ $buildingTypology->name }}</option>
 					@endforeach
 				</select>
-				@error('buildingTypology')<div class="invalid-feedback">{{ $message }}</div>@enderror
+				@error('form.buildingTypology')<div class="invalid-feedback">{{ $message }}</div>@enderror
 			</div>
 		</div>
 		<div class="row mb-3">
 			<label for="selectBuildingUse" class="col-md-4 col-form-label text-dark fs-6 fw-medium">Building Use</label>
 			<div class="col-md-8">
-				<select id="selectBuildingUse" class="form-select @error('buildingUse') is-invalid @enderror" wire:model="buildingUse">
+				<select id="selectBuildingUse" class="form-select @error('form.buildingUse') is-invalid @enderror" wire:model="form.buildingUse">
 					<option value="">Select Building Use</option>
-					@foreach ($buildingUses as $buildingUse)
+					@foreach ($form->buildingUses as $buildingUse)
 						<option value="{{ $buildingUse->id }}">{{ $buildingUse->name }}</option>
 					@endforeach
 				</select>
-				@error('buildingUse')<div class="invalid-feedback">{{ $message }}</div>@enderror
+				@error('form.buildingUse')<div class="invalid-feedback">{{ $message }}</div>@enderror
 			</div>
 		</div>
 	@endif
@@ -99,70 +99,70 @@
 	<div class="row mb-3">
 		<label for="selectCountry" class="col-md-4 col-form-label text-dark fs-6 fw-medium">Country <span class="text-danger">*</span></label>
 		<div class="col-md-8">
-			<select class="form-select @error('selectedCountry') is-invalid @enderror" id="selectCountry" wire:model.live="selectedCountry">
+			<select class="form-select @error('form.selectedCountry') is-invalid @enderror" id="selectCountry" wire:model.live="form.selectedCountry">
 				<option value="">Select Country</option>
-				@foreach ($countries as $country)
+				@foreach ($form->countries as $country)
 				<option value="{{ $country->id }}">{{ str()->headline($country->name) }}</option>
 				@endforeach
 			</select>
-			@error('selectedCountry')<div class="invalid-feedback">{{ $message }}</div>@enderror
+			@error('form.selectedCountry')<div class="invalid-feedback">{{ $message }}</div>@enderror
 		</div>
 	</div>
 	<div class="row mb-3">
 		<label for="selectState" class="col-md-4 col-form-label text-dark fs-6 fw-medium">State <span class="text-danger">*</span></label>
 		<div class="col-md-8">
-			<select class="form-select @error('selectedState') is-invalid @enderror" id="selectState" wire:model.live="selectedState">
+			<select class="form-select @error('form.selectedState') is-invalid @enderror" id="selectState" wire:model.live="form.selectedState">
 				<option value="">Select State</option>
-				@foreach ($states as $state)
+				@foreach ($form->states as $state)
 				<option value="{{ $state->id }}">{{ str()->headline($state->name) }}</option>
 				@endforeach
 			</select>
-			@error('selectedState')<div class="invalid-feedback">{{ $message }}</div>@enderror
+			@error('form.selectedState')<div class="invalid-feedback">{{ $message }}</div>@enderror
 		</div>
 	</div>
 	<div class="row mb-3">
 		<label for="selectCity" class="col-md-4 col-form-label text-dark fs-6 fw-medium">City <span class="text-danger">*</span></label>
 		<div class="col-md-8">
-			<select class="form-select @error('selectedCity') is-invalid @enderror" id="selectCity" wire:model="selectedCity">
+			<select class="form-select @error('form.selectedCity') is-invalid @enderror" id="selectCity" wire:model="form.selectedCity">
 				<option value="">Select City</option>
-				@foreach ($cities as $city)
+				@foreach ($form->cities as $city)
 				<option value="{{ $city->name }}">{{ str()->headline($city->name) }}</option>
 				@endforeach
 			</select>
-			@error('selectedCity')<div class="invalid-feedback">{{ $message }}</div>@enderror
+			@error('form.selectedCity')<div class="invalid-feedback">{{ $message }}</div>@enderror
 		</div>
 	</div>
 	<div class="row mb-3">
 		<label for="selectStatus" class="col-md-4 col-form-label text-dark fs-6 fw-medium">Status <span class="text-danger">*</span></label>
 		<div class="col-md-8">
-			<select id="selectStatus" class="form-select @error('status') is-invalid @enderror" wire:model="status">
+			<select id="selectStatus" class="form-select @error('form.status') is-invalid @enderror" wire:model="form.status">
 				<option value="">Select Status</option>
-				@foreach ($statuses as $status)
+				@foreach ($form->statuses as $status)
 					<option value="{{ $status->id }}">{{ $status->name }}</option>
 				@endforeach
 			</select>
-			@error('status')<div class="invalid-feedback">{{ $message }}</div>@enderror
+			@error('form.status')<div class="invalid-feedback">{{ $message }}</div>@enderror
 		</div>
 	</div>
 	<div class="row mb-3">
 		<label for="inputImageCredits" class="col-md-4 col-form-label text-dark fs-6 fw-medium">Image Credits</label>
 		<div class="col-md-8">
-			<input type="text" id="inputImageCredits" class="form-control @error('imageCredits') is-invalid @enderror" wire:model="imageCredits">
-			@error('imageCredits')<div class="invalid-feedback">{{ $message }}</div>@enderror
+			<input type="text" id="inputImageCredits" class="form-control @error('form.imageCredits') is-invalid @enderror" wire:model="form.imageCredits">
+			@error('form.imageCredits')<div class="invalid-feedback">{{ $message }}</div>@enderror
 		</div>
 	</div>
 	<div class="row mb-3">
 		<label for="inputTextCredits" class="col-md-4 col-form-label text-dark fs-6 fw-medium">Text Credits</label>
 		<div class="col-md-8">
-			<input type="text" id="inputTextCredits" class="form-control @error('textCredits') is-invalid @enderror" wire:model="textCredits">
-			@error('textCredits')<div class="invalid-feedback">{{ $message }}</div>@enderror
+			<input type="text" id="inputTextCredits" class="form-control @error('form.textCredits') is-invalid @enderror" wire:model="form.textCredits">
+			@error('form.textCredits')<div class="invalid-feedback">{{ $message }}</div>@enderror
 		</div>
 	</div>
 	<div class="row mb-3">
 		<label for="inputRenderCredits" class="col-md-4 col-form-label text-dark fs-6 fw-medium">Render Credits</label>
 		<div class="col-md-8">
-			<input type="text" id="inputRenderCredits" class="form-control @error('renderCredits') is-invalid @enderror" wire:model="renderCredits">
-			@error('renderCredits')<div class="invalid-feedback">{{ $message }}</div>@enderror
+			<input type="text" id="inputRenderCredits" class="form-control @error('form.renderCredits') is-invalid @enderror" wire:model="form.renderCredits">
+			@error('form.renderCredits')<div class="invalid-feedback">{{ $message }}</div>@enderror
 		</div>
 	</div>
 	<div class="row mb-3">
@@ -171,8 +171,8 @@
 			<label class="d-block form-text text-secondary fs-7 m-0">Add all the consultants and due credits</label>
 		</div>
 		<div class="col-md-8">
-			<textarea id="inputConsultants" class="form-control @error('consultants') is-invalid @enderror" wire:model="consultants" rows="5"></textarea>
-			@error('consultants')<div class="invalid-feedback">{{ $message }}</div>@enderror
+			<textarea id="inputConsultants" class="form-control @error('form.consultants') is-invalid @enderror" wire:model="form.consultants" rows="5"></textarea>
+			@error('form.consultants')<div class="invalid-feedback">{{ $message }}</div>@enderror
 		</div>
 	</div>
 	<div class="row mb-3">
@@ -181,8 +181,8 @@
 			<label class="d-block form-text text-secondary fs-7 m-0">Tag team members who worked on the project</label>
 		</div>
 		<div class="col-md-8">
-			<textarea id="inputDesignTeam" class="form-control @error('designTeam') is-invalid @enderror" wire:model="designTeam" rows="5"></textarea>
-			@error('designTeam')<div class="invalid-feedback">{{ $message }}</div>@enderror
+			<textarea id="inputDesignTeam" class="form-control @error('form.designTeam') is-invalid @enderror" wire:model="form.designTeam" rows="5"></textarea>
+			@error('form.designTeam')<div class="invalid-feedback">{{ $message }}</div>@enderror
 		</div>
 	</div>
 	<hr class="border-gray-300">
@@ -194,9 +194,9 @@
 			<label class="d-block form-text text-secondary fs-7 m-0">Write in 50-75 words (this text will be used in pitch to journalists)</label>
 		</div>
 		<div class="col-md-8">
-			<textarea id="inputProjectBrief" class="form-control @error('projectBrief') is-invalid @enderror" wire:model="projectBrief" wire:keydown.debounce="characterCount" rows="8"></textarea>
-			@error('projectBrief')<div class="invalid-feedback">{{ $message }}</div>@enderror
-			<div id="projectBriefHelp" class="form-text {{ $projectBriefLength < 0 ? 'text-danger' : '' }}">{{ $projectBriefLength }} characters left</div>
+			<textarea id="inputProjectBrief" class="form-control @error('form.projectBrief') is-invalid @enderror" wire:model="form.projectBrief" wire:keydown.debounce.1000ms="characterCount" rows="8"></textarea>
+			@error('form.projectBrief')<div class="invalid-feedback">{{ $message }}</div>@enderror
+			<div id="projectBriefHelp" class="form-text {{ $form->projectBriefLength < 0 ? 'text-danger' : '' }}">{{ $form->projectBriefLength }} characters left</div>
 		</div>
 	</div>
 	<div class="row">
@@ -208,7 +208,7 @@
 			<div class="card mb-2">
 				<div class="card-body bg-white rounded-3 border border-light">
 					<div class="row align-items-center">
-						<div class="col-12" x-data="fileUpload('projectFile')">
+						<div class="col-12" x-data="fileUpload('form.projectFile')">
 							<div
 								x-on:drop="isDropping = false"
 								x-on:drop.prevent="handleFileDrop($event)"
@@ -227,12 +227,18 @@
 									<label for="projectFile"><span class="text-purple-700 fw-semibold cursor-pointer">Click to upload</span></label> or drag and drop
 								</p>
 								<input type="file" id="projectFile" class="d-none" @change="handleFileSelect">
-								@if($projectFile)
+								@if($form->projectFile)
 									<ul class="mt-3 list-disc">
-										<li>
-											{{ $projectFile->getClientOriginalName() }}
-											<button type="button" class="btn btn-link text-danger text-decoration-none" @click="removeUpload('{{ $projectFile->getFilename() }}')">X</button>
-										</li>
+										@if(method_exists($form->projectFile, 'getClientOriginalName'))
+											<li>
+												{{ $form->projectFile->getClientOriginalName() }}
+												<button type="button" class="btn btn-link text-danger text-decoration-none" @click="removeUpload('{{ $form->projectFile->getFilename() }}')">X</button>
+											</li>
+										@else
+											<li style="list-style: none;">
+												<a href="{{ Storage::url($form->projectFile) }}" class="text-purple-700">See Document</a>
+											</li>
+										@endif
 									</ul>
 								@endif
 								<div x-show="isUploading" style="display: none;">
@@ -245,11 +251,11 @@
 					</div>
 				</div>
 			</div>
-			@error('projectFile')<div class="error">{{ $message }}</div>@enderror
+			@error('form.projectFile')<div class="error">{{ $message }}</div>@enderror
 			<div class="input-group mb-3">
 				<span class="input-group-text bg-white" id="projectLinkAddon">http://</span>
-				<input type="text" class="form-control @error('projectLink') is-invalid @enderror" wire:model="projectLink" placeholder="Insert drive link" aria-describedby="projectLinkAddon">
-				@error('projectLink')<div class="invalid-feedback">{{ $message }}</div>@enderror
+				<input type="text" class="form-control @error('form.projectLink') is-invalid @enderror" wire:model="form.projectLink" placeholder="Insert drive link" aria-describedby="projectLinkAddon">
+				@error('form.projectLink')<div class="invalid-feedback">{{ $message }}</div>@enderror
 			</div>
 		</div>
 	</div>
@@ -263,7 +269,7 @@
 			<div class="card mb-2">
 				<div class="card-body bg-white rounded-3 border border-light">
 					<div class="row align-items-center">
-						<div class="col-12" x-data="fileUpload('photographsFiles')">
+						<div class="col-12" x-data="fileUpload('form.photographsFiles')">
 							<div
 								x-on:drop="isDropping = false"
 								x-on:drop.prevent="handleFilesDrop($event)"
@@ -282,26 +288,29 @@
 									<label for="photographsFiles"><span class="text-purple-700 fw-semibold cursor-pointer">Click to upload</span></label> or drag and drop
 								</p>
 								<input type="file" id="photographsFiles" class="d-none" @change="handleFilesSelect" multiple>
-								@if(count($photographsFiles) > 0)
+								@if(count($form->photographsFiles) > 0 || count($form->oldPhotographsFiles) > 0)
 									<ul class="d-flex flex-wrap mt-3" style="list-style: none;">
-										@foreach ($photographsFiles as $photographsFile)
+										@foreach ($form->oldPhotographsFiles as $photographsFile)
 											<li class="position-relative p-2">
-												<img class="img-fluid img-thumbnail" width="150" src="{{ $photographsFile->temporaryUrl() }}" alt="">
-												<button type="button" class="btn btn-sm btn-secondary rounded-circle text-decoration-none position-absolute end-0 top-0" @click="removeUpload('{{ $photographsFile->getFilename() }}')">X</button>
+												<img class="img-fluid img-thumbnail" width="150" src="{{ Storage::url($photographsFile->image_path) }}" alt="">
+												<button type="button" class="btn btn-sm btn-secondary rounded-circle text-decoration-none position-absolute end-0 top-0" wire:click="removeImage('{{ $photographsFile->id }}')">X</button>
 											</li>
+										@endforeach
+										@foreach ($form->photographsFiles as $key => $photographsFile)
+											@if(method_exists($photographsFile, 'temporaryUrl'))
+												<li class="position-relative p-2">
+													<img class="img-fluid img-thumbnail" width="150" src="{{ $photographsFile->temporaryUrl() }}" alt="">
+													<button type="button" class="btn btn-sm btn-secondary rounded-circle text-decoration-none position-absolute end-0 top-0" @click="removeUpload('{{ $photographsFile->getFilename() }}')">X</button>
+												</li>
+											@else
+												<li class="position-relative p-2">
+													<img class="img-fluid img-thumbnail" width="150" src="{{ Storage::url($photographsFile) }}" alt="">
+													<button type="button" class="btn btn-sm btn-secondary rounded-circle text-decoration-none position-absolute end-0 top-0" wire:click="removeImage({{ $key }})">X</button>
+												</li>
+											@endif
 										@endforeach
 									</ul>
 								@endif
-								{{-- @if(count($photographsFiles) > 0)
-									<ul class="mt-3 list-disc">
-										@foreach ($photographsFiles as $photographsFile)
-										<li>
-											{{ $photographsFile->getClientOriginalName() }}
-											<button type="button" class="btn btn-link text-danger text-decoration-none" @click="removeUpload('{{ $photographsFile->getFilename() }}')">X</button>
-										</li>
-										@endforeach
-									</ul>
-								@endif --}}
 								<div x-show="isUploading" style="display: none;">
 									<div class="progress">
 										<div class="progress-bar bg-primary" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="transition: width 1s" :style="`width: ${progress}%;`"></div>
@@ -312,11 +321,11 @@
 					</div>
 				</div>
 			</div>
-			@error('photographsFiles')<div class="error">{{ $message }}</div>@enderror
+			@error('form.photographsFiles')<div class="error">{{ $message }}</div>@enderror
 			<div class="input-group mb-3">
 				<span class="input-group-text bg-white" id="photographsLinkAddon">http://</span>
-				<input type="text" class="form-control @error('photographsLink') is-invalid @enderror" wire:model="photographsLink" placeholder="Insert drive link" aria-describedby="photographsLinkAddon">
-				@error('photographsLink')<div class="invalid-feedback">{{ $message }}</div>@enderror
+				<input type="text" class="form-control @error('form.photographsLink') is-invalid @enderror" wire:model="form.photographsLink" placeholder="Insert drive link" aria-describedby="photographsLinkAddon">
+				@error('form.photographsLink')<div class="invalid-feedback">{{ $message }}</div>@enderror
 			</div>
 		</div>
 	</div>
@@ -330,7 +339,7 @@
 			<div class="card mb-2">
 				<div class="card-body bg-white rounded-3 border border-light">
 					<div class="row align-items-center">
-						<div class="col-12" x-data="fileUpload('drawingsFiles')">
+						<div class="col-12" x-data="fileUpload('form.drawingsFiles')">
 							<div
 								x-on:drop="isDropping = false"
 								x-on:drop.prevent="handleFilesDrop($event)"
@@ -349,26 +358,29 @@
 									<label for="drawingsFiles"><span class="text-purple-700 fw-semibold cursor-pointer">Click to upload</span></label> or drag and drop
 								</p>
 								<input type="file" id="drawingsFiles" class="d-none" @change="handleFilesSelect" multiple>
-								@if(count($drawingsFiles) > 0)
+								@if(count($form->drawingsFiles) > 0 || count($form->oldDrawingsFiles) > 0)
 									<ul class="d-flex flex-wrap mt-3" style="list-style: none;">
-										@foreach ($drawingsFiles as $drawingsFile)
+										@foreach ($form->oldDrawingsFiles as $drawingsFile)
 											<li class="position-relative p-2">
-												<img class="img-fluid img-thumbnail" width="150" src="{{ $drawingsFile->temporaryUrl() }}" alt="">
-												<button type="button" class="btn btn-sm btn-secondary rounded-circle text-decoration-none position-absolute end-0 top-0" @click="removeUpload('{{ $drawingsFile->getFilename() }}')">X</button>
+												<img class="img-fluid img-thumbnail" width="150" src="{{ Storage::url($drawingsFile->image_path) }}" alt="">
+												<button type="button" class="btn btn-sm btn-secondary rounded-circle text-decoration-none position-absolute end-0 top-0" wire:click="removeImage('{{ $drawingsFile->id }}')">X</button>
 											</li>
+										@endforeach
+										@foreach ($form->drawingsFiles as $key => $drawingsFile)
+											@if(method_exists($drawingsFile, 'temporaryUrl'))
+												<li class="position-relative p-2">
+													<img class="img-fluid img-thumbnail" width="150" src="{{ $drawingsFile->temporaryUrl() }}" alt="">
+													<button type="button" class="btn btn-sm btn-secondary rounded-circle text-decoration-none position-absolute end-0 top-0" @click="removeUpload('{{ $drawingsFile->getFilename() }}')">X</button>
+												</li>
+											@else
+												<li class="position-relative p-2">
+													<img class="img-fluid img-thumbnail" width="150" src="{{ Storage::url($drawingsFile) }}" alt="">
+													<button type="button" class="btn btn-sm btn-secondary rounded-circle text-decoration-none position-absolute end-0 top-0" wire:click="removeImage({{ $key }})">X</button>
+												</li>
+											@endif
 										@endforeach
 									</ul>
 								@endif
-								{{-- @if(count($drawingsFiles) > 0)
-									<ul class="mt-3 list-disc">
-										@foreach ($drawingsFiles as $drawingsFile)
-										<li>
-											{{ $drawingsFile->getClientOriginalName() }}
-											<button type="button" class="btn btn-link text-danger text-decoration-none" @click="removeUpload('{{ $drawingsFile->getFilename() }}')">X</button>
-										</li>
-										@endforeach
-									</ul>
-								@endif --}}
 								<div x-show="isUploading" style="display: none;">
 									<div class="progress">
 										<div class="progress-bar bg-primary" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="transition: width 1s" :style="`width: ${progress}%;`"></div>
@@ -379,11 +391,11 @@
 					</div>
 				</div>
 			</div>
-			@error('drawingsFiles')<div class="error">{{ $message }}</div>@enderror
+			@error('form.drawingsFiles')<div class="error">{{ $message }}</div>@enderror
 			<div class="input-group mb-3">
 				<span class="input-group-text bg-white" id="drawingsLinkAddon">http://</span>
-				<input type="text" class="form-control @error('drawingsLink') is-invalid @enderror" wire:model="drawingsLink" placeholder="Insert drive link" aria-describedby="drawingsLinkAddon">
-				@error('drawingsLink')<div class="invalid-feedback">{{ $message }}</div>@enderror
+				<input type="text" class="form-control @error('form.drawingsLink') is-invalid @enderror" wire:model="form.drawingsLink" placeholder="Insert drive link" aria-describedby="drawingsLinkAddon">
+				@error('form.drawingsLink')<div class="invalid-feedback">{{ $message }}</div>@enderror
 			</div>
 		</div>
 	</div>
@@ -400,13 +412,13 @@
 			<label class="d-block form-text text-secondary fs-7 m-0">Pick the team member who can best respond to journalists queries</label>
 		</div>
 		<div class="col-md-8">
-			<select id="selectMediaContact" class="form-select @error('mediaContact') is-invalid @enderror" wire:model="mediaContact">
+			<select id="selectMediaContact" class="form-select @error('form.mediaContact') is-invalid @enderror" wire:model="form.mediaContact">
 				<option value="">Select Media Contact</option>
-				@foreach ($mediaContacts as $mediaContact)
+				@foreach ($form->mediaContacts as $mediaContact)
 					<option value="{{ $mediaContact->id }}">{{ $mediaContact->user->name }}</option>
 				@endforeach
 			</select>
-			@error('mediaContact')<div class="invalid-feedback">{{ $message }}</div>@enderror
+			@error('form.mediaContact')<div class="invalid-feedback">{{ $message }}</div>@enderror
 		</div>
 	</div>
 	<div class="row">
@@ -415,88 +427,28 @@
 			<label class="d-block form-text text-secondary fs-7 m-0">Set level of access for journalists</label>
 		</div>
 		<div class="col-md-8">
-			<select id="selectMediaKitAccess" class="form-select @error('mediaKitAccess') is-invalid @enderror" wire:model="mediaKitAccess">
+			<select id="selectMediaKitAccess" class="form-select @error('form.mediaKitAccess') is-invalid @enderror" wire:model="form.mediaKitAccess">
 				<option value="">Select Media Kit Access</option>
-				@foreach ($projectAccess as $mediaKitAccess)
+				@foreach ($form->projectAccess as $mediaKitAccess)
 					<option value="{{ $mediaKitAccess->id }}">{{ $mediaKitAccess->name }}</option>
 				@endforeach
 			</select>
-			@error('mediaKitAccess')<div class="invalid-feedback">{{ $message }}</div>@enderror
+			@error('form.mediaKitAccess')<div class="invalid-feedback">{{ $message }}</div>@enderror
 		</div>
 	</div>
 	<hr class="border-gray-300">
 	<div class="text-end">
-		<button class="btn btn-white fs-6 fw-semibold" type="button">Preview</button>
+		@empty($edit)
+			<button class="btn btn-white fs-6 fw-semibold" type="button" wire:click="draft">
+				Save as Draft <x-users.spinners.primary-btn wire:target="draft" />
+			</button>
+			<button class="btn btn-white fs-6 fw-semibold" type="button" wire:click="preview">
+				Preview <x-users.spinners.primary-btn wire:target="preview" />
+			</button>
+		@endempty
 		<button class="btn btn-primary fs-6 fw-semibold" type="submit">
-			Submit Project  <x-users.spinners.white-btn wire:target="add" />
+			{{ isset($edit) ? 'Edit Project' : 'Submit Project' }} <x-users.spinners.white-btn wire:target="add" />
 		</button>
 	</div>
 	@include('users.includes.common.file-upload-script', ['width' => 800, 'height' => 400])
-	{{-- <script>
-		function fileUpload(element) {
-			return {
-				isDropping: false,
-				isUploading: false,
-				progress: 0,
-				handleFileSelect(event) {
-					if (event.target.files.length) {
-						//console.log(event.target);
-						console.log('uploading');
-						this.uploadFile(event.target.files[0])
-					}
-				},
-				handleFileDrop(event) {
-					if (event.dataTransfer.files.length > 0) {
-						console.log('dropping&uploading');
-						this.uploadFile(event.dataTransfer.files[0])
-					}
-				},
-				uploadFile(file) {
-					const $this = this
-					this.isUploading = true
-					@this.upload(element, file,
-						function (success) {  //upload was a success and was finished
-							$this.isUploading = false
-							$this.progress = 0
-						},
-						function(error) {  //an error occured
-							console.log('error', error)
-						},
-						function (event) {  //upload progress was made
-							$this.progress = event.detail.progress
-						}
-					)
-				},
-				handleFilesSelect(event) {
-					if (event.target.files.length) {
-						this.uploadFiles(event.target.files)
-					}
-				},
-				handleFilesDrop(event) {
-					if (event.dataTransfer.files.length > 0) {
-						this.uploadFiles(event.dataTransfer.files)
-					}
-				},
-				uploadFiles(files) {
-					const $this = this
-					this.isUploading = true
-					@this.uploadMultiple(element, files,
-						function (success) {  //upload was a success and was finished
-							$this.isUploading = false
-							$this.progress = 0
-						},
-						function(error) {  //an error occured
-							console.log('error', error)
-						},
-						function (event) {  //upload progress was made
-							$this.progress = event.detail.progress
-						}
-					)
-				},
-				removeUpload(filename) {
-					@this.removeUpload(element, filename)
-				},
-			};
-		}
-	</script> --}}
 </form>

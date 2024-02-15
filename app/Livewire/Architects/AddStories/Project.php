@@ -3,17 +3,9 @@
 namespace App\Livewire\Architects\AddStories;
 
 ini_set('max_execution_time', 300);
-use App\Http\Controllers\Users\AreaController;
-use App\Http\Controllers\Users\BuildingTypologyController;
 use App\Http\Controllers\Users\BuildingUseController;
-use App\Http\Controllers\Users\CategoryController;
-use App\Http\Controllers\Users\CompanyController;
 use App\Http\Controllers\Users\LocationController;
-use App\Http\Controllers\Users\ProjectAccessController;
-use App\Http\Controllers\Users\ProjectStatusController;
-use App\Services\AddStoryService;
-use Illuminate\Support\Facades\Validator;
-use Livewire\Attributes\Rule;
+use App\Livewire\Forms\Architects\ProjectForm;
 use Livewire\Component;
 use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
 use Livewire\WithFileUploads;
@@ -22,122 +14,51 @@ class Project extends Component
 {
     use WithFileUploads;
 
-	public $projectTitle;
-	public $category;
-	public $siteArea;
-	public $siteAreaUnit;
-	public $builtUpArea;
-	public $builtUpAreaUnit;
-	//public $location;
-	public $selectedCountry;
-	public $selectedState;
-	public $selectedCity;
-	public $status;
-	public $materials;
-	public $buildingTypology;
-	public $buildingUse;
-	public $imageCredits;
-	public $textCredits;
-	public $renderCredits;
-	public $consultants;
-	public $designTeam;
-	#[Rule('required|image|mimes:svg,png,jpg,gif|max:3100|dimensions:max_width=800,max_height=400')]
-	public $coverImage;
-	public $projectBrief;
-	public int $projectBriefLength;
-	#[Rule('nullable|file|mimes:pdf,doc,docs,docx')]
-	public $projectFile;
-	public $projectLink;
-	public $photographsFiles = [];
-	public $photographsLink;
-	public $drawingsFiles = [];
-	public $drawingsLink;
-	public $tags = [];
-	public $mediaContact;
-	public $mediaKitAccess;
-	public $showOtherFields;
+	public ProjectForm $form;
 
-	public $categories;
-	public $areas;
-	public $countries;
-	public $states;
-	public $cities;
-	public $statuses;
-	public $buildingTypologies;
-	public $buildingUses;
-	public $mediaContacts;
-	public $projectAccess;
-
-	private AddStoryService $addStoryService;
-
-	public function mount()
-	{
-		$this->characterCount();
-		$this->selectedCountry = 101;
-		$this->selectedState = 0;
-		/* $this->buildingTypology = '';
-		$this->showOtherFields = false; */
-
-		$this->categories = CategoryController::getAll();
-		$this->areas = AreaController::getAll();
-		$this->countries = LocationController::getCountries();
-		$this->statuses = ProjectStatusController::getAll();
-		$this->buildingTypologies = BuildingTypologyController::getAll();
-		$this->mediaContacts = CompanyController::getMediaContacts();
-		$this->projectAccess = ProjectAccessController::getAll();
-	}
-
-    public function render()
+	public function render()
     {
-		$this->states = LocationController::getStatesByCountryId($this->selectedCountry);
-		$this->cities = LocationController::getCitiesByStateId($this->selectedState);
-		$category = $this->categories->find($this->category);
+		$this->form->states = LocationController::getStatesByCountryId($this->form->selectedCountry);
+		$this->form->cities = LocationController::getCitiesByStateId($this->form->selectedState);
+		$category = $this->form->categories->find($this->form->category);
 		if($category && ($category->name === 'Architecture' || $category->name === 'Interior Design')){
-			$this->showOtherFields = true;
-			$this->buildingUses = BuildingUseController::getAllByTypologyId($this->buildingTypology);
+			$this->form->showOtherFields = true;
+			$this->form->buildingUses = BuildingUseController::getAllByTypologyId($this->form->buildingTypology);
 		}
 		else{
-			$this->showOtherFields = false;
-			$this->buildingTypology = '';
+			$this->form->showOtherFields = false;
+			$this->form->buildingTypology = '';
 		}
 
 		return view('livewire.architects.add-stories.project');
-        /* return view('livewire.architects.add-stories.project', [
-			'categories' => CategoryController::getAll(),
-			'areas' => AreaController::getAll(),
-			//'locations' => LocationController::getAll(),
-			'countries' => LocationController::getCountries(),
-			'states' => LocationController::getStatesByCountryId($this->selectedCountry),
-			'cities' => LocationController::getCitiesByStateId($this->selectedState),
-			// 'cities' => LocationController::getCitiesByCountry($this->selectedCountry)->sortBy('name'),
-			'statuses' => ProjectStatusController::getAll(),
-			'buildingTypologies' => BuildingTypologyController::getAll(),
-			'mediaContacts' => CompanyController::getMediaContacts(),
-			'projectAccess' => ProjectAccessController::getAll(),
-		]); */
     }
 
-	public function boot()
+	public function mount()
 	{
-		$this->addStoryService = app()->make(AddStoryService::class);
+		$this->form->mount();
+		$this->characterCount();
 	}
 
 	public function characterCount()
 	{
-		$this->projectBriefLength = 550 - str()->length($this->projectBrief);
+		$this->form->characterCount();
 	}
 
-	public function finishUpload($name, $tmpPath, $isMultiple)
+	public function _finishUpload($name, $tmpPath, $isMultiple)
     {
-		$this->cleanupOldUploads();
-		if ($isMultiple) {
+        $this->cleanupOldUploads();
+
+        if ($isMultiple) {
             $file = collect($tmpPath)->map(function ($i) {
                 return TemporaryUploadedFile::createFromLivewire($i);
             })->toArray();
-            $this->emitSelf('upload:finished', $name, collect($file)->map->getFilename()->toArray());
+            $this->dispatch('upload:finished', name: $name, tmpFilenames: collect($file)->map->getFilename()->toArray())->self();
+            if (is_array($value = $this->getPropertyValue($name))) {
+                $file = array_merge($value, $file);
+            }
         } else {
             $file = TemporaryUploadedFile::createFromLivewire($tmpPath[0]);
-            $this->emitSelf('upload:finished', $name, [$file->getFilename()]);
+            $this->dispatch('upload:finished', name: $name, tmpFilenames: [$file->getFilename()])->self();
 
             // If the property is an array, but the upload ISNT set to "multiple"
             // then APPEND the upload to the array, rather than replacing it.
@@ -145,178 +66,13 @@ class Project extends Component
                 $file = array_merge($value, [$file]);
             }
         }
-        $this->syncInput($name, $file);
+
+        app('livewire')->updateProperty($this, $name, $file);
     }
-
-	public function rules()
-	{
-		return [
-			'projectTitle' => 'required',
-			'category' => 'required',
-			'siteArea' => 'nullable|numeric',
-			'siteAreaUnit' => 'nullable',
-			'builtUpArea' => 'nullable|numeric',
-			'builtUpAreaUnit' => 'nullable',
-			'materials' => 'nullable',
-			'buildingTypology' => 'nullable',
-			'buildingUse' => 'nullable',
-			//'location' => 'required',
-			'selectedCountry' => 'required|exists:countries,id',
-			'selectedState' => 'required|exists:states,id',
-			'selectedCity' => 'required|exists:cities,name',
-			'status' => 'required',
-			'imageCredits' => 'nullable',
-			'textCredits' => 'nullable',
-			'renderCredits' => 'nullable',
-			'consultants' => 'nullable',
-			'designTeam' => 'nullable',
-			'coverImage' => __('validations/rules.coverImage') . '|' . __('validations/rules.imageMimes'),
-			'projectBrief' => 'required|' . __('validations/rules.mediaKitBriefCharacters'),
-			'projectFile' => 'nullable|file|' . __('validations/rules.wordMimes'),
-			'projectLink' => 'nullable|required_without:projectFile|url',
-			'photographsFiles' => 'nullable|array',
-			'photographsFiles.*' => 'nullable|file|' . __('validations/rules.zipPlusImageMimes') . '|' . __('validations/rules.bulkFilesSize'),
-			'photographsLink' => 'nullable|url',
-			'drawingsFiles' => 'nullable|array',
-			'drawingsFiles.*' => 'nullable|file|' . __('validations/rules.zipPlusImageMimes') . '|' . __('validations/rules.bulkFilesSize'),
-			'drawingsLink' => 'nullable|url',
-			/* 'photographsFiles' => 'required|array',
-			'photographsFiles.*' => 'file|mimes:zip,svg,png,jpg,gif', */
-			//'photographsFiles.*' => 'image|mimes:svg,png,jpg,gif',
-			/* 'drawingsFiles' => 'required|array',
-			'drawingsFiles.*' => 'file|mimes:zip,svg,png,jpg,gif', */
-			//'drawingsFiles.*' => 'image|mimes:svg,png,jpg,gif',
-			'tags' => 'nullable|array',
-			'mediaContact' => 'required',
-			'mediaKitAccess' => 'required',
-		];
-	}
-
-	public function messages()
-	{
-		return [
-			'projectTitle.required' => 'Enter the :attribute.',
-			'category.required' => 'Select the :attribute.',
-			'siteArea.required' => 'Enter the :attribute.',
-			'siteArea.numeric' => 'Enter the :attribute in numbers.',
-			'siteAreaUnit.required' => 'Select the :attribute.',
-			'builtUpArea.required' => 'Enter the :attribute.',
-			'builtUpArea.numeric' => 'Enter the :attribute in numbers.',
-			'builtUpAreaUnit.required' => 'Select the :attribute.',
-			//'location.required' => 'Select the :attribute.',
-			'selectedCountry.required' => 'Select the :attribute.',
-			'selectedState.required' => 'Select the :attribute.',
-			'selectedCity.required' => 'Select the :attribute.',
-			'*.exists' => 'Select the valid :attribute.',
-			'status.required' => 'Select the :attribute.',
-			'materials.required' => 'Enter the :attribute.',
-			'buildingTypology.required' => 'Select the :attribute.',
-			'imageCredits.required' => 'Enter the :attribute.',
-			'textCredits.required' => 'Enter the :attribute.',
-			'renderCredits.required' => 'Enter the :attribute.',
-			'consultants.required' => 'Enter the :attribute.',
-			'designTeam.required' => 'Enter the :attribute.',
-			'coverImage.required' => 'Upload the :attribute.',
-			'coverImage.image' => __('validations/messages.image'),
-			'coverImage.mimes' => __('validations/messages.imageMimes'),
-			'coverImage.max' => __('validations/messages.coverImage.max'),
-			'coverImage.dimensions' => __('validations/messages.coverImage.dimensions'),
-			'projectBrief.required' => 'Enter the :attribute.',
-			'projectBrief.max' => __('validations/messages.mediaKitBriefCharacters'),
-			'projectFile.mimes' => 'The :attribute supports only pdf, doc, docs or docx.',
-			'projectLink.required_without' => 'Enter the :attribute or upload the file.',
-			'photographsFiles.required' => 'Upload the :attribute.',
-			'photographsFiles.*.file' => 'The :attribute supports only file.',
-			'photographsFiles.*.mimes' => __('validations/messages.zipPlusImageMimes'),
-			'photographsFiles.*.max' => __('validations/messages.bulkFilesSize'),
-			'drawingsFiles.required' => 'Upload the :attribute.',
-			'drawingsFiles.*.file' => 'The :attribute supports only file.',
-			'drawingsFiles.*.mimes' => __('validations/messages.zipPlusImageMimes'),
-			'drawingsFiles.*.max' => __('validations/messages.bulkFilesSize'),
-			'tags.required' => 'Enter the :attribute.',
-			'mediaContact.required' => 'Select the :attribute.',
-			'mediaKitAccess.required' => 'Select the :attribute.',
-			'*.url' => 'Enter the valid :attribute.',
-		];
-	}
-
-	public function validationAttributes()
-	{
-		return [
-			'projectTitle' => 'project title',
-			'category' => 'category',
-			'siteArea' => 'site area',
-			'siteAreaUnit' => 'site area unit',
-			'builtUpArea' => 'built up area',
-			'builtUpAreaUnit' => 'built up area unit',
-			//'location' => 'location',
-			'selectedCountry' => 'country',
-			'selectedState' => 'state',
-			'selectedCity' => 'city',
-			'status' => 'status',
-			'materials' => 'materials',
-			'buildingTypology' => 'building typology',
-			'buildingUse' => 'building use',
-			'imageCredits' => 'image credits',
-			'textCredits' => 'text credits',
-			'renderCredits' => 'render credits',
-			'consultants' => 'consultants',
-			'designTeam' => 'design team',
-			'coverImage' => 'cover image',
-			'projectBrief' => 'project brief',
-			'projectFile' => 'project document',
-			'projectLink' => 'project link',
-			'photographsFiles' => 'photographs',
-			'photographsLink' => 'photographs link',
-			'drawingsFiles' => 'drawings',
-			'drawingsLink' => 'drawings link',
-			'tags' => 'tags',
-			'mediaContact' => 'media contact',
-			'mediaKitAccess' => 'media kit access',
-		];
-	}
-
-	public function data()
-	{
-		return [
-			'projectTitle' => $this->projectTitle,
-			'category' => $this->category,
-			'siteArea' => $this->siteArea,
-			'siteAreaUnit' => $this->siteAreaUnit,
-			'builtUpArea' => $this->builtUpArea,
-			'builtUpAreaUnit' => $this->builtUpAreaUnit,
-			//'location' => $this->location,
-			'selectedCountry' => $this->selectedCountry,
-			'selectedState' => $this->selectedState,
-			'selectedCity' => $this->selectedCity,
-			'status' => $this->status,
-			'materials' => $this->materials,
-			'buildingTypology' => $this->buildingTypology,
-			'buildingUse' => $this->buildingUse,
-			'imageCredits' => $this->imageCredits,
-			'textCredits' => $this->textCredits,
-			'renderCredits' => $this->renderCredits,
-			'consultants' => $this->consultants,
-			'designTeam' => $this->designTeam,
-			'coverImage' => $this->coverImage,
-			'projectBrief' => $this->projectBrief,
-			'projectFile' => $this->projectFile,
-			'projectLink' => $this->projectLink ? 'http://' . $this->projectLink : null,
-			'photographsFiles' => $this->photographsFiles,
-			'photographsLink' => $this->photographsLink,
-			'drawingsFiles' => $this->drawingsFiles,
-			'drawingsLink' => $this->drawingsLink,
-			'tags' => $this->tags,
-			'mediaContact' => $this->mediaContact,
-			'mediaKitAccess' => $this->mediaKitAccess,
-		];
-	}
 
 	public function add()
 	{
-		$validated = Validator::make($this->data(), $this->rules(), $this->messages(), $this->validationAttributes())->validate();
-		//dd($validated);
-		if($this->addStoryService->addProject($validated)){
+		if($this->form->store()){
 			$this->dispatch('alert', [
 				'type' => 'success',
 				'message' => 'You have successfully created project.'
@@ -326,6 +82,20 @@ class Project extends Component
 		$this->dispatch('alert', [
 			'type' => 'warning',
 			'message' => 'We are facing problem in creating project. Please try again or contact support.'
+		]);
+	}
+
+	public function preview()
+	{
+		$this->form->preview('create');
+	}
+
+	public function draft()
+	{
+		$this->form->draft('create');
+		$this->dispatch('alert', [
+			'type' => 'success',
+			'message' => 'Your media kit is drafted successfully.'
 		]);
 	}
 }

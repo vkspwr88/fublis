@@ -17,6 +17,7 @@ Route::middleware(ArchitectLogin::class)->group(function() {
 	Route::name('media-kit.')->prefix('media-kit')->group(function () {
 		Route::get('/', [Architects\MediaKitController::class, 'index'])->name('index');
 		Route::get('/{mediaKit:slug}', [Architects\MediaKitController::class, 'view'])->name('view');
+		Route::get('/{mediaKit:slug}/edit', [Architects\MediaKitController::class, 'edit'])->name('edit');
 		Route::name('press-release.')->prefix('press-release')->group(function () {
 			Route::get('/{mediaKit:slug}', [Architects\MediaKits\PressReleaseController::class, 'view'])->name('view');
 			Route::get('/{mediaKit:slug}/edit', [Architects\MediaKits\PressReleaseController::class, 'edit'])->name('edit');

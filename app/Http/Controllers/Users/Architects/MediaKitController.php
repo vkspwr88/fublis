@@ -32,6 +32,20 @@ class MediaKitController extends Controller
 		}
 	}
 
+	public function edit(MediaKit $mediaKit)
+	{
+		MediaKitController::check($mediaKit);
+		if (str()->contains($mediaKit->story_type, 'PressRelease')){
+			return to_route('architect.media-kit.press-release.edit', ['mediaKit' => $mediaKit->slug]);
+		}
+		if (str()->contains($mediaKit->story_type, 'Article')){
+			return to_route('architect.media-kit.article.edit', ['mediaKit' => $mediaKit->slug]);
+		}
+		if (str()->contains($mediaKit->story_type, 'Project')){
+			return to_route('architect.media-kit.project.edit', ['mediaKit' => $mediaKit->slug]);
+		}
+	}
+
 	public static function createMediaKit($poly, array $details)
 	{
 		$details = Arr::add(
