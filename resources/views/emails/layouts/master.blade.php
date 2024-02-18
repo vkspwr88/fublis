@@ -16,7 +16,7 @@ This email was sent to <span class="link">{{ $senderEmail }}</span>. If you'd ra
 </small>
 </p>
 <p style="margin-bottom: 40px;">
-&copy; {{ date('Y') }} XXXXXX, 100 XXXXXX XXXXXX, XXXXXX 1111111
+&copy; {{ date('Y') }} {{ env('COMPANY_ADDRESS') }}
 </p>
 <p style="float: left;">
 <img src="{{ url(env('COMPANY_EMAIL_LOGO')) }}" alt="{{ env('COMPANY_NAME') }}" style="width: 150px;" />

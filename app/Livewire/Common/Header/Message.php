@@ -9,7 +9,13 @@ use Livewire\Component;
 class Message extends Component
 {
 	public int $totalUnread = 0;
-    
+	public $url;
+
+	public function mount($url)
+	{
+		$this->url = $url;
+	}
+
 	public function render()
     {
 		$this->totalUnread = MessageController::getTotalUnread();

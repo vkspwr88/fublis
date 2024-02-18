@@ -1,5 +1,5 @@
 <div class="offcanvas-body">
-	<ul id="headerNav" class="navbar-nav ms-xl-5 me-xl-auto mb-2 mb-xl-0">
+	<ul id="headerNav" class="mb-2 navbar-nav ms-xl-5 me-xl-auto mb-xl-0">
 		<li class="nav-item dropdown">
 			<a class="nav-link dropdown-toggle {{ ( (request()->segment(2) === 'invite-story' && request()->segment(3) === 'create') || (request()->segment(2) === 'invite-story' && request()->segment(3) == '') || (request()->segment(2) === 'submission' && request()->segment(3) == '') ) ? 'active fw-medium' : '' }}" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
 				Invite Story
@@ -43,18 +43,18 @@
 			</ul>
 		</li>
 	</ul>
-	<form class="d-flex my-5 my-xl-0" aria-label="search">
+	<form class="my-5 d-flex my-xl-0" aria-label="search">
 		<div class="input-group">
-			<label class="input-group-text bg-white" for="headerSearchInput"><i class="bi bi-search"></i></label>
-			<input id="headerSearchInput" class="form-control border-start-0 shadow-none ps-0" type="search" placeholder="Search journalists, publications" aria-label="Search">
+			<label class="bg-white input-group-text" for="headerSearchInput"><i class="bi bi-search"></i></label>
+			<input id="headerSearchInput" class="shadow-none form-control border-start-0 ps-0" type="search" placeholder="Search journalists, publications" aria-label="Search">
 		</div>
 	</form>
-	<ul id="profileNav" class="navbar-nav mt-5 mt-xl-0 ms-xl-auto flex-row align-items-center">
-		{{-- <li class="nav-item nav-icon px-2 ps-0 px-xl-1">
-			<a href="{{ route('journalist.account.profile.message.index') }}" class="nav-link text-center text-purple-600 border border-2 border-purple-600 rounded-circle lh-1 position-relative">
+	<ul id="profileNav" class="flex-row mt-5 navbar-nav mt-xl-0 ms-xl-auto align-items-center">
+		{{-- <li class="px-2 nav-item nav-icon ps-0 px-xl-1">
+			<a href="{{ route('journalist.account.profile.message.index') }}" class="text-center text-purple-600 border border-2 border-purple-600 nav-link rounded-circle lh-1 position-relative">
 				<i class="bi bi-envelope"></i>
 				@if ($totalUnreadMessages)
-					<span class="position-absolute top-0 start-100 translate-middle badge rounded-circle bg-danger notification-badge">
+					<span class="top-0 position-absolute start-100 translate-middle badge rounded-circle bg-danger notification-badge">
 						@if ($totalUnreadMessages > 9)
 							<span style="margin-left: -4px;">9+</span>
 						@else
@@ -65,13 +65,13 @@
 				@endif
 			</a>
 		</li> --}}
-		<livewire:common.header.message />
-		<livewire:common.header.notification />
-		{{-- <li class="nav-item nav-icon px-2 px-xl-1">
-			<a href="{{ route('journalist.account.profile.notification') }}" class="nav-link text-center text-purple-600 border border-2 border-purple-600 rounded-circle lh-1 position-relative">
+		<livewire:common.header.message :url="route('journalist.account.profile.message.index')" />
+		<livewire:common.header.notification :url="route('journalist.account.profile.notification')" />
+		{{-- <li class="px-2 nav-item nav-icon px-xl-1">
+			<a href="{{ route('journalist.account.profile.notification') }}" class="text-center text-purple-600 border border-2 border-purple-600 nav-link rounded-circle lh-1 position-relative">
 				<i class="bi bi-bell"></i>
 				@if ($totalUnreadNotifications)
-					<span class="position-absolute top-0 start-100 translate-middle badge rounded-circle bg-danger notification-badge">
+					<span class="top-0 position-absolute start-100 translate-middle badge rounded-circle bg-danger notification-badge">
 						@if ($totalUnreadNotifications > 9)
 							<span style="margin-left: -4px;">9+</span>
 						@else
@@ -82,7 +82,7 @@
 				@endif
 			</a>
 		</li> --}}
-		<li class="nav-item px-2 px-xl-1 dropdown">
+		<li class="px-2 nav-item px-xl-1 dropdown">
 			<a href="javascript:;" class="nav-link rounded-circle p-0 {{-- dropdown-toggle --}}" role="button" data-bs-toggle="dropdown">
 				<img class="rounded-circle img-40 img-square" src="{{ $profileImage }}" alt="..." />
 			</a>

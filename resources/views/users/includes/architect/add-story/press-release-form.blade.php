@@ -46,7 +46,24 @@
 		<div class="col-md-8">
 			{{-- <input id="inputPressReleaseWrite" type="hidden" name="pressReleaseWrite" value="{{ $pressReleaseWrite }}">
   			<trix-editor input="inputPressReleaseWrite" class="trix-content"></trix-editor> --}}
-			<textarea id="" class="form-control @error('form.pressReleaseWrite') is-invalid @enderror" wire:model="form.pressReleaseWrite" rows="8"></textarea>
+			{{-- <textarea id="" class="form-control @error('form.pressReleaseWrite') is-invalid @enderror" wire:model="form.pressReleaseWrite" rows="8"></textarea> --}}
+			<div wire:ignore>
+				<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/trix/1.3.1/trix.min.css" />
+
+				<input id="inputPressReleaseWrite" type="hidden" name="form.pressReleaseWrite" value="{{ $form->pressReleaseWrite }}">
+				<trix-editor wire:ignore input="inputPressReleaseWrite"></trix-editor>
+
+				<script src="https://cdnjs.cloudflare.com/ajax/libs/trix/1.3.1/trix.min.js"></script>
+				<script>
+					var trixEditor = document.getElementById("inputPressReleaseWrite")
+
+					addEventListener("trix-blur", function(event) {
+						@this.set('value', trixEditor.getAttribute('value'))
+					})
+				</script>
+			</div>
+			{{-- <input id="inputPressReleaseWrite" value="{{ form.pressReleaseWrite }}" type="hidden" wire:model="form.pressReleaseWrite">
+			<trix-editor wire:ignore input="inputPressReleaseWrite" class="@error('form.pressReleaseWrite') is-invalid @enderror" wire:model="form.pressReleaseWrite"></trix-editor> --}}
 			@error('form.pressReleaseWrite')<div class="invalid-feedback">{{ $message }}</div>@enderror
 		</div>
 	</div>
@@ -258,4 +275,11 @@
 		</button>
 	</div>
 	@include('users.includes.common.file-upload-script', ['width' => 800, 'height' => 400])
+	<script>
+		var trixEditor = document.getElementById("inputPressReleaseWrite")
+
+		addEventListener("trix-blur", function(event) {
+			@this.set('value', trixEditor.getAttribute('value'))
+		})
+	</script>
 </form>

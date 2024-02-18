@@ -65,6 +65,7 @@ class DownloadController extends Controller
 				'poly' => $downloadRequest,
 			]);
 
+			// Mail::to($downloadRequest->mediaKit->architect->user->email)->queue(new DownloadMediaKitMail($downloadRequest->mediaKit->architect->user->email, $downloadRequest->mediaKit->architect->user->name, $downloadRequest->mediaKit->story->title, formatDate(Carbon::now())));
 			DB::commit();
 		}
 		catch(Exception $exp){
@@ -109,6 +110,8 @@ class DownloadController extends Controller
 			}
 
 			DB::commit();
+			
+			// Mail::to($downloadRequest->mediaKit->architect->user->email)->queue(new DownloadMediaKitMail($downloadRequest->mediaKit->architect->user->email, $downloadRequest->mediaKit->architect->user->name, $downloadRequest->mediaKit->story->title, formatDate(Carbon::now())));
 		}
 		catch(Exception $exp){
 			DB::rollBack();

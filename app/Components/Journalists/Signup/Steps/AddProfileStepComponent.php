@@ -41,8 +41,8 @@ class AddProfileStepComponent extends StepComponent
 		return [
 			'position' => 'required|exists:journalist_positions,id',
 			'linkedinProfile' => 'required|url',
-			'publishedArticleLink' => 'required|url',
-			'publishingPlatformLink' => 'required|url',
+			'publishedArticleLink' => 'nullable|url',
+			'publishingPlatformLink' => 'nullable|url',
 		];
 	}
 

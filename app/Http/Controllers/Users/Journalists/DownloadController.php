@@ -3,13 +3,16 @@
 namespace App\Http\Controllers\Users\Journalists;
 
 use App\Http\Controllers\Controller;
+use App\Mail\User\Architect\DownloadRequestMail;
 use App\Models\DownloadRequest;
 use App\Models\MediaKit;
 use App\Services\DownloadService;
 use App\Services\NotificationService;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 
 class DownloadController extends Controller
 {
@@ -36,13 +39,14 @@ class DownloadController extends Controller
 			'journalist_name' => auth()->user()->name,
 			'architect_user_id' => $mediaKit->architect->user_id,
 		]);
-		return $this->downloadService->singleFileDownload($request->file);
+		return $this->downloadService->singleFileDownload($mediaKit->slug, $request->file, $request->type);
 	}
 
 	public function request(MediaKit $mediaKit, Request $request)
 	{
 		try{
 			DB::beginTransaction();
+			$mediaKit->load(['architect.user', 'story']);
 			$downloadRequest = DownloadRequest::firstOrCreate([
 				'media_kit_id' => $mediaKit->id,
 				'requested_by' => auth()->id(),
@@ -57,6 +61,7 @@ class DownloadController extends Controller
 				'media_kit_title' => $mediaKit->story->title,
 			]);
 			DB::commit();
+			Mail::to($mediaKit->architect->user->email)->queue(new DownloadRequestMail($mediaKit->architect->user->email, $mediaKit->architect->user->name, $mediaKit->story->title, formatDate(Carbon::now())));
 		}
 		catch(Exception $exp){
 			DB::rollBack();
@@ -85,6 +90,6 @@ class DownloadController extends Controller
 			'journalist_name' => auth()->user()->name,
 			'architect_user_id' => $mediaKit->architect->user_id,
 		]);
-		return $this->downloadService->zipFilesDownload($mediaKit, $request->file);
+		return $this->downloadService->zipFilesDownload($mediaKit, $request->file, $request->type);
 	}
 }

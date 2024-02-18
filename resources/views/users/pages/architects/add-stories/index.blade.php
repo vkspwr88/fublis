@@ -47,7 +47,7 @@
 										<p class="card-text text-purple-600 fs-6 fw-normal mx-auto my-1"><i class="bi bi-check-circle"></i></p>
 									</div>
 									<div class="col">
-										<p class="card-text text-secondary fs-6 fw-normal m-0">Share new Funding Round News</p>
+										<p class="card-text text-secondary fs-6 fw-normal m-0">Share new funding round news</p>
 									</div>
 								</div>
 								<div class="row gx-2 pb-3">

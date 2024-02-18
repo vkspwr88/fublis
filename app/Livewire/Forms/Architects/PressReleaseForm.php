@@ -89,7 +89,7 @@ class PressReleaseForm extends Form
 		];
 	}
 
-	
+
 	public function getValidationRule(String $key): string
     {
 		if ($key == 'coverImage') {
@@ -260,6 +260,7 @@ class PressReleaseForm extends Form
 		// elseif($type == 'drafted'){
 		// 	dd($this->all());
 		// }
+		dd($this->all());
 		$this->updateFields();
 		$this->validate();
 		$addStoryService = new AddStoryService();
@@ -294,7 +295,7 @@ class PressReleaseForm extends Form
 				return to_route('architect.media-kit.press-release.view', ['mediaKit' => $mediaKit->slug]);
 			}
 		}
-		
+
 	}
 
 	// drafting media kit

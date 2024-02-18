@@ -1,13 +1,13 @@
-@if($downloadRequest)
-	@if($downloadRequest->request_status === App\Enums\Users\Architects\MediaKits\RequestStatusEnum::APPROVED)
+@if($downloadRequest || $mediaKit->projectAccess->name === 'open to all')
+	@if($downloadRequest->request_status === App\Enums\Users\Architects\MediaKits\RequestStatusEnum::APPROVED || $mediaKit->projectAccess->name === 'open to all')
 		@if ($mediaKit->story->company_profile_path || $mediaKit->story->company_profile_link)
 			<div class="row align-items-center">
 				<div class="col">
-					<p class="text-dark fs-6 m-0">Company Profile</p>
+					<p class="m-0 text-dark fs-6">Company Profile</p>
 				</div>
 				<div class="col text-end">
 					@if ($mediaKit->story->article_doc_path)
-						<form class="m-0 p-0" action="{{ route('architect.download', ['mediaKit' => $mediaKit->slug]) }}" method="post">
+						<form class="p-0 m-0" action="{{ route('architect.download', ['mediaKit' => $mediaKit->slug]) }}" method="post">
 							@csrf
 							<input type="hidden" value="{{ $mediaKit->story->company_profile_path }}" name="file">
 							<input type="hidden" name="type" value="CompanyProfile">
@@ -22,11 +22,11 @@
 		@endif
 		<div class="row align-items-center">
 			<div class="col">
-				<p class="text-dark fs-6 m-0">Description</p>
+				<p class="m-0 text-dark fs-6">Description</p>
 			</div>
 			<div class="col text-end">
 				@if ($mediaKit->story->article_doc_path)
-					<form class="m-0 p-0" action="{{ route('journalist.download', ['mediaKit' => $mediaKit->slug]) }}" method="post">
+					<form class="p-0 m-0" action="{{ route('journalist.download', ['mediaKit' => $mediaKit->slug]) }}" method="post">
 						@csrf
 						<input type="hidden" value="{{ $mediaKit->story->article_doc_path }}" name="file">
 						<input type="hidden" name="type" value="Description">
@@ -42,13 +42,13 @@
 			<hr class="border-gray-300">
 			<div class="row align-items-center">
 				<div class="col">
-					<p class="text-dark fs-6 m-0">Gallery</p>
+					<p class="m-0 text-dark fs-6">Gallery</p>
 				</div>
 				<div class="col text-end">
 					@if($mediaKit->story->images_link)
 						<a class="btn btn-primary fs-6 fw-medium" href="{{ $mediaKit->story->images_link }}" target="_blank">Download</a>
 					@else
-						<form class="m-0 p-0" action="{{ route('journalist.download.bulk', ['mediaKit' => $mediaKit->slug]) }}" method="post">
+						<form class="p-0 m-0" action="{{ route('journalist.download.bulk', ['mediaKit' => $mediaKit->slug]) }}" method="post">
 							@csrf
 							<input type="hidden" value="images" name="file">
 							<input type="hidden" name="type" value="Gallery">
@@ -72,7 +72,7 @@
 @else
 	<div class="row">
 		<div class="col">
-			<form class="m-0 p-0" action="{{ route('journalist.download.request', ['mediaKit' => $mediaKit->slug]) }}" method="post">
+			<form class="p-0 m-0" action="{{ route('journalist.download.request', ['mediaKit' => $mediaKit->slug]) }}" method="post">
 				@csrf
 				<button type="submit" class="btn btn-primary fs-6 fw-medium">Request Download</button>
 			</form>

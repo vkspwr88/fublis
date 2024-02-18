@@ -1,5 +1,5 @@
-@if($downloadRequest)
-	@if($downloadRequest->request_status === App\Enums\Users\Architects\MediaKits\RequestStatusEnum::APPROVED)
+@if($downloadRequest || $mediaKit->projectAccess->name === 'open to all')
+	@if($downloadRequest->request_status === App\Enums\Users\Architects\MediaKits\RequestStatusEnum::APPROVED || $mediaKit->projectAccess->name === 'open to all')
 		<div class="row align-items-center">
 			<div class="col-auto">
 				<p class="text-dark fs-6 m-0">Description</p>

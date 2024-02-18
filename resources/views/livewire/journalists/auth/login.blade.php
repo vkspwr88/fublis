@@ -17,9 +17,24 @@
 		{{-- <input type="password" class="form-control @error('password') is-invalid @enderror" id="inputPassword" placeholder="Create a password" aria-describedby="passwordHelpBlock" wire:model="password">
 		@error('password')<div class="invalid-feedback">{{ $message }}</div>@enderror --}}
 	</div>
+	<div class="mb-3">
+		<div class="row">
+			<div class="col-auto">
+				<div class="form-check">
+					<input class="form-check-input" type="checkbox" value="1" id="rememberMe" wire:model="rememberMe">
+					<label class="form-check-label" for="rememberMe">
+						Remember for 30 days
+					</label>
+				</div>
+			</div>
+			<div class="col text-end">
+				<a href="{{ route('journalist.forgot') }}" class="text-purple-700 fw-semibold">Forgot Password?</a>
+			</div>
+		</div>
+	</div>
 	<div class="d-grid gap-3">
 		<button class="btn btn-primary fs-6 fw-semibold" type="submit">
-			Log In <x-users.spinners.white-btn wire:target="login" />
+			Sign In <x-users.spinners.white-btn wire:target="login" />
 		</button>
 		<a href="{{ route('auth.google.index', ['userType' => 'journalist', 'loginType' => 'signup']) }}" class="btn btn-white fs-6 fw-semibold" type="button">
 			<svg xmlns="http://www.w3.org/2000/svg" width="25" height="24" viewBox="0 0 25 24" fill="none">
@@ -34,7 +49,7 @@
 						<rect width="24" height="24" fill="white" transform="translate(0.75)"/>
 					</clipPath>
 				</defs>
-			</svg> Log in with Google
+			</svg> Sign in with Google
 		</a>
 	</div>
 </form>

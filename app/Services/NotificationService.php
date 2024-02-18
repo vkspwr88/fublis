@@ -3,10 +3,15 @@
 namespace App\Services;
 
 use App\Enums\Users\Architects\UserRoleEnum;
+use App\Http\Controllers\Users\Architects\MediaKitController;
+use App\Mail\User\Architect\DownloadMediaKitMail;
 use App\Models\Analytic;
+use App\Models\MediaKit;
 use App\Models\MediaKitDownload;
 use App\Models\MediaKitView;
 use App\Models\Notification;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Mail;
 
 class NotificationService
 {
@@ -75,6 +80,9 @@ class NotificationService
 											'subject' => $subject,
 											'message' => $message,
 										]);
+
+			$mediaKit = MediaKitController::findById($data['media_kit_id'])->load(['architect.user', 'story']);
+			Mail::to($mediaKit->architect->user->email)->queue(new DownloadMediaKitMail($mediaKit->architect->user->email, $mediaKit->architect->user->name, $mediaKit->story->title, formatDate(Carbon::now())));
 		}
 	}
 

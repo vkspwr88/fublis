@@ -3,6 +3,7 @@
 namespace App\Livewire\Architects\Auth;
 
 use App\Enums\Users\UserTypeEnum;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
@@ -10,6 +11,7 @@ class Login extends Component
 {
 	public string $email;
 	public string $password;
+	public $rememberMe;
 
     public function render()
     {
@@ -21,6 +23,7 @@ class Login extends Component
         return [
 			'email' => 'required|email:rfc,dns|exists:users',
 			'password' => 'required',
+			'rememberMe' => 'nullable',
         ];
     }
 
@@ -46,7 +49,9 @@ class Login extends Component
 	public function login()
 	{
 		$validated = $this->validate();
-		$validated['user_type'] = UserTypeEnum::ARCHITECT;
+		$remember = $validated['rememberMe'];
+		Arr::add($validated, 'user_type', UserTypeEnum::ARCHITECT);
+		Arr::forget($validated, 'rememberMe');
 
 		if(!Auth::validate($validated)){
             return $this->addError('password', trans('auth.failed'));
@@ -54,7 +59,7 @@ class Login extends Component
 
         $user = Auth::getProvider()->retrieveByCredentials($validated);
 
-        Auth::login($user);
+        Auth::login($user, $remember);
 
 		$this->dispatch('alert', [
 			'type' => 'success',

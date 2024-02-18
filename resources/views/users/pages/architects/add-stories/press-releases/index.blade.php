@@ -16,6 +16,10 @@
 </style>
 @endpush --}}
 
+{{-- @push('styles')
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/trix/1.3.1/trix.min.css" />
+@endpush --}}
+
 @section('body')
 <div class="container py-5">
 	@include('users.includes.architect.add-story-steps')
@@ -42,6 +46,9 @@
   		} */
 	});
 </script>
+@endpush --}}
+{{-- @push('scripts')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/trix/1.3.1/trix.min.js"></script>
 @endpush --}}
 
 @include('users.includes.architect.add-story.media-kit-form-script')

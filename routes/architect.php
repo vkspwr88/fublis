@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('architect')->middleware('guest')->group(function () {
 	Route::get('/signup/{step?}', [Architects\Auth\SignupController::class, 'index'])->name('signup');
 	Route::get('/login', [Architects\Auth\LoginController::class, 'index'])->name('login');
-	Route::get('/logout', [Architects\Auth\LogoutController::class, 'index'])->name('logout');
+	Route::get('/logout', [Architects\Auth\LogoutController::class, 'index'])->name('logout')->withoutMiddleware('guest');
 	Route::get('/forgot-password', [Architects\Auth\ForgotPasswordController::class, 'index'])->name('forgot');
 	Route::get('/reset-password/{token}/{email}', [Architects\Auth\ResetPasswordController::class, 'index'])->name('reset');
 });

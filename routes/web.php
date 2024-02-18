@@ -30,11 +30,19 @@ Route::get('/blank', function () {
 Route::get('clear-cache', function(){
     Artisan::call('route:clear');
     Artisan::call('route:cache');
+    Artisan::call('config:clear');
     Artisan::call('config:cache');
     Artisan::call('cache:clear');
     Artisan::call('view:clear');
     Artisan::call('view:cache');
     return 'All cache cleared';
+	// php artisan route:clear
+	// php artisan route:cache
+	// php artisan config:clear
+	// php artisan config:cache
+	// php artisan cache:clear
+	// php artisan view:clear
+	// php artisan view:cache
 });
 
 /* Route::get('/email', function () {
