@@ -407,6 +407,10 @@ a.text-purple-600:hover{
 	border-top-right-radius: var(--bs-border-radius-lg) !important;
 }
 
+.img-fit {
+	object-fit: cover;
+}
+
 .img-square {
 	position: relative;
   	width: 100%;

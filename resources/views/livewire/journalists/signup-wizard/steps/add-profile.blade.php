@@ -54,7 +54,7 @@
 							</div>
 						</div>
 					</div>
-					<x-users.auth.image-column />
+					<x-users.auth.image-column :src="asset('images/signup/fublis.png')" />
 				</div>
 			</div>
 		</div>
