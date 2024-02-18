@@ -50,7 +50,7 @@ class Login extends Component
 	{
 		$validated = $this->validate();
 		$remember = $validated['rememberMe'];
-		Arr::add($validated, 'user_type', UserTypeEnum::ARCHITECT);
+		$validated = Arr::add($validated, 'user_type', UserTypeEnum::ARCHITECT);
 		Arr::forget($validated, 'rememberMe');
 
 		if(!Auth::validate($validated)){
