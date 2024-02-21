@@ -8,7 +8,7 @@
 		<div class="col-auto">
 			<div class="row justify-content-end align-items-end gx-0 gy-3">
 				<div class="col-auto">
-					<a href="{{ route('architect.media-kit.index') }}" class="btn btn-white text-dark fs-6 fw-semibold">
+					<a href="{{ route('journalist.media-kit.index') }}" class="btn btn-white text-dark fs-6 fw-semibold">
 						<i class="bi bi-stack"></i> All Media kits
 					</a>
 				</div>

@@ -46,7 +46,7 @@
 	<form class="my-5 d-flex my-xl-0" aria-label="search">
 		<div class="input-group">
 			<label class="bg-white input-group-text" for="headerSearchInput"><i class="bi bi-search"></i></label>
-			<input id="headerSearchInput" class="shadow-none form-control border-start-0 ps-0" type="search" placeholder="Search journalists, publications" aria-label="Search">
+			<input id="headerSearchInput" class="shadow-none form-control border-start-0 ps-0" type="search" placeholder="Search Media Kits, Brands" aria-label="Search">
 		</div>
 	</form>
 	<ul id="profileNav" class="flex-row mt-5 navbar-nav mt-xl-0 ms-xl-auto align-items-center">

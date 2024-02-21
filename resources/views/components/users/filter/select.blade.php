@@ -3,7 +3,7 @@
 		<option value="">Choose {{ $type }}</option>
 		{{-- {{ dd($list) }} --}}
 		@foreach ($list as $item)
-		<option value="{{ $item->id }}">{{ $item->name }}</option>
+		<option value="{{ $item->id }}">{{ str()->headline($item->name) }}</option>
 		@endforeach
 	</select>
 </div>

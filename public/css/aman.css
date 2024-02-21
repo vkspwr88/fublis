@@ -710,7 +710,11 @@ trix-editor{
 	border: 2px dashed var(--fublis-purple-700);
 	color: #212529;
   	background-color: #fff;
-	min-height: 20em;
+	min-height: 20em !important;
+}
+
+trix-toolbar .trix-button--icon-link, trix-toolbar .trix-button--icon-code, trix-toolbar .trix-button-group--file-tools, trix-toolbar .trix-button--icon-attach{
+	display: none;
 }
 
 .select2-container{
@@ -764,6 +768,12 @@ trix-editor{
 	}
 }
 
+@media(max-width: 768px){
+	.img-col{
+		max-height: 175px;
+		object-position: top;
+	}
+}
 
 
 

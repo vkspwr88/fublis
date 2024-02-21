@@ -3,6 +3,7 @@
 namespace App\Livewire\Journalists\Brands;
 
 use App\Http\Controllers\Users\CompanyController;
+use App\Livewire\Forms\FilterMediaKitsForm;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -10,19 +11,29 @@ class Profile extends Component
 {
 	use WithPagination;
 
+	public FilterMediaKitsForm $form;
+
 	public $brand;
+	public $mediaKits;
+	public $tags;
 
 	public function mount($brand)
 	{
-		$this->brand = $brand;
+		$this->brand = CompanyController::loadModel($brand);
+		$this->mediaKits = $brand->mediaKits->sortByDesc('created_at');
+		$this->tags = CompanyController::loadTags($brand);
+		$this->form->mount();
 	}
 
     public function render()
     {
-		$this->brand = CompanyController::loadModel($this->brand);
         return view('livewire.journalists.brands.profile', [
-			'mediaKits' => $this->brand->mediaKits->sortByDesc('created_at')->paginate(5),
-			'tags' => CompanyController::loadTags($this->brand),
+			'filterredMediaKits' => $this->form->filterMediaKit($this->mediaKits),
 		]);
     }
+
+	public function removeFilterOption($key)
+	{
+		$this->form->selectedMediaKitTypes->pull($key);
+	}
 }

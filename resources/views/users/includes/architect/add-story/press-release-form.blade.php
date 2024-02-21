@@ -43,29 +43,12 @@
 			<label for="inputPressReleaseWrite" class="col-form-label text-dark fs-6 fw-medium">Write Press Release <span class="text-danger">*</span></label>
 			<label class="d-block form-text text-secondary fs-7 m-0">Add the text in 300-500 words</label>
 		</div>
-		<div class="col-md-8">
-			{{-- <input id="inputPressReleaseWrite" type="hidden" name="pressReleaseWrite" value="{{ $pressReleaseWrite }}">
-  			<trix-editor input="inputPressReleaseWrite" class="trix-content"></trix-editor> --}}
-			{{-- <textarea id="" class="form-control @error('form.pressReleaseWrite') is-invalid @enderror" wire:model="form.pressReleaseWrite" rows="8"></textarea> --}}
-			<div wire:ignore>
-				<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/trix/1.3.1/trix.min.css" />
-
-				<input id="inputPressReleaseWrite" type="hidden" name="form.pressReleaseWrite" value="{{ $form->pressReleaseWrite }}">
-				<trix-editor wire:ignore input="inputPressReleaseWrite"></trix-editor>
-
-				<script src="https://cdnjs.cloudflare.com/ajax/libs/trix/1.3.1/trix.min.js"></script>
-				<script>
-					var trixEditor = document.getElementById("inputPressReleaseWrite")
-
-					addEventListener("trix-blur", function(event) {
-						@this.set('value', trixEditor.getAttribute('value'))
-					})
-				</script>
-			</div>
-			{{-- <input id="inputPressReleaseWrite" value="{{ form.pressReleaseWrite }}" type="hidden" wire:model="form.pressReleaseWrite">
-			<trix-editor wire:ignore input="inputPressReleaseWrite" class="@error('form.pressReleaseWrite') is-invalid @enderror" wire:model="form.pressReleaseWrite"></trix-editor> --}}
+		<div class="col-md-8"  wire:ignore>
+			<trix-editor input="inputPressReleaseWrite" x-on:trix-change="$wire.form.pressReleaseWrite = $event.target.value"></trix-editor>
+			<input id="inputPressReleaseWrite" type="hidden" wire:model="form.pressReleaseWrite">
 			@error('form.pressReleaseWrite')<div class="invalid-feedback">{{ $message }}</div>@enderror
 		</div>
+
 	</div>
 	<hr class="border-gray-300">
 	<div class="row">
@@ -276,10 +259,7 @@
 	</div>
 	@include('users.includes.common.file-upload-script', ['width' => 800, 'height' => 400])
 	<script>
-		var trixEditor = document.getElementById("inputPressReleaseWrite")
-
-		addEventListener("trix-blur", function(event) {
-			@this.set('value', trixEditor.getAttribute('value'))
-		})
+		const editor = document.querySelector("trix-editor");
+		editor.editor.insertHTML('{!! $form->pressReleaseWrite !!}');
 	</script>
 </form>

@@ -13,7 +13,7 @@ use Livewire\Attributes\Renderless;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-#[Lazy]
+// #[Lazy]
 class Calls extends Component
 {
 	use WithPagination;
@@ -55,8 +55,9 @@ class Calls extends Component
 		$this->mediaKits = collect([]);
 		$this->name = '';
 		$this->selectedLocation = '';
-		$this->selectedDeadline = '';
-		$this->locations = LocationController::getAll();
+		// $this->selectedDeadline = '';
+		// $this->locations = LocationController::getAll();
+		$this->locations = LocationController::getCountries();
 		$this->publicationTypes = PublicationTypeController::getAll();
 		$this->categories = CategoryController::getAll();
 	}
@@ -76,7 +77,10 @@ class Calls extends Component
 
 	public function search()
 	{
-		$this->selectedDeadline = Carbon::parse($this->deadline);
+		if($this->deadline){
+			$this->selectedDeadline = Carbon::parse($this->deadline);
+		}
+		// $this->selectedDeadline = $this->deadline != '' ? Carbon::parse($this->deadline) : '';
 		//dd($this->deadline, Carbon::parse($this->deadline));
 		$this->render();
 	}
@@ -143,9 +147,7 @@ class Calls extends Component
 		}
 		$mediaKit = $this->mediaKits->find($this->selectedMediaKit);
 		$this->subject = 'New ' . showModelName($mediaKit->story_type) . ' | ' . $mediaKit->story->title;
-		// $this->message = "Hi " . $this->journalist->user->name . ",\n\nI'm writing to you about our latest story " . $mediaKit->story->title . " for your consideration.\n\n[Concept note] The site located in a rural town of Thottara, 12kms away from Mannarkkad town. Site was a contour site with a level difference of about 10m from West to East with a slope of 1:8m.\n\nIt would be great to have it published in " . $this->journalist->publications[0]->name . ". I would be happy to share any more information that you might need.\n\nRegards,\n" . auth()->user()->name . "";
-		$this->message = "Hi " . $this->journalist->user->name . ",\n\nI'm writing to you about our latest story <a href='" . route('journalist.media-kit.view', ['mediaKit' => $mediaKit->slug]) . "' class='text-purple-800'>" . $mediaKit->story->title . "</a> for your consideration.\n\n" . getProjectBrief($mediaKit) . "\n\nIt would be great to have it published in " . $this->call->publication->name . ". I would be happy to share any more information that you might need.\n\nRegards,\n" . auth()->user()->name . "";
-		// $this->message = "Hi " . $this->journalist->user->name . ",\n\n" . getProjectBrief($mediaKit) . "\n\nRegards,\n" . auth()->user()->name . "";
+		$this->message = "Hi " . $this->journalist->user->name . ",<br><br>I'm writing to you about our latest story <a href='" . route('journalist.media-kit.view', ['mediaKit' => $mediaKit->slug]) . "' class='text-purple-800'>" . $mediaKit->story->title . "</a> for your consideration.<br><br>" . getProjectBrief($mediaKit) . "<br><br>It would be great to have it published in " . $this->call->publication->name . ". I would be happy to share any more information that you might need.<br><br>Regards,<br>" . auth()->user()->name . "";
 		$this->dispatch('hide-select-mediakit-modal');
 		$this->dispatch('show-send-message-modal');
 	}

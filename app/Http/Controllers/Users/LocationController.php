@@ -84,4 +84,9 @@ class LocationController extends Controller
 					])->first()
 					->load('state.country');
 	}
+
+	public static function getCountryById(int $id)
+	{
+		return Country::find($id);
+	}
 }

@@ -17,11 +17,29 @@
 	<div class="col-md-8">{{ $description }}</div>
 </div>
 <hr class="border-gray-300 my-3">
-<div class="row g-4">
+<div class="row g-4 mb-3">
 	<div class="col-md-4">
 		<p class="text-secondary fw-semibold m-0 p-0">Submission Deadline</p>
 	</div>
 	<div class="col-md-8">{{ formatDate($submissionEndsDate) }}</div>
+</div>
+<div class="row g-4 mb-3">
+	<div class="col-md-4">
+		<p class="text-secondary fw-semibold m-0 p-0">Entries Invited</p>
+	</div>
+	<div class="col-md-8">{{ str()->headline($publishFrom->name) }}</div>
+</div>
+<div class="row g-4 mb-3">
+	<div class="col-md-4">
+		<p class="text-secondary fw-semibold m-0 p-0">Country</p>
+	</div>
+	<div class="col-md-8">{{ str()->headline($selectedCountry) }}</div>
+</div>
+<div class="row g-4">
+	<div class="col-md-4">
+		<p class="text-secondary fw-semibold m-0 p-0">Language</p>
+	</div>
+	<div class="col-md-8">{{ str()->headline($language->name) }}</div>
 </div>
 <hr class="border-gray-300 my-3">
 <div class="row g-4">
@@ -52,19 +70,6 @@
 <hr class="border-gray-300 my-3">
 <div class="row g-4">
 	<div class="col-md-4">
-		<p class="text-secondary fw-semibold m-0 p-0">Entries Invited</p>
-	</div>
-	<div class="col-md-8">
-		<div class="row justify-content-start gx-1 gy-3">
-			<div class="col-auto">
-				<span class="badge rounded-pill bg-purple-100 text-purple-700 fw-medium">{{ $publishFrom->name }}</span>
-			</div>
-		</div>
-	</div>
-</div>
-<hr class="border-gray-300 my-3">
-<div class="row g-4">
-	<div class="col-md-4">
 		<p class="text-secondary fw-semibold m-0 p-0">Tags</p>
 	</div>
 	<div class="col-md-8">
@@ -75,14 +80,14 @@
 			<div class="col-auto">
 				<span class="badge rounded-pill bg-purple-100 text-purple-700 fw-medium">{{ $language->name }}</span>
 			</div>
-			<div class="col-auto">
+			{{-- <div class="col-auto">
 				<span class="badge rounded-pill bg-purple-100 text-purple-700 fw-medium text-capitalize">{{ $selectedCity }}</span>
 			</div>
 			<div class="col-auto">
 				<span class="badge rounded-pill bg-purple-100 text-purple-700 fw-medium text-capitalize">{{ $selectedStateName }}</span>
-			</div>
+			</div> --}}
 			<div class="col-auto">
-				<span class="badge rounded-pill bg-purple-100 text-purple-700 fw-medium text-capitalize">{{ $selectedCountryName }}</span>
+				<span class="badge rounded-pill bg-purple-100 text-purple-700 fw-medium text-capitalize">{{ $selectedCountry }}</span>
 			</div>
 		</div>
 	</div>

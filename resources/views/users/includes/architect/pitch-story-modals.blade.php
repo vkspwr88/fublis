@@ -208,8 +208,10 @@
 					<input type="text" class="form-control" wire:model="subject">
 				</div>
 				<div class="mb-3">
-					<label for="input" class="form-label fw-medium">Type your message in no more than 100 words</label>
-					<textarea wire:model="message" class="form-control" rows="12"></textarea>
+					<label for="inputMessage" class="form-label fw-medium">Type your message in no more than 100 words</label>
+					<trix-editor input="inputMessage" x-on:trix-change="$wire.message = $event.target.value"></trix-editor>
+					<input id="inputMessage" type="hidden" wire:model="message">
+					{{-- <textarea wire:model="message" class="form-control" rows="12"></textarea> --}}
 					{{-- Hi [Journalist Name],
 						I'm writing to you about our latest story [Casa Brut] for your consideration.
 						[Concept note] The site located in a rural town of Thottara, 12kms away from Mannarkkad town. Site was a contour site with a level difference of about 10m from West to East with a slope of 1:8m.

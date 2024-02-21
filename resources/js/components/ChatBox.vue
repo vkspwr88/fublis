@@ -144,7 +144,7 @@
 				<div class="col-12">
 					<div class="px-2" style="max-height: 400px; overflow: hidden scroll;">
 						<div id="chatWindow" ref="chatWindow" class="row g-3">
-							<TransitionGroup v-for="chatMessage in messages" :key="chatMessage.id">
+							<TransitionGroup v-for="(chatMessage, index) in messages" :key="chatMessage.id">
 								<div class="col-8 offset-4" v-if="chatMessage.user_id === authId">
 									<div class="row g-2">
 										<div class="col-12">
@@ -160,7 +160,12 @@
 										<div class="col-12">
 											<div class="card bg-purple-600 border-0 rounded-3">
 												<div class="card-body">
-													<p class="card-text text-white m-0">{{ chatMessage.message }}</p>
+													<p class="card-text text-white m-0" v-if="index == 0">
+														{!! chatMessage.message !!}
+													</p>
+													<p class="card-text text-white m-0" v-else>
+														{{ chatMessage.message }}
+													</p>
 												</div>
 											</div>
 										</div>
@@ -192,7 +197,12 @@
 												<div class="col-12">
 													<div class="card bg-gray-100 border-0 rounded-3">
 														<div class="card-body">
-															<p class="card-text text-dark m-0">{{ chatMessage.message }}</p>
+															<p class="card-text text-dark m-0" v-if="index == 0">
+																{!! chatMessage.message !!}
+															</p>
+															<p class="card-text text-dark m-0" v-else>
+																{{ chatMessage.message }}
+															</p>
 														</div>
 													</div>
 												</div>

@@ -389,9 +389,9 @@ class ProjectForm extends Form
 
 	public function updateFields()
 	{
-		$this->projectLink = trimWebsiteUrl($this->projectLink) ? 'http://' . $this->projectLink : null;
-		$this->photographsLink = trimWebsiteUrl($this->photographsLink) ? 'http://' . $this->photographsLink : null;
-		$this->drawingsLink = trimWebsiteUrl($this->drawingsLink) ? 'http://' . $this->drawingsLink : null;
+		$this->projectLink = $this->projectLink ? 'http://' . trimWebsiteUrl($this->projectLink) : null;
+		$this->photographsLink = $this->photographsLink ? 'http://' . trimWebsiteUrl($this->photographsLink) : null;
+		$this->drawingsLink = $this->drawingsLink ? 'http://' . trimWebsiteUrl($this->drawingsLink) : null;
 	}
 
 	// public function store($type = 'new', $draftId = null)

@@ -255,9 +255,9 @@ class ArticleForm extends Form
 
 	public function updateFields()
 	{
-		$this->articleLink = trimWebsiteUrl($this->articleLink) ? 'http://' . $this->articleLink : null;
-		$this->companyProfileLink = trimWebsiteUrl($this->companyProfileLink) ? 'http://' . $this->companyProfileLink : null;
-		$this->imagesLink = trimWebsiteUrl($this->imagesLink) ? 'http://' . $this->imagesLink : null;
+		$this->articleLink = $this->articleLink ? 'http://' . trimWebsiteUrl($this->articleLink) : null;
+		$this->companyProfileLink = $this->companyProfileLink ? 'http://' . trimWebsiteUrl($this->companyProfileLink) : null;
+		$this->imagesLink = $this->imagesLink ? 'http://' . trimWebsiteUrl($this->imagesLink) : null;
 	}
 
 	public function store()

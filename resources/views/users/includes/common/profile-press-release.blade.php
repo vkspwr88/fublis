@@ -11,7 +11,12 @@
 		</div>
 		<div class="mb-4 row">
 			<div class="col text-secondary fs-6">
-				{{ $mediaKit->story->press_release_writeup }}
+				{{ $mediaKit->story->concept_note }}
+			</div>
+		</div>
+		<div class="mb-4 row">
+			<div class="col text-secondary fs-6">
+				{!! $mediaKit->story->press_release_writeup !!}
 			</div>
 		</div>
 		<div class="row g-4">

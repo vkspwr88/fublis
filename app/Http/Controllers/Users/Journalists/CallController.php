@@ -31,7 +31,7 @@ class CallController extends Controller
 
 	public function all()
 	{
-		$calls = Call::with([
+		/* $calls = Call::with([
 						'journalist.user',
 						'publication.profileImage',
 						'tags',
@@ -43,7 +43,8 @@ class CallController extends Controller
 					->get();
 		return view('users.pages.journalists.calls.all', [
 			'calls' => $calls,
-		]);
+		]); */
+		return view('users.pages.journalists.calls.all');
 	}
 
 	public function create()
@@ -72,10 +73,10 @@ class CallController extends Controller
 			'submissionEndsDate' => $call->submission_end_date,
 			'publication' => $call->publication,
 			'category' => $call->category,
-			'location' => $call->location,
-			'selectedCity' => $call->location->name,
-			'selectedStateName' => $city->state->name,
-			'selectedCountryName' => $city->state->country->name,
+			// 'location' => $call->location,
+			// 'selectedCity' => $call->location->name,
+			// 'selectedStateName' => $city->state->name,
+			'selectedCountry' => $call->location->name,
 			'language' => $call->language,
 			'publishFrom' => $call->publishFrom,
 			'call' => $call,

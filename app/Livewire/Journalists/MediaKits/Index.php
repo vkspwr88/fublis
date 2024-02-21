@@ -34,7 +34,8 @@ class Index extends Component
 
 	public function mount()
 	{
-		$this->locations = LocationController::getAll();
+		// $this->locations = LocationController::getAll();
+		$this->locations = LocationController::getCountries();
 		$this->categories = CategoryController::getAll();
 		$this->mediaKitTypes = MediaKitController::getAll();
 	}
@@ -75,6 +76,7 @@ class Index extends Component
 		$this->selectedLocation = '';
 		$this->selectedMediaKitTypes = [];
 		$this->selectedCategories = [];
+		// $this->reset();
 		$this->render();
 	}
 }

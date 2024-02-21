@@ -11,8 +11,23 @@ class DownloadService
 {
 	public function singleFileDownload($slug, $file, $type)
 	{
-		$name = ucfirst(str()->camel($slug)) . '-' . $type;
-		return Storage::download($file, $name);
+		try{
+			/* $name = ucfirst(str()->camel($slug)) . '-' . $type;
+			return Storage::download($file, $name); */
+			$zip = new ZipArchive;
+			$zipFileName = ucfirst(str()->camel($slug)) . '-' . $type . '.zip';
+			if ($zip->open(public_path($zipFileName), ZipArchive::CREATE) === true) {
+				$file = Storage::path($file);
+				$zip->addFile($file, basename($file));
+				$zip->close();
+				return response()->download(public_path($zipFileName))->deleteFileAfterSend(true);
+			} else {
+				throw ValidationException::withMessages(['Failed to create the zip file.']);
+			}
+		}
+		catch(Exception $exp){
+			dd($exp->getMessage());
+		}
 	}
 
 	public function zipFilesDownload($model, $file, $type)

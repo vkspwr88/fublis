@@ -25,11 +25,14 @@
 						</svg>
 					</div>
 					<div class="col">
+						@php
+							$city = $architect->location->city()->first();
+						@endphp
 						<span class="badge rounded-pill text-gray-700 bg-gray-200 text-capitalize">
-							{{ $architect->location->city()->first()->state->country->name }}
+							{{ $city->state->country->name }}
 						</span>
 						<span class="badge rounded-pill text-gray-700 bg-gray-200 text-capitalize">
-							{{ $architect->location->city()->first()->state->name }}
+							{{ $city->state->name }}
 						</span>
 						{{-- <span class="badge rounded-pill text-gray-700 bg-gray-200">{{ $architect->location->state->country->name }}</span>
 						<span class="badge rounded-pill text-gray-700 bg-gray-200">{{ $architect->location->state->name }}</span> --}}
@@ -100,31 +103,22 @@
 	</div>
 	<div class="col-md-8 col-lg-9">
 		<div class="row g-4">
-			<div class="col-12">
-				<div class="row align-items-center g-3">
-					<div class="col-auto">
-						<span class="badge rounded-pill text-purple-700 bg-purple-100">Press Release <a href="#" class="ms-2 text-purple-700">X</i></a></span>
-						<span class="badge rounded-pill text-purple-700 bg-purple-100">India <a href="#" class="ms-2 text-purple-700">X</a></span>
-						<button type="button" class="btn btn-white btn-sm fw-semibold">
-							<i class="bi bi-filter"></i> More filters
-						</button>
-					</div>
-					<div class="col">
-						<div class="d-flex justify-content-end">
-							<div class="input-group" style="width: 280px;">
-								<label class="input-group-text bg-white" for="filterSearchInput"><i class="bi bi-search"></i></label>
-								<input id="filterSearchInput" class="form-control border-start-0 shadow-none ps-0" type="search" placeholder="Search media kit by name" aria-label="Search" />
-							</div>
-						</div>
+			@include('users.includes.common.profile-media-kit-filter-form')
+			<div class="col-12" wire:loading.remove>
+				@if ($viewAs == 'architect')
+				<x-users.media-kits.architect-list :mediaKits="$filterredMediaKits" />
+				@elseif ($viewAs == 'journalist')
+				<x-users.media-kits.journalist-list :mediaKits="$filterredMediaKits" />
+				@endif
+			</div>
+			<div class="col-12" wire:loading>
+				<div class="card border-0 rounded-3 bg-white shadow">
+					<div class="card-body text-center">
+						<h4 class="card-title text-purple-900 fs-5 fw-semibold m-0 py-3">
+							Searching <x-users.spinners.primary-btn />
+						</h4>
 					</div>
 				</div>
-			</div>
-			<div class="col-12">
-				@if ($viewAs == 'architect')
-				<x-users.media-kits.architect-list :mediaKits="$mediaKits" />
-				@elseif ($viewAs == 'journalist')
-				<x-users.media-kits.journalist-list :mediaKits="$mediaKits" />
-				@endif
 			</div>
 		</div>
 	</div>

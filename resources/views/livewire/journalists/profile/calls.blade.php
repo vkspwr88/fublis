@@ -17,8 +17,8 @@
 					<x-users.filter.select type="location" :list="$locations" model="selectedLocation" />
 					<hr class="divider">
 					<x-users.filter.header text="Deadline" />
-					<input class="form-select datepicker" wire:model="deadline" />
-					<input type="hidden" id="my_hidden_input">
+					<input type="text" id="inputDeadline" class="form-control datepicker" wire:model="deadline">
+					{{-- <input type="hidden" id="my_hidden_input"> --}}
 					<hr class="divider">
 					<x-users.filter.header text="Publication Types" />
 					<div class="d-grid mb-2">

@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Http\Controllers\Users\LocationController;
 use App\Models\Call;
 use App\Models\Chat;
 use App\Models\ChatMessage;
@@ -29,7 +30,13 @@ class PitchStoryService
 									->get();
 
 		if($data['location'] != ''){
-			$publications = $publications->where('location_id', $data['location']);
+			$cities = LocationController::getCitiesByCountry($data['location']);
+			$filter = Publication::whereHas('location', function(Builder $query) use($cities) {
+				$query->whereIn('name', $cities->pluck('name'));
+			})->get()->pluck('id');
+			$publications = $publications->find($filter);
+			// dd($data['location'], $cities, $filter);
+			// $publications = $publications->where('location_id', $data['location']);
 		}
 
 		if(!empty($data['publicationTypes'])){
@@ -45,7 +52,7 @@ class PitchStoryService
 			})->get()->pluck('id');
 			$publications = $publications->find($filter);
 		}
-
+		// dd($publications);
 		return $publications;
 	}
 
@@ -70,7 +77,13 @@ class PitchStoryService
 									->get();
 
 		if($data['location'] != ''){
-			$journalists = $journalists->where('location_id', $data['location']);
+			// $journalists = $journalists->where('location_id', $data['location']);
+			$cities = LocationController::getCitiesByCountry($data['location']);
+			$filter = Journalist::whereHas('location', function(Builder $query) use($cities) {
+				$query->whereIn('name', $cities->pluck('name'));
+			})->get()->pluck('id');
+			dd($data['location'], $cities, $filter, $journalists);
+			$journalists = $journalists->find($filter);
 		}
 
 		if(!empty($data['publicationTypes'])){
@@ -111,6 +124,7 @@ class PitchStoryService
 							],
 							'category',
 							'language',
+							'location',
 						])
 						->where('submission_end_date', '>', Carbon::now())
 						->where('title', 'like', '%' . $data['name'] . '%')
@@ -118,14 +132,23 @@ class PitchStoryService
 						->get();
 
 		if($data['location'] != ''){
-			$calls = $calls->where('location_id', $data['location']);
+			$country = LocationController::getCountryById($data['location']);
+			$filter = Call::whereHas('location', function(Builder $query) use($country) {
+				$query->where('name', $country->name);
+			})->get()->pluck('id');
+			// dd($calls, $country, $filter);
+			$calls = $calls->find($filter);
+			// dd($calls, $filter);
+			// $calls = $calls->where('location_id', $data['location']);
 		}
 
 		if($data['deadline'] != '' && get_class($data['deadline']) == 'Carbon\Carbon'){
+			// dd('deadline', $data['deadline']);
 			$calls = $calls->where('submission_end_date', '<=', $data['deadline']);
 		}
 
 		if(!empty($data['publicationTypes'])){
+			// dd('publicationTypes');
 			$publications = Publication::whereHas('publicationTypes', function(Builder $query) use($data) {
 				$query->whereIn('publication_type_id', $data['publicationTypes']);
 			})->get()->pluck('id');
@@ -136,6 +159,7 @@ class PitchStoryService
 		}
 
 		if(!empty($data['categories'])){
+			// dd('categories');
 			$calls = $calls->whereIn('category_id', $data['categories']);
 		}
 

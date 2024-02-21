@@ -97,7 +97,9 @@
 				<input type="text" class="form-control @error('form.articleLink') is-invalid @enderror" wire:model="form.articleLink" placeholder="Insert drive link" aria-describedby="articleLinkAddon">
 				@error('form.articleLink')<div class="invalid-feedback">{{ $message }}</div>@enderror
 			</div>
-			<textarea id="inputArticleWrite" class="form-control @error('form.articleWrite') is-invalid @enderror" wire:model="form.articleWrite" rows="8"></textarea>
+			{{-- <textarea id="inputArticleWrite" class="form-control @error('form.articleWrite') is-invalid @enderror" wire:model="form.articleWrite" rows="8"></textarea> --}}
+			<trix-editor input="inputArticleWrite" x-on:trix-change="$wire.form.articleWrite = $event.target.value"></trix-editor>
+			<input id="inputArticleWrite" type="hidden" wire:model="form.articleWrite">
 			@error('form.articleWrite')<div class="invalid-feedback">{{ $message }}</div>@enderror
 		</div>
 	</div>
@@ -287,4 +289,8 @@
 		</button> --}}
 	</div>
 	@include('users.includes.common.file-upload-script', ['width' => 800, 'height' => 400])
+	<script>
+		const editor = document.querySelector("trix-editor");
+		editor.editor.insertHTML('{!! $form->articleWrite !!}');
+	</script>
 </form>

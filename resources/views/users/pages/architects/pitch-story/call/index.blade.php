@@ -29,9 +29,9 @@
 </div>
 @endsection
 
-@include('users.includes.architect.pitch-story-modals-script')
-
 @push('scripts')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/js/bootstrap-datepicker.min.js" integrity="sha512-LsnSViqQyaXpD4mBBdRYeP6sRwJiJveh2ZIbW41EBrNmKxgr/LFZIiWT6yr+nycvhvauz8c2nYMhrP80YhG7Cw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="{{ asset('js/datepicker.js') }}"></script>
 @endpush
+
+@include('users.includes.architect.pitch-story-modals-script')

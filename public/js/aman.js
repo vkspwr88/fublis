@@ -1,3 +1,5 @@
+$('trix-toolbar .trix-button--icon-link, trix-toolbar .trix-button--icon-code, trix-toolbar .trix-button-group--file-tools, trix-toolbar .trix-button--icon-attach').remove();
+
 window.addEventListener('alert', event => {
     const type = event.detail[0].type;
     const message = event.detail[0].message;

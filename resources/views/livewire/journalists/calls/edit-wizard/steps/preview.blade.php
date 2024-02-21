@@ -13,7 +13,7 @@
 					</a>
 				</div>
 				<div class="col-auto">
-					<a href="{{ route('architect.media-kit.index') }}" class="btn btn-white text-dark fw-semibold">
+					<a href="{{ route('journalist.media-kit.index') }}" class="btn btn-white text-dark fw-semibold">
 						<i class="bi bi-stack"></i> All Media kits
 					</a>
 				</div>

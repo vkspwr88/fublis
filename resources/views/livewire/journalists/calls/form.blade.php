@@ -14,20 +14,19 @@
 	<div class="row mb-3">
 		<label for="inputTitle" class="col-md-4 col-form-label text-dark fs-6 fw-medium">Title</label>
 		<div class="col-md-8">
-			<input type="text" id="inputTitle" class="form-control @error('title') is-invalid @enderror" wire:model="title" wire:keydown.debounce="characterCount">
+			<input type="text" id="inputTitle" class="form-control @error('title') is-invalid @enderror" wire:model="title" wire:keydown.debounce.1000ms="characterCount">
 			@error('title')<div class="invalid-feedback">{{ $message }}</div>@enderror
 			<div id="titleHelp" class="form-text {{ $titleTextLength < 0 ? 'text-danger' : '' }}">{{ $titleTextLength }} characters left</div>
 		</div>
 	</div>
 	<div class="row mb-3">
 		<div class="col-md-4">
-			<label for="inputDescription" class="col-form-label text-dark fs-6 fw-medium">Describe story requirements briefly </label>
+			<label for="inputDescription" class="col-form-label text-dark fs-6 fw-medium">Describe story requirements briefly</label>
 			<label class="d-block form-text text-secondary fs-7 m-0">Write in 50-75 words</label>
 		</div>
 		<div class="col-md-8">
-			<textarea id="inputDescription" class="form-control @error('description') is-invalid @enderror" rows="6" wire:model="description" wire:keydown.debounce="characterCount"></textarea>
+			<textarea id="inputDescription" class="form-control @error('description') is-invalid @enderror" rows="6" wire:model="description"></textarea>
 			@error('description')<div class="invalid-feedback">{{ $message }}</div>@enderror
-			<div id="descriptionHelp" class="form-text {{ $descriptionTextLength < 0 ? 'text-danger' : '' }}">{{ $descriptionTextLength }} characters left</div>
 		</div>
 	</div>
 	{{-- <div class="row mb-3">
@@ -43,18 +42,18 @@
 		</div>
 	</div> --}}
 	<div class="row mb-3">
-		<label for="selectCountry" class="col-md-4 col-form-label text-dark fs-6 fw-medium">Country</label>
+		<label for="selectCountry" class="col-md-4 col-form-label text-dark fs-6 fw-medium">Location</label>
 		<div class="col-md-8">
-			<select class="form-select @error('selectedCountry') is-invalid @enderror" id="selectCountry" wire:model.live="selectedCountry">
-				<option value="">Select Country</option>
+			<select class="form-select @error('selectedCountry') is-invalid @enderror" id="selectCountry" wire:model="selectedCountry">
+				<option value="">Select Location</option>
 				@foreach ($countries as $country)
-				<option value="{{ $country->id }}">{{ str()->headline($country->name) }}</option>
+				<option value="{{ $country->name }}">{{ str()->headline($country->name) }}</option>
 				@endforeach
 			</select>
 			@error('selectedCountry')<div class="invalid-feedback">{{ $message }}</div>@enderror
 		</div>
 	</div>
-	<div class="row mb-3">
+	{{-- <div class="row mb-3">
 		<label for="selectState" class="col-md-4 col-form-label text-dark fs-6 fw-medium">State</label>
 		<div class="col-md-8">
 			<select class="form-select @error('selectedState') is-invalid @enderror" id="selectState" wire:model.live="selectedState">
@@ -77,7 +76,7 @@
 			</select>
 			@error('selectedCity')<div class="invalid-feedback">{{ $message }}</div>@enderror
 		</div>
-	</div>
+	</div> --}}
 	<div class="row mb-3">
 		<label for="" class="col-md-4 col-form-label text-dark fs-6 fw-medium">Entries Invited</label>
 		<div class="col-md-8">
@@ -126,7 +125,7 @@
 		</div>
 	</div>
 	<div class="text-end">
-		<button class="btn btn-white fs-6 fw-semibold" type="button">Cancel</button>
+		<a class="btn btn-white fs-6 fw-semibold" href="{{ route('journalist.call.index') }}">Cancel</a>
 		<button class="btn btn-primary fs-6 fw-semibold" type="submit">
 			Next <x-users.spinners.white-btn wire:target="preview" />
 		</button>

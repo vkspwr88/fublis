@@ -8,7 +8,7 @@
 		<div class="col-lg-10">
 			<div class="card rounded-4 shadow border border-1">
 				<div class="row g-0 align-items-center">
-					<div class="col-sm-12 col-md-6">
+					<div class="col-sm-12 col-md-6 order-2 order-md-1">
 						<div class="row justify-content-between align-items-center">
 							<div class="col-12">
 								<div class="card-body px-5">
@@ -23,7 +23,7 @@
 							</div>
 						</div>
 					</div>
-					<x-users.auth.image-column :src="asset('images/login/fublis.png')" />
+					<x-users.auth.image-column :src="asset('images/login/fublis.png')" showImg="true" />
 				</div>
 			</div>
 		</div>

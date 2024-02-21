@@ -10,10 +10,16 @@
                 <div class="col-sm-9">
                     <div class="row align-items-center pb-4">
                         <p class="fs-6 col m-0">
-                            <span class="badge rounded-pill text-bg-secondary mb-1">
+							@if ($journalist->location)
+								<span class="badge rounded-pill text-bg-secondary mb-1">
+									<i class="bi bi-geo-alt"></i>
+									{{ $journalist->location->name }}
+								</span>
+							@endif
+                            {{-- <span class="badge rounded-pill text-bg-secondary mb-1">
                                 <i class="bi bi-geo-alt"></i>
                                 {{ $journalist->publications[0]->location->name }}
-                            </span>
+                            </span> --}}
                             @foreach ($journalist->publications[0]->publicationTypes as $publicationType)
                             <span class="badge rounded-pill text-bg-secondary mb-1">{{ $publicationType->name }}</span>
                             @endforeach

@@ -2,8 +2,10 @@
 
 namespace App\Services;
 
+use App\Http\Controllers\Users\LocationController;
 use App\Models\Call;
 use App\Models\MediaKit;
+use App\Models\Project;
 use Illuminate\Database\Eloquent\Builder;
 
 class MediaKitService
@@ -36,13 +38,36 @@ class MediaKitService
 								})
 								->latest()
 								->get();
+
+		if($data['location'] != ''){
+			$cities = LocationController::getCitiesByCountry($data['location']);
+			$filter = MediaKit::whereHasMorph(
+				'story',
+				[Project::class],
+				function (Builder $query) use($cities) {
+					// dd($query->location());
+					// $column = $type === Post::class ? 'content' : 'title';
+
+					$query->whereHas('location', function(Builder $query2) use($cities) {
+						$query2->whereIn('name', $cities->pluck('name'));
+						// $query->where('title', 'like', '%' . $data['name'] . '%');
+					});
+				}
+			)
+			->get()
+			->pluck('id');
+			// dd($filter, $mediaKits);
+			$mediaKits = $mediaKits->find($filter);
+		}
 		if(!empty($data['categories'])){
+			// dd('category');
 			$mediaKits = $mediaKits->whereIn('category_id', $data['categories']);
 		}
 		if(!empty($data['mediaKitTypes'])){
+			// dd('mediaKitTypes');
 			$mediaKits = $mediaKits->whereIn('story_type', $data['mediaKitTypes']);
 		}
-		//dd($mediaKits);
+		// dd($mediaKits->count(), $mediaKits);
 		return $mediaKits;
 	}
 

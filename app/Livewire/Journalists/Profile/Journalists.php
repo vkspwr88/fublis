@@ -37,7 +37,8 @@ class Journalists extends Component
 	public function mount()
 	{
 		$this->name = '';
-		$this->locations = LocationController::getAll();
+		// $this->locations = LocationController::getAll();
+		$this->locations = LocationController::getCountries();
 		$this->publicationTypes = PublicationTypeController::getAll();
 		$this->positions = JournalistPositionController::getAll();
 		$this->categories = CategoryController::getAll();

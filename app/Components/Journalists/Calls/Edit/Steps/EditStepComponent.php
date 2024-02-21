@@ -15,22 +15,22 @@ class EditStepComponent extends StepComponent
 	public $description;
 	// public $location;
 	public $selectedCountry;
-	public $selectedCountryName;
-	public $selectedState;
-	public $selectedStateName;
-	public $selectedCity;
+	// public $selectedCountryName;
+	// public $selectedState;
+	// public $selectedStateName;
+	// public $selectedCity;
 	public $selectedPublishFrom;
 	public $publication;
 	public $language;
 	public $submissionEndsDate;
 	public $callId;
 	public $callSlug;
-	public int $descriptionTextLength;
+	// public int $descriptionTextLength;
 	public int $titleTextLength;
 	public $categories;
 	public $countries;
-	public $states;
-	public $cities;
+	// public $states;
+	// public $cities;
 	public $publications;
 	public $publishFrom;
 	public $languages;
@@ -38,9 +38,9 @@ class EditStepComponent extends StepComponent
 	public function mount()
 	{
 		$this->characterCount();
-		$city = LocationController::getCityByCityName($this->selectedCity);
-		$this->selectedState = $city->state->id;
-		$this->selectedCountry = $city->state->country->id;
+		// $city = LocationController::getCityByCityName($this->selectedCity);
+		// $this->selectedState = $city->state->id;
+		$this->selectedCountry = $this->selectedCountry;
 		$this->categories = CategoryController::getAll();
 		$this->countries = LocationController::getCountries();
 		$this->publishFrom = PublishFromController::getAll();
@@ -50,16 +50,16 @@ class EditStepComponent extends StepComponent
 
 	public function render()
 	{
-		$this->states = LocationController::getStatesByCountryId($this->selectedCountry);
-		$this->cities = LocationController::getCitiesByStateId($this->selectedState);
-		$this->selectedCountryName = $this->countries->find($this->selectedCountry)->name;
-		$this->selectedStateName = $this->states->find($this->selectedState)->name;
+		// $this->states = LocationController::getStatesByCountryId($this->selectedCountry);
+		// $this->cities = LocationController::getCitiesByStateId($this->selectedState);
+		// $this->selectedCountryName = $this->countries->find($this->selectedCountry)->name;
+		// $this->selectedStateName = $this->states->find($this->selectedState)->name;
 		return view('livewire.journalists.calls.edit-wizard.steps.edit');
 	}
 
 	public function characterCount()
 	{
-		$this->descriptionTextLength = 2750 - str()->length($this->description);
+		// $this->descriptionTextLength = 2750 - str()->length($this->description);
 		$this->titleTextLength = 80 - str()->length($this->title);
 	}
 
@@ -71,9 +71,9 @@ class EditStepComponent extends StepComponent
 			'description' => 'required|max:2750',
 			// 'description' => 'required|min:50|max:2750',
             // 'location' => 'required|exists:locations,id',
-			'selectedCountry' => 'required|exists:countries,id',
-			'selectedState' => 'required|exists:states,id',
-			'selectedCity' => 'required|exists:cities,name',
+			'selectedCountry' => 'required|exists:countries,name',
+			// 'selectedState' => 'required|exists:states,id',
+			// 'selectedCity' => 'required|exists:cities,name',
             'publication' => 'required|exists:publications,id',
             'selectedPublishFrom' => 'required|exists:publish_froms,id',
             'language' => 'required|exists:languages,id',
@@ -93,8 +93,8 @@ class EditStepComponent extends StepComponent
 			'title.max' => 'The :attribute is limited 2750 characters.',
             // 'location.required' => 'Select the :attribute.',
 			'selectedCountry.required' => 'Select the :attribute.',
-			'selectedState.required' => 'Select the :attribute.',
-			'selectedCity.required' => 'Select the :attribute.',
+			// 'selectedState.required' => 'Select the :attribute.',
+			// 'selectedCity.required' => 'Select the :attribute.',
             'publication.required' => 'Select the :attribute.',
             'selectedPublishFrom.required' => 'Select the :attribute.',
             'language.required' => 'Select the :attribute.',
@@ -112,9 +112,9 @@ class EditStepComponent extends StepComponent
 			'title' => 'title',
 			'description' => 'story requirements description',
             // 'location' => 'location',
-			'selectedCountry' => 'country',
-			'selectedState' => 'state',
-			'selectedCity' => 'city',
+			'selectedCountry' => 'location',
+			// 'selectedState' => 'state',
+			// 'selectedCity' => 'city',
             'publication' => 'publication title',
             'selectedPublishFrom' => 'publish from',
             'language' => 'language',

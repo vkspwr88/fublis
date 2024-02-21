@@ -19,7 +19,11 @@ class CallService
             DB::beginTransaction();
 			// insert location record
 			$location = LocationController::createLocation([
-				'name' => $details['selectedCity'],
+				'name' => $details['selectedCountry'],
+				'country_flag' => true,
+				'state_flag' => false,
+				'city_flag' => false,
+				// 'name' => $details['selectedCity'],
 			]);
 			// create call
 			$call = CallController::createCall([
@@ -56,7 +60,11 @@ class CallService
             DB::beginTransaction();
 			// insert location record
 			$location = LocationController::createLocation([
-				'name' => $details['selectedCity'],
+				'name' => $details['selectedCountry'],
+				'country_flag' => true,
+				'state_flag' => false,
+				'city_flag' => false,
+				// 'name' => $details['selectedCity'],
 			]);
 			// update call
 			$call = CallController::updateCall($details['callId'], [

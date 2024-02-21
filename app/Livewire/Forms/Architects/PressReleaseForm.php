@@ -242,25 +242,15 @@ class PressReleaseForm extends Form
 
 	public function updateFields()
 	{
-		$this->pressReleaseLink = trimWebsiteUrl($this->pressReleaseLink) ? 'http://' . $this->pressReleaseLink : null;
-		$this->photographsLink = trimWebsiteUrl($this->photographsLink) ? 'http://' . $this->photographsLink : null;
+		$this->pressReleaseLink = $this->pressReleaseLink ? 'http://' . trimWebsiteUrl($this->pressReleaseLink) : null;
+		$this->photographsLink = $this->photographsLink ? 'http://' . trimWebsiteUrl($this->photographsLink) : null;
 	}
 
 	// public function store($type = 'new', $draftId = null)
 	// store new media kit and drafted media kit
 	public function store()
 	{
-		// $this->pressReleaseLink = $this->pressReleaseLink ? 'http://' . $this->pressReleaseLink : null;
-		// $this->photographsLink = $this->photographsLink ? 'http://' . $this->photographsLink : null;
-		// $this->validate();
-		// if($type == 'new'){
-		// 	$addStoryService = new AddStoryService();
-		// 	return $addStoryService->addPressRelease($this->all());
-		// }
-		// elseif($type == 'drafted'){
-		// 	dd($this->all());
-		// }
-		dd($this->all());
+		// dd($this->all());
 		$this->updateFields();
 		$this->validate();
 		$addStoryService = new AddStoryService();
@@ -269,6 +259,7 @@ class PressReleaseForm extends Form
 
 	public function update($mediaKitId)
 	{
+		// dd($this->all());
 		$this->updateFields();
 		$this->validate();
 		$addStoryService = new AddStoryService();

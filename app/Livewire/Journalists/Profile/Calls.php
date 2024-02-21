@@ -12,7 +12,7 @@ use Livewire\Attributes\Renderless;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-#[Lazy]
+// #[Lazy]
 class Calls extends Component
 {
 	use WithPagination;
@@ -39,7 +39,8 @@ class Calls extends Component
 		$this->name = '';
 		$this->selectedLocation = '';
 		$this->selectedDeadline = '';
-		$this->locations = LocationController::getAll();
+		// $this->locations = LocationController::getAll();
+		$this->locations = LocationController::getCountries();
 		$this->publicationTypes = PublicationTypeController::getAll();
 		$this->categories = CategoryController::getAll();
 	}
@@ -59,7 +60,9 @@ class Calls extends Component
 
 	public function search()
 	{
-		$this->selectedDeadline = Carbon::parse($this->deadline);
+		if($this->deadline){
+			$this->selectedDeadline = Carbon::parse($this->deadline);
+		}
 		//dd($this->deadline, Carbon::parse($this->deadline));
 		$this->render();
 	}
@@ -79,6 +82,7 @@ class Calls extends Component
 	{
 		$this->name = '';
 		$this->selectedLocation = '';
+		$this->deadline = '';
 		$this->selectedDeadline = '';
 		$this->selectedPubliationTypes = [];
 		$this->selectedCategories = [];

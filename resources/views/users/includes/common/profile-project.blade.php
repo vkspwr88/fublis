@@ -17,6 +17,11 @@
 				<img src="{{ Storage::url($mediaKit->story->cover_image_path) }}" width="791" height="491" alt="" class="img-fluid" />
 			</div>
 		</div>
+		<div class="mb-4 row">
+			<div class="col text-secondary fs-6">
+				{{ $mediaKit->story->project_brief }}
+			</div>
+		</div>
 		<div class="row">
 			<div class="row g-4">
 				@foreach ($mediaKit->story->photographs as $photograph)

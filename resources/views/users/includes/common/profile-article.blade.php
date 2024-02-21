@@ -12,13 +12,14 @@
 		<div class="mb-4 row">
 			<div class="col text-secondary fs-6">
 				{{-- {!! str()->replace('\n', '<br>', $mediaKit->story->article_writeup) !!} --}}
-				{{ str()->replace('\n', '<br>', $mediaKit->story->preview_text) }}
+				{{-- {!! $mediaKit->story->project_brief !!} --}}
+				{{ $mediaKit->story->preview_text }}
 			</div>
 		</div>
 		<div class="mb-4 row">
 			<div class="col text-secondary fs-6">
 				{{-- {!! str()->replace('\n', '<br>', $mediaKit->story->article_writeup) !!} --}}
-				{{ str()->replace('\n', '<br>', $mediaKit->story->article_writeup) }}
+				{!! $mediaKit->story->article_writeup !!}
 			</div>
 		</div>
 		{{-- <div class="row">

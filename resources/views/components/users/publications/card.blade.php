@@ -11,10 +11,16 @@
 					<div class="col-sm d-flex flex-column justify-content-between">
 						<div class="row align-items-center pb-4">
 							<p class="fs-6 col m-0">
-								<span class="badge rounded-pill text-bg-secondary mb-1">
-									<i class="bi bi-geo-alt"></i>
-									{{ $publication->location->name }}
-								</span>
+								@if ($publication->location)
+									@php
+										$country = $publication->location->city()->first()->state->country->name;
+										// dd($country);
+									@endphp
+									<span class="badge rounded-pill text-bg-secondary mb-1">
+										<i class="bi bi-geo-alt"></i>
+										{{ str()->headline($country) }}
+									</span>
+								@endif
 								@foreach ($publication->publicationTypes as $publicationType)
 								<span class="badge rounded-pill text-bg-secondary mb-1">{{ $publicationType->name }}</span>
 								@endforeach
