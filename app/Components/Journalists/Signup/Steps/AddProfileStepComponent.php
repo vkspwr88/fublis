@@ -75,8 +75,8 @@ class AddProfileStepComponent extends StepComponent
 		return [
 			'position' => $this->position,
 			'linkedinProfile' => 'http://' . $this->linkedinProfile,
-			'publishedArticleLink' => 'http://' . $this->publishedArticleLink,
-			'publishingPlatformLink' => 'http://' . $this->publishingPlatformLink,
+			'publishedArticleLink' => $this->publishedArticleLink ? 'http://' . $this->publishedArticleLink : null,
+			'publishingPlatformLink' => $this->publishingPlatformLink ? 'http://' . $this->publishingPlatformLink : null,
 		];
 	}
 
