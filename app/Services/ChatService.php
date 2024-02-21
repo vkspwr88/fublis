@@ -47,7 +47,7 @@ class ChatService
 					]);
 
 		$chat = $this->loadUserChat($chat);
-		$chat->is_unread = false;
+		// $chat->is_unread = false;
 		$chat->save();
 		return $chat->messages;
 	}

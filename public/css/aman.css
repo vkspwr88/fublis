@@ -742,6 +742,12 @@ trix-toolbar .trix-button--icon-link, trix-toolbar .trix-button--icon-code, trix
 	height: 37px;
 }
 
+#chatWindow a{
+	color: inherit !important;
+	text-decoration: underline;
+	font-style: italic;
+}
+
 @media(max-width: 992px){
 	.filter-btn{
 		display: block;
