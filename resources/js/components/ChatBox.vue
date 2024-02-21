@@ -192,7 +192,7 @@
 												<div class="col-12">
 													<div class="card bg-gray-100 border-0 rounded-3">
 														<div class="card-body">
-															<p class="card-text text-dark m-0">{{ chatMessage.message }}</p>
+															<p class="card-text text-dark m-0" v-html="chatMessage.message"></p>
 														</div>
 													</div>
 												</div>
