@@ -21,7 +21,7 @@
                                 {{ $journalist->publications[0]->location->name }}
                             </span> --}}
                             @foreach ($journalist->publications[0]->publicationTypes as $publicationType)
-                            <span class="badge rounded-pill text-bg-secondary mb-1">{{ $publicationType->name }}</span>
+                            	<span class="badge rounded-pill text-bg-secondary mb-1">{{ $publicationType->name }}</span>
                             @endforeach
                             @if($journalist->language)
                             <span class="badge rounded-pill text-bg-secondary mb-1">
@@ -30,11 +30,18 @@
                             @endif
                         </p>
                         @if(isArchitect())
-                        <p class="text-end fs-6 col m-0">
-                            <button type="button" class="btn btn-primary btn-sm fw-medium" wire:click="pitchJournalist('{{ $journalist->id }}')">
-                                Submit Story <x-users.spinners.white-btn wire:target="pitchJournalist('{{ $journalist->id }}')" />
-                            </button>
-                        </p>
+							<p class="text-end fs-6 col m-0">
+								<button type="button" class="btn btn-primary btn-sm fw-medium" wire:click="pitchJournalist('{{ $journalist->id }}')">
+									Submit Story <x-users.spinners.white-btn wire:target="pitchJournalist('{{ $journalist->id }}')" />
+								</button>
+							</p>
+						@elseif(isJournalist())
+						@else
+							<p class="text-end fs-6 col m-0">
+								<button type="button" class="btn btn-primary btn-sm fw-medium" onclick="createAccountPrompt()">
+									Submit Story
+								</button>
+							</p>
                         @endif
                     </div>
                     <div class="row justify-content-center pb-2">
@@ -42,9 +49,10 @@
                             <h5 class="fs-5 fw-semibold m-0">
 								@if(isArchitect())
 									<a class="text-dark" href="{{ route('architect.pitch-story.journalists.view', ['journalist' => $journalist->slug]) }}">{{ $journalist->user->name }}</a>
-								@endif
-								@if(isJournalist())
+								@elseif(isJournalist())
 									<a class="text-dark" href="{{ route('journalist.account.profile.journalists.view', ['journalist' => $journalist->slug]) }}">{{ $journalist->user->name }}</a>
+								@else
+									<a class="text-dark" href="javascript:;" onclick="createAccountPrompt()"><span class="small">{{ $journalist->user->name }}</span></a>
 								@endif
                             </h5>
                             <p class="text-secondary fs-6 m-0 p-0"><span class="small">{{ $journalist->position->name }}</span></p>
@@ -60,9 +68,10 @@
                                     <p class="fs-6 m-0 p-0 fw-bold">
                                         @if(isArchitect())
                                             <a class="text-dark" href="{{ route('architect.pitch-story.publications.view', ['publication' => $journalist->publications[0]->slug]) }}"><span class="small">{{ $journalist->publications[0]->name }}</span></a>
-                                        @endif
-                                        @if(isJournalist())
+                                        @elseif(isJournalist())
                                             <a class="text-dark" href="{{ route('journalist.account.profile.publications.view', ['publication' => $journalist->publications[0]->slug]) }}"><span class="small">{{ $journalist->publications[0]->name }}</span></a>
+										@else
+											<a class="text-dark" href="javascript:;" onclick="createAccountPrompt()"><span class="small">{{ $journalist->publications[0]->name }}</span></a>
                                         @endif
                                     </p>
                                 </div>

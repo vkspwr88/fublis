@@ -36,6 +36,13 @@
 										Pitch Story <x-users.spinners.white-btn wire:target="showContact('{{ $publication->id }}')" />
 									</button>
 								</p>
+							@elseif(isJournalist())
+							@else
+								<p class="text-end fs-6 col m-0">
+									<button type="button" class="btn btn-primary btn-sm fw-medium" onclick="createAccountPrompt()">
+										Pitch Story
+									</button>
+								</p>
 							@endif
 						</div>
 						<div class="row justify-content-end align-items-end g-4">
@@ -52,9 +59,10 @@
 										<h5 class="fs-6 fw-semibold m-0 pt-3">
 											@if(isJournalist())
 												<a href="{{ route('journalist.account.profile.publications.view', ['publication' => $publication->slug]) }}" class="text-dark">{{ $publication->name }}</a>
-											@endif
-											@if(isArchitect())
+											@elseif(isArchitect())
 												<a href="{{ route('architect.pitch-story.publications.view', ['publication' => $publication->slug]) }}" class="text-dark">{{ $publication->name }}</a>
+											@else
+												<a href="javascript:;" class="text-dark" onclick="createAccountPrompt()">{{ $publication->name }}</a>
 											@endif
 										</h5>
 										<p class="fs-6 m-0 p-0">

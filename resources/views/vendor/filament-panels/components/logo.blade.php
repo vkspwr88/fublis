@@ -1,5 +1,5 @@
 <img
-    src="{{ asset('images/logo/logo.png') }}"
+    src="{{ asset(env('COMPANY_EMAIL_LOGO')) }}"
     alt="Logo"
     class="h-11"
 />

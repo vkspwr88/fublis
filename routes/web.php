@@ -66,3 +66,6 @@ Route::get('/newsletter/subscribe/{token}', [Users\SubscribeNewsletterController
 // Route::get('/blogs/{slug}', [Users\BlogController::class, 'show'])->name('blogs.show');
 
 Route::get('/invitation/{invitation}/{type}', [Users\InvitationController::class, 'index'])->name('invitation');
+
+Route::get('/top-100-publications/{categorySlug}/{countrySlug}', [Users\TopPublicationController::class, 'top100'])->name('top-100-publications');
+Route::get('/top-100-journalists/{categorySlug}/{countrySlug}', [Users\TopJournalistController::class, 'top100'])->name('top-100-journalists');

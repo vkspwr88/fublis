@@ -79,4 +79,9 @@ class Journalist extends Model
 	{
 		return $this->hasMany(Post::class);
 	}
+
+	public function topJournalists(): BelongsToMany
+	{
+		return $this->belongsToMany(TopJournalist::class, 'top_journalist_lists');
+	}
 }

@@ -5,12 +5,13 @@ use App\Http\Controllers\Users\MessageController;
 use App\Http\Middleware\JournalistLogin;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/signup/{step?}', [Journalists\Auth\SignupController::class, 'index'])->name('signup');
-Route::get('/login', [Journalists\Auth\LoginController::class, 'index'])->name('login');
+Route::middleware('guest')->group(function () {
+	Route::get('/signup/{step?}', [Journalists\Auth\SignupController::class, 'index'])->name('signup');
+	Route::get('/login', [Journalists\Auth\LoginController::class, 'index'])->name('login');
+	Route::get('/forgot-password', [Journalists\Auth\ForgotPasswordController::class, 'index'])->name('forgot');
+	Route::get('/reset-password/{token}/{email}', [Journalists\Auth\ResetPasswordController::class, 'index'])->name('reset');
+});
 Route::get('/logout', [Journalists\Auth\LogoutController::class, 'index'])->name('logout');
-Route::get('/forgot-password', [Journalists\Auth\ForgotPasswordController::class, 'index'])->name('forgot');
-Route::get('/reset-password/{token}/{email}', [Journalists\Auth\ResetPasswordController::class, 'index'])->name('reset');
-
 
 Route::middleware(JournalistLogin::class)->group(function() {
 	Route::post('/download/{mediaKit:slug}', [Journalists\DownloadController::class, 'index'])->name('download');

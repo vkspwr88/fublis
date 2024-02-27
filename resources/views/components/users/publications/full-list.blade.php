@@ -6,7 +6,7 @@
 			@endforeach
 		</div>
 		{{ $publications->links('vendor.livewire.custom-pagination') }}
-		@else
+	@else
 		<div class="row">
 			<div class="col-12">
 				<div class="card border-0 rounded-3 bg-white shadow">

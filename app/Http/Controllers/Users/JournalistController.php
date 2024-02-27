@@ -9,6 +9,12 @@ use Illuminate\Http\Request;
 
 class JournalistController extends Controller
 {
+	public static function getAll()
+	{
+		// dd(Journalist::all()->load('user'));
+		return Journalist::all()->load('user');
+	}
+
     public static function getJournalistById(string $id)
 	{
 		return Journalist::find($id);

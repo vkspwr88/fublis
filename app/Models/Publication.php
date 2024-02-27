@@ -136,4 +136,9 @@ class Publication extends Model
 	{
 		return $this->hasMany(Post::class);
 	}
+
+	public function topPublications(): BelongsToMany
+	{
+		return $this->belongsToMany(TopPublication::class, 'top_publication_list');
+	}
 }

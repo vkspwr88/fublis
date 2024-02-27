@@ -40,3 +40,17 @@ function togglePassword(element){
 		$(toggleBtn).html('<i class="bi bi-eye"></i>');
 	}
 }
+
+function createAccountPrompt(){
+	Swal.fire({
+		title: '',
+		text: 'Please create an account',
+		icon: 'warning',
+		showCancelButton: true,
+		  confirmButtonText: 'Sign Up'
+	}).then((result) => {
+		if (result.isConfirmed) {
+			window.location = '/architect/signup';
+		}
+	});
+}

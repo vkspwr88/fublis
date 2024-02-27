@@ -18,6 +18,42 @@
 				<li><a class="dropdown-item" href="{{ route('journalist.signup') }}">Sign Up</a></li>
 			</ul>
 		</li>
+		@use('App\Http\Controllers\Users\TopPublicationController', 'TopPublicationController')
+		@php
+			$topPublicationRecords = TopPublicationController::getAll();
+		@endphp
+		@if($topPublicationRecords->count())
+		<li class="nav-item dropdown">
+			<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+				Top Publications
+			</a>
+			<ul class="dropdown-menu">
+				@foreach ($topPublicationRecords as $topPublication)
+					<li><a class="dropdown-item" href="{{ route('top-100-publications', ['categorySlug' => $topPublication->category_slug, 'countrySlug' => $topPublication->location_slug]) }}">{{ $topPublication->list_type }}</a></li>
+				@endforeach
+				
+				{{-- <li><a class="dropdown-item" href="{{ route('top-100-publications', ['categorySlug' => 'architecture', 'countrySlug' => 'india']) }}">Top 100 Publications in Architecture in India</a></li> --}}
+			</ul>
+		</li>
+		@endif
+		@use('App\Http\Controllers\Users\TopJournalistController', 'TopJournalistController')
+		@php
+			$topJournalistRecords = TopJournalistController::getAll();
+		@endphp
+		@if($topJournalistRecords->count())
+		<li class="nav-item dropdown">
+			<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+				Top Journalists
+			</a>
+			<ul class="dropdown-menu">
+				@foreach ($topJournalistRecords as $topJournalist)
+					<li><a class="dropdown-item" href="{{ route('top-100-journalists', ['categorySlug' => $topJournalist->category_slug, 'countrySlug' => $topJournalist->location_slug]) }}">{{ $topJournalist->list_type }}</a></li>
+				@endforeach
+				{{-- <li><a class="dropdown-item" href="{{ route('top-100-journalists', ['categorySlug' => 'architecture', 'countrySlug' => 'united-states']) }}">Top 100 Journalists in Architecture in United States</a></li>
+				<li><a class="dropdown-item" href="{{ route('top-100-journalists', ['categorySlug' => 'architecture', 'countrySlug' => 'india']) }}">Top 100 Journalists in Architecture in India</a></li> --}}
+			</ul>
+		</li>
+		@endif
 		<li class="nav-item dropdown">
 			<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
 				Resources
