@@ -1,21 +1,22 @@
 <x-mail::message>
-<p style="margin-bottom: 30px;">
+<p style="margin-bottom: 0px;">
 <img src="{{ url(env('COMPANY_EMAIL_LOGO')) }}" alt="{{ env('COMPANY_NAME') }}" style="width: 150px;" />
 </p>
 <div style="padding: 40px 0;">
 @yield('body')
 </div>
-<p style="margin-bottom: 50px;">
+{{-- <p style="margin-bottom: 50px;">
 Thanks,
 <br>
 The Team
-</p>
+</p> --}}
+<hr style="width: 96px; margin: 15px 0; color: #EAECF0; height: 1px;">
 <p style="margin-bottom: 20px; color: #98A2B3;">
 <small>
 This email was sent to <span class="link">{{ $senderEmail }}</span>. If you'd rather not receive this kind of email, you can <a href="#" class="link">unsubscribe</a> or <a href="#" class="link">manage your email preferences</a>.
 </small>
 </p>
-<p style="margin-bottom: 40px;">
+<p class="fs-14" style="margin-bottom: 30px;">
 &copy; {{ date('Y') }} {{ env('COMPANY_ADDRESS') }}
 </p>
 <p style="float: left;">

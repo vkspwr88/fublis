@@ -26,7 +26,7 @@ class DownloadService
 			}
 		}
 		catch(Exception $exp){
-			dd($exp->getMessage());
+			// dd($exp->getMessage())
 		}
 	}
 
@@ -68,7 +68,7 @@ class DownloadService
 			}
 		}
 		catch(Exception $exp){
-			dd($exp->getMessage());
+			// dd($exp->getMessage())
 		}
 	}
 }

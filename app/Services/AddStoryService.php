@@ -54,7 +54,7 @@ class AddStoryService
 		catch(Exception $exp){
             DB::rollBack();
 
-			dd($exp->getMessage());
+			// dd($exp->getMessage())
             //Session::flash('message', $exp->getMessage());
             //Session::flash('message', 'Unable to process the order. Please contact support.');
             //Session::flash('alert-class', 'alert-danger');
@@ -116,7 +116,7 @@ class AddStoryService
 		catch(Exception $exp){
             DB::rollBack();
 
-			dd($exp->getMessage());
+			// dd($exp->getMessage())
             //Session::flash('message', $exp->getMessage());
             //Session::flash('message', 'Unable to process the order. Please contact support.');
             //Session::flash('alert-class', 'alert-danger');
@@ -190,7 +190,7 @@ class AddStoryService
 		catch(Exception $exp){
             DB::rollBack();
 
-			dd($exp->getMessage());
+			// dd($exp->getMessage())
             return false;
         }
 		return true;
@@ -274,7 +274,7 @@ class AddStoryService
 		catch(Exception $exp){
             DB::rollBack();
 
-			dd($exp->getMessage());
+			// dd($exp->getMessage())
             return false;
         }
 		return true;
@@ -322,7 +322,7 @@ class AddStoryService
 		catch(Exception $exp){
             DB::rollBack();
 
-			dd($exp->getMessage());
+			// dd($exp->getMessage())
             return false;
         }
 		return true;
@@ -382,7 +382,7 @@ class AddStoryService
 		catch(Exception $exp){
             DB::rollBack();
 
-			dd($exp->getMessage());
+			// dd($exp->getMessage())
             return false;
         }
 		return true;

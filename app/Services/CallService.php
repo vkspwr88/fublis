@@ -48,7 +48,7 @@ class CallService
 		}
 		catch(Exception $exp){
             DB::rollBack();
-			dd($exp->getMessage());
+			// dd($exp->getMessage())
             return false;
         }
 		return true;
@@ -88,7 +88,7 @@ class CallService
 		}
 		catch(Exception $exp){
             DB::rollBack();
-			dd($exp->getMessage());
+			// dd($exp->getMessage())
             return false;
         }
 		return true;

@@ -31,7 +31,7 @@ class InviteColleagueService
 		}
 		catch(Exception $exp){
 			DB::rollBack();
-			dd($exp->getMessage());
+			// dd($exp->getMessage())
 			return false;
 		}
 		return true;

@@ -32,7 +32,7 @@ class JournalistPostService
 			DB::commit();
 		} catch (Exception $exp) {
 			DB::rollBack();
-			dd($exp->getMessage());
+			// dd($exp->getMessage())
 			return false;
 		}
 		return true;

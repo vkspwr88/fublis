@@ -65,7 +65,7 @@ class CallController extends Controller
 	public function view(Call $call)
 	{
 		$this->loadModel($call);
-		$city = $call->location->city()->first();
+		// $city = $call->location->city()->first();
 		return view('users.pages.journalists.calls.view', [
 			'title' => $call->title,
 			'submittedBy' => auth()->user()->name,

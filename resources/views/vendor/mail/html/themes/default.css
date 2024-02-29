@@ -55,6 +55,7 @@ h2 {
     font-weight: bold;
     margin-top: 0;
     text-align: left;
+	margin-bottom: 25px;
 }
 
 h3 {
@@ -69,6 +70,18 @@ p {
     line-height: 1.5em;
     margin: 0;
     text-align: left;
+	margin-bottom: 10px;
+	padding: 0;
+}
+
+ul li{
+	font-size: 16px;
+	line-height: 1.5em;
+	margin-bottom: 1rem;
+}
+
+.fs-14 {
+    font-size: 14px;
 }
 
 p.sub {
@@ -236,6 +249,7 @@ img {
 	background: transparent;
 	box-shadow: none;
 	font-weight: bold;
+	text-shadow: none;
 }
 
 .button-blue,

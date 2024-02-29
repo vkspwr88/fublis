@@ -22,6 +22,6 @@
 <p>— The Fublis team</p>
 </div>
 <div class="mb-3">
-<x-mail::button :url="$notificationUrl">Approve Request</x-mail::button>
+<p><x-mail::button :url="$notificationUrl">Approve Request</x-mail::button></p>
 </div>
 @endsection

@@ -74,4 +74,9 @@ class ArchitectController extends Controller
 	{
 		return Architect::find($id);
 	}
+
+	public static function getAll()
+	{
+		return Architect::all()->load('user');
+	}
 }

@@ -23,6 +23,6 @@
 <p>— The Fublis team</p>
 </div>
 <div class="mb-3">
-<x-mail::button :url="$loginUrl">Login</x-mail::button>
+<p><x-mail::button :url="$loginUrl">Login</x-mail::button></p>
 </div>
 @endsection

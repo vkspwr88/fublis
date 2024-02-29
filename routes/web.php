@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Users;
+use App\Services\Architects\StatsService;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
@@ -14,6 +15,14 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
+Route::get('/test', function () {
+    $statsService = new StatsService;
+	$statsService->sendStatEmails('week');
+	var_dump('weekly sent');
+	$statsService->sendStatEmails('month');
+	var_dump('monthly sent');
+})->name('test');
 
 Route::get('/', function () {
     return view('users.pages.home');
