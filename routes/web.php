@@ -1,7 +1,8 @@
 <?php
 
 use App\Http\Controllers\Users;
-use App\Services\Architects\StatsService;
+// use App\Services\Architects\StatsService;
+use App\Services\Journalists\StatsService;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
