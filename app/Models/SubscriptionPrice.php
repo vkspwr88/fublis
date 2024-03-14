@@ -2,25 +2,25 @@
 
 namespace App\Models;
 
+use App\Enums\Users\Architects\SubscriptionPlanTypeEnum;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class TopPublicationList extends Model
+class SubscriptionPrice extends Model
 {
     use HasFactory, HasUuids, SoftDeletes;
 
 	protected $guarded = [];
 
-	public function topPublication(): BelongsTo
-	{
-		return $this->belongsTo(TopPublication::class);
-	}
+	protected $casts = [
+		'plan_type' => SubscriptionPlanTypeEnum::class,
+	];
 
-	public function publication(): BelongsTo
+	public function subscriptionPlan(): BelongsTo
 	{
-		return $this->belongsTo(Publication::class);
+		return $this->belongsTo(subscriptionPlan::class);
 	}
 }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Payments\StripeController;
 use App\Http\Controllers\Users\Architects;
 use App\Http\Controllers\Users\MessageController;
 use App\Http\Middleware\ArchitectLogin;
@@ -33,6 +34,13 @@ Route::middleware(ArchitectLogin::class)->group(function() {
 	});
 
 	Route::prefix('architect')->group(function () {
+		Route::get('/payment', function(){
+			echo 'checking payment';
+		})->name('test');
+		Route::get('/pricing', [StripeController::class, 'index'])->name('stripe.index');
+		Route::get('/checkout/{subscriptionPrice:slug}', [StripeController::class, 'checkout'])->name('stripe.checkout');
+		Route::post('/checkout/{subscriptionPrice:slug}/callback', [StripeController::class, 'callback'])->name('stripe.callback');
+		Route::get('/invoice/{invoice}', [StripeController::class, 'downloadInvoice'])->name('stripe.invoice.download');
 
 		Route::post('/download/{mediaKit:slug}', [Architects\DownloadController::class, 'index'])->name('download');
 		Route::post('/download/{mediaKit:slug}/bulk', [Architects\DownloadController::class, 'bulk'])->name('download.bulk');

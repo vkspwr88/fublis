@@ -14,6 +14,8 @@ class TopJournalist extends Model
 {
     use HasFactory, HasUuids, SoftDeletes;
 
+	protected $guarded = [];
+
 	public function category(): BelongsTo
 	{
 		return $this->belongsTo(Category::class);

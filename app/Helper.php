@@ -137,3 +137,26 @@ if (!function_exists('formatDate')) {
 		return Carbon::parse($date)->format('jS F Y');
 	}
 }
+
+if (!function_exists('isBusinessPlanSubscribed')) {
+	function isBusinessPlanSubscribed()
+	{
+		$user = auth()->user();
+		return $user->subscribed('business-plan-annually') || $user->subscribed('business-plan-quaterly');
+	}
+}
+
+if (!function_exists('isEnterprisePlanSubscribed')) {
+	function isEnterprisePlanSubscribed()
+	{
+		$user = auth()->user();
+		return $user->subscribed('enterprise-plan-annually') || $user->subscribed('enterprise-plan-quaterly');
+	}
+}
+
+if (!function_exists('isSubscribed')) {
+	function isSubscribed()
+	{
+		return isArchitect() && ( isBusinessPlanSubscribed() || isEnterprisePlanSubscribed() );
+	}
+}

@@ -3,8 +3,10 @@
 namespace App\Providers;
 
 use App\Components;
+use App\Models\Architect;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\ServiceProvider;
+use Laravel\Cashier\Cashier;
 use Livewire\Livewire;
 
 class AppServiceProvider extends ServiceProvider
@@ -23,6 +25,8 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Model::unguard();
+
+		// Cashier::useCustomerModel(Architect::class);
 
 		Livewire::component('architect-signup-wizard', Components\Architects\Signup\SignupWizardComponent::class);
 		Livewire::component('architect-signup-step', Components\Architects\Signup\Steps\SignupStepComponent::class);

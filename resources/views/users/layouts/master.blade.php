@@ -88,5 +88,13 @@
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.6/cropper.js"></script>
 		<script src="{{ asset('js/aman.js') }}"></script>
 		@stack('scripts')
+		@if (session('type') && session('message'))
+			<script>
+				showAlert({
+					'type' : '{{ session('type') }}',
+					'message' : '{{ session('message') }}'
+				});
+			</script>
+		@endif
 	</body>
 </html>

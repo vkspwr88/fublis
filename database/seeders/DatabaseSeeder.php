@@ -37,6 +37,9 @@ class DatabaseSeeder extends Seeder
 			SettingSeeder::class,
 			TeamSizeSeeder::class,
 			SocialMediaSeeder::class,
+			SubscriptionPlanSeeder::class,
 		]);
+
+		// php artisan db:seed --class=SubscriptionPlanSeeder
     }
 }

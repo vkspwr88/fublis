@@ -33,10 +33,16 @@ class SettingController extends Controller
 		return abort(401);
 	}
 
-	public function billing()
+	public function billing(Request $request)
 	{
 		if(isArchitectAdmin()){
-			return view('users.pages.architects.accounts.settings.billing');
+			$user = $request->user();
+			// dd($user->invoices());
+			// return $request->user()->redirectToBillingPortal();
+			return view('users.pages.architects.accounts.settings.billing', [
+				'invoices' => $user->invoices(),
+				'paymentMethod' => $user->defaultPaymentMethod(),
+			]);
 		}
 		return abort(401);
 	}

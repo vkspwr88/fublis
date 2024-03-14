@@ -1,6 +1,7 @@
 $('trix-toolbar .trix-button--icon-link, trix-toolbar .trix-button--icon-code, trix-toolbar .trix-button-group--file-tools, trix-toolbar .trix-button--icon-attach').remove();
 
 window.addEventListener('alert', event => {
+	// console.log('alert', event);
     const type = event.detail[0].type;
     const message = event.detail[0].message;
     const title = event.detail[0].title ?? '';
@@ -53,4 +54,14 @@ function createAccountPrompt(){
 			window.location = '/architect/signup';
 		}
 	});
+}
+
+function showAlert(details){
+
+	// Create the event
+	const event = new CustomEvent('alert', {
+		detail: [details]
+	});
+	// Dispatch/Trigger/Fire the event
+	window.dispatchEvent(event);
 }

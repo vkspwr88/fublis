@@ -16,12 +16,13 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Hash;
+use Laravel\Cashier\Billable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable implements Authorizable
 {
-	use HasApiTokens, HasFactory, Notifiable, HasUuids, HasRoles;
+	use HasApiTokens, HasFactory, Notifiable, HasUuids, HasRoles, Billable;
 
 	/**
 	 * The attributes that are mass assignable.

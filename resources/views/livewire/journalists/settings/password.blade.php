@@ -1,14 +1,14 @@
 <form wire:submit="update">
-	<div class="row pt-4 g-4 justify-content-end align-items-end">
+	<div class="pt-4 row g-4 justify-content-end align-items-end">
 		<div class="col">
-			<h4 class="text-dark fs-6 fw-semibold m-0 p-0">Password</h4>
-			<p class="text-secondary fs-6 m-0 p-0">
+			<h4 class="p-0 m-0 text-dark fs-6 fw-semibold">Password</h4>
+			<p class="p-0 m-0 text-secondary fs-6">
 				<small>Please enter your current password to change your password.</small>
 			</p>
 		</div>
 	</div>
 
-	<hr class="border-gray-300 my-4">
+	<hr class="my-4 border-gray-300">
 
 	<div class="row">
 		<div class="col-md-8">

@@ -37,7 +37,7 @@ Route::get('/blank', function () {
     return view('users.pages.blank');
 })->name('blank');
 
-Route::get('clear-cache', function(){
+Route::get('/clear-cache', function(){
     Artisan::call('route:clear');
     Artisan::call('route:cache');
     Artisan::call('config:clear');
@@ -65,6 +65,8 @@ Route::name('auth.')->prefix('auth')->group(function () {
 		Route::get('/callback', 'callback')->name('callback');
 	});
 });
+
+Route::get('/pricing', [Users\SubscriptionPlanController::class, 'index'])->name('pricing');
 
 Route::name('blogs.')->prefix('blogs')->controller(Users\BlogController::class)->group(function () {
 	Route::get('/', 'index')->name('index');
