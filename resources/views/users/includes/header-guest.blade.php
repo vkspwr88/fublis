@@ -31,7 +31,7 @@
 				@foreach ($topPublicationRecords as $topPublication)
 					<li><a class="dropdown-item" href="{{ route('top-100-publications', ['categorySlug' => $topPublication->category_slug, 'countrySlug' => $topPublication->location_slug]) }}">{{ $topPublication->list_type }}</a></li>
 				@endforeach
-				
+
 				{{-- <li><a class="dropdown-item" href="{{ route('top-100-publications', ['categorySlug' => 'architecture', 'countrySlug' => 'india']) }}">Top 100 Publications in Architecture in India</a></li> --}}
 			</ul>
 		</li>
@@ -59,6 +59,7 @@
 				Resources
 			</a>
 			<ul class="dropdown-menu">
+				<li><a class="dropdown-item" href="{{ route('pricing') }}">Pricing</a></li>
 				<li><a class="dropdown-item" href="#">Action</a></li>
 				<li><a class="dropdown-item" href="#">Another action</a></li>
 				<li>
