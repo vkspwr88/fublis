@@ -11,11 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('social_media', function (Blueprint $table) {
+        Schema::create('faqs', function (Blueprint $table) {
             $table->uuid('id')->primary();
-			$table->string('name');
-			$table->text('url');
-			$table->string('icon');
+			$table->text('question');
+			$table->text('answer');
+			$table->integer('sort_order')->default('99');
             $table->timestamps();
 			$table->softDeletes();
         });
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('social_media');
+        Schema::dropIfExists('faqs');
     }
 };

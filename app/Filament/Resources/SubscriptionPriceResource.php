@@ -2,9 +2,9 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\SettingResource\Pages;
-use App\Filament\Resources\SettingResource\RelationManagers;
-use App\Models\Setting;
+use App\Filament\Resources\SubscriptionPriceResource\Pages;
+use App\Filament\Resources\SubscriptionPriceResource\RelationManagers;
+use App\Models\SubscriptionPrice;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -13,28 +13,35 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class SettingResource extends Resource
+class SubscriptionPriceResource extends Resource
 {
-    protected static ?string $model = Setting::class;
+    protected static ?string $model = SubscriptionPrice::class;
+
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
-	protected static ?string $navigationGroup = 'Settings';
-    //protected static ?string $label = 'Locations';
-	// protected static ?int $navigationSort = 5;
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('setting_key')
+                Forms\Components\TextInput::make('slug')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\TextInput::make('setting_value')
+                Forms\Components\Select::make('subscription_plan_id')
+                    ->relationship('subscriptionPlan', 'id')
+                    ->required(),
+                Forms\Components\TextInput::make('plan_type')
+                    ->required()
+                    ->maxLength(255)
+                    ->default('monthly'),
+                Forms\Components\TextInput::make('price_per_month')
+                    ->required()
+                    ->numeric(),
+                Forms\Components\Toggle::make('quantity')
+                    ->required()
+					->numeric(),
+                Forms\Components\TextInput::make('price_id')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\Textarea::make('remarks')
-                    ->required()
-                    ->maxLength(65535)
-                    ->columnSpanFull(),
             ]);
     }
 
@@ -43,14 +50,21 @@ class SettingResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('id')
+                    ->label('ID')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('setting_key')
+                Tables\Columns\TextColumn::make('slug')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('setting_value')
+                Tables\Columns\TextColumn::make('subscriptionPlan.id')
                     ->searchable(),
-				Tables\Columns\TextColumn::make('remarks')
-                    ->searchable()
-					->toggleable(isToggledHiddenByDefault: false),
+                Tables\Columns\TextColumn::make('plan_type')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('price_per_month')
+                    ->numeric()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('quantity')
+					->numeric(),
+                Tables\Columns\TextColumn::make('price_id')
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -62,7 +76,7 @@ class SettingResource extends Resource
                 Tables\Columns\TextColumn::make('deleted_at')
                     ->dateTime()
                     ->sortable()
-					->toggleable(isToggledHiddenByDefault: true),
+                    ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 Tables\Filters\TrashedFilter::make(),
@@ -79,16 +93,13 @@ class SettingResource extends Resource
                     Tables\Actions\ForceDeleteBulkAction::make(),
                     Tables\Actions\RestoreBulkAction::make(),
                 ]),
-            ])
-            ->emptyStateActions([
-                Tables\Actions\CreateAction::make(),
             ]);
     }
 
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ManageSettings::route('/'),
+            'index' => Pages\ManageSubscriptionPrices::route('/'),
         ];
     }
 

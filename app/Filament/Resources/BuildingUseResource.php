@@ -2,9 +2,9 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\SettingResource\Pages;
-use App\Filament\Resources\SettingResource\RelationManagers;
-use App\Models\Setting;
+use App\Filament\Resources\BuildingUseResource\Pages;
+use App\Filament\Resources\BuildingUseResource\RelationManagers;
+use App\Models\BuildingUse;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -13,28 +13,22 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class SettingResource extends Resource
+class BuildingUseResource extends Resource
 {
-    protected static ?string $model = Setting::class;
+    protected static ?string $model = BuildingUse::class;
+
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
-	protected static ?string $navigationGroup = 'Settings';
-    //protected static ?string $label = 'Locations';
-	// protected static ?int $navigationSort = 5;
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('setting_key')
+                Forms\Components\TextInput::make('name')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\TextInput::make('setting_value')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\Textarea::make('remarks')
-                    ->required()
-                    ->maxLength(65535)
-                    ->columnSpanFull(),
+                Forms\Components\Select::make('building_typology_id')
+                    ->relationship('buildingTypology', 'name')
+                    ->required(),
             ]);
     }
 
@@ -43,14 +37,12 @@ class SettingResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('id')
+                    ->label('ID')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('setting_key')
+                Tables\Columns\TextColumn::make('name')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('setting_value')
+                Tables\Columns\TextColumn::make('buildingTypology.name')
                     ->searchable(),
-				Tables\Columns\TextColumn::make('remarks')
-                    ->searchable()
-					->toggleable(isToggledHiddenByDefault: false),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -62,8 +54,9 @@ class SettingResource extends Resource
                 Tables\Columns\TextColumn::make('deleted_at')
                     ->dateTime()
                     ->sortable()
-					->toggleable(isToggledHiddenByDefault: true),
+                    ->toggleable(isToggledHiddenByDefault: true),
             ])
+			->defaultGroup('buildingTypology.name')
             ->filters([
                 Tables\Filters\TrashedFilter::make(),
             ])
@@ -79,16 +72,13 @@ class SettingResource extends Resource
                     Tables\Actions\ForceDeleteBulkAction::make(),
                     Tables\Actions\RestoreBulkAction::make(),
                 ]),
-            ])
-            ->emptyStateActions([
-                Tables\Actions\CreateAction::make(),
             ]);
     }
 
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ManageSettings::route('/'),
+            'index' => Pages\ManageBuildingUses::route('/'),
         ];
     }
 

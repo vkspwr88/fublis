@@ -2,17 +2,14 @@
 
 namespace App\Models;
 
-use App\Casts\NameCast;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class SocialMedia extends Model
+class Faq extends Model
 {
-    use HasFactory, HasUuids, SoftDeletes;
+    use HasFactory, SoftDeletes, HasUuids;
 
-	protected $casts = [
-		'name' => NameCast::class,
-	];
+	protected $guarded = [];
 }

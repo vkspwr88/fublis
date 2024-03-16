@@ -2,9 +2,9 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\TeamSizeResource\Pages;
-use App\Filament\Resources\TeamSizeResource\RelationManagers;
-use App\Models\TeamSize;
+use App\Filament\Resources\CountryResource\Pages;
+use App\Filament\Resources\CountryResource\RelationManagers;
+use App\Models\Country;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -13,22 +13,25 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class TeamSizeResource extends Resource
+class CountryResource extends Resource
 {
-    protected static ?string $model = TeamSize::class;
+    protected static ?string $model = Country::class;
+
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
-	protected static ?string $navigationGroup = 'Settings';
-    //protected static ?string $label = 'Locations';
-	// protected static ?int $navigationSort = 5;
 
     public static function form(Form $form): Form
     {
         return $form
-            ->schema([
-                Forms\Components\TextInput::make('name')
-                    ->required()
-                    ->maxLength(255),
-            ]);
+			->schema([
+				Forms\Components\TextInput::make('name')
+					->required()
+					->maxLength(255),
+				Forms\Components\Radio::make('status')
+					->options([
+						'active' => 'Active',
+						'inactive' => 'Inactive',
+					]),
+			]);
     }
 
     public static function table(Table $table): Table
@@ -36,21 +39,18 @@ class TeamSizeResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('id')
+                    ->label('ID')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('name')
+					->formatStateUsing(fn (string $state): string => ucfirst($state))
                     ->searchable(),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('deleted_at')
-                    ->dateTime()
-                    ->sortable()
-					->toggleable(isToggledHiddenByDefault: true),
+				Tables\Columns\TextColumn::make('status')
+					->badge()
+					->color(fn (string $state): string => match ($state) {
+						'active' => 'success',
+						'inactive' => 'danger',
+					})
+                    ->searchable(),
             ])
             ->filters([
                 Tables\Filters\TrashedFilter::make(),
@@ -67,16 +67,13 @@ class TeamSizeResource extends Resource
                     Tables\Actions\ForceDeleteBulkAction::make(),
                     Tables\Actions\RestoreBulkAction::make(),
                 ]),
-            ])
-            ->emptyStateActions([
-                Tables\Actions\CreateAction::make(),
             ]);
     }
 
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ManageTeamSizes::route('/'),
+            'index' => Pages\ManageCountries::route('/'),
         ];
     }
 

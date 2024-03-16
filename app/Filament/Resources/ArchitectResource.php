@@ -25,9 +25,9 @@ class ArchitectResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('id')
+                /* Forms\Components\TextInput::make('id')
                     ->required()
-                    ->maxLength(36),
+                    ->maxLength(36), */
                 Forms\Components\Select::make('user_id')
                     ->relationship('user', 'name')
                     ->required(),
