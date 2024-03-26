@@ -68,8 +68,8 @@ class UserResource extends Resource
                     ->sortable(),
                 Tables\Columns\TextColumn::make('user_type')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('google_id')
-                    ->searchable(),
+                /* Tables\Columns\TextColumn::make('google_id')
+                    ->searchable(), */
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -78,7 +78,7 @@ class UserResource extends Resource
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('stripe_id')
+                /* Tables\Columns\TextColumn::make('stripe_id')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('pm_type')
                     ->searchable(),
@@ -86,7 +86,7 @@ class UserResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('trial_ends_at')
                     ->dateTime()
-                    ->sortable(),
+                    ->sortable(), */
             ])
             ->filters([
                 //

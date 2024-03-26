@@ -21,7 +21,7 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 class TopPublicationResource extends Resource
 {
     protected static ?string $model = TopPublication::class;
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    // protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 	protected static ?string $navigationGroup = 'Top Publications';
     protected static ?string $label = 'Type';
 	protected static ?int $navigationSort = 1;
@@ -75,7 +75,7 @@ class TopPublicationResource extends Resource
 								->label('Country slug')
 								->maxLength(255),
 						])->columnSpan(2),
-					
+
 					Forms\Components\Fieldset::make('')
 						->schema([
 							Forms\Components\Repeater::make('topPublicationList')

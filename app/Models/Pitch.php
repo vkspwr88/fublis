@@ -23,6 +23,11 @@ class Pitch extends Model
 		return $this->belongsTo(Journalist::class);
 	}
 
+	public function publication(): BelongsTo
+	{
+		return $this->belongsTo(Publication::class);
+	}
+
 	public function pitchable(): MorphTo
 	{
 		return $this->morphTo();

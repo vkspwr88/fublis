@@ -110,6 +110,19 @@ class CallController extends Controller
 		return Call::create($details);
 	}
 
+	public static function generateSlug($title)
+	{
+		$count = Call::where('title', $title)->count();
+		if($count > 1){
+			$title .= $count;
+		}
+		return str()->replace(
+							' ',
+							'-',
+							str()->headline($title)
+						);
+	}
+
 	public static function updateCall(string $callId, array $details)
 	{
 		Call::where('id', $callId)

@@ -85,50 +85,78 @@ class AdminPanelProvider extends PanelProvider
 					->items([
 						...Resources\ArchitectResource::getNavigationItems(),
 						...Resources\ArchitectPositionResource::getNavigationItems(),
-					]),
+					])
+					->icon('heroicon-o-rectangle-stack'),
 
 					Navigation\NavigationGroup::make('Studios')
 					->items([
 						...Resources\CompanyResource::getNavigationItems(),
 						...Resources\TeamSizeResource::getNavigationItems(),
-					]),
+					])
+					->icon('heroicon-o-rectangle-stack'),
 
 					Navigation\NavigationGroup::make('Journalists')
 					->items([
 						...Resources\JournalistResource::getNavigationItems(),
 						...Resources\JournalistPositionResource::getNavigationItems(),
-					]),
+					])
+					->icon('heroicon-o-rectangle-stack'),
 
 					Navigation\NavigationGroup::make('Publications')
 					->items([
 						...Resources\PublicationResource::getNavigationItems(),
 						...Resources\PublicationTypeResource::getNavigationItems(),
-					]),
+					])
+					->icon('heroicon-o-rectangle-stack'),
 
 					Navigation\NavigationGroup::make('Top Journalists')
 					->items([
 						...Resources\TopJournalistResource::getNavigationItems(),
 						...Resources\TopJournalistListResource::getNavigationItems(),
-					]),
+					])
+					->icon('heroicon-o-rectangle-stack'),
 
 					Navigation\NavigationGroup::make('Top Publications')
 					->items([
 						...Resources\TopPublicationResource::getNavigationItems(),
 						...Resources\TopPublicationListResource::getNavigationItems(),
-					]),
+					])
+					->icon('heroicon-o-rectangle-stack'),
+
+					Navigation\NavigationGroup::make('Media Kits')
+					->items([
+						...Resources\ArticleResource::getNavigationItems(),
+						...Resources\PressReleaseResource::getNavigationItems(),
+						...Resources\ProjectResource::getNavigationItems(),
+					])
+					->icon('heroicon-o-rectangle-stack'),
+
+					Navigation\NavigationGroup::make('Calls')
+					->items([
+						...Resources\CallResource::getNavigationItems(),
+					])
+					->icon('heroicon-o-rectangle-stack'),
+
+					Navigation\NavigationGroup::make('Pitches')
+					->items([
+						...Resources\PitchResource::getNavigationItems(),
+					])
+					->icon('heroicon-o-rectangle-stack'),
 
 					Navigation\NavigationGroup::make('Location')
 					->items([
 						...Resources\CountryResource::getNavigationItems(),
 						...Resources\StateResource::getNavigationItems(),
 						...Resources\CityResource::getNavigationItems(),
-					]),
+					])
+					->icon('heroicon-o-rectangle-stack'),
 
 					Navigation\NavigationGroup::make('Stripe')
 					->items([
 						...Resources\SubscriptionPlanResource::getNavigationItems(),
 						...Resources\SubscriptionPriceResource::getNavigationItems(),
-					]),
+					])
+					->icon('heroicon-o-rectangle-stack'),
 
 					Navigation\NavigationGroup::make('Settings')
 					->items([
@@ -142,9 +170,10 @@ class AdminPanelProvider extends PanelProvider
 						...Resources\ProjectStatusResource::getNavigationItems(),
 						...Resources\SettingResource::getNavigationItems(),
 						...Resources\SocialMediaResource::getNavigationItems(),
-					]),
+					])
+					->icon('heroicon-o-rectangle-stack'),
 				]);
 			})
-			->sidebarCollapsibleOnDesktop();
+			->sidebarFullyCollapsibleOnDesktop();
     }
 }

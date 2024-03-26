@@ -21,8 +21,8 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 class TopJournalistResource extends Resource
 {
     protected static ?string $model = TopJournalist::class;
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
-	protected static ?string $navigationGroup = 'Top Journalists';
+    // protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+	// protected static ?string $navigationGroup = 'Top Journalists';
     protected static ?string $label = 'Type';
 	protected static ?int $navigationSort = 2;
 

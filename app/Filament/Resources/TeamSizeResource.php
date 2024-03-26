@@ -16,7 +16,7 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 class TeamSizeResource extends Resource
 {
     protected static ?string $model = TeamSize::class;
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    // protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 	protected static ?string $navigationGroup = 'Settings';
     //protected static ?string $label = 'Locations';
 	// protected static ?int $navigationSort = 5;

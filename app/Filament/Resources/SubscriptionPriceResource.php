@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use App\Enums\Users\Architects\SubscriptionPlanTypeEnum;
 use App\Filament\Resources\SubscriptionPriceResource\Pages;
 use App\Filament\Resources\SubscriptionPriceResource\RelationManagers;
 use App\Models\SubscriptionPrice;
@@ -17,7 +18,7 @@ class SubscriptionPriceResource extends Resource
 {
     protected static ?string $model = SubscriptionPrice::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    // protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     public static function form(Form $form): Form
     {
@@ -29,15 +30,19 @@ class SubscriptionPriceResource extends Resource
                 Forms\Components\Select::make('subscription_plan_id')
                     ->relationship('subscriptionPlan', 'id')
                     ->required(),
-                Forms\Components\TextInput::make('plan_type')
+				Forms\Components\Select::make('plan_type')
+                    ->required()
+                    ->options(SubscriptionPlanTypeEnum::class),
+                /* Forms\Components\TextInput::make('plan_type')
                     ->required()
                     ->maxLength(255)
-                    ->default('monthly'),
+                    ->default('monthly'), */
                 Forms\Components\TextInput::make('price_per_month')
                     ->required()
                     ->numeric(),
                 Forms\Components\Toggle::make('quantity')
                     ->required()
+					->options([3, 12])
 					->numeric(),
                 Forms\Components\TextInput::make('price_id')
                     ->required()

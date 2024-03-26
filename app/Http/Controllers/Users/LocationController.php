@@ -34,14 +34,9 @@ class LocationController extends Controller
 
 	public static function getCountries()
 	{
-		//dd(Country::with('cities')->orderBy('name')->get());
-		/* return Country::with('cities')
-						->orderBy('name')
-						->get(); */
 		return Country::where('status', 'active')
 						->orderBy('name')
 						->get();
-
 	}
 
 	public static function getStatesByCountryId(int $countryId)
@@ -88,5 +83,15 @@ class LocationController extends Controller
 	public static function getCountryById(int $id)
 	{
 		return Country::find($id);
+	}
+
+	public static function getStateById(int $id)
+	{
+		return State::find($id);
+	}
+
+	public static function getCityById(int $id)
+	{
+		return City::find($id);
 	}
 }

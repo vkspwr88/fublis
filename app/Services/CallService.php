@@ -119,7 +119,8 @@ class CallService
 
 	public function generateSlug($title)
 	{
-		$count = Call::where('title', $title)->count();
+		return CallController::generateSlug($title);
+		/* $count = Call::where('title', $title)->count();
 		if($count > 1){
 			$title .= $count;
 		}
@@ -127,7 +128,7 @@ class CallService
 							' ',
 							'-',
 							str()->headline($title)
-						);
+						); */
 	}
 
 	public function searchCalls(array $data)
