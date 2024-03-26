@@ -5,8 +5,8 @@ namespace App\Filament\Resources\CallResource\Pages;
 use App\Filament\Resources\CallResource;
 use App\Http\Controllers\Users\Journalists\CallController;
 use App\Http\Controllers\Users\LocationController;
-use App\Livewire\Architects\Account\Notification;
 use Filament\Actions;
+use Filament\Notifications\Notification;
 use Filament\Resources\Pages\ManageRecords;
 use Illuminate\Database\Eloquent\Model;
 
