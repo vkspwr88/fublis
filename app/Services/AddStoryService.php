@@ -21,12 +21,12 @@ class AddStoryService
             DB::beginTransaction();
 			// create press release
 			$pressRelease = PressRelease::create([
-				'cover_image_path' => FileController::upload($details['coverImage'], 'images/press-releases/cover-images'),
+				'cover_image_path' => FileController::upload($details['coverImage'], 'images/press-releases/cover-images', 'press_release_cover_image'),
 				'title' => $details['pressReleaseTitle'],
 				'image_credits' => $details['imageCredits'],
 				'concept_note' => $details['conceptNote'],
 				'press_release_writeup' => $details['pressReleaseWrite'],
-				'press_release_doc_path' => $details['pressReleaseFile'] ? FileController::upload($details['pressReleaseFile'], 'documents/press-releases') : null,
+				'press_release_doc_path' => $details['pressReleaseFile'] ? FileController::upload($details['pressReleaseFile'], 'documents/press-releases', 'press_release_doc') : null,
 				'press_release_doc_link' => $details['pressReleaseLink'],
 				'photographs_link' => $details['photographsLink'],
 			]);
@@ -42,7 +42,7 @@ class AddStoryService
 				foreach($details['photographsFiles'] as $photograph){
 					ImageController::create($pressRelease->photographs(), [
 						'image_type' => 'photographs',
-						'image_path' => FileController::upload($photograph, 'images/press-releases/photographs'),
+						'image_path' => FileController::upload($photograph, 'images/press-releases/photographs', 'press_release_photographs'),
 					]);
 				}
 			}
@@ -85,15 +85,15 @@ class AddStoryService
 				'project_access_id' => $details['mediaKitAccess'],
 				'slug' => $slug,
 			]);
-			
+
 			// update press release
 			$pressRelease->update([
-				'cover_image_path' => FileController::upload($details['coverImage'], 'images/press-releases/cover-images'),
+				'cover_image_path' => FileController::upload($details['coverImage'], 'images/press-releases/cover-images', 'press_release_cover_image'),
 				'title' => $details['pressReleaseTitle'],
 				'image_credits' => $details['imageCredits'],
 				'concept_note' => $details['conceptNote'],
 				'press_release_writeup' => $details['pressReleaseWrite'],
-				'press_release_doc_path' => $details['pressReleaseFile'] ? FileController::upload($details['pressReleaseFile'], 'documents/press-releases') : null,
+				'press_release_doc_path' => $details['pressReleaseFile'] ? FileController::upload($details['pressReleaseFile'], 'documents/press-releases', 'press_release_doc') : null,
 				'press_release_doc_link' => $details['pressReleaseLink'],
 				'photographs_link' => $details['photographsLink'],
 			]);
@@ -103,7 +103,7 @@ class AddStoryService
 				foreach($details['photographsFiles'] as $photograph){
 					ImageController::create($pressRelease->photographs(), [
 						'image_type' => 'photographs',
-						'image_path' => FileController::upload($photograph, 'images/press-releases/photographs'),
+						'image_path' => FileController::upload($photograph, 'images/press-releases/photographs', 'press_release_photographs'),
 					]);
 				}
 			}
@@ -150,9 +150,9 @@ class AddStoryService
 				'render_credits' => $details['renderCredits'],
 				'consultants' => $details['consultants'],
 				'design_team' => $details['designTeam'],
-				'cover_image_path' => FileController::upload($details['coverImage'], 'images/projects/cover-images'),
+				'cover_image_path' => FileController::upload($details['coverImage'], 'images/projects/cover-images', 'project_cover_image'),
 				'project_brief' => $details['projectBrief'],
-				'project_doc_path' => $details['projectFile'] ? FileController::upload($details['projectFile'], 'documents/projects') : null,
+				'project_doc_path' => $details['projectFile'] ? FileController::upload($details['projectFile'], 'documents/projects', 'project_doc') : null,
 				'project_doc_link' => $details['projectLink'],
 				'photographs_link' => $details['photographsLink'],
 				'drawings_link' => $details['drawingsLink'],
@@ -169,7 +169,7 @@ class AddStoryService
 				foreach($details['photographsFiles'] as $image){
 					ImageController::create($project->photographs(), [
 						'image_type' => 'photographs',
-						'image_path' => FileController::upload($image, 'images/projects/photographs'),
+						'image_path' => FileController::upload($image, 'images/projects/photographs', 'project_photographs'),
 					]);
 				}
 			}
@@ -178,7 +178,7 @@ class AddStoryService
 				foreach($details['drawingsFiles'] as $image){
 					ImageController::create($project->photographs(), [
 						'image_type' => 'drawings',
-						'image_path' => FileController::upload($image, 'images/projects/drawings'),
+						'image_path' => FileController::upload($image, 'images/projects/drawings', 'project_drawings'),
 					]);
 				}
 			}
@@ -240,9 +240,9 @@ class AddStoryService
 				'render_credits' => $details['renderCredits'],
 				'consultants' => $details['consultants'],
 				'design_team' => $details['designTeam'],
-				'cover_image_path' => FileController::upload($details['coverImage'], 'images/projects/cover-images'),
+				'cover_image_path' => FileController::upload($details['coverImage'], 'images/projects/cover-images', 'project_cover_image'),
 				'project_brief' => $details['projectBrief'],
-				'project_doc_path' => $details['projectFile'] ? FileController::upload($details['projectFile'], 'documents/projects') : null,
+				'project_doc_path' => $details['projectFile'] ? FileController::upload($details['projectFile'], 'documents/projects', 'project_doc') : null,
 				'project_doc_link' => $details['projectLink'],
 				'photographs_link' => $details['photographsLink'],
 				'drawings_link' => $details['drawingsLink'],
@@ -253,7 +253,7 @@ class AddStoryService
 				foreach($details['photographsFiles'] as $image){
 					ImageController::create($project->photographs(), [
 						'image_type' => 'photographs',
-						'image_path' => FileController::upload($image, 'images/projects/photographs'),
+						'image_path' => FileController::upload($image, 'images/projects/photographs', 'project_photographs'),
 					]);
 				}
 			}
@@ -262,7 +262,7 @@ class AddStoryService
 				foreach($details['drawingsFiles'] as $image){
 					ImageController::create($project->photographs(), [
 						'image_type' => 'drawings',
-						'image_path' => FileController::upload($image, 'images/projects/drawings'),
+						'image_path' => FileController::upload($image, 'images/projects/drawings', 'project_drawings'),
 					]);
 				}
 			}
@@ -286,14 +286,14 @@ class AddStoryService
             DB::beginTransaction();
 			// create article
 			$article = Article::create([
-				'cover_image_path' => FileController::upload($details['coverImage'], 'images/articles/cover-images'),
+				'cover_image_path' => FileController::upload($details['coverImage'], 'images/articles/cover-images', 'article_cover_image'),
 				'title' => $details['articleTitle'],
 				'text_credits' => $details['textCredits'],
 				'preview_text' => $details['previewText'],
-				'article_doc_path' => $details['articleFile'] ? FileController::upload($details['articleFile'], 'documents/articles') : null,
+				'article_doc_path' => $details['articleFile'] ? FileController::upload($details['articleFile'], 'documents/articles', 'article_doc') : null,
 				'article_doc_link' => $details['articleLink'],
 				'article_writeup' => $details['articleWrite'],
-				'company_profile_path' => $details['companyProfileFile'] ? FileController::upload($details['companyProfileFile'], 'documents/articles/company-profiles') : null,
+				'company_profile_path' => $details['companyProfileFile'] ? FileController::upload($details['companyProfileFile'], 'documents/articles/company-profiles', 'article_company_profile') : null,
 				'company_profile_link' => $details['companyProfileLink'],
 				'images_link' => $details['imagesLink'],
 			]);
@@ -310,7 +310,7 @@ class AddStoryService
 				foreach($details['imagesFiles'] as $image){
 					ImageController::create($article->images(), [
 						'image_type' => 'images',
-						'image_path' => FileController::upload($image, 'images/articles/images'),
+						'image_path' => FileController::upload($image, 'images/articles/images', 'article_images'),
 					]);
 				}
 			}
@@ -353,14 +353,14 @@ class AddStoryService
 
 			// update article
 			$article->update([
-				'cover_image_path' => FileController::upload($details['coverImage'], 'images/articles/cover-images'),
+				'cover_image_path' => FileController::upload($details['coverImage'], 'images/articles/cover-images', 'article_cover_image'),
 				'title' => $details['articleTitle'],
 				'text_credits' => $details['textCredits'],
 				'preview_text' => $details['previewText'],
-				'article_doc_path' => $details['articleFile'] ? FileController::upload($details['articleFile'], 'documents/articles') : null,
+				'article_doc_path' => $details['articleFile'] ? FileController::upload($details['articleFile'], 'documents/articles', 'article_doc') : null,
 				'article_doc_link' => $details['articleLink'],
 				'article_writeup' => $details['articleWrite'],
-				'company_profile_path' => $details['companyProfileFile'] ? FileController::upload($details['companyProfileFile'], 'documents/articles/company-profiles') : null,
+				'company_profile_path' => $details['companyProfileFile'] ? FileController::upload($details['companyProfileFile'], 'documents/articles/company-profiles', 'article_company_profile') : null,
 				'company_profile_link' => $details['companyProfileLink'],
 				'images_link' => $details['imagesLink'],
 			]);
@@ -370,7 +370,7 @@ class AddStoryService
 				foreach($details['imagesFiles'] as $image){
 					ImageController::create($article->images(), [
 						'image_type' => 'images',
-						'image_path' => FileController::upload($image, 'images/articles/images'),
+						'image_path' => FileController::upload($image, 'images/articles/images', 'article_images'),
 					]);
 				}
 			}

@@ -9,7 +9,7 @@ use Illuminate\Support\Str;
 
 class FileController extends Controller
 {
-    public static function upload($file, $location)
+    public static function upload($file, $location, $type = '')
 	{
 		/* $extension = strtolower($file->getClientOriginalExtension());
         $fileName = Str::ulid() . '.' . $extension;
@@ -19,7 +19,13 @@ class FileController extends Controller
 		if(Str::contains($file, $location)){
 			return $file;
 		}
-		return Storage::putFile($location, $file, 'public');
+		$storagePath = Storage::putFile($location, $file, 'public');
+		ImageLogController::create([
+			'user_id' => auth()->id(),
+			'file_type' => $type,
+			'file_path' => $storagePath,
+		]);
+		return $storagePath;
 		// Storage::delete('file.jpg');
 	}
 

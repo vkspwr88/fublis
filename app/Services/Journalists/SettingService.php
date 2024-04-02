@@ -38,7 +38,7 @@ class SettingService
 			if(!empty($details['profileImage'])){
 				ImageController::updateOrCreate(auth()->user()->journalist->profileImage(), [
 					'image_type' => 'profile',
-					'image_path' => FileController::upload($details['profileImage'], 'images/journalists/profile'),
+					'image_path' => FileController::upload($details['profileImage'], 'images/journalists/profile', 'journalist_profile'),
 				]);
 			}
 
@@ -117,7 +117,7 @@ class SettingService
 			if(!empty($details['profileImage'])){
 				ImageController::updateOrCreate($publication->profileImage(), [
 					'image_type' => 'logo',
-					'image_path' => FileController::upload($details['profileImage'], 'images/publications/logos'),
+					'image_path' => FileController::upload($details['profileImage'], 'images/publications/logos', 'publication_logo'),
 				]);
 			}
 
@@ -239,7 +239,7 @@ class SettingService
 			if(!empty($details['profileImage'])){
 				ImageController::updateOrCreate($publication->profileImage(), [
 					'image_type' => 'logo',
-					'image_path' => FileController::upload($details['profileImage'], 'images/publications/logos'),
+					'image_path' => FileController::upload($details['profileImage'], 'images/publications/logos', 'associated_publication_logo'),
 				]);
 			}
 

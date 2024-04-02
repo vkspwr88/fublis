@@ -22,7 +22,7 @@ class SettingService
 						'name' => $details['name'],
 						'email' => $details['email'],
 					]);
-			
+
 			// insert location record
 			$location = LocationController::createLocation([
 				'name' => $details['selectedCity'],
@@ -37,7 +37,7 @@ class SettingService
 			if(!empty($details['profileImage'])){
 				ImageController::updateOrCreate(auth()->user()->architect->profileImage(), [
 					'image_type' => 'profile',
-					'image_path' => FileController::upload($details['profileImage'], 'images/architects/profile'),
+					'image_path' => FileController::upload($details['profileImage'], 'images/architects/profile', 'architect_profile'),
 				]);
 			}
 
@@ -74,7 +74,7 @@ class SettingService
 			if(!empty($details['profileImage'])){
 				ImageController::updateOrCreate($company->profileImage(), [
 					'image_type' => 'logo',
-					'image_path' => FileController::upload($details['profileImage'], 'images/companies/logos'),
+					'image_path' => FileController::upload($details['profileImage'], 'images/companies/logos', 'studio_logo'),
 				]);
 			}
 
@@ -99,7 +99,7 @@ class SettingService
 							->update([
 								'password' => $details['newPassword'],
 							]);
-			
+
 			throw_if(
 				!$updated,
 				Exception::class,
