@@ -86,7 +86,7 @@
 							<ul class="nav flex-column footer-list">
 								@foreach ($socialMedias as $socialMedia)
 									<li class="nav-item">
-										<x-users.footer.nav-links href="{{ $socialMedia->url }}" text="{{ $socialMedia->name }}" />
+										<x-users.footer.nav-links href="{{ $socialMedia->url }}" text="{{ $socialMedia->name }}" target="_blank" />
 									</li>
 								@endforeach
 							</ul>
@@ -131,7 +131,7 @@
 					<ul id="socialNav" class="nav justify-content-center justify-content-md-end">
 						@foreach ($socialMedias as $socialMedia)
 						<li class="nav-item">
-							<a class="nav-link text-muted px-2" href="{{ $socialMedia->url }}">{!! $socialMedia->icon !!}</a>
+							<a class="nav-link text-muted px-2" href="{{ $socialMedia->url }}" target="_blank">{!! $socialMedia->icon !!}</a>
 						</li>
 						@endforeach
 					</ul>
