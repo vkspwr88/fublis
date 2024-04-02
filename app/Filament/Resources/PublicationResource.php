@@ -43,6 +43,7 @@ class PublicationResource extends Resource
                     ->required()
                     ->maxLength(255),
 				Forms\Components\Toggle::make('is_premium')
+					->inline(false)
 					->default(false),
                 Forms\Components\TextInput::make('website')
                     ->required()
@@ -67,6 +68,26 @@ class PublicationResource extends Resource
 					->default(0)
 					->searchable()
 					->required(),
+				Forms\Components\CheckboxList::make('categories')
+					->required()
+					->relationship(titleAttribute: 'name')
+					->columns(2)
+					->gridDirection('row'),
+				Forms\Components\CheckboxList::make('publicationTypes')
+					->required()
+					->relationship(titleAttribute: 'name')
+					->columns(2)
+					->gridDirection('row'),
+				Forms\Components\CheckboxList::make('languages')
+					->relationship(titleAttribute: 'name')
+					->required()
+					->columns(2)
+					->gridDirection('row'),
+				Forms\Components\CheckboxList::make('publishFrom')
+					->relationship(titleAttribute: 'name')
+					->required()
+					->columns(2)
+					->gridDirection('row'),
 				Forms\Components\TextInput::make('starting_year')
 					->length(4)
 					->numeric()
@@ -100,8 +121,25 @@ class PublicationResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('location.name')
                     ->searchable(),
+				Tables\Columns\TextColumn::make('categories.name')
+					->listWithLineBreaks()
+					->toggleable(isToggledHiddenByDefault: true)
+                    ->searchable(),
+				Tables\Columns\TextColumn::make('publicationTypes.name')
+					->listWithLineBreaks()
+					->toggleable(isToggledHiddenByDefault: true)
+                    ->searchable(),
+				Tables\Columns\TextColumn::make('languages.name')
+					->listWithLineBreaks()
+					->toggleable(isToggledHiddenByDefault: true)
+                    ->searchable(),
+				Tables\Columns\TextColumn::make('publishFrom.name')
+					->listWithLineBreaks()
+					->toggleable(isToggledHiddenByDefault: true)
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('starting_year')
                     // ->date()
+					->toggleable(isToggledHiddenByDefault: true)
                     ->sortable(),
                 Tables\Columns\TextColumn::make('instagram')
 					->toggleable(isToggledHiddenByDefault: true)
