@@ -49,7 +49,7 @@ class CompanyController extends Controller
 
 	public static function generateSlug($name)
 	{
-		$count = Company::where('name', $name)->count();
+		$count = Company::withTrashed()->where('name', $name)->count();
 		if($count > 0){
 			$name .= $count;
 		}

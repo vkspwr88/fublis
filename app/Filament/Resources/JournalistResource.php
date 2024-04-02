@@ -8,6 +8,7 @@ use App\Filament\Resources\JournalistResource\RelationManagers;
 use App\Http\Controllers\Users\LocationController;
 use App\Models\Journalist;
 use App\Models\User;
+use Awcodes\Curator\Components\Forms\CuratorPicker;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Forms\Get;
@@ -29,6 +30,16 @@ class JournalistResource extends Resource
     {
         return $form
             ->schema([
+				CuratorPicker::make('media_id')
+					->label('Logo Image (400 x 400)')
+					->buttonLabel('Select Logo Image')
+                    ->acceptedFileTypes(['image/*'])
+					->columnSpanFull()
+					->imageCropAspectRatio('1:1')
+					->maxWidth(400)
+					// ->directory('images/publications/logos')
+					// ->relationship('profile_image', 'imaggable')
+                    ->required(),
                 Forms\Components\Select::make('user_id')
                     ->relationship('user', 'name')
 					->options(User::doesntHave('journalist')->where('user_type', '!=', UserTypeEnum::ARCHITECT)->where('user_type', '!=', UserTypeEnum::ADMIN)->get()->pluck('email', 'id'))
@@ -102,9 +113,11 @@ class JournalistResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('id')
+                /* Tables\Columns\TextColumn::make('id')
                     ->label('ID')
-                    ->searchable(),
+                    ->searchable(), */
+				Tables\Columns\ImageColumn::make('profileImage.image_path')
+					->label('Profile Image'),
                 Tables\Columns\TextColumn::make('slug')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('user.name')

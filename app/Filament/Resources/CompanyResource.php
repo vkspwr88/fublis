@@ -7,6 +7,7 @@ use App\Filament\Resources\CompanyResource\RelationManagers;
 use App\Http\Controllers\Users\CompanyController;
 use App\Http\Controllers\Users\LocationController;
 use App\Models\Company;
+use Awcodes\Curator\Components\Forms\CuratorPicker;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Forms\Get;
@@ -29,6 +30,16 @@ class CompanyResource extends Resource
     {
         return $form
             ->schema([
+				CuratorPicker::make('media_id')
+					->label('Logo Image (400 x 400)')
+					->buttonLabel('Select Logo Image')
+                    ->acceptedFileTypes(['image/*'])
+					->columnSpanFull()
+					->imageCropAspectRatio('1:1')
+					->maxWidth(400)
+					// ->directory('images/publications/logos')
+					// ->relationship('profile_image', 'imaggable')
+                    ->required(),
                 Forms\Components\TextInput::make('name')
                     ->required()
 					->maxLength(255),
@@ -93,7 +104,9 @@ class CompanyResource extends Resource
                 /* Tables\Columns\TextColumn::make('id')
                     ->label('ID')
                     ->searchable(), */
-                Tables\Columns\TextColumn::make('slug')
+				Tables\Columns\ImageColumn::make('profileImage.image_path')
+					->label('Profile Image'),
+				Tables\Columns\TextColumn::make('slug')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('name')
                     ->searchable(),

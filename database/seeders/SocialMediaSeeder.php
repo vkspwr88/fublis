@@ -16,33 +16,28 @@ class SocialMediaSeeder extends Seeder
         $data = [
 			[
 				'name' => 'Twitter',
-				'url' => '#',
+				'url' => 'https://twitter.com/fublismedia',
 				'icon' => '<i class="bi bi-twitter-x"></i>',
 			],
 			[
 				'name' => 'Linkedin',
-				'url' => '#',
+				'url' => 'https://www.linkedin.com/company/fublismedia',
 				'icon' => '<i class="bi bi-linkedin"></i>',
 			],
 			[
 				'name' => 'Facebook',
-				'url' => '#',
+				'url' => 'https://www.facebook.com/fublismedianetwork/',
 				'icon' => '<i class="bi bi-facebook"></i>',
 			],
 			[
 				'name' => 'Instagram',
-				'url' => '#',
+				'url' => 'https://www.instagram.com/fublismedia/',
 				'icon' => '<i class="bi bi-instagram"></i>',
 			],
 			[
 				'name' => 'Pinterest',
-				'url' => '#',
+				'url' => 'https://in.pinterest.com/fublismedia/',
 				'icon' => '<i class="bi bi-pinterest"></i>',
-			],
-			[
-				'name' => 'Snapchat',
-				'url' => '#',
-				'icon' => '<i class="bi bi-snapchat"></i>',
 			],
 		];
 

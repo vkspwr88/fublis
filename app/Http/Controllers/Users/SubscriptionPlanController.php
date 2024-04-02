@@ -10,11 +10,18 @@ class SubscriptionPlanController extends Controller
 {
     public static function getAll()
     {
-        return SubscriptionPlan::with('subscriptionPrices')->get();
+        return SubscriptionPlan::all();
     }
+
+	public static function getRecordsByPlanType($planType)
+	{
+		return SubscriptionPlan::where('plan_type', $planType)->get();
+	}
 
     public function index()
     {
-        return view('users.pages.pricing');
+        return view('users.pages.pricing', [
+			'faqs' => FaqController::getAll(),
+		]);
     }
 }

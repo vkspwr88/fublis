@@ -3,13 +3,16 @@
 namespace App\Filament\Resources\CompanyResource\Pages;
 
 use App\Filament\Resources\CompanyResource;
+use App\Http\Controllers\MediaController;
 use App\Http\Controllers\Users\CompanyController;
+use App\Http\Controllers\Users\ImageController;
 use App\Http\Controllers\Users\LocationController;
 use Filament\Actions;
 use Filament\Notifications\Notification;
 use Filament\Resources\Pages\ManageRecords;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Storage;
 
 class ManageCompanies extends ManageRecords
 {
@@ -46,9 +49,20 @@ class ManageCompanies extends ManageRecords
 					$data['location_id'] = $location->id;
 					$data['slug'] = CompanyController::generateSlug($data['name']);
 					$data['website'] = $data['website'] ? 'http://' . trimWebsiteUrl($data['website']) : null;
-					Arr::forget($data, ['country', 'state']);
+					$media = MediaController::getRecordById($data['media_id']);
+
+					Arr::forget($data, ['country', 'state', 'media_id']);
 					// dd($data, $model);
-					return $model::create($data);
+					$result = $model::create($data);
+					if($media){
+						$newPath = 'images/companies/logos/' . uniqid() . '.' . $media->ext;
+						Storage::copy($media->path, $newPath);
+						ImageController::updateOrCreate($result->profileImage(), [
+							'image_type' => 'logo',
+							'image_path' => $newPath,
+						]);
+					}
+					return $result;
 				})
 				->successNotification(
 					Notification::make()

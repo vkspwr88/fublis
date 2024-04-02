@@ -1,9 +1,11 @@
 <?php
 
 use App\Http\Controllers\Users;
+use App\Mail\TestMail;
 // use App\Services\Architects\StatsService;
 use App\Services\Journalists\StatsService;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,6 +26,10 @@ Route::get('/test', function () {
 	$statsService->sendStatEmails('month');
 	var_dump('monthly sent');
 })->name('test');
+
+Route::get('/test-email', function () {
+	Mail::to('amansaini87@rediffmail.com')->send(new TestMail('amansaini87@rediffmail.com'));
+})->name('test-email');
 
 Route::get('/', function () {
     return view('users.pages.home');
@@ -79,5 +85,5 @@ Route::get('/newsletter/subscribe/{token}', [Users\SubscribeNewsletterController
 
 Route::get('/invitation/{invitation}/{type}', [Users\InvitationController::class, 'index'])->name('invitation');
 
-Route::get('/top-100-publications/{categorySlug}/{countrySlug}', [Users\TopPublicationController::class, 'top100'])->name('top-100-publications');
-Route::get('/top-100-journalists/{categorySlug}/{countrySlug}', [Users\TopJournalistController::class, 'top100'])->name('top-100-journalists');
+Route::get('/publications/{categorySlug}/{countrySlug}', [Users\TopPublicationController::class, 'top'])->name('top-publications');
+Route::get('/journalists/{categorySlug}/{countrySlug}', [Users\TopJournalistController::class, 'top'])->name('top-journalists');

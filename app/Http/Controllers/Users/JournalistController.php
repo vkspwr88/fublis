@@ -45,7 +45,7 @@ class JournalistController extends Controller
 
 	public static function generateSlug($name)
 	{
-		$count = User::where('name', $name)->count();
+		$count = User::withTrashed()->where('name', $name)->count();
 		if($count > 1){
 			$name .= $count;
 		}

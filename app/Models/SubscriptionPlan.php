@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\Users\Architects\SubscriptionPlanTypeEnum;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -14,8 +15,12 @@ class SubscriptionPlan extends Model
 
 	protected $guarded = [];
 
-	public function subscriptionPrices(): HasMany
+	protected $casts = [
+		'plan_type' => SubscriptionPlanTypeEnum::class,
+	];
+
+	/* public function subscriptionPrices(): HasMany
 	{
 		return $this->hasMany(SubscriptionPrice::class);
-	}
+	} */
 }

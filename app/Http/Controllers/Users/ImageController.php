@@ -28,11 +28,11 @@ class ImageController extends Controller
 		// dd($image);
 		$path = $image->image_path;
 		$image->delete();
-		ImageController::deleteFile($path);
+		// ImageController::deleteFile($path);
 	}
 
 	public static function deleteFile($path)
 	{
-		Storage::delete($path);
+		// Storage::delete($path);
 	}
 }

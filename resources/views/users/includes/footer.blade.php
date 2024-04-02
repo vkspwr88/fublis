@@ -134,22 +134,7 @@
 							<a class="nav-link text-muted px-2" href="{{ $socialMedia->url }}">{!! $socialMedia->icon !!}</a>
 						</li>
 						@endforeach
-						{{-- <li class="nav-item">
-							<a class="nav-link text-muted px-2" href="#"><i class="bi bi-linkedin"></i></a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link text-muted px-2" href="#"><i class="bi bi-facebook"></i></a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link text-muted px-2" href="#"><i class="bi bi-github"></i></a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link text-muted px-2" href="#"><i class="bi bi-instagram"></i></a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link text-muted px-2" href="#"><i class="bi bi-dribbble"></i></a>
-						</li> --}}
-					  </ul>
+					</ul>
 				</div>
 			</div>
 		</div>

@@ -6,9 +6,11 @@ use App\Filament\Resources\PublicationResource\Pages;
 use App\Filament\Resources\PublicationResource\RelationManagers;
 use App\Http\Controllers\Users\LocationController;
 use App\Models\Publication;
+use Awcodes\Curator\Components\Forms\CuratorPicker;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Forms\Get;
+use Filament\Resources\Components\Tab;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -23,13 +25,25 @@ class PublicationResource extends Resource
     // protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 	protected static ?string $label = 'List';
 
-    public static function form(Form $form): Form
+	public static function form(Form $form): Form
     {
         return $form
             ->schema([
+				CuratorPicker::make('media_id')
+					->label('Logo Image (400 x 400)')
+					->buttonLabel('Select Logo Image')
+                    ->acceptedFileTypes(['image/*'])
+					->columnSpanFull()
+					->imageCropAspectRatio('1:1')
+					->maxWidth(400)
+					// ->directory('images/publications/logos')
+					// ->relationship('profile_image', 'imaggable')
+                    ->required(),
                 Forms\Components\TextInput::make('name')
                     ->required()
                     ->maxLength(255),
+				Forms\Components\Toggle::make('is_premium')
+					->default(false),
                 Forms\Components\TextInput::make('website')
                     ->required()
                     ->maxLength(255),
@@ -75,6 +89,9 @@ class PublicationResource extends Resource
                 /* Tables\Columns\TextColumn::make('id')
                     ->label('ID')
                     ->searchable(), */
+				Tables\Columns\ToggleColumn::make('is_premium'),
+				Tables\Columns\ImageColumn::make('profileImage.image_path')
+					->label('Profile Image'),
                 Tables\Columns\TextColumn::make('slug')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('name')

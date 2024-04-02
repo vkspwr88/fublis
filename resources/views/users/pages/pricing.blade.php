@@ -227,14 +227,21 @@
 			<div class="col-md-6">
 				<div class="row g-4">
 					<div class="col-12">
-						<div class="row">
-							<div class="col">
-								<h4 class="mb-2 fw-semibold text-dark fs-6">Is there a free trial available?</h4>
-								<p class="m-0 text-secondary fs-6">Yes, you can try us for with free account with 3 Pitches every month on limited publications and journalists. It just takes 2 minutes to signup on Fublis and start pitching.</p>
-							</div>
-							<div class="col-auto">
-								<span class="fs-5 text-muted"><i class="bi bi-dash-circle"></i></span>
-							</div>
+						<div class="accordion accordion-flush" id="accordionFaq">
+							@foreach ($faqs as $faq)
+								<div class="accordion-item bg-transparent border-0 pb-4">
+									<h2 class="accordion-header mb-2" id="panelsStayOpen-heading{{ $loop->iteration }}">
+										<button class="accordion-button fw-semibold text-dark bg-transparent shadow-none py-0 fs-5" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapse{{ $loop->iteration }}" aria-expanded="true" aria-controls="panelsStayOpen-collapse{{ $loop->iteration }}">
+											<span class="pe-3">{{ $faq->question }}</span>
+										</button>
+									  </h2>
+									<div id="panelsStayOpen-collapse{{ $loop->iteration }}" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-heading{{ $loop->iteration }}">
+										<div class="accordion-body py-0">
+											<p class="m-0 pe-4 text-secondary fs-6">{{ $faq->answer }}</p>
+										</div>
+									</div>
+								</div>
+							@endforeach
 						</div>
 					</div>
 				</div>

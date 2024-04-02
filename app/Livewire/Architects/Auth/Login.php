@@ -66,6 +66,9 @@ class Login extends Component
 			'message' => 'You have successfully logged in.'
 		]);
 
+		if(session()->has('url.intended')){
+			return redirect(session()->get('url.intended'));
+		}
 		return to_route('home');
 	}
 }

@@ -13,8 +13,13 @@ return new class extends Migration
     {
         Schema::create('subscription_plans', function (Blueprint $table) {
             $table->uuid('id')->primary();
+			$table->string('slug')->unique();
 			$table->string('plan_name');
+			$table->string('plan_type')->default('monthly');
 			$table->string('plan_id');
+			$table->string('price_id');
+			$table->double('price_per_month');
+			$table->tinyInteger('quantity');
             $table->timestamps();
 			$table->softDeletes();
         });

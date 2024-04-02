@@ -10,6 +10,6 @@ class FaqController extends Controller
 {
 	public static function getAll()
 	{
-		return Faq::all()->orderBy('sort_order');
+		return Faq::orderBy('sort_order')->get();
 	}
 }

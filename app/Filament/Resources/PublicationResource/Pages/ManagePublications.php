@@ -3,13 +3,19 @@
 namespace App\Filament\Resources\PublicationResource\Pages;
 
 use App\Filament\Resources\PublicationResource;
+use App\Http\Controllers\MediaController;
+use App\Http\Controllers\Users\ImageController;
 use App\Http\Controllers\Users\LocationController;
 use App\Http\Controllers\Users\PublicationController;
+use App\Models\Publication;
 use Filament\Actions;
 use Filament\Notifications\Notification;
+use Filament\Resources\Components\Tab;
 use Filament\Resources\Pages\ManageRecords;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Storage;
 
 class ManagePublications extends ManageRecords
 {
@@ -46,9 +52,19 @@ class ManagePublications extends ManageRecords
 					$data['slug'] = PublicationController::generateSlug($data['name']);
 					$data['instagram'] = $data['instagram'] ? 'http://' . trimWebsiteUrl($data['instagram']) : null;
 					$data['website'] = $data['website'] ? 'http://' . trimWebsiteUrl($data['website']) : null;
-					Arr::forget($data, ['country', 'state']);
-					// dd($data, $model);
-					return $model::create($data);
+					$media = MediaController::getRecordById($data['media_id']);
+					Arr::forget($data, ['country', 'state', 'media_id']);
+					// dd($data, $media);
+					$result = $model::create($data);
+					if($media){
+						$newPath = 'images/publications/logos/' . uniqid() . '.' . $media->ext;
+						Storage::copy($media->path, $newPath);
+						ImageController::updateOrCreate($result->profileImage(), [
+							'image_type' => 'logo',
+							'image_path' => $newPath,
+						]);
+					}
+					return $result;
 				})
 				->successNotification(
 					Notification::make()
@@ -58,4 +74,15 @@ class ManagePublications extends ManageRecords
 				),
         ];
     }
+
+	public function getTabs(): array
+	{
+		return [
+			'all' => Tab::make('All')
+				->badge(Publication::query()->count()),
+			'is_premium' => Tab::make('Premium')
+				->badge(Publication::query()->where('is_premium', true)->count())
+				->modifyQueryUsing(fn (Builder $query) => $query->where('is_premium', true)),
+		];
+	}
 }

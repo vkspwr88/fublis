@@ -11,6 +11,7 @@ use App\Http\Controllers\Users\CompanyController;
 use App\Http\Controllers\Users\LocationController;
 use App\Models\Architect;
 use App\Models\User;
+use Awcodes\Curator\Components\Forms\CuratorPicker;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Forms\Get;
@@ -36,6 +37,16 @@ class ArchitectResource extends Resource
     {
         return $form
             ->schema([
+				CuratorPicker::make('media_id')
+					->label('Logo Image (400 x 400)')
+					->buttonLabel('Select Logo Image')
+                    ->acceptedFileTypes(['image/*'])
+					->columnSpanFull()
+					->imageCropAspectRatio('1:1')
+					->maxWidth(400)
+					// ->directory('images/publications/logos')
+					// ->relationship('profile_image', 'imaggable')
+                    ->required(),
 				Forms\Components\Select::make('user_id')
                     ->relationship('user', 'name')
 					->options(User::doesntHave('architect')->where('user_type', '!=', UserTypeEnum::JOURNALIST)->where('user_type', '!=', UserTypeEnum::ADMIN)->get()->pluck('email', 'id'))
@@ -106,7 +117,9 @@ class ArchitectResource extends Resource
                 /* Tables\Columns\TextColumn::make('id')
                     ->label('ID')
                     ->searchable(), */
-                Tables\Columns\TextColumn::make('slug')
+				Tables\Columns\ImageColumn::make('profileImage.image_path')
+					->label('Profile Image'),
+				Tables\Columns\TextColumn::make('slug')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('user.name')
                     ->searchable(),

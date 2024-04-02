@@ -120,14 +120,25 @@ class TopPublicationResource extends Resource
                     ->searchable(), */
                 Tables\Columns\TextColumn::make('list_type')
                     ->searchable(),
+				Tables\Columns\TextColumn::make('url')
+					->state(fn (TopPublication $record): string => route('top-publications', [
+							'categorySlug' => $record->category_slug,
+							'countrySlug' => $record->location_slug,
+						])
+					)
+					->icon('heroicon-m-globe-alt')
+					->iconColor('primary')
+					->copyable()
+					->copyMessage('Url copied')
+					->copyMessageDuration(1500),
                 Tables\Columns\TextColumn::make('category.name')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('category_slug')
-                    ->searchable(),
+                /* Tables\Columns\TextColumn::make('category_slug')
+                    ->searchable(), */
                 Tables\Columns\TextColumn::make('location.name')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('location_slug')
-                    ->searchable(),
+                /* Tables\Columns\TextColumn::make('location_slug')
+                    ->searchable(), */
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

@@ -43,7 +43,7 @@ class RouteServiceProvider extends ServiceProvider
 
 			Route::middleware('web')
 				->name('journalist.')
-                ->prefix('journalist')
+                ->prefix('member')
                 ->group(base_path('routes/journalist.php'));
         });
     }

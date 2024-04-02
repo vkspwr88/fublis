@@ -27,17 +27,17 @@
 			<div class="col-md-8">
 				<div class="card">
 					@php
-						$subscriptionAmountRaw = $subscriptionPrice->price_per_month * $subscriptionPrice->quantity;
-						$subscriptionAmount = number_format($subscriptionPrice->price_per_month * $subscriptionPrice->quantity, 2);
-						$subscriptionTime = $subscriptionPrice->quantity == 3 ? 'every 3 months' : 'per year';
+						$subscriptionAmountRaw = $subscriptionPlan->price_per_month * $subscriptionPlan->quantity;
+						$subscriptionAmount = number_format($subscriptionPlan->price_per_month * $subscriptionPlan->quantity, 2);
+						$subscriptionTime = $subscriptionPlan->quantity == 3 ? 'every 3 months' : 'per year';
 					@endphp
 					<div class="card-header bg-primary text-white">
-						You will be charged ${{ $subscriptionAmount }} for {{ str()->headline($subscriptionPrice->slug) }}
+						You will be charged ${{ $subscriptionAmount }} for {{ str()->headline($subscriptionPlan->slug) }}
 					</div>
 					<div class="card-body">
-						<form id="paymentForm" method="POST" action="{{ route('architect.stripe.callback', ['subscriptionPrice' => $subscriptionPrice->slug]) }}">
+						<form id="paymentForm" method="POST" action="{{ route('architect.stripe.callback', ['subscriptionPlan' => $subscriptionPlan->slug]) }}">
 							@csrf
-							<input type="hidden" name="plan" id="plan" value="{{ $subscriptionPrice->slug }}">
+							<input type="hidden" name="plan" id="plan" value="{{ $subscriptionPlan->slug }}">
 							{{-- <div class="row mb-3">
 								<div class="col">
 									<div class="form-group">
@@ -49,7 +49,7 @@
 							<div class="row">
 								<div class="col">
 									<p class="text-muted fs-6">
-										Subscribe to {{ $subscriptionPrice->subscriptionPlan->plan_name }}
+										Subscribe to {{ $subscriptionPlan->plan_name }}
 									</p>
 									<h4 class="fw-bold text-dark fs-4">
 										${{ $subscriptionAmount }}
@@ -57,17 +57,49 @@
 									</h4>
 									<p class="fs-6">
 										Billed {{ $subscriptionTime }}, according to
-										<strong class="fs-5">${{ number_format($subscriptionPrice->price_per_month, 2) }}</strong>
+										<strong class="fs-5">${{ number_format($subscriptionPlan->price_per_month, 2) }}</strong>
 										per month
 									</p>
 								</div>
 							</div>
 							<hr>
-							<div class="row">
-								<div class="col">
-									<div class="form-group">
-										{{-- <label for="card-element">Card Details</label> --}}
-										{{-- <div id="card-element"></div> --}}
+							<div class="row g-4">
+								@if ($paymentMethod)
+									<div class="col-md-6">
+										<div class="mb-3">
+											<div class="form-check">
+												<input class="form-check-input filter-checkbox" type="radio" name="payment_type" id="oldPaymentType" autocomplete="off" value="old" checked>
+												<label class="form-check-label" for="oldPaymentType">Default Payment Method</label>
+											</div>
+										</div>
+										<div class="mb-3">
+											<div class="row g-3">
+												<div class="col-auto">
+													<span class="btn btn-white text-dark py-3">
+														<img src="{{ asset('images/icons/payments/' . $paymentMethod->card->display_brand . '.png') }}" alt="{{ $paymentMethod->card->display_brand }}" class="img-fluid" />
+													</span>
+												</div>
+												<div class="col text-secondary">
+													<p class="fs-6 fw-medium m-0 text-dark">
+														{{ ucfirst($paymentMethod->card->display_brand) }} ending in {{ $paymentMethod->card->last4 }}
+													</p>
+													<p class="fs-6 fw-normal mb-2">Expiry {{ sprintf('%02d', $paymentMethod->card->exp_month) }}/{{ $paymentMethod->card->exp_year }}</p>
+													@if($paymentMethod->billing_details->email)
+														<p class="fs-6 fw-normal m-0"><i class="bi bi-envelope"></i> {{ $paymentMethod->billing_details->email }}</p>
+													@endif
+												</div>
+											</div>
+										</div>
+									</div>
+								@endif
+								<div class="col-md-6">
+									<div class="mb-3">
+										<div class="form-check">
+											<input class="form-check-input filter-checkbox" type="radio" name="payment_type" id="newPaymentType" autocomplete="off" value="new" {{ $paymentMethod ? '' : 'checked' }}>
+											<label class="form-check-label" for="newPaymentType">New Payment Method</label>
+										</div>
+									</div>
+									<div class="mb-3">
 										<div id="payment-element"></div>
 									</div>
 								</div>
@@ -132,7 +164,7 @@
 			elements,
 			// clientSecret,
 			// confirmParams: {
-			// 	return_url: '{{ route('architect.stripe.callback', ['subscriptionPrice' => $subscriptionPrice->slug]) }}'
+			// 	return_url: '{{ route('architect.stripe.callback', ['subscriptionPlan' => $subscriptionPlan->slug]) }}'
 			// },
 			redirect: 'if_required',
 		});

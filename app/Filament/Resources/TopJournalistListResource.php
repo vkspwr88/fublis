@@ -51,7 +51,9 @@ class TopJournalistListResource extends Resource
                 /* Tables\Columns\TextColumn::make('topJournalist.list_type')
 					->label('List type')
                     ->searchable(), */
-                Tables\Columns\TextColumn::make('journalist.user.name')
+				Tables\Columns\ImageColumn::make('journalist.profileImage.image_path')
+					->label('Profile Image'),
+				Tables\Columns\TextColumn::make('journalist.user.name')
                     ->searchable()
 					->sortable(),
                 Tables\Columns\TextColumn::make('rank_order')

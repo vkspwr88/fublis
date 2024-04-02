@@ -50,7 +50,9 @@ class TopPublicationListResource extends Resource
                 /* Tables\Columns\TextColumn::make('topPublication.list_type')
 					->label('List type')
                     ->searchable(), */
-                Tables\Columns\TextColumn::make('publication.name')
+				Tables\Columns\ImageColumn::make('publication.profileImage.image_path')
+					->label('Profile Image'),
+				Tables\Columns\TextColumn::make('publication.name')
                     ->searchable()
 					->sortable(),
                 Tables\Columns\TextColumn::make('rank_order')

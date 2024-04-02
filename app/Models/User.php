@@ -88,4 +88,14 @@ class User extends Authenticatable implements Authorizable
 	{
 		return $this->hasMany(DownloadRequest::class, 'requested_by');
 	}
+
+	public function subscriptions(): HasMany
+	{
+		return $this->hasMany(Subscription::class);
+	}
+
+	public function latestSubscription(): HasOne
+	{
+		return $this->hasOne(Subscription::class)->latestOfMany();
+	}
 }

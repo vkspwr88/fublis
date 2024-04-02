@@ -9,6 +9,9 @@ class LoginController extends Controller
 {
     public function index()
 	{
+		if(!session()->has('url.intended')){
+            session(['url.intended' => url()->previous()]);
+        }
 		return view('users.pages.journalists.auth.login');
 	}
 }

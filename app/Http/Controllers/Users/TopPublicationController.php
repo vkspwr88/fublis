@@ -19,7 +19,7 @@ class TopPublicationController extends Controller
 		return TopPublication::where($details)->first();
 	}
 
-    public function top100(string $categorySlug, string $countrySlug)
+    public function top(string $categorySlug, string $countrySlug)
 	{
 		$top100Publication = TopPublicationController::getTopPublicationRecord([
 			'category_slug' => $categorySlug,

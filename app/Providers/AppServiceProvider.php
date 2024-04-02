@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Components;
 use App\Models\Architect;
+use App\Models\Subscription;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Cashier\Cashier;
@@ -25,6 +26,8 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Model::unguard();
+
+		Cashier::useSubscriptionModel(Subscription::class);
 
 		// Cashier::useCustomerModel(Architect::class);
 

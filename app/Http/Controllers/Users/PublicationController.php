@@ -28,7 +28,7 @@ class PublicationController extends Controller
 
 	public static function generateSlug($name)
 	{
-		$count = Publication::where('name', $name)->count();
+		$count = Publication::withTrashed()->where('name', $name)->count();
 		if($count > 0){
 			$name .= $count;
 		}

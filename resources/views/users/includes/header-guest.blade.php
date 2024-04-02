@@ -29,7 +29,7 @@
 			</a>
 			<ul class="dropdown-menu">
 				@foreach ($topPublicationRecords as $topPublication)
-					<li><a class="dropdown-item" href="{{ route('top-100-publications', ['categorySlug' => $topPublication->category_slug, 'countrySlug' => $topPublication->location_slug]) }}">{{ $topPublication->list_type }}</a></li>
+					<li><a class="dropdown-item" href="{{ route('top-publications', ['categorySlug' => $topPublication->category_slug, 'countrySlug' => $topPublication->location_slug]) }}">{{ $topPublication->list_type }}</a></li>
 				@endforeach
 
 				{{-- <li><a class="dropdown-item" href="{{ route('top-100-publications', ['categorySlug' => 'architecture', 'countrySlug' => 'india']) }}">Top 100 Publications in Architecture in India</a></li> --}}
@@ -47,7 +47,7 @@
 			</a>
 			<ul class="dropdown-menu">
 				@foreach ($topJournalistRecords as $topJournalist)
-					<li><a class="dropdown-item" href="{{ route('top-100-journalists', ['categorySlug' => $topJournalist->category_slug, 'countrySlug' => $topJournalist->location_slug]) }}">{{ $topJournalist->list_type }}</a></li>
+					<li><a class="dropdown-item" href="{{ route('top-journalists', ['categorySlug' => $topJournalist->category_slug, 'countrySlug' => $topJournalist->location_slug]) }}">{{ $topJournalist->list_type }}</a></li>
 				@endforeach
 				{{-- <li><a class="dropdown-item" href="{{ route('top-100-journalists', ['categorySlug' => 'architecture', 'countrySlug' => 'united-states']) }}">Top 100 Journalists in Architecture in United States</a></li>
 				<li><a class="dropdown-item" href="{{ route('top-100-journalists', ['categorySlug' => 'architecture', 'countrySlug' => 'india']) }}">Top 100 Journalists in Architecture in India</a></li> --}}

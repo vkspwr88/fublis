@@ -3,53 +3,45 @@
 namespace App\Http\Controllers\Payments;
 
 use App\Http\Controllers\Controller;
-use App\Models\SubscriptionPrice;
+use App\Models\SubscriptionPlan;
 use Illuminate\Http\Request;
 
 class StripeController extends Controller
 {
-	/* public function index(Request $request)
+	public function checkout(Request $request, SubscriptionPlan $subscriptionPlan)
 	{
 		$user = $request->user();
 		$stripeCustomer = $user->createOrGetStripeCustomer();
-		// dd($stripeCustomer);
-		return view('users.pages.architects.payments.stripe.index', [
-			'intent' => $user->createSetupIntent(),
-		]);
-	} */
 
-	/* public function subscribe(Request $request, SubscriptionPrice $subscriptionPrice)
-	{
-		$user = $request->user();
-		$stripeCustomer = $user->createOrGetStripeCustomer();
-	} */
-
-    public function checkout(Request $request, SubscriptionPrice $subscriptionPrice)
-	{
-		$user = $request->user();
-		$stripeCustomer = $user->createOrGetStripeCustomer();
-		// dd($subscriptionPrice->load('subscriptionPlan'));
 		return view('users.pages.architects.payments.stripe.checkout', [
 			'intent' => $user->createSetupIntent(),
-			'subscriptionPrice' => $subscriptionPrice->load('subscriptionPlan'),
+			'paymentMethod' => $user->defaultPaymentMethod(),
+			'subscriptionPlan' => $subscriptionPlan,
 		]);
 	}
 
-	public function callback(Request $request, SubscriptionPrice $subscriptionPrice)
+	public function callback(Request $request, SubscriptionPlan $subscriptionPlan)
 	{
-		// dd($request->plan, $subscriptionPrice);
+		$paymentMethod = '';
+		$user = $request->user();
+		if($request->payment_type == 'new'){
+			$paymentMethod = $request->token;
+		}
+		elseif($request->payment_type == 'old'){
+			$paymentMethod = $user->defaultPaymentMethod();
+		}
 		$subscription = $request->user()
-								->newSubscription($subscriptionPrice->slug, $subscriptionPrice->price_id)
-								->quantity($subscriptionPrice->quantity)
-								->create($request->token, [
+								->newSubscription($subscriptionPlan->slug, $subscriptionPlan->price_id)
+								// ->quantity($subscriptionPlan->quantity)
+								->create($paymentMethod, [
 									'email' => auth()->user()->email,
 								], [
-									'metadata' => ['plan' => str()->headline($subscriptionPrice->slug)],
+									'metadata' => ['plan' => str()->headline($subscriptionPlan->slug)],
 								]);
 
 		return to_route('architect.account.profile.setting.billing')->with([
 			'type' => 'success',
-			'message' => 'You have successfully subscribed to ' . str()->headline($subscriptionPrice->slug),
+			'message' => 'You have successfully subscribed to ' . str()->headline($subscriptionPlan->slug),
 		]);
 	}
 

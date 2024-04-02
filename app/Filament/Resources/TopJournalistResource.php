@@ -16,6 +16,7 @@ use Filament\Tables;
 use Illuminate\Support\Str;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class TopJournalistResource extends Resource
@@ -119,14 +120,31 @@ class TopJournalistResource extends Resource
                     ->searchable(), */
                 Tables\Columns\TextColumn::make('list_type')
                     ->searchable(),
+				Tables\Columns\TextColumn::make('url')
+					->state(fn (TopJournalist $record): string => route('top-journalists', [
+							'categorySlug' => $record->category_slug,
+							'countrySlug' => $record->location_slug,
+						])
+					)
+					/* ->url(fn (TopJournalist $record): string => route('top-journalists', [
+							'categorySlug' => $record->category_slug,
+							'countrySlug' => $record->location_slug,
+						])
+					)
+					->openUrlInNewTab() */
+					->icon('heroicon-m-globe-alt')
+					->iconColor('primary')
+					->copyable()
+					->copyMessage('Url copied')
+					->copyMessageDuration(1500),
                 Tables\Columns\TextColumn::make('category.name')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('category_slug')
-                    ->searchable(),
+                /* Tables\Columns\TextColumn::make('category_slug')
+                    ->searchable(), */
                 Tables\Columns\TextColumn::make('location.name')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('location_slug')
-                    ->searchable(),
+                /* Tables\Columns\TextColumn::make('location_slug')
+                    ->searchable(), */
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

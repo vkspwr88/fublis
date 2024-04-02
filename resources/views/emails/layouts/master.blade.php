@@ -23,8 +23,13 @@ This email was sent to <span class="link">{{ $senderEmail }}</span>. If you'd ra
 <img src="{{ url(env('COMPANY_EMAIL_LOGO')) }}" alt="{{ env('COMPANY_NAME') }}" style="width: 150px;" />
 </p>
 <p style="float: right; margin-top: 10px;">
-<a href="#"><img src="{{ asset('images/social/tw.png') }}" alt="twitter" style="width: 25px; height: 25px; margin-right: 10px;"></a>
-<a href="#"><img src="{{ asset('images/social/fb.png') }}" alt="facebook" style="width: 25px; height: 25px; margin-right: 10px;"></a>
-<a href="#"><img src="{{ asset('images/social/in.png') }}" alt="instagram" style="width: 25px; height: 25px;"></a>
+@foreach (App\Models\SocialMedia::all() as $socialMedia)
+<a href="{{ $socialMedia->url }}">
+<img src="{{ asset('images/social/' . strtolower($socialMedia->name) . '.png') }}" alt="{{ strtolower($socialMedia->name) }}" style="width: 30px; height: 30px; margin-left: 5px; margin-top: 10px;">
+</a>
+@endforeach
+{{-- <a href="#"><img src="{{ asset('images/social/twitter.png') }}" alt="twitter" style="width: 25px; height: 25px; margin-right: 10px;"></a>
+<a href="#"><img src="{{ asset('images/social/facebook.png') }}" alt="facebook" style="width: 25px; height: 25px; margin-right: 10px;"></a>
+<a href="#"><img src="{{ asset('images/social/instagram.png') }}" alt="instagram" style="width: 25px; height: 25px;"></a> --}}
 </p>
 </x-mail::message>

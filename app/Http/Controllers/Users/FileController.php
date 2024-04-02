@@ -25,6 +25,6 @@ class FileController extends Controller
 
 	public static function delete($path)
 	{
-		Storage::delete($path);
+		// Storage::delete($path);
 	}
 }
