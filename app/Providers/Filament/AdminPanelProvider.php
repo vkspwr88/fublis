@@ -3,7 +3,6 @@
 namespace App\Providers\Filament;
 
 use App\Filament\Resources;
-use App\Filament\Resources\UserResource;
 use Filament\Navigation;
 use Awcodes\Curator\Resources\MediaResource;
 use Filament\Http\Middleware\Authenticate;
@@ -78,8 +77,9 @@ class AdminPanelProvider extends PanelProvider
 						->isActiveWhen(fn (): bool => request()->routeIs('filament.admin.pages.dashboard'))
 						->url(fn (): string => Pages\Dashboard::getUrl()),
 
-					...UserResource::getNavigationItems(),
+					...Resources\UserResource::getNavigationItems(),
 					...MediaResource::getNavigationItems(),
+					...Resources\ImageLogResource::getNavigationItems(),
 				])->groups([
 					Navigation\NavigationGroup::make('Architects')
 					->items([
