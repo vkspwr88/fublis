@@ -124,15 +124,23 @@ class CompanyResource extends Resource
 					->toggleable(isToggledHiddenByDefault: true)
                     ->sortable(),
                 Tables\Columns\TextColumn::make('twitter')
+					->url(fn (Company $record): string => $record->twitter)
+					->openUrlInNewTab()
 					->toggleable(isToggledHiddenByDefault: true)
                     ->searchable(),
                 Tables\Columns\TextColumn::make('facebook')
+					->url(fn (Company $record): string => $record->facebook)
+					->openUrlInNewTab()
 					->toggleable(isToggledHiddenByDefault: true)
                     ->searchable(),
                 Tables\Columns\TextColumn::make('instagram')
+					->url(fn (Company $record): string => $record->instagram)
+					->openUrlInNewTab()
 					->toggleable(isToggledHiddenByDefault: true)
                     ->searchable(),
                 Tables\Columns\TextColumn::make('linkedin')
+					->url(fn (Company $record): string => $record->linkedin)
+					->openUrlInNewTab()
 					->toggleable(isToggledHiddenByDefault: true)
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')

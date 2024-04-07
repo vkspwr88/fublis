@@ -32,6 +32,7 @@ class ArchitectResource extends Resource
 
     // protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 	protected static ?string $label = 'List';
+	protected static ?string $recordRouteKeyName = 'slug';
 
     public static function form(Form $form): Form
     {
@@ -46,10 +47,21 @@ class ArchitectResource extends Resource
 					->maxWidth(400)
 					// ->directory('images/publications/logos')
 					// ->relationship('profile_image', 'imaggable')
-                    ->required(),
+                    ->required(fn (string $operation): bool => $operation != 'edit'),
 				Forms\Components\Select::make('user_id')
                     ->relationship('user', 'name')
-					->options(User::doesntHave('architect')->where('user_type', '!=', UserTypeEnum::JOURNALIST)->where('user_type', '!=', UserTypeEnum::ADMIN)->get()->pluck('email', 'id'))
+					->options(function(string $operation, Get $get) {
+						// dd($operation, $get('user_id'));
+						$users = User::doesntHave('architect')->where('user_type', '!=', UserTypeEnum::JOURNALIST)->where('user_type', '!=', UserTypeEnum::ADMIN)->get();
+						if($operation == 'edit' || $operation == 'view'){
+							$user = User::where('id', $get('user_id'))->get();
+							// $user = User::find($get('user_id'));
+							// dd($get('user_id'), $user);
+							$users = $users->merge($user);
+							// dd($users);
+						}
+						return $users->pluck('email', 'id');
+					})
 					->createOptionForm([
 						Forms\Components\TextInput::make('name')
 							->required()
@@ -68,7 +80,9 @@ class ArchitectResource extends Resource
 							->maxLength(255),
 						Forms\Components\Select::make('user_type')
 							->required()
-							->options(['architect'])
+							->options([
+								'architect' => 'Architect'
+							])
 							->default('architect'),
 					])
                     ->required(),
@@ -150,7 +164,12 @@ class ArchitectResource extends Resource
             ])
             ->actions([
                 Tables\Actions\ViewAction::make(),
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\EditAction::make()
+					/* ->using(function (Model $record, array $data): Model {
+						$record->update($data);
+
+						return $record;
+					}) */,
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

@@ -61,7 +61,9 @@ class JournalistResource extends Resource
 							->maxLength(255),
 						Forms\Components\Select::make('user_type')
 							->required()
-							->options(['journalist'])
+							->options([
+								'journalist' => 'Journalist'
+							])
 							->default('journalist'),
 					])
                     ->required(),

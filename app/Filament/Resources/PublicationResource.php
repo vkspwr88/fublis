@@ -142,6 +142,8 @@ class PublicationResource extends Resource
 					->toggleable(isToggledHiddenByDefault: true)
                     ->sortable(),
                 Tables\Columns\TextColumn::make('instagram')
+					->url(fn (Publication $record): string => $record->instagram)
+					->openUrlInNewTab()
 					->toggleable(isToggledHiddenByDefault: true)
                     ->searchable(),
                 Tables\Columns\TextColumn::make('monthly_visitors')
