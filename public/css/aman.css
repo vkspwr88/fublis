@@ -763,6 +763,44 @@ trix-toolbar .trix-button--icon-link, trix-toolbar .trix-button--icon-code, trix
 	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='rgb(108, 117, 125)' class='bi bi-dash-circle' viewBox='0 0 16 16'%3E%3Cpath d='M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16'/%3E%3Cpath d='M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8'/%3E%3C/svg%3E");
 }
 
+#userTab .nav-item:first-child{
+	border-top-left-radius: 30px;
+	  border-bottom-left-radius: 30px;
+}
+#userTab .nav-item:last-child{
+	border-top-right-radius: 30px;
+	  border-bottom-right-radius: 30px;
+}
+#userTab .nav-item .nav-link{
+	color: var(--fublis-purple-700);
+	border-radius: 30px;
+	font-weight: 600;
+}
+#userTab .nav-item .nav-link.active{
+	background-color: var(--fublis-purple-700);
+	color: var(--fublis-purple-100);
+}
+.fublis-line-through{
+	/* background: url('/images/utility/linethrough.png');
+	background-position: 0px 20px;
+	background-repeat: no-repeat;
+	background-size: contain;
+	padding: 0 20px; */
+	position: relative;
+	padding-right: 15px;
+}
+.fublis-line-through .overlay{
+	/* background: url('/images/utility/linethrough.png');
+	background-position: 0px 20px;
+	background-repeat: no-repeat;
+	background-size: contain;
+	padding: 0 20px; */
+	position: absolute;
+	left: -10%;
+	top: 43%;
+	width: 105%;
+}
+
 @media(max-width: 992px){
 	.filter-btn{
 		display: block;

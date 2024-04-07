@@ -3,45 +3,6 @@
 {!! seo() !!}
 
 @section('body')
-<style>
-	#userTab .nav-item:first-child{
-		border-top-left-radius: 30px;
-  		border-bottom-left-radius: 30px;
-	}
-	#userTab .nav-item:last-child{
-		border-top-right-radius: 30px;
-  		border-bottom-right-radius: 30px;
-	}
-	#userTab .nav-item .nav-link{
-		color: var(--fublis-purple-700);
-		border-radius: 30px;
-		font-weight: 600;
-	}
-	#userTab .nav-item .nav-link.active{
-		background-color: var(--fublis-purple-700);
-		color: var(--fublis-purple-100);
-	}
-	.fublis-line-through{
-		/* background: url('/images/utility/linethrough.png');
-		background-position: 0px 20px;
-		background-repeat: no-repeat;
-		background-size: contain;
-		padding: 0 20px; */
-		position: relative;
-		padding-right: 15px;
-	}
-	.fublis-line-through .overlay{
-		/* background: url('/images/utility/linethrough.png');
-		background-position: 0px 20px;
-		background-repeat: no-repeat;
-		background-size: contain;
-		padding: 0 20px; */
-		position: absolute;
-		left: -10%;
-		top: 43%;
-		width: 105%;
-	}
-</style>
 <div class="py-5">
 	<div class="container py-5">
 		<div class="row g-4">
