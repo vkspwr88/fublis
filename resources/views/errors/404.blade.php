@@ -31,21 +31,21 @@
 					<div class="row g-4">
 						<div class="col-12">
 							<p class="m-0">
-								<a href="" class="text-purple-700 fw-semibold">Platform <i class="bi bi-arrow-right"></i></a>
+								<a href="{{ route('home') }}" class="text-purple-700 fw-semibold">Platform <i class="bi bi-arrow-right"></i></a>
 								<br>
 								<span class="text-secondary">Dive in to learn all about Fublis.</span>
 							</p>
 						</div>
 						<div class="col-12">
 							<p class="m-0">
-								<a href="" class="text-purple-700 fw-semibold">Magazine <i class="bi bi-arrow-right"></i></a>
+								<a href="https://www.blog.fublis.com" target="_blank" class="text-purple-700 fw-semibold">Magazine <i class="bi bi-arrow-right"></i></a>
 								<br>
 								<span class="text-secondary">Read the latest posts on our blog.</span>
 							</p>
 						</div>
 						<div class="col-12">
 							<p class="m-0">
-								<a href="" class="text-purple-700 fw-semibold">Help Center <i class="bi bi-arrow-right"></i></a>
+								<a href="https://www.help.fublis.com" target="_blank" class="text-purple-700 fw-semibold">Help Center <i class="bi bi-arrow-right"></i></a>
 								<br>
 								<span class="text-secondary">Our friendly team is here to help.</span>
 							</p>

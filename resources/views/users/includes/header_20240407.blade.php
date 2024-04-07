@@ -1,5 +1,5 @@
-<nav id="header" class="bg-white shadow-sm navbar navbar-expand-xl fixed-top">
-	<div class="container-fluid">
+<nav id="header" class="navbar navbar-expand-xl bg-white fixed-top shadow-sm">
+	<div class="container">
 		<a class="navbar-brand" href="{{ route('home') }}">
 			<img src="{{ asset(env('COMPANY_LOGO')) }}" alt="{{ env('APP_NAME') }}" class="header-logo">
 		</a>
@@ -26,18 +26,18 @@
 		</div>
 
 		{{-- <div class="collapse navbar-collapse" id="navbarSupportedContent">
-			<ul id="headerNav" class="mb-2 navbar-nav ms-5 me-auto mb-lg-0">
+			<ul id="headerNav" class="navbar-nav ms-5 me-auto mb-2 mb-lg-0">
 				<li class="nav-item">
-					<a class="px-3 nav-link active" aria-current="page" href="#">Add Story</a>
+					<a class="nav-link px-3 active" aria-current="page" href="#">Add Story</a>
 				</li>
 				<li class="nav-item">
-					<a class="px-3 nav-link" href="#">Media Kits</a>
+					<a class="nav-link px-3" href="#">Media Kits</a>
 				</li>
 				<li class="nav-item">
-					<a class="px-3 nav-link" href="#">Pitch Story</a>
+					<a class="nav-link px-3" href="#">Pitch Story</a>
 				</li>
 				<li class="nav-item dropdown">
-					<a class="px-3 nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+					<a class="nav-link px-3 dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
 						aria-expanded="false">
 						Resources
 					</a>
@@ -53,23 +53,23 @@
 			</ul>
 			<form class="d-flex" role="search">
 				<div class="input-group">
-					<label class="bg-white input-group-text" for="headerSearchInput"><i class="bi bi-search"></i></label>
-					<input id="headerSearchInput" class="shadow-none form-control border-start-0 ps-0" type="search" placeholder="Search journalists, publications" aria-label="Search">
+					<label class="input-group-text bg-white" for="headerSearchInput"><i class="bi bi-search"></i></label>
+					<input id="headerSearchInput" class="form-control border-start-0 shadow-none ps-0" type="search" placeholder="Search journalists, publications" aria-label="Search">
 				</div>
 			</form>
 			<ul id="profileNav" class="navbar-nav ms-auto">
-				<li class="px-1 nav-item">
-					<a href="javascript:;" class="border border-2 nav-link text-purple border-purple rounded-circle lh-1">
+				<li class="nav-item px-1">
+					<a href="javascript:;" class="nav-link text-purple border border-2 border-purple rounded-circle lh-1">
 						<i class="bi bi-envelope"></i>
 					</a>
 				</li>
-				<li class="px-1 nav-item">
-					<a href="javascript:;" class="border border-2 nav-link text-purple border-purple rounded-circle lh-1">
+				<li class="nav-item px-1">
+					<a href="javascript:;" class="nav-link text-purple border border-2 border-purple rounded-circle lh-1">
 						<i class="bi bi-bell"></i>
 					</a>
 				</li>
-				<li class="px-1 nav-item">
-					<a href="javascript:;" class="border border-2 nav-link text-purple border-purple rounded-circle lh-1">
+				<li class="nav-item px-1">
+					<a href="javascript:;" class="nav-link text-purple border border-2 border-purple rounded-circle lh-1">
 						<i class="bi bi-person-fill"></i>
 					</a>
 				</li>
