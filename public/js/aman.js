@@ -65,3 +65,24 @@ function showAlert(details){
 	// Dispatch/Trigger/Fire the event
 	window.dispatchEvent(event);
 }
+
+/* $(document).on('focusin', '.nav-sub-menu', function(e){
+	e.preventDefault();
+	console.log($(this), $(this).parent());
+	$(this).parent().addClass('mouse-hover');
+});
+
+$(document).on('focusout', '.nav-sub-menu', function(e){
+	e.preventDefault();
+	console.log($(this), $(this).parent());
+	$(this).parent().removeClass('mouse-hover');
+}); */
+
+$(document).on('mouseover', '.hover', function() {
+	const $this = $(this);
+	$this.removeClass("hover");
+	setTimeout(function() {
+		$this.addClass("hover")
+	}, 20);
+});
+
