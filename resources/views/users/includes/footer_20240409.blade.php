@@ -1,43 +1,5 @@
 <footer id="footer">
-	<div class="bg-footer-black py-5">
-		<div class="container py-5">
-			<div class="row text-center g-5">
-				<div class="col-12">
-					<h4 class="text-white">Subscribe and never miss out</h4>
-					<livewire:users.blogs.index.subscribe-newsletter />
-				</div>
-				<div class="col-12">
-					<ul class="nav justify-content-center" id="bannerFooterNav">
-						<li class="nav-item">
-						  	<a class="nav-link text-white" href="https://www.fublis.com">Home</a>
-						</li>
-						<li class="nav-item">
-						  	<a class="nav-link text-white" href="https://app.fublis.com/">Platform</a>
-						</li>
-						<li class="nav-item">
-						  	<a class="nav-link text-white" href="https://blog.fublis.com/">Magazine</a>
-						</li>
-						<li class="nav-item">
-						  	<a class="nav-link text-white" href="https://help.fublis.com/">Help Center</a>
-						</li>
-					</ul>
-				</div>
-				<div class="col-12">
-					<h1 class="m-0 p-0 lh-1 text-white fw-bold" style="white-space: nowrap; font-size: 13vw;">FUBLIS NOW</h1>
-				</div>
-
-			</div>
-			
-		</div>
-	</div>
 	<div id="footer1" class="bg-white py-5">
-		<div class="container">
-			<div class="row g-4">
-				@include('users.includes.footers.nav')
-			</div>
-		</div>
-	</div>
-	{{-- <div id="footer1" class="bg-white py-5">
 		<div class="container">
 			<div class="row g-4">
 				<div class="col-md-4 text-center text-md-start">
@@ -156,7 +118,7 @@
 				</div>
 			</div>
 		</div>
-	</div> --}}
+	</div>
 	<div id="footer2" class="py-3">
 		<div class="container">
 			<div class="row">

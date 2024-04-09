@@ -28,7 +28,7 @@ Route::middleware(JournalistLogin::class)->group(function() {
 
 	Route::name('media-kit.')->prefix('media-kit')->group(function () {
 		Route::get('/', [Journalists\MediaKitController::class, 'index'])->name('index');
-		Route::get('/{mediaKit:slug}', [Journalists\MediaKitController::class, 'view'])->name('view');
+		Route::get('/{mediaKit:slug}', [Journalists\MediaKitController::class, 'view'])->name('view')->withoutMiddleware(JournalistLogin::class);
 		Route::name('press-release.')->prefix('press-release')->group(function () {
 			Route::get('/{mediaKit:slug}', [Journalists\MediaKits\PressReleaseController::class, 'view'])->name('view');
 		});

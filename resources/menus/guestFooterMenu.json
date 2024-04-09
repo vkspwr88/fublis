@@ -1,0 +1,190 @@
+{
+	"items" : [
+		{
+			"url" : null,
+			"name" : "Features",
+			"submenu" : [
+				{
+					"url" : "https://www.fublis.com/features/one-click-pitching",
+					"name" : "One click pitching",
+					"submenu" : null
+				},
+				{
+					"url" : "https://www.fublis.com/features/unlimited-pitching",
+					"name" : "Unlimited Pitching",
+					"submenu" : null
+				},
+				{
+					"url" : "https://www.fublis.com/features/journalists-network",
+					"name" : "Journalists Network",
+					"submenu" : null
+				},
+				{
+					"url" : "https://www.fublis.com/features/publications-network",
+					"name" : "Publications Network",
+					"submenu" : null
+				},
+				{
+					"url" : "https://www.fublis.com/features/ready-to-publish-media-kits",
+					"name" : "Ready to publish media kits",
+					"submenu" : null
+				}
+			]
+		},
+		{
+			"url" : null,
+			"name" : "Platform",
+			"submenu" : [
+				{
+					"url" : "architect.signup",
+					"name" : "Join Fublis",
+					"submenu" : null
+				},
+				{
+					"url" : "architect.add-story.index",
+					"name" : "Create media kit",
+					"submenu" : null
+				},
+				{
+					"url" : "architect.pitch-story.journalists.index",
+					"name" : "Start pitching",
+					"submenu" : null
+				},
+				{
+					"url" : "architect.pitch-story.calls.index",
+					"name" : "Submit to calls",
+					"submenu" : null
+				},
+				{
+					"url" : "pricing",
+					"name" : "Pricing",
+					"submenu" : null
+				}
+			]
+		},
+		{
+			"url" : null,
+			"name" : "Journalists",
+			"submenu" : [
+				{
+					"url" : "journalist.signup",
+					"name" : "Join Fublis",
+					"submenu" : null
+				},
+				{
+					"url" : "journalist.call.create",
+					"name" : "Invite stories",
+					"submenu" : null
+				},
+				{
+					"url" : "journalist.media-kit.index",
+					"name" : "Download media kits",
+					"submenu" : null
+				},
+				{
+					"url" : "journalist.account.profile.setting.publication",
+					"name" : "Add publication",
+					"submenu" : null
+				},
+				{
+					"url" : "journalist.account.profile.message.index",
+					"name" : "Submissions",
+					"submenu" : null
+				}
+			]
+		},
+		{
+			"url" : null,
+			"name" : "Resources",
+			"submenu" : [
+				{
+					"url" : "https://www.fublis.com/awards",
+					"name" : "Awards",
+					"submenu" : null
+				},
+				{
+					"url" : "https://help.fublis.com/",
+					"name" : "Help Center",
+					"submenu" : null
+				},
+				{
+					"url" : "https://blog.fublis.com/",
+					"name" : "Fublis Magazine",
+					"submenu" : null
+				},
+				{
+					"url" : "https://www.fublis.com/journalists",
+					"name" : "List of journalists",
+					"submenu" : null
+				},
+				{
+					"url" : "https://www.fublis.com/Publications",
+					"name" : "List of Publications",
+					"submenu" : null
+				}
+			]
+		},
+		{
+			"url" : null,
+			"name" : "Company",
+			"submenu" : [
+				{
+					"url" : "https://www.fublis.com/contact",
+					"name" : "Contact",
+					"submenu" : null
+				},
+				{
+					"url" : "https://www.fublis.com/careers",
+					"name" : "Careers",
+					"submenu" : null
+				},
+				{
+					"url" : "https://www.fublis.com/press",
+					"name" : "Press",
+					"submenu" : null
+				},
+				{
+					"url" : "https://www.fublis.com/affiliate-area",
+					"name" : "Affiliate Login",
+					"submenu" : null
+				},
+				{
+					"url" : "https://www.fublis.com/affiliate/",
+					"name" : "Become an affiliate",
+					"submenu" : null
+				}
+			]
+		},
+		{
+			"url" : null,
+			"name" : "Legal",
+			"submenu" : [
+				{
+					"url" : "https://www.fublis.com/terms/",
+					"name" : "Terms of Service",
+					"submenu" : null
+				},
+				{
+					"url" : "https://www.fublis.com/privacy-policy/",
+					"name" : "Privacy Policy",
+					"submenu" : null
+				},
+				{
+					"url" : "https://www.fublis.com/cookie-policy/",
+					"name" : "Cookie Policy",
+					"submenu" : null
+				},
+				{
+					"url" : "https://www.fublis.com/billing-policy/",
+					"name" : "Billing Policy",
+					"submenu" : null
+				},
+				{
+					"url" : "https://www.fublis.com/brand-policy/",
+					"name" : "Brand Policy",
+					"submenu" : null
+				}
+			]
+		}
+	]
+}

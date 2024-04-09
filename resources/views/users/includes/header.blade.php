@@ -9,11 +9,11 @@
 		</button>
 		<nav id="headerNav" class="d-flex h-100 w-100">
 			@if(isArchitect())
-				@include('users.includes.nav-architect')
+				@include('users.includes.headers.nav-architect')
 			@elseif(isJournalist())
-				@include('users.includes.nav-journalist')
+				@include('users.includes.headers.nav-journalist')
 			@else
-				@include('users.includes.nav-guest')
+				@include('users.includes.headers.nav-guest')
 			@endif
 		</nav>
 	</div>
