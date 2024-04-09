@@ -1,5 +1,5 @@
 @php
-	$path = resource_path('menus/guestHeaderMenu.json');
+	$path = resource_path('menus/architectHeaderMenu.json');
 	$menus = json_decode(file_get_contents($path));
 	// dd($menus);
 @endphp
