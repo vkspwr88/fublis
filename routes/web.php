@@ -32,6 +32,12 @@ Route::get('/test-email', function () {
 })->name('test-email');
 
 Route::get('/', function () {
+	if(isArchitect()){
+		/* return to_route('architect.') */
+	}
+	if(isJournalist()){
+		return to_route('journalist.media-kit.index');
+	}
     return view('users.pages.home');
 })->name('home');
 
