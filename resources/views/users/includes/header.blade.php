@@ -84,7 +84,7 @@
 							@endif
 						</a>
 						<ul class="nav-sub-menu end-0" style="left: auto; width: 35em">
-							<li class="nav-sub-menu-item" style="flex: none; width: 162px; background-color: #f2f2f2;">
+							<li class="nav-sub-menu-item text-center" style="flex: none; width: 162px; background-color: #f2f2f2;">
 								<ul class="nav-sub-menu-item-ul">
 									<li class="nav-sub-menu-item-li">
 										<a class="sf-with-ul">
@@ -146,7 +146,7 @@
 						<span class="nav-text">Sign In</span>
 					</a>
 				</li>
-				<li class="nav-item">
+				<li class="nav-item ms-2">
 					<a class="btn btn-primary hover" href="{{ route('architect.login') }}">
 						<span class="nectar-menu-icon svg-icon">
 							<svg style="width: 18px; height: 18px; color: #fff; fill: #fff;" role="presentation" version="1.1" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
