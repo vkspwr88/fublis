@@ -8,11 +8,11 @@
 							$cardImg = '<img src="' . ($journalist->profileImage ? Storage::url($journalist->profileImage->image_path) : 'https://via.placeholder.com/150x150') . '" class="img-square img-150" alt="...">';
 						@endphp
 						@if(isArchitect())
-							<a href="{{ route('architect.pitch-story.publications.view', ['publication' => $journalist->publications[0]->slug]) }}">
+							<a href="{{ route('architect.pitch-story.journalists.view', ['journalist' => $journalist->slug]) }}">
 								{!! $cardImg !!}
 							</a>
 						@elseif(isJournalist())
-							<a href="{{ route('journalist.account.profile.publications.view', ['publication' => $journalist->publications[0]->slug]) }}">
+							<a href="{{ route('journalist.account.profile.journalists.view', ['journalist' => $journalist->slug]) }}">
 								{!! $cardImg !!}
 							</a>
 						@else
