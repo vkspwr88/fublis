@@ -134,7 +134,7 @@
 			</div>
 		</div>
 		<div class="col-md-6 col-lg-4 col-xl-3">
-			<div class="card rounded-4 shadow border-0" style="min-height: 400px;">
+			<div class="card rounded-4 shadow h-100 border-0">
 				<div class="card-body">
 					<div class="row g-3">
 						<div class="col-12">
@@ -175,7 +175,7 @@
 			</div>
 		</div>
 		<div class="col-md-12 col-lg-5 col-xl-6">
-			<div class="card rounded-4 shadow border-0 bg-gray-300 h-100" style="min-height: 700px;">
+			<div class="card rounded-4 shadow h-100 border-0 bg-gray-300">
 				<iframe class="w-100 h-100 rounded-4" title="{{ $publication->name }}" src="{{ $publication->website }}"></iframe>
 			</div>
 		</div>
