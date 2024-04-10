@@ -38,7 +38,7 @@ class Company extends Component
 	{
 		$company = auth()->user()->architect->company->load(['profileImage', 'location']);
 		$this->company = $company->name;
-		$this->website = trimWebsiteUrl($company->website);
+		$this->website = $company->website;
 		$this->twitter = $company->twitter;
 		$this->facebook = $company->facebook;
 		$this->instagram = $company->instagram;
@@ -107,7 +107,7 @@ class Company extends Component
 				ValidationRule::unique('companies', 'name')
 								->where(fn (Builder $query) => $query->where('name', '!=', $this->company)),
 			],
-			'website' => 'required|url',
+			'website' => 'required|url:https',
 			'profileImage' => __('validations/rules.profileImage') . '|' . __('validations/rules.imageMimes'),
 			// 'profileImage' => 'nullable|image|mimes:svg,png,jpg,gif|max:3100|dimensions:max_width=400,max_height=400',
 			// 'location' => 'required|exists:locations,id',
@@ -128,7 +128,7 @@ class Company extends Component
 			'company.required' => 'Enter the :attribute.',
 			'company.unique' => 'Enter the unique :attribute.',
 			'website.required' => 'Enter the :attribute.',
-			'website.url' => 'Enter the valid :attribute.',
+			'website.url' => 'Enter the valid https :attribute.',
 			// 'profileImage.required' => 'Upload the :attribute.',
 			/* 'profileImage.image' => 'The :attribute supports only image.',
 			'profileImage.mimes' => 'The :attribute supports only svg, png, jpg or gif.',
@@ -167,7 +167,7 @@ class Company extends Component
 	{
 		return [
 			'company' => $this->company,
-			'website' => 'http://' . $this->website,
+			'website' => 'https://' . trimWebsiteUrl($this->website),
 			'profileImage' => $this->profileImage,
 			'twitter' => $this->twitter ? $this->twitter : '',
 			'facebook' => $this->facebook ? $this->facebook : '',

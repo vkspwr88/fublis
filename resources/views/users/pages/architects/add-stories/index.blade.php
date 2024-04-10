@@ -10,13 +10,13 @@
 			<div class="row g-4">
 				<div class="col-lg-4">
 					<div class="card add-story-card rounded-4 shadow border border-1 h-100">
-						<div class="card-header rounded-top-4 border-0 py-5">
+						<div class="card-header rounded-top-4 border-0 py-5 bg-purple-600">
 							<div class="justify-content-center align-items-center d-flex">
-								<div class="text-center fs-1 rounded-circle bg-white"><i class="bi bi-plus"></i></div>
+								<div class="text-center fs-1 rounded-circle bg-white text-purple-600"><i class="bi bi-plus"></i></div>
 							</div>
 						</div>
 						<div class="card-body">
-							<h5 class="card-title text-purple-700 fs-5 fw-semibold m-0 py-2">Create Press Release</h5>
+							<h5 class="card-title text-purple-700 fs-5 fw-semibold m-0 py-2">Add Press Release</h5>
 							<div class="pt-3">
 								<div class="row gx-2 pb-3">
 									<div class="col-auto">
@@ -58,7 +58,7 @@
 										<p class="card-text text-secondary fs-6 fw-normal m-0">Tell about latest event/collaboration</p>
 									</div>
 								</div>
-								<a href="{{ route('architect.add-story.press-release.index') }}" class="stretched-link"></a>
+								<a href="{{ route('architect.add-story.press-release.index') }}" class="stretched-link" aria-label="Add Press Release"></a>
 							</div>
 						</div>
 					</div>
@@ -66,13 +66,13 @@
 
 				<div class="col-lg-4">
 					<div class="card add-story-card rounded-4 shadow border border-1 h-100">
-						<div class="card-header rounded-top-4 border-0 py-5">
+						<div class="card-header rounded-top-4 border-0 py-5 bg-purple-600">
 							<div class="justify-content-center align-items-center d-flex">
-								<div class="text-center fs-1 rounded-circle bg-white"><i class="bi bi-plus"></i></div>
+								<div class="text-center fs-1 rounded-circle bg-white text-purple-600"><i class="bi bi-plus"></i></div>
 							</div>
 						</div>
 						<div class="card-body">
-							<h5 class="card-title text-purple-700 fs-5 fw-semibold m-0 py-2">Create Project Story</h5>
+							<h5 class="card-title text-purple-700 fs-5 fw-semibold m-0 py-2">Add Project Story</h5>
 							<div class="pt-3">
 								<div class="row gx-2 pb-3">
 									<div class="col-auto">
@@ -114,7 +114,7 @@
 										<p class="card-text text-secondary fs-6 fw-normal m-0">Share your latest work</p>
 									</div>
 								</div>
-								<a href="{{ route('architect.add-story.project.index') }}" class="stretched-link"></a>
+								<a href="{{ route('architect.add-story.project.index') }}" class="stretched-link" aria-label="Add Project"></a>
 							</div>
 						</div>
 					</div>
@@ -122,13 +122,13 @@
 
 				<div class="col-lg-4">
 					<div class="card add-story-card rounded-4 shadow border border-1 h-100">
-						<div class="card-header rounded-top-4 border-0 py-5">
+						<div class="card-header rounded-top-4 border-0 py-5 bg-purple-600">
 							<div class="justify-content-center align-items-center d-flex">
-								<div class="text-center fs-1 rounded-circle bg-white"><i class="bi bi-plus"></i></div>
+								<div class="text-center fs-1 rounded-circle bg-white text-purple-600"><i class="bi bi-plus"></i></div>
 							</div>
 						</div>
 						<div class="card-body">
-							<h5 class="card-title text-purple-700 fs-5 fw-semibold m-0 py-2">Create Article</h5>
+							<h5 class="card-title text-purple-700 fs-5 fw-semibold m-0 py-2">Add Article</h5>
 							<div class="pt-3">
 								<div class="row gx-2 pb-3">
 									<div class="col-auto">
@@ -143,7 +143,7 @@
 										<p class="card-text text-purple-600 fs-6 fw-normal mx-auto my-1"><i class="bi bi-check-circle"></i></p>
 									</div>
 									<div class="col">
-										<p class="card-text text-secondary fs-6 fw-normal m-0">Talk about current events</p>
+										<p class="card-text text-secondary fs-6 fw-normal m-0">Share your brand story</p>
 									</div>
 								</div>
 								<div class="row gx-2 pb-3">
@@ -167,10 +167,10 @@
 										<p class="card-text text-purple-600 fs-6 fw-normal mx-auto my-1"><i class="bi bi-check-circle"></i></p>
 									</div>
 									<div class="col">
-										<p class="card-text text-secondary fs-6 fw-normal m-0">Share your perspective</p>
+										<p class="card-text text-secondary fs-6 fw-normal m-0">Share your startup story</p>
 									</div>
 								</div>
-								<a href="{{ route('architect.add-story.article.index') }}" class="stretched-link"></a>
+								<a href="{{ route('architect.add-story.article.index') }}" class="stretched-link" aria-label="Add Article"></a>
 							</div>
 						</div>
 					</div>

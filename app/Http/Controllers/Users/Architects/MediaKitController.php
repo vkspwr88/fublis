@@ -58,7 +58,7 @@ class MediaKitController extends Controller
 
 	public static function generateSlug($name)
 	{
-		$count = MediaKit::withTrashed()->whereHasMorph(
+		$count = MediaKit::whereHasMorph(
 			'story',
 			[PressRelease::class, Project::class, Article::class],
 			function (Builder $query) use($name) {

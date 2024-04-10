@@ -92,8 +92,7 @@
 				</div>
 			</div>
 			@error('form.articleFile')<div class="error">{{ $message }}</div>@enderror
-			<div class="input-group mb-3">
-				<span class="input-group-text bg-white" id="articleLinkAddon">http://</span>
+			<div class="mb-3">
 				<input type="text" class="form-control @error('form.articleLink') is-invalid @enderror" wire:model="form.articleLink" placeholder="Insert drive link" aria-describedby="articleLinkAddon">
 				@error('form.articleLink')<div class="invalid-feedback">{{ $message }}</div>@enderror
 			</div>
@@ -156,8 +155,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="input-group">
-				<span class="input-group-text bg-white" id="companyProfileLinkAddon">http://</span>
+			<div class="">
 				<input type="text" class="form-control @error('form.companyProfileLink') is-invalid @enderror" wire:model="form.companyProfileLink" placeholder="Insert drive link" aria-describedby="companyProfileLinkAddon">
 				@error('form.companyProfileLink')<div class="invalid-feedback">{{ $message }}</div>@enderror
 			</div>
@@ -226,8 +224,7 @@
 				</div>
 			</div>
 			@error('form.imagesFiles')<div class="error">{{ $message }}</div>@enderror
-			<div class="input-group">
-				<span class="input-group-text bg-white" id="imagesLinkAddon">http://</span>
+			<div class="">
 				<input type="text" class="form-control @error('form.imagesLink') is-invalid @enderror" wire:model="form.imagesLink" placeholder="Insert drive link" aria-describedby="imagesLinkAddon">
 				@error('form.imagesLink')<div class="invalid-feedback">{{ $message }}</div>@enderror
 			</div>

@@ -68,7 +68,7 @@ class PressReleaseForm extends Form
 			'conceptNote' => 'required|' . __('validations/rules.mediaKitBriefCharacters'),
 			'pressReleaseWrite' => 'required',
 			'pressReleaseFile' => $this->getValidationRule('pressReleaseFile'),
-			'pressReleaseLink' => 'nullable|required_without:pressReleaseFile|url',
+			'pressReleaseLink' => 'nullable|required_without:pressReleaseFile|url:https',
 			'photographsFiles' => 'nullable|array',
 			// 'photographsFiles.*' => $this->getValidationRule('photographsFiles.*'),
 			'photographsFiles.*' => Rule::forEach(function (string|null $value, string $attribute) {
@@ -80,9 +80,9 @@ class PressReleaseForm extends Form
 							'nullable|image|' . __('validations/rules.imageMimes') . '|' . __('validations/rules.bulkFilesSize') :
 							'nullable|string';
 			}),
-			'photographsLink' => 'nullable|url',
+			'photographsLink' => 'nullable|url:https',
 			/* 'photographsFiles.*' => 'image|mimes:svg,png,jpg,gif',
-			'photographsLink' => 'nullable|required_without:photographsFiles|url', */
+			'photographsLink' => 'nullable|required_without:photographsFiles|url:https', */
 			'tags' => 'nullable|array',
 			'mediaContact' => 'required',
 			'mediaKitAccess' => 'required',
@@ -126,12 +126,12 @@ class PressReleaseForm extends Form
 			'pressReleaseWrite.required' => 'Enter the :attribute.',
 			'pressReleaseWrite.max' => __('validations/messages.mediaKitBriefCharacters'),
 			'pressReleaseFile.mimes' => __('validations/messages.wordMimes'),
-			'pressReleaseLink.url' => 'Enter the valid :attribute.',
+			'pressReleaseLink.url' => 'Enter the valid https :attribute.',
 			'pressReleaseLink.required_without' => 'Enter the :attribute or upload the file.',
 			'photographsFiles.*.image' => __('validations/messages.image'),
 			'photographsFiles.*.mimes' => __('validations/messages.imageMimes'),
 			'photographsFiles.*.max' => __('validations/messages.bulkFilesSize'),
-			'photographsLink.url' => 'Enter the valid :attribute.',
+			'photographsLink.url' => 'Enter the valid https :attribute.',
 			'photographsLink.required_without' => 'Enter the :attribute or upload the file.',
 			'tags.required' => 'Enter the :attribute.',
 			'mediaContact.required' => 'Select the :attribute.',
@@ -155,25 +155,6 @@ class PressReleaseForm extends Form
 			'tags' => 'tags',
 			'mediaContact' => 'media contact',
 			'mediaKitAccess' => 'media kit access',
-		];
-	}
-
-	public function data()
-	{
-		return [
-			'coverImage' => $this->coverImage,
-			'pressReleaseTitle' => $this->pressReleaseTitle,
-			'imageCredits' => $this->imageCredits,
-			'category' => $this->category,
-			'conceptNote' => $this->conceptNote,
-			'pressReleaseWrite' => $this->pressReleaseWrite,
-			'pressReleaseFile' => $this->pressReleaseFile,
-			'pressReleaseLink' => $this->pressReleaseLink ? 'http://' . $this->pressReleaseLink : null,
-			'photographsFiles' => $this->photographsFiles,
-			'photographsLink' => $this->photographsLink ? 'http://' . $this->photographsLink : null,
-			'tags' => $this->tags,
-			'mediaContact' => $this->mediaContact,
-			'mediaKitAccess' => $this->mediaKitAccess,
 		];
 	}
 
@@ -231,9 +212,9 @@ class PressReleaseForm extends Form
 		$this->conceptNote = $content->conceptNote;
 		$this->pressReleaseWrite = $content->pressReleaseWrite;
 		$this->pressReleaseFile = $content->pressReleaseFile;
-		$this->pressReleaseLink = trimWebsiteUrl($content->pressReleaseLink);
+		$this->pressReleaseLink = $content->pressReleaseLink;
 		$this->photographsFiles = $content->photographsFiles;
-		$this->photographsLink = trimWebsiteUrl($content->photographsLink);
+		$this->photographsLink = $content->photographsLink;
 		$this->tags = $content->tags;
 		$this->mediaContact = $content->mediaContact;
 		$this->mediaKitAccess = $content->mediaKitAccess;
@@ -242,8 +223,8 @@ class PressReleaseForm extends Form
 
 	public function updateFields()
 	{
-		$this->pressReleaseLink = $this->pressReleaseLink ? 'http://' . trimWebsiteUrl($this->pressReleaseLink) : null;
-		$this->photographsLink = $this->photographsLink ? 'http://' . trimWebsiteUrl($this->photographsLink) : null;
+		$this->pressReleaseLink = $this->pressReleaseLink ? 'https://' . trimWebsiteUrl($this->pressReleaseLink) : null;
+		$this->photographsLink = $this->photographsLink ? 'https://' . trimWebsiteUrl($this->photographsLink) : null;
 	}
 
 	// public function store($type = 'new', $draftId = null)

@@ -2,6 +2,7 @@
 
 namespace App\Services\Architects;
 
+use App\Http\Controllers\ErrorLogController;
 use App\Http\Controllers\Users\FileController;
 use App\Http\Controllers\Users\ImageController;
 use App\Http\Controllers\Users\LocationController;
@@ -45,7 +46,14 @@ class SettingService
 		}
 		catch(Exception $exp){
 			DB::rollBack();
-			// dd($exp->getMessage())
+			ErrorLogController::logError(
+				'updatePersonalInfo', [
+					'line' => $exp->getLine(),
+					'file' => $exp->getFile(),
+					'message' => $exp->getMessage(),
+					'code' => $exp->getCode(),
+				]
+			);
 			return false;
 		}
 		return true;
@@ -83,7 +91,14 @@ class SettingService
 		}
 		catch(Exception $exp){
 			DB::rollBack();
-			// dd($exp->getMessage())
+			ErrorLogController::logError(
+				'updateCompany', [
+					'line' => $exp->getLine(),
+					'file' => $exp->getFile(),
+					'message' => $exp->getMessage(),
+					'code' => $exp->getCode(),
+				]
+			);
 			return false;
 		}
 		return true;
@@ -110,7 +125,14 @@ class SettingService
 		}
 		catch(Exception $exp){
 			DB::rollBack();
-			// dd($exp->getMessage())
+			ErrorLogController::logError(
+				'updatePassword', [
+					'line' => $exp->getLine(),
+					'file' => $exp->getFile(),
+					'message' => $exp->getMessage(),
+					'code' => $exp->getCode(),
+				]
+			);
 			return false;
 		}
 		return true;

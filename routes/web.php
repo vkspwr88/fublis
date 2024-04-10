@@ -33,7 +33,7 @@ Route::get('/test-email', function () {
 
 Route::get('/', function () {
 	if(isArchitect()){
-		/* return to_route('architect.') */
+		return to_route('architect.add-story.index');
 	}
 	if(isJournalist()){
 		return to_route('journalist.media-kit.index');

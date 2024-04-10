@@ -252,8 +252,7 @@
 				</div>
 			</div>
 			@error('form.projectFile')<div class="error">{{ $message }}</div>@enderror
-			<div class="input-group mb-3">
-				<span class="input-group-text bg-white" id="projectLinkAddon">http://</span>
+			<div class="mb-3">
 				<input type="text" class="form-control @error('form.projectLink') is-invalid @enderror" wire:model="form.projectLink" placeholder="Insert drive link" aria-describedby="projectLinkAddon">
 				@error('form.projectLink')<div class="invalid-feedback">{{ $message }}</div>@enderror
 			</div>
@@ -322,8 +321,7 @@
 				</div>
 			</div>
 			@error('form.photographsFiles')<div class="error">{{ $message }}</div>@enderror
-			<div class="input-group mb-3">
-				<span class="input-group-text bg-white" id="photographsLinkAddon">http://</span>
+			<div class="mb-3">
 				<input type="text" class="form-control @error('form.photographsLink') is-invalid @enderror" wire:model="form.photographsLink" placeholder="Insert drive link" aria-describedby="photographsLinkAddon">
 				@error('form.photographsLink')<div class="invalid-feedback">{{ $message }}</div>@enderror
 			</div>

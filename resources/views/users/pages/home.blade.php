@@ -5,9 +5,9 @@
 @section('body')
 <div class="py-5">
 	<div class="container py-5">
-		<div class="row g-4">
+		<div class="row g-4 text-center">
 			<div class="col-md-12">
-				<ul id="userTab" class="nav nav-pills justify-content-center" role="tablist">
+				<ul id="userTab" class="nav nav-pills justify-content-center" aria-label="User Tab">
 					<li class="p-1 bg-purple-100 nav-item pe-0" role="presentation">
 						<button class="py-2 nav-link active" id="architectTab" data-bs-toggle="pill" data-bs-target="#architectTabContent" type="button" role="tab" aria-controls="architectTabContent" aria-selected="true">Join Fublis</button>
 					</li>
@@ -18,7 +18,7 @@
 			</div>
 			<div class="col-md-12">
 				<div class="tab-content" id="userTabContent">
-					<div class="tab-pane fade show active" id="architectTabContent" role="tabpanel" aria-labelledby="architectTab" tabindex="0">
+					<div class="tab-pane fade show active" id="architectTabContent" role="tabpanel" aria-labelledby="architectTab">
 						<div class="text-center row g-4">
 							<div class="col-12">
 								<h2 class="m-0 fs-1 fw-semibold text-dark">
@@ -26,7 +26,7 @@
 									<br>
 									<span class="fublis-line-through">
 										Publish
-										<img src="{{ asset('images/utility/linethrough.png') }}" class="overlay"></img>
+										<img src="{{ asset('images/utility/linethrough.png') }}" class="overlay" alt=""></img>
 									</span>
 									<span class="text-purple-700">Fublis.</span>
 								</h2>
@@ -46,7 +46,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="tab-pane fade" id="journalistTabContent" role="tabpanel" aria-labelledby="journalistTab" tabindex="0">
+					<div class="tab-pane fade" id="journalistTabContent" role="tabpanel" aria-labelledby="journalistTab">
 						<div class="text-center row g-4">
 							<div class="col-12">
 								<h2 class="m-0 fs-1 fw-semibold text-dark">

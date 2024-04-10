@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Enums\Users\Architects\UserRoleEnum;
 use App\Enums\Users\UserTypeEnum;
+use App\Http\Controllers\ErrorLogController;
 use App\Http\Controllers\Users\ArchitectController;
 use App\Http\Controllers\Users\CompanyController;
 use App\Http\Controllers\Users\LocationController;
@@ -154,7 +155,14 @@ class ArchitectService
 		}
 		catch(Exception $exp){
             DB::rollBack();
-			// dd($exp->getMessage())
+			ErrorLogController::logError(
+				'addCompany', [
+					'line' => $exp->getLine(),
+					'file' => $exp->getFile(),
+					'message' => $exp->getMessage(),
+					'code' => $exp->getCode(),
+				]
+			);
 			return false;
 		}
 		return true;

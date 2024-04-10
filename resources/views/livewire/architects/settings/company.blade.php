@@ -37,11 +37,8 @@
 			<div class="row">
 				<label for="inputWebsite" class="col-md-4 col-form-label text-dark fs-6 fw-medium">Company Website</label>
 				<div class="col-md-8">
-					<div class="input-group">
-						<span class="input-group-text bg-white text-secondary" id="websiteAddon">http://</span>
-						<input type="text" id="inputWebsite" class="form-control @error('website') is-invalid @enderror" wire:model="website">
-						@error('website')<div class="invalid-feedback">{{ $message }}</div>@enderror
-					</div>
+					<input type="text" id="inputWebsite" class="form-control @error('website') is-invalid @enderror" wire:model="website">
+					@error('website')<div class="invalid-feedback">{{ $message }}</div>@enderror
 				</div>
 			</div>
 			<hr class="border-gray-300">

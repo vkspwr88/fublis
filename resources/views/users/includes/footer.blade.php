@@ -23,11 +23,9 @@
 					</ul>
 				</div>
 				<div class="col-12">
-					<h1 class="m-0 p-0 lh-1 text-white fw-bold" style="white-space: nowrap; font-size: 13vw;">FUBLIS NOW</h1>
+					<h1 id="fullWidthHeader" class="m-0 p-0 lh-1 text-white fw-bold">FUBLIS NOW</h1>
 				</div>
-
 			</div>
-			
 		</div>
 	</div>
 	<div id="footer1" class="bg-white py-5">

@@ -18,22 +18,9 @@
 											</div>
 											<div class="mb-3">
 												<label for="inputWebsite" class="form-label text-dark fs-6 fw-medium">Website</label>
-												<div class="input-group">
-													<span class="input-group-text bg-white" id="basic-addon1">http://</span>
-													<input type="text" class="form-control @error('website') is-invalid @enderror" id="inputWebsite" placeholder="www.your-website.com" aria-label="Username" aria-describedby="basic-addon1" wire:model="website">
-													@error('website')<div class="invalid-feedback">{{ $message }}</div>@enderror
-												</div>
+												<input type="text" class="form-control @error('website') is-invalid @enderror" id="inputWebsite" placeholder="www.your-website.com" aria-label="Username" aria-describedby="basic-addon1" wire:model="website">
+												@error('website')<div class="invalid-feedback">{{ $message }}</div>@enderror
 											</div>
-											{{-- <div class="mb-3">
-												<label for="selectLocation" class="form-label text-dark fs-6 fw-medium">Location</label>
-												<select class="form-select @error('location') is-invalid @enderror" id="selectLocation" wire:model="location">
-													<option value="">Select Location</option>
-													@foreach ($locations as $location)
-													<option value="{{ $location->id }}">{{ $location->name }}</option>
-													@endforeach
-												</select>
-												@error('location')<div class="invalid-feedback">{{ $message }}</div>@enderror
-											</div> --}}
 											<div class="mb-3">
 												<label for="selectCountry" class="form-label text-dark fs-6 fw-medium">Country</label>
 												<select class="form-select @error('selectedCountry') is-invalid @enderror" id="selectCountry" wire:model.live="selectedCountry">

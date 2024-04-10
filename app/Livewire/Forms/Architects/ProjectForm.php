@@ -114,7 +114,7 @@ class ProjectForm extends Form
 			'coverImage' => $this->getValidationRule('coverImage'),
 			'projectBrief' => 'required|' . __('validations/rules.mediaKitBriefCharacters'),
 			'projectFile' => $this->getValidationRule('projectFile'),
-			'projectLink' => 'nullable|required_without:projectFile|url',
+			'projectLink' => 'nullable|required_without:projectFile|url:https',
 			'photographsFiles' => 'nullable|array',
 			'photographsFiles.*' => Rule::forEach(function (string|null $value, string $attribute) {
 				return Str::contains($value, '.tmp') ?
@@ -122,7 +122,7 @@ class ProjectForm extends Form
 							'nullable|string';
 			}),
 			// 'photographsFiles.*' => 'nullable|file|' . __('validations/rules.zipPlusImageMimes') . '|' . __('validations/rules.bulkFilesSize'),
-			'photographsLink' => 'nullable|url',
+			'photographsLink' => 'nullable|url:https',
 			'drawingsFiles' => 'nullable|array',
 			'drawingsFiles.*' => Rule::forEach(function (string|null $value, string $attribute) {
 				return Str::contains($value, '.tmp') ?
@@ -130,7 +130,7 @@ class ProjectForm extends Form
 							'nullable|string';
 			}),
 			// 'drawingsFiles.*' => 'nullable|file|' . __('validations/rules.zipPlusImageMimes') . '|' . __('validations/rules.bulkFilesSize'),
-			'drawingsLink' => 'nullable|url',
+			'drawingsLink' => 'nullable|url:https',
 			/* 'photographsFiles' => 'required|array',
 			'photographsFiles.*' => 'file|mimes:zip,svg,png,jpg,gif', */
 			//'photographsFiles.*' => 'image|mimes:svg,png,jpg,gif',
@@ -207,7 +207,7 @@ class ProjectForm extends Form
 			'tags.required' => 'Enter the :attribute.',
 			'mediaContact.required' => 'Select the :attribute.',
 			'mediaKitAccess.required' => 'Select the :attribute.',
-			'*.url' => 'Enter the valid :attribute.',
+			'*.url' => 'Enter the valid https :attribute.',
 		];
 	}
 
@@ -246,44 +246,7 @@ class ProjectForm extends Form
 			'mediaKitAccess' => 'media kit access',
 		];
 	}
-
-	/* public function data()
-	{
-		return [
-			'projectTitle' => $this->projectTitle,
-			'category' => $this->category,
-			'siteArea' => $this->siteArea,
-			'siteAreaUnit' => $this->siteAreaUnit,
-			'builtUpArea' => $this->builtUpArea,
-			'builtUpAreaUnit' => $this->builtUpAreaUnit,
-			//'location' => $this->location,
-			'selectedCountry' => $this->selectedCountry,
-			'selectedState' => $this->selectedState,
-			'selectedCity' => $this->selectedCity,
-			'status' => $this->status,
-			'materials' => $this->materials,
-			'buildingTypology' => $this->buildingTypology,
-			'buildingUse' => $this->buildingUse,
-			'imageCredits' => $this->imageCredits,
-			'textCredits' => $this->textCredits,
-			'renderCredits' => $this->renderCredits,
-			'consultants' => $this->consultants,
-			'designTeam' => $this->designTeam,
-			'coverImage' => $this->coverImage,
-			'projectBrief' => $this->projectBrief,
-			'projectFile' => $this->projectFile,
-			'projectLink' => $this->projectLink ? 'http://' . $this->projectLink : null,
-			'photographsFiles' => $this->photographsFiles,
-			'photographsLink' => $this->photographsLink,
-			'drawingsFiles' => $this->drawingsFiles,
-			'drawingsLink' => $this->drawingsLink,
-			'tags' => $this->tags,
-			'mediaContact' => $this->mediaContact,
-			'mediaKitAccess' => $this->mediaKitAccess,
-		];
-	} */
-
-
+	
 	// creating the draft of the media kit
 	public function draftMediaKit()
 	{
@@ -331,13 +294,13 @@ class ProjectForm extends Form
 		$this->coverImage = $mediaKit->story->cover_image_path;
 		$this->projectBrief = $mediaKit->story->project_brief;
 		$this->projectFile = $mediaKit->story->project_doc_path;
-		$this->projectLink = trimWebsiteUrl($mediaKit->story->project_doc_link);
+		$this->projectLink = $mediaKit->story->project_doc_link;
 		$this->photographsFiles = [];
 		$this->oldPhotographsFiles = $mediaKit->story->photographs->where('image_type', 'photographs');
-		$this->photographsLink = trimWebsiteUrl($mediaKit->story->photographs_link);
+		$this->photographsLink = $mediaKit->story->photographs_link;
 		$this->drawingsFiles = [];
 		$this->oldDrawingsFiles = $mediaKit->story->photographs->where('image_type', 'drawings');
-		$this->drawingsLink = trimWebsiteUrl($mediaKit->story->drawings_link);
+		$this->drawingsLink = $mediaKit->story->drawings_link;
 		$this->tags = $mediaKit->story->tags->pluck('name');
 		$this->mediaContact = $mediaKit->media_contact_id;
 		$this->mediaKitAccess = $mediaKit->project_access_id;
@@ -377,11 +340,11 @@ class ProjectForm extends Form
 		$this->coverImage = $content->coverImage;
 		$this->projectBrief = $content->projectBrief;
 		$this->projectFile = $content->projectFile;
-		$this->projectLink = trimWebsiteUrl($content->projectLink);
+		$this->projectLink = $content->projectLink;
 		$this->photographsFiles = $content->photographsFiles;
-		$this->photographsLink = trimWebsiteUrl($content->photographsLink);
+		$this->photographsLink = $content->photographsLink;
 		$this->drawingsFiles = $content->drawingsFiles;
-		$this->drawingsLink = trimWebsiteUrl($content->drawingsLink);
+		$this->drawingsLink = $content->drawingsLink;
 		$this->tags = $content->tags;
 		$this->mediaContact = $content->mediaContact;
 		$this->mediaKitAccess = $content->mediaKitAccess;
@@ -389,9 +352,9 @@ class ProjectForm extends Form
 
 	public function updateFields()
 	{
-		$this->projectLink = $this->projectLink ? 'http://' . trimWebsiteUrl($this->projectLink) : null;
-		$this->photographsLink = $this->photographsLink ? 'http://' . trimWebsiteUrl($this->photographsLink) : null;
-		$this->drawingsLink = $this->drawingsLink ? 'http://' . trimWebsiteUrl($this->drawingsLink) : null;
+		$this->projectLink = $this->projectLink ? 'https://' . trimWebsiteUrl($this->projectLink) : null;
+		$this->photographsLink = $this->photographsLink ? 'https://' . trimWebsiteUrl($this->photographsLink) : null;
+		$this->drawingsLink = $this->drawingsLink ? 'https://' . trimWebsiteUrl($this->drawingsLink) : null;
 	}
 
 	// public function store($type = 'new', $draftId = null)

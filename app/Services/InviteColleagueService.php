@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Http\Controllers\ErrorLogController;
 use App\Http\Controllers\Users\InviteColleagueController;
 use App\Mail\User\InvitationMail;
 use Exception;
@@ -31,7 +32,14 @@ class InviteColleagueService
 		}
 		catch(Exception $exp){
 			DB::rollBack();
-			// dd($exp->getMessage())
+			ErrorLogController::logError(
+				'sendInvitation', [
+					'line' => $exp->getLine(),
+					'file' => $exp->getFile(),
+					'message' => $exp->getMessage(),
+					'code' => $exp->getCode(),
+				]
+			);
 			return false;
 		}
 		return true;

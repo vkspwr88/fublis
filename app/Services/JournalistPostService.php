@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Http\Controllers\ErrorLogController;
 use App\Http\Controllers\Users\Journalists\Profile\PostController as ProfilePostController;
 use App\Http\Controllers\Users\PostController;
 use Exception;
@@ -32,7 +33,14 @@ class JournalistPostService
 			DB::commit();
 		} catch (Exception $exp) {
 			DB::rollBack();
-			// dd($exp->getMessage())
+			ErrorLogController::logError(
+				'createPost', [
+					'line' => $exp->getLine(),
+					'file' => $exp->getFile(),
+					'message' => $exp->getMessage(),
+					'code' => $exp->getCode(),
+				]
+			);
 			return false;
 		}
 		return true;

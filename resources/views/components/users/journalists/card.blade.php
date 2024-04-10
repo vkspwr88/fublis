@@ -4,29 +4,35 @@
             <div class="row gx-2 gy-4">
                 <div class="col-sm-3">
                     <div class="d-block mx-auto text-center">
-                        <img src="{{ $journalist->profileImage ? Storage::url($journalist->profileImage->image_path) : 'https://via.placeholder.com/150x150' }}" class="img-square img-150" alt="...">
+						@php
+							$cardImg = '<img src="' . ($journalist->profileImage ? Storage::url($journalist->profileImage->image_path) : 'https://via.placeholder.com/150x150') . '" class="img-square img-150" alt="...">';
+						@endphp
+						@if(isArchitect())
+							<a href="{{ route('architect.pitch-story.publications.view', ['publication' => $journalist->publications[0]->slug]) }}">
+								{!! $cardImg !!}
+							</a>
+						@elseif(isJournalist())
+							<a href="{{ route('journalist.account.profile.publications.view', ['publication' => $journalist->publications[0]->slug]) }}">
+								{!! $cardImg !!}
+							</a>
+						@else
+							<a href="javascript:;" onclick="createAccountPrompt()">
+								{!! $cardImg !!}
+							</a>
+						@endif
                     </div>
                 </div>
                 <div class="col-sm-9">
                     <div class="row align-items-center pb-4">
                         <p class="fs-6 col m-0">
 							@if ($journalist->location)
-								<span class="badge rounded-pill text-bg-secondary mb-1">
-									<i class="bi bi-geo-alt"></i>
-									{{ $journalist->location->name }}
-								</span>
+								<x-utility.badges.secondary-badge :text="$journalist->location->name" icon='<i class="bi bi-geo-alt"></i>' />
 							@endif
-                            {{-- <span class="badge rounded-pill text-bg-secondary mb-1">
-                                <i class="bi bi-geo-alt"></i>
-                                {{ $journalist->publications[0]->location->name }}
-                            </span> --}}
                             @foreach ($journalist->publications[0]->publicationTypes as $publicationType)
-                            	<span class="badge rounded-pill text-bg-secondary mb-1">{{ $publicationType->name }}</span>
+								<x-utility.badges.secondary-badge :text="$publicationType->name" />
                             @endforeach
                             @if($journalist->language)
-                            <span class="badge rounded-pill text-bg-secondary mb-1">
-                                {{ $journalist->language->name }}
-                            </span>
+								<x-utility.badges.secondary-badge :text="$journalist->language->name" />
                             @endif
                         </p>
                         @if(isArchitect())
@@ -80,7 +86,7 @@
                         <div class="col-auto">
                             <div class="d-flex justify-content-end align-items-center flex-wrap fw-medium">
                                 @foreach ($journalist->publications[0]->categories as $category)
-                                    <span class="badge rounded-pill bg-purple-50 text-purple-700">{{ $category->name }}</span>
+									<x-utility.badges.purple-badge :text="$category->name" />
                                 @endforeach
                             </div>
                         </div>

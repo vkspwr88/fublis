@@ -128,7 +128,7 @@ class AssociatedPublication extends Component
 				ValidationRule::unique('publications', 'name')
 								->where(fn (Builder $query) => $query->where('name', '!=', $this->publicationName)),
 			],
-			'website' => 'required|url',
+			'website' => 'required|url:https',
 			'profileImage' => __('validations/rules.profileImage') . '|' . __('validations/rules.imageMimes'),
 			// 'profileImage' => 'nullable|image|mimes:svg,png,jpg,gif|max:3100|dimensions:max_width=400,max_height=400',
 			// 'language' => 'required|exists:languages,id',
@@ -156,7 +156,7 @@ class AssociatedPublication extends Component
 			'publicationName.required' => 'Enter the :attribute.',
 			'publicationName.unique' => 'Enter the unique :attribute.',
 			'website.required' => 'Enter the :attribute.',
-			'website.url' => 'Enter the valid :attribute.',
+			'website.url' => 'Enter the valid https :attribute.',
 			'profileImage.image' => __('validations/messages.image'),
 			'profileImage.mimes' => __('validations/messages.imageMimes'),
 			'profileImage.max' => __('validations/messages.profileImage.max'),
@@ -205,7 +205,7 @@ class AssociatedPublication extends Component
 	{
 		return [
 			'publicationName' => $this->publicationName,
-			'website' => 'http://' . $this->website,
+			'website' => 'https://' . trimWebsiteUrl($this->website),
 			'profileImage' => $this->profileImage,
 			// 'language' => $this->language,
 			'position' => $this->position,
@@ -227,7 +227,7 @@ class AssociatedPublication extends Component
 		$this->isNew = false;
 		$this->selectedPublication = $this->publications->find($publicationId);
 		$this->publicationName = $this->selectedPublication->name;
-		$this->website = trimWebsiteUrl($this->selectedPublication->website);
+		$this->website = $this->selectedPublication->website;
 		// $this->location = $publication->location_id;
 		$this->position = JournalistPublication::where([
 													'publication_id' => $publicationId,

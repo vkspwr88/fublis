@@ -101,18 +101,11 @@ class AddCompanyStepComponent extends StepComponent
 		$this->companyName = $this->searchCompanyName;
 	}
 
-	/* protected function prepareForValidation(): void
-	{
-		$this->merge([
-			'website' => 'http://' . $this->website,
-		]);
-	} */
-
 	public function rules()
 	{
 		return [
 			'companyName' => 'required',
-			'website' => 'required|url',
+			'website' => 'required|url:https',
 			'selectedCountry' => 'required|exists:countries,id',
 			'selectedState' => 'required|exists:states,id',
 			'selectedCity' => 'required|exists:cities,name',
@@ -128,7 +121,7 @@ class AddCompanyStepComponent extends StepComponent
 		return [
 			'companyName.required' => 'Enter the :attribute.',
 			'website.required' => 'Enter the :attribute.',
-			'website.url' => 'Enter the valid :attribute.',
+			'website.url' => 'Enter the valid https :attribute.',
 			//'location.required' => 'Select the :attribute.',
 			'selectedCountry.required' => 'Select the :attribute.',
 			'selectedState.required' => 'Select the :attribute.',
@@ -159,7 +152,7 @@ class AddCompanyStepComponent extends StepComponent
 	{
 		return [
 			'companyName' => $this->companyName,
-			'website' => 'http://' . $this->website,
+			'website' => 'https://' . trimWebsiteUrl($this->website),
 			//'location' => $this->location,
 			'selectedCountry' => $this->selectedCountry,
 			'selectedState' => $this->selectedState,
@@ -172,9 +165,6 @@ class AddCompanyStepComponent extends StepComponent
 
 	public function add()
 	{
-		/* $this->merge([
-			'website' => 'http://' . $this->website,
-		]); */
 		$validated = $this->new ?
 							Validator::make($this->data(), $this->rules(), $this->messages(), $this->validationAttributes())->validate() :
 							$this->validate(

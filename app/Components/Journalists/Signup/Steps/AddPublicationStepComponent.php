@@ -100,7 +100,7 @@ class AddPublicationStepComponent extends StepComponent
 	{
 		return [
 			'publicationName' => 'required',
-			'website' => 'required|url',
+			'website' => 'required|url:https',
 			//'location' => 'required',
 			'selectedCountry' => 'required|exists:countries,id',
 			'selectedState' => 'required|exists:states,id',
@@ -121,7 +121,7 @@ class AddPublicationStepComponent extends StepComponent
 		return [
 			'publicationName.required' => 'Enter the :attribute.',
 			'website.required' => 'Enter the :attribute.',
-			'website.url' => 'Enter the valid :attribute.',
+			'website.url' => 'Enter the valid https :attribute.',
 			//'location.required' => 'Select the :attribute.',
 			'selectedCountry.required' => 'Select the :attribute.',
 			'selectedState.required' => 'Select the :attribute.',
@@ -159,7 +159,7 @@ class AddPublicationStepComponent extends StepComponent
 	{
 		return [
 			'publicationName' => $this->publicationName,
-			'website' => 'http://' . $this->website,
+			'website' => 'https://' . trimWebsiteUrl($this->website),
 			//'location' => $this->location,
 			'selectedCountry' => $this->selectedCountry,
 			'selectedState' => $this->selectedState,
@@ -183,7 +183,7 @@ class AddPublicationStepComponent extends StepComponent
 							]
 						);
 		//dd($validated);
-		$this->website = 'http://' . $this->website;
+		$this->website = 'https://' . trimWebsiteUrl($this->website);
 		$this->nextStep();
 		if($this->new){
 			$this->dispatch('alert', [

@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Enums\Users\UserTypeEnum;
+use App\Http\Controllers\ErrorLogController;
 use App\Http\Controllers\Users\CompanyController;
 use App\Http\Controllers\Users\JournalistController;
 use App\Http\Controllers\Users\LocationController;
@@ -154,7 +155,14 @@ class JournalistService
 		}
 		catch(Exception $exp){
             DB::rollBack();
-			// dd($exp->getMessage())
+			ErrorLogController::logError(
+				'addJournalist', [
+					'line' => $exp->getLine(),
+					'file' => $exp->getFile(),
+					'message' => $exp->getMessage(),
+					'code' => $exp->getCode(),
+				]
+			);
 			return false;
 		}
 		return true;

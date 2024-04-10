@@ -219,13 +219,6 @@ a.text-purple-600:hover{
 	width: 130px;
 }
 
-/* #headerNav *{
-	margin: 0;
-	padding: 0;
-	z-index: 10;
-	list-style: none outside none;
-} */
-
 #headerNav li.nav-item{
 	position: relative;
 	display: flex;
@@ -234,8 +227,8 @@ a.text-purple-600:hover{
 }
 
 #headerNav li.nav-item a.nav-link{
-	padding-left: 1.5rem;
-	padding-right: 1.5rem;
+	padding-left: 1rem;
+	padding-right: 1rem;
 	color: var(--bs-black);
 	transition: color .2s ease;
 	font-weight: 500;
@@ -291,7 +284,8 @@ a.text-purple-600:hover{
   	top: 96px;
 	width: 50em;
 	left: -180%;
-	padding-bottom: 15px;
+	/* padding-bottom: 15px; */
+	border: 1px solid rgba(0,0,0,.075);
 }
 
 #headerNav li.nav-item:hover > ul.nav-sub-menu {
@@ -458,7 +452,6 @@ a.text-purple-600:hover{
 }
 
 #bannerFooterNav li.nav-item a.nav-link::after{
-	border-bottom-width: 1px;
 	margin-top: 0;
 	top: auto;
 	border-top: none;
@@ -495,6 +488,15 @@ a.text-purple-600:hover{
 .subscribe-input .form-control{
 	color: var(--fublis-white);
 }
+
+#fullWidthHeader{
+	font-size: 207px;
+	white-space: nowrap;
+}
+
+/* #fullWidthHeader{
+	font-size: 13vw;
+} */
 
 .footer-logo{
 	width: 130px;
@@ -1051,7 +1053,23 @@ trix-toolbar .trix-button--icon-link, trix-toolbar .trix-button--icon-code, trix
 	width: 105%;
 }
 
+@media(max-width: 1400px){
+	#fullWidthHeader{
+		font-size: 178px;
+	}
+}
+
+@media(max-width: 1200px){
+	#fullWidthHeader{
+		font-size: 148px;
+	}
+}
+
 @media(max-width: 992px){
+	#fullWidthHeader{
+		font-size: 110px;
+	}
+
 	.filter-btn{
 		display: block;
 	}
@@ -1078,14 +1096,24 @@ trix-toolbar .trix-button--icon-link, trix-toolbar .trix-button--icon-code, trix
 }
 
 @media(max-width: 768px){
+	#fullWidthHeader{
+		font-size: 82px;
+	}
 	.img-col{
 		max-height: 175px;
 		object-position: top;
 	}
 }
+
 @media(max-width: 650px){
 	.subscribe-input{
 		width: 100%;
+	}
+}
+
+@media(max-width: 576px){
+	#fullWidthHeader{
+		font-size: 15vw;
 	}
 }
 

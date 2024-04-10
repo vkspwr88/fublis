@@ -112,7 +112,7 @@ class CallController extends Controller
 
 	public static function generateSlug($title)
 	{
-		$count = Call::withTrashed()->where('title', $title)->count();
+		$count = Call::where('title', $title)->count();
 		if($count > 1){
 			$title .= $count;
 		}

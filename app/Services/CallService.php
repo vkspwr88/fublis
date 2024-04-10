@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Http\Controllers\ErrorLogController;
 use App\Http\Controllers\Users\Journalists\CallController;
 use App\Http\Controllers\Users\LocationController;
 use App\Http\Controllers\Users\TagController;
@@ -48,7 +49,14 @@ class CallService
 		}
 		catch(Exception $exp){
             DB::rollBack();
-			// dd($exp->getMessage())
+			ErrorLogController::logError(
+				'createInviteStory', [
+					'line' => $exp->getLine(),
+					'file' => $exp->getFile(),
+					'message' => $exp->getMessage(),
+					'code' => $exp->getCode(),
+				]
+			);
             return false;
         }
 		return true;
@@ -88,7 +96,14 @@ class CallService
 		}
 		catch(Exception $exp){
             DB::rollBack();
-			// dd($exp->getMessage())
+			ErrorLogController::logError(
+				'editInviteStory', [
+					'line' => $exp->getLine(),
+					'file' => $exp->getFile(),
+					'message' => $exp->getMessage(),
+					'code' => $exp->getCode(),
+				]
+			);
             return false;
         }
 		return true;

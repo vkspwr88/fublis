@@ -43,6 +43,7 @@ class PublicationView extends Component
 			'location.city.state.country',
 			// 'location.state.country',
 			'categories',
+			'publicationTypes',
 			'journalists' => [
 				'profileImage',
 				'user',

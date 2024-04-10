@@ -63,20 +63,20 @@ class ArticleForm extends Form
 			'category' => 'required',
 			'previewText' => 'required|' . __('validations/rules.mediaKitBriefCharacters'),
 			'articleFile' => $this->getValidationRule('articleFile'),
-			'articleLink' => 'nullable|required_without:articleFile|url',
+			'articleLink' => 'nullable|required_without:articleFile|url:https',
 			'articleWrite' => 'nullable',
 			'companyProfileFile' => $this->getValidationRule('companyProfileFile'),
-			'companyProfileLink' => 'nullable|url',
-			// 'companyProfileLink' => 'nullable|required_without:companyProfileFile|url',
+			'companyProfileLink' => 'nullable|url:https',
+			// 'companyProfileLink' => 'nullable|required_without:companyProfileFile|url:https',
 			'imagesFiles' => 'nullable|array',
 			'imagesFiles.*' => Rule::forEach(function (string|null $value, string $attribute) {
 				return Str::contains($value, '.tmp') ?
 							'nullable|image|' . __('validations/rules.imageMimes') . '|' . __('validations/rules.bulkFilesSize') :
 							'nullable|string';
 			}),
-			'imagesLink' => 'nullable|url',
+			'imagesLink' => 'nullable|url:https',
 			/* 'imagesFiles.*' => 'image|mimes:svg,png,jpg,gif',
-			'imagesLink' => 'nullable|required_without:imagesFiles|url', */
+			'imagesLink' => 'nullable|required_without:imagesFiles|url:https', */
 			'tags' => 'nullable|array',
 			'mediaContact' => 'required',
 			'mediaKitAccess' => 'required',
@@ -125,17 +125,17 @@ class ArticleForm extends Form
 			'category.required' => 'Select the :attribute.',
 			'previewText.required' => 'Enter the :attribute.',
 			'articleFile.mimes' => 'The :attribute supports only pdf, doc, docs or docx.',
-			'articleLink.url' => 'Enter the valid :attribute.',
+			'articleLink.url' => 'Enter the valid https :attribute.',
 			'articleLink.required_without' => 'Enter the :attribute or upload the file.',
 			'articleWrite.required' => 'Enter the :attribute.',
 			'articleWrite.max' => __('validations/messages.mediaKitBriefCharacters'),
 			'companyProfileFile.mimes' => 'The :attribute supports only pdf, doc, docs or docx.',
-			'companyProfileLink.url' => 'Enter the valid :attribute.',
+			'companyProfileLink.url' => 'Enter the valid https :attribute.',
 			'companyProfileLink.required_without' => 'Enter the :attribute or upload the file.',
 			'imagesFiles.*.image' => __('validations/messages.image'),
 			'imagesFiles.*.mimes' => __('validations/messages.imageMimes'),
 			'imagesFiles.*.max' => __('validations/messages.bulkFilesSize'),
-			'imagesLink.url' => 'Enter the valid :attribute.',
+			'imagesLink.url' => 'Enter the valid https :attribute.',
 			'imagesLink.required_without' => 'Enter the :attribute or upload the file.',
 			'tags.required' => 'Enter the :attribute.',
 			'mediaContact.required' => 'Select the :attribute.',
@@ -163,27 +163,6 @@ class ArticleForm extends Form
 			'mediaKitAccess' => 'media kit access',
 		];
 	}
-
-	/* public function data()
-	{
-		return [
-			'coverImage' => $this->coverImage,
-			'articleTitle' => $this->articleTitle,
-			'textCredits' => $this->textCredits,
-			'category' => $this->category,
-			'previewText' => $this->previewText,
-			'articleFile' => $this->articleFile,
-			'articleLink' => $this->articleLink ? 'http://' . $this->articleLink : null,
-			'articleWrite' => $this->articleWrite,
-			'companyProfileFile' => $this->companyProfileFile,
-			'companyProfileLink' => $this->companyProfileLink ? 'http://' . $this->companyProfileLink : null,
-			'imagesFiles' => $this->imagesFiles,
-			'imagesLink' => $this->imagesLink ? 'http://' . $this->imagesLink : null,
-			'tags' => $this->tags,
-			'mediaContact' => $this->mediaContact,
-			'mediaKitAccess' => $this->mediaKitAccess,
-		];
-	} */
 
 	// creating the draft of the media kit
 	public function draftMediaKit()
@@ -239,11 +218,11 @@ class ArticleForm extends Form
 		$this->previewText = $content->previewText;
 		$this->articleWrite = $content->articleWrite;
 		$this->articleFile = $content->articleFile;
-		$this->articleLink = trimWebsiteUrl($content->articleLink);
+		$this->articleLink = $content->articleLink;
 		$this->companyProfileFile = $content->companyProfileFile;
-		$this->companyProfileLink = trimWebsiteUrl($content->companyProfileLink);
+		$this->companyProfileLink = $content->companyProfileLink;
 		$this->imagesFiles = $content->imagesFiles;
-		$this->imagesLink = trimWebsiteUrl($content->imagesLink);
+		$this->imagesLink = $content->imagesLink;
 		$this->tags = $content->tags;
 		$this->mediaContact = $content->mediaContact;
 		$this->mediaKitAccess = $content->mediaKitAccess;
@@ -255,9 +234,9 @@ class ArticleForm extends Form
 
 	public function updateFields()
 	{
-		$this->articleLink = $this->articleLink ? 'http://' . trimWebsiteUrl($this->articleLink) : null;
-		$this->companyProfileLink = $this->companyProfileLink ? 'http://' . trimWebsiteUrl($this->companyProfileLink) : null;
-		$this->imagesLink = $this->imagesLink ? 'http://' . trimWebsiteUrl($this->imagesLink) : null;
+		$this->articleLink = $this->articleLink ? 'https://' . trimWebsiteUrl($this->articleLink) : null;
+		$this->companyProfileLink = $this->companyProfileLink ? 'https://' . trimWebsiteUrl($this->companyProfileLink) : null;
+		$this->imagesLink = $this->imagesLink ? 'https://' . trimWebsiteUrl($this->imagesLink) : null;
 	}
 
 	public function store()

@@ -105,8 +105,7 @@
 				</div>
 			</div>
 			@error('form.pressReleaseFile')<div class="error">{{ $message }}</div>@enderror
-			<div class="input-group">
-				<span class="input-group-text bg-white" id="basic-addon1">http://</span>
+			<div class="">
 				<input type="text" class="form-control @error('form.pressReleaseLink') is-invalid @enderror" wire:model="form.pressReleaseLink" placeholder="Insert drive link" aria-describedby="basic-addon1">
 				@error('form.pressReleaseLink')<div class="invalid-feedback">{{ $message }}</div>@enderror
 			</div>
@@ -199,8 +198,7 @@
 			</div>
 			@error('form.photographsFiles')<div class="error">{{ $message }}</div>@enderror
 			@error('form.photographsFiles.*')<div class="error">{{ $message }}</div>@enderror
-			<div class="input-group">
-				<span class="input-group-text bg-white" id="basic-addon1">http://</span>
+			<div class="">
 				<input type="text" class="form-control @error('form.photographsLink') is-invalid @enderror" wire:model="form.photographsLink" placeholder="Insert drive link" aria-describedby="basic-addon1">
 				@error('form.photographsLink')<div class="invalid-feedback">{{ $message }}</div>@enderror
 			</div>

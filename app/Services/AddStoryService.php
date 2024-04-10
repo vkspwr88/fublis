@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Http\Controllers\ErrorLogController;
 use App\Http\Controllers\Users\Architects\MediaKitController;
 use App\Http\Controllers\Users\FileController;
 use App\Http\Controllers\Users\ImageController;
@@ -53,11 +54,14 @@ class AddStoryService
 		}
 		catch(Exception $exp){
             DB::rollBack();
-
-			// dd($exp->getMessage())
-            //Session::flash('message', $exp->getMessage());
-            //Session::flash('message', 'Unable to process the order. Please contact support.');
-            //Session::flash('alert-class', 'alert-danger');
+			ErrorLogController::logError(
+				'addPressRelease', [
+					'line' => $exp->getLine(),
+					'file' => $exp->getFile(),
+					'message' => $exp->getMessage(),
+					'code' => $exp->getCode(),
+				]
+			);
             return false;
         }
 		return true;
@@ -115,11 +119,14 @@ class AddStoryService
 		}
 		catch(Exception $exp){
             DB::rollBack();
-
-			// dd($exp->getMessage())
-            //Session::flash('message', $exp->getMessage());
-            //Session::flash('message', 'Unable to process the order. Please contact support.');
-            //Session::flash('alert-class', 'alert-danger');
+			ErrorLogController::logError(
+				'editPressRelease', [
+					'line' => $exp->getLine(),
+					'file' => $exp->getFile(),
+					'message' => $exp->getMessage(),
+					'code' => $exp->getCode(),
+				]
+			);
             return false;
         }
 		return true;
@@ -189,8 +196,14 @@ class AddStoryService
 		}
 		catch(Exception $exp){
             DB::rollBack();
-
-			// dd($exp->getMessage())
+			ErrorLogController::logError(
+				'addProject', [
+					'line' => $exp->getLine(),
+					'file' => $exp->getFile(),
+					'message' => $exp->getMessage(),
+					'code' => $exp->getCode(),
+				]
+			);
             return false;
         }
 		return true;
@@ -273,8 +286,14 @@ class AddStoryService
 		}
 		catch(Exception $exp){
             DB::rollBack();
-
-			// dd($exp->getMessage())
+			ErrorLogController::logError(
+				'editProject', [
+					'line' => $exp->getLine(),
+					'file' => $exp->getFile(),
+					'message' => $exp->getMessage(),
+					'code' => $exp->getCode(),
+				]
+			);
             return false;
         }
 		return true;
@@ -321,8 +340,14 @@ class AddStoryService
 		}
 		catch(Exception $exp){
             DB::rollBack();
-
-			// dd($exp->getMessage())
+			ErrorLogController::logError(
+				'addArticle', [
+					'line' => $exp->getLine(),
+					'file' => $exp->getFile(),
+					'message' => $exp->getMessage(),
+					'code' => $exp->getCode(),
+				]
+			);
             return false;
         }
 		return true;
@@ -381,8 +406,14 @@ class AddStoryService
 		}
 		catch(Exception $exp){
             DB::rollBack();
-
-			// dd($exp->getMessage())
+			ErrorLogController::logError(
+				'editArticle', [
+					'line' => $exp->getLine(),
+					'file' => $exp->getFile(),
+					'message' => $exp->getMessage(),
+					'code' => $exp->getCode(),
+				]
+			);
             return false;
         }
 		return true;

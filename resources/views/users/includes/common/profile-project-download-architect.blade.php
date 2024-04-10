@@ -22,7 +22,7 @@
 			</div>
 		</div>
 	@endif
-	@if ( $mediaKit->story->drawings_link || count($mediaKit->story->draftedDrawings) > 0 )
+	@if ( $mediaKit->story->drawings_link || ($mediaKit->story->draftedDrawings && count($mediaKit->story->draftedDrawings) > 0) )
 		<hr class="border-gray-300">
 		<div class="row align-items-center">
 			<div class="col">

@@ -40,9 +40,9 @@ class AddProfileStepComponent extends StepComponent
 	{
 		return [
 			'position' => 'required|exists:journalist_positions,id',
-			'linkedinProfile' => 'required|url',
-			'publishedArticleLink' => 'nullable|url',
-			'publishingPlatformLink' => 'nullable|url',
+			'linkedinProfile' => 'required|url:https',
+			'publishedArticleLink' => 'nullable|url:https',
+			'publishingPlatformLink' => 'nullable|url:https',
 		];
 	}
 
@@ -52,11 +52,11 @@ class AddProfileStepComponent extends StepComponent
 			'position.required' => 'Select the :attribute.',
 			'position.exists' => 'Select the valid :attribute.',
 			'linkedinProfile.required' => 'Enter the :attribute.',
-			'linkedinProfile.url' => 'Enter the valid :attribute.',
+			'linkedinProfile.url' => 'Enter the valid https :attribute.',
 			'publishedArticleLink.required' => 'Enter the :attribute.',
-			'publishedArticleLink.url' => 'Enter the valid :attribute.',
+			'publishedArticleLink.url' => 'Enter the valid https :attribute.',
 			'publishingPlatformLink.required' => 'Enter the :attribute.',
-			'publishingPlatformLink.url' => 'Enter the valid :attribute.',
+			'publishingPlatformLink.url' => 'Enter the valid https :attribute.',
 		];
 	}
 
@@ -74,9 +74,9 @@ class AddProfileStepComponent extends StepComponent
 	{
 		return [
 			'position' => $this->position,
-			'linkedinProfile' => 'http://' . $this->linkedinProfile,
-			'publishedArticleLink' => $this->publishedArticleLink ? 'http://' . $this->publishedArticleLink : null,
-			'publishingPlatformLink' => $this->publishingPlatformLink ? 'http://' . $this->publishingPlatformLink : null,
+			'linkedinProfile' => 'https://' . trimWebsiteUrl($this->linkedinProfile),
+			'publishedArticleLink' => $this->publishedArticleLink ? 'https://' . trimWebsiteUrl($this->publishedArticleLink) : null,
+			'publishingPlatformLink' => $this->publishingPlatformLink ? 'https://' . trimWebsiteUrl($this->publishingPlatformLink) : null,
 		];
 	}
 

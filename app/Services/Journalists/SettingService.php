@@ -2,6 +2,7 @@
 
 namespace App\Services\Journalists;
 
+use App\Http\Controllers\ErrorLogController;
 use App\Http\Controllers\Users\FileController;
 use App\Http\Controllers\Users\ImageController;
 use App\Http\Controllers\Users\LocationController;
@@ -46,7 +47,14 @@ class SettingService
 		}
 		catch(Exception $exp){
 			DB::rollBack();
-			// dd($exp->getMessage())
+			ErrorLogController::logError(
+				'updatePersonalInfo - Journalist', [
+					'line' => $exp->getLine(),
+					'file' => $exp->getFile(),
+					'message' => $exp->getMessage(),
+					'code' => $exp->getCode(),
+				]
+			);
 			return false;
 		}
 		return true;
@@ -125,7 +133,14 @@ class SettingService
 		}
 		catch(Exception $exp){
 			DB::rollBack();
-			// dd($exp->getMessage())
+			ErrorLogController::logError(
+				'updatePublication', [
+					'line' => $exp->getLine(),
+					'file' => $exp->getFile(),
+					'message' => $exp->getMessage(),
+					'code' => $exp->getCode(),
+				]
+			);
 			return false;
 		}
 		return true;
@@ -142,7 +157,14 @@ class SettingService
 		}
 		catch(Exception $exp){
 			DB::rollBack();
-			// dd($exp->getMessage())
+			ErrorLogController::logError(
+				'deletePublication', [
+					'line' => $exp->getLine(),
+					'file' => $exp->getFile(),
+					'message' => $exp->getMessage(),
+					'code' => $exp->getCode(),
+				]
+			);
 			return false;
 		}
 		return true;
@@ -168,7 +190,14 @@ class SettingService
 		}
 		catch(Exception $exp){
 			DB::rollBack();
-			// dd($exp->getMessage())
+			ErrorLogController::logError(
+				'updatePassword - Journalist', [
+					'line' => $exp->getLine(),
+					'file' => $exp->getFile(),
+					'message' => $exp->getMessage(),
+					'code' => $exp->getCode(),
+				]
+			);
 			return false;
 		}
 		return true;
@@ -247,7 +276,14 @@ class SettingService
 		}
 		catch(Exception $exp){
 			DB::rollBack();
-			// dd($exp->getMessage())
+			ErrorLogController::logError(
+				'updateAssociatedPublication', [
+					'line' => $exp->getLine(),
+					'file' => $exp->getFile(),
+					'message' => $exp->getMessage(),
+					'code' => $exp->getCode(),
+				]
+			);
 			return false;
 		}
 		return true;
@@ -264,7 +300,14 @@ class SettingService
 		}
 		catch(Exception $exp){
 			DB::rollBack();
-			// dd($exp->getMessage())
+			ErrorLogController::logError(
+				'deleteAssociatedPublication', [
+					'line' => $exp->getLine(),
+					'file' => $exp->getFile(),
+					'message' => $exp->getMessage(),
+					'code' => $exp->getCode(),
+				]
+			);
 			return false;
 		}
 		return true;
@@ -283,7 +326,14 @@ class SettingService
 		}
 		catch(Exception $exp){
 			DB::rollBack();
-			// dd($exp->getMessage())
+			ErrorLogController::logError(
+				'addAssociatedPublication', [
+					'line' => $exp->getLine(),
+					'file' => $exp->getFile(),
+					'message' => $exp->getMessage(),
+					'code' => $exp->getCode(),
+				]
+			);
 			return false;
 		}
 		return true;

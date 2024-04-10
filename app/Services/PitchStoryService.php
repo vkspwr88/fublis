@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Http\Controllers\ErrorLogController;
 use App\Http\Controllers\Users\LocationController;
 use App\Models\Call;
 use App\Models\Chat;
@@ -218,7 +219,14 @@ class PitchStoryService
 		}
 		catch(Exception $exp){
 			DB::rollBack();
-			// dd($exp->getMessage())
+			ErrorLogController::logError(
+				'createPitchStory', [
+					'line' => $exp->getLine(),
+					'file' => $exp->getFile(),
+					'message' => $exp->getMessage(),
+					'code' => $exp->getCode(),
+				]
+			);
 			return false;
 		}
 		return true;
