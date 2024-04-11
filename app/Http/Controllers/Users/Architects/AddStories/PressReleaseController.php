@@ -44,6 +44,7 @@ class PressReleaseController extends Controller
 				'title' => $content->pressReleaseTitle,
 				'press_release_writeup' => $content->pressReleaseWrite,
 				'cover_image_path' => $content->coverImage,
+				'concept_note' => $content->conceptNote,
 				'press_release_doc_path' => $content->pressReleaseFile,
 				'press_release_doc_link' => $content->pressReleaseLink,
 				'photographs_link' => $content->photographsLink,

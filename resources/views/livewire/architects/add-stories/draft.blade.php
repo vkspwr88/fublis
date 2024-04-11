@@ -76,13 +76,15 @@
 									}
 									$mediaKitHeading = str()->length($mediaKitHeading) < 150 ? $mediaKitHeading : str()->substr($mediaKitHeading, 0, 149) . '...';
 									$mediaKitBody = str()->length($mediaKitBody) < 150 ? $mediaKitBody : str()->substr($mediaKitBody, 0, 149) . '...';
+									$coverImage = $content->coverImage ? Storage::url($content->coverImage) : 'https://via.placeholder.com/150x150';
 									// echo str()->length($mediaKitHeading);
 								@endphp
 								<div class="row justify-content-center g-4">
 									<div class="col-md-4">
-										<p class="text-secondary fs-6 fw-semibold col m-0">{{ $mediaKitTitle }}</p>
+										<img src="{{ $coverImage }}" class="img-square" alt="...">
 									</div>
 									<div class="col-md-4">
+										<p class="text-secondary fs-6 fw-semibold col m-0">{{ $mediaKitTitle }}</p>
 										<h5 class="card-title fs-5 fw-semibold m-0 py-2 text-dark">{{ $mediaKitHeading }}</h5>
 										<p class="card-text text-dark m-0 py-2 fs-7">{{ $mediaKitBody }}</p>
 									</div>
