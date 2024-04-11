@@ -13,14 +13,14 @@
 			"name": "Invite Story",
 			"desc": null,
 			"icon": null,
-			"slug": null,
+			"slug": "invite-story",
 			"submenu": [
 				{
 					"url" : null,
 					"name": "Invite stories that suits you",
 					"desc": null,
 					"icon": null,
-					"slug": null,
+					"slug": "invite-story-1",
 					"submenu": [
 						{
 							"url" : "journalist.call.create",
@@ -55,14 +55,14 @@
 			"name": "Pitches",
 			"desc": null,
 			"icon": null,
-			"slug": null,
+			"slug": "pitches",
 			"submenu": [
 				{
 					"url" : null,
 					"name": "Check pitches & download media kits",
 					"desc": null,
 					"icon": null,
-					"slug": null,
+					"slug": "pitches-1",
 					"submenu": [
 						{
 							"url" : "journalist.account.profile.message.index",
@@ -89,14 +89,14 @@
 			"name": "Resources",
 			"desc": null,
 			"icon": null,
-			"slug": null,
+			"slug": "resources",
 			"submenu": [
 				{
 					"url" : null,
 					"name": "Journalists, Publications & Brands",
 					"desc": null,
 					"icon": null,
-					"slug": null,
+					"slug": "resources-1",
 					"submenu": [
 						{
 							"url" : "journalist.account.profile.publications.index",
@@ -125,11 +125,11 @@
 					]
 				},
 				{
-					"url" : "#",
+					"url" : null,
 					"name": "Blog & Support",
 					"desc": null,
 					"icon": null,
-					"slug": null,
+					"slug": "resources-2",
 					"submenu": [
 						{
 							"url" : "https://blog.fublis.com",

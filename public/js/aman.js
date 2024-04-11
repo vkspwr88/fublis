@@ -85,4 +85,3 @@ $(document).on('mouseover', '.hover', function() {
 		$this.addClass("hover")
 	}, 20);
 });
-

@@ -8,11 +8,11 @@
 			"slug": "platform",
 			"submenu": [
 				{
-					"url" : "#",
+					"url" : null,
 					"name": "Create free account on Fublis",
 					"desc": null,
 					"icon": null,
-					"slug": "create-free-account",
+					"slug": "platform-1",
 					"submenu": [
 						{
 							"url" : "architect.add-story.press-release.index",
@@ -57,11 +57,11 @@
 					]
 				},
 				{
-					"url" : "#",
+					"url" : null,
 					"name": "Start Pitching with Free Account",
 					"desc": null,
 					"icon": null,
-					"slug": "create-free-account",
+					"slug": "platform-2",
 					"submenu": [
 						{
 							"url" : "architect.pitch-story.journalists.index",
@@ -115,11 +115,11 @@
 			"slug": "features",
 			"submenu": [
 				{
-					"url" : "#",
+					"url" : null,
 					"name": "Simplified PR Process",
 					"desc": null,
 					"icon": null,
-					"slug": "create-free-account",
+					"slug": "features-1",
 					"submenu": [
 						{
 							"url" : "https://www.fublis.com/features/one-click-pitching",
@@ -164,11 +164,11 @@
 					]
 				},
 				{
-					"url" : "#",
+					"url" : null,
 					"name": "Quality Publications & Global Reach",
 					"desc": null,
 					"icon": null,
-					"slug": "create-free-account",
+					"slug": "features-2",
 					"submenu": [
 						{
 							"url" : "https://www.fublis.com/features/analytics",
@@ -222,11 +222,11 @@
 			"slug": "benefits",
 			"submenu": [
 				{
-					"url" : "#",
+					"url" : null,
 					"name": "Start using Fublis now",
 					"desc": null,
 					"icon": null,
-					"slug": "create-free-account",
+					"slug": "benefits-1",
 					"submenu": [
 						{
 							"url" : "https://www.fublis.com/benefits/architects",
@@ -271,11 +271,11 @@
 					]
 				},
 				{
-					"url" : "#",
+					"url" : null,
 					"name": "Seek Unlimited Stories for Free",
 					"desc": null,
 					"icon": null,
-					"slug": "create-free-account",
+					"slug": "benefits-2",
 					"submenu": [
 						{
 							"url" : "https://www.fublis.com/benefits/journalists",
@@ -337,11 +337,11 @@
 			"slug": "resources",
 			"submenu": [
 				{
-					"url" : "#",
+					"url" : null,
 					"name": "Blog & Support",
 					"desc": null,
 					"icon": null,
-					"slug": "create-free-account",
+					"slug": "resources-1",
 					"submenu": [
 						{
 							"url" : "https://blog.fublis.com",
@@ -378,11 +378,11 @@
 					]
 				},
 				{
-					"url" : "#",
+					"url" : null,
 					"name": "Contact Us",
 					"desc": null,
 					"icon": null,
-					"slug": "create-free-account",
+					"slug": "resources-2",
 					"submenu": [
 						{
 							"url" : "https://www.fublis.com/affiliate/",
@@ -427,7 +427,7 @@
 			"name": "Journalists",
 			"desc": null,
 			"icon": null,
-			"slug": "",
+			"slug": "journalists",
 			"submenu": [
 				{
 					"url" : "journalist.call.create",

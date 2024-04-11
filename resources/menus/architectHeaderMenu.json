@@ -5,7 +5,7 @@
 			"name": "Add Story",
 			"desc": null,
 			"icon": null,
-			"slug": null,
+			"slug": "add-story",
 			"submenu": null
 		},
 		{
@@ -13,14 +13,14 @@
 			"name": "Media Kits",
 			"desc": null,
 			"icon": null,
-			"slug": null,
+			"slug": "media-kits",
 			"submenu": [
 				{
 					"url" : null,
 					"name": "Invite stories that suits you",
 					"desc": null,
 					"icon": null,
-					"slug": null,
+					"slug": "media-kits-1",
 					"submenu": [
 						{
 							"url" : "architect.media-kit.index",
@@ -47,14 +47,14 @@
 			"name": "Pitch Story",
 			"desc": null,
 			"icon": null,
-			"slug": null,
+			"slug": "pitch-story",
 			"submenu": [
 				{
 					"url" : null,
 					"name": "Pitch New Story",
 					"desc": null,
 					"icon": null,
-					"slug": null,
+					"slug": "pitch-story-1",
 					"submenu": [
 						{
 							"url" : "architect.pitch-story.journalists.index",
@@ -87,7 +87,7 @@
 					"name": "Benefits",
 					"desc": null,
 					"icon": null,
-					"slug": null,
+					"slug": "pitch-story-2",
 					"submenu": [
 						{
 							"url" : "architect.account.profile.analytic",
@@ -122,14 +122,14 @@
 			"name": "Resources",
 			"desc": null,
 			"icon": null,
-			"slug": null,
+			"slug": "resources",
 			"submenu": [
 				{
 					"url" : null,
 					"name": "Upgrade & Pitch More",
 					"desc": null,
 					"icon": null,
-					"slug": null,
+					"slug": "resources-1",
 					"submenu": [
 						{
 							"url" : "pricing",
@@ -158,11 +158,11 @@
 					]
 				},
 				{
-					"url" : "#",
+					"url" : null,
 					"name": "Blog & Support",
 					"desc": null,
 					"icon": null,
-					"slug": null,
+					"slug": "resources-2",
 					"submenu": [
 						{
 							"url" : "https://blog.fublis.com",

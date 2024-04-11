@@ -3,7 +3,7 @@
 	$menus = json_decode(file_get_contents($path));
 	// dd($menus);
 @endphp
-<ul class="navbar-nav me-auto d-flex align-items-center">
+<ul class="navbar-nav me-auto h-100">
 	@foreach ($menus->items as $item)
 		<li class="nav-item">
 			<a
@@ -58,7 +58,13 @@
 		</li>
 	@endforeach
 </ul>
-<ul id="profileNav" class="flex-row mt-5 navbar-nav mt-xl-0 ms-xl-auto align-items-center">
+<form class="m-0 ms-auto" aria-label="search">
+	<div class="input-group">
+		<label class="bg-white input-group-text" for="headerSearchInput"><i class="bi bi-search"></i></label>
+		<input id="headerSearchInput" class="shadow-none form-control border-start-0 ps-0" type="search" placeholder="Search Journalists, Publications" aria-label="Search">
+	</div>
+</form>
+<ul id="profileNav" class="navbar-nav ms-auto align-items-center h-100">
 	<livewire:common.header.message :url="route('architect.account.profile.message.index')" />
 	<livewire:common.header.notification :url="route('architect.account.profile.notification')" />
 	<li class="px-2 nav-item px-xl-1">
