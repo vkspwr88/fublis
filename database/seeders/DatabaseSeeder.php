@@ -38,6 +38,7 @@ class DatabaseSeeder extends Seeder
 			TeamSizeSeeder::class,
 			SocialMediaSeeder::class,
 			SubscriptionPlanSeeder::class,
+			FaqSeeder::class,
 		]);
 
 		// php artisan db:seed --class=SubscriptionPlanSeeder

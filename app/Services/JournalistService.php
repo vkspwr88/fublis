@@ -8,6 +8,7 @@ use App\Http\Controllers\Users\CompanyController;
 use App\Http\Controllers\Users\JournalistController;
 use App\Http\Controllers\Users\LocationController;
 use App\Http\Controllers\Users\PublicationController;
+use App\Http\Controllers\Users\UserController;
 use App\Interfaces\GuestRepositoryInterface;
 use App\Interfaces\UserRepositoryInterface;
 use App\Mail\User\Journalist\Signup\VerificationMail;
@@ -122,7 +123,7 @@ class JournalistService
 			}
 			// insert journalist record
 			$journalist = JournalistController::createJournalist([
-				'slug' => JournalistController::generateSlug($user->name),
+				'slug' => UserController::generateSlug($user->name),
 				'user_id' => $user->id,
 				'journalist_position_id' => $details['position'],
 				'linked_profile' => $details['linkedinProfile'],

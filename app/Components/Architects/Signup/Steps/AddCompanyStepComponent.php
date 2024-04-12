@@ -189,7 +189,7 @@ class AddCompanyStepComponent extends StepComponent
 			if($this->new){
 				$this->dispatch('alert', [
 					'type' => 'success',
-					'message' => 'You have successfully created your company.'
+					'message' => 'You have successfully added your company.'
 				]);
 			}
 			return;

@@ -4,9 +4,7 @@ namespace App\Http\Controllers\Users;
 
 use App\Http\Controllers\Controller;
 use App\Models\Architect;
-use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Arr;
 
 class ArchitectController extends Controller
 {
@@ -24,19 +22,6 @@ class ArchitectController extends Controller
 	public static function createArchitect($details)
 	{
 		return Architect::create($details);
-	}
-
-	public static function generateSlug($name)
-	{
-		$count = User::withTrashed()->where('name', $name)->count();
-		if($count > 1){
-			$name .= $count;
-		}
-		return str()->replace(
-							' ',
-							'-',
-							str()->headline($name)
-						);
 	}
 
     public static function getArchitectDetailsByUserId(string $userId)

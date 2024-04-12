@@ -8,6 +8,7 @@ use App\Http\Controllers\ErrorLogController;
 use App\Http\Controllers\Users\ArchitectController;
 use App\Http\Controllers\Users\CompanyController;
 use App\Http\Controllers\Users\LocationController;
+use App\Http\Controllers\Users\UserController;
 use App\Interfaces\GuestRepositoryInterface;
 use App\Interfaces\UserRepositoryInterface;
 use App\Mail\User\Architect\Signup\VerificationMail;
@@ -118,7 +119,7 @@ class ArchitectService
 			}
 			// insert architect record
 			$architect = ArchitectController::createArchitect([
-				'slug' => ArchitectController::generateSlug($user->name),
+				'slug' => UserController::generateSlug($user->name),
 				'user_id' => $user->id,
 				'company_id' => $companyId,
 				'architect_position_id' => $details['selectedPosition'],
