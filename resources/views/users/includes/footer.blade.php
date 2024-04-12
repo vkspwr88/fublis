@@ -1,7 +1,7 @@
 <footer id="footer">
 	<div class="bg-footer-black py-5">
 		<div class="container py-5">
-			<div class="row text-center g-5">
+			<div class="row text-center gy-5">
 				<div class="col-12">
 					<h4 class="text-white">Subscribe and never miss out</h4>
 					<livewire:users.blogs.index.subscribe-newsletter />
