@@ -41,10 +41,6 @@ Route::get('/', function () {
     return view('users.pages.home');
 })->name('home');
 
-Route::get('/privacy-policy', function () {
-    return view('users.pages.privacy-policy');
-})->name('privacy-policy');
-
 Route::get('/blank', function () {
     return view('users.pages.blank');
 })->name('blank');

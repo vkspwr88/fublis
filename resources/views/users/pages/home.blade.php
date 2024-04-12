@@ -4,7 +4,7 @@
 
 @section('body')
 <div class="py-5">
-	<div class="container py-5">
+	<div class="container py-0 py-sm-5">
 		<div class="row g-4 text-center">
 			<div class="col-md-12">
 				<ul id="userTab" class="nav nav-pills justify-content-center" aria-label="User Tab">
