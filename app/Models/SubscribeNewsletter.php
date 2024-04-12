@@ -11,9 +11,7 @@ class SubscribeNewsletter extends Model
 {
     use HasFactory, SoftDeletes;
 
-	protected $fillable = [
-		'email',
-	];
+	protected $guarded = [];
 
 	protected $casts = [
 		'email' => EmailCast::class,

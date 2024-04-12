@@ -18,7 +18,10 @@ class SubscribeNewsletterRepository implements SubscribeNewsletterRepositoryInte
 
 	public function createSubscriber(array $details)
 	{
-		return SubscribeNewsletter::updateOrCreate($details);
+		$subscriber = SubscribeNewsletter::updateOrCreate($details);
+		$subscriber->updated_at = Carbon::now();
+		$subscriber->save();
+		return $subscriber;
 	}
 
 	public function verifySubscriber(string $token)
@@ -32,5 +35,23 @@ class SubscribeNewsletterRepository implements SubscribeNewsletterRepositoryInte
 	{
 		return SubscribeNewsletter::where('token', $token)
 									->first();
+	}
+
+	public function checkEmailSent(string $email)
+	{
+		$isEmailExist = SubscribeNewsletter::where([
+												'email' => $email
+											])->first();
+		if(!$isEmailExist){
+			return false;
+		}
+		/* SubscribeNewsletter::where([
+			'email' => $email,
+			['updated_at', '>=', Carbon::now()->subMinutes(10)]
+		])->dd(); */
+		return 	SubscribeNewsletter::where([
+					'email' => $email,
+					['updated_at', '>=', Carbon::now()->subMinutes(10)]
+				])->first();
 	}
 }

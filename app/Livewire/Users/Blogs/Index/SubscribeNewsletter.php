@@ -40,6 +40,11 @@ class SubscribeNewsletter extends Component
 			return;
 		}
 
+		if($this->subscribeNewsletterRepository->checkEmailSent($email)){
+			$this->addError('email', 'Email is already send to your email address');
+			return;
+		}
+
 		$details = [
 			'email' => $email,
 			'token' => sha1($email),

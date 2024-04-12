@@ -8,4 +8,5 @@ interface SubscribeNewsletterRepositoryInterface
 	public function createSubscriber(array $details);
 	public function verifySubscriber(string $token);
 	public function getSubscriberByToken(string $token);
+	public function checkEmailSent(string $email);
 }

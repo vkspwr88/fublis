@@ -21,7 +21,7 @@
 					<div class="tab-pane fade show active" id="architectTabContent" role="tabpanel" aria-labelledby="architectTab">
 						<div class="text-center row g-4">
 							<div class="col-12">
-								<h2 class="m-0 fs-1 fw-semibold text-dark">
+								<h2 class="m-0 fs-1 fw-semibold text-dark home-title">
 									Why Advertise when you can
 									<br>
 									<span class="fublis-line-through">
@@ -32,7 +32,7 @@
 								</h2>
 							</div>
 							<div class="col-12">
-								<p class="m-0 text-secondary">
+								<p class="m-0 text-secondary home-desc">
 									Unlimitedt Press Releases/ Projects/ Stories/
 									<br>
 									Designs on Multiple Platforms Worldwide.
@@ -49,14 +49,14 @@
 					<div class="tab-pane fade" id="journalistTabContent" role="tabpanel" aria-labelledby="journalistTab">
 						<div class="text-center row g-4">
 							<div class="col-12">
-								<h2 class="m-0 fs-1 fw-semibold text-dark">
+								<h2 class="m-0 fs-1 fw-semibold text-dark home-title">
 									Find fresh stories for your
 									<br>
 									Publishing Platform
 								</h2>
 							</div>
 							<div class="col-12">
-								<p class="m-0 text-secondary">
+								<p class="m-0 text-secondary home-desc">
 									'Ready-to-Publish' Fresh Press Releases/ Projects
 									<br>
 									/ Stories / Designs Worldwide.

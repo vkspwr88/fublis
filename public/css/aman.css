@@ -172,6 +172,7 @@ a.text-purple-600:hover{
 	--bs-btn-disabled-color: var(--fublis-white);
 	--bs-btn-disabled-bg: var(--fublis-purple-600);
 	--bs-btn-disabled-border-color: var(--fublis-purple-600);
+	--bs-btn-disabled-opacity: 1;
 }
 
 .btn-outline-primary {
