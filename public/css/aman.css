@@ -1267,7 +1267,25 @@ trix-toolbar .trix-button--icon-link, trix-toolbar .trix-button--icon-code, trix
 }
 
 @media(max-width: 440px){
+	#bannerFooterNav li.nav-item{
+		padding: 0.5em;
+	}
+	#copyrightText{
+		font-size: 14px;
+	}
 	.blog-post-card{
 		padding: 0 !important;
+	}
+}
+
+@media(max-width: 370px){
+	#subscribeSectionHeader{
+		font-size: 20px;
+	}
+	#copyrightText{
+		font-size: 12px;
+	}
+	#bannerFooterNav li.nav-item{
+		padding: 0.3em;
 	}
 }

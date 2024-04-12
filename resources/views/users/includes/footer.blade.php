@@ -3,7 +3,7 @@
 		<div class="container py-5">
 			<div class="row text-center gy-5">
 				<div class="col-12">
-					<h4 class="text-white">Subscribe and never miss out</h4>
+					<h4 id="subscribeSectionHeader" class="text-white">Subscribe and never miss out</h4>
 					<livewire:users.blogs.index.subscribe-newsletter />
 				</div>
 				<div class="col-12">
@@ -159,7 +159,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-md-7">
-					<p class="d-flex justify-content-center justify-content-md-start align-items-center h-100 m-md-0 text-muted">
+					<p id="copyrightText" class="d-flex justify-content-center justify-content-md-start align-items-center h-100 m-md-0 text-muted">
 						<i class="bi bi-c-circle me-1"></i> {{ date('Y') }} {{ env('COMPANY_NAME') }} All rights reserved.
 					</p>
 				</div>

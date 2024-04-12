@@ -148,7 +148,7 @@
 			data-bs-toggle="collapse"
 			aria-expanded="false"
 		>
-			<span class="menu-title">Architects</span>
+			<span class="menu-title">Pitch Now</span>
 			<span class="menu-toggle-icon"></span>
 		</button>
 		<div class="collapse" id="architect">
