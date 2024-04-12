@@ -1274,6 +1274,12 @@ trix-toolbar .trix-button--icon-link, trix-toolbar .trix-button--icon-code, trix
 	#copyrightText{
 		font-size: 14px;
 	}
+	.home-title{
+		font-size: 24px !important;
+	}
+	.home-desc{
+		font-size: 14px !important;
+	}
 	.blog-post-card{
 		padding: 0 !important;
 	}
@@ -1282,6 +1288,12 @@ trix-toolbar .trix-button--icon-link, trix-toolbar .trix-button--icon-code, trix
 @media(max-width: 370px){
 	#subscribeSectionHeader{
 		font-size: 20px;
+	}
+	.home-title{
+		font-size: 21px !important;
+	}
+	.home-desc{
+		font-size: 12px !important;
 	}
 	#copyrightText{
 		font-size: 12px;
