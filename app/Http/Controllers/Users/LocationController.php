@@ -39,6 +39,13 @@ class LocationController extends Controller
 						->get();
 	}
 
+	public static function getCountryByCountryName(string $name)
+	{
+		return Country::where([
+						'name' => strtolower($name)
+					])->first();
+	}
+
 	public static function getStatesByCountryId(int $countryId)
 	{
 		return State::where([

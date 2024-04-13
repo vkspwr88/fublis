@@ -36,6 +36,11 @@ class Journalist extends Model
 		return $this->belongsTo(Location::class);
 	}
 
+	public function journalistPublications(): HasMany
+	{
+		return $this->hasMany(JournalistPublication::class);
+	}
+
 	public function publications(): BelongsToMany
 	{
 		return $this->belongsToMany(

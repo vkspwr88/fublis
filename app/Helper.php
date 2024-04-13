@@ -39,7 +39,9 @@ if (!function_exists('isJournalist')) {
 if (!function_exists('trimWebsiteUrl')) {
     function trimWebsiteUrl($url)
     {
-		return str()->remove('https://', $url);
+		$url = str()->remove('https://', $url);
+		$url = str()->remove('http://', $url);
+		return $url;
 	}
 }
 

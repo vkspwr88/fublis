@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\PublicationResource\Pages;
 use App\Filament\Resources\PublicationResource\RelationManagers;
+use App\Http\Controllers\Admin\PublicationController;
 use App\Http\Controllers\Users\LocationController;
 use App\Models\Publication;
 use Awcodes\Curator\Components\Forms\CuratorPicker;
@@ -15,6 +16,7 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Collection;
 
@@ -38,7 +40,7 @@ class PublicationResource extends Resource
 					->maxWidth(400)
 					// ->directory('images/publications/logos')
 					// ->relationship('profile_image', 'imaggable')
-                    ->required(),
+                    ->required(fn (string $operation): bool => $operation != 'edit'),
                 Forms\Components\TextInput::make('name')
                     ->required()
                     ->maxLength(255),
@@ -172,8 +174,21 @@ class PublicationResource extends Resource
                 Tables\Filters\TrashedFilter::make(),
             ])
             ->actions([
-                Tables\Actions\ViewAction::make(),
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\ViewAction::make()
+											->mutateRecordDataUsing(function (array $data): array {
+												$data = PublicationController::mutateFormDataBeforeFill($data);
+												// dd($data);
+												return $data;
+											}),
+                Tables\Actions\EditAction::make()
+											->mutateRecordDataUsing(function (array $data): array {
+												$data = PublicationController::mutateFormDataBeforeFill($data);
+												// dd($data);
+												return $data;
+											})
+											->using(function (Model $record, array $data): Model {
+												return PublicationController::update($record, $data);
+											}),
                 Tables\Actions\DeleteAction::make(),
                 Tables\Actions\ForceDeleteAction::make(),
                 Tables\Actions\RestoreAction::make(),

@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\CallResource\Pages;
 use App\Filament\Resources\CallResource\RelationManagers;
+use App\Http\Controllers\Admin\CallController;
 use App\Http\Controllers\Users\LocationController;
 use App\Models\Call;
 use Filament\Forms;
@@ -12,6 +13,7 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class CallResource extends Resource
@@ -103,8 +105,21 @@ class CallResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\ViewAction::make(),
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\ViewAction::make()
+											->mutateRecordDataUsing(function (array $data): array {
+												$data = CallController::mutateFormDataBeforeFill($data);
+												// dd($data);
+												return $data;
+											}),
+                Tables\Actions\EditAction::make()
+											->mutateRecordDataUsing(function (array $data): array {
+												$data = CallController::mutateFormDataBeforeFill($data);
+												// dd($data);
+												return $data;
+											})
+											->using(function (Model $record, array $data): Model {
+												return CallController::update($record, $data);
+											}),
                 Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([

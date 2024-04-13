@@ -25,6 +25,7 @@ class JournalistResource extends Resource
 
     // protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 	protected static ?string $label = 'List';
+	protected static ?string $recordRouteKeyName = 'slug';
 
     public static function form(Form $form): Form
     {
@@ -39,10 +40,21 @@ class JournalistResource extends Resource
 					->maxWidth(400)
 					// ->directory('images/publications/logos')
 					// ->relationship('profile_image', 'imaggable')
-                    ->required(),
+                    ->required(fn (string $operation): bool => $operation != 'edit'),
                 Forms\Components\Select::make('user_id')
                     ->relationship('user', 'name')
-					->options(User::doesntHave('journalist')->where('user_type', '!=', UserTypeEnum::ARCHITECT)->where('user_type', '!=', UserTypeEnum::ADMIN)->get()->pluck('email', 'id'))
+					->options(function(string $operation, Get $get) {
+						// dd($operation, $get('user_id'));
+						$users = User::doesntHave('journalist')->where('user_type', '!=', UserTypeEnum::ARCHITECT)->where('user_type', '!=', UserTypeEnum::ADMIN)->get();
+						if($operation == 'edit' || $operation == 'view'){
+							$user = User::where('id', $get('user_id'))->get();
+							// $user = User::find($get('user_id'));
+							// dd($get('user_id'), $user);
+							$users = $users->merge($user);
+							// dd($users);
+						}
+						return $users->pluck('email', 'id');
+					})
 					->createOptionForm([
 						Forms\Components\TextInput::make('name')
 							->required()
@@ -70,18 +82,24 @@ class JournalistResource extends Resource
 				Forms\Components\Select::make('journalist_position_id')
 					->required()
 					->relationship('position', 'name'),
-                /* Forms\Components\TextInput::make('journalist_position_id')
+				Forms\Components\Repeater::make('journalistPublications')
+					->columnSpanFull()
+					->relationship()
+					->schema([
+						Forms\Components\Select::make('publication_id')
+							->relationship('publication', 'name')
+							->required(),
+						Forms\Components\Select::make('journalist_position_id')
+							->relationship('journalistPosition', 'name')
+							->required(),
+					])
+					->columns(2),
+				Forms\Components\TextInput::make('linked_profile')
                     ->required()
-                    ->maxLength(36), */
-                Forms\Components\Textarea::make('linked_profile')
-                    ->required()
-                    ->maxLength(65535)
                     ->columnSpanFull(),
-                Forms\Components\Textarea::make('published_article_link')
-                    ->maxLength(65535)
+                Forms\Components\TextInput::make('published_article_link')
                     ->columnSpanFull(),
-                Forms\Components\Textarea::make('publishing_platform_link')
-                    ->maxLength(65535)
+                Forms\Components\TextInput::make('publishing_platform_link')
                     ->columnSpanFull(),
 				Forms\Components\Select::make('country')
 					->label('Country')

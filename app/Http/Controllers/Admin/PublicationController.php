@@ -4,34 +4,41 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\MediaController;
-use App\Http\Controllers\Users\ArchitectController as UsersArchitectController;
 use App\Http\Controllers\Users\ImageController;
-use App\Http\Controllers\Users\UserController;
-use App\Models\User;
+use App\Http\Controllers\Users\PublicationController as UsersPublicationController;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Storage;
 
-class ArchitectController extends Controller
+class PublicationController extends Controller
 {
     public static function create(array $data, string $model)
 	{
 		$data = LocationController::setLocationForCreate($data);
-		$user = User::find($data['user_id']);
-		$data['slug'] = UserController::generateSlug($user->name);
-		$data['twitter'] = $data['twitter'] ? 'https://' . trimWebsiteUrl($data['twitter']) : null;
-		$data['facebook'] = $data['facebook'] ? 'https://' . trimWebsiteUrl($data['facebook']) : null;
+		$data['slug'] = UsersPublicationController::generateSlug($data['name']);
+		$data['website'] = $data['website'] ? 'https://' . trimWebsiteUrl($data['website']) : null;
 		$data['instagram'] = $data['instagram'] ? 'https://' . trimWebsiteUrl($data['instagram']) : null;
-		$data['linkedin'] = $data['linkedin'] ? 'https://' . trimWebsiteUrl($data['linkedin']) : null;
-
 
 		$mediaId = $data['media_id'];
 		Arr::forget($data, ['media_id']);
-		// dd($data, $model);
 		$result = $model::create($data);
-		ArchitectController::manageMedia($mediaId, $result);
+		PublicationController::manageMedia($mediaId, $result);
 		return $result;
+	}
+
+	public static function update(Model $record, array $data)
+	{
+		$data = LocationController::setLocationForCreate($data);
+		$data['website'] = $data['website'] ? 'https://' . trimWebsiteUrl($data['website']) : null;
+		$data['instagram'] = $data['instagram'] ? 'https://' . trimWebsiteUrl($data['instagram']) : null;
+
+		$mediaId = $data['media_id'];
+		Arr::forget($data, ['media_id']);
+		// dd($data);
+		$record->update($data);
+		PublicationController::manageMedia($mediaId, $record);
+		return $record;
 	}
 
 	public static function mutateFormDataBeforeFill($data)
@@ -41,22 +48,6 @@ class ArchitectController extends Controller
 		return $data;
 	}
 
-	public static function update(Model $record, array $data)
-	{
-		$data = LocationController::setLocationForCreate($data);
-		$data['twitter'] = $data['twitter'] ? 'https://' . trimWebsiteUrl($data['twitter']) : null;
-		$data['facebook'] = $data['facebook'] ? 'https://' . trimWebsiteUrl($data['facebook']) : null;
-		$data['instagram'] = $data['instagram'] ? 'https://' . trimWebsiteUrl($data['instagram']) : null;
-		$data['linkedin'] = $data['linkedin'] ? 'https://' . trimWebsiteUrl($data['linkedin']) : null;
-
-		$mediaId = $data['media_id'];
-		Arr::forget($data, ['media_id']);
-		// dd($data);
-		$record->update($data);
-		ArchitectController::manageMedia($mediaId, $record);
-		return $record;
-	}
-
 	public static function manageMedia($mediaId, $record)
 	{
 		if(!$mediaId){
@@ -64,10 +55,10 @@ class ArchitectController extends Controller
 		}
 		$media = MediaController::getRecordById($mediaId);
 		if($media){
-			$newPath = 'images/architects/profile/' . uniqid() . '.' . $media->ext;
+			$newPath = 'images/publications/logos/' . uniqid() . '.' . $media->ext;
 			Storage::copy($media->path, $newPath);
 			ImageController::updateOrCreate($record->profileImage(), [
-				'image_type' => 'profile',
+				'image_type' => 'logo',
 				'image_path' => $newPath,
 			]);
 		}

@@ -21,4 +21,9 @@ class JournalistPosition extends Model
 	{
 		return $this->hasMany(Journalist::class);
 	}
+
+	public function journalistPublications(): HasMany
+	{
+		return $this->hasMany(JournalistPublication::class);
+	}
 }

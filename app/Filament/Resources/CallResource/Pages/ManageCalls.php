@@ -3,7 +3,7 @@
 namespace App\Filament\Resources\CallResource\Pages;
 
 use App\Filament\Resources\CallResource;
-use App\Http\Controllers\Users\Journalists\CallController;
+use App\Http\Controllers\Admin\CallController;
 use App\Http\Controllers\Users\LocationController;
 use Filament\Actions;
 use Filament\Notifications\Notification;
@@ -18,22 +18,15 @@ class ManageCalls extends ManageRecords
     {
         return [
             Actions\CreateAction::make()
+				->label('New Call')
 				->using(function (array $data, string $model): Model {
-					$location = LocationController::createLocation([
-						'name' => $data['location_id'],
-						'city_flag' => 0,
-						'state_flag' => 0,
-						'country_flag' => 1,
-					]);
-					$data['location_id'] = $location->id;
-					$data['slug'] = CallController::generateSlug($data['title']);
-					return $model::create($data);
+					return CallController::create($data, $model);
 				})
 				->successNotification(
 					Notification::make()
 						->success()
-						->title('Studio Added')
-						->body('New studio has been created successfully.'),
+						->title('Call Added')
+						->body('New call has been created successfully.'),
 				),
         ];
     }

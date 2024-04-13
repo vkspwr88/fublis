@@ -517,11 +517,11 @@ a.text-purple-600:hover{
 	position: relative;
 }
 
-.bi {
+/* .bi {
 	vertical-align: -.125em;
 	pointer-events: none;
 	fill: currentColor;
-}
+} */
 .btn-toggle {
 	display: inline-flex;
 	align-items: center;
