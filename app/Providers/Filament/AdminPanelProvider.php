@@ -154,7 +154,6 @@ class AdminPanelProvider extends PanelProvider
 					Navigation\NavigationGroup::make('Stripe')
 					->items([
 						...Resources\SubscriptionPlanResource::getNavigationItems(),
-						...Resources\SubscriptionPriceResource::getNavigationItems(),
 					])
 					->icon('heroicon-o-rectangle-stack'),
 
