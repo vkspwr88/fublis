@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Architects\PitchStories;
 
+use App\Http\Controllers\Users\Architects\SubscriptionController;
 use App\Http\Controllers\Users\CategoryController;
 use App\Http\Controllers\Users\LocationController;
 use App\Http\Controllers\Users\PublicationController;
@@ -103,6 +104,19 @@ class Publications extends Component
 			]);
 			return;
 		}
+		if(SubscriptionController::checkPremiumPublication($publication)){
+			$this->dispatch('alert', [
+				'type' => 'warning',
+				'message' => 'Upgrade your plan to pitch premium publication.'
+			]);
+			return;
+		}
+		/* if($publication->is_premium && !isSubscribed()){
+			$this->dispatch('alert', [
+				'type' => 'warning',
+				'message' => 'Upgrade your plan to pitch premium publication.'
+			]);
+		} */
 		$publication->load([
 							'journalists' => [
 								'position',
@@ -154,7 +168,10 @@ class Publications extends Component
 		$mediaKit = $this->mediaKits->find($this->selectedMediaKit);
 		$journalist = $this->journalists->find($this->selectedJournalist);
 		$this->subject = 'New ' . showModelName($mediaKit->story_type) . ' | ' . $mediaKit->story->title;
-		$this->message = "Hi " . $journalist->user->name . ",<br><br>I'm writing to you about our latest story <a href='" . route('journalist.media-kit.view', ['mediaKit' => $mediaKit->slug]) . "' class='text-purple-800'>" . $mediaKit->story->title . "</a> for your consideration.<br><br>" . getProjectBrief($mediaKit) . "<br><br>It would be great to have it published in " . $this->publication->name . ". I would be happy to share any more information that you might need.<br><br>Regards,<br>" . auth()->user()->name . "";
+		$this->message = "";
+		if(isSubscribed()){
+			$this->message = "Hi " . $journalist->user->name . ",<br><br>I'm writing to you about our latest story <a href='" . route('journalist.media-kit.view', ['mediaKit' => $mediaKit->slug]) . "' class='text-purple-800'>" . $mediaKit->story->title . "</a> for your consideration.<br><br>" . getProjectBrief($mediaKit) . "<br><br>It would be great to have it published in " . $this->publication->name . ". I would be happy to share any more information that you might need.<br><br>Regards,<br>" . auth()->user()->name . "";
+		}
 		$this->dispatch('hide-select-mediakit-modal');
 		$this->dispatch('show-send-message-modal');
 	}
@@ -170,7 +187,14 @@ class Publications extends Component
 			]);
 			return;
 		}
-		if($this->subject == '' && $this->message == ''){
+		if(SubscriptionController::checkPitchesPerMonth()){
+			$this->dispatch('alert', [
+				'type' => 'warning',
+				'message' => 'You are only allowed to do 3 pitches per month.'
+			]);
+			return;
+		}
+		if($this->subject == '' || $this->message == ''){
 			$this->dispatch('alert', [
 				'type' => 'warning',
 				'message' => 'Enter the subject and message.'

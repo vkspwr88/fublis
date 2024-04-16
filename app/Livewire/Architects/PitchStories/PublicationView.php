@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Architects\PitchStories;
 
+use App\Http\Controllers\Users\Architects\SubscriptionController;
 use App\Models\Journalist;
 use App\Services\PitchStoryService;
 use Livewire\Component;
@@ -77,6 +78,13 @@ class PublicationView extends Component
 	// Show journalists list
 	public function showContact()
 	{
+		if(SubscriptionController::checkPremiumPublication($this->publication)){
+			$this->dispatch('alert', [
+				'type' => 'warning',
+				'message' => 'Upgrade your plan to pitch premium publication.'
+			]);
+			return;
+		}
 		$this->selectedAssociatedPublication = null;
 		$this->selectedModelType = $this->publication;
 		$this->dispatch('show-select-contact-modal');
@@ -110,6 +118,15 @@ class PublicationView extends Component
 			}
 		}
 
+		$selectedPublication = $this->selectedAssociatedPublication ? $this->associatedPublications->find($this->selectedAssociatedPublication) : $this->publication;
+		if(SubscriptionController::checkPremiumPublication($selectedPublication)){
+			$this->dispatch('alert', [
+				'type' => 'warning',
+				'message' => 'Upgrade your plan to pitch premium publication.'
+			]);
+			return;
+		}
+
 		$this->mediaKits = auth()->user()
 									->architect
 									->mediaKits
@@ -133,7 +150,10 @@ class PublicationView extends Component
 		$journalist = $this->journalists->find($this->selectedJournalist);
 		$selectedPublication = $this->selectedAssociatedPublication ? $this->associatedPublications->find($this->selectedAssociatedPublication) : $this->publication;
 		$this->subject = 'New ' . showModelName($mediaKit->story_type) . ' | ' . $mediaKit->story->title;
-		$this->message = "Hi " . $journalist->user->name . ",<br><br>I'm writing to you about our latest story <a href='" . route('journalist.media-kit.view', ['mediaKit' => $mediaKit->slug]) . "' class='text-purple-800'>" . $mediaKit->story->title . "</a> for your consideration.<br><br>" . getProjectBrief($mediaKit) . "<br><br>It would be great to have it published in " . $selectedPublication->name . ". I would be happy to share any more information that you might need.<br><br>Regards,<br>" . auth()->user()->name . "";
+		$this->message = "";
+		if(isSubscribed()){
+			$this->message = "Hi " . $journalist->user->name . ",<br><br>I'm writing to you about our latest story <a href='" . route('journalist.media-kit.view', ['mediaKit' => $mediaKit->slug]) . "' class='text-purple-800'>" . $mediaKit->story->title . "</a> for your consideration.<br><br>" . getProjectBrief($mediaKit) . "<br><br>It would be great to have it published in " . $selectedPublication->name . ". I would be happy to share any more information that you might need.<br><br>Regards,<br>" . auth()->user()->name . "";
+		}
 		$this->dispatch('hide-select-mediakit-modal');
 		$this->dispatch('show-send-message-modal');
 	}
@@ -148,7 +168,14 @@ class PublicationView extends Component
 			]);
 			return;
 		}
-		if($this->subject == '' && $this->message == ''){
+		if(SubscriptionController::checkPitchesPerMonth()){
+			$this->dispatch('alert', [
+				'type' => 'warning',
+				'message' => 'You are only allowed to do 3 pitches per month.'
+			]);
+			return;
+		}
+		if($this->subject == '' || $this->message == ''){
 			$this->dispatch('alert', [
 				'type' => 'warning',
 				'message' => 'Enter the subject and message.'

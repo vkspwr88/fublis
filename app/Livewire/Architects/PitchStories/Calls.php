@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Architects\PitchStories;
 
+use App\Http\Controllers\Users\Architects\SubscriptionController;
 use App\Http\Controllers\Users\CategoryController;
 use App\Http\Controllers\Users\Journalists\CallController;
 use App\Http\Controllers\Users\LocationController;
@@ -147,7 +148,10 @@ class Calls extends Component
 		}
 		$mediaKit = $this->mediaKits->find($this->selectedMediaKit);
 		$this->subject = 'New ' . showModelName($mediaKit->story_type) . ' | ' . $mediaKit->story->title;
-		$this->message = "Hi " . $this->journalist->user->name . ",<br><br>I'm writing to you about our latest story <a href='" . route('journalist.media-kit.view', ['mediaKit' => $mediaKit->slug]) . "' class='text-purple-800'>" . $mediaKit->story->title . "</a> for your consideration.<br><br>" . getProjectBrief($mediaKit) . "<br><br>It would be great to have it published in " . $this->call->publication->name . ". I would be happy to share any more information that you might need.<br><br>Regards,<br>" . auth()->user()->name . "";
+		$this->message = "";
+		if(isSubscribed()){
+			$this->message = "Hi " . $this->journalist->user->name . ",<br><br>I'm writing to you about our latest story <a href='" . route('journalist.media-kit.view', ['mediaKit' => $mediaKit->slug]) . "' class='text-purple-800'>" . $mediaKit->story->title . "</a> for your consideration.<br><br>" . getProjectBrief($mediaKit) . "<br><br>It would be great to have it published in " . $this->call->publication->name . ". I would be happy to share any more information that you might need.<br><br>Regards,<br>" . auth()->user()->name . "";
+		}
 		$this->dispatch('hide-select-mediakit-modal');
 		$this->dispatch('show-send-message-modal');
 	}
@@ -162,7 +166,14 @@ class Calls extends Component
 			]);
 			return;
 		}
-		if($this->subject == '' && $this->message == ''){
+		if(SubscriptionController::checkPitchesPerMonth()){
+			$this->dispatch('alert', [
+				'type' => 'warning',
+				'message' => 'You are only allowed to do 3 pitches per month.'
+			]);
+			return;
+		}
+		if($this->subject == '' || $this->message == ''){
 			$this->dispatch('alert', [
 				'type' => 'warning',
 				'message' => 'Enter the subject and message.'

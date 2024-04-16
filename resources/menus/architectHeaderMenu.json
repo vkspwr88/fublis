@@ -203,7 +203,7 @@
 			"submenu": null
 		},
 		{
-			"url" : "journalist.account.profile.index",
+			"url" : "architect.account.profile.index",
 			"name": "Profile",
 			"desc": null,
 			"icon": null,

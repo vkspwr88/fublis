@@ -21,9 +21,7 @@ class ProfileController extends Controller
 
 	public function analytic()
 	{
-		return view('users.pages.architects.accounts.profile.analytic', [
-			'mediaKits' => MediaKitController::getUserMediaKitsAnalytics(auth()->id()),
-		]);
+		return view('users.pages.architects.accounts.profile.analytic');
 	}
 
 	public function alert()

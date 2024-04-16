@@ -1,6 +1,7 @@
 <script setup>
 	import { ref, watchEffect } from 'vue';
 	import axios from 'axios';
+	// import moment from
 
 	const authId = window.auth;
 	const newMessage = ref('');
@@ -95,14 +96,14 @@
 <template>
 	<div class="row">
 		<div class="col-md-7">
-			<h5 class="text-black fs-5 fw-semibold mb-5">Your Messages</h5>
+			<h5 class="mb-5 text-black fs-5 fw-semibold">Your Messages</h5>
 			<div class="row g-0">
 				<div class="col-12" v-for="chat in subjects" :key="chat.id">
-					<div class="card border-0 bg-transparent">
+					<div class="bg-transparent border-0 card">
 						<a href="javascript:;" class="stretched-link" @click="changeSubject(chat.id)"></a>
 						<div class="row align-items-center">
 							<div class="col-3">
-								<p class="fs-6 m-0"
+								<p class="m-0 fs-6"
 									:class="[
 										selectedChat === chat.id ? 'text-purple-600 fw-semibold' : 'text-gray-900',
 										(selectedChat != chat.id && chat.is_unread) ? 'fw-semibold' : ''
@@ -117,7 +118,7 @@
 								</p>
 							</div>
 							<div class="col-9">
-								<p class="fs-6 m-0"
+								<p class="m-0 fs-6"
 									:class="[
 										selectedChat === chat.id ? 'text-purple-700' : 'text-gray-900',
 										(selectedChat != chat.id && chat.is_unread) ? 'fw-semibold' : 'fw-normal'
@@ -125,7 +126,7 @@
 								>
 									{{ chat.pitch.subject }}
 								</p>
-								<p class="fs-6 fw-normal m-0 text-truncate"
+								<p class="m-0 fs-6 fw-normal text-truncate"
 									:class="[
 										selectedChat === chat.id ? 'text-purple-600' : 'text-gray-600',
 									]"
@@ -135,7 +136,7 @@
 							</div>
 						</div>
 					</div>
-					<hr class="border-gray-300 my-3">
+					<hr class="my-3 border-gray-300">
 				</div>
 			</div>
 		</div>
@@ -144,23 +145,24 @@
 				<div class="col-12">
 					<div class="px-2" style="max-height: 400px; overflow: hidden scroll;">
 						<div id="chatWindow" ref="chatWindow" class="row g-3">
-							<TransitionGroup v-for="chatMessage in messages" :key="chatMessage.id">
+							<TransitionGroup v-for="(chatMessage, index) in messages" :key="chatMessage.id">
 								<div class="col-8 offset-4" v-if="chatMessage.user_id === authId">
 									<div class="row g-2">
 										<div class="col-12">
 											<div class="row">
-												<div class="col">
-													<p class="text-start fw-medium text-dark m-0">You</p>
+												<div class="col-auto">
+													<p class="m-0 text-start fw-medium text-dark">You</p>
 												</div>
 												<div class="col">
-													<p class="text-end text-secondary m-0">{{ chatMessage.created_at }}</p>
+													<p class="m-0 text-end text-secondary">{{ chatMessage.created_at }}</p>
 												</div>
 											</div>
 										</div>
 										<div class="col-12">
-											<div class="card bg-purple-600 border-0 rounded-3">
+											<div class="bg-purple-600 border-0 card rounded-3">
 												<div class="card-body">
-													<p class="card-text text-white m-0" v-html="chatMessage.message"></p>
+													<p class="m-0 text-white card-text" v-if="index == 0" v-html="chatMessage.message"></p>
+													<p class="m-0 text-white card-text" v-else>{{ chatMessage.message }}</p>
 												</div>
 											</div>
 										</div>
@@ -181,18 +183,19 @@
 											<div class="row g-2">
 												<div class="col-12">
 													<div class="row">
-														<div class="col">
-															<p class="text-start fw-medium text-dark m-0">{{ chatMessage.user.name }}</p>
+														<div class="col-auto">
+															<p class="m-0 text-start fw-medium text-dark">{{ chatMessage.user.name }}</p>
 														</div>
 														<div class="col">
-															<p class="text-end text-secondary m-0">{{ chatMessage.created_at }}</p>
+															<p class="m-0 text-end text-secondary">{{ chatMessage.created_at }}</p>
 														</div>
 													</div>
 												</div>
 												<div class="col-12">
-													<div class="card bg-gray-100 border-0 rounded-3">
+													<div class="bg-gray-100 border-0 card rounded-3">
 														<div class="card-body">
-															<p class="card-text text-dark m-0" v-html="chatMessage.message"></p>
+															<p class="m-0 card-text text-dark" v-if="index == 0" v-html="chatMessage.message"></p>
+															<p class="m-0 card-text text-dark" v-else>{{ chatMessage.message }}</p>
 														</div>
 													</div>
 												</div>
@@ -205,8 +208,8 @@
 					</div>
 				</div>
 				<div class="col-12" v-if="messages">
-					<div class="input-group mb-1 rounded-3 border-gray-300">
-						<input class="form-control shadow-none" rows="2" aria-describedby="button-send" placeholder="Type your message here..." v-model.trim="newMessage" @keyup.enter="sendMessage" />
+					<div class="mb-1 border-gray-300 input-group rounded-3">
+						<input class="shadow-none form-control" rows="2" aria-describedby="button-send" placeholder="Type your message here..." v-model.trim="newMessage" @keyup.enter="sendMessage" />
 						<button class="btn btn-primary" type="button" id="button-send" @click="sendMessage">
 							Send <x-users.spinners.white-btn />
 						</button>

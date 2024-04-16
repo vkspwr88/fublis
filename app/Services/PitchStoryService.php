@@ -187,6 +187,7 @@ class PitchStoryService
 				'pitch_id' => $pitch->id,
 				'sender_id' => auth()->id(),
 				'receiver_id' => $journalist->user_id,
+				'sender_unread' => 0,
 			]);
 
 			$chatService->createChatMessage([

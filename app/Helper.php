@@ -140,25 +140,42 @@ if (!function_exists('formatDate')) {
 	}
 }
 
+if (!function_exists('formatDateTime')) {
+	function formatDateTime($date)
+	{
+		return Carbon::parse($date)->format('jS M Y, h:i a');
+	}
+}
+
 if (!function_exists('isBusinessPlanSubscribed')) {
-	function isBusinessPlanSubscribed()
+	function isBusinessPlanSubscribed($otherUser = null)
 	{
 		$user = auth()->user();
+		if($otherUser){
+			$user = $otherUser;
+		}
 		return $user->subscribed('business-plan-annually') || $user->subscribed('business-plan-quaterly');
 	}
 }
 
 if (!function_exists('isEnterprisePlanSubscribed')) {
-	function isEnterprisePlanSubscribed()
+	function isEnterprisePlanSubscribed($otherUser = null)
 	{
 		$user = auth()->user();
+		if($otherUser){
+			$user = $otherUser;
+		}
 		return $user->subscribed('enterprise-plan-annually') || $user->subscribed('enterprise-plan-quaterly');
 	}
 }
 
 if (!function_exists('isSubscribed')) {
-	function isSubscribed()
+	function isSubscribed($otherUser = null)
 	{
-		return isArchitect() && ( isBusinessPlanSubscribed() || isEnterprisePlanSubscribed() );
+		$user = auth()->user();
+		if($otherUser){
+			$user = $otherUser;
+		}
+		return isArchitect() && ( isBusinessPlanSubscribed($user) || isEnterprisePlanSubscribed($user) );
 	}
 }
