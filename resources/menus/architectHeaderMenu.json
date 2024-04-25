@@ -219,14 +219,6 @@
 			"submenu": null
 		},
 		{
-			"url" : "architect.account.profile.alert",
-			"name": "Alerts",
-			"desc": null,
-			"icon": null,
-			"slug": null,
-			"submenu": null
-		},
-		{
 			"url" : "architect.account.profile.notification",
 			"name": "Notifications",
 			"desc": null,

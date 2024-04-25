@@ -18,7 +18,7 @@ class PublicationController extends Controller
 		$data = LocationController::setLocationForCreate($data);
 		$data['slug'] = UsersPublicationController::generateSlug($data['name']);
 		$data['website'] = $data['website'] ? 'https://' . trimWebsiteUrl($data['website']) : null;
-		$data['instagram'] = $data['instagram'] ? 'https://' . trimWebsiteUrl($data['instagram']) : null;
+		/* $data['instagram'] = $data['instagram'] ? 'https://' . trimWebsiteUrl($data['instagram']) : null; */
 
 		$mediaId = $data['media_id'];
 		Arr::forget($data, ['media_id']);
@@ -31,7 +31,7 @@ class PublicationController extends Controller
 	{
 		$data = LocationController::setLocationForCreate($data);
 		$data['website'] = $data['website'] ? 'https://' . trimWebsiteUrl($data['website']) : null;
-		$data['instagram'] = $data['instagram'] ? 'https://' . trimWebsiteUrl($data['instagram']) : null;
+		/* $data['instagram'] = $data['instagram'] ? 'https://' . trimWebsiteUrl($data['instagram']) : null; */
 
 		$mediaId = $data['media_id'];
 		Arr::forget($data, ['media_id']);

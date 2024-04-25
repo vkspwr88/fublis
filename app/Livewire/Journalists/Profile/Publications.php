@@ -36,9 +36,9 @@ class Publications extends Component
 		$this->name = '';
 		$this->selectedLocation = '';
 		// $this->locations = LocationController::getAll();
-		$this->locations = LocationController::getCountries();
-		$this->publicationTypes = PublicationTypeController::getAll();
-		$this->categories = CategoryController::getAll();
+		$this->locations = LocationController::getSelected('publication');
+		$this->publicationTypes = PublicationTypeController::getSelected('publication');
+		$this->categories = CategoryController::getSelected('publication');
 	}
 
     public function render()

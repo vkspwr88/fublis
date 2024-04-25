@@ -44,6 +44,7 @@ class Publication extends Component
 	public $monthlyVisitors;
 	public $aboutMe;
 	public int $aboutMeLength;
+	public $startingYear;
 	public $isNew = true;
 	public $publications;
 	public $selectedPublication;
@@ -134,8 +135,9 @@ class Publication extends Component
 			'selectedPublishFrom.*' => 'exists:publish_froms,id',
 			'selectedPublicationTypes' => 'required',
 			'selectedPublicationTypes.*' => 'exists:publication_types,id',
-			'monthlyVisitors' => 'nullable',
+			'monthlyVisitors' => 'nullable|string',
 			'aboutMe' => 'required|max:275',
+			'startingYear' => 'nullable|integer|min:1900|max:' . date('Y') . '|digits:4',
 		];
 	}
 
@@ -165,6 +167,7 @@ class Publication extends Component
 			'selectedPublicationTypes.required' => 'Select the :attribute.',
 			'aboutMe.required' => 'Enter the :attribute.',
 			'aboutMe.max' => 'The :attribute allows only 275 characters.',
+			'startingYear.date_format' => 'Enter the :attribute in 4 digit year format.',
 			'*.exists' => 'Select the valid :attribute.',
 			'*.*.exists' => 'Select the valid :attribute.',
 		];
@@ -187,6 +190,7 @@ class Publication extends Component
 			'selectedPublishFrom' => 'publish from',
 			'selectedPublicationTypes' => 'publication type',
 			'aboutMe' => 'publication details',
+			'startingYear' => 'starting year',
 		];
 	}
 
@@ -208,6 +212,7 @@ class Publication extends Component
 			'selectedPublicationTypes' => $this->selectedPublicationTypes,
 			'monthlyVisitors' => $this->monthlyVisitors,
 			'aboutMe' => $this->aboutMe,
+			'startingYear' => $this->startingYear,
 		];
 	}
 
@@ -230,6 +235,7 @@ class Publication extends Component
 		$this->selectedPublicationTypes = $this->selectedPublication->publicationTypes->pluck('id');
 		$this->monthlyVisitors = $this->selectedPublication->monthly_visitors;
 		$this->aboutMe = $this->selectedPublication->about_me;
+		$this->startingYear = $this->selectedPublication->starting_year;
 		$this->profileImageOld = $this->selectedPublication->profileImage;
 		$this->publicationId = $publicationId;
 		$city = LocationController::getCityByCityName($this->selectedPublication->location->name);
@@ -255,6 +261,7 @@ class Publication extends Component
 		$this->publicationId = '';
 		$this->profileImageOld = '';
 		$this->profileImage = '';
+		$this->startingYear = '';
 		$this->resetValidation();
 		// $this->mount();
 		// $this->render();

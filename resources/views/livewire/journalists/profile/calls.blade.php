@@ -76,13 +76,24 @@
 										</div>
 									</div> --}}
 								</div>
-								<div class="row justify-content-center align-items-end g-3">
+								<div class="row justify-content-center align-items-end g-2">
 									<div class="col-md-6">
 										<div class="row justify-content-end">
 											<div class="col-12">
-												<div class="row justify-content-center justify-content-md-start align-items-center">
+												<div class="row g-2 justify-content-center justify-content-md-start align-items-center">
 													<div class="col-auto">
-														<img src="{{ $call->publication->profileImage ? Storage::url($call->publication->profileImage->image_path) : 'https://via.placeholder.com/45x45' }}" class="img-sqaure img-45 rounded-circle" alt="..." />
+														@php
+															$profileImg = $call->publication->profileImage ?
+																			Storage::url($call->publication->profileImage->image_path) :
+																			App\Http\Controllers\Users\AvatarController::setProfileAvatar([
+																				'name' => $call->publication->name,
+																				'width' => 45,
+																				'fontSize' => 19,
+																				'background' => $call->publication->background_color,
+																				'foreground' => $call->publication->foreground_color,
+																			], 'publication');
+														@endphp
+														<img src="{{ $profileImg }}" class="img-sqaure img-45 rounded-circle" alt="..." />
 													</div>
 													<div class="col-auto fs-6">
 														<p class="fw-semibold m-0 p-0">
@@ -102,13 +113,21 @@
 									</div>
 									<div class="col-md-6">
 										<div class="d-flex justify-content-center justify-content-md-end align-items-center flex-wrap fw-medium">
-											<span class="badge rounded-pill bg-purple-50 text-purple-700 mb-1">
-												{{ $call->language->name }}
-											</span>
-											<span class="badge rounded-pill bg-purple-50 text-purple-700 mb-1">Project</span>
-											<span class="badge rounded-pill bg-purple-50 text-purple-700 mb-1">
-												{{ $call->category->name }}
-											</span>
+											<div class="row g-2">
+												<div class="col-auto">
+													<span class="badge rounded-pill bg-purple-50 text-purple-700 mb-1">
+														{{ $call->language->name }}
+													</span>
+												</div>
+												<div class="col-auto">
+													<span class="badge rounded-pill bg-purple-50 text-purple-700 mb-1">Project</span>
+												</div>
+												<div class="col-auto">
+													<span class="badge rounded-pill bg-purple-50 text-purple-700 mb-1">
+														{{ $call->category->name }}
+													</span>
+												</div>
+											</div>
 										</div>
 									</div>
 								</div>

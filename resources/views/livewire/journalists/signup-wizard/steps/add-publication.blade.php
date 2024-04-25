@@ -1,14 +1,14 @@
 <div>
 	@include('livewire.journalists.signup-wizard.navigation')
 
-	<div class="row bg-white justify-content-center pt-5">
+	<div class="pt-5 bg-white row justify-content-center">
 		<div class="col-lg-10">
-			<div class="card rounded-4 shadow border border-1">
+			<div class="border shadow card rounded-4 border-1">
 				<div class="row g-0 align-items-start">
 					<div class="col-sm-12 col-md-6">
 						<div class="row justify-content-between align-items-center">
 							<div class="col-12">
-								<div class="card-body px-5">
+								<div class="px-5 card-body">
 									<form class="py-3" wire:submit="add">
 										@if($new)
 											<div class="mb-3">
@@ -24,7 +24,7 @@
 											<div class="mb-3">
 												<label for="selectCountry" class="form-label text-dark fs-6 fw-medium">Country</label>
 												<select class="form-select @error('selectedCountry') is-invalid @enderror" id="selectCountry" wire:model.live="selectedCountry">
-													<option value="">Select Country</option>
+													<option value="0">Select Country</option>
 													@foreach ($countries as $country)
 													<option value="{{ $country->id }}">{{ str()->headline($country->name) }}</option>
 													@endforeach
@@ -34,7 +34,7 @@
 											<div class="mb-3">
 												<label for="selectState" class="form-label text-dark fs-6 fw-medium">State</label>
 												<select class="form-select @error('selectedState') is-invalid @enderror" id="selectState" wire:model.live="selectedState">
-													<option value="">Select State</option>
+													<option value="0">Select State</option>
 													@foreach ($states as $state)
 													<option value="{{ $state->id }}">{{ str()->headline($state->name) }}</option>
 													@endforeach
@@ -115,16 +115,16 @@
 											</div>
 											@if($showList)
 												<div class="mb-3">
-													<div id="searchBox" class="border rounded-3 p-3" style="height: 10.25rem; overflow-y: scroll;">
+													<div id="searchBox" class="p-3 border rounded-3" style="height: 10.25rem; overflow-y: scroll;">
 														<div class="row">
 															@forelse ($publications as $publication)
 																<div class="col-12">
 																	<input id="{{ $publication->id }}" type="radio" value="{{ $publication->id }}" wire:model="selectedPublication">
-																	<div class="search-list position-relative p-2 my-1">
+																	<div class="p-2 my-1 search-list position-relative">
 																		<label for="{{ $publication->id }}" class="text-secondary fs-6 w-100">
 																			<span class="fw-bold text-dark">{{ $publication->name }}</span>
 																			<span>{{ $publication->location->name }}</span>
-																			<span class="checked position-absolute text-purple-600">
+																			<span class="text-purple-600 checked position-absolute">
 																				<i class="bi bi-check-lg"></i>
 																			</span>
 																		</label>
@@ -132,7 +132,7 @@
 																</div>
 															@empty
 																<div class="col-12">
-																	<div class="search-list position-relative p-2 my-1">
+																	<div class="p-2 my-1 search-list position-relative">
 																		No Result Found
 																	</div>
 																</div>

@@ -246,7 +246,7 @@ class ProjectForm extends Form
 			'mediaKitAccess' => 'media kit access',
 		];
 	}
-	
+
 	// creating the draft of the media kit
 	public function draftMediaKit()
 	{
@@ -428,5 +428,10 @@ class ProjectForm extends Form
 			return;
 		}
 		//
+	}
+
+	public function deleteMediaKit()
+	{
+		return to_route('architect.add-story.project.index');
 	}
 }

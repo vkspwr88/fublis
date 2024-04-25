@@ -2,11 +2,23 @@
 	<div class="col-md-4 col-lg-3">
 		<div class="row g-3">
 			<div class="col-12">
-				<img src="{{ $architect->profileImage ? Storage::url($architect->profileImage->image_path) : 'https://via.placeholder.com/150x150' }}" class="img-square img-150" alt="logo">
+				@php
+					use App\Http\Controllers\Users\AvatarController as AvatarController;
+					$architectProfileImg = $architect->profileImage ?
+											Storage::url($architect->profileImage->image_path) :
+											AvatarController::setProfileAvatar([
+												'name' => $architect->user->name,
+												'width' => 150,
+												'fontSize' => 75,
+												'background' => $architect->background_color,
+												'foreground' => $architect->foreground_color,
+											]);
+				@endphp
+				<img src="{{ $architectProfileImg }}" class="img-square img-150" alt="logo">
 			</div>
 			<div class="col-12">
-				<h4 class="text-dark fs-5 fw-semibold m-0 p-0">{{ $architect->user->name }}</h4>
-				<p class="m-0 p-0 text-secondary">{{ $architect->position->name }}</p>
+				<h4 class="p-0 m-0 text-dark fs-5 fw-semibold">{{ $architect->user->name }}</h4>
+				<p class="p-0 m-0 text-secondary">{{ $architect->position->name }}</p>
 			</div>
 			@if ($viewAs === 'architect')
 			<div class="col-12">
@@ -28,15 +40,15 @@
 						@php
 							$city = $architect->location->city()->first();
 						@endphp
-						<span class="badge rounded-pill text-gray-700 bg-gray-200 text-capitalize">
+						<span class="text-gray-700 bg-gray-200 badge rounded-pill text-capitalize">
 							{{ $city->state->country->name }}
 						</span>
-						<span class="badge rounded-pill text-gray-700 bg-gray-200 text-capitalize">
+						<span class="text-gray-700 bg-gray-200 badge rounded-pill text-capitalize">
 							{{ $city->state->name }}
 						</span>
-						{{-- <span class="badge rounded-pill text-gray-700 bg-gray-200">{{ $architect->location->state->country->name }}</span>
-						<span class="badge rounded-pill text-gray-700 bg-gray-200">{{ $architect->location->state->name }}</span> --}}
-						<span class="badge rounded-pill text-gray-700 bg-gray-200">{{ $architect->location->name }}</span>
+						{{-- <span class="text-gray-700 bg-gray-200 badge rounded-pill">{{ $architect->location->state->country->name }}</span>
+						<span class="text-gray-700 bg-gray-200 badge rounded-pill">{{ $architect->location->state->name }}</span> --}}
+						<span class="text-gray-700 bg-gray-200 badge rounded-pill">{{ $architect->location->name }}</span>
 					</div>
 				</div>
 			</div>
@@ -50,7 +62,7 @@
 						</svg>
 					</div>
 					<div class="col">
-						<span class="badge rounded-pill text-gray-700 bg-gray-200">{{ $architect->company->category->name }}</span>
+						<span class="text-gray-700 bg-gray-200 badge rounded-pill">{{ $architect->company->category->name }}</span>
 					</div>
 				</div>
 			</div>
@@ -62,18 +74,29 @@
 			@endif
 
 		</div>
-		<hr class="border-gray-300 my-4">
+		<hr class="my-4 border-gray-300">
 		<div class="row g-3">
 			<div class="col-12">
-				<h4 class="fs-5 text-purple-700 fw-semibold">Brand</h4>
+				<h4 class="text-purple-700 fs-5 fw-semibold">Brand</h4>
 			</div>
 			<div class="col-12">
 				<div class="row g-2 align-items-center">
 					<div class="col-auto">
-						<img src="{{ $architect->company->profileImage ? Storage::url($architect->company->profileImage->image_path) : 'https://via.placeholder.com/48x48' }}" alt=".." class="rounded-circle img-square img-48">
+						@php
+							$studioProfileImg = $architect->company->profileImage ?
+													Storage::url($architect->company->profileImage->image_path) :
+													AvatarController::setProfileAvatar([
+														'name' => $architect->company->name,
+														'width' => 48,
+														'fontSize' => 24,
+														'background' => $architect->company->background_color,
+														'foreground' => $architect->company->foreground_color,
+													]);
+						@endphp
+						<img src="{{ $studioProfileImg }}" alt=".." class="rounded-circle img-square img-48">
 					</div>
 					<div class="col">
-						<h6 class="fs-6 fw-medium m-0 p-0">
+						<h6 class="p-0 m-0 fs-6 fw-medium">
 							@if ($viewAs === 'architect')
 							<a href="{{ route('architect.account.studio.index') }}" class="text-dark">
 								{{ $architect->company->name }}
@@ -84,7 +107,7 @@
 							</a>
 							@endif
 						</h6>
-						<p class="m-0 p-0">
+						<p class="p-0 m-0">
 							<a href="{{ $architect->company->website }}" class="text-secondary" target="_blank">
 								{{ trimWebsiteUrl($architect->company->website) }}
 							</a>
@@ -112,9 +135,9 @@
 				@endif
 			</div>
 			<div class="col-12" wire:loading>
-				<div class="card border-0 rounded-3 bg-white shadow">
-					<div class="card-body text-center">
-						<h4 class="card-title text-purple-900 fs-5 fw-semibold m-0 py-3">
+				<div class="bg-white border-0 shadow card rounded-3">
+					<div class="text-center card-body">
+						<h4 class="py-3 m-0 text-purple-900 card-title fs-5 fw-semibold">
 							Searching <x-users.spinners.primary-btn />
 						</h4>
 					</div>

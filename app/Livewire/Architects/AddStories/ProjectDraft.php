@@ -106,4 +106,13 @@ class ProjectDraft extends Component
 	{
 		$this->form->deleteImage($this->draftId, $index, 'draft');
 	}
+
+	public function deleteMediaKit()
+	{
+		$this->dispatch('alert', [
+			'type' => 'success',
+			'message' => 'Your media kit is deleted successfully.'
+		]);
+		return $this->form->deleteMediaKit();
+	}
 }

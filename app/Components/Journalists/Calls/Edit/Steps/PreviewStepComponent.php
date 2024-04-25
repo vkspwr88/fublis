@@ -19,6 +19,13 @@ class PreviewStepComponent extends StepComponent
 		$this->callService = app()->make(CallService::class);
 	}
 
+	public function mount()
+	{
+		$this->dispatch('get-focus', [
+			'element' => '#editPreviewCall',
+		]);
+	}
+
 	public function render()
 	{
 		$call = $this->state()->call();

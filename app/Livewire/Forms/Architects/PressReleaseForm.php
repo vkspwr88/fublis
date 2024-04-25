@@ -301,4 +301,9 @@ class PressReleaseForm extends Form
 		}
 		//
 	}
+
+	public function deleteMediaKit()
+	{
+		return to_route('architect.add-story.press-release.index');
+	}
 }

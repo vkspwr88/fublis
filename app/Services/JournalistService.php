@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Enums\Users\UserTypeEnum;
 use App\Http\Controllers\ErrorLogController;
+use App\Http\Controllers\Users\AvatarController;
 use App\Http\Controllers\Users\CompanyController;
 use App\Http\Controllers\Users\JournalistController;
 use App\Http\Controllers\Users\LocationController;
@@ -109,6 +110,8 @@ class JournalistService
 					'name' => $details['publication']['publicationName'],
 					'website' => $details['publication']['website'],
 					'location_id' => $location->id,
+					'background_color' => AvatarController::getBackground('publication'),
+					'foreground_color' => '#ffffff',
 				]);
 				$publication->categories()->attach($details['publication']['categories']);
 				$publication->languages()->attach($details['publication']['languages']);
@@ -129,6 +132,8 @@ class JournalistService
 				'linked_profile' => $details['linkedinProfile'],
 				'published_article_link' => $details['publishedArticleLink'],
 				'publishing_platform_link' => $details['publishingPlatformLink'],
+				'background_color' => AvatarController::getBackground('journalist'),
+				'foreground_color' => '#ffffff',
 			]);
 
 			$publication->added_by = $journalist->id;

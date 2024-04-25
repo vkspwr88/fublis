@@ -1,7 +1,17 @@
 <div class="col-12" :key="$mediaKit->id">
-	<div class="card border-0 rounded-3 bg-white shadow">
+	<div class="bg-white border-0 shadow card rounded-3">
 		<div class="card-body">
 			@php
+				use App\Http\Controllers\Users\AvatarController as AvatarController;
+				$studioProfileImg = $mediaKit->architect->company->profileImage ?
+										Storage::url($mediaKit->architect->company->profileImage->image_path) :
+										AvatarController::setProfileAvatar([
+											'name' => $mediaKit->architect->company->name,
+											'width' => 30,
+											'fontSize' => 15,
+											'background' => $mediaKit->architect->background_color,
+											'foreground' => $mediaKit->architect->foreground_color,
+										]);
 				if (str()->contains($mediaKit->story_type, 'PressRelease')){
 					$mediaKitTitle = 'Press Release';
 					$mediaKitHeading = $mediaKit->story->title;
@@ -32,31 +42,31 @@
 					<img src="{{ Storage::url($mediaKit->story->cover_image_path) }}" class="img-square" alt="...">
 				</div>
 				<div class="col-md-8">
-					<div class="row justify-content-center pb-2">
-						<p class="text-secondary fs-6 fw-semibold col m-0">{{ $mediaKitTitle }}</p>
-						<p class="text-end text-secondary fs-6 fw-semibold col m-0">{{ $mediaKit->category->name }}</p>
+					<div class="pb-2 row justify-content-center">
+						<p class="m-0 text-secondary fs-6 fw-semibold col">{{ $mediaKitTitle }}</p>
+						<p class="m-0 text-end text-secondary fs-6 fw-semibold col">{{ $mediaKit->category->name }}</p>
 					</div>
-					<h5 class="card-title fs-5 fw-semibold m-0 py-2">
+					<h5 class="py-2 m-0 card-title fs-5 fw-semibold">
 						<a href="{{ $viewRoute }}" class="text-dark">{{ $mediaKitHeading }}</a>
 					</h5>
-					<div class="row align-items-center py-2">
+					<div class="py-2 row align-items-center">
 						<div class="col">
-							<p class="text-dark fs-6 fw-bold m-0">
+							<p class="m-0 text-dark fs-6 fw-bold">
 								<a class="text-dark" href="{{ route('architect.account.studio.index') }}">
-									<img class="rounded-circle me-2 img-square img-30" src="{{ $mediaKit->architect->company->profileImage ? Storage::url($mediaKit->architect->company->profileImage->image_path) : 'https://via.placeholder.com/30x30' }}" alt="..." />
+									<img class="rounded-circle me-2 img-square img-30" src="{{ $studioProfileImg }}" alt="..." />
 									{{ $mediaKit->architect->company->name }}
 								</a>
 							</p>
 						</div>
 					</div>
-					<p class="card-text text-dark m-0 py-2 fs-7">{{ $mediaKitBody }}</p>
-					<div class="row justify-content-center pt-2 position-relative" style="z-index: 2;">
-						<p class="fs-6 fw-bold col m-0">
+					<p class="py-2 m-0 card-text text-dark fs-7">{{ $mediaKitBody }}</p>
+					<div class="pt-2 row justify-content-center position-relative" style="z-index: 2;">
+						<p class="m-0 fs-6 fw-bold col">
 							<a href="{{ $editRoute }}" class="text-purple-600">
 								Edit Story <i class="bi bi-arrow-up-right small"></i>
 							</a>
 						</p>
-						<p class="text-end fs-5 fw-bold col m-0">
+						<p class="m-0 text-end fs-5 fw-bold col">
 							<button type="button" class="btn btn-primary fs-6 fw-medium">
 								Pitch
 							</button>

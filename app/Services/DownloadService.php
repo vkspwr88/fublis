@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Http\Controllers\ErrorLogController;
 use Exception;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\ValidationException;
@@ -26,6 +27,14 @@ class DownloadService
 			}
 		}
 		catch(Exception $exp){
+			ErrorLogController::logError(
+				'singleFileDownload', [
+					'line' => $exp->getLine(),
+					'file' => $exp->getFile(),
+					'message' => $exp->getMessage(),
+					'code' => $exp->getCode(),
+				]
+			);
 			// dd($exp->getMessage())
 		}
 	}
@@ -68,6 +77,14 @@ class DownloadService
 			}
 		}
 		catch(Exception $exp){
+			ErrorLogController::logError(
+				'zipFilesDownload', [
+					'line' => $exp->getLine(),
+					'file' => $exp->getFile(),
+					'message' => $exp->getMessage(),
+					'code' => $exp->getCode(),
+				]
+			);
 			// dd($exp->getMessage())
 		}
 	}

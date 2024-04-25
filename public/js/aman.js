@@ -1,4 +1,4 @@
-$('trix-toolbar .trix-button--icon-link, trix-toolbar .trix-button--icon-code, trix-toolbar .trix-button-group--file-tools, trix-toolbar .trix-button--icon-attach').remove();
+// $('trix-toolbar .trix-button--icon-link, trix-toolbar .trix-button--icon-code, trix-toolbar .trix-button-group--file-tools, trix-toolbar .trix-button--icon-attach').remove();
 
 window.addEventListener('alert', event => {
 	// console.log('alert', event);
@@ -30,6 +30,18 @@ window.addEventListener('alert', event => {
     };
 });
 
+window.addEventListener('get-focus', event => {
+	console.log(event);
+	/* const element = event.detail[0].element;
+	$(element).focus();
+	window.location.hash = element; */
+	const element = document.querySelector(event.detail[0].element);
+	element.scrollIntoView({
+		behavior: 'smooth',
+		block: 'start'
+	});
+});
+
 function togglePassword(element){
 	const toggleBtn = element + 'Toggle';
 	if($(element).attr('type') === 'password'){
@@ -51,7 +63,7 @@ function createAccountPrompt(){
 		  confirmButtonText: 'Sign Up'
 	}).then((result) => {
 		if (result.isConfirmed) {
-			window.location = '/architect/signup';
+			window.location = '/user/signup';
 		}
 	});
 }

@@ -95,8 +95,8 @@ class PublicationResource extends Resource
 					->numeric()
 					->minValue(1900)
 					->maxValue(date('Y')),
-                Forms\Components\TextInput::make('instagram')
-                    ->maxLength(255),
+               /*  Forms\Components\TextInput::make('instagram')
+                    ->maxLength(255), */
                 Forms\Components\TextInput::make('monthly_visitors')
                     ->maxLength(255),
 				Forms\Components\Textarea::make('about_me')
@@ -143,11 +143,11 @@ class PublicationResource extends Resource
                     // ->date()
 					->toggleable(isToggledHiddenByDefault: true)
                     ->sortable(),
-                Tables\Columns\TextColumn::make('instagram')
+                /* Tables\Columns\TextColumn::make('instagram')
 					->url(fn (Publication $record): string => $record->instagram)
 					->openUrlInNewTab()
 					->toggleable(isToggledHiddenByDefault: true)
-                    ->searchable(),
+                    ->searchable(), */
                 Tables\Columns\TextColumn::make('monthly_visitors')
 					->toggleable(isToggledHiddenByDefault: true)
                     ->searchable(),

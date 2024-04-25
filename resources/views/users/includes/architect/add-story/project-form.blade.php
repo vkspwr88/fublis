@@ -1,5 +1,5 @@
 <form wire:submit="add" class="pt-4">
-	<div class="row mb-3">
+	<div class="mb-3 row">
 		<label for="inputProjectTitle" class="col-md-4 col-form-label text-dark fs-6 fw-medium">Title <span class="text-danger">*</span></label>
 		<div class="col-md-8">
 			<input type="text" id="inputProjectTitle" class="form-control @error('form.projectTitle') is-invalid @enderror" wire:model="form.projectTitle">
@@ -20,7 +20,7 @@
 	</div>
 	<hr class="border-gray-300">
 	@if($form->showOtherFields)
-		<div class="row mb-3">
+		<div class="mb-3 row">
 			<label for="inputSiteArea" class="col-md-4 col-form-label text-dark fs-6 fw-medium">Site Area</label>
 			<div class="col-md-8">
 				<div class="input-group">
@@ -36,7 +36,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="row mb-3">
+		<div class="mb-3 row">
 			<label for="inputBuiltUpArea" class="col-md-4 col-form-label text-dark fs-6 fw-medium">Built Up Area</label>
 			<div class="col-md-8">
 				<div class="input-group">
@@ -52,14 +52,14 @@
 				</div>
 			</div>
 		</div>
-		<div class="row mb-3">
+		<div class="mb-3 row">
 			<label for="inputMaterials" class="col-md-4 col-form-label text-dark fs-6 fw-medium">Materials</label>
 			<div class="col-md-8">
 				<input type="text" id="inputMaterials" class="form-control @error('form.materials') is-invalid @enderror" wire:model="form.materials">
 				@error('form.materials')<div class="invalid-feedback">{{ $message }}</div>@enderror
 			</div>
 		</div>
-		<div class="row mb-3">
+		<div class="mb-3 row">
 			<label for="selectBuildingTypology" class="col-md-4 col-form-label text-dark fs-6 fw-medium">Building Typology</label>
 			<div class="col-md-8">
 				<select id="selectBuildingTypology" class="form-select @error('form.buildingTypology') is-invalid @enderror" wire:model.live="form.buildingTypology">
@@ -71,7 +71,7 @@
 				@error('form.buildingTypology')<div class="invalid-feedback">{{ $message }}</div>@enderror
 			</div>
 		</div>
-		<div class="row mb-3">
+		<div class="mb-3 row">
 			<label for="selectBuildingUse" class="col-md-4 col-form-label text-dark fs-6 fw-medium">Building Use</label>
 			<div class="col-md-8">
 				<select id="selectBuildingUse" class="form-select @error('form.buildingUse') is-invalid @enderror" wire:model="form.buildingUse">
@@ -84,7 +84,7 @@
 			</div>
 		</div>
 	@endif
-	{{-- <div class="row mb-3">
+	{{-- <div class="mb-3 row">
 		<label for="selectLocation" class="col-md-4 col-form-label text-dark fs-6 fw-medium">Location</label>
 		<div class="col-md-8">
 			<select id="selectLocation" class="form-select @error('location') is-invalid @enderror" wire:model="location">
@@ -96,11 +96,11 @@
 			@error('location')<div class="invalid-feedback">{{ $message }}</div>@enderror
 		</div>
 	</div> --}}
-	<div class="row mb-3">
+	<div class="mb-3 row">
 		<label for="selectCountry" class="col-md-4 col-form-label text-dark fs-6 fw-medium">Country <span class="text-danger">*</span></label>
 		<div class="col-md-8">
 			<select class="form-select @error('form.selectedCountry') is-invalid @enderror" id="selectCountry" wire:model.live="form.selectedCountry">
-				<option value="">Select Country</option>
+				<option value="0">Select Country</option>
 				@foreach ($form->countries as $country)
 				<option value="{{ $country->id }}">{{ str()->headline($country->name) }}</option>
 				@endforeach
@@ -108,11 +108,11 @@
 			@error('form.selectedCountry')<div class="invalid-feedback">{{ $message }}</div>@enderror
 		</div>
 	</div>
-	<div class="row mb-3">
+	<div class="mb-3 row">
 		<label for="selectState" class="col-md-4 col-form-label text-dark fs-6 fw-medium">State <span class="text-danger">*</span></label>
 		<div class="col-md-8">
 			<select class="form-select @error('form.selectedState') is-invalid @enderror" id="selectState" wire:model.live="form.selectedState">
-				<option value="">Select State</option>
+				<option value="0">Select State</option>
 				@foreach ($form->states as $state)
 				<option value="{{ $state->id }}">{{ str()->headline($state->name) }}</option>
 				@endforeach
@@ -120,11 +120,11 @@
 			@error('form.selectedState')<div class="invalid-feedback">{{ $message }}</div>@enderror
 		</div>
 	</div>
-	<div class="row mb-3">
+	<div class="mb-3 row">
 		<label for="selectCity" class="col-md-4 col-form-label text-dark fs-6 fw-medium">City <span class="text-danger">*</span></label>
 		<div class="col-md-8">
 			<select class="form-select @error('form.selectedCity') is-invalid @enderror" id="selectCity" wire:model="form.selectedCity">
-				<option value="">Select City</option>
+				<option value="0">Select City</option>
 				@foreach ($form->cities as $city)
 				<option value="{{ $city->name }}">{{ str()->headline($city->name) }}</option>
 				@endforeach
@@ -132,7 +132,7 @@
 			@error('form.selectedCity')<div class="invalid-feedback">{{ $message }}</div>@enderror
 		</div>
 	</div>
-	<div class="row mb-3">
+	<div class="mb-3 row">
 		<label for="selectStatus" class="col-md-4 col-form-label text-dark fs-6 fw-medium">Status <span class="text-danger">*</span></label>
 		<div class="col-md-8">
 			<select id="selectStatus" class="form-select @error('form.status') is-invalid @enderror" wire:model="form.status">
@@ -144,41 +144,41 @@
 			@error('form.status')<div class="invalid-feedback">{{ $message }}</div>@enderror
 		</div>
 	</div>
-	<div class="row mb-3">
+	<div class="mb-3 row">
 		<label for="inputImageCredits" class="col-md-4 col-form-label text-dark fs-6 fw-medium">Image Credits</label>
 		<div class="col-md-8">
 			<input type="text" id="inputImageCredits" class="form-control @error('form.imageCredits') is-invalid @enderror" wire:model="form.imageCredits">
 			@error('form.imageCredits')<div class="invalid-feedback">{{ $message }}</div>@enderror
 		</div>
 	</div>
-	<div class="row mb-3">
+	<div class="mb-3 row">
 		<label for="inputTextCredits" class="col-md-4 col-form-label text-dark fs-6 fw-medium">Text Credits</label>
 		<div class="col-md-8">
 			<input type="text" id="inputTextCredits" class="form-control @error('form.textCredits') is-invalid @enderror" wire:model="form.textCredits">
 			@error('form.textCredits')<div class="invalid-feedback">{{ $message }}</div>@enderror
 		</div>
 	</div>
-	<div class="row mb-3">
+	<div class="mb-3 row">
 		<label for="inputRenderCredits" class="col-md-4 col-form-label text-dark fs-6 fw-medium">Render Credits</label>
 		<div class="col-md-8">
 			<input type="text" id="inputRenderCredits" class="form-control @error('form.renderCredits') is-invalid @enderror" wire:model="form.renderCredits">
 			@error('form.renderCredits')<div class="invalid-feedback">{{ $message }}</div>@enderror
 		</div>
 	</div>
-	<div class="row mb-3">
+	<div class="mb-3 row">
 		<div class="col-md-4">
 			<label for="inputConsultants" class="col-form-label text-dark fs-6 fw-medium">Consultants</label>
-			<label class="d-block form-text text-secondary fs-7 m-0">Add all the consultants and due credits</label>
+			<label class="m-0 d-block form-text text-secondary fs-7">Add all the consultants and due credits</label>
 		</div>
 		<div class="col-md-8">
 			<textarea id="inputConsultants" class="form-control @error('form.consultants') is-invalid @enderror" wire:model="form.consultants" rows="5"></textarea>
 			@error('form.consultants')<div class="invalid-feedback">{{ $message }}</div>@enderror
 		</div>
 	</div>
-	<div class="row mb-3">
+	<div class="mb-3 row">
 		<div class="col-md-4">
 			<label for="inputDesignTeam" class="col-form-label text-dark fs-6 fw-medium">Design Team</label>
-			<label class="d-block form-text text-secondary fs-7 m-0">Tag team members who worked on the project</label>
+			<label class="m-0 d-block form-text text-secondary fs-7">Tag team members who worked on the project</label>
 		</div>
 		<div class="col-md-8">
 			<textarea id="inputDesignTeam" class="form-control @error('form.designTeam') is-invalid @enderror" wire:model="form.designTeam" rows="5"></textarea>
@@ -188,10 +188,10 @@
 	<hr class="border-gray-300">
 	@include('users.includes.architect.add-story.cover-image-field')
 	<hr class="border-gray-300">
-	<div class="row mb-3">
+	<div class="mb-3 row">
 		<div class="col-md-4">
 			<label for="inputProjectBrief" class="col-form-label text-dark fs-6 fw-medium">Project Brief <span class="text-danger">*</span></label>
-			<label class="d-block form-text text-secondary fs-7 m-0">Write in 50-75 words (this text will be used in pitch to journalists)</label>
+			<label class="m-0 d-block form-text text-secondary fs-7">Write in 50-75 words (this text will be used in pitch to journalists)</label>
 		</div>
 		<div class="col-md-8">
 			<textarea id="inputProjectBrief" class="form-control @error('form.projectBrief') is-invalid @enderror" wire:model="form.projectBrief" wire:keydown.debounce.1000ms="characterCount" rows="8"></textarea>
@@ -202,11 +202,11 @@
 	<div class="row">
 		<div class="col-md-4">
 			<label for="inputpProjectFile" class="col-form-label text-dark fs-6 fw-medium">Upload Project Text <span class="text-danger">*</span></label>
-			<label class="d-block form-text text-secondary fs-7 m-0">Add the text in 500-800 words</label>
+			<label class="m-0 d-block form-text text-secondary fs-7">Add the text in 500-800 words</label>
 		</div>
 		<div class="col-md-8">
-			<div class="card mb-2">
-				<div class="card-body bg-white rounded-3 border border-light">
+			<div class="mb-2 card">
+				<div class="bg-white border card-body rounded-3 border-light">
 					<div class="row align-items-center">
 						<div class="col-12" x-data="fileUpload('form.projectFile')">
 							<div
@@ -215,16 +215,16 @@
 								x-on:dragover.prevent="isDropping = true"
 								x-on:dragleave.prevent="isDropping = false"
 							>
-								<div class="position-absolute top-0 bottom-0 start-0 end-0 z-30 flex justify-content-center align-items-center bg-primary opacity-75 rounded-2" x-show="isDropping" style="display: none;">
-									<span class="fs-4 text-white">Release file to upload!</span>
+								<div class="top-0 bottom-0 z-30 flex opacity-75 position-absolute start-0 end-0 justify-content-center align-items-center bg-primary rounded-2" x-show="isDropping" style="display: none;">
+									<span class="text-white fs-4">Release file to upload!</span>
 								</div>
 								<div class="d-flex justify-content-center align-items-center">
-									<div class="upload-icon rounded-circle text-gray-600 fs-5">
+									<div class="text-gray-600 upload-icon rounded-circle fs-5">
 										<i class="bi bi-cloud-upload"></i>
 									</div>
 								</div>
-								<p class="card-text text-center text-secondary fs-6 m-0 py-2">
-									<label for="projectFile"><span class="text-purple-700 fw-semibold cursor-pointer">Click to upload</span></label> or drag and drop
+								<p class="py-2 m-0 text-center card-text text-secondary fs-6">
+									<label for="projectFile"><span class="text-purple-700 cursor-pointer fw-semibold">Click to upload</span></label> or drag and drop
 								</p>
 								<input type="file" id="projectFile" class="d-none" @change="handleFileSelect">
 								@if($form->projectFile)
@@ -262,11 +262,11 @@
 	<div class="row">
 		<div class="col-md-4">
 			<label for="inputText" class="col-form-label text-dark fs-6 fw-medium">Upload Photographs</label>
-			<label class="d-block form-text text-secondary fs-7 m-0">Choose the best images (maximum upload limit 4MB each image)</label>
+			<label class="m-0 d-block form-text text-secondary fs-7">Choose the best images (maximum upload limit 4MB each image)</label>
 		</div>
 		<div class="col-md-8">
-			<div class="card mb-2">
-				<div class="card-body bg-white rounded-3 border border-light">
+			<div class="mb-2 card">
+				<div class="bg-white border card-body rounded-3 border-light">
 					<div class="row align-items-center">
 						<div class="col-12" x-data="fileUpload('form.photographsFiles')">
 							<div
@@ -275,36 +275,36 @@
 								x-on:dragover.prevent="isDropping = true"
 								x-on:dragleave.prevent="isDropping = false"
 							>
-								<div class="position-absolute top-0 bottom-0 start-0 end-0 z-30 flex justify-content-center align-items-center bg-primary opacity-75 rounded-2" x-show="isDropping" style="display: none;">
-									<span class="fs-4 text-white">Release file to upload!</span>
+								<div class="top-0 bottom-0 z-30 flex opacity-75 position-absolute start-0 end-0 justify-content-center align-items-center bg-primary rounded-2" x-show="isDropping" style="display: none;">
+									<span class="text-white fs-4">Release file to upload!</span>
 								</div>
 								<div class="d-flex justify-content-center align-items-center">
-									<div class="upload-icon rounded-circle text-gray-600 fs-5">
+									<div class="text-gray-600 upload-icon rounded-circle fs-5">
 										<i class="bi bi-cloud-upload"></i>
 									</div>
 								</div>
-								<p class="card-text text-center text-secondary fs-6 m-0 py-2">
-									<label for="photographsFiles"><span class="text-purple-700 fw-semibold cursor-pointer">Click to upload</span></label> or drag and drop
+								<p class="py-2 m-0 text-center card-text text-secondary fs-6">
+									<label for="photographsFiles"><span class="text-purple-700 cursor-pointer fw-semibold">Click to upload</span></label> or drag and drop
 								</p>
 								<input type="file" id="photographsFiles" class="d-none" @change="handleFilesSelect" multiple>
 								@if(count($form->photographsFiles) > 0 || count($form->oldPhotographsFiles) > 0)
-									<ul class="d-flex flex-wrap mt-3" style="list-style: none;">
+									<ul class="flex-wrap mt-3 d-flex" style="list-style: none;">
 										@foreach ($form->oldPhotographsFiles as $photographsFile)
-											<li class="position-relative p-2">
+											<li class="p-2 position-relative" wire:key="{{ $photographsFile->id }}">
 												<img class="img-fluid img-thumbnail" width="150" src="{{ Storage::url($photographsFile->image_path) }}" alt="">
-												<button type="button" class="btn btn-sm btn-secondary rounded-circle text-decoration-none position-absolute end-0 top-0" wire:click="removeImage('{{ $photographsFile->id }}')">X</button>
+												<button type="button" class="top-0 btn btn-sm btn-secondary rounded-circle text-decoration-none position-absolute end-0" wire:click="removeImage('{{ $photographsFile->id }}')">X</button>
 											</li>
 										@endforeach
 										@foreach ($form->photographsFiles as $key => $photographsFile)
 											@if(method_exists($photographsFile, 'temporaryUrl'))
-												<li class="position-relative p-2">
+												<li class="p-2 position-relative" wire:key="{{ $key }}">
 													<img class="img-fluid img-thumbnail" width="150" src="{{ $photographsFile->temporaryUrl() }}" alt="">
-													<button type="button" class="btn btn-sm btn-secondary rounded-circle text-decoration-none position-absolute end-0 top-0" @click="removeUpload('{{ $photographsFile->getFilename() }}')">X</button>
+													<button type="button" class="top-0 btn btn-sm btn-secondary rounded-circle text-decoration-none position-absolute end-0" @click="removeUpload('{{ $photographsFile->getFilename() }}')">X</button>
 												</li>
 											@else
-												<li class="position-relative p-2">
+												<li class="p-2 position-relative" wire:key="{{ $key }}">
 													<img class="img-fluid img-thumbnail" width="150" src="{{ Storage::url($photographsFile) }}" alt="">
-													<button type="button" class="btn btn-sm btn-secondary rounded-circle text-decoration-none position-absolute end-0 top-0" wire:click="removeImage({{ $key }})">X</button>
+													<button type="button" class="top-0 btn btn-sm btn-secondary rounded-circle text-decoration-none position-absolute end-0" wire:click="removeImage({{ $key }})">X</button>
 												</li>
 											@endif
 										@endforeach
@@ -331,11 +331,11 @@
 	<div class="row">
 		<div class="col-md-4">
 			<label for="inputText" class="col-form-label text-dark fs-6 fw-medium">Upload renders/drawings</label>
-			<label class="d-block form-text text-secondary fs-7 m-0">Add content</label>
+			<label class="m-0 d-block form-text text-secondary fs-7">Add content</label>
 		</div>
 		<div class="col-md-8">
-			<div class="card mb-2">
-				<div class="card-body bg-white rounded-3 border border-light">
+			<div class="mb-2 card">
+				<div class="bg-white border card-body rounded-3 border-light">
 					<div class="row align-items-center">
 						<div class="col-12" x-data="fileUpload('form.drawingsFiles')">
 							<div
@@ -344,36 +344,36 @@
 								x-on:dragover.prevent="isDropping = true"
 								x-on:dragleave.prevent="isDropping = false"
 							>
-								<div class="position-absolute top-0 bottom-0 start-0 end-0 z-30 flex justify-content-center align-items-center bg-primary opacity-75 rounded-2" x-show="isDropping" style="display: none;">
-									<span class="fs-4 text-white">Release file to upload!</span>
+								<div class="top-0 bottom-0 z-30 flex opacity-75 position-absolute start-0 end-0 justify-content-center align-items-center bg-primary rounded-2" x-show="isDropping" style="display: none;">
+									<span class="text-white fs-4">Release file to upload!</span>
 								</div>
 								<div class="d-flex justify-content-center align-items-center">
-									<div class="upload-icon rounded-circle text-gray-600 fs-5">
+									<div class="text-gray-600 upload-icon rounded-circle fs-5">
 										<i class="bi bi-cloud-upload"></i>
 									</div>
 								</div>
-								<p class="card-text text-center text-secondary fs-6 m-0 py-2">
-									<label for="drawingsFiles"><span class="text-purple-700 fw-semibold cursor-pointer">Click to upload</span></label> or drag and drop
+								<p class="py-2 m-0 text-center card-text text-secondary fs-6">
+									<label for="drawingsFiles"><span class="text-purple-700 cursor-pointer fw-semibold">Click to upload</span></label> or drag and drop
 								</p>
 								<input type="file" id="drawingsFiles" class="d-none" @change="handleFilesSelect" multiple>
 								@if(count($form->drawingsFiles) > 0 || count($form->oldDrawingsFiles) > 0)
-									<ul class="d-flex flex-wrap mt-3" style="list-style: none;">
+									<ul class="flex-wrap mt-3 d-flex" style="list-style: none;">
 										@foreach ($form->oldDrawingsFiles as $drawingsFile)
-											<li class="position-relative p-2">
+											<li class="p-2 position-relative" wire:key="{{ $drawingsFile->id }}">
 												<img class="img-fluid img-thumbnail" width="150" src="{{ Storage::url($drawingsFile->image_path) }}" alt="">
-												<button type="button" class="btn btn-sm btn-secondary rounded-circle text-decoration-none position-absolute end-0 top-0" wire:click="removeImage('{{ $drawingsFile->id }}')">X</button>
+												<button type="button" class="top-0 btn btn-sm btn-secondary rounded-circle text-decoration-none position-absolute end-0" wire:click="removeImage('{{ $drawingsFile->id }}')">X</button>
 											</li>
 										@endforeach
 										@foreach ($form->drawingsFiles as $key => $drawingsFile)
 											@if(method_exists($drawingsFile, 'temporaryUrl'))
-												<li class="position-relative p-2">
+												<li class="p-2 position-relative" wire:key="{{ $key }}">
 													<img class="img-fluid img-thumbnail" width="150" src="{{ $drawingsFile->temporaryUrl() }}" alt="">
-													<button type="button" class="btn btn-sm btn-secondary rounded-circle text-decoration-none position-absolute end-0 top-0" @click="removeUpload('{{ $drawingsFile->getFilename() }}')">X</button>
+													<button type="button" class="top-0 btn btn-sm btn-secondary rounded-circle text-decoration-none position-absolute end-0" @click="removeUpload('{{ $drawingsFile->getFilename() }}')">X</button>
 												</li>
 											@else
-												<li class="position-relative p-2">
+												<li class="p-2 position-relative" wire:key="{{ $key }}">
 													<img class="img-fluid img-thumbnail" width="150" src="{{ Storage::url($drawingsFile) }}" alt="">
-													<button type="button" class="btn btn-sm btn-secondary rounded-circle text-decoration-none position-absolute end-0 top-0" wire:click="removeImage({{ $key }})">X</button>
+													<button type="button" class="top-0 btn btn-sm btn-secondary rounded-circle text-decoration-none position-absolute end-0" wire:click="removeImage({{ $key }})">X</button>
 												</li>
 											@endif
 										@endforeach
@@ -390,24 +390,24 @@
 				</div>
 			</div>
 			@error('form.drawingsFiles')<div class="error">{{ $message }}</div>@enderror
-			<div class="input-group mb-3">
-				<span class="input-group-text bg-white" id="drawingsLinkAddon">http://</span>
+			<div class="mb-3 input-group">
+				<span class="bg-white input-group-text" id="drawingsLinkAddon">http://</span>
 				<input type="text" class="form-control @error('form.drawingsLink') is-invalid @enderror" wire:model="form.drawingsLink" placeholder="Insert drive link" aria-describedby="drawingsLinkAddon">
 				@error('form.drawingsLink')<div class="invalid-feedback">{{ $message }}</div>@enderror
 			</div>
 		</div>
 	</div>
 	<hr class="border-gray-300">
-	<div class="row mb-3">
+	<div class="mb-3 row">
 		<label for="inputTags" class="col-md-4 col-form-label text-dark fs-6 fw-medium">Tags</label>
 		<div class="col-md-8">
 			@include('users.includes.input-tags')
 		</div>
 	</div>
-	<div class="row mb-3">
+	<div class="mb-3 row">
 		<div class="col-md-4">
 			<label for="selectMediaContact" class="col-form-label text-dark fs-6 fw-medium">Select Media Contact <span class="text-danger">*</span></label>
-			<label class="d-block form-text text-secondary fs-7 m-0">Pick the team member who can best respond to journalists queries</label>
+			<label class="m-0 d-block form-text text-secondary fs-7">Pick the team member who can best respond to journalists queries</label>
 		</div>
 		<div class="col-md-8">
 			<select id="selectMediaContact" class="form-select @error('form.mediaContact') is-invalid @enderror" wire:model="form.mediaContact">
@@ -422,7 +422,7 @@
 	<div class="row">
 		<div class="col-md-4">
 			<label for="selectMediaKitAccess" class="col-form-label text-dark fs-6 fw-medium">Media Kit Access <span class="text-danger">*</span></label>
-			<label class="d-block form-text text-secondary fs-7 m-0">Set level of access for journalists</label>
+			<label class="m-0 d-block form-text text-secondary fs-7">Set level of access for journalists</label>
 		</div>
 		<div class="col-md-8">
 			<select id="selectMediaKitAccess" class="form-select @error('form.mediaKitAccess') is-invalid @enderror" wire:model="form.mediaKitAccess">
@@ -436,6 +436,7 @@
 	</div>
 	<hr class="border-gray-300">
 	<div class="text-end">
+		<button class="btn btn-black fs-6 fw-semibold" type="button" data-bs-toggle="modal" data-bs-target="#deleteMediaKitModal">Delete</button>
 		@empty($edit)
 			<button class="btn btn-white fs-6 fw-semibold" type="button" wire:click="draft">
 				Save as Draft <x-users.spinners.primary-btn wire:target="draft" />
@@ -449,4 +450,5 @@
 		</button>
 	</div>
 	@include('users.includes.common.file-upload-script', ['width' => 800, 'height' => 400])
+	@include('users.includes.architect.add-story.modal-delete-media-kit')
 </form>

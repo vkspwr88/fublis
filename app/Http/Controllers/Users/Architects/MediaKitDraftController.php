@@ -54,10 +54,10 @@ class MediaKitDraftController extends Controller
 		return $mediaKitDraft;
 	}
 
-	public static function checkFile($file, $path)
+	public static function checkFile($file, $path, $type = '')
 	{
 		if($file){
-			return FileController::upload($file, $path);
+			return FileController::upload($file, $path, $type);
 		}
 		return $file;
 	}
@@ -66,13 +66,13 @@ class MediaKitDraftController extends Controller
 	{
 		$content = $details['content'];
 		if($details['media_kit_type'] == 'press-release'){
-			$content['coverImage'] = MediaKitDraftController::checkFile($content['coverImage'], 'images/press-releases/cover-images');
-			$content['pressReleaseFile'] = MediaKitDraftController::checkFile($content['pressReleaseFile'], 'documents/press-releases');
+			$content['coverImage'] = MediaKitDraftController::checkFile($content['coverImage'], 'images/press-releases/cover-images', 'press_release_cover_image_draft');
+			$content['pressReleaseFile'] = MediaKitDraftController::checkFile($content['pressReleaseFile'], 'documents/press-releases', 'press_release_doc_draft');
 			if(count($content['photographsFiles']) > 0){
 				$photographsFiles = $content['photographsFiles'];
 				$content['photographsFiles'] = array();
 				foreach($photographsFiles as $photograph){
-					$content['photographsFiles'][] = MediaKitDraftController::checkFile($photograph, 'images/press-releases/photographs');
+					$content['photographsFiles'][] = MediaKitDraftController::checkFile($photograph, 'images/press-releases/photographs', 'press_release_photographs_draft');
 				}
 			}
 			$newDetails = [
@@ -96,20 +96,20 @@ class MediaKitDraftController extends Controller
 			];
 		}
 		elseif($details['media_kit_type'] == 'project'){
-			$content['coverImage'] = MediaKitDraftController::checkFile($content['coverImage'], 'images/projects/cover-images');
-			$content['projectFile'] = MediaKitDraftController::checkFile($content['projectFile'], 'documents/projects');
+			$content['coverImage'] = MediaKitDraftController::checkFile($content['coverImage'], 'images/projects/cover-images', 'project_cover_image_draft');
+			$content['projectFile'] = MediaKitDraftController::checkFile($content['projectFile'], 'documents/projects', 'project_doc_draft');
 			if(count($content['photographsFiles']) > 0){
 				$photographsFiles = $content['photographsFiles'];
 				$content['photographsFiles'] = array();
 				foreach($photographsFiles as $image){
-					$content['photographsFiles'][] = MediaKitDraftController::checkFile($image, 'images/projects/photographs');
+					$content['photographsFiles'][] = MediaKitDraftController::checkFile($image, 'images/projects/photographs', 'project_photographs_draft');
 				}
 			}
 			if(count($content['drawingsFiles']) > 0){
 				$drawingsFiles = $content['drawingsFiles'];
 				$content['drawingsFiles'] = array();
 				foreach($drawingsFiles as $image){
-					$content['drawingsFiles'][] = MediaKitDraftController::checkFile($image, 'images/projects/drawings');
+					$content['drawingsFiles'][] = MediaKitDraftController::checkFile($image, 'images/projects/drawings', 'project_drawings_draft');
 				}
 			}
 			$newDetails = [
@@ -149,14 +149,14 @@ class MediaKitDraftController extends Controller
 			];
 		}
 		elseif($details['media_kit_type'] == 'article'){
-			$content['coverImage'] = MediaKitDraftController::checkFile($content['coverImage'], 'images/articles/cover-images');
-			$content['articleFile'] = MediaKitDraftController::checkFile($content['articleFile'], 'documents/articles');
-			$content['companyProfileFile'] = MediaKitDraftController::checkFile($content['companyProfileFile'], 'documents/articles/company-profiles');
+			$content['coverImage'] = MediaKitDraftController::checkFile($content['coverImage'], 'images/articles/cover-images', 'article_cover_image_draft');
+			$content['articleFile'] = MediaKitDraftController::checkFile($content['articleFile'], 'documents/articles', 'article_doc_draft');
+			$content['companyProfileFile'] = MediaKitDraftController::checkFile($content['companyProfileFile'], 'documents/articles/company-profiles', 'article_company_profile_draft');
 			if(count($content['imagesFiles']) > 0){
 				$imagesFiles = $content['imagesFiles'];
 				$content['imagesFiles'] = array();
 				foreach($imagesFiles as $image){
-					$content['imagesFiles'][] = MediaKitDraftController::checkFile($image, 'images/articles/images');
+					$content['imagesFiles'][] = MediaKitDraftController::checkFile($image, 'images/articles/images', 'article_images_draft_draft');
 				}
 			}
 			$newDetails = [
@@ -226,7 +226,7 @@ class MediaKitDraftController extends Controller
 		if(!empty($data['categories'])){
 			$mediaKits = $mediaKits->whereIn('category_id', $data['categories']);
 		}
-		
+
 		// dd($data, $mediaKits);
 		return $mediaKits;
 

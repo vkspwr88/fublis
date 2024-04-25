@@ -1,6 +1,7 @@
 <?php
 namespace App\View\Composers;
 
+use App\Http\Controllers\Users\AvatarController;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 
@@ -22,12 +23,30 @@ class ProfileImageComposer
 			if($authJournalist->profileImage){
 				$profileImage = Storage::url($authJournalist->profileImage->image_path);
 			}
+			else{
+				$profileImage = AvatarController::setProfileAvatar([
+					'name' => auth()->user()->name,
+					'width' => 40,
+					'fontSize' => 20,
+					'background' => $authJournalist->background_color,
+					'foreground' => $authJournalist->foreground_color,
+				]);
+			}
 
 		}
 		elseif(isArchitect()){
 			$authArchitect = auth()->user()->architect->load(['profileImage']);
 			if($authArchitect->profileImage){
 				$profileImage = Storage::url($authArchitect->profileImage->image_path);
+			}
+			else{
+				$profileImage = AvatarController::setProfileAvatar([
+					'name' => auth()->user()->name,
+					'width' => 40,
+					'fontSize' => 20,
+					'background' => $authArchitect->background_color,
+					'foreground' => $authArchitect->foreground_color,
+				]);
 			}
 
 		}

@@ -312,4 +312,9 @@ class ArticleForm extends Form
 		//
 	}
 
+	public function deleteMediaKit()
+	{
+		return to_route('architect.add-story.article.index');
+	}
+
 }

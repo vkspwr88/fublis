@@ -6,7 +6,7 @@
 			</div>
 			<div class="col text-end">
 				@if ($mediaKit->story->article_doc_path)
-					<form class="p-0 m-0" action="{{ route('architect.download', ['mediaKit' => $mediaKit->slug]) }}" method="post">
+					<form class="p-0 m-0" action="{{ route('journalist.download', ['mediaKit' => $mediaKit->slug]) }}" method="post">
 						@csrf
 						<input type="hidden" value="{{ $mediaKit->story->company_profile_path }}" name="file">
 						<input type="hidden" name="type" value="CompanyProfile">

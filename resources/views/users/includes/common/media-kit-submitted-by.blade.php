@@ -1,12 +1,24 @@
-<p class="text-dark fs-6 py-2">Submitted By</p>
+<p class="py-2 text-dark fs-6">Submitted By</p>
 <div class="row align-items-center">
 	<div class="col-auto">
 		<div class="row g-2">
 			<div class="col-auto">
-				<img class="rounded-circle img-square img-48" src="{{ $mediaKit->architect->company->profileImage ? Storage::url($mediaKit->architect->company->profileImage->image_path) : 'https://via.placeholder.com/48x48' }}" alt="..." />
+				@php
+					use App\Http\Controllers\Users\AvatarController as AvatarController;
+					$studioProfileImg = $mediaKit->architect->company->profileImage ?
+											Storage::url($mediaKit->architect->company->profileImage->image_path) :
+											AvatarController::setProfileAvatar([
+												'name' => $mediaKit->architect->company->name,
+												'width' => 48,
+												'fontSize' => 24,
+												'background' => $mediaKit->architect->company->background_color,
+												'foreground' => $mediaKit->architect->company->foreground_color,
+											]);
+				@endphp
+				<img class="rounded-circle img-square img-48" src="{{ $studioProfileImg }}" alt="..." />
 			</div>
 			<div class="col">
-				<p class="fs-6 fw-medium m-0 p-0">
+				<p class="p-0 m-0 fs-6 fw-medium">
 					@if ($viewAs == 'architect')
 						<a class="text-purple-800" href="{{ route('architect.account.studio.index') }}">
 							{{ $mediaKit->architect->company->name }}
@@ -17,7 +29,7 @@
 						</a>
 					@endif
 				</p>
-				<p class="fs-6 m-0 p-0">
+				<p class="p-0 m-0 fs-6">
 					<small>
 						<a href="{{ $mediaKit->architect->company->website }}" class="text-secondary" target="_blank">{{ trimWebsiteUrl($mediaKit->architect->company->website) }}</a>
 					</small>

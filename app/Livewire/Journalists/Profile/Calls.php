@@ -40,9 +40,9 @@ class Calls extends Component
 		$this->selectedLocation = '';
 		$this->selectedDeadline = '';
 		// $this->locations = LocationController::getAll();
-		$this->locations = LocationController::getCountries();
-		$this->publicationTypes = PublicationTypeController::getAll();
-		$this->categories = CategoryController::getAll();
+		$this->locations = LocationController::getSelected('call');
+		$this->publicationTypes = PublicationTypeController::getSelected('publication');
+		$this->categories = CategoryController::getSelected('publication');
 	}
 
     public function render()

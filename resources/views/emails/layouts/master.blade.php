@@ -2,7 +2,7 @@
 <p style="margin-bottom: 0px;">
 <img src="{{ url(env('COMPANY_EMAIL_LOGO')) }}" alt="{{ env('COMPANY_NAME') }}" style="width: 150px;" />
 </p>
-<div style="padding: 40px 0;">
+<div style="padding: 30px 0;">
 @yield('body')
 </div>
 {{-- <p style="margin-bottom: 50px;">

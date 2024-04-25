@@ -40,6 +40,16 @@ class Location extends Model
 		return $this->hasMany(Publication::class);
 	}
 
+	public function journalists(): HasMany
+	{
+		return $this->hasMany(Journalist::class);
+	}
+
+	public function calls(): HasMany
+	{
+		return $this->hasMany(Call::class);
+	}
+
 	public function city(): BelongsTo
 	{
 		return $this->belongsTo(

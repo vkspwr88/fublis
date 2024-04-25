@@ -101,4 +101,37 @@ class LocationController extends Controller
 	{
 		return City::find($id);
 	}
+
+	public static function getSelected($type)
+	{
+		if($type == 'journalist'){
+			$locations = Location::has('journalists')->get()->pluck('name');
+			$cities = City::whereIn('name', $locations)->get()->load('state.country');
+			$states = $cities->pluck('state');
+			$countries = $states->pluck('country');
+		}
+		else if($type == 'publication'){
+			$locations = Location::has('publications')->get()->pluck('name');
+			$cities = City::whereIn('name', $locations)->get()->load('state.country');
+			$states = $cities->pluck('state');
+			$countries = $states->pluck('country');
+		}
+		else if($type == 'call'){
+			$locations = Location::has('calls')->get()->pluck('name');
+			$countries = Country::whereIn('name', $locations)->get();
+		}
+		else if($type == 'company'){
+			$locations = Location::has('companies')->get()->pluck('name');
+			$cities = City::whereIn('name', $locations)->get()->load('state.country');
+			$states = $cities->pluck('state');
+			$countries = $states->pluck('country');
+		}
+		else if($type == 'mediakit'){
+			$locations = Location::has('projects')->get()->pluck('name');
+			$cities = City::whereIn('name', $locations)->get()->load('state.country');
+			$states = $cities->pluck('state');
+			$countries = $states->pluck('country');
+		}
+		return $countries->unique()->flatten()->sortBy('name');
+	}
 }

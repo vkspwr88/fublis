@@ -20,6 +20,7 @@
 	--fublis-purple-700: #6941C6;
 	--fublis-purple-800: #53389E;
 	--fublis-purple-900: #42307D;
+	--fublis-black: #000000;
 	--fublis-white: #ffffff;
 	--fublis-footer-black: #0a0a0a;
 
@@ -718,6 +719,16 @@ button.btn-toggle[aria-expanded="true"] .menu-toggle-icon::after {
 	opacity: 0.6;
 }
 
+.btn-black, .btn-black:hover{
+	background-color: var(--fublis-black);
+	color: var(--fublis-white);
+	border-color: var(--fublis-black);
+}
+
+.btn-black:hover{
+	opacity: 0.6;
+}
+
 .modal-backdrop.show{
 	background: rgba(52, 64, 84, 0.70);
 	backdrop-filter: blur(10px);
@@ -835,8 +846,8 @@ button.btn-toggle[aria-expanded="true"] .menu-toggle-icon::after {
 }
 
 .img-36{
-	max-width: 32px !important;
-	max-height: 32px !important;
+	max-width: 36px !important;
+	max-height: 36px !important;
 }
 
 .img-40{

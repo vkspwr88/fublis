@@ -21,7 +21,18 @@
 								<div class="col-md-auto">
 									<div class="row align-items-center g-2">
 										<div class="col-auto">
-											<img src="{{ $journalist->profileImage ? Storage::url($journalist->profileImage->image_path) : 'https://via.placeholder.com/40x40' }}" class="img-square img-40" alt="logo">
+											@php
+												$profileImg = $journalist->profileImage ?
+																Storage::url($journalist->profileImage->image_path) :
+																App\Http\Controllers\Users\AvatarController::setProfileAvatar([
+																	'name' => $journalist->user->name,
+																	'width' => 40,
+																	'fontSize' => 18,
+																	'background' => $journalist->background_color,
+																	'foreground' => $journalist->foreground_color,
+																], 'publication');
+											@endphp
+											<img src="{{ $profileImg }}" class="img-square img-40" alt="logo">
 										</div>
 										<div class="col-auto">
 											<input type="radio" id="story-project" value="Project" wire:model="selectedStoryType" class="position-absolute opacity-0 list-radio">

@@ -11,7 +11,7 @@ use Livewire\WithFileUploads;
 class ArticleDraft extends Component
 {
 	use WithFileUploads;
-	
+
 	public $draftId;
 	public ArticleForm $form;
 
@@ -92,5 +92,14 @@ class ArticleDraft extends Component
 	public function removeImage($index)
 	{
 		$this->form->deleteImage($this->draftId, $index, 'draft');
+	}
+
+	public function deleteMediaKit()
+	{
+		$this->dispatch('alert', [
+			'type' => 'success',
+			'message' => 'Your media kit is deleted successfully.'
+		]);
+		return $this->form->deleteMediaKit();
 	}
 }

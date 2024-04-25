@@ -184,6 +184,7 @@ return [
     */
 
     'aliases' => Facade::defaultAliases()->merge([
+		'Avatar' => Laravolt\Avatar\Facade::class,
         // 'Example' => App\Facades\Example::class,
     ])->toArray(),
 

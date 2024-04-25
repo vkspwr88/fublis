@@ -1,8 +1,8 @@
-<div>
+<div id="editCall">
 	<div class="row g-4 justify-content-end align-items-end">
 		<div class="col">
 			<div class="d-flex justify-content-start">
-				<h2 class="text-dark fs-3 fw-semibold m-0">Edit your call</h2>
+				<h2 class="m-0 text-dark fs-3 fw-semibold">Edit your call</h2>
 			</div>
 		</div>
 		<div class="col-auto">
@@ -15,7 +15,7 @@
 			</div>
 		</div>
 	</div>
-	<hr class="border-gray-300 my-4">
+	<hr class="my-4 border-gray-300">
 	<div class="row justify-content-center">
 		<div class="col-md-9">
 			@include('livewire.journalists.calls.form')

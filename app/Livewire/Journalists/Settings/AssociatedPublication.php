@@ -49,6 +49,7 @@ class AssociatedPublication extends Component
 	public $monthlyVisitors;
 	public $aboutMe;
 	public int $aboutMeLength;
+	public $startingYear;
 	public $isNew = true;
 	public $publications;
 	public $selectedPublication;
@@ -147,6 +148,7 @@ class AssociatedPublication extends Component
 			'selectedPublicationTypes.*' => 'exists:publication_types,id',
 			'monthlyVisitors' => 'nullable',
 			'aboutMe' => 'required|max:275',
+			'startingYear' => 'nullable|year',
 		];
 	}
 
@@ -176,6 +178,7 @@ class AssociatedPublication extends Component
 			'selectedPublicationTypes.required' => 'Select the :attribute.',
 			'aboutMe.required' => 'Enter the :attribute.',
 			'aboutMe.max' => 'The :attribute allows only 275 characters.',
+			'startingYear.date_format' => 'Enter the :attribute in 4 digit year format.',
 			'*.exists' => 'Select the valid :attribute.',
 			'*.*.exists' => 'Select the valid :attribute.',
 		];
@@ -198,6 +201,7 @@ class AssociatedPublication extends Component
 			'selectedPublishFrom' => 'publish from',
 			'selectedPublicationTypes' => 'publication type',
 			'aboutMe' => 'publication details',
+			'startingYear' => 'starting year',
 		];
 	}
 
@@ -219,6 +223,7 @@ class AssociatedPublication extends Component
 			'selectedPublicationTypes' => $this->selectedPublicationTypes,
 			'monthlyVisitors' => $this->monthlyVisitors,
 			'aboutMe' => $this->aboutMe,
+			'startingYear' => $this->startingYear,
 		];
 	}
 
@@ -242,6 +247,7 @@ class AssociatedPublication extends Component
 		$this->selectedPublishFrom = $this->selectedPublication->publishFrom->pluck('id');
 		$this->monthlyVisitors = $this->selectedPublication->monthly_visitors;
 		$this->aboutMe = $this->selectedPublication->about_me;
+		$this->startingYear = $this->selectedPublication->starting_year;
 		$this->profileImageOld = $this->selectedPublication->profileImage;
 		$this->publicationId = $publicationId;
 		$city = LocationController::getCityByCityName($this->selectedPublication->location->name);
@@ -268,6 +274,7 @@ class AssociatedPublication extends Component
 		$this->publicationId = '';
 		$this->profileImageOld = '';
 		$this->profileImage = '';
+		$this->startingYear = '';
 		$this->resetValidation();
 		$this->selectedCountry = 101;
 		$this->selectedState = 0;
@@ -344,6 +351,8 @@ class AssociatedPublication extends Component
 				'type' => 'success',
 				'message' => 'You have successfully added the associated publication.'
 			]);
+			$this->selectNewPublication = '';
+			$this->selectNewPosition = '';
 			$this->add();
 			return;
 		}

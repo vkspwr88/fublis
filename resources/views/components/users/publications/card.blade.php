@@ -1,12 +1,22 @@
 <div>
     <div class="col-12">
-		<div class="card border-0 rounded-3 bg-white shadow">
+		<div class="bg-white border-0 shadow card rounded-3">
 			<div class="card-body">
 				<div class="row gx-2 gy-4">
 					<div class="col-sm-auto">
-						<div class="d-block mx-auto text-center">
+						<div class="mx-auto text-center d-block">
 							@php
-								$cardImg = '<img src="' . ($publication->profileImage ? Storage::url($publication->profileImage->image_path) : 'https://via.placeholder.com/150x150') . '" class="img-square img-150" alt="...">';
+								use App\Http\Controllers\Users\AvatarController as AvatarController;
+								$profileImg = $publication->profileImage ?
+												Storage::url($publication->profileImage->image_path) :
+												AvatarController::setProfileAvatar([
+													'name' => $publication->name,
+													'width' => 150,
+													'fontSize' => 60,
+													'background' => $publication->background_color,
+													'foreground' => $publication->foreground_color,
+												], 'publication');
+								$cardImg = '<img src="' . $profileImg . '" class="img-square img-150" alt="...">';
 							@endphp
 							@if(isJournalist())
 								<a href="{{ route('journalist.account.profile.publications.view', ['publication' => $publication->slug]) }}">
@@ -24,13 +34,20 @@
 						</div>
 					</div>
 					<div class="col-sm d-flex flex-column justify-content-between">
-						<div class="row align-items-center pb-4">
-							<p class="fs-6 col m-0">
-								@if ($publication->location)
-									@php
-										$country = $publication->location->city()->first()->state->country->name;
-									@endphp
-									<x-utility.badges.secondary-badge :text="str()->headline($country)" icon='<i class="bi bi-geo-alt"></i>' />
+						<div class="pb-4 row align-items-center">
+							<p class="m-0 fs-6 col">
+								@if ($publication->is_premium)
+									<x-utility.badges.premium-badge text="Premium" />
+								@endif
+								@if($publication->publishFrom->pluck('name')->contains('Worldwide'))
+									<x-utility.badges.secondary-badge text="Worldwide" icon='<i class="bi bi-geo-alt"></i>' />
+								@else
+									@if ($publication->location)
+										@php
+											$country = $publication->location->city()->first()->state->country->name;
+										@endphp
+										<x-utility.badges.secondary-badge :text="str()->headline($country)" icon='<i class="bi bi-geo-alt"></i>' />
+									@endif
 								@endif
 								@foreach ($publication->publicationTypes as $publicationType)
 									<x-utility.badges.secondary-badge :text="$publicationType->name" />
@@ -40,14 +57,14 @@
 								@endif
 							</p>
 							@if(isArchitect())
-								<p class="text-end fs-6 col m-0">
+								<p class="m-0 text-end fs-6 col">
 									<button type="button" class="btn btn-primary btn-sm fw-medium" wire:click="showContact('{{ $publication->id }}')">
 										Pitch Story <x-users.spinners.white-btn wire:target="showContact('{{ $publication->id }}')" />
 									</button>
 								</p>
 							@elseif(isJournalist())
 							@else
-								<p class="text-end fs-6 col m-0">
+								<p class="m-0 text-end fs-6 col">
 									<button type="button" class="btn btn-primary btn-sm fw-medium" onclick="createAccountPrompt()">
 										Pitch Story
 									</button>
@@ -59,13 +76,13 @@
 								<div class="row justify-content-center">
 									@if($publication->monthly_visitors)
 									<div class="col-12">
-										<p class="fw-medium m-0 py-2">
-											<span class="badge rounded-pill bg-purple-50 text-purple-700">{{ $publication->monthly_visitors }} monthly visits</span>
+										<p class="py-2 m-0 fw-medium">
+											<span class="text-purple-700 badge rounded-pill bg-purple-50">{{ $publication->monthly_visitors }} monthly visits</span>
 										</p>
 									</div>
 									@endif
 									<div class="col-12">
-										<h5 class="fs-6 fw-semibold m-0 pt-3">
+										<h5 class="pt-3 m-0 fs-6 fw-semibold">
 											@if(isJournalist())
 												<a href="{{ route('journalist.account.profile.publications.view', ['publication' => $publication->slug]) }}" class="text-dark">{{ $publication->name }}</a>
 											@elseif(isArchitect())
@@ -74,7 +91,7 @@
 												<a href="javascript:;" class="text-dark" onclick="createAccountPrompt()">{{ $publication->name }}</a>
 											@endif
 										</h5>
-										<p class="fs-6 m-0 p-0">
+										<p class="p-0 m-0 fs-6">
 											<a href="{{ $publication->website }}" class="text-secondary small" target="_blank">
 												{{ trimWebsiteUrl($publication->website) }}
 											</a>
@@ -83,7 +100,7 @@
 								</div>
 							</div>
 							<div class="col-auto">
-								<div class="d-flex justify-content-end align-items-center flex-wrap fw-medium">
+								<div class="flex-wrap d-flex justify-content-end align-items-center fw-medium">
 									@foreach ($publication->categories as $category)
 										<x-utility.badges.purple-badge :text="$category->name" />
 									@endforeach

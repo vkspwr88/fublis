@@ -8,7 +8,7 @@
 
 @section('body')
 <div class="container py-5">
-	<div class="row mb-3">
+	<div class="mb-3 row">
 		<div class="col-12">
 			<nav aria-label="breadcrumb">
 				<ol class="breadcrumb">
@@ -18,7 +18,7 @@
 					<li class="breadcrumb-item fublis-breadcrumb-item">
 						<a href="{{ route('journalist.call.index') }}" class="text-secondary fs-6 fw-medium">Your Calls</a>
 					</li>
-					<li class="breadcrumb-item fublis-breadcrumb-item text-purple-600 fs-6 fw-medium" aria-current="page">Create New Call</li>
+					<li class="text-purple-600 breadcrumb-item fublis-breadcrumb-item fs-6 fw-medium" aria-current="page">Create New Call</li>
 				</ol>
 			</nav>
 		</div>

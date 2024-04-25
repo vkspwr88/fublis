@@ -21,7 +21,7 @@
 	<div class="col-md-8">
 		<div class="row g-2">
 			<div class="col-auto">
-				<p class="m-0 p-0">
+				<p class="p-0 m-0">
 					@if ($profileImage)
 						<img class="img-fluid img-64 rounded-circle" src="{{ $profileImage->temporaryUrl() }}" alt="...">
 					@else
@@ -34,7 +34,7 @@
 	</div>
 </div>
 <hr class="border-gray-300">
-<div class="row mb-3">
+<div class="mb-3 row">
 	<label for="selectedLanguages" class="col-md-4 col-form-label text-dark fs-6 fw-medium">Language</label>
 	<div class="col-md-8">
 		{{-- <select id="selectLanguage" class="form-select @error('language') is-invalid @enderror" wire:model="language">
@@ -69,23 +69,11 @@
 	</div>
 </div>
 <hr class="border-gray-300">
-{{-- <div class="row">
-	<label for="selectLocation" class="col-md-4 col-form-label text-dark fs-6 fw-medium">Country</label>
-	<div class="col-md-8">
-		<select id="selectLocation" class="form-select @error('location') is-invalid @enderror" wire:model="location">
-			<option value="">Select Country</option>
-			@foreach ($locations as $location)
-				<option value="{{ $location->id }}">{{ $location->name }}</option>
-			@endforeach
-		</select>
-		@error('location')<div class="invalid-feedback">{{ $message }}</div>@enderror
-	</div>
-</div> --}}
-<div class="row mb-3">
+<div class="mb-3 row">
 	<label for="selectCountry" class="col-md-4 col-form-label text-dark fs-6 fw-medium">Country</label>
 	<div class="col-md-8">
 		<select class="form-select @error('selectedCountry') is-invalid @enderror" id="selectCountry" wire:model.live="selectedCountry">
-			<option value="">Select Country</option>
+			<option value="0">Select Country</option>
 			@foreach ($countries as $country)
 			<option value="{{ $country->id }}">{{ str()->headline($country->name) }}</option>
 			@endforeach
@@ -93,11 +81,11 @@
 		@error('selectedCountry')<div class="invalid-feedback">{{ $message }}</div>@enderror
 	</div>
 </div>
-<div class="row mb-3">
+<div class="mb-3 row">
 	<label for="selectState" class="col-md-4 col-form-label text-dark fs-6 fw-medium">State</label>
 	<div class="col-md-8">
 		<select class="form-select @error('selectedState') is-invalid @enderror" id="selectState" wire:model.live="selectedState">
-			<option value="">Select State</option>
+			<option value="0">Select State</option>
 			@foreach ($states as $state)
 			<option value="{{ $state->id }}">{{ str()->headline($state->name) }}</option>
 			@endforeach
@@ -135,7 +123,7 @@
 	</div>
 </div>
 <hr class="border-gray-300">
-<div class="row mb-3">
+<div class="mb-3 row">
 	<label class="col-md-4 col-form-label text-dark fs-6 fw-medium">Publish Stories From</label>
 	<div class="col-md-8">
 		<div class="row">
@@ -168,7 +156,7 @@
 	</div>
 </div>
 <hr class="border-gray-300">
-<div class="row mb-3">
+<div class="mb-3 row">
 	<div class="col-md-4">
 		<label for="inputMonthlyVisitors" class="col-form-label text-dark fs-6 fw-medium">Monthly Visitors</label>
 	</div>
@@ -177,10 +165,19 @@
 		@error('monthlyVisitors')<div class="invalid-feedback">{{ $message }}</div>@enderror
 	</div>
 </div>
+<div class="mb-3 row">
+	<div class="col-md-4">
+		<label for="inputStartingYear" class="col-form-label text-dark fs-6 fw-medium">Starting Year</label>
+	</div>
+	<div class="col-md-8">
+		<input id="inputStartingYear" class="form-control @error('startingYear') is-invalid @enderror" wire:model="startingYear">
+		@error('startingYear')<div class="invalid-feedback">{{ $message }}</div>@enderror
+	</div>
+</div>
 <div class="row">
 	<div class="col-md-4">
 		<label for="inputAboutMe" class="col-form-label text-dark fs-6 fw-medium">About the Publication</label>
-		<label class="d-block form-text text-secondary fs-7 m-0">Write short introduction about publication.</label>
+		<label class="m-0 d-block form-text text-secondary fs-7">Write short introduction about publication.</label>
 	</div>
 	<div class="col-md-8">
 		<textarea id="inputAboutMe" class="form-control @error('aboutMe') is-invalid @enderror" wire:model="aboutMe" wire:keydown.debounce="characterCount" rows="6"></textarea>

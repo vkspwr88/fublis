@@ -54,6 +54,9 @@ class CreateStepComponent extends StepComponent
 		$this->publishFrom = PublishFromController::getAll();
 		$this->publications = auth()->user()->journalist->publications->merge(auth()->user()->journalist->associatedPublications);
 		$this->languages = LanguageController::getAll();
+		$this->dispatch('get-focus', [
+			'element' => '#createCall',
+		]);
 	}
 
 	public function characterCount()

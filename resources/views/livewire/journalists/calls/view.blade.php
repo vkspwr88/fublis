@@ -1,5 +1,5 @@
-<h2 class="m-0 py-2 text-secondary fs-3 fw-semibold text-capitalize">{{ $title }}</h2>
-<p class="m-0 py-2 text-secondary">
+<h2 class="py-2 m-0 text-secondary fs-3 fw-semibold text-capitalize">{{ $title }}</h2>
+<p class="py-2 m-0 text-secondary">
 	<span class="fw-medium"><i>submitted by</i></span>
 	<span class="fw-bold">
 		@if(isArchitect())
@@ -9,57 +9,69 @@
 		@endif
 	</span>
 </p>
-<hr class="border-gray-300 my-3">
+<hr class="my-3 border-gray-300">
 <div class="row g-4">
 	<div class="col-md-4">
-		<p class="text-secondary fw-semibold m-0 p-0">Call for Submissions</p>
+		<p class="p-0 m-0 text-secondary fw-semibold">Call for Submissions</p>
 	</div>
 	<div class="col-md-8">{{ $description }}</div>
 </div>
-<hr class="border-gray-300 my-3">
-<div class="row g-4 mb-3">
+<hr class="my-3 border-gray-300">
+<div class="mb-3 row g-4">
 	<div class="col-md-4">
-		<p class="text-secondary fw-semibold m-0 p-0">Submission Deadline</p>
+		<p class="p-0 m-0 text-secondary fw-semibold">Submission Deadline</p>
 	</div>
 	<div class="col-md-8">{{ formatDate($submissionEndsDate) }}</div>
 </div>
-<div class="row g-4 mb-3">
+<div class="mb-3 row g-4">
 	<div class="col-md-4">
-		<p class="text-secondary fw-semibold m-0 p-0">Entries Invited</p>
+		<p class="p-0 m-0 text-secondary fw-semibold">Entries Invited</p>
 	</div>
 	<div class="col-md-8">{{ str()->headline($publishFrom->name) }}</div>
 </div>
-<div class="row g-4 mb-3">
+<div class="mb-3 row g-4">
 	<div class="col-md-4">
-		<p class="text-secondary fw-semibold m-0 p-0">Country</p>
+		<p class="p-0 m-0 text-secondary fw-semibold">Country</p>
 	</div>
 	<div class="col-md-8">{{ str()->headline($selectedCountry) }}</div>
 </div>
 <div class="row g-4">
 	<div class="col-md-4">
-		<p class="text-secondary fw-semibold m-0 p-0">Language</p>
+		<p class="p-0 m-0 text-secondary fw-semibold">Language</p>
 	</div>
 	<div class="col-md-8">{{ str()->headline($language->name) }}</div>
 </div>
-<hr class="border-gray-300 my-3">
+<hr class="my-3 border-gray-300">
 <div class="row g-4">
 	<div class="col-md-4">
-		<p class="text-secondary fw-semibold m-0 p-0">Publication</p>
+		<p class="p-0 m-0 text-secondary fw-semibold">Publication</p>
 	</div>
 	<div class="col-md-8">
 		<div class="row align-items-center">
 			<div class="col-auto">
-				<img class="rounded-circle img-square img-45" src="{{ $publication->profileImage ? Storage::url($publication->profileImage->image_path) : 'https://via.placeholder.com/45x45' }}" alt=".." />
+				@php
+					use App\Http\Controllers\Users\AvatarController as AvatarController;
+					$profileImg = $publication->profileImage ?
+									Storage::url($publication->profileImage->image_path) :
+									AvatarController::setProfileAvatar([
+										'name' => $publication->name,
+										'width' => 45,
+										'fontSize' => 18,
+										'background' => $publication->background_color,
+										'foreground' => $publication->foreground_color,
+									], 'publication');
+				@endphp
+				<img class="rounded-circle img-square img-45" src="{{ $profileImg }}" alt=".." />
 			</div>
 			<div class="col">
-				<p class="fw-semibold m-0 p-0">
+				<p class="p-0 m-0 fw-semibold">
 					@if(isArchitect())
 						<a href="{{ route('architect.pitch-story.publications.view', ['publication' => $publication->slug]) }}" class="text-secondary">{{ $publication->name }}</a>
 					@elseif (isJournalist())
 						<a href="{{ route('journalist.account.profile.publications.view', ['publication' => $publication->slug]) }}" class="text-secondary">{{ $publication->name }}</a>
 					@endif
 				</p>
-				<p class="m-0 p-0">
+				<p class="p-0 m-0">
 					<span class="small">
 						<a href="{{ $publication->website }}" target="_blank" class="text-secondary">{{ trimWebsiteUrl($publication->website) }}</a>
 					</span></p>
@@ -67,27 +79,27 @@
 		</div>
 	</div>
 </div>
-<hr class="border-gray-300 my-3">
+<hr class="my-3 border-gray-300">
 <div class="row g-4">
 	<div class="col-md-4">
-		<p class="text-secondary fw-semibold m-0 p-0">Tags</p>
+		<p class="p-0 m-0 text-secondary fw-semibold">Tags</p>
 	</div>
 	<div class="col-md-8">
 		<div class="row justify-content-start gx-1 gy-3">
 			<div class="col-auto">
-				<span class="badge rounded-pill bg-purple-100 text-purple-700 fw-medium">{{ $category->name }}</span>
+				<span class="text-purple-700 bg-purple-100 badge rounded-pill fw-medium">{{ $category->name }}</span>
 			</div>
 			<div class="col-auto">
-				<span class="badge rounded-pill bg-purple-100 text-purple-700 fw-medium">{{ $language->name }}</span>
+				<span class="text-purple-700 bg-purple-100 badge rounded-pill fw-medium">{{ $language->name }}</span>
 			</div>
 			{{-- <div class="col-auto">
-				<span class="badge rounded-pill bg-purple-100 text-purple-700 fw-medium text-capitalize">{{ $selectedCity }}</span>
+				<span class="text-purple-700 bg-purple-100 badge rounded-pill fw-medium text-capitalize">{{ $selectedCity }}</span>
 			</div>
 			<div class="col-auto">
-				<span class="badge rounded-pill bg-purple-100 text-purple-700 fw-medium text-capitalize">{{ $selectedStateName }}</span>
+				<span class="text-purple-700 bg-purple-100 badge rounded-pill fw-medium text-capitalize">{{ $selectedStateName }}</span>
 			</div> --}}
 			<div class="col-auto">
-				<span class="badge rounded-pill bg-purple-100 text-purple-700 fw-medium text-capitalize">{{ $selectedCountry }}</span>
+				<span class="text-purple-700 bg-purple-100 badge rounded-pill fw-medium text-capitalize">{{ $selectedCountry }}</span>
 			</div>
 		</div>
 	</div>

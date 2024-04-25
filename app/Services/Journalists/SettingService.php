@@ -3,6 +3,7 @@
 namespace App\Services\Journalists;
 
 use App\Http\Controllers\ErrorLogController;
+use App\Http\Controllers\Users\AvatarController;
 use App\Http\Controllers\Users\FileController;
 use App\Http\Controllers\Users\ImageController;
 use App\Http\Controllers\Users\LocationController;
@@ -77,7 +78,10 @@ class SettingService
 					// 'language_id' => $details['language'],
 					'monthly_visitors' => $details['monthlyVisitors'],
 					'about_me' => $details['aboutMe'],
+					'starting_year' => $details['startingYear'],
 					'added_by' => $journalist->id,
+					'background_color' => AvatarController::getBackground('publication'),
+					'foreground_color' => '#ffffff',
 				]);
 				// journalist position in publication
 				$journalist->publications()->attach($publication->id, [
@@ -100,6 +104,7 @@ class SettingService
 					'location_id' => $location->id,
 					// 'language_id' => $details['language'],
 					'monthly_visitors' => $details['monthlyVisitors'],
+					'starting_year' => $details['startingYear'],
 					'about_me' => $details['aboutMe'],
 				]);
 				// journalist position in publication
@@ -219,8 +224,11 @@ class SettingService
 					'location_id' => $location->id,
 					'monthly_visitors' => $details['monthlyVisitors'],
 					// 'language_id' => $details['language'],
+					'starting_year' => $details['startingYear'],
 					'about_me' => $details['aboutMe'],
 					'added_by' => $journalist->id,
+					'background_color' => AvatarController::getBackground('publication'),
+					'foreground_color' => '#ffffff',
 				]);
 				// journalist position in publication
 				$journalist->associatedPublications()->attach($publication->id, [

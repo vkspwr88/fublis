@@ -38,10 +38,10 @@ class Journalists extends Component
 	{
 		$this->name = '';
 		// $this->locations = LocationController::getAll();
-		$this->locations = LocationController::getCountries();
-		$this->publicationTypes = PublicationTypeController::getAll();
-		$this->positions = JournalistPositionController::getAll();
-		$this->categories = CategoryController::getAll();
+		$this->locations = LocationController::getSelected('journalist');
+		$this->publicationTypes = PublicationTypeController::getSelected('journalist');
+		$this->positions = JournalistPositionController::getSelected('journalist');
+		$this->categories = CategoryController::getSelected('journalist');
 	}
 
     public function render()

@@ -2,11 +2,23 @@
 	<div class="col-md-5 col-lg-3">
 		<div class="row g-3">
 			<div class="col-12">
-				<img src="{{ $journalist->profileImage ? Storage::url($journalist->profileImage->image_path) : 'https://via.placeholder.com/150x150' }}" class="img-square img-150" alt="logo">
+				@php
+					use App\Http\Controllers\Users\AvatarController as AvatarController;
+					$profileImg = $journalist->profileImage ?
+									Storage::url($journalist->profileImage->image_path) :
+									AvatarController::setProfileAvatar([
+										'name' => $journalist->user->name,
+										'width' => 150,
+										'fontSize' => 75,
+										'background' => $journalist->background_color,
+										'foreground' => $journalist->foreground_color,
+									]);
+				@endphp
+				<img src="{{ $profileImg }}" class="img-square img-150" alt="logo">
 			</div>
 			<div class="col-12">
-				<h4 class="text-dark fs-5 fw-semibold m-0 p-0">{{ $journalist->user->name }}</h4>
-				<p class="m-0 p-0">{{ $journalist->position->name }}</p>
+				<h4 class="p-0 m-0 text-dark fs-5 fw-semibold">{{ $journalist->user->name }}</h4>
+				<p class="p-0 m-0">{{ $journalist->position->name }}</p>
 			</div>
 			<div class="col-12">
 				@if($viewAs == 'architect')
@@ -27,13 +39,13 @@
 						</svg>
 					</div>
 					<div class="col">
-						<span class="badge rounded-pill text-gray-700 bg-gray-200 text-capitalize">
+						<span class="text-gray-700 bg-gray-200 badge rounded-pill text-capitalize">
 							{{ $journalist->location->city()->first()->state->country->name }}
 						</span>
-						<span class="badge rounded-pill text-gray-700 bg-gray-200 text-capitalize">
+						<span class="text-gray-700 bg-gray-200 badge rounded-pill text-capitalize">
 							{{ $journalist->location->city()->first()->state->name }}
 						</span>
-						<span class="badge rounded-pill text-gray-700 bg-gray-200">{{ $journalist->location->name }}</span>
+						<span class="text-gray-700 bg-gray-200 badge rounded-pill">{{ $journalist->location->name }}</span>
 					</div>
 				</div>
 			</div>
@@ -47,7 +59,7 @@
 						</svg>
 					</div>
 					<div class="col">
-						<span class="badge rounded-pill text-gray-700 bg-gray-200">{{ $journalist->language->name ?? '-' }}</span>
+						<span class="text-gray-700 bg-gray-200 badge rounded-pill">{{ $journalist->language->name ?? '-' }}</span>
 					</div>
 				</div>
 			</div>
@@ -61,7 +73,7 @@
 					</div>
 					<div class="col">
 						@foreach ($categories as $category)
-						<span class="badge rounded-pill text-purple-700 bg-purple-100 mb-1">{{ $category->name }}</span>
+						<span class="mb-1 text-purple-700 bg-purple-100 badge rounded-pill">{{ $category->name }}</span>
 						@endforeach
 					</div>
 				</div>
@@ -76,10 +88,21 @@
 			<div class="col-12">
 				<div class="row g-1 align-items-center">
 					<div class="col-auto">
-						<img src="{{ $publication->profileImage ? Storage::url($publication->profileImage->image_path) : 'https://via.placeholder.com/48x48' }}" style="max-width: 48px; max-height: 48px;" alt=".." class="img-fluid rounded-circle">
+						@php
+							$profileImg = $publication->profileImage ?
+											Storage::url($publication->profileImage->image_path) :
+											AvatarController::setProfileAvatar([
+												'name' => $publication->name,
+												'width' => 48,
+												'fontSize' => 20,
+												'background' => $publication->background_color,
+												'foreground' => $publication->foreground_color,
+											], 'publication');
+						@endphp
+						<img src="{{ $profileImg }}" style="max-width: 48px; max-height: 48px;" alt=".." class="img-square img-48 rounded-circle">
 					</div>
 					<div class="col">
-						<h6 class="fs-6 fw-medium m-0 p-0">
+						<h6 class="p-0 m-0 fs-6 fw-medium">
 							@if ($viewAs == 'architect')
 							<a href="{{ route('architect.pitch-story.publications.view', ['publication' => $publication->slug]) }}" class="text-purple-800">
 								{{ $publication->name }}
@@ -90,7 +113,7 @@
 							</a>
 							@endif
 						</h6>
-						<p class="fs-7 text-secondary m-0 p-0">
+						<p class="p-0 m-0 fs-7 text-secondary">
 							<small>
 								<a href="{{ $publication->website }}" class="text-secondary" target="_blank">
 									{{ trimWebsiteUrl($publication->website) }}
@@ -99,7 +122,7 @@
 						</p>
 					</div>
 					{{-- <div class="col-auto">
-						<a href="{{ route('architect.pitch-story.publications.view', ['publication' => $publication->slug]) }}" class="btn btn-primary fw-medium p-2">
+						<a href="{{ route('architect.pitch-story.publications.view', ['publication' => $publication->slug]) }}" class="p-2 btn btn-primary fw-medium">
 							<i class="bi bi-send-fill"></i>
 						</a>
 					</div> --}}

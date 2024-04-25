@@ -26,4 +26,23 @@ class CategoryController extends Controller
 		}
 		)->get();
 	}
+
+	public static function getSelected($type)
+	{
+		if($type == 'journalist' || $type == 'publication'){
+			return Category::has('publications')
+									->orderBy('name', 'asc')
+									->get();
+		}
+		if($type == 'mediakit'){
+			return Category::has('mediaKits')
+							->orderBy('name', 'asc')
+							->get();
+		}
+		if($type == 'company'){
+			return Category::has('companies')
+							->orderBy('name', 'asc')
+							->get();
+		}
+	}
 }

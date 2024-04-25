@@ -1,21 +1,21 @@
 <form wire:submit="add" class="pt-4">
 	@include('users.includes.architect.add-story.cover-image-field')
 	<hr class="border-gray-300">
-	<div class="row mb-3">
+	<div class="mb-3 row">
 		<label for="inputPressReleaseTitle" class="col-md-4 col-form-label text-dark fs-6 fw-medium">Press Release Title <span class="text-danger">*</span></label>
 		<div class="col-md-8">
 			<input type="text" id="inputPressReleaseTitle" class="form-control @error('form.pressReleaseTitle') is-invalid @enderror" wire:model="form.pressReleaseTitle">
 			@error('form.pressReleaseTitle')<div class="invalid-feedback">{{ $message }}</div>@enderror
 		</div>
 	</div>
-	<div class="row mb-3">
+	<div class="mb-3 row">
 		<label for="inputImageCredits" class="col-md-4 col-form-label text-dark fs-6 fw-medium">Image Credits</label>
 		<div class="col-md-8">
 			<input type="text" id="inputImageCredits" class="form-control @error('form.imageCredits') is-invalid @enderror" wire:model="form.imageCredits">
 			@error('form.imageCredits')<div class="invalid-feedback">{{ $message }}</div>@enderror
 		</div>
 	</div>
-	<div class="row mb-3">
+	<div class="mb-3 row">
 		<label for="selectCategory" class="col-md-4 col-form-label text-dark fs-6 fw-medium">Category <span class="text-danger">*</span></label>
 		<div class="col-md-8">
 			<select id="selectCategory" class="form-select @error('form.category') is-invalid @enderror" wire:model="form.category">
@@ -27,10 +27,10 @@
 			@error('form.category')<div class="invalid-feedback">{{ $message }}</div>@enderror
 		</div>
 	</div>
-	<div class="row mb-3">
+	<div class="mb-3 row">
 		<div class="col-md-4">
 			<label for="inputConceptNote" class="col-form-label text-dark fs-6 fw-medium">Add Concept Note <span class="text-danger">*</span></label>
-			<label class="d-block form-text text-secondary fs-7 m-0">Write in 50-75 words (this text will be used in pitch to journalists)</label>
+			<label class="m-0 d-block form-text text-secondary fs-7">Write in 50-75 words (this text will be used in pitch to journalists)</label>
 		</div>
 		<div class="col-md-8">
 			<textarea id="inputConceptNote" class="form-control @error('form.conceptNote') is-invalid @enderror" wire:model="form.conceptNote" wire:keydown.debounce.1000ms="characterCount" rows="6"></textarea>
@@ -41,7 +41,7 @@
 	<div class="row">
 		<div class="col-md-4">
 			<label for="inputPressReleaseWrite" class="col-form-label text-dark fs-6 fw-medium">Write Press Release <span class="text-danger">*</span></label>
-			<label class="d-block form-text text-secondary fs-7 m-0">Add the text in 300-500 words</label>
+			<label for="" class="m-0 d-block form-text text-secondary fs-7">Add the text in 300-500 words.<br>You can add the content of your press release here to give an overall preview of the press release, however, uploading the content below is a must to make it easier for journalists to download content.</label>
 		</div>
 		<div class="col-md-8"  wire:ignore>
 			<trix-editor input="inputPressReleaseWrite" x-on:trix-change="$wire.form.pressReleaseWrite = $event.target.value"></trix-editor>
@@ -54,11 +54,11 @@
 	<div class="row">
 		<div class="col-md-4">
 			<label for="" class="col-form-label text-dark fs-6 fw-medium">Upload Press Release <span class="text-danger">*</span></label>
-			<label class="d-block form-text text-secondary fs-7 m-0">Add the file as Word document/PDF</label>
+			<label for="" class="m-0 d-block form-text text-secondary fs-7">Add the file as Word document/PDF.<br>Alternatively, you can share the drive link to your press release. </label>
 		</div>
 		<div class="col-md-8">
-			<div class="card mb-2">
-				<div class="card-body bg-white rounded-3 border border-light">
+			<div class="mb-2 card">
+				<div class="bg-white border card-body rounded-3 border-light">
 					<div class="row align-items-center">
 						<div class="col-12" x-data="fileUpload('form.pressReleaseFile')">
 							<div
@@ -67,16 +67,16 @@
 								x-on:dragover.prevent="isDropping = true"
 								x-on:dragleave.prevent="isDropping = false"
 							>
-								<div class="position-absolute top-0 bottom-0 start-0 end-0 z-30 flex justify-content-center align-items-center bg-primary opacity-75 rounded-2" x-show="isDropping" style="display: none;">
-									<span class="fs-4 text-white">Release file to upload!</span>
+								<div class="top-0 bottom-0 z-30 flex opacity-75 position-absolute start-0 end-0 justify-content-center align-items-center bg-primary rounded-2" x-show="isDropping" style="display: none;">
+									<span class="text-white fs-4">Release file to upload!</span>
 								</div>
 								<div class="d-flex justify-content-center align-items-center">
-									<div class="upload-icon rounded-circle text-gray-600 fs-5">
+									<div class="text-gray-600 upload-icon rounded-circle fs-5">
 										<i class="bi bi-cloud-upload"></i>
 									</div>
 								</div>
-								<p class="card-text text-center text-secondary fs-6 m-0 py-2">
-									<label for="pressReleaseFile"><span class="text-purple-700 fw-semibold cursor-pointer">Click to upload</span></label> or drag and drop
+								<p class="py-2 m-0 text-center card-text text-secondary fs-6">
+									<label for="pressReleaseFile"><span class="text-purple-700 cursor-pointer fw-semibold">Click to upload</span></label> or drag and drop
 								</p>
 								<input type="file" id="pressReleaseFile" class="d-none" @change="handleFileSelect">
 								@if($form->pressReleaseFile)
@@ -115,11 +115,11 @@
 	<div class="row">
 		<div class="col-md-4">
 			<label for="inputText" class="col-form-label text-dark fs-6 fw-medium">Upload Photographs</label>
-			<label class="d-block form-text text-secondary fs-7 m-0">Choose the best images (maximum upload limit 4MB each image)</label>
+			<label class="m-0 d-block form-text text-secondary fs-7">Choose the best images (maximum upload limit 4MB each image)</label>
 		</div>
 		<div class="col-md-8">
-			<div class="card mb-2">
-				<div class="card-body bg-white rounded-3 border border-light">
+			<div class="mb-2 card">
+				<div class="bg-white border card-body rounded-3 border-light">
 					<div class="row align-items-center">
 						<div class="col-12" x-data="fileUpload('form.photographsFiles')">
 							<div
@@ -128,36 +128,36 @@
 								x-on:dragover.prevent="isDropping = true"
 								x-on:dragleave.prevent="isDropping = false"
 							>
-								<div class="position-absolute top-0 bottom-0 start-0 end-0 z-30 flex justify-content-center align-items-center bg-primary opacity-75 rounded-2" x-show="isDropping" style="display: none;">
-									<span class="fs-4 text-white">Release file to upload!</span>
+								<div class="top-0 bottom-0 z-30 flex opacity-75 position-absolute start-0 end-0 justify-content-center align-items-center bg-primary rounded-2" x-show="isDropping" style="display: none;">
+									<span class="text-white fs-4">Release file to upload!</span>
 								</div>
 								<div class="d-flex justify-content-center align-items-center">
-									<div class="upload-icon rounded-circle text-gray-600 fs-5">
+									<div class="text-gray-600 upload-icon rounded-circle fs-5">
 										<i class="bi bi-cloud-upload"></i>
 									</div>
 								</div>
-								<p class="card-text text-center text-secondary fs-6 m-0 py-2">
-									<label for="photographsFiles"><span class="text-purple-700 fw-semibold cursor-pointer">Click to upload</span></label> or drag and drop
+								<p class="py-2 m-0 text-center card-text text-secondary fs-6">
+									<label for="photographsFiles"><span class="text-purple-700 cursor-pointer fw-semibold">Click to upload</span></label> or drag and drop
 								</p>
 								<input type="file" id="photographsFiles" class="d-none" @change="handleFilesSelect" multiple>
 								@if(count($form->photographsFiles) > 0 || count($form->oldPhotographsFiles) > 0)
-									<ul class="d-flex flex-wrap mt-3" style="list-style: none;">
+									<ul class="flex-wrap mt-3 d-flex" style="list-style: none;">
 										@foreach ($form->oldPhotographsFiles as $photographsFile)
-											<li class="position-relative p-2">
+											<li class="p-2 position-relative" wire:key="{{ $photographsFile->id }}">
 												<img class="img-fluid img-thumbnail" width="150" src="{{ Storage::url($photographsFile->image_path) }}" alt="">
-												<button type="button" class="btn btn-sm btn-secondary rounded-circle text-decoration-none position-absolute end-0 top-0" wire:click="removeImage('{{ $photographsFile->id }}')">X</button>
+												<button type="button" class="top-0 btn btn-sm btn-secondary rounded-circle text-decoration-none position-absolute end-0" wire:click="removeImage('{{ $photographsFile->id }}')">X</button>
 											</li>
 										@endforeach
 										@foreach ($form->photographsFiles as $key => $photographsFile)
 											@if(method_exists($photographsFile, 'temporaryUrl'))
-												<li class="position-relative p-2">
+												<li class="p-2 position-relative" wire:key="{{ $key }}">
 													<img class="img-fluid img-thumbnail" width="150" src="{{ $photographsFile->temporaryUrl() }}" alt="">
-													<button type="button" class="btn btn-sm btn-secondary rounded-circle text-decoration-none position-absolute end-0 top-0" @click="removeUpload('{{ $photographsFile->getFilename() }}')">X</button>
+													<button type="button" class="top-0 btn btn-sm btn-secondary rounded-circle text-decoration-none position-absolute end-0" @click="removeUpload('{{ $photographsFile->getFilename() }}')">X</button>
 												</li>
 											@else
-												<li class="position-relative p-2">
+												<li class="p-2 position-relative" wire:key="{{ $key }}">
 													<img class="img-fluid img-thumbnail" width="150" src="{{ Storage::url($photographsFile) }}" alt="">
-													<button type="button" class="btn btn-sm btn-secondary rounded-circle text-decoration-none position-absolute end-0 top-0" wire:click="removeImage({{ $key }})">X</button>
+													<button type="button" class="top-0 btn btn-sm btn-secondary rounded-circle text-decoration-none position-absolute end-0" wire:click="removeImage({{ $key }})">X</button>
 												</li>
 											@endif
 										@endforeach
@@ -173,15 +173,15 @@
 
 						{{-- <div class="col-md-4">
 							<div class="card">
-								<div class="card-body bg-white rounded-3 border border-light">
+								<div class="bg-white border card-body rounded-3 border-light">
 									<div class="row align-items-center">
 										<div class="col-12">
 											<div class="d-flex justify-content-center align-items-center">
-												<div class="upload-icon rounded-circle text-gray-600 fs-5">
+												<div class="text-gray-600 upload-icon rounded-circle fs-5">
 													<i class="bi bi-cloud-upload"></i>
 												</div>
 											</div>
-											<p class="card-text text-center text-purple-700 fw-semibold fs-6 m-0 py-2">Click to upload</p>
+											<p class="py-2 m-0 text-center text-purple-700 card-text fw-semibold fs-6">Click to upload</p>
 										</div>
 									</div>
 								</div>
@@ -189,8 +189,8 @@
 						</div>
 						<div class="col-md-4">
 							<div class="d-flex flex-column justify-content-center align-items-center">
-								<div class="text-center fs-1 rounded-circle bg-white" style="color: #9E9E9E;"><i class="bi bi-plus"></i></div>
-								<p class="text-center text-gray-600 fs-6 m-0 py-2">Add more</p>
+								<div class="text-center bg-white fs-1 rounded-circle" style="color: #9E9E9E;"><i class="bi bi-plus"></i></div>
+								<p class="py-2 m-0 text-center text-gray-600 fs-6">Add more</p>
 							</div>
 						</div> --}}
 					</div>
@@ -205,16 +205,16 @@
 		</div>
 	</div>
 	<hr class="border-gray-300">
-	<div class="row mb-3">
+	<div class="mb-3 row">
 		<label for="inputTags" class="col-md-4 col-form-label text-dark fs-6 fw-medium">Tags</label>
 		<div class="col-md-8">
 			@include('users.includes.input-tags')
 		</div>
 	</div>
-	<div class="row mb-3">
+	<div class="mb-3 row">
 		<div class="col-md-4">
 			<label for="selectMediaContact" class="col-form-label text-dark fs-6 fw-medium">Select Media Contact <span class="text-danger">*</span></label>
-			<label class="d-block form-text text-secondary fs-7 m-0">Pick the team member who can best respond to journalists queries</label>
+			<label class="m-0 d-block form-text text-secondary fs-7">Pick the team member who can best respond to journalists queries</label>
 		</div>
 		<div class="col-md-8">
 			<select id="selectMediaContact" class="form-select @error('form.mediaContact') is-invalid @enderror" wire:model="form.mediaContact">
@@ -229,7 +229,7 @@
 	<div class="row">
 		<div class="col-md-4">
 			<label for="selectMediaKitAccess" class="col-form-label text-dark fs-6 fw-medium">Media Kit Access <span class="text-danger">*</span></label>
-			<label class="d-block form-text text-secondary fs-7 m-0">Set level of access for journalists</label>
+			<label for="" class="m-0 d-block form-text text-secondary fs-7">Set level of access for journalists</label>
 		</div>
 		<div class="col-md-8">
 			<select id="selectMediaKitAccess" class="form-select @error('form.mediaKitAccess') is-invalid @enderror" wire:model="form.mediaKitAccess">
@@ -243,6 +243,7 @@
 	</div>
 	<hr class="border-gray-300">
 	<div class="text-end">
+		<button class="btn btn-black fs-6 fw-semibold" type="button" data-bs-toggle="modal" data-bs-target="#deleteMediaKitModal">Delete</button>
 		@empty($edit)
 			<button class="btn btn-white fs-6 fw-semibold" type="button" wire:click="draft">
 				Save as Draft <x-users.spinners.primary-btn wire:target="draft" />
@@ -260,4 +261,5 @@
 		const editor = document.querySelector("trix-editor");
 		editor.editor.insertHTML('{!! $form->pressReleaseWrite !!}');
 	</script>
+	@include('users.includes.architect.add-story.modal-delete-media-kit')
 </form>

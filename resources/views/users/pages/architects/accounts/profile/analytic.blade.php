@@ -31,11 +31,11 @@
 		</div>
 		<div class="col-auto">
 			<div class="row justify-content-end align-items-end gx-0 gy-3">
-				<div class="col-auto">
+				{{-- <div class="col-auto">
 					<a href="{{ route('architect.account.profile.alert') }}" class="text-purple-600 btn btn-link text-decoration-none fs-6 fw-semibold">
 						<i class="bi bi-plus"></i> Add Alert
 					</a>
-				</div>
+				</div> --}}
 				<div class="col-auto">
 					<a href="{{ route('architect.media-kit.index') }}" class="btn btn-white text-dark fs-6 fw-semibold">
 						<i class="bi bi-stack"></i> All Media kits

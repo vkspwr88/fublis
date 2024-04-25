@@ -13,7 +13,7 @@ use Livewire\WithFileUploads;
 class PressReleaseDraft extends Component
 {
 	use WithFileUploads;
-	
+
 	public $draftId;
 	public PressReleaseForm $form;
 
@@ -94,5 +94,15 @@ class PressReleaseDraft extends Component
 	public function removeImage($index)
 	{
 		$this->form->deleteImage($this->draftId, $index, 'draft');
+	}
+
+	public function deleteMediaKit()
+	{
+		MediaKitDraftController::deleteById($this->draftId);
+		$this->dispatch('alert', [
+			'type' => 'success',
+			'message' => 'Your media kit is deleted successfully.'
+		]);
+		return $this->form->deleteMediaKit();
 	}
 }

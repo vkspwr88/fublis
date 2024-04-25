@@ -1,8 +1,8 @@
 <form wire:submit="update">
-	<div class="row pt-4 g-4 justify-content-end align-items-end">
+	<div class="pt-4 row g-4 justify-content-end align-items-end">
 		<div class="col">
-			<h4 class="text-dark fs-6 fw-semibold m-0 p-0">Personal info</h4>
-			<p class="text-secondary fs-6 m-0 p-0">
+			<h4 class="p-0 m-0 text-dark fs-6 fw-semibold">Personal info</h4>
+			<p class="p-0 m-0 text-secondary fs-6">
 				<small>Update your photo and personal details here.</small>
 			</p>
 		</div>
@@ -22,7 +22,7 @@
 		</div>
 	</div>
 
-	<hr class="border-gray-300 my-4">
+	<hr class="my-4 border-gray-300">
 
 	<div class="row">
 		<div class="col-md-12">
@@ -45,7 +45,7 @@
 			<div class="row">
 				<div class="col-md-4">
 					<label for="inputText" class="col-form-label text-dark fs-6 fw-medium">Your photo</label>
-					<label class="d-block form-text text-secondary fs-7 m-0">This will be displayed on your profile.</label>
+					<label class="m-0 d-block form-text text-secondary fs-7">This will be displayed on your profile.</label>
 				</div>
 				<div class="col-md-8">
 					<div class="row g-2">
@@ -60,7 +60,7 @@
 									$profileImageSrc = Storage::url($profileImageOld->image_path);
 								}
 							@endphp
-							<p class="m-0 p-0">
+							<p class="p-0 m-0">
 								<img class="img-fluid img-64 rounded-circle" src="{{ $profileImageSrc }}" alt="..." />
 							</p>
 						</div>
@@ -69,14 +69,14 @@
 				</div>
 			</div>
 			<hr class="border-gray-300">
-			<div class="row mb-3">
+			<div class="mb-3 row">
 				<label for="inputCompany" class="col-md-4 col-form-label text-dark fs-6 fw-medium">Company</label>
 				<div class="col-md-8">
 					<input type="text" readonly id="inputCompany" class="form-control @error('company') is-invalid @enderror" wire:model="company">
 					@error('company')<div class="invalid-feedback">{{ $message }}</div>@enderror
 				</div>
 			</div>
-			{{-- <div class="row mb-3">
+			{{-- <div class="mb-3 row">
 				<label for="selectCompany" class="col-md-4 col-form-label text-dark fs-6 fw-medium">Company</label>
 				<div class="col-md-8">
 					<select id="selectCompany" class="form-select @error('location') is-invalid @enderror" wire:model="location">
@@ -101,23 +101,11 @@
 				</div>
 			</div>
 			<hr class="border-gray-300">
-			{{-- <div class="row">
-				<label for="selectLocation" class="col-md-4 col-form-label text-dark fs-6 fw-medium">Country</label>
-				<div class="col-md-8">
-					<select id="selectLocation" class="form-select @error('location') is-invalid @enderror" wire:model="location">
-						<option value="">Select Country</option>
-						@foreach ($locations as $location)
-							<option value="{{ $location->id }}">{{ $location->name }}</option>
-						@endforeach
-					</select>
-					@error('location')<div class="invalid-feedback">{{ $message }}</div>@enderror
-				</div>
-			</div> --}}
-			<div class="row mb-3">
+			<div class="mb-3 row">
 				<label for="selectCountry" class="col-md-4 col-form-label text-dark fs-6 fw-medium">Country</label>
 				<div class="col-md-8">
 					<select class="form-select @error('selectedCountry') is-invalid @enderror" id="selectCountry" wire:model.live="selectedCountry">
-						<option value="">Select Country</option>
+						<option value="0">Select Country</option>
 						@foreach ($countries as $country)
 						<option value="{{ $country->id }}">{{ str()->headline($country->name) }}</option>
 						@endforeach
@@ -125,11 +113,11 @@
 					@error('selectedCountry')<div class="invalid-feedback">{{ $message }}</div>@enderror
 				</div>
 			</div>
-			<div class="row mb-3">
+			<div class="mb-3 row">
 				<label for="selectState" class="col-md-4 col-form-label text-dark fs-6 fw-medium">State</label>
 				<div class="col-md-8">
 					<select class="form-select @error('selectedState') is-invalid @enderror" id="selectState" wire:model.live="selectedState">
-						<option value="">Select State</option>
+						<option value="0">Select State</option>
 						@foreach ($states as $state)
 						<option value="{{ $state->id }}">{{ str()->headline($state->name) }}</option>
 						@endforeach
@@ -150,10 +138,10 @@
 				</div>
 			</div>
 			<hr class="border-gray-300">
-			<div class="row mb-3">
+			<div class="mb-3 row">
 				<div class="col-md-4">
 					<label for="inputAboutMe" class="col-form-label text-dark fs-6 fw-medium">Bio</label>
-					<label class="d-block form-text text-secondary fs-7 m-0">Write a short introduction about yourself.</label>
+					<label class="m-0 d-block form-text text-secondary fs-7">Write a short introduction about yourself.</label>
 				</div>
 				<div class="col-md-8">
 					<textarea id="inputAboutMe" class="form-control @error('aboutMe') is-invalid @enderror" wire:model="aboutMe" wire:keydown.debounce="characterCount" rows="6"></textarea>

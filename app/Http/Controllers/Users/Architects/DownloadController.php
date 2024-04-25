@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Users\Architects;
 
 use App\Enums\Users\Architects\MediaKits\RequestStatusEnum;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\ErrorLogController;
 use App\Models\DownloadRequest;
 use App\Models\MediaKit;
 use App\Services\DownloadService;
@@ -70,7 +71,15 @@ class DownloadController extends Controller
 		}
 		catch(Exception $exp){
 			DB::rollBack();
-			dd($exp->getMessage());
+			ErrorLogController::logError(
+				'approveRequest', [
+					'line' => $exp->getLine(),
+					'file' => $exp->getFile(),
+					'message' => $exp->getMessage(),
+					'code' => $exp->getCode(),
+				]
+			);
+			// dd($exp->getMessage());
 			return false;
 		}
 		return true;
@@ -110,12 +119,20 @@ class DownloadController extends Controller
 			}
 
 			DB::commit();
-			
+
 			// Mail::to($downloadRequest->mediaKit->architect->user->email)->queue(new DownloadMediaKitMail($downloadRequest->mediaKit->architect->user->email, $downloadRequest->mediaKit->architect->user->name, $downloadRequest->mediaKit->story->title, formatDate(Carbon::now())));
 		}
 		catch(Exception $exp){
 			DB::rollBack();
-			dd($exp->getMessage());
+			ErrorLogController::logError(
+				'approveBulkRequest', [
+					'line' => $exp->getLine(),
+					'file' => $exp->getFile(),
+					'message' => $exp->getMessage(),
+					'code' => $exp->getCode(),
+				]
+			);
+			// dd($exp->getMessage());
 			return false;
 		}
 		return true;
@@ -152,7 +169,15 @@ class DownloadController extends Controller
 		}
 		catch(Exception $exp){
 			DB::rollBack();
-			dd($exp->getMessage());
+			ErrorLogController::logError(
+				'declineRequest', [
+					'line' => $exp->getLine(),
+					'file' => $exp->getFile(),
+					'message' => $exp->getMessage(),
+					'code' => $exp->getCode(),
+				]
+			);
+			// dd($exp->getMessage());
 			return false;
 		}
 		return true;
@@ -193,7 +218,15 @@ class DownloadController extends Controller
 		}
 		catch(Exception $exp){
 			DB::rollBack();
-			dd($exp->getMessage());
+			ErrorLogController::logError(
+				'declineBulkRequest', [
+					'line' => $exp->getLine(),
+					'file' => $exp->getFile(),
+					'message' => $exp->getMessage(),
+					'code' => $exp->getCode(),
+				]
+			);
+			// dd($exp->getMessage());
 			return false;
 		}
 		return true;

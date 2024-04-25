@@ -6,7 +6,10 @@ use App\Enums\Users\Architects\UserRoleEnum;
 use App\Enums\Users\UserTypeEnum;
 use App\Http\Controllers\ErrorLogController;
 use App\Http\Controllers\Users\ArchitectController;
+use App\Http\Controllers\Users\AvatarController;
 use App\Http\Controllers\Users\CompanyController;
+use App\Http\Controllers\Users\FileController;
+use App\Http\Controllers\Users\ImageController;
 use App\Http\Controllers\Users\LocationController;
 use App\Http\Controllers\Users\UserController;
 use App\Interfaces\GuestRepositoryInterface;
@@ -111,6 +114,8 @@ class ArchitectService
 					'location_id' => $location->id,
 					'category_id' => $details['selectedCategory'],
 					'team_size_id' => $details['selectedTeamSize'],
+					'background_color' => AvatarController::getBackground('studio'),
+					'foreground_color' => '#ffffff',
 				]);
 				$companyId = $company->id;
 			}
@@ -123,7 +128,15 @@ class ArchitectService
 				'user_id' => $user->id,
 				'company_id' => $companyId,
 				'architect_position_id' => $details['selectedPosition'],
+				'background_color' => AvatarController::getBackground('architect'),
+				'foreground_color' => '#ffffff',
 			]);
+			/* // set profile picture
+			$profileImg = 'images/architects/profile' /* create('John Doe')->save('path/to/file.png', $quality = 90) *;
+			ImageController::updateOrCreate($architect->profileImage(), [
+				'image_type' => 'profile',
+				'image_path' => FileController::upload($details['profileImage'], 'images/architects/profile', 'architect_profile'),
+			]); */
 			if(checkInvitation('architect')){
 				$invitation = session()->get('invitation');
 				$invitation->is_accepted = true;

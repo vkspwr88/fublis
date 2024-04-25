@@ -1,8 +1,8 @@
 <form wire:submit="update">
-	<div class="row pt-4 g-4 justify-content-end align-items-end">
+	<div class="pt-4 row g-4 justify-content-end align-items-end">
 		<div class="col">
-			<h4 class="text-dark fs-6 fw-semibold m-0 p-0">Company</h4>
-			<p class="text-secondary fs-6 m-0 p-0">
+			<h4 class="p-0 m-0 text-dark fs-6 fw-semibold">Company</h4>
+			<p class="p-0 m-0 text-secondary fs-6">
 				<small>Update company details here.</small>
 			</p>
 		</div>
@@ -22,7 +22,7 @@
 		</div>
 	</div>
 
-	<hr class="border-gray-300 my-4">
+	<hr class="my-4 border-gray-300">
 
 	<div class="row">
 		<div class="col-md-12">
@@ -59,7 +59,7 @@
 									$profileImageSrc = Storage::url($profileImageOld->image_path);
 								}
 							@endphp
-							<p class="m-0 p-0">
+							<p class="p-0 m-0">
 								<img class="img-fluid img-64 rounded-circle" src="{{ $profileImageSrc }}" alt="..." />
 							</p>
 						</div>
@@ -68,34 +68,34 @@
 				</div>
 			</div>
 			<hr class="border-gray-300">
-			<div class="row mb-3">
+			<div class="mb-3 row">
 				<label class="col-md-4 col-form-label text-dark fs-6 fw-medium">Social profiles</label>
 				<div class="col-md-8">
 					<div class="row g-3">
 						<div class="col-12">
 							<div class="input-group">
-								<span class="input-group-text bg-white text-secondary" id="twitterAddon">{{__('social-domains.twitter')}}</span>
+								<span class="bg-white input-group-text text-secondary" id="twitterAddon">{{__('social-domains.twitter')}}</span>
 								<input type="text" class="form-control @error('twitter') is-invalid @enderror" wire:model="twitter">
 								@error('twitter')<div class="invalid-feedback">{{ $message }}</div>@enderror
 							</div>
 						</div>
 						<div class="col-12">
 							<div class="input-group">
-								<span class="input-group-text bg-white text-secondary" id="facebookAddon">{{__('social-domains.facebook')}}</span>
+								<span class="bg-white input-group-text text-secondary" id="facebookAddon">{{__('social-domains.facebook')}}</span>
 								<input type="text" class="form-control @error('facebook') is-invalid @enderror" wire:model="facebook">
 								@error('facebook')<div class="invalid-feedback">{{ $message }}</div>@enderror
 							</div>
 						</div>
 						<div class="col-12">
 							<div class="input-group">
-								<span class="input-group-text bg-white text-secondary" id="instagramAddon">{{__('social-domains.instagram')}}</span>
+								<span class="bg-white input-group-text text-secondary" id="instagramAddon">{{__('social-domains.instagram')}}</span>
 								<input type="text" class="form-control @error('instagram') is-invalid @enderror" wire:model="instagram">
 								@error('instagram')<div class="invalid-feedback">{{ $message }}</div>@enderror
 							</div>
 						</div>
 						<div class="col-12">
 							<div class="input-group">
-								<span class="input-group-text bg-white text-secondary" id="linkedinAddon">{{__('social-domains.linkedin')}}</span>
+								<span class="bg-white input-group-text text-secondary" id="linkedinAddon">{{__('social-domains.linkedin')}}</span>
 								<input type="text" class="form-control @error('linkedin') is-invalid @enderror" wire:model="linkedin">
 								@error('linkedin')<div class="invalid-feedback">{{ $message }}</div>@enderror
 							</div>
@@ -116,11 +116,11 @@
 					@error('location')<div class="invalid-feedback">{{ $message }}</div>@enderror
 				</div>
 			</div> --}}
-			<div class="row mb-3">
+			<div class="mb-3 row">
 				<label for="selectCountry" class="col-md-4 col-form-label text-dark fs-6 fw-medium">Country</label>
 				<div class="col-md-8">
 					<select class="form-select @error('selectedCountry') is-invalid @enderror" id="selectCountry" wire:model.live="selectedCountry">
-						<option value="">Select Country</option>
+						<option value="0">Select Country</option>
 						@foreach ($countries as $country)
 						<option value="{{ $country->id }}">{{ str()->headline($country->name) }}</option>
 						@endforeach
@@ -128,11 +128,11 @@
 					@error('selectedCountry')<div class="invalid-feedback">{{ $message }}</div>@enderror
 				</div>
 			</div>
-			<div class="row mb-3">
+			<div class="mb-3 row">
 				<label for="selectState" class="col-md-4 col-form-label text-dark fs-6 fw-medium">State</label>
 				<div class="col-md-8">
 					<select class="form-select @error('selectedState') is-invalid @enderror" id="selectState" wire:model.live="selectedState">
-						<option value="">Select State</option>
+						<option value="0">Select State</option>
 						@foreach ($states as $state)
 						<option value="{{ $state->id }}">{{ str()->headline($state->name) }}</option>
 						@endforeach
@@ -153,10 +153,10 @@
 				</div>
 			</div>
 			<hr class="border-gray-300">
-			<div class="row mb-3">
+			<div class="mb-3 row">
 				<div class="col-md-4">
 					<label for="inputAboutMe" class="col-form-label text-dark fs-6 fw-medium">About your company</label>
-					<label class="d-block form-text text-secondary fs-7 m-0">Write a short introduction.</label>
+					<label class="m-0 d-block form-text text-secondary fs-7">Write a short introduction.</label>
 				</div>
 				<div class="col-md-8">
 					<textarea id="inputAboutMe" class="form-control @error('aboutMe') is-invalid @enderror" wire:model="aboutMe" wire:keydown.debounce="characterCount" rows="6"></textarea>

@@ -12,4 +12,13 @@ class JournalistPositionController extends Controller
 	{
 		return JournalistPosition::all();
 	}
+
+	public static function getSelected($type)
+	{
+		if($type == 'journalist' || $type == 'publication'){
+			return JournalistPosition::has('journalistPublications')
+									->orderBy('name', 'asc')
+									->get();
+		}
+	}
 }

@@ -87,4 +87,13 @@ class PressRelease extends Component
 			'message' => 'Your media kit is drafted successfully.'
 		]);
 	}
+
+	public function deleteMediaKit()
+	{
+		$this->dispatch('alert', [
+			'type' => 'success',
+			'message' => 'Your media kit is deleted successfully.'
+		]);
+		return $this->form->deleteMediaKit();
+	}
 }

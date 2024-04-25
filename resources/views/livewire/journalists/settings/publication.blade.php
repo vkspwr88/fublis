@@ -20,7 +20,18 @@
 							<a href="javascript:;" class="text-dark fs-4" wire:click="delete('{{ $publication->id }}')"><i class="bi bi-x"></i></a>
 						</div> --}}
 						<div class="col-auto">
-							<img class="rounded-circle img-square img-48" src="{{ $publication->profileImage ? Storage::url($publication->profileImage->image_path) : 'https://via.placeholder.com/48x48' }}" alt="..." />
+							@php
+								$profileImg = $publication->profileImage ?
+												Storage::url($publication->profileImage->image_path) :
+												App\Http\Controllers\Users\AvatarController::setProfileAvatar([
+													'name' => $publication->name,
+													'width' => 48,
+													'fontSize' => 21,
+													'background' => $publication->background_color,
+													'foreground' => $publication->foreground_color,
+												], 'publication');
+							@endphp
+							<img class="rounded-circle img-square img-48" src="{{ $profileImg }}" alt="..." />
 						</div>
 						<div class="col-auto">
 							<h6 class="fs-6 fw-medium m-0 p-0">

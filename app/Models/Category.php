@@ -44,4 +44,9 @@ class Category extends Model
 	{
 		return $this->hasMany(Post::class);
 	}
+
+	public function mediaKits(): HasMany
+	{
+		return $this->hasMany(MediaKit::class);
+	}
 }

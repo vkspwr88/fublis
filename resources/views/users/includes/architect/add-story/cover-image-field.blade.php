@@ -1,11 +1,11 @@
 <div class="row">
 	<div class="col-md-4">
-		<label for="inputText" class="col-form-label text-dark fs-6 fw-medium">Cover Image <span class="text-danger">*</span></label>
-		<label class="d-block form-text text-secondary fs-7 m-0">This will be displayed on your media kit.</label>
+		<label for="coverImage" class="col-form-label text-dark fs-6 fw-medium">Cover Image <span class="text-danger">*</span></label>
+		<label for="coverImage" class="m-0 d-block form-text text-secondary fs-7">This will be displayed on your media kit.<br>Kindly add a relevant cover image. For example, image of project/ product/ team/ brand logo/ founder/ event etc.</label>
 	</div>
 	<div class="col-md-8">
 		<div class="card">
-			<div class="card-body bg-white rounded-3 border border-light">
+			<div class="bg-white border card-body rounded-3 border-light">
 				<div class="row align-items-center g-4">
 					<div class="col-12" x-data="fileUpload('form.coverImage')">
 						<div
@@ -14,21 +14,21 @@
 							x-on:dragover.prevent="isDropping = true"
 							x-on:dragleave.prevent="isDropping = false"
 						>
-							<div class="position-absolute top-0 bottom-0 start-0 end-0 z-30 flex justify-content-center align-items-center bg-primary opacity-75 rounded-2" x-show="isDropping" style="display: none;">
-								<span class="fs-4 text-white">Release file to upload!</span>
+							<div class="top-0 bottom-0 z-30 flex opacity-75 position-absolute start-0 end-0 justify-content-center align-items-center bg-primary rounded-2" x-show="isDropping" style="display: none;">
+								<span class="text-white fs-4">Release file to upload!</span>
 							</div>
 							<div class="d-flex justify-content-center align-items-center">
-								<div class="upload-icon rounded-circle text-gray-600 fs-5">
+								<div class="text-gray-600 upload-icon rounded-circle fs-5">
 									<i class="bi bi-cloud-upload"></i>
 								</div>
 							</div>
-							<p class="card-text text-center text-secondary fs-6 m-0 py-2">
-								<label for="coverImage"><span class="text-purple-700 fw-semibold cursor-pointer">Click to upload</span></label> or drag and drop
+							<p class="py-2 m-0 text-center card-text text-secondary fs-6">
+								<label for="coverImage"><span class="text-purple-700 cursor-pointer fw-semibold">Click to upload</span></label> or drag and drop
 							</p>
 							<input type="file" id="coverImage" class="d-none" @change="handleCropFileSelect">
-							<p class="card-text text-center text-secondary fs-6 m-0 py-2">{{ __('text.coverImage') }}</p>
+							<p class="py-2 m-0 text-center card-text text-secondary fs-6">{{ __('text.coverImage') }}</p>
 							@if($form->coverImage)
-								<ul class="mt-3 text-center" style="list-style: none;">
+								<ul class="p-0 mt-3 text-center" style="list-style: none;">
 									@if(method_exists($form->coverImage, 'temporaryUrl'))
 										<li>
 											<img class="img-fluid img-thumbnail" src="{{ $form->coverImage->temporaryUrl() }}" alt="">

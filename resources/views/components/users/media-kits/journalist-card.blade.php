@@ -2,6 +2,16 @@
 	<div class="bg-white border-0 shadow card rounded-3">
 		<div class="card-body">
 			@php
+				use App\Http\Controllers\Users\AvatarController as AvatarController;
+				$studioProfileImg = $mediaKit->architect->company->profileImage ?
+										Storage::url($mediaKit->architect->company->profileImage->image_path) :
+										AvatarController::setProfileAvatar([
+											'name' => $mediaKit->architect->company->name,
+											'width' => 30,
+											'fontSize' => 15,
+											'background' => $mediaKit->architect->background_color,
+											'foreground' => $mediaKit->architect->foreground_color,
+										]);
 				if (str()->contains($mediaKit->story_type, 'PressRelease')){
 					$mediaKitTitle = 'Press Release';
 					$mediaKitHeading = $mediaKit->story->title;
@@ -37,7 +47,7 @@
 						<div class="col">
 							<p class="m-0 fs-6 fw-bold">
 								<a class="text-dark" href="{{ route('journalist.brand.view', ['brand' => $mediaKit->architect->company->slug]) }}">
-									<img class="rounded-circle img-square img-30 me-2" src="{{ $mediaKit->architect->company->profileImage ? Storage::url($mediaKit->architect->company->profileImage->image_path) : 'https://via.placeholder.com/30x30' }}" alt="..." />
+									<img class="rounded-circle img-square img-30 me-2" src="{{ $studioProfileImg }}" alt="..." />
 									{{ $mediaKit->architect->company->name }}
 								</a>
 							</p>

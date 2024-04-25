@@ -1,6 +1,6 @@
 <div class="row">
 	<div class="col-lg-auto">
-		<div class="filter-btn text-end pb-3">
+		<div class="pb-3 filter-btn text-end">
 			<button class="btn btn-primary rounded-0" data-bs-toggle="collapse" data-bs-target="#collapsedFilter" aria-expanded="false" aria-controls="collapsedFilter">
 				<i class="bi bi-filter"></i>
 			</button>
@@ -9,9 +9,9 @@
 			<div class="filter-container" id="collapsedFilter">
 				<form wire:submit="search">
 					@include('users.includes.architect.pitch-story-nav-types', ['type' => 'call'])
-					<div class="input-group mb-4">
-						<label class="input-group-text bg-white" for="filterSearchInput"><i class="bi bi-search"></i></label>
-						<input id="filterSearchInput" class="form-control border-start-0 shadow-none ps-0" type="search" placeholder="Search by name" aria-label="Search" wire:model="name" />
+					<div class="mb-4 input-group">
+						<label class="bg-white input-group-text" for="filterSearchInput"><i class="bi bi-search"></i></label>
+						<input id="filterSearchInput" class="shadow-none form-control border-start-0 ps-0" type="search" placeholder="Search by name" aria-label="Search" wire:model="name" />
 					</div>
 					<x-users.filter.header text="Location" />
 					<x-users.filter.select type="location" :list="$locations" model="selectedLocation" />
@@ -21,18 +21,18 @@
 					{{-- <input type="hidden" id="my_hidden_input"> --}}
 					<hr class="divider">
 					<x-users.filter.header text="Publication Types" />
-					<div class="d-grid mb-2">
+					<div class="mb-2 d-grid">
 						<button type="button" class="btn btn-light fw-semibold text-start" wire:click="selectAll('publication-type')">View all</button>
 					</div>
 					<x-users.filter.checkbox-list type="publication-type" :list="$publicationTypes" model="selectedPubliationTypes" />
 					<hr class="divider">
 					<x-users.filter.header text="Categories" />
-					<div class="d-grid mb-2">
+					<div class="mb-2 d-grid">
 						<button type="button" class="btn btn-light fw-semibold text-start" wire:click="selectAll('category')">View all</button>
 					</div>
 					<x-users.filter.checkbox-list type="category" :list="$categories" model="selectedCategories" />
 					<hr class="divider">
-					<div class="d-grid gap-2">
+					<div class="gap-2 d-grid">
 						<button type="submit" class="btn btn-white text-capitalize">
 							search
 							<x-users.spinners.primary-btn wire:target="search" />
@@ -50,25 +50,25 @@
 		@if($calls->count() > 0)
 		<div class="row g-4">
 			@foreach ($calls as $call)
-			<div class="col-12">
-				<div class="card border-0 rounded-3 bg-white shadow">
+			<div class="col-12" :key="$call->id">
+				<div class="bg-white border-0 shadow card rounded-3">
 					<div class="card-body">
 						<div class="row">
 							<div class="col-sm-12">
-								<div class="row align-items-center pb-3 g-3">
+								<div class="pb-3 row align-items-center g-3">
 									<div class="col-md-7">
-										<div class="row justify-content-center align-items-center text-center text-md-start">
-											<p class="col-12 fs-5 fw-semibold m-0">
+										<div class="text-center row justify-content-center align-items-center text-md-start">
+											<p class="m-0 col-12 fs-5 fw-semibold">
 												<a href="{{ route('architect.pitch-story.calls.view', ['call' => $call->slug]) }}" class="text-dark">
 													{{ $call->title }}
 												</a>
 											</p>
-											<p class="col-12 text-secondary fs-6 m-0">Deadline: {{ formatDate($call->submission_end_date) }}</p>
+											<p class="m-0 col-12 text-secondary fs-6">Deadline: {{ formatDate($call->submission_end_date) }}</p>
 										</div>
 									</div>
 									<div class="col-md-5">
 										<div class="row justify-content-center align-items-end">
-											<p class="col text-center text-md-end fs-6 m-0">
+											<p class="m-0 text-center col text-md-end fs-6">
 												<button type="button" class="btn btn-primary btn-sm fw-medium" wire:click="showMediaKit('{{ $call->id }}')">
 													Submit Story <x-users.spinners.white-btn wire:target="showMediaKit('{{ $call->id }}')" />
 												</button>
@@ -82,15 +82,26 @@
 											<div class="col-12">
 												<div class="row justify-content-center justify-content-md-start align-items-center">
 													<div class="col-auto">
-														<img src="{{ $call->publication->profileImage ? Storage::url($call->publication->profileImage->image_path) : 'https://via.placeholder.com/45x45' }}" class="img-sqaure img-45 rounded-circle" alt="..." />
+														@php
+															$profileImg = $call->publication->profileImage ?
+																			Storage::url($call->publication->profileImage->image_path) :
+																			App\Http\Controllers\Users\AvatarController::setProfileAvatar([
+																				'name' => $call->publication->name,
+																				'width' => 45,
+																				'fontSize' => 18,
+																				'background' => $call->publication->background_color,
+																				'foreground' => $call->publication->foreground_color,
+																			], 'publication');
+														@endphp
+														<img src="{{ $profileImg }}" class="img-sqaure img-45 rounded-circle" alt="..." />
 													</div>
 													<div class="col-auto fs-6">
-														<p class="fw-semibold m-0 p-0">
+														<p class="p-0 m-0 fw-semibold">
 															<a class="text-secondary" href="{{ route('architect.pitch-story.publications.view', ['publication' => $call->publication->slug]) }}">
 																{{ $call->publication->name }}
 															</a>
 														</p>
-														<p class="m-0 p-0 small">
+														<p class="p-0 m-0 small">
 															<a class="text-secondary" href="{{ route('architect.pitch-story.journalists.view', ['journalist' => $call->journalist->slug]) }}">
 																{{ $call->journalist->user->name }}
 															</a>
@@ -101,12 +112,12 @@
 										</div>
 									</div>
 									<div class="col-md-6">
-										<div class="d-flex justify-content-center justify-content-md-end align-items-center flex-wrap fw-medium">
-											<span class="badge rounded-pill bg-purple-50 text-purple-700 mb-1">
+										<div class="flex-wrap d-flex justify-content-center justify-content-md-end align-items-center fw-medium">
+											<span class="mb-1 text-purple-700 badge rounded-pill bg-purple-50">
 												{{ $call->language->name }}
 											</span>
-											<span class="badge rounded-pill bg-purple-50 text-purple-700 mb-1">Project</span>
-											<span class="badge rounded-pill bg-purple-50 text-purple-700 mb-1">
+											<span class="mb-1 text-purple-700 badge rounded-pill bg-purple-50">Project</span>
+											<span class="mb-1 text-purple-700 badge rounded-pill bg-purple-50">
 												{{ $call->category->name }}
 											</span>
 										</div>
@@ -123,9 +134,9 @@
 		@else
 		<div class="row">
 			<div class="col-12">
-				<div class="card border-0 rounded-3 bg-white shadow">
+				<div class="bg-white border-0 shadow card rounded-3">
 					<div class="card-body">
-						<h5 class="fs-5 text-purple-700 text-center">No Result Found</h5>
+						<h5 class="text-center text-purple-700 fs-5">No Result Found</h5>
 					</div>
 				</div>
 			</div>

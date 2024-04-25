@@ -25,6 +25,7 @@ class PitchStoryService
 										'categories',
 										'publicationTypes',
 										'language',
+										'publishFrom',
 									])
 									->where('name', 'like', '%' . $data['name'] . '%')
 									->latest()
@@ -83,7 +84,7 @@ class PitchStoryService
 			$filter = Journalist::whereHas('location', function(Builder $query) use($cities) {
 				$query->whereIn('name', $cities->pluck('name'));
 			})->get()->pluck('id');
-			dd($data['location'], $cities, $filter, $journalists);
+			// dd($data['location'], $cities, $filter, $journalists);
 			$journalists = $journalists->find($filter);
 		}
 

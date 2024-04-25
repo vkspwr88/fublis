@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Users\Journalists;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\ErrorLogController;
 use App\Mail\User\Architect\DownloadRequestMail;
 use App\Models\DownloadRequest;
 use App\Models\MediaKit;
@@ -65,7 +66,15 @@ class DownloadController extends Controller
 		}
 		catch(Exception $exp){
 			DB::rollBack();
-			dd($exp->getMessage());
+			ErrorLogController::logError(
+				'downloadRequest', [
+					'line' => $exp->getLine(),
+					'file' => $exp->getFile(),
+					'message' => $exp->getMessage(),
+					'code' => $exp->getCode(),
+				]
+			);
+			// dd($exp->getMessage());
 		}
 
 		/* $this->dispatch('alert', [
