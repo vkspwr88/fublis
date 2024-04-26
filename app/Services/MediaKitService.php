@@ -32,7 +32,7 @@ class MediaKitService
 
 	public function filterAllMediaKits(array $data)
 	{
-		$mediaKits = MediaKit::with(['story', 'category', 'architect.company'])
+		$mediaKits = MediaKit::with(['story', 'category', 'architect.company.profileImage'])
 								->whereHas('story', function(Builder $query) use($data) {
 									$query->where('title', 'like', '%' . $data['name'] . '%');
 								})
