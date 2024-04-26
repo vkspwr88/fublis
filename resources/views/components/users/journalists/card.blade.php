@@ -5,13 +5,12 @@
                 <div class="col-sm-3">
                     <div class="mx-auto text-center d-block">
 						@php
-							use App\Http\Controllers\Users\AvatarController as AvatarController;
 							$profileImg = $journalist->profileImage ?
 												Storage::url($journalist->profileImage->image_path) :
-												AvatarController::setProfileAvatar([
+												App\Http\Controllers\Users\AvatarController::setProfileAvatar([
 													'name' => $journalist->user->name,
 													'width' => 150,
-													'fontSize' => 75,
+													'fontSize' => 60,
 													'background' => $journalist->background_color,
 													'foreground' => $journalist->foreground_color,
 												]);
@@ -81,7 +80,7 @@
 									@php
 										$profileImg = $journalist->publications[0]->profileImage ?
 														Storage::url($journalist->publications[0]->profileImage->image_path) :
-														AvatarController::setProfileAvatar([
+														App\Http\Controllers\Users\AvatarController::setProfileAvatar([
 															'name' => $journalist->publications[0]->name,
 															'width' => 30,
 															'fontSize' => 12,

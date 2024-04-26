@@ -4,13 +4,12 @@
 		<div class="row g-2">
 			<div class="col-auto">
 				@php
-					use App\Http\Controllers\Users\AvatarController as AvatarController;
 					$studioProfileImg = $mediaKit->architect->company->profileImage ?
 											Storage::url($mediaKit->architect->company->profileImage->image_path) :
-											AvatarController::setProfileAvatar([
+											App\Http\Controllers\Users\AvatarController::setProfileAvatar([
 												'name' => $mediaKit->architect->company->name,
 												'width' => 48,
-												'fontSize' => 24,
+												'fontSize' => 21,
 												'background' => $mediaKit->architect->company->background_color,
 												'foreground' => $mediaKit->architect->company->foreground_color,
 											]);

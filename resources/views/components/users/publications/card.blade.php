@@ -6,10 +6,9 @@
 					<div class="col-sm-auto">
 						<div class="mx-auto text-center d-block">
 							@php
-								use App\Http\Controllers\Users\AvatarController as AvatarController;
 								$profileImg = $publication->profileImage ?
 												Storage::url($publication->profileImage->image_path) :
-												AvatarController::setProfileAvatar([
+												App\Http\Controllers\Users\AvatarController::setProfileAvatar([
 													'name' => $publication->name,
 													'width' => 150,
 													'fontSize' => 60,
@@ -101,9 +100,13 @@
 							</div>
 							<div class="col-auto">
 								<div class="flex-wrap d-flex justify-content-end align-items-center fw-medium">
-									@foreach ($publication->categories as $category)
-										<x-utility.badges.purple-badge :text="$category->name" />
-									@endforeach
+									<div class="row g-2">
+										@foreach ($publication->categories as $category)
+											<div class="col-auto">
+												<x-utility.badges.purple-badge :text="$category->name" />
+											</div>
+										@endforeach
+									</div>
 								</div>
 							</div>
 						</div>

@@ -68,6 +68,7 @@ class MediaKitController extends Controller
 		if($count > 0){
 			$name .= $count;
 		}
+		$name = str()->replace('?', '', $name);
 		return str()->replace(
 							' ',
 							'-',

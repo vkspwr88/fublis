@@ -1,5 +1,5 @@
 <form wire:submit="add" class="pt-4">
-	@include('users.includes.architect.add-story.cover-image-field')
+	@include('users.includes.architect.add-story.cover-image-field', ['subLabel' => 'This will be displayed on your media kit.<br>Kindly add a relevant cover image. For example, image of project/ product/ team/ brand logo/ founder/ event etc.'])
 	<hr class="border-gray-300">
 	<div class="mb-3 row">
 		<label for="inputArticleTitle" class="col-md-4 col-form-label text-dark fs-6 fw-medium">Article Title <span class="text-danger">*</span></label>
@@ -97,9 +97,11 @@
 				@error('form.articleLink')<div class="invalid-feedback">{{ $message }}</div>@enderror
 			</div>
 			{{-- <textarea id="inputArticleWrite" class="form-control @error('form.articleWrite') is-invalid @enderror" wire:model="form.articleWrite" rows="8"></textarea> --}}
-			<trix-editor input="inputArticleWrite" x-on:trix-change="$wire.form.articleWrite = $event.target.value"></trix-editor>
-			<input id="inputArticleWrite" type="hidden" wire:model="form.articleWrite">
-			@error('form.articleWrite')<div class="invalid-feedback">{{ $message }}</div>@enderror
+			<div wire:ignore>
+				<trix-editor input="inputArticleWrite" x-on:trix-change="$wire.form.articleWrite = $event.target.value"></trix-editor>
+				<input id="inputArticleWrite" type="hidden" wire:model="form.articleWrite">
+			</div>
+			@error('form.articleWrite')<div class="error">{{ $message }}</div>@enderror
 		</div>
 	</div>
 	<hr class="border-gray-300">
@@ -279,7 +281,7 @@
 			</button>
 		@endempty
 		<button class="btn btn-primary fs-6 fw-semibold" type="submit">
-			{{ isset($edit) ? 'Edit Article' : 'Submit Article' }} <x-users.spinners.white-btn wire:target="add" />
+			{{ isset($edit) ? 'Save Article' : 'Submit Article' }} <x-users.spinners.white-btn wire:target="add" />
 		</button>
 	</div>
 	@include('users.includes.common.file-upload-script', ['width' => 800, 'height' => 400])

@@ -2,15 +2,14 @@
 	<div class="bg-white border-0 shadow card rounded-3">
 		<div class="card-body">
 			@php
-				use App\Http\Controllers\Users\AvatarController as AvatarController;
 				$studioProfileImg = $mediaKit->architect->company->profileImage ?
 										Storage::url($mediaKit->architect->company->profileImage->image_path) :
-										AvatarController::setProfileAvatar([
+										App\Http\Controllers\Users\AvatarController::setProfileAvatar([
 											'name' => $mediaKit->architect->company->name,
 											'width' => 30,
-											'fontSize' => 15,
-											'background' => $mediaKit->architect->background_color,
-											'foreground' => $mediaKit->architect->foreground_color,
+											'fontSize' => 13,
+											'background' => $mediaKit->architect->company->background_color,
+											'foreground' => $mediaKit->architect->company->foreground_color,
 										]);
 				if (str()->contains($mediaKit->story_type, 'PressRelease')){
 					$mediaKitTitle = 'Press Release';

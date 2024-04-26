@@ -4,13 +4,12 @@
 		<div class="row g-3 align-items-center">
 			<div class="col-auto">
 				@php
-					use App\Http\Controllers\Users\AvatarController as AvatarController;
 					$architectProfileImg = $mediaKit->mediaContact->profileImage ?
 											Storage::url($mediaKit->mediaContact->profileImage->image_path) :
-											AvatarController::setProfileAvatar([
+											App\Http\Controllers\Users\AvatarController::setProfileAvatar([
 												'name' => $mediaKit->mediaContact->user->name,
 												'width' => 48,
-												'fontSize' => 24,
+												'fontSize' => 21,
 												'background' => $mediaKit->mediaContact->background_color,
 												'foreground' => $mediaKit->mediaContact->foreground_color,
 											]);

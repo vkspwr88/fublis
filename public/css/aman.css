@@ -285,7 +285,7 @@ a.text-purple-600:hover{
 	position: absolute;
   	top: 96px;
 	width: 50em;
-	left: -180%;
+	left: -135%;
 	/* padding-bottom: 15px; */
 	border: 1px solid rgba(0,0,0,.075);
 }
@@ -1130,8 +1130,17 @@ trix-editor{
 	min-height: 20em !important;
 }
 
-trix-toolbar .trix-button--icon-link, trix-toolbar .trix-button--icon-code, trix-toolbar .trix-button-group--file-tools, trix-toolbar .trix-button--icon-attach{
+/* trix-toolbar .trix-button--icon-link, trix-toolbar .trix-button--icon-code, trix-toolbar .trix-button-group--file-tools, trix-toolbar .trix-button--icon-attach{
 	display: none;
+} */
+
+trix-toolbar .trix-button--icon-code{
+	display: none;
+}
+
+.attachment img{
+	width: 100%;
+	height: auto;
 }
 
 .select2-container{

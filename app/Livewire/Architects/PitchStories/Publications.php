@@ -105,10 +105,11 @@ class Publications extends Component
 			return;
 		}
 		if(SubscriptionController::checkPremiumPublication($publication)){
-			$this->dispatch('alert', [
+			/* $this->dispatch('alert', [
 				'type' => 'warning',
 				'message' => 'Upgrade your plan to pitch premium publication.'
-			]);
+			]); */
+			$this->dispatch('show-pitch-premium-alert-modal');
 			return;
 		}
 		/* if($publication->is_premium && !isSubscribed()){

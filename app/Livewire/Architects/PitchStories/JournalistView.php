@@ -56,10 +56,12 @@ class JournalistView extends Component
 
 		$selectedPublication = $this->associatedPublications->find($this->selectedAssociatedPublication);
 		if(SubscriptionController::checkPremiumPublication($selectedPublication)){
-			$this->dispatch('alert', [
+			/* $this->dispatch('alert', [
 				'type' => 'warning',
 				'message' => 'Upgrade your plan to pitch premium publication.'
-			]);
+			]); */
+			$this->dispatch('hide-select-publication-modal');
+			$this->dispatch('show-pitch-premium-alert-modal');
 			return;
 		}
 

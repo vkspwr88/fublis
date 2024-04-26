@@ -1,7 +1,7 @@
 <div class="row">
 	<div class="col-md-4">
 		<label for="coverImage" class="col-form-label text-dark fs-6 fw-medium">Cover Image <span class="text-danger">*</span></label>
-		<label for="coverImage" class="m-0 d-block form-text text-secondary fs-7">This will be displayed on your media kit.<br>Kindly add a relevant cover image. For example, image of project/ product/ team/ brand logo/ founder/ event etc.</label>
+		<label for="" class="m-0 d-block form-text text-secondary fs-7">{!! $subLabel !!}</label>
 	</div>
 	<div class="col-md-8">
 		<div class="card">

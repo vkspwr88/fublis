@@ -87,7 +87,11 @@
 																	<div class="p-2 my-1 search-list position-relative">
 																		<label for="{{ $company->id }}" class="text-secondary fs-6 w-100">
 																			<span class="fw-bold text-dark">{{ $company->name }}</span>
-																			<span>{{ $company->location->name }}</span>
+																			@php
+																				$country = $company->location->city()->first()->state->country->name;
+																			@endphp
+																			{{-- <span>{{ $company->location->name }}</span> --}}
+																			<span class="text-capitalize">{{ $country }}</span>
 																			<span class="text-purple-600 checked position-absolute">
 																				<i class="bi bi-check-lg"></i>
 																			</span>

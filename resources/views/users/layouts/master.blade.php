@@ -53,7 +53,7 @@
 
 	<body id="app1" class="bg-light">
 		@include('users.includes.header')
-		<section id="body" class="w-100 m-0 px-0 pb-0">
+		<section id="body" class="px-0 pb-0 m-0 w-100">
 			@yield('body')
 		</section>
 		@include('users.includes.footer')
@@ -86,6 +86,10 @@
 			</div>
 		</div> --}}
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.6/cropper.js"></script>
+		<script>
+			const uploadHostUrl = '{{ route('architect.trix-file-upload') }}';
+			// const removeHostUrl = '{{ route('architect.trix-file-remove') }}';
+		</script>
 		<script src="{{ asset('js/aman.js') }}"></script>
 		@stack('scripts')
 		<script>

@@ -28,7 +28,8 @@ class PitchStoryService
 										'publishFrom',
 									])
 									->where('name', 'like', '%' . $data['name'] . '%')
-									->latest()
+									->orderBy('is_premium', 'desc')
+									->orderBy('created_at', 'desc')
 									->get();
 
 		if($data['location'] != ''){

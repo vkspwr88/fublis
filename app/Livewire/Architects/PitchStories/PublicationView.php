@@ -79,10 +79,11 @@ class PublicationView extends Component
 	public function showContact()
 	{
 		if(SubscriptionController::checkPremiumPublication($this->publication)){
-			$this->dispatch('alert', [
+			/* $this->dispatch('alert', [
 				'type' => 'warning',
 				'message' => 'Upgrade your plan to pitch premium publication.'
-			]);
+			]); */
+			$this->dispatch('show-pitch-premium-alert-modal');
 			return;
 		}
 		$this->selectedAssociatedPublication = null;
@@ -120,10 +121,12 @@ class PublicationView extends Component
 
 		$selectedPublication = $this->selectedAssociatedPublication ? $this->associatedPublications->find($this->selectedAssociatedPublication) : $this->publication;
 		if(SubscriptionController::checkPremiumPublication($selectedPublication)){
-			$this->dispatch('alert', [
+			/* $this->dispatch('alert', [
 				'type' => 'warning',
 				'message' => 'Upgrade your plan to pitch premium publication.'
-			]);
+			]); */
+			$this->dispatch('hide-select-publication-modal');
+			$this->dispatch('show-pitch-premium-alert-modal');
 			return;
 		}
 

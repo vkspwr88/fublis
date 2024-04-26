@@ -186,7 +186,7 @@
 		</div>
 	</div>
 	<hr class="border-gray-300">
-	@include('users.includes.architect.add-story.cover-image-field')
+	@include('users.includes.architect.add-story.cover-image-field', ['subLabel' => 'This will be displayed on your media kit.<br>Kindly add a relevant cover image. For example, image of project/ product/ team/ brand logo/ founder/ event etc.'])
 	<hr class="border-gray-300">
 	<div class="mb-3 row">
 		<div class="col-md-4">
@@ -446,7 +446,7 @@
 			</button>
 		@endempty
 		<button class="btn btn-primary fs-6 fw-semibold" type="submit">
-			{{ isset($edit) ? 'Edit Project' : 'Submit Project' }} <x-users.spinners.white-btn wire:target="add" />
+			{{ isset($edit) ? 'Save Project' : 'Submit Project' }} <x-users.spinners.white-btn wire:target="add" />
 		</button>
 	</div>
 	@include('users.includes.common.file-upload-script', ['width' => 800, 'height' => 400])

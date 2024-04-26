@@ -134,20 +134,15 @@ class Journalists extends Component
 				return;
 			}
 			$this->selectedAssociatedPublication = $this->associatedPublications[0]->id;
-			/* if(SubscriptionController::checkPremiumPublication($this->selectedAssociatedPublication)){
-				$this->dispatch('alert', [
-					'type' => 'warning',
-					'message' => 'Upgrade your plan to pitch premium publication.'
-				]);
-				return;
-			} */
 		}
 		$selectedPublication = $this->associatedPublications->find($this->selectedAssociatedPublication);
 		if(SubscriptionController::checkPremiumPublication($selectedPublication)){
-			$this->dispatch('alert', [
+			/* $this->dispatch('alert', [
 				'type' => 'warning',
 				'message' => 'Upgrade your plan to pitch premium publication.'
-			]);
+			]); */
+			$this->dispatch('hide-select-publication-modal');
+			$this->dispatch('show-pitch-premium-alert-modal');
 			return;
 		}
 		$this->mediaKits = auth()->user()
@@ -171,13 +166,6 @@ class Journalists extends Component
 		}
 		$mediaKit = $this->mediaKits->find($this->selectedMediaKit);
 		$selectedPublication = $this->associatedPublications->find($this->selectedAssociatedPublication);
-		/* if(SubscriptionController::checkPremiumPublication($selectedPublication)){
-			$this->dispatch('alert', [
-				'type' => 'warning',
-				'message' => 'Upgrade your plan to pitch premium publication.'
-			]);
-			return;
-		} */
 		$this->subject = 'New ' . showModelName($mediaKit->story_type) . ' | ' . $mediaKit->story->title;
 		$this->message = "";
 		if(isSubscribed()){

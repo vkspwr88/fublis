@@ -3,6 +3,7 @@
 use App\Http\Controllers\Payments\StripeController;
 use App\Http\Controllers\Users\Architects;
 use App\Http\Controllers\Users\MessageController;
+use App\Http\Controllers\Users\TrixFileUploadController;
 use App\Http\Middleware\ArchitectLogin;
 use Illuminate\Support\Facades\Route;
 
@@ -34,9 +35,11 @@ Route::middleware(ArchitectLogin::class)->group(function() {
 	});
 
 	Route::prefix('user')->group(function () {
-		Route::get('/payment', function(){
+		/* Route::get('/payment', function(){
 			echo 'checking payment';
-		})->name('test');
+		})->name('test'); */
+		Route::post('/trix-file-upload', [TrixFileUploadController::class, 'upload'])->name('trix-file-upload');
+		Route::post('/trix-file-remove', [TrixFileUploadController::class, 'remove'])->name('trix-file-remove');
 		Route::get('/pricing', [StripeController::class, 'index'])->name('stripe.index');
 		Route::get('/checkout/{subscriptionPlan:slug}', [StripeController::class, 'checkout'])->name('stripe.checkout');
 		Route::post('/checkout/{subscriptionPlan:slug}/callback', [StripeController::class, 'callback'])->name('stripe.callback');

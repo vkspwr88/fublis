@@ -25,7 +25,7 @@ if (!function_exists('isArchitect')) {
 if (!function_exists('isArchitectAdmin')) {
     function isArchitectAdmin()
     {
-		return isArchitect() && auth()->user()->architect->user_role === UserRoleEnum::ADMIN;
+		return isArchitect() && (auth()->user()->architect->user_role === UserRoleEnum::ADMIN || auth()->user()->architect->user_role === UserRoleEnum::SUPERADMIN);
 	}
 }
 

@@ -48,5 +48,12 @@
 		window.addEventListener('show-pitch-call-success-modal', event => {
 			$('#pitchCallSuccessModal').modal('show');
 		});
+
+		window.addEventListener('hide-pitch-premium-alert-modal', event => {
+			$('#pitchCallPremiumAlertModal').modal('hide');
+		});
+		window.addEventListener('show-pitch-premium-alert-modal', event => {
+			$('#pitchCallPremiumAlertModal').modal('show');
+		});
 	</script>
 @endpush

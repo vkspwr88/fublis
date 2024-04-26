@@ -102,6 +102,7 @@ class ArchitectService
 			]);
 			// check publication
 			// if new, insert company record
+			$userRole = UserRoleEnum::SUPERADMIN;
 			if($details['new']){
 				// insert location record
 				$location = LocationController::createLocation([
@@ -121,6 +122,7 @@ class ArchitectService
 			}
 			else{
 				$companyId = $details['selectedCompany'];
+				$userRole = UserRoleEnum::ADMIN;
 			}
 			// insert architect record
 			$architect = ArchitectController::createArchitect([
@@ -130,6 +132,7 @@ class ArchitectService
 				'architect_position_id' => $details['selectedPosition'],
 				'background_color' => AvatarController::getBackground('architect'),
 				'foreground_color' => '#ffffff',
+				'user_role' => $userRole,
 			]);
 			/* // set profile picture
 			$profileImg = 'images/architects/profile' /* create('John Doe')->save('path/to/file.png', $quality = 90) *;

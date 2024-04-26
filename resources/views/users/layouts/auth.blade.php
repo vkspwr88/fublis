@@ -29,7 +29,7 @@
 				</a>
 			</div>
 		</nav>
-		<section class="w-100 m-0 px-0 pt-3 pb-5">
+		<section class="px-0 pt-3 pb-5 m-0 w-100">
 			@yield('body')
 		</section>
 		<footer id="footer">
@@ -50,6 +50,9 @@
 				</div>
 			</div>
 		</footer>
+		<script>
+			const uploadHostUrl = '{{ route('architect.trix-file-upload') }}';
+		</script>
 		<script src="{{ asset('js/aman.js') }}"></script>
 		@stack('scripts')
 	</body>

@@ -1,5 +1,5 @@
 <form wire:submit="add" class="pt-4">
-	@include('users.includes.architect.add-story.cover-image-field')
+	@include('users.includes.architect.add-story.cover-image-field', ['subLabel' => 'This will be displayed on your media kit.<br>Kindly add a relevant cover image. For example, image of project/ product/ team/ brand logo/ founder/ event etc.'])
 	<hr class="border-gray-300">
 	<div class="mb-3 row">
 		<label for="inputPressReleaseTitle" class="col-md-4 col-form-label text-dark fs-6 fw-medium">Press Release Title <span class="text-danger">*</span></label>
@@ -43,10 +43,12 @@
 			<label for="inputPressReleaseWrite" class="col-form-label text-dark fs-6 fw-medium">Write Press Release <span class="text-danger">*</span></label>
 			<label for="" class="m-0 d-block form-text text-secondary fs-7">Add the text in 300-500 words.<br>You can add the content of your press release here to give an overall preview of the press release, however, uploading the content below is a must to make it easier for journalists to download content.</label>
 		</div>
-		<div class="col-md-8"  wire:ignore>
-			<trix-editor input="inputPressReleaseWrite" x-on:trix-change="$wire.form.pressReleaseWrite = $event.target.value"></trix-editor>
-			<input id="inputPressReleaseWrite" type="hidden" wire:model="form.pressReleaseWrite">
-			@error('form.pressReleaseWrite')<div class="invalid-feedback">{{ $message }}</div>@enderror
+		<div class="col-md-8" >
+			<div wire:ignore>
+				<trix-editor input="inputPressReleaseWrite" x-on:trix-change="$wire.form.pressReleaseWrite = $event.target.value"></trix-editor>
+				<input id="inputPressReleaseWrite" type="hidden" wire:model="form.pressReleaseWrite">
+			</div>
+			@error('form.pressReleaseWrite')<div class="error">{{ $message }}</div>@enderror
 		</div>
 
 	</div>
@@ -253,7 +255,7 @@
 			</button>
 		@endempty
 		<button class="btn btn-primary fs-6 fw-semibold" type="submit">
-			{{ isset($edit) ? 'Edit Press Release' : 'Submit Press Release' }} <x-users.spinners.white-btn wire:target="add" />
+			{{ isset($edit) ? 'Save Press Release' : 'Submit Press Release' }} <x-users.spinners.white-btn wire:target="add" />
 		</button>
 	</div>
 	@include('users.includes.common.file-upload-script', ['width' => 800, 'height' => 400])

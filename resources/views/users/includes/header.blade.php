@@ -1,6 +1,6 @@
 
-<header id="header" class="bg-white shadow-sm navbar navbar-expand-xl fixed-top m-0 p-0">
-	<div class="container h-100">
+<header id="header" class="p-0 m-0 bg-white shadow-sm navbar navbar-expand-xl fixed-top">
+	<div class="px-3 px-sm-5 container-fluid h-100">
 		<a class="navbar-brand" href="{{ route('home') }}">
 			<img src="{{ asset(env('COMPANY_LOGO')) }}" alt="{{ env('APP_NAME') }}" class="header-logo">
 		</a>
