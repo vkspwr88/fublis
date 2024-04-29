@@ -70,7 +70,7 @@ class ArticleForm extends Form
 			// 'companyProfileLink' => 'nullable|required_without:companyProfileFile|url:https',
 			'imagesFiles' => 'nullable|array',
 			'imagesFiles.*' => Rule::forEach(function (string|null $value, string $attribute) {
-				return Str::contains($value, '.tmp') ?
+				return Str::contains($value, 'tmp') ?
 							'nullable|image|' . __('validations/rules.imageMimes') . '|' . __('validations/rules.bulkFilesSize') :
 							'nullable|string';
 			}),

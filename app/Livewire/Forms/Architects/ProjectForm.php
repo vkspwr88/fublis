@@ -117,7 +117,7 @@ class ProjectForm extends Form
 			'projectLink' => 'nullable|required_without:projectFile|url:https',
 			'photographsFiles' => 'nullable|array',
 			'photographsFiles.*' => Rule::forEach(function (string|null $value, string $attribute) {
-				return Str::contains($value, '.tmp') ?
+				return Str::contains($value, 'tmp') ?
 							'nullable|image|' . __('validations/rules.zipPlusImageMimes') . '|' . __('validations/rules.bulkFilesSize') :
 							'nullable|string';
 			}),
@@ -125,7 +125,7 @@ class ProjectForm extends Form
 			'photographsLink' => 'nullable|url:https',
 			'drawingsFiles' => 'nullable|array',
 			'drawingsFiles.*' => Rule::forEach(function (string|null $value, string $attribute) {
-				return Str::contains($value, '.tmp') ?
+				return Str::contains($value, 'tmp') ?
 							'nullable|image|' . __('validations/rules.zipPlusImageMimes') . '|' . __('validations/rules.bulkFilesSize') :
 							'nullable|string';
 			}),
