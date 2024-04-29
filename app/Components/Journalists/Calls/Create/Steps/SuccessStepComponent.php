@@ -9,7 +9,7 @@ class SuccessStepComponent extends StepComponent
 	public function mount()
 	{
 		$this->dispatch('get-focus', [
-			'element' => '#createSuccessCall',
+			'element' => '#header',
 		]);
 	}
 
