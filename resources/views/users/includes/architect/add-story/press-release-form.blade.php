@@ -262,7 +262,7 @@
 	<script>
 		const trixEditor = document.querySelector("trix-editor");
 		console.log(trixEditor);
-		trixEditor.editor.insertHTML(`{!! $form->pressReleaseWrite !!}`);
+		trixEditor.editor.insertHTML('{!! addslashes($form->pressReleaseWrite) !!}');
 	</script>
 	@include('users.includes.architect.add-story.modal-delete-media-kit')
 </form>
