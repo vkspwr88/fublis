@@ -259,9 +259,11 @@
 		</button>
 	</div>
 	@include('users.includes.common.file-upload-script', ['width' => 800, 'height' => 400])
-	<script>
-		let editor = document.querySelector("trix-editor");
-		editor.editor.insertHTML('{!! addslashes($form->pressReleaseWrite) !!}');
-	</script>
+	@script
+		<script>
+			let editor = document.querySelector("trix-editor");
+			editor.editor.insertHTML('{!! addslashes($form->pressReleaseWrite) !!}');
+		</script>
+	@endscript
 	@include('users.includes.architect.add-story.modal-delete-media-kit')
 </form>
