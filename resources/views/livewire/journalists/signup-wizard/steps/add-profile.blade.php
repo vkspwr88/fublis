@@ -12,14 +12,22 @@
 									<form class="py-3" wire:submit="add">
 										<div class="mb-3">
 											<label for="selectPosition" class="form-label text-dark fs-6 fw-medium">Your Position in Platform <span class="text-danger">*</span></label>
-											<select class="form-select @error('position') is-invalid @enderror" id="selectPosition" wire:model="position">
+											<select class="form-select @error('position') is-invalid @enderror" id="selectPosition" wire:model.live="position">
 												<option value="">Select Your Position</option>
 												@foreach ($positions as $position)
-												<option value="{{ $position->id }}">{{ $position->name }}</option>
+													<option value="{{ $position->id }}">{{ $position->name }}</option>
 												@endforeach
+												<option value="other">Others</option>
 											</select>
 											@error('position')<div class="invalid-feedback">{{ $message }}</div>@enderror
 										</div>
+										@if($isOtherSelected)
+											<div class="mb-3">
+												<label for="inputOtherPosition" class="form-label text-dark fs-6 fw-medium">Other <span class="text-danger">*</span></label>
+												<input type="text" class="form-control @error('otherPosition') is-invalid @enderror" id="inputOtherPosition" placeholder="Other platform position" aria-label="Others position" aria-describedby="otherPositionAddon" wire:model="otherPosition">
+												@error('otherPosition')<div class="invalid-feedback">{{ $message }}</div>@enderror
+											</div>
+										@endif
 										<div class="mb-3">
 											<label for="inputLinkedinProfile" class="form-label text-dark fs-6 fw-medium">LinkedIn profile <span class="text-danger">*</span></label>
 											<input type="text" class="form-control @error('linkedinProfile') is-invalid @enderror" id="inputLinkedinProfile" placeholder="www.your-website.com" aria-label="LinkedIn profile" aria-describedby="linkedinProfileAddon" wire:model="linkedinProfile">

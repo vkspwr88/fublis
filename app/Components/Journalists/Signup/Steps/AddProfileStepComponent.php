@@ -13,6 +13,8 @@ class AddProfileStepComponent extends StepComponent
 	public $linkedinProfile;
 	public $publishedArticleLink;
 	public $publishingPlatformLink;
+	public $otherPosition;
+	public bool $isOtherSelected;
 
 	private JournalistService $journalistService;
 
@@ -23,6 +25,10 @@ class AddProfileStepComponent extends StepComponent
 
 	public function render()
 	{
+		$this->isOtherSelected = false;
+		if($this->position == 'other'){
+			$this->isOtherSelected = true;
+		}
 		return view('livewire.journalists.signup-wizard.steps.add-profile', [
 			'positions' => Controllers\Users\JournalistPositionController::getAll(),
 		]);
@@ -39,7 +45,8 @@ class AddProfileStepComponent extends StepComponent
 	public function rules()
 	{
 		return [
-			'position' => 'required|exists:journalist_positions,id',
+			'position' => 'required',
+			'otherPosition' => 'required_if:position,other',
 			'linkedinProfile' => 'required|url:https',
 			'publishedArticleLink' => 'nullable|url:https',
 			'publishingPlatformLink' => 'nullable|url:https',
@@ -51,6 +58,7 @@ class AddProfileStepComponent extends StepComponent
 		return [
 			'position.required' => 'Select the :attribute.',
 			'position.exists' => 'Select the valid :attribute.',
+			'otherPosition.required_if' => 'Enter the :attribute.',
 			'linkedinProfile.required' => 'Enter the :attribute.',
 			'linkedinProfile.url' => 'Enter the valid https :attribute.',
 			'publishedArticleLink.required' => 'Enter the :attribute.',
@@ -64,6 +72,7 @@ class AddProfileStepComponent extends StepComponent
 	{
 		return [
 			'position' => 'platform position',
+			'otherPosition' => 'other position',
 			'linkedinProfile' => 'linkedin profile link',
 			'publishedArticleLink' => 'published article link',
 			'publishingPlatformLink' => 'publishing platform profile link',
@@ -74,6 +83,7 @@ class AddProfileStepComponent extends StepComponent
 	{
 		return [
 			'position' => $this->position,
+			'otherPosition' => $this->otherPosition,
 			'linkedinProfile' => 'https://' . trimWebsiteUrl($this->linkedinProfile),
 			'publishedArticleLink' => $this->publishedArticleLink ? 'https://' . trimWebsiteUrl($this->publishedArticleLink) : null,
 			'publishingPlatformLink' => $this->publishingPlatformLink ? 'https://' . trimWebsiteUrl($this->publishingPlatformLink) : null,

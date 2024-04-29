@@ -7,6 +7,7 @@ use App\Http\Controllers\ErrorLogController;
 use App\Http\Controllers\Users\AvatarController;
 use App\Http\Controllers\Users\CompanyController;
 use App\Http\Controllers\Users\JournalistController;
+use App\Http\Controllers\Users\JournalistPositionController;
 use App\Http\Controllers\Users\LocationController;
 use App\Http\Controllers\Users\PublicationController;
 use App\Http\Controllers\Users\UserController;
@@ -138,6 +139,13 @@ class JournalistService
 
 			$publication->added_by = $journalist->id;
 			$publication->save();
+
+			// if position is other, saved it
+			if($details['position'] == 'other'){
+				$details['position'] = JournalistPositionController::create([
+					'name' => $details['otherPosition'],
+				])->id;
+			}
 
 			// attach journalist with publication
 			$journalist->publications()->attach($publicationId, [

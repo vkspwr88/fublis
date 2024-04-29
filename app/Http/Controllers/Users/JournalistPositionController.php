@@ -21,4 +21,9 @@ class JournalistPositionController extends Controller
 									->get();
 		}
 	}
+
+	public static function create($data)
+	{
+		return JournalistPosition::updateOrCreate($data);
+	}
 }
