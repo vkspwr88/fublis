@@ -3,10 +3,9 @@
 		<div class="row g-3">
 			<div class="col-12">
 				@php
-					use App\Http\Controllers\Users\AvatarController as AvatarController;
 					$profileImg = $journalist->profileImage ?
 									Storage::url($journalist->profileImage->image_path) :
-									AvatarController::setProfileAvatar([
+									App\Http\Controllers\Users\AvatarController::setProfileAvatar([
 										'name' => $journalist->user->name,
 										'width' => 150,
 										'fontSize' => 75,
@@ -91,7 +90,7 @@
 						@php
 							$profileImg = $publication->profileImage ?
 											Storage::url($publication->profileImage->image_path) :
-											AvatarController::setProfileAvatar([
+											App\Http\Controllers\Users\AvatarController::setProfileAvatar([
 												'name' => $publication->name,
 												'width' => 48,
 												'fontSize' => 20,

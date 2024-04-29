@@ -1,7 +1,7 @@
 <div class="row g-3">
 	@if($journalist->user_id === auth()->id())
 	<div class="col-12">
-		<div class="card rounded-4 shadow border-0 bg-light">
+		<div class="border-0 shadow card rounded-4 bg-light">
 			<div class="card-body">
 				<form wire:submit="save">
 					<div class="row g-4">
@@ -30,25 +30,25 @@
 																	'fontSize' => 18,
 																	'background' => $journalist->background_color,
 																	'foreground' => $journalist->foreground_color,
-																], 'publication');
+																]);
 											@endphp
 											<img src="{{ $profileImg }}" class="img-square img-40" alt="logo">
 										</div>
 										<div class="col-auto">
-											<input type="radio" id="story-project" value="Project" wire:model="selectedStoryType" class="position-absolute opacity-0 list-radio">
-											<div class="px-3 py-2 d-inline-block border rounded-2 bg-white">
+											<input type="radio" id="story-project" value="Project" wire:model="selectedStoryType" class="opacity-0 position-absolute list-radio">
+											<div class="px-3 py-2 bg-white border d-inline-block rounded-2">
 												<label for="story-project" class="fw-semibold">Project +</label>
 											</div>
 										</div>
 										<div class="col-auto">
-											<input type="radio" id="story-article" value="Article" wire:model="selectedStoryType" class="position-absolute opacity-0 list-radio">
-											<div class="px-3 py-2 d-inline-block border rounded-2 bg-white">
+											<input type="radio" id="story-article" value="Article" wire:model="selectedStoryType" class="opacity-0 position-absolute list-radio">
+											<div class="px-3 py-2 bg-white border d-inline-block rounded-2">
 												<label for="story-article" class="fw-semibold">Article +</label>
 											</div>
 										</div>
 										<div class="col-auto">
-											<input type="radio" id="story-press" value="Press Release" wire:model="selectedStoryType" class="position-absolute opacity-0 list-radio">
-											<div class="px-3 py-2 d-inline-block border rounded-2 bg-white">
+											<input type="radio" id="story-press" value="Press Release" wire:model="selectedStoryType" class="opacity-0 position-absolute list-radio">
+											<div class="px-3 py-2 bg-white border d-inline-block rounded-2">
 												<label for="story-press" class="fw-semibold">Press Release +</label>
 											</div>
 										</div>
