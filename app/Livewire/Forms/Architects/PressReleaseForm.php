@@ -75,7 +75,7 @@ class PressReleaseForm extends Form
 				// if($attribute == 'photographsFiles.3'){
 				// 	dd($value, $attribute);
 				// }
-				dd($value, $attribute);
+				// dd($value, $attribute);
 				return Str::contains($value, 'tmp') ?
 							'nullable|image|' . __('validations/rules.imageMimes') . '|' . __('validations/rules.bulkFilesSize') :
 							'nullable|string';
