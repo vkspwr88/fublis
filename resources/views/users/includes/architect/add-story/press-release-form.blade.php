@@ -261,7 +261,7 @@
 	@include('users.includes.common.file-upload-script', ['width' => 800, 'height' => 400])
 	<script>
 		const editor = document.querySelector("trix-editor");
-		editor.editor.insertHTML("{!! $form->pressReleaseWrite !!}");
+		editor.editor.insertHTML({!! $form->pressReleaseWrite !!});
 	</script>
 	@include('users.includes.architect.add-story.modal-delete-media-kit')
 </form>
