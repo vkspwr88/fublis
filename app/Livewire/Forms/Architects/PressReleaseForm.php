@@ -34,6 +34,7 @@ class PressReleaseForm extends Form
 	public $photographsFiles = [];
 	public $collectionName;
 	public $photographsLink;
+	public $audioVideoUrl;
 	public $tags = [];
 	public $categories;
 	public $mediaContacts;
@@ -81,6 +82,7 @@ class PressReleaseForm extends Form
 							'nullable|string';
 			}),
 			'photographsLink' => 'nullable|url:https',
+			'audioVideoUrl' => 'nullable|url:https',
 			/* 'photographsFiles.*' => 'image|mimes:svg,png,jpg,gif',
 			'photographsLink' => 'nullable|required_without:photographsFiles|url:https', */
 			'tags' => 'nullable|array',
@@ -126,16 +128,15 @@ class PressReleaseForm extends Form
 			'pressReleaseWrite.required' => 'Enter the :attribute.',
 			'pressReleaseWrite.max' => __('validations/messages.mediaKitBriefCharacters'),
 			'pressReleaseFile.mimes' => __('validations/messages.wordMimes'),
-			'pressReleaseLink.url' => 'Enter the valid https :attribute.',
 			'pressReleaseLink.required_without' => 'Enter the :attribute or upload the file.',
 			'photographsFiles.*.image' => __('validations/messages.image'),
 			'photographsFiles.*.mimes' => __('validations/messages.imageMimes'),
 			'photographsFiles.*.max' => __('validations/messages.bulkFilesSize'),
-			'photographsLink.url' => 'Enter the valid https :attribute.',
 			'photographsLink.required_without' => 'Enter the :attribute or upload the file.',
 			'tags.required' => 'Enter the :attribute.',
 			'mediaContact.required' => 'Select the :attribute.',
 			'mediaKitAccess.required' => 'Select the :attribute.',
+			'*.url' => 'Enter the valid https :attribute.',
 		];
 	}
 
@@ -151,7 +152,8 @@ class PressReleaseForm extends Form
 			'pressReleaseFile' => 'press release document',
 			'pressReleaseLink' => 'press release link',
 			'photographsFiles' => 'photographs',
-			'photographsLink' => 'photographs links',
+			'photographsLink' => 'photographs link',
+			'audioVideoUrl' => 'audio video link',
 			'tags' => 'tags',
 			'mediaContact' => 'media contact',
 			'mediaKitAccess' => 'media kit access',
@@ -194,6 +196,7 @@ class PressReleaseForm extends Form
 		$this->pressReleaseLink = $mediaKit->story->press_release_doc_link;
 		$this->oldPhotographsFiles = $mediaKit->story->photographs;
 		$this->photographsLink = $mediaKit->story->photographs_link;
+		$this->audioVideoUrl = $mediaKit->audio_video_url;
 		$this->tags = $mediaKit->story->tags->pluck('name');
 		$this->mediaContact = $mediaKit->media_contact_id;
 		$this->mediaKitAccess = $mediaKit->project_access_id;
@@ -215,6 +218,7 @@ class PressReleaseForm extends Form
 		$this->pressReleaseLink = $content->pressReleaseLink;
 		$this->photographsFiles = $content->photographsFiles;
 		$this->photographsLink = $content->photographsLink;
+		$this->audioVideoUrl = $content->audioVideoUrl;
 		$this->tags = $content->tags;
 		$this->mediaContact = $content->mediaContact;
 		$this->mediaKitAccess = $content->mediaKitAccess;
@@ -225,6 +229,7 @@ class PressReleaseForm extends Form
 	{
 		$this->pressReleaseLink = $this->pressReleaseLink ? 'https://' . trimWebsiteUrl($this->pressReleaseLink) : null;
 		$this->photographsLink = $this->photographsLink ? 'https://' . trimWebsiteUrl($this->photographsLink) : null;
+		$this->audioVideoUrl = $this->audioVideoUrl ? 'https://' . trimWebsiteUrl($this->audioVideoUrl) : null;
 	}
 
 	// public function store($type = 'new', $draftId = null)

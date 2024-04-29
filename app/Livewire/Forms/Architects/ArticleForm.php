@@ -35,6 +35,7 @@ class ArticleForm extends Form
 	public $oldImagesFiles = [];
 	public $imagesFiles = [];
 	public $imagesLink;
+	public $audioVideoUrl;
 	public $tags = [];
 	public $categories;
 	public $mediaContacts;
@@ -75,6 +76,7 @@ class ArticleForm extends Form
 							'nullable|string';
 			}),
 			'imagesLink' => 'nullable|url:https',
+			'audioVideoUrl' => 'nullable|url:https',
 			/* 'imagesFiles.*' => 'image|mimes:svg,png,jpg,gif',
 			'imagesLink' => 'nullable|required_without:imagesFiles|url:https', */
 			'tags' => 'nullable|array',
@@ -125,21 +127,19 @@ class ArticleForm extends Form
 			'category.required' => 'Select the :attribute.',
 			'previewText.required' => 'Enter the :attribute.',
 			'articleFile.mimes' => 'The :attribute supports only pdf, doc, docs or docx.',
-			'articleLink.url' => 'Enter the valid https :attribute.',
 			'articleLink.required_without' => 'Enter the :attribute or upload the file.',
 			'articleWrite.required' => 'Enter the :attribute.',
 			'articleWrite.max' => __('validations/messages.mediaKitBriefCharacters'),
 			'companyProfileFile.mimes' => 'The :attribute supports only pdf, doc, docs or docx.',
-			'companyProfileLink.url' => 'Enter the valid https :attribute.',
 			'companyProfileLink.required_without' => 'Enter the :attribute or upload the file.',
 			'imagesFiles.*.image' => __('validations/messages.image'),
 			'imagesFiles.*.mimes' => __('validations/messages.imageMimes'),
 			'imagesFiles.*.max' => __('validations/messages.bulkFilesSize'),
-			'imagesLink.url' => 'Enter the valid https :attribute.',
 			'imagesLink.required_without' => 'Enter the :attribute or upload the file.',
 			'tags.required' => 'Enter the :attribute.',
 			'mediaContact.required' => 'Select the :attribute.',
 			'mediaKitAccess.required' => 'Select the :attribute.',
+			'*.url' => 'Enter the valid https :attribute.',
 		];
 	}
 
@@ -157,7 +157,8 @@ class ArticleForm extends Form
 			'companyProfileFile' => 'company profile document',
 			'companyProfileLink' => 'company profile link',
 			'imagesFiles' => 'images',
-			'imagesLink' => 'images links',
+			'imagesLink' => 'images link',
+			'audioVideoUrl' => 'audio video link',
 			'tags' => 'tags',
 			'mediaContact' => 'media contact',
 			'mediaKitAccess' => 'media kit access',
@@ -202,6 +203,7 @@ class ArticleForm extends Form
 		$this->companyProfileLink = $mediaKit->story->company_profile_link;
 		$this->oldImagesFiles = $mediaKit->story->images;
 		$this->imagesLink = $mediaKit->story->images_link;
+		$this->audioVideoUrl = $mediaKit->audio_video_url;
 		$this->tags = $mediaKit->story->tags->pluck('name');
 		$this->mediaContact = $mediaKit->media_contact_id;
 		$this->mediaKitAccess = $mediaKit->project_access_id;
@@ -223,6 +225,7 @@ class ArticleForm extends Form
 		$this->companyProfileLink = $content->companyProfileLink;
 		$this->imagesFiles = $content->imagesFiles;
 		$this->imagesLink = $content->imagesLink;
+		$this->audioVideoUrl = $content->audioVideoUrl;
 		$this->tags = $content->tags;
 		$this->mediaContact = $content->mediaContact;
 		$this->mediaKitAccess = $content->mediaKitAccess;
@@ -237,6 +240,7 @@ class ArticleForm extends Form
 		$this->articleLink = $this->articleLink ? 'https://' . trimWebsiteUrl($this->articleLink) : null;
 		$this->companyProfileLink = $this->companyProfileLink ? 'https://' . trimWebsiteUrl($this->companyProfileLink) : null;
 		$this->imagesLink = $this->imagesLink ? 'https://' . trimWebsiteUrl($this->imagesLink) : null;
+		$this->audioVideoUrl = $this->audioVideoUrl ? 'https://' . trimWebsiteUrl($this->audioVideoUrl) : null;
 	}
 
 	public function store()

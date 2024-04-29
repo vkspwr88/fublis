@@ -114,7 +114,7 @@
 		</div>
 	</div>
 	<hr class="border-gray-300">
-	<div class="row">
+	<div class="mb-3 row">
 		<div class="col-md-4">
 			<label for="inputText" class="col-form-label text-dark fs-6 fw-medium">Upload Photographs</label>
 			<label class="m-0 d-block form-text text-secondary fs-7">Choose the best images (maximum upload limit 4MB each image)</label>
@@ -206,6 +206,7 @@
 			</div>
 		</div>
 	</div>
+	@include('users.includes.input-audio-video-url')
 	<hr class="border-gray-300">
 	<div class="mb-3 row">
 		<label for="inputTags" class="col-md-4 col-form-label text-dark fs-6 fw-medium">Tags</label>

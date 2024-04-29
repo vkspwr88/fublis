@@ -6,8 +6,8 @@
 										Storage::url($mediaKit->architect->company->profileImage->image_path) :
 										App\Http\Controllers\Users\AvatarController::setProfileAvatar([
 											'name' => $mediaKit->architect->company->name,
-											'width' => 30,
-											'fontSize' => 13,
+											'width' => 150,
+											'fontSize' => 60,
 											'background' => $mediaKit->architect->company->background_color,
 											'foreground' => $mediaKit->architect->company->foreground_color,
 										]);

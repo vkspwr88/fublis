@@ -35,6 +35,7 @@ class AddStoryService
 			MediaKitController::createMediaKit($pressRelease, [
 				'architect_id' => auth()->user()->architect->id,
 				'category_id' => $details['category'],
+				'audio_video_url' => $details['audioVideoUrl'],
 				'media_contact_id' => $details['mediaContact'],
 				'project_access_id' => $details['mediaKitAccess'],
 			]);
@@ -85,6 +86,7 @@ class AddStoryService
 			$mediaKit->update([
 				// 'architect_id' => auth()->user()->architect->id,
 				'category_id' => $details['category'],
+				'audio_video_url' => $details['audioVideoUrl'],
 				'media_contact_id' => $details['mediaContact'],
 				'project_access_id' => $details['mediaKitAccess'],
 				'slug' => $slug,
@@ -168,6 +170,7 @@ class AddStoryService
 			MediaKitController::createMediaKit($project, [
 				'architect_id' => auth()->user()->architect->id,
 				'category_id' => $details['category'],
+				'audio_video_url' => $details['audioVideoUrl'],
 				'media_contact_id' => $details['mediaContact'],
 				'project_access_id' => $details['mediaKitAccess'],
 			]);
@@ -226,6 +229,7 @@ class AddStoryService
 			// update media kit
 			$mediaKit->update([
 				'category_id' => $details['category'],
+				'audio_video_url' => $details['audioVideoUrl'],
 				'media_contact_id' => $details['mediaContact'],
 				'project_access_id' => $details['mediaKitAccess'],
 				'slug' => $slug,
@@ -321,6 +325,7 @@ class AddStoryService
 			MediaKitController::createMediaKit($article, [
 				'architect_id' => auth()->user()->architect->id,
 				'category_id' => $details['category'],
+				'audio_video_url' => $details['audioVideoUrl'],
 				'media_contact_id' => $details['mediaContact'],
 				'project_access_id' => $details['mediaKitAccess'],
 			]);
@@ -371,6 +376,7 @@ class AddStoryService
 			$mediaKit->update([
 				// 'architect_id' => auth()->user()->architect->id,
 				'category_id' => $details['category'],
+				'audio_video_url' => $details['audioVideoUrl'],
 				'media_contact_id' => $details['mediaContact'],
 				'project_access_id' => $details['mediaKitAccess'],
 				'slug' => $slug,

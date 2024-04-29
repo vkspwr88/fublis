@@ -259,7 +259,7 @@
 		</div>
 	</div>
 	<hr class="border-gray-300">
-	<div class="row">
+	<div class="mb-3 row">
 		<div class="col-md-4">
 			<label for="inputText" class="col-form-label text-dark fs-6 fw-medium">Upload Photographs</label>
 			<label class="m-0 d-block form-text text-secondary fs-7">Choose the best images (maximum upload limit 4MB each image)</label>
@@ -327,6 +327,7 @@
 			</div>
 		</div>
 	</div>
+	@include('users.includes.input-audio-video-url')
 	<hr class="border-gray-300">
 	<div class="row">
 		<div class="col-md-4">
@@ -390,9 +391,8 @@
 				</div>
 			</div>
 			@error('form.drawingsFiles')<div class="error">{{ $message }}</div>@enderror
-			<div class="mb-3 input-group">
-				<span class="bg-white input-group-text" id="drawingsLinkAddon">http://</span>
-				<input type="text" class="form-control @error('form.drawingsLink') is-invalid @enderror" wire:model="form.drawingsLink" placeholder="Insert drive link" aria-describedby="drawingsLinkAddon">
+			<div class="mb-0">
+				<input type="text" class="form-control @error('form.drawingsLink') is-invalid @enderror" wire:model="form.drawingsLink" placeholder="Insert drive link">
 				@error('form.drawingsLink')<div class="invalid-feedback">{{ $message }}</div>@enderror
 			</div>
 		</div>

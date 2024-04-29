@@ -51,6 +51,7 @@ class ProjectForm extends Form
 	public $photographsFiles = [];
 	public $oldPhotographsFiles = [];
 	public $photographsLink;
+	public $audioVideoUrl;
 	public $drawingsFiles = [];
 	public $oldDrawingsFiles = [];
 	public $drawingsLink;
@@ -123,6 +124,7 @@ class ProjectForm extends Form
 			}),
 			// 'photographsFiles.*' => 'nullable|file|' . __('validations/rules.zipPlusImageMimes') . '|' . __('validations/rules.bulkFilesSize'),
 			'photographsLink' => 'nullable|url:https',
+			'audioVideoUrl' => 'nullable|url:https',
 			'drawingsFiles' => 'nullable|array',
 			'drawingsFiles.*' => Rule::forEach(function (string|null $value, string $attribute) {
 				return Str::contains($value, 'tmp') ?
@@ -239,6 +241,7 @@ class ProjectForm extends Form
 			'projectLink' => 'project link',
 			'photographsFiles' => 'photographs',
 			'photographsLink' => 'photographs link',
+			'audioVideoUrl' => 'audio video link',
 			'drawingsFiles' => 'drawings',
 			'drawingsLink' => 'drawings link',
 			'tags' => 'tags',
@@ -298,6 +301,7 @@ class ProjectForm extends Form
 		$this->photographsFiles = [];
 		$this->oldPhotographsFiles = $mediaKit->story->photographs->where('image_type', 'photographs');
 		$this->photographsLink = $mediaKit->story->photographs_link;
+		$this->audioVideoUrl = $mediaKit->audio_video_url;
 		$this->drawingsFiles = [];
 		$this->oldDrawingsFiles = $mediaKit->story->photographs->where('image_type', 'drawings');
 		$this->drawingsLink = $mediaKit->story->drawings_link;
@@ -343,6 +347,7 @@ class ProjectForm extends Form
 		$this->projectLink = $content->projectLink;
 		$this->photographsFiles = $content->photographsFiles;
 		$this->photographsLink = $content->photographsLink;
+		$this->audioVideoUrl = $content->audioVideoUrl;
 		$this->drawingsFiles = $content->drawingsFiles;
 		$this->drawingsLink = $content->drawingsLink;
 		$this->tags = $content->tags;
@@ -354,6 +359,7 @@ class ProjectForm extends Form
 	{
 		$this->projectLink = $this->projectLink ? 'https://' . trimWebsiteUrl($this->projectLink) : null;
 		$this->photographsLink = $this->photographsLink ? 'https://' . trimWebsiteUrl($this->photographsLink) : null;
+		$this->audioVideoUrl = $this->audioVideoUrl ? 'https://' . trimWebsiteUrl($this->audioVideoUrl) : null;
 		$this->drawingsLink = $this->drawingsLink ? 'https://' . trimWebsiteUrl($this->drawingsLink) : null;
 	}
 

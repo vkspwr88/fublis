@@ -54,6 +54,7 @@ class PressReleaseController extends Controller
 			],
 			'architect' => $mediaKitDraft->architect,
 			'category' => CategoryController::findById($content->category),
+			'audio_video_url' => $content->audioVideoUrl,
 			'mediaContact' => ArchitectController::findById($content->mediaContact)->load('profileImage', 'position', 'user'),
 			'mediaKitAccess' => ProjectAccessController::findById($content->mediaKitAccess),
 		];
