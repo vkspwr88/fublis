@@ -1,11 +1,22 @@
 <div class="col-12">
 	<div class="row g-3 align-items-center">
 		<div class="col-auto">
-			<img class="img-square img-48 rounded-circle" src="{{ $downloadRequest->notifiable->requestedJournalist->journalist->profileImage ? Storage::url($downloadRequest->notifiable->requestedJournalist->journalist->profileImage->image_path) : 'https://via.placeholder.com/48x48' }}" alt="..." />
+			@php
+				$profileImg = $notification->notifiable->requestedJournalist->journalist->profileImage ?
+												Storage::url($notification->notifiable->requestedJournalist->journalist->profileImage->image_path) :
+												App\Http\Controllers\Users\AvatarController::setProfileAvatar([
+													'name' => $notification->notifiable->requestedJournalist->journalist->user->name,
+													'width' => 150,
+													'fontSize' => 60,
+													'background' => $notification->notifiable->requestedJournalist->journalist->background_color,
+													'foreground' => $notification->notifiable->requestedJournalist->journalist->foreground_color,
+												]);
+			@endphp
+			<img class="img-square img-48 rounded-circle" src="{{ $profileImg }}" alt="..." />
 		</div>
 		<div class="col-auto">
-			<p class="m-0 p-0 text-purple-700">{{ $downloadRequest->notifiable->mediaKit->story->title }}</p>
-			<p class="m-0 p-0 text-secondary">{{ $studioName }}</p>
+			<p class="p-0 m-0 text-purple-700">{{ $downloadRequest->notifiable->mediaKit->story->title }}</p>
+			<p class="p-0 m-0 text-secondary">{{ $studioName }}</p>
 		</div>
 		<div class="col text-end">
 			<button type="button" class="btn btn-white text-dark fw-semibold me-2" wire:click="declineMediaKitDownload('{{ $downloadRequest->id }}', true)">

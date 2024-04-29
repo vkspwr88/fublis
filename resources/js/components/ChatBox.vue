@@ -131,7 +131,7 @@
 										selectedChat === chat.id ? 'text-purple-600' : 'text-gray-600',
 									]"
 								>
-									{{ chat.latest_message.message }}
+									{{ chat.latest_message.message.replace(/(<([^>]+)>)/gi, "") }}
 								</p>
 							</div>
 						</div>
@@ -162,7 +162,7 @@
 											<div class="bg-purple-600 border-0 card rounded-3">
 												<div class="card-body">
 													<p class="m-0 text-white card-text" v-if="index == 0" v-html="chatMessage.message"></p>
-													<p class="m-0 text-white card-text" v-else>{{ chatMessage.message }}</p>
+													<p class="m-0 text-white card-text" v-else>{{ chatMessage.message.replace(/(<([^>]+)>)/gi, "") }}</p>
 												</div>
 											</div>
 										</div>
@@ -195,7 +195,7 @@
 													<div class="bg-gray-100 border-0 card rounded-3">
 														<div class="card-body">
 															<p class="m-0 card-text text-dark" v-if="index == 0" v-html="chatMessage.message"></p>
-															<p class="m-0 card-text text-dark" v-else>{{ chatMessage.message }}</p>
+															<p class="m-0 card-text text-dark" v-else>{{ chatMessage.message.replace(/(<([^>]+)>)/gi, "") }}</p>
 														</div>
 													</div>
 												</div>
