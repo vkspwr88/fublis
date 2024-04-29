@@ -260,7 +260,7 @@
 	</div>
 	@include('users.includes.common.file-upload-script', ['width' => 800, 'height' => 400])
 	<script>
-		const editor = document.querySelector("trix-editor");
+		let editor = document.querySelector("trix-editor");
 		editor.editor.insertHTML('{!! addslashes($form->pressReleaseWrite) !!}');
 	</script>
 	@include('users.includes.architect.add-story.modal-delete-media-kit')
