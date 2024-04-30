@@ -41,13 +41,17 @@ class LocationController extends Controller
 
 	public static function setLocationForEdit($data)
 	{
-		$location = UsersLocationController::findById($data['location_id']);
-		$city = UsersLocationController::getCityByCityName($location->name);
-		$state = $city->state;
-		$country = $state->country;
-		$data['location_id'] = $city->id;
-		$data['state'] = $state->id;
-		$data['country'] = $country->id;
+		$data['state'] = null;
+		$data['country'] = null;
+		if($data['location_id']){
+			$location = UsersLocationController::findById($data['location_id']);
+			$city = UsersLocationController::getCityByCityName($location->name);
+			$state = $city->state;
+			$country = $state->country;
+			$data['location_id'] = $city->id;
+			$data['state'] = $state->id;
+			$data['country'] = $country->id;
+		}
 		return $data;
 	}
 }

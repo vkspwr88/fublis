@@ -13,6 +13,7 @@ use App\Http\Controllers\Users\PublicationController;
 use App\Http\Controllers\Users\UserController;
 use App\Interfaces\GuestRepositoryInterface;
 use App\Interfaces\UserRepositoryInterface;
+use App\Mail\Admin\JournalistSignUp;
 use App\Mail\User\Journalist\Signup\VerificationMail;
 use App\Mail\User\Journalist\Signup\WelcomeMail;
 use App\Models\Architect;
@@ -163,6 +164,10 @@ class JournalistService
 			DB::commit();
 			// send welcome email in queue
 			Mail::to($guest->email)->queue(new WelcomeMail($guest->email));
+			// Send mail to the admin
+			Mail::to(env('COMPANY_EMAIL'))
+					->cc('amansaini87@rediffmail.com')
+					->queue(new JournalistSignUp($journalist));
 			// login user
 			Auth::login($user);
 			session()->forget('guest_id');

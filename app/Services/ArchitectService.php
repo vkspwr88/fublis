@@ -14,6 +14,7 @@ use App\Http\Controllers\Users\LocationController;
 use App\Http\Controllers\Users\UserController;
 use App\Interfaces\GuestRepositoryInterface;
 use App\Interfaces\UserRepositoryInterface;
+use App\Mail\Admin\ArchitectSignUp;
 use App\Mail\User\Architect\Signup\VerificationMail;
 use App\Mail\User\Architect\Signup\WelcomeMail;
 use App\Models\Architect;
@@ -166,6 +167,10 @@ class ArchitectService
 			DB::commit();
 			// send welcome email in queue
 			Mail::to($guest->email)->queue(new WelcomeMail($guest->email));
+			// Send mail to the admin
+			Mail::to(env('COMPANY_EMAIL'))
+					->cc('amansaini87@rediffmail.com')
+					->queue(new ArchitectSignUp($architect));
 			// login user
 			Auth::login($user);
 			session()->forget('guest_id');
