@@ -2,6 +2,7 @@
 
 namespace App\Mail\Admin;
 
+use App\Models\MediaKit;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
@@ -13,12 +14,14 @@ class CreateMediaKit extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
 
+	public MediaKit $mediaKit;
+
     /**
      * Create a new message instance.
      */
-    public function __construct()
+    public function __construct(MediaKit $mediaKit)
     {
-        //
+        $this->mediaKit = $mediaKit;
     }
 
     /**
@@ -38,6 +41,9 @@ class CreateMediaKit extends Mailable implements ShouldQueue
     {
         return new Content(
             markdown: 'emails.admin.create-media-kit',
+			with: [
+				'mediaKit' => $this->mediaKit,
+			],
         );
     }
 

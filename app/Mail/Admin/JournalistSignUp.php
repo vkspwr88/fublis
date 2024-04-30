@@ -2,6 +2,7 @@
 
 namespace App\Mail\Admin;
 
+use App\Models\Journalist;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
@@ -13,12 +14,14 @@ class JournalistSignUp extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
 
+	public Journalist $journalist;
+
     /**
      * Create a new message instance.
      */
-    public function __construct()
+    public function __construct(Journalist $journalist)
     {
-        //
+        $this->journalist = $journalist;
     }
 
     /**
@@ -38,6 +41,9 @@ class JournalistSignUp extends Mailable implements ShouldQueue
     {
         return new Content(
             markdown: 'emails.admin.journalist-signup',
+			with: [
+				'journalist' => $this->journalist,
+			],
         );
     }
 

@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Payments;
 
 use App\Http\Controllers\Controller;
+use App\Mail\Admin\PaidUser;
 use App\Models\SubscriptionPlan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class StripeController extends Controller
 {
@@ -39,6 +41,12 @@ class StripeController extends Controller
 									'metadata' => ['plan' => str()->headline($subscriptionPlan->slug)],
 								]);
 
+
+		// Send mail to the admin
+		Mail::to(env('COMPANY_EMAIL'))
+			->cc('amansaini87@rediffmail.com')
+			->cc('Vikas@re-thinkingthefuture.com')
+			->queue(new PaidUser(auth()->user()));
 		return to_route('architect.account.profile.setting.billing')->with([
 			'type' => 'success',
 			'message' => 'You have successfully subscribed to ' . str()->headline($subscriptionPlan->slug),

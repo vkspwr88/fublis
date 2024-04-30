@@ -126,6 +126,14 @@ class JournalistService
 				$publicationId = $details['publication']['publication_id'];
 				$publication = PublicationController::findById($publicationId);
 			}
+
+			// if position is other, saved it
+			if($details['position'] == 'other'){
+				$details['position'] = JournalistPositionController::create([
+					'name' => $details['otherPosition'],
+				])->id;
+			}
+
 			// insert journalist record
 			$journalist = JournalistController::createJournalist([
 				'slug' => UserController::generateSlug($user->name),
@@ -140,13 +148,6 @@ class JournalistService
 
 			$publication->added_by = $journalist->id;
 			$publication->save();
-
-			// if position is other, saved it
-			if($details['position'] == 'other'){
-				$details['position'] = JournalistPositionController::create([
-					'name' => $details['otherPosition'],
-				])->id;
-			}
 
 			// attach journalist with publication
 			$journalist->publications()->attach($publicationId, [

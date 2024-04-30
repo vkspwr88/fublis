@@ -1,16 +1,18 @@
 @extends('emails.layouts.master')
 
 @section('body')
-<h4>New User Sign-Up</h4>
+<h4>New Call for Submission</h4>
 <p>Hi Admin,</p>
-<p>We are thrilled to inform you that a new user has signed up for Fublis! Here are the details:</p>
+<p>We're pleased to inform you that a journalist has created a new call for submission on Fublis! Here are the details:</p>
 <hr style="width: 96px; margin: 15px 0; color: #EAECF0; height: 1px;">
 <p style="margin-bottom: 15px;">User Details:</p>
-<p><strong>User Name:</strong> [user name]</p>
-<p><strong>Email Address:</strong> [user email]</p>
-<p><strong>Company Name:</strong> [company name]</p>
-<p><strong>Position in Company:</strong> [position]</p>
-<p><strong>Date & Time of Signup:</strong> [date & time]</p>
+<p><strong>Member Name:</strong> {{ $call->journalist->user->name }}</p>
+<p><strong>Call Title:</strong> {{ $call->title }}</p>
+<p><strong>Publication:</strong> {{ $call->publication->name }}</p>
+<p><strong>Language:</strong> {{ $call->language->name }}</p>
+<p><strong>Invited Stories:</strong> {{ $call->publishFrom->name }}</p>
+<p><strong>Submission Deadline:</strong> {{ formatDate($call->submission_end_date) }}</p>
+<p><strong>Date & Time of Signup:</strong> {{ formatDateTime($call->created_at) }}</p>
 <hr style="width: 96px; margin: 15px 0; color: #EAECF0; height: 1px;">
-<p><x-mail::button :url="[url]">User Profile</x-mail::button></p>
+<p><x-mail::button :url="{{ env('APP_URL') . '/backend/calls' }}">View Call</x-mail::button></p>
 @endsection

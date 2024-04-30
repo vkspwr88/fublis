@@ -6,11 +6,13 @@ use App\Http\Controllers\ErrorLogController;
 use App\Http\Controllers\Users\Journalists\CallController;
 use App\Http\Controllers\Users\LocationController;
 use App\Http\Controllers\Users\TagController;
+use App\Mail\Admin\CreateCall;
 use App\Models\Call;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 
 class CallService
 {
@@ -45,6 +47,10 @@ class CallService
 				$location->name,
 				$call->language->name,
 			]);
+			// Send mail to the admin
+			Mail::to(env('COMPANY_EMAIL'))
+				->cc('amansaini87@rediffmail.com')
+				->queue(new CreateCall($call));
 			DB::commit();
 		}
 		catch(Exception $exp){

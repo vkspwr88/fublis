@@ -8,11 +8,13 @@ use App\Http\Controllers\Users\FileController;
 use App\Http\Controllers\Users\ImageController;
 use App\Http\Controllers\Users\LocationController;
 use App\Http\Controllers\Users\TagController;
+use App\Mail\Admin\CreateMediaKit;
 use App\Models\Article;
 use App\Models\PressRelease;
 use App\Models\Project;
 use Exception;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 
 class AddStoryService
 {
@@ -32,7 +34,7 @@ class AddStoryService
 				'photographs_link' => $details['photographsLink'],
 			]);
 			// create media kit
-			MediaKitController::createMediaKit($pressRelease, [
+			$mediaKit = MediaKitController::createMediaKit($pressRelease, [
 				'architect_id' => auth()->user()->architect->id,
 				'category_id' => $details['category'],
 				'audio_video_url' => $details['audioVideoUrl'],
@@ -50,7 +52,10 @@ class AddStoryService
 			}
 			// create tags
 			TagController::attachTags($pressRelease, $details['tags']);
-
+			// Send mail to the admin
+			Mail::to(env('COMPANY_EMAIL'))
+					->cc('amansaini87@rediffmail.com')
+					->queue(new CreateMediaKit($mediaKit));
 			DB::commit();
 		}
 		catch(Exception $exp){
@@ -167,7 +172,7 @@ class AddStoryService
 				'drawings_link' => $details['drawingsLink'],
 			]);
 			// create media kit
-			MediaKitController::createMediaKit($project, [
+			$mediaKit = MediaKitController::createMediaKit($project, [
 				'architect_id' => auth()->user()->architect->id,
 				'category_id' => $details['category'],
 				'audio_video_url' => $details['audioVideoUrl'],
@@ -194,6 +199,10 @@ class AddStoryService
 			}
 			// create tags
 			TagController::attachTags($project, $details['tags']);
+			// Send mail to the admin
+			Mail::to(env('COMPANY_EMAIL'))
+				->cc('amansaini87@rediffmail.com')
+				->queue(new CreateMediaKit($mediaKit));
 
 			DB::commit();
 		}
@@ -321,8 +330,7 @@ class AddStoryService
 				'images_link' => $details['imagesLink'],
 			]);
 			// create media kit
-			// create media kit
-			MediaKitController::createMediaKit($article, [
+			$mediaKit = MediaKitController::createMediaKit($article, [
 				'architect_id' => auth()->user()->architect->id,
 				'category_id' => $details['category'],
 				'audio_video_url' => $details['audioVideoUrl'],
@@ -340,6 +348,10 @@ class AddStoryService
 			}
 			// create tags
 			TagController::attachTags($article, $details['tags']);
+			// Send mail to the admin
+			Mail::to(env('COMPANY_EMAIL'))
+				->cc('amansaini87@rediffmail.com')
+				->queue(new CreateMediaKit($mediaKit));
 
 			DB::commit();
 		}
