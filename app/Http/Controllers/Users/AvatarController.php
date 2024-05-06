@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Avatar;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class AvatarController extends Controller
@@ -47,5 +48,45 @@ class AvatarController extends Controller
 		if($type == 'architect'){
 			return Arr::shuffle(self::$architectColorArr)[0];
 		}
+	}
+
+	public static function getProfileAvatar($model, $type)
+	{
+		if($type == 'studio'){
+			return $model->profileImage ?
+						Storage::url($model->profileImage->image_path) :
+						AvatarController::setProfileAvatar([
+							'name' => $model->name,
+							'width' => 150,
+							'fontSize' => 60,
+							'background' => $model->background_color,
+							'foreground' => $model->foreground_color,
+						]);
+		}
+		if($type == 'publication'){
+			return $model->profileImage ?
+						Storage::url($model->profileImage->image_path) :
+						AvatarController::setProfileAvatar([
+							'name' => $model->name,
+							'width' => 150,
+							'fontSize' => 60,
+							'background' => $model->background_color,
+							'foreground' => $model->foreground_color,
+						], 'publication');
+		}
+		if($type == 'journalist' || $type == 'architect'){
+			return $model->profileImage ?
+						Storage::url($model->profileImage->image_path) :
+						AvatarController::setProfileAvatar([
+							'name' => $model->user->name,
+							'width' => 150,
+							'fontSize' => 60,
+							'background' => $model->background_color,
+							'foreground' => $model->foreground_color,
+						]);
+		}
+		/* if($type == 'architect'){
+			return Arr::shuffle(self::$architectColorArr)[0];
+		} */
 	}
 }

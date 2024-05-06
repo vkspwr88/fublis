@@ -2,18 +2,10 @@
     <div class="bg-white border-0 shadow card rounded-3">
         <div class="card-body">
             <div class="row gx-2 gy-4">
-                <div class="col-sm-3">
+                <div class="col-sm-auto">
                     <div class="mx-auto text-center d-block">
 						@php
-							$profileImg = $journalist->profileImage ?
-												Storage::url($journalist->profileImage->image_path) :
-												App\Http\Controllers\Users\AvatarController::setProfileAvatar([
-													'name' => $journalist->user->name,
-													'width' => 150,
-													'fontSize' => 60,
-													'background' => $journalist->background_color,
-													'foreground' => $journalist->foreground_color,
-												]);
+							$profileImg = App\Http\Controllers\Users\AvatarController::getProfileAvatar($journalist, 'journalist');
 							$cardImg = '<img src="' . $profileImg . '" class="img-square img-150" alt="...">';
 						@endphp
 						@if(isArchitect())
@@ -31,7 +23,7 @@
 						@endif
                     </div>
                 </div>
-                <div class="col-sm-9">
+                <div class="col-sm d-flex flex-column justify-content-between">
                     <div class="pb-4 row align-items-center">
                         <p class="m-0 fs-6 col">
 							@if ($journalist->location)
@@ -78,15 +70,7 @@
                             <div class="row align-items-center g-2">
                                 <div class="col-auto">
 									@php
-										$profileImg = $journalist->publications[0]->profileImage ?
-														Storage::url($journalist->publications[0]->profileImage->image_path) :
-														App\Http\Controllers\Users\AvatarController::setProfileAvatar([
-															'name' => $journalist->publications[0]->name,
-															'width' => 30,
-															'fontSize' => 12,
-															'background' => $journalist->publications[0]->background_color,
-															'foreground' => $journalist->publications[0]->foreground_color,
-														], 'publication');
+										$profileImg = App\Http\Controllers\Users\AvatarController::getProfileAvatar($journalist->publications[0], 'publication');
 									@endphp
                                     <img src="{{ $profileImg }}" style="max-width: 30px; max-height: 30px;" class="rounded-circle img-30 img-square" alt="..." />
                                 </div>
@@ -105,9 +89,13 @@
                         </div>
                         <div class="col-auto">
                             <div class="flex-wrap d-flex justify-content-end align-items-center fw-medium">
-                                @foreach ($journalist->publications[0]->categories as $category)
-									<x-utility.badges.purple-badge :text="$category->name" />
-                                @endforeach
+								<div class="row g-2">
+									@foreach ($journalist->publications[0]->categories as $category)
+										<div class="col-auto">
+											<x-utility.badges.purple-badge :text="$category->name" />
+										</div>
+									@endforeach
+								</div>
                             </div>
                         </div>
                     </div>

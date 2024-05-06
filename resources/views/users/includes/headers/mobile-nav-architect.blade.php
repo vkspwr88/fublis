@@ -5,12 +5,9 @@
 
 <ul id="mobileNav" class="list-unstyled mt-4">
 	<li class="mb-3">
-		<form class="m-0 ms-auto" aria-label="search">
-			<div class="input-group">
-				<label class="bg-white input-group-text" for="headerSearchInput"><i class="bi bi-search"></i></label>
-				<input id="headerSearchInput" class="shadow-none form-control border-start-0 ps-0" type="search" placeholder="Search Journalists, Publications" aria-label="Search">
-			</div>
-		</form>
+		<div class="m-0 ms-auto" aria-label="search">
+			<livewire:architects.header.search mobile="true" />
+		</div>
 	</li>
 	@foreach ($menus->items as $item)
 		<li class="mb-3">

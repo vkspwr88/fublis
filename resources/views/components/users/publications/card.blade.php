@@ -6,15 +6,7 @@
 					<div class="col-sm-auto">
 						<div class="mx-auto text-center d-block">
 							@php
-								$profileImg = $publication->profileImage ?
-												Storage::url($publication->profileImage->image_path) :
-												App\Http\Controllers\Users\AvatarController::setProfileAvatar([
-													'name' => $publication->name,
-													'width' => 150,
-													'fontSize' => 60,
-													'background' => $publication->background_color,
-													'foreground' => $publication->foreground_color,
-												], 'publication');
+								$profileImg = App\Http\Controllers\Users\AvatarController::getProfileAvatar($publication, 'publication');
 								$cardImg = '<img src="' . $profileImg . '" class="img-square img-150" alt="...">';
 							@endphp
 							@if(isJournalist())
