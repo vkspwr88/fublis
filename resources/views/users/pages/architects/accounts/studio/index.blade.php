@@ -26,7 +26,7 @@
 	<div class="row g-4 justify-content-end align-items-end">
 		<div class="col">
 			<div class="d-flex justify-content-start">
-				<h2 class="text-dark fs-3 fw-semibold m-0">Your Studio</h2>
+				<h2 class="text-dark fs-3 fw-semibold m-0">Your Company</h2>
 			</div>
 		</div>
 		<div class="col-auto">

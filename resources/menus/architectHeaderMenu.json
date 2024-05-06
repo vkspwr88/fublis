@@ -196,7 +196,7 @@
 	"account" : [
 		{
 			"url" : "architect.account.studio.index",
-			"name": "Studio",
+			"name": "Company",
 			"desc": null,
 			"icon": null,
 			"slug": null,
