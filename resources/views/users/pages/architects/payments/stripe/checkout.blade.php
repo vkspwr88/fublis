@@ -31,14 +31,14 @@
 						$subscriptionAmount = number_format($subscriptionPlan->price_per_month * $subscriptionPlan->quantity, 2);
 						$subscriptionTime = $subscriptionPlan->quantity == 3 ? 'every 3 months' : 'per year';
 					@endphp
-					<div class="card-header bg-primary text-white">
+					<div class="text-white card-header bg-primary">
 						You will be charged ${{ $subscriptionAmount }} for {{ str()->headline($subscriptionPlan->slug) }}
 					</div>
 					<div class="card-body">
 						<form id="paymentForm" method="POST" action="{{ route('architect.stripe.callback', ['subscriptionPlan' => $subscriptionPlan->slug]) }}">
 							@csrf
 							<input type="hidden" name="plan" id="plan" value="{{ $subscriptionPlan->slug }}">
-							{{-- <div class="row mb-3">
+							{{-- <div class="mb-3 row">
 								<div class="col">
 									<div class="form-group">
 										<label for="">Name</label>
@@ -75,17 +75,17 @@
 										<div class="mb-3">
 											<div class="row g-3">
 												<div class="col-auto">
-													<span class="btn btn-white text-dark py-3">
+													<span class="py-3 btn btn-white text-dark">
 														<img src="{{ asset('images/icons/payments/' . $paymentMethod->card->display_brand . '.png') }}" alt="{{ $paymentMethod->card->display_brand }}" class="img-fluid" />
 													</span>
 												</div>
 												<div class="col text-secondary">
-													<p class="fs-6 fw-medium m-0 text-dark">
+													<p class="m-0 fs-6 fw-medium text-dark">
 														{{ ucfirst($paymentMethod->card->display_brand) }} ending in {{ $paymentMethod->card->last4 }}
 													</p>
-													<p class="fs-6 fw-normal mb-2">Expiry {{ sprintf('%02d', $paymentMethod->card->exp_month) }}/{{ $paymentMethod->card->exp_year }}</p>
+													<p class="mb-2 fs-6 fw-normal">Expiry {{ sprintf('%02d', $paymentMethod->card->exp_month) }}/{{ $paymentMethod->card->exp_year }}</p>
 													@if($paymentMethod->billing_details->email)
-														<p class="fs-6 fw-normal m-0"><i class="bi bi-envelope"></i> {{ $paymentMethod->billing_details->email }}</p>
+														<p class="m-0 fs-6 fw-normal"><i class="bi bi-envelope"></i> {{ $paymentMethod->billing_details->email }}</p>
 													@endif
 												</div>
 											</div>
@@ -101,6 +101,9 @@
 									</div>
 									<div class="mb-3">
 										<div id="payment-element"></div>
+									</div>
+									<div class="mb-3">
+  										<div id="address-element">
 									</div>
 								</div>
 							</div>
@@ -131,16 +134,15 @@
 		layout: {
     		type: 'tabs',
 		},
-		// defaultValues: {
-		// 	billingDetails: {
-		// 		name: '{{ auth()->user()->name }}',
-		// 		email: '{{ auth()->user()->email }}'
-		// 	}
-		// },
 		paymentMethodOrder: ['card'],
 		business: {
 			name: '{{ env('COMPANY_NAME') }}'
-		}
+		},
+		/* defaultValues: {
+			billingDetails: {
+				name: '{{ auth()->user()->name }}',
+			}
+		} */
 	};
 	const elements = stripe.elements({ clientSecret, appearance });
 	/* const elements = stripe.elements({
@@ -148,7 +150,14 @@
 		currency: 'usd',
 		amount: {{ $subscriptionAmountRaw }}
 	}); */
+	const addressElement = elements.create('address', {
+		mode: 'billing',
+		/* defaultValues: {
+			name: '{{ auth()->user()->name }}',
+		} */
+	});
 	const paymentElement = elements.create('payment', options);
+	addressElement.mount('#address-element');
 	paymentElement.mount('#payment-element');
 
 	const cardButton = document.getElementById('card-button');
@@ -160,6 +169,10 @@
 		e.preventDefault();
 		cardButton.disabled = true;
 		purchaseSubmit = true;
+		if($('#oldPaymentType').prop('checked')){
+	        form.submit();
+			return false;
+		}
 		const { setupIntent, error } = await stripe.confirmSetup({
 			elements,
 			// clientSecret,
