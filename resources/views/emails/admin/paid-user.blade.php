@@ -11,7 +11,7 @@
 <p><strong>Email Address:</strong> {{ $user->email }}</p>
 <p><strong>Company Name:</strong> {{ $user->architect->company->name }}</p>
 <p><strong>Position in Company:</strong> {{ $user->architect->position->name }}</p>
-<p><strong>Date & Time of Signup:</strong> {{ formatDateTime($user->created_at) }}</p>
+<p><strong>Date & Time of Upgrade:</strong> {{ formatDateTime($user->latestSubscription->created_at) }}</p>
 {{-- <hr style="width: 96px; margin: 15px 0; color: #EAECF0; height: 1px;"> --}}
 <p><x-mail::button :url="$mailUrl">User Profile</x-mail::button></p>
 @endsection
