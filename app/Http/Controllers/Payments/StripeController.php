@@ -60,7 +60,7 @@ class StripeController extends Controller
 			ErrorLogController::logErrorNew('stripe callback', $exp);
 			return back()->with([
 				'type' => 'danger',
-				'message' => 'Some error related to payment gateway. Please contact support with detailed information.',
+				'message' => $exp->getMessage(),
 			]);
 		}
 	}
