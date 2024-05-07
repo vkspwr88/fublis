@@ -9,6 +9,8 @@ use App\Models\SubscriptionPlan;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
+use Laravel\Cashier\Exceptions\IncompletePayment;
+use Stripe\PaymentIntent;
 
 class StripeController extends Controller
 {
@@ -16,9 +18,15 @@ class StripeController extends Controller
 	{
 		$user = $request->user();
 		$stripeCustomer = $user->createOrGetStripeCustomer();
-
+		// dd($user->createSetupIntent(/* [
+		// 	'amount' => $subscriptionPlan->price_per_month * $subscriptionPlan->quantity * 100,
+		// 	'currency' => 'usd',
+		// 	'payment_method_types' => ['card'],
+		// 	'automatic_payment_methods' => ['enabled' => true]
+		// ] */));
 		return view('users.pages.architects.payments.stripe.checkout', [
 			'intent' => $user->createSetupIntent(),
+			// 'intent' => $user->payWith($subscriptionPlan->price_per_month * $subscriptionPlan->quantity * 100, ['card']),
 			'paymentMethod' => $user->defaultPaymentMethod(),
 			'subscriptionPlan' => $subscriptionPlan,
 		]);
@@ -34,7 +42,8 @@ class StripeController extends Controller
 				$paymentMethod = $request->token;
 			}
 			elseif($request->payment_type == 'old'){
-				$paymentMethod = $user->defaultPaymentMethod();
+				$paymentMethod = $user->defaultPaymentMethod()->id;
+				// dd($paymentMethod);
 			}
 			$subscription = $request->user()
 									->newSubscription($subscriptionPlan->slug, $subscriptionPlan->price_id)
@@ -42,24 +51,60 @@ class StripeController extends Controller
 									->create($paymentMethod, [
 										'email' => auth()->user()->email,
 									], [
-										'metadata' => ['plan' => str()->headline($subscriptionPlan->slug)],
+										'off_session' => true,
+										'metadata' => [
+											'plan' => str()->headline($subscriptionPlan->slug)
+										],
 									]);
 
 
+			/* if($request->payment_type == 'new'){
+				$paymentIntent = PaymentIntent::retrieve($paymentMethod);
+				if ($paymentIntent->status === 'requires_action') {
+					return redirect()->route('cashier.payment', [
+						'payment_intent_client_secret' => $paymentIntent->client_secret,
+						'success_url' => redirect()->route('architect.account.profile.setting.billing')->with([
+							'type' => 'success',
+							'message' => 'You have successfully subscribed to ' . str()->headline($subscriptionPlan->slug),
+						])->getTargetUrl(),
+						'cancel_url' => redirect()->route('architect.stripe.checkout', ['subscriptionPlan' => $subscriptionPlan->slug])->with([
+							'type' => 'error',
+							'message' => 'You have cancelled the payment',
+						])->getTargetUrl(),
+					]);
+				}
+
+			} */
+
 			// Send mail to the admin
 			Mail::to(env('COMPANY_EMAIL'))
-				->cc('amansaini87@rediffmail.com')
-				->cc('Vikas@re-thinkingthefuture.com')
+				->cc(['amansaini87@rediffmail.com', 'Vikas@re-thinkingthefuture.com'])
 				->queue(new PaidUser(auth()->user()));
 			return to_route('architect.account.profile.setting.billing')->with([
 				'type' => 'success',
 				'message' => 'You have successfully subscribed to ' . str()->headline($subscriptionPlan->slug),
 			]);
 		}
+		catch (IncompletePayment $exception) {
+			ErrorLogController::logErrorNew('stripe callback IncompletePayment', $exception);
+			// dd($exception);
+			return redirect()->route('cashier.payment', [
+				'id' => $exception->payment->id,
+				// 'id' => $exception->payment->payment_method,
+				'success_url' => redirect()->route('architect.account.profile.setting.billing')->with([
+					'type' => 'success',
+					'message' => 'You have successfully subscribed to ' . str()->headline($subscriptionPlan->slug),
+				])->getTargetUrl(),
+				'cancel_url' => redirect()->route('architect.stripe.checkout', ['subscriptionPlan' => $subscriptionPlan->slug])->with([
+					'type' => 'error',
+					'message' => 'You have cancelled the payment',
+				])->getTargetUrl(),
+			]);
+		}
 		catch(Exception $exp){
 			ErrorLogController::logErrorNew('stripe callback', $exp);
 			return back()->with([
-				'type' => 'danger',
+				'type' => 'error',
 				'message' => $exp->getMessage(),
 			]);
 		}

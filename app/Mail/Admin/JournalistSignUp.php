@@ -43,6 +43,8 @@ class JournalistSignUp extends Mailable implements ShouldQueue
             markdown: 'emails.admin.journalist-signup',
 			with: [
 				'journalist' => $this->journalist,
+				'senderEmail' => $this->journalist->user->email,
+				'mailUrl' => env('APP_URL') . '/backend/journalists/' . $this->journalist->slug,
 			],
         );
     }

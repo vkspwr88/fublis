@@ -13,12 +13,13 @@ class PaidUser extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
 
+	public $user;
     /**
      * Create a new message instance.
      */
-    public function __construct()
+    public function __construct($user)
     {
-        //
+        $this->user = $user;
     }
 
     /**
@@ -38,6 +39,11 @@ class PaidUser extends Mailable implements ShouldQueue
     {
         return new Content(
             markdown: 'emails.admin.paid-user',
+			with:[
+				'user' => $this->user,
+				'senderEmail' => $this->user->email,
+				'mailUrl' => env('APP_URL') . '/backend/architects/' . $this->user->architect->slug,
+			]
         );
     }
 

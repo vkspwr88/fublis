@@ -9,6 +9,7 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Str;
 
 class CreateMediaKit extends Mailable implements ShouldQueue
 {
@@ -43,6 +44,8 @@ class CreateMediaKit extends Mailable implements ShouldQueue
             markdown: 'emails.admin.create-media-kit',
 			with: [
 				'mediaKit' => $this->mediaKit,
+				'senderEmail' => $this->mediaKit->architect->user->email,
+				'mailUrl' => env('APP_URL') . '/backend/' .  Str::slug(Str::plural(showModelName($this->mediaKit->story_type))) . '/' . $this->mediaKit->story->id,
 			],
         );
     }

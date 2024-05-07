@@ -8,6 +8,8 @@ use App\Casts\EmailCast;
 use App\Casts\NameCast;
 use App\Casts\Users\UserTypeCast;
 use App\Enums\Users\UserTypeEnum;
+use Filament\Models\Contracts\FilamentUser;
+use Filament\Panel;
 use Illuminate\Contracts\Auth\Access\Authorizable;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -20,7 +22,7 @@ use Laravel\Cashier\Billable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 
-class User extends Authenticatable implements Authorizable
+class User extends Authenticatable implements Authorizable, FilamentUser
 {
 	use HasApiTokens, HasFactory, Notifiable, HasUuids, HasRoles, Billable;
 
@@ -58,6 +60,12 @@ class User extends Authenticatable implements Authorizable
 		'password' => 'hashed',
 		'user_type' => UserTypeEnum::class,
 	];
+
+	public function canAccessPanel(Panel $panel): bool
+    {
+		// dd(auth()->check(), auth()->user(), $this->id);
+        return auth()->check() && auth()->user()->hasRole('Super Admin') ? true : false;
+    }
 
 	public function setPasswordAttribute($value)
 	{

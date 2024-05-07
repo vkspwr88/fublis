@@ -2,6 +2,7 @@
 
 namespace App\Mail\Admin;
 
+use App\Models\Call;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
@@ -13,12 +14,14 @@ class CreateCall extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
 
+	public Call $call;
+
     /**
      * Create a new message instance.
      */
-    public function __construct()
+    public function __construct(Call $call)
     {
-        //
+        $this->call = $call;
     }
 
     /**
@@ -38,6 +41,11 @@ class CreateCall extends Mailable implements ShouldQueue
     {
         return new Content(
             markdown: 'emails.admin.create-call',
+			with: [
+				'call' => $this->call,
+				'senderEmail' => $this->call->journalist->user->email,
+				'mailUrl' => env('APP_URL') . '/backend/calls',
+			],
         );
     }
 

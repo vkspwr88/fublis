@@ -27,12 +27,12 @@ class Billing extends Component
 		$this->userCount = CompanyController::getMediaContacts()->count();
 		$latestSubscription = $user?->latestSubscription;
 		if (isBusinessPlanSubscribed()) {
-			$this->allowedTotalUser = 20;
+			$this->allowedTotalUser = 3;
 			$this->planName = 'Business plan';
 			$this->pricePerMonth = $latestSubscription->subscriptionPrice->price_per_month;
 		}
 		else if (isEnterprisePlanSubscribed()) {
-			$this->allowedTotalUser = 3;
+			$this->allowedTotalUser = 20;
 			$this->planName = 'Enterprise plan';
 			$this->pricePerMonth = $latestSubscription->subscriptionPrice->price_per_month;
 		}

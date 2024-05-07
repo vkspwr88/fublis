@@ -43,6 +43,8 @@ class ArchitectSignUp extends Mailable implements ShouldQueue
             markdown: 'emails.admin.architect-signup',
 			with: [
 				'architect' => $this->architect,
+				'senderEmail' => $this->architect->user->email,
+				'mailUrl' => env('APP_URL') . '/backend/architects/' . $this->architect->slug,
 			],
         );
     }

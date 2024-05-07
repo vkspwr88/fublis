@@ -127,7 +127,7 @@
 
 @push('scripts')
 <script src="https://js.stripe.com/v3/"></script>
-<script>
+{{-- <script>
 	const stripe = Stripe('{{ env('STRIPE_KEY') }}');
 	const clientSecret = '{{ $intent->client_secret }}';
 	const appearance = { /* appearance */ };
@@ -139,19 +139,113 @@
 		business: {
 			name: '{{ env('COMPANY_NAME') }}'
 		},
+		// defaultValues: {
+		// 	billingDetails: {
+		// 		name: '{{ auth()->user()->name }}',
+		// 	}
+		// }
 	};
 	const elements = stripe.elements({ clientSecret, appearance });
+	// const elements = stripe.elements({
+	// 	mode: 'subscription',
+	// 	currency: 'usd',
+	// 	amount: {{ $stripeAmount }}
+	// });
+	// const addressElement = elements.create('address', {
+	// 	mode: 'billing',
+	// 	defaultValues: {
+	// 		name: '{{ auth()->user()->name }}',
+	// 	}
+	// });
 	const addressElement = elements.create('address', {
 		mode: 'billing',
 		autocomplete: {
 			mode: 'disabled'
-		},
-		/* defaultValues: {
-			name: '{{ auth()->user()->name }}',
-		} */
+		}
 	});
 	const paymentElement = elements.create('payment', options);
+	addressElement.mount('#address-element');
+	paymentElement.mount('#payment-element');
 
+	const cardButton = document.getElementById('card-button');
+	const form = document.getElementById('paymentForm');
+	// const clientSecret = cardButton.dataset.secret;
+	let purchaseSubmit = false;
+
+	cardButton.addEventListener('click', async (e) => {
+		e.preventDefault();
+		cardButton.disabled = true;
+		purchaseSubmit = true;
+		if($('#oldPaymentType').prop('checked')){
+	        form.submit();
+			return false;
+		}
+		const { setupIntent, error } = await stripe.confirmSetup({
+			elements,
+			// clientSecret,
+			// confirmParams: {
+			// 	return_url: '{{ route('architect.stripe.callback', ['subscriptionPlan' => $subscriptionPlan->slug]) }}'
+			// },
+			redirect: 'if_required',
+		});
+
+		if (error) {
+			// Display "error.message" to the user...
+			console.log('Error:', error);
+			cardButton.disabled = false;
+			purchaseSubmit = false;
+
+			showAlert({
+				'type' : 'error',
+				'message' : error.message
+			});
+			// let message = '';
+			// for (const key in error) {
+			// 	if (Object.hasOwnProperty.call(error, key)) {
+			// 		const element = error[key];
+			// 		console.log(key, element);
+			// 	}
+			// }
+		} else {
+			// The card has been verified successfully...
+			console.log('Verified');
+			let token = document.createElement('input')
+	        token.setAttribute('type', 'hidden')
+	        token.setAttribute('name', 'token')
+	        token.setAttribute('value', setupIntent.payment_method)
+	        form.appendChild(token)
+	        form.submit();
+		}
+	});
+</script> --}}
+
+<script>
+	const stripe = Stripe('{{ env('STRIPE_KEY') }}');
+	const clientSecret = '{{ $intent->client_secret }}';
+	const options = {
+		layout: {
+    		type: 'tabs',
+		},
+		paymentMethodOrder: ['card'],
+		business: {
+			name: '{{ env('COMPANY_NAME') }}'
+		},
+	};
+	const elements = stripe.elements({
+		mode: 'subscription',
+		currency: 'usd',
+		amount: {{ $stripeAmount }},
+		paymentMethodTypes: ['card'],
+		setupFutureUsage: 'off_session',
+	});
+
+	const addressElement = elements.create('address', {
+		mode: 'billing',
+		autocomplete: {
+			mode: 'disabled'
+		}
+	});
+	const paymentElement = elements.create('payment', options);
 	addressElement.mount('#address-element');
 	paymentElement.mount('#payment-element');
 
@@ -167,8 +261,16 @@
 	        form.submit();
 			return false;
 		}
-		const { setupIntent, error } = await stripe.confirmSetup({
+		const {error: submitError} = await elements.submit();
+		console.log('submitError', submitError);
+
+		const { error } = await stripe.confirmPayment({
 			elements,
+			clientSecret,
+			setupFutureUsage: 'off_session',
+			confirmParams: {
+				return_url: '{{ route('architect.stripe.callback', ['subscriptionPlan' => $subscriptionPlan->slug]) }}'
+			},
 			redirect: 'if_required',
 		});
 
@@ -185,7 +287,6 @@
 		} else {
 			// The card has been verified successfully...
 			console.log('Verified');
-			console.log('setupIntent', setupIntent);
 			let token = document.createElement('input')
 	        token.setAttribute('type', 'hidden')
 	        token.setAttribute('name', 'token')
