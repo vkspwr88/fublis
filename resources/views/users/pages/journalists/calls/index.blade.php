@@ -64,9 +64,12 @@
 							<div class="col-12">
 								<div class="row justify-content-center align-items-end">
 									<div class="col-auto">
-										<div class="row">
+										<div class="row g-3">
 											<div class="col-auto">
-												<img class="rounded-circle img-square img-45" src="{{ $call->publication->profileImage ? Storage::url($call->publication->profileImage->image_path) : "https://via.placeholder.com/45x45" }}" alt=".." />
+												@php
+													$profileImg = App\Http\Controllers\Users\AvatarController::getProfileAvatar($call->publication, 'publication');
+												@endphp
+												<img class="rounded-circle img-square img-45" src="{{ $profileImg }}" alt=".." />
 											</div>
 											<div class="col">
 												<p class="fw-semibold m-0 p-0">
