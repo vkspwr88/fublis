@@ -18,11 +18,17 @@
 							<div class="card-header py-4 bg-transparent">
 								<div class="row g-4">
 									<div class="col-lg col-md-12">
-										@if($subscriptionPlan->plan_name == 'Business Plan')
+										@if( Str::contains($subscriptionPlan->plan_name, 'Business Plan') )
 											<span class="text-purple-700 bg-purple-100 badge rounded-pill position-absolute" style="top: 5px;">Popular</span>
 										@endif
 										<h2 class="m-0 mb-1 fs-4 fw-bold text-dark">{{ $subscriptionPlan->plan_name }}</h2>
-										<p class="m-0">Our most popular brand fits all.</p>
+										<p class="m-0 fs-7">
+											@if ( Str::contains($subscriptionPlan->plan_name, 'Business Plan') )
+												Our most popular brand fits all.
+											@elseif ( Str::contains($subscriptionPlan->plan_name, 'Enterprise Plan') )
+												Advanced support and reporting.
+											@endif
+										</p>
 										<p class="m-0">Billed {{ ucfirst($planType->value) }}.</p>
 									</div>
 									<div class="col-lg-auto col-md-12">

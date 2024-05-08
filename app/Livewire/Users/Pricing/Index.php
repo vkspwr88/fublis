@@ -49,6 +49,7 @@ class Index extends Component
     {
 		// dd($this->planType, $this->subscriptionPlans);
 		$this->subscriptionPlans = SubscriptionPlanController::getRecordsByPlanType($this->planType);
+		// dd($this->subscriptionPlans);
         return view('livewire.users.pricing.index');
     }
 

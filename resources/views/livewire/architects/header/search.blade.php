@@ -1,6 +1,6 @@
 <div class="click-text">
     <div class="input-group">
-		<label class="bg-white input-group-text" for="headerSearchInput"><i class="bi bi-search"></i></label>
+		<label for="headerSearchInput" class="bg-white input-group-text"><i class="bi bi-search"></i></label>
 		<input id="headerSearchInput" class="shadow-none form-control border-start-0 ps-0" type="search" placeholder="Search Journalists, Publications" aria-label="Search" wire:model="searchInput" wire:keydown.enter="search" wire:focus="showSearch">
 	</div>
 	@if($showSearchBox)
@@ -33,7 +33,7 @@
 										<div class="fw-bold text-truncate">{{ $journalist->user->name }}</div>
 										<div class="text-truncate">{{ $journalist->position->name }}</div>
 									</div>
-									<a href="{{ route('architect.pitch-story.journalists.view', ['journalist' => $journalist->slug]) }}" class="stretched-link"></a>
+									<a href="{{ route('architect.pitch-story.journalists.view', ['journalist' => $journalist->slug]) }}" class="stretched-link" aria-label="View Journalist"></a>
 								</div>
 							</li>
 							@empty
@@ -57,7 +57,7 @@
 										<div class="fw-bold text-truncate">{{ $publication->name }}</div>
 										<div class="text-truncate">{{ trimWebsiteUrl($publication->website) }}</div>
 									</div>
-									<a href="{{ route('architect.pitch-story.publications.view', ['publication' => $publication->slug]) }}" class="stretched-link"></a>
+									<a href="{{ route('architect.pitch-story.publications.view', ['publication' => $publication->slug]) }}" class="stretched-link" aria-label="View Publication"></a>
 								</div>
 							</li>
 							@empty

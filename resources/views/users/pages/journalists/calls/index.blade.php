@@ -44,7 +44,7 @@
 			<div class="col-12">
 				<div class="card rounded-3 shadow">
 					<div class="card-body">
-						<a href="{{ route('journalist.call.view', ['call' => $call->slug]) }}" class="stretched-link"></a>
+						<a href="{{ route('journalist.call.view', ['call' => $call->slug]) }}" class="stretched-link" aria-label="View Call"></a>
 						<div class="row g-2 align-items-center">
 							<div class="col-12">
 								<div class="row align-items-center">

@@ -40,7 +40,7 @@ Route::middleware(ArchitectLogin::class)->group(function() {
 		})->name('test'); */
 		Route::post('/trix-file-upload', [TrixFileUploadController::class, 'upload'])->name('trix-file-upload');
 		Route::post('/trix-file-remove', [TrixFileUploadController::class, 'remove'])->name('trix-file-remove');
-		Route::get('/pricing', [StripeController::class, 'index'])->name('stripe.index');
+		// Route::get('/pricing', [StripeController::class, 'index'])->name('stripe.index');
 		Route::get('/checkout/{subscriptionPlan:slug}', [StripeController::class, 'checkout'])->name('stripe.checkout');
 		Route::post('/checkout/{subscriptionPlan:slug}/callback', [StripeController::class, 'callback'])->name('stripe.callback');
 		Route::get('/invoice/{invoice}', [StripeController::class, 'downloadInvoice'])->name('stripe.invoice.download');

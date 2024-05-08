@@ -16,20 +16,34 @@ class StripeController extends Controller
 {
 	public function checkout(Request $request, SubscriptionPlan $subscriptionPlan)
 	{
-		$user = $request->user();
-		$stripeCustomer = $user->createOrGetStripeCustomer();
-		// dd($user->createSetupIntent(/* [
-		// 	'amount' => $subscriptionPlan->price_per_month * $subscriptionPlan->quantity * 100,
-		// 	'currency' => 'usd',
-		// 	'payment_method_types' => ['card'],
-		// 	'automatic_payment_methods' => ['enabled' => true]
-		// ] */));
-		return view('users.pages.architects.payments.stripe.checkout', [
-			'intent' => $user->createSetupIntent(),
-			// 'intent' => $user->payWith($subscriptionPlan->price_per_month * $subscriptionPlan->quantity * 100, ['card']),
-			'paymentMethod' => $user->defaultPaymentMethod(),
-			'subscriptionPlan' => $subscriptionPlan,
-		]);
+		// $user = $request->user();
+		// $stripeCustomer = $user->createOrGetStripeCustomer();
+		// // dd($user->createSetupIntent(/* [
+		// // 	'amount' => $subscriptionPlan->price_per_month * $subscriptionPlan->quantity * 100,
+		// // 	'currency' => 'usd',
+		// // 	'payment_method_types' => ['card'],
+		// // 	'automatic_payment_methods' => ['enabled' => true]
+		// // ] */));
+		// return view('users.pages.architects.payments.stripe.checkout', [
+		// 	'intent' => $user->createSetupIntent(),
+		// 	// 'intent' => $user->payWith($subscriptionPlan->price_per_month * $subscriptionPlan->quantity * 100, ['card']),
+		// 	'paymentMethod' => $user->defaultPaymentMethod(),
+		// 	'subscriptionPlan' => $subscriptionPlan,
+		// ]);
+		return $request->user()
+					->newSubscription($subscriptionPlan->slug, $subscriptionPlan->price_id)
+					// ->trialDays(5)
+					// ->allowPromotionCodes()
+					->checkout([
+						'success_url' => redirect()->route('architect.account.profile.setting.billing')->with([
+							'type' => 'success',
+							'message' => 'You have successfully subscribed to ' . str()->headline($subscriptionPlan->slug),
+						])->getTargetUrl(),
+						'cancel_url' => redirect()->route('pricing')->with([
+							'type' => 'error',
+							'message' => 'You have cancelled the payment',
+						])->getTargetUrl(),
+					]);
 	}
 
 	public function callback(Request $request, SubscriptionPlan $subscriptionPlan)
@@ -51,7 +65,7 @@ class StripeController extends Controller
 									->create($paymentMethod, [
 										'email' => auth()->user()->email,
 									], [
-										'off_session' => true,
+										// 'off_session' => true,
 										'metadata' => [
 											'plan' => str()->headline($subscriptionPlan->slug)
 										],
@@ -85,7 +99,7 @@ class StripeController extends Controller
 				'message' => 'You have successfully subscribed to ' . str()->headline($subscriptionPlan->slug),
 			]);
 		}
-		catch (IncompletePayment $exception) {
+		/* catch (IncompletePayment $exception) {
 			ErrorLogController::logErrorNew('stripe callback IncompletePayment', $exception);
 			// dd($exception);
 			return redirect()->route('cashier.payment', [
@@ -100,7 +114,7 @@ class StripeController extends Controller
 					'message' => 'You have cancelled the payment',
 				])->getTargetUrl(),
 			]);
-		}
+		} */
 		catch(Exception $exp){
 			ErrorLogController::logErrorNew('stripe callback', $exp);
 			return back()->with([
