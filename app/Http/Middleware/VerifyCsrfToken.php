@@ -14,5 +14,6 @@ class VerifyCsrfToken extends Middleware
     protected $except = [
         'user/trix-file-upload',
         'user/trix-file-remove',
+		'user/payment/callback'
     ];
 }

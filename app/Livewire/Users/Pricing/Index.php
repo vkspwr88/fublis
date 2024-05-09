@@ -3,6 +3,7 @@
 namespace App\Livewire\Users\Pricing;
 
 use App\Enums\Users\Architects\SubscriptionPlanTypeEnum;
+use App\Http\Controllers\Payments\RazorpayController;
 use App\Http\Controllers\Users\SubscriptionPlanController;
 use Livewire\Component;
 
@@ -56,6 +57,55 @@ class Index extends Component
 	public function subscribe($slug)
 	{
 		// dd($slug);
-		return to_route('architect.stripe.checkout', ['subscriptionPlan' => $slug]);
+		// return to_route('architect.stripe.checkout', ['subscriptionPlan' => $slug]);
+		$subscriptionId = 'sub_O7z0kBScypLL8i';
+		$planId = 'plan_O7z0FxJLQbZNeR';
+		$selectedPlan = $this->subscriptionPlans->where('slug', $slug)->first();
+		// dd($slug, $this->subscriptionPlans, $selectedPlan);
+		$amount = (int)(1 * 100);
+		$currency = 'USD';
+
+		$notes = array(
+			'subscription_id' => $subscriptionId,
+			'paln_id' => $planId,
+			'slug' => $slug,
+			'description' => $selectedPlan->plan_name,
+			'user' => auth()->id(),
+			'user_name' => strtoupper(auth()->user()->name),
+			'user_email' => auth()->user()->email,
+			/* 'user' => auth()->id(),
+			'prices'=> $this->prices,
+			'address' => $this->addresses[$this->defaultAddress],
+			'products' => $cartProducts, */
+		);
+		$details = array(
+			'user_id' => auth()->id(),
+			'amount' => $amount,
+			'currency' => $currency,
+			'notes' => json_encode($notes),
+		);
+		$razorpayController = new RazorpayController;
+		$razorpay = $razorpayController->create($details);
+
+		// create an razorpay order
+		$details = array(
+			'receipt' => $razorpay->id,
+			'amount' => $amount,
+			'currency' => $currency,
+			'notes'=> array(
+				'user' => auth()->id(),
+			),
+		);
+		$razorpayOrder = $razorpayController->createOrder($details);
+
+		// update the record in razorpay table
+		session()->put('order_id', $razorpayOrder->id);
+		$razorpay->order_id = $razorpayOrder->id;
+		$razorpay->save();
+
+		// redirect to payment gateway
+		return to_route('architect.razorpay.checkout', [
+			'razorpay' => $razorpay->id,
+		]);
 	}
 }

@@ -45,6 +45,11 @@ class RouteServiceProvider extends ServiceProvider
 				->name('journalist.')
                 ->prefix('member')
                 ->group(base_path('routes/journalist.php'));
+
+			Route::middleware('web')
+				->name('affiliate.')
+                ->prefix('affiliate')
+                ->group(base_path('routes/affiliate.php'));
         });
     }
 }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Payments\RazorpayController;
 use App\Http\Controllers\Payments\StripeController;
 use App\Http\Controllers\Users\Architects;
 use App\Http\Controllers\Users\MessageController;
@@ -41,9 +42,12 @@ Route::middleware(ArchitectLogin::class)->group(function() {
 		Route::post('/trix-file-upload', [TrixFileUploadController::class, 'upload'])->name('trix-file-upload');
 		Route::post('/trix-file-remove', [TrixFileUploadController::class, 'remove'])->name('trix-file-remove');
 		// Route::get('/pricing', [StripeController::class, 'index'])->name('stripe.index');
-		Route::get('/checkout/{subscriptionPlan:slug}', [StripeController::class, 'checkout'])->name('stripe.checkout');
+
+		Route::get('/payment/checkout/{razorpay}', [RazorpayController::class, 'checkout'])->name('razorpay.checkout');
+		Route::post('/payment/callback/{razorpay}', [RazorpayController::class, 'callback'])->name('razorpay.callback');
+		/* Route::get('/checkout/{subscriptionPlan:slug}', [StripeController::class, 'checkout'])->name('stripe.checkout');
 		Route::post('/checkout/{subscriptionPlan:slug}/callback', [StripeController::class, 'callback'])->name('stripe.callback');
-		Route::get('/invoice/{invoice}', [StripeController::class, 'downloadInvoice'])->name('stripe.invoice.download');
+		Route::get('/invoice/{invoice}', [StripeController::class, 'downloadInvoice'])->name('stripe.invoice.download'); */
 
 		Route::post('/download/{mediaKit:slug}', [Architects\DownloadController::class, 'index'])->name('download');
 		Route::post('/download/{mediaKit:slug}/bulk', [Architects\DownloadController::class, 'bulk'])->name('download.bulk');

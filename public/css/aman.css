@@ -7,6 +7,7 @@
 	--fublis-gray-500: #667085;
 	--fublis-gray-600: #475467;
 	--fublis-gray-700: #344054;
+	--fublis-gray-800: #252f3f;
 	--fublis-gray-900: #101828;
 	--fublis-indigo-50: #EEF4FF;
 	--fublis-indigo-700: #3538CD;
@@ -132,6 +133,9 @@ a.text-purple-600:hover{
 }
 .bg-gray-600{
 	background: var(--fublis-gray-600) !important;
+}
+.bg-gray-800{
+	background: var(--fublis-gray-800) !important;
 }
 .bg-pink-100{
 	background: var(--fublis-pink-100) !important;
