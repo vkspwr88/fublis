@@ -16,7 +16,7 @@ class Notification extends Component
 
 	public function mount()
 	{
-		$userIds = ['9c0269a2-6018-4d1d-b5d0-6b1860d79d93', auth()->id()];
+		$userIds = ['9c0269a2-6018-4d1d-b5d0-6b1860d79d93', auth()->id(), '9c0236ad-697f-4b3a-ae9c-882e99b81aae', '9bfdee0d-e6f7-4425-ae7e-7cb6a40856f1'];
 		$this->notifications = Models\Notification::whereIn('user_id', $userIds)
 													->with([
 														'notifiable' => function (MorphTo $morphTo) {
