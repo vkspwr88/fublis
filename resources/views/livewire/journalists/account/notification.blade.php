@@ -49,7 +49,7 @@
 					<div class="col-12" wire:key={{ $notification->id }}>
 						@include(getJournalistNotificationType($notification->notifiable))
 					</div>
-					{{ dd($notification->notifiable); }}
+					{{ dd($notification); }}
 				@endforeach
 			</div>
 		</div>
