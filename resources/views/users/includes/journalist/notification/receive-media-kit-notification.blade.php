@@ -1,6 +1,7 @@
 <div class="row g-3">
 	<div class="col-auto">
 		@php
+			use Illuminate\Support\Str;
 			$profileImg = $notification->notifiable->mediaKit->architect->profileImage ?
 											Storage::url($notification->notifiable->mediaKit->architect->profileImage->image_path) :
 											App\Http\Controllers\Users\AvatarController::setProfileAvatar([
@@ -41,8 +42,8 @@
 				<span class="text-dark fw-semibold">{{ $notification->notifiable->mediaKit->architect->user->name }}</span>
 				<span class="text-secondary">{{ formatDateTime($notification->created_at) }}</span>
 			</p>
-			<p class="p-0 m-0">{{ Illuminate\Support\Str::replaceMatches(pattern: '/(<([^>]+)>)/', replace: '', subject: $notification->message
-			) }}</p>
+			<p class="p-0 m-0">{{ Str::limit(Str::replaceMatches(pattern: '/(<([^>]+)>)/', replace: '', subject: $notification->message
+			), 20, '<a href="route(\'journalist.account.profile.message.index\')">View Message</a>') }}</p>
 			{{-- <p class="p-0 m-0">{!! $notification->message !!}</p> --}}
 		</div>
 		<div class="col text-end">
