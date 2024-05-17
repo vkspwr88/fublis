@@ -35,6 +35,17 @@
 		<div class="col text-end">
 			<a href="{{ route('journalist.media-kit.view', ['mediaKit' => $notification->notifiable->mediaKit->slug]) }}" class="btn btn-primary">View Media Kit</a>
 		</div>
+	@elseif ($notification->notifiable->pitchable instanceof App\Models\Publication)
+		<div class="col-auto">
+			<p class="p-0 m-0">
+				<span class="text-dark fw-semibold">{{ $notification->notifiable->mediaKit->architect->user->name }}</span>
+				<span class="text-secondary">{{ formatDateTime($notification->created_at) }}</span>
+			</p>
+			<p class="p-0 m-0">{!! $notification->message !!}</p>
+		</div>
+		<div class="col text-end">
+			<a href="{{ route('journalist.media-kit.view', ['mediaKit' => $notification->notifiable->mediaKit->slug]) }}" class="btn btn-primary">View Media Kit</a>
+		</div>
 	@else
 		{{-- <div class="col text-truncate">
 			<p class="p-0 m-0">
