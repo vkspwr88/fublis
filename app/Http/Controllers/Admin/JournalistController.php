@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\MediaController;
+use App\Http\Controllers\Users\AvatarController;
 use App\Http\Controllers\Users\ImageController;
 use App\Http\Controllers\Users\UserController;
 use App\Models\User;
@@ -27,6 +28,8 @@ class JournalistController extends Controller
 		$mediaId = $data['media_id'];
 		Arr::forget($data, ['media_id']);
 		// dd($data, $model);
+		$data['background_color'] = AvatarController::getBackground('journalist');
+		$data['foreground_color'] = '#ffffff';
 		$result = $model::create($data);
 		JournalistController::manageMedia($mediaId, $result);
 		return $result;

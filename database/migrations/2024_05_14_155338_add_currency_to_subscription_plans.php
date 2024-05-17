@@ -11,11 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('locations', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-			$table->string('name');
-            $table->timestamps();
-			$table->softDeletes();
+        Schema::table('subscription_plans', function (Blueprint $table) {
+            $table->string('currency')->after('slug');
+            $table->string('symbol')->after('slug');
         });
     }
 
@@ -24,6 +22,9 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('locations');
+        Schema::table('subscription_plans', function (Blueprint $table) {
+            $table->dropColumn('currency');
+            $table->dropColumn('symbol');
+        });
     }
 };

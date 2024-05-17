@@ -48,7 +48,7 @@ class Index extends Component
 				'mediaKitTypes' => $this->selectedMediaKitTypes,
 				'categories' => $this->selectedCategories,
 				'name' => $this->name,
-			])->paginate(5),
+			])->paginate(10),
 		]);
     }
 

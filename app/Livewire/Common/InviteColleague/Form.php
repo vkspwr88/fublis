@@ -11,7 +11,7 @@ class Form extends Component
 {
 	private InviteColleagueService $inviteColleagueService;
 
-	public $name;
+	public $name = '';
 	public $email;
 	public $sender;
 	public $inviteMessage;
@@ -34,6 +34,8 @@ class Form extends Component
 
     public function render()
     {
+		$this->inviteMessage = 'Hi ' . $this->name . ', I\'m stoked to invite you to Fublis! This is an exciting and superbly convenient way for us to collaborate on our PR and marketing efforts. Hope to see you soon on Fublis.';
+		$this->characterCount();
         return view('livewire.common.invite-colleague.form', [
 			'inviteMessageLength' => $this->inviteMessageLength,
 		]);

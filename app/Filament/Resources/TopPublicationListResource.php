@@ -50,6 +50,17 @@ class TopPublicationListResource extends Resource
                 /* Tables\Columns\TextColumn::make('topPublication.list_type')
 					->label('List type')
                     ->searchable(), */
+				Tables\Columns\TextColumn::make('url')
+					->state(fn (TopPublicationList $record): string => route('top-publications', [
+							'categorySlug' => $record->topPublication->category_slug,
+							'countrySlug' => $record->topPublication->location_slug,
+						])
+					)
+					->icon('heroicon-m-globe-alt')
+					->iconColor('primary')
+					->copyable()
+					->copyMessage('Url copied')
+					->copyMessageDuration(1500),
 				Tables\Columns\ImageColumn::make('publication.profileImage.image_path')
 					->label('Profile Image'),
 				Tables\Columns\TextColumn::make('publication.name')

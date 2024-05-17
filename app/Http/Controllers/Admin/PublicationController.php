@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\MediaController;
+use App\Http\Controllers\Users\AvatarController;
 use App\Http\Controllers\Users\ImageController;
 use App\Http\Controllers\Users\PublicationController as UsersPublicationController;
 use Illuminate\Database\Eloquent\Model;
@@ -23,6 +24,8 @@ class PublicationController extends Controller
 		$mediaId = $data['media_id'];
 		Arr::forget($data, ['media_id']);
 		$result = $model::create($data);
+		$data['background_color'] = AvatarController::getBackground('publication');
+		$data['foreground_color'] = '#ffffff';
 		PublicationController::manageMedia($mediaId, $result);
 		return $result;
 	}

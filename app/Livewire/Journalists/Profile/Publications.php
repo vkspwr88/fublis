@@ -49,7 +49,7 @@ class Publications extends Component
 				'location' => $this->selectedLocation,
 				'publicationTypes' => $this->selectedPubliationTypes,
 				'categories' => $this->selectedCategories,
-			])->paginate(5),
+			])->paginate(10),
 		]);
     }
 

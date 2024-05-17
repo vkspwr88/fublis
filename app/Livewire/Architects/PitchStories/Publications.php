@@ -51,9 +51,9 @@ class Publications extends Component
 		$this->name = '';
 		$this->selectedLocation = '';
 		// $this->locations = LocationController::getAll();
-		$this->locations = LocationController::getCountries();
-		$this->publicationTypes = PublicationTypeController::getAll();
-		$this->categories = CategoryController::getAll();
+		$this->locations = LocationController::getSelected('publication');
+		$this->publicationTypes = PublicationTypeController::getSelected('publication');
+		$this->categories = CategoryController::getSelected('publication');
 	}
 
     public function render()
@@ -64,7 +64,7 @@ class Publications extends Component
 				'location' => $this->selectedLocation,
 				'publicationTypes' => $this->selectedPubliationTypes,
 				'categories' => $this->selectedCategories,
-			])->paginate(5),
+			])->paginate(10),
 		]);
     }
 
@@ -96,6 +96,8 @@ class Publications extends Component
 	// Show journalists list
 	public function showContact(string $publicationId)
 	{
+		$this->selectedJournalist = '';
+		$this->selectedMediaKit = '';
 		$publication = PublicationController::findById($publicationId);
 		if(!$publication){
 			$this->dispatch('alert', [
@@ -170,9 +172,10 @@ class Publications extends Component
 		$journalist = $this->journalists->find($this->selectedJournalist);
 		$this->subject = 'New ' . showModelName($mediaKit->story_type) . ' | ' . $mediaKit->story->title;
 		$this->message = "";
-		if(isSubscribed()){
-			$this->message = "Hi " . $journalist->user->name . ",<br><br>I'm writing to you about our latest story <a href='" . route('journalist.media-kit.view', ['mediaKit' => $mediaKit->slug]) . "' class='text-purple-800'>" . $mediaKit->story->title . "</a> for your consideration.<br><br>" . getProjectBrief($mediaKit) . "<br><br>It would be great to have it published in " . $this->publication->name . ". I would be happy to share any more information that you might need.<br><br>Regards,<br>" . auth()->user()->name . "";
-		}
+		// if(isSubscribed()){
+			$this->message = "Hi " . $this->journalist->user->name . ",<br><br>I'm writing to you about our latest story <a href='" . route('journalist.media-kit.view', ['mediaKit' => $mediaKit->slug]) . "' class='text-purple-800'>" . $mediaKit->story->title . "</a> for your consideration.<br><br>" . getProjectBrief($mediaKit) . "<br><br>It would be great to have it published in " . $this->call->publication->name . ". I would be happy to share any more information that you might need.<br><br>Regards,<br><a href='" . route('journalist.brand.architect', ['architect' => auth()->user()->architect->id]) .  "' class='text-purple-800'>" . auth()->user()->name . "</a>";
+			// $this->message = "Hi " . $journalist->user->name . ",<br><br>I'm writing to you about our latest story <a href='" . route('journalist.media-kit.view', ['mediaKit' => $mediaKit->slug]) . "' class='text-purple-800'>" . $mediaKit->story->title . "</a> for your consideration.<br><br>" . getProjectBrief($mediaKit) . "<br><br>It would be great to have it published in " . $this->publication->name . ". I would be happy to share any more information that you might need.<br><br>Regards,<br>" . auth()->user()->name . "";
+		// }
 		$this->dispatch('hide-select-mediakit-modal');
 		$this->dispatch('show-send-message-modal');
 	}

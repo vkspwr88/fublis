@@ -51,6 +51,17 @@ class TopJournalistListResource extends Resource
                 /* Tables\Columns\TextColumn::make('topJournalist.list_type')
 					->label('List type')
                     ->searchable(), */
+				Tables\Columns\TextColumn::make('url')
+					->state(fn (TopJournalistList $record): string => route('top-journalists', [
+							'categorySlug' => $record->topJournalist->category_slug,
+							'countrySlug' => $record->topJournalist->location_slug,
+						])
+					)
+					->icon('heroicon-m-globe-alt')
+					->iconColor('primary')
+					->copyable()
+					->copyMessage('Url copied')
+					->copyMessageDuration(1500),
 				Tables\Columns\ImageColumn::make('journalist.profileImage.image_path')
 					->label('Profile Image'),
 				Tables\Columns\TextColumn::make('journalist.user.name')
@@ -72,7 +83,12 @@ class TopJournalistListResource extends Resource
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
+			// ->defaultGroup('url')
 			->defaultGroup('topJournalist.list_type')
+			// ->groups([
+			// 	Tables\Grouping\Group::make('topJournalist.list_type')
+            //     	->label('Top Journalist List'),
+			// ])
             ->filters([
                 Tables\Filters\TrashedFilter::make(),
             ])

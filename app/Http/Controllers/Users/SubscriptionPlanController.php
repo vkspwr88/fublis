@@ -18,6 +18,14 @@ class SubscriptionPlanController extends Controller
 		return SubscriptionPlan::where('plan_type', $planType)->get();
 	}
 
+	public static function getRecordsByPlanTypeAndCurrency($planType, $currency)
+	{
+		return SubscriptionPlan::where([
+			'plan_type' => $planType,
+			'currency' => $currency,
+		])->get();
+	}
+
     public function index()
     {
         return view('users.pages.pricing', [

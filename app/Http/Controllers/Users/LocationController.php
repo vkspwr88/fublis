@@ -7,6 +7,7 @@ use App\Models\City;
 use App\Models\Country;
 use App\Models\Location;
 use App\Models\State;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 
@@ -110,23 +111,25 @@ class LocationController extends Controller
 			$states = $cities->pluck('state');
 			$countries = $states->pluck('country');
 		}
-		else if($type == 'publication'){
+		elseif($type == 'publication'){
 			$locations = Location::has('publications')->get()->pluck('name');
 			$cities = City::whereIn('name', $locations)->get()->load('state.country');
 			$states = $cities->pluck('state');
 			$countries = $states->pluck('country');
 		}
-		else if($type == 'call'){
-			$locations = Location::has('calls')->get()->pluck('name');
+		elseif($type == 'call'){
+			$locations = Location::whereHas('calls', function (Builder $query) {
+				$query->where('submission_end_date', '>', Carbon::now());
+			})->get()->pluck('name');
 			$countries = Country::whereIn('name', $locations)->get();
 		}
-		else if($type == 'company'){
+		elseif($type == 'company'){
 			$locations = Location::has('companies')->get()->pluck('name');
 			$cities = City::whereIn('name', $locations)->get()->load('state.country');
 			$states = $cities->pluck('state');
 			$countries = $states->pluck('country');
 		}
-		else if($type == 'mediakit'){
+		elseif($type == 'mediakit'){
 			$locations = Location::has('projects')->get()->pluck('name');
 			$cities = City::whereIn('name', $locations)->get()->load('state.country');
 			$states = $cities->pluck('state');

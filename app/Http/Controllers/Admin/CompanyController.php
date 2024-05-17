@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\MediaController;
+use App\Http\Controllers\Users\AvatarController;
 use App\Http\Controllers\Users\CompanyController as UsersCompanyController;
 use App\Http\Controllers\Users\ImageController;
 use Illuminate\Database\Eloquent\Model;
@@ -21,6 +22,8 @@ class CompanyController extends Controller
 
 		$mediaId = $data['media_id'];
 		Arr::forget($data, ['media_id']);
+		$data['background_color'] = AvatarController::getBackground('studio');
+		$data['foreground_color'] = '#ffffff';
 		$result = $model::create($data);
 		CompanyController::manageMedia($mediaId, $result);
 		return $result;

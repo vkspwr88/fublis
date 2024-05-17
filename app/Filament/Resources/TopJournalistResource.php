@@ -88,6 +88,7 @@ class TopJournalistResource extends Resource
 										// ->multiple()
 										->options(JournalistController::getAll()->pluck('user.name', 'id'))
 										->searchable()
+										->disableOptionsWhenSelectedInSiblingRepeaterItems()
 										->preload()
 										->loadingMessage('Loading journalists...')
 										->noSearchResultsMessage('No journalists found.')

@@ -49,4 +49,9 @@ class Category extends Model
 	{
 		return $this->hasMany(MediaKit::class);
 	}
+
+	public function calls(): HasMany
+	{
+		return $this->hasMany(Call::class);
+	}
 }

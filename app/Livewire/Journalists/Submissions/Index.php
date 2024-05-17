@@ -37,7 +37,7 @@ class Index extends Component
 		]);
 		// dd($submission);
         return view('livewire.journalists.submissions.index', [
-			'mediaKits' => ( ($submission && $submission->count()) ? $submission->mediaKits : collect([]))->paginate(5),
+			'mediaKits' => ( ($submission && $submission->count()) ? $submission->mediaKits : collect([]))->paginate(10),
 		]);
     }
 

@@ -87,6 +87,7 @@ class TopPublicationResource extends Resource
 										// ->multiple()
 										->options(PublicationController::getAll()->pluck('name', 'id'))
 										->searchable()
+										->disableOptionsWhenSelectedInSiblingRepeaterItems()
 										->preload()
 										->loadingMessage('Loading publications...')
 										->noSearchResultsMessage('No publications found.')

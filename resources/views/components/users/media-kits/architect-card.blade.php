@@ -66,8 +66,8 @@
 							</a>
 						</p>
 						<p class="m-0 text-end fs-5 fw-bold col">
-							<button type="button" class="btn btn-primary fs-6 fw-medium">
-								Pitch
+							<button type="button" class="btn btn-primary fs-6 fw-medium" wire:click="pitchPublications('{{ $mediaKit->id }}')">
+								Pitch <x-users.spinners.white-btn wire:target="pitchPublications('{{ $mediaKit->id }}')" />
 							</button>
 						</p>
 					</div>

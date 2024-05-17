@@ -53,7 +53,7 @@ class Journalists extends Component
 				'publicationTypes' => $this->selectedPubliationTypes,
 				'positions' => $this->selectedPositions,
 				'categories' => $this->selectedCategories,
-			])->paginate(5),
+			])->paginate(10),
 		]);
     }
 

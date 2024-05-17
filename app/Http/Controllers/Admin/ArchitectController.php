@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\MediaController;
 use App\Http\Controllers\Users\ArchitectController as UsersArchitectController;
+use App\Http\Controllers\Users\AvatarController;
 use App\Http\Controllers\Users\ImageController;
 use App\Http\Controllers\Users\UserController;
 use App\Models\User;
@@ -20,15 +21,17 @@ class ArchitectController extends Controller
 		$data = LocationController::setLocationForCreate($data);
 		$user = User::find($data['user_id']);
 		$data['slug'] = UserController::generateSlug($user->name);
-		$data['twitter'] = $data['twitter'] ? 'https://' . trimWebsiteUrl($data['twitter']) : null;
+		/* $data['twitter'] = $data['twitter'] ? 'https://' . trimWebsiteUrl($data['twitter']) : null;
 		$data['facebook'] = $data['facebook'] ? 'https://' . trimWebsiteUrl($data['facebook']) : null;
 		$data['instagram'] = $data['instagram'] ? 'https://' . trimWebsiteUrl($data['instagram']) : null;
-		$data['linkedin'] = $data['linkedin'] ? 'https://' . trimWebsiteUrl($data['linkedin']) : null;
+		$data['linkedin'] = $data['linkedin'] ? 'https://' . trimWebsiteUrl($data['linkedin']) : null; */
 
 
 		$mediaId = $data['media_id'];
 		Arr::forget($data, ['media_id']);
 		// dd($data, $model);
+		$data['background_color'] = AvatarController::getBackground('architect');
+		$data['foreground_color'] = '#ffffff';
 		$result = $model::create($data);
 		ArchitectController::manageMedia($mediaId, $result);
 		return $result;

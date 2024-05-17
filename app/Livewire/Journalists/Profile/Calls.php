@@ -41,8 +41,8 @@ class Calls extends Component
 		$this->selectedDeadline = '';
 		// $this->locations = LocationController::getAll();
 		$this->locations = LocationController::getSelected('call');
-		$this->publicationTypes = PublicationTypeController::getSelected('publication');
-		$this->categories = CategoryController::getSelected('publication');
+		$this->publicationTypes = PublicationTypeController::getSelected('call');
+		$this->categories = CategoryController::getSelected('call');
 	}
 
     public function render()
@@ -54,7 +54,7 @@ class Calls extends Component
 				'deadline' => $this->selectedDeadline,
 				'publicationTypes' => $this->selectedPubliationTypes,
 				'categories' => $this->selectedCategories,
-			])->paginate(5),
+			])->paginate(10),
 		]);
     }
 

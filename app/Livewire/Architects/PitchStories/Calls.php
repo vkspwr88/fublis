@@ -58,9 +58,9 @@ class Calls extends Component
 		$this->selectedLocation = '';
 		// $this->selectedDeadline = '';
 		// $this->locations = LocationController::getAll();
-		$this->locations = LocationController::getCountries();
-		$this->publicationTypes = PublicationTypeController::getAll();
-		$this->categories = CategoryController::getAll();
+		$this->locations = LocationController::getSelected('call');
+		$this->publicationTypes = PublicationTypeController::getSelected('call');
+		$this->categories = CategoryController::getSelected('call');
 	}
 
     public function render()
@@ -72,7 +72,7 @@ class Calls extends Component
 				'deadline' => $this->selectedDeadline,
 				'publicationTypes' => $this->selectedPubliationTypes,
 				'categories' => $this->selectedCategories,
-			])->paginate(5),
+			])->paginate(10),
 		]);
     }
 
@@ -149,9 +149,9 @@ class Calls extends Component
 		$mediaKit = $this->mediaKits->find($this->selectedMediaKit);
 		$this->subject = 'New ' . showModelName($mediaKit->story_type) . ' | ' . $mediaKit->story->title;
 		$this->message = "";
-		if(isSubscribed()){
-			$this->message = "Hi " . $this->journalist->user->name . ",<br><br>I'm writing to you about our latest story <a href='" . route('journalist.media-kit.view', ['mediaKit' => $mediaKit->slug]) . "' class='text-purple-800'>" . $mediaKit->story->title . "</a> for your consideration.<br><br>" . getProjectBrief($mediaKit) . "<br><br>It would be great to have it published in " . $this->call->publication->name . ". I would be happy to share any more information that you might need.<br><br>Regards,<br>" . auth()->user()->name . "";
-		}
+		// if(isSubscribed()){
+			$this->message = "Hi " . $this->journalist->user->name . ",<br><br>I'm writing to you about our latest story <a href='" . route('journalist.media-kit.view', ['mediaKit' => $mediaKit->slug]) . "' class='text-purple-800'>" . $mediaKit->story->title . "</a> for your consideration.<br><br>" . getProjectBrief($mediaKit) . "<br><br>It would be great to have it published in " . $this->call->publication->name . ". I would be happy to share any more information that you might need.<br><br>Regards,<br><a href='" . route('journalist.brand.architect', ['architect' => auth()->user()->architect->id]) .  "' class='text-purple-800'>" . auth()->user()->name . "</a>";
+		// }
 		$this->dispatch('hide-select-mediakit-modal');
 		$this->dispatch('show-send-message-modal');
 	}

@@ -1,44 +1,64 @@
-<div class="container py-5">
-    <div class="row g-4">
+<div class="py-5 container-fluid">
+    <div class="row g-4 {{-- gy-5 --}}">
 		<div class="col-md-12">
 			<div class="mx-auto text-center">
-				<div class="btn-group" role="group">
-					<input type="radio" class="btn-check" wire:model.live="planType" id="quaterlyRadio" autocomplete="off" value="quaterly">
-					<label class="btn btn-outline-primary" for="quaterlyRadio">Quaterly billing</label>
+				<div class="btn-group">
 					<input type="radio" class="btn-check" wire:model.live="planType" id="annualRadio" autocomplete="off" value="annual">
-					<label class="btn btn-outline-primary" for="annualRadio">Annual billing <span class="border small rounded-pill px-1">Save 33%</span></label>
+					<label class="btn btn-outline-primary" for="annualRadio">Annual billing <span class="px-1 border small rounded-pill">Save 33%</span></label>
+					<input type="radio" class="btn-check" wire:model.live="planType" id="quarterlyRadio" autocomplete="off" value="quarterly">
+					<label class="btn btn-outline-primary" for="quarterlyRadio">Quarterly billing</label>
 				</div>
 			</div>
 		</div>
-		<div class="col-xl-10 offset-xl-1 col-lg-12">
+		<div class="col-xxl-8 offset-xxl-2 col-xl-10 offset-xl-1 col-lg-12 offset-lg-0">
+			<div class="mb-1 row">
+				<div class="col-md-12">
+					<div class="ms-auto text-end">
+						<div class="btn-group">
+							<input type="radio" class="btn-check" wire:model.live="currency" id="currencyUsdRadio" autocomplete="off" value="USD">
+							<label class="btn btn-outline-primary" for="currencyUsdRadio">USD</label>
+							<input type="radio" class="btn-check" wire:model.live="currency" id="currencyInrRadio" autocomplete="off" value="INR">
+							<label class="btn btn-outline-primary" for="currencyInrRadio">INR</label>
+						</div>
+					</div>
+				</div>
+			</div>
 			<div class="row justify-content-center g-4">
 				@foreach ($subscriptionPlans as $subscriptionPlan)
 					<div class="col-md-6">
-						<div class="border-0 shadow card rounded-3 text-secondary h-100">
-							<div class="card-header py-4 bg-transparent">
+						<div class="p-3 border-0 shadow card rounded-3 text-secondary h-100">
+							<div class="py-4 bg-transparent card-header">
 								<div class="row g-4">
 									<div class="col-lg col-md-12">
-										@if( Str::contains($subscriptionPlan->plan_name, 'Business Plan') )
-											<span class="text-purple-700 bg-purple-100 badge rounded-pill position-absolute" style="top: 5px;">Popular</span>
+										@if( Str::contains($subscriptionPlan->plan_name, 'Business Plan Annual') )
+											<span class="text-purple-700 bg-purple-100 badge rounded-pill position-absolute" style="top: 1rem;">Popular</span>
 										@endif
 										<h2 class="m-0 mb-1 fs-4 fw-bold text-dark">{{ $subscriptionPlan->plan_name }}</h2>
 										<p class="m-0 fs-7">
 											@if ( Str::contains($subscriptionPlan->plan_name, 'Business Plan') )
-												Our most popular brand fits all.
+												@if( Str::contains($subscriptionPlan->plan_name, 'Business Plan Annual') )
+													Our most popular plan fits all.
+												@else
+													Starting plan that fits all.
+												@endif
 											@elseif ( Str::contains($subscriptionPlan->plan_name, 'Enterprise Plan') )
-												Advanced support and reporting.
+												@if( Str::contains($subscriptionPlan->plan_name, 'Enterprise Plan Annual') )
+													Advanced support and reporting.
+												@else
+													Starting plan that fits all.
+												@endif
 											@endif
 										</p>
 										<p class="m-0">Billed {{ ucfirst($planType->value) }}.</p>
 									</div>
 									<div class="col-lg-auto col-md-12">
 										<h3 class="m-0 fs-1 fw-bold text-dark text-start text-lg-end"><span class="align-top fs-3">
-											$</span>{{ $subscriptionPlan->price_per_month }}<span class="fs-7 fw-medium text-secondary">per month</span>
+											{{ $subscriptionPlan->symbol }}</span>{{ number_format($subscriptionPlan->price_per_month, 0) }}<span class="fs-7 fw-medium text-secondary">per month</span>
 										</h3>
 									</div>
 								</div>
 							</div>
-							<div class="card-body py-4">
+							<div class="py-4 card-body">
 								<div class="row g-4">
 									@if (Str::contains($subscriptionPlan->plan_name, 'Business Plan'))
 										<div class="col-md-12">
@@ -67,7 +87,7 @@
 									@endif
 								</div>
 							</div>
-							<div class="card-footer py-4 bg-transparent">
+							<div class="py-4 bg-transparent card-footer">
 								<div class="d-grid">
 									@if($isSubscribed)
 										@if(auth()->user()->subscribed($subscriptionPlan->slug))

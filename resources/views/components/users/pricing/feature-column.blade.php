@@ -3,6 +3,6 @@
 		<div class="col-auto">
 			<x-users.icons.green-checkbox />
 		</div>
-		<div class="col">{{ $feature }}</div>
+		<div class="col fs-6">{{ $feature }}</div>
 	</div>
 </div>

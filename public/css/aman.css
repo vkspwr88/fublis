@@ -1,4 +1,6 @@
 :root{
+	--fublis-green-100: #D1FADF;
+	--fublis-green-500: #12B76A;
 	--fublis-gray-50: #F9FAFB;
 	--fublis-gray-100: #F2F4F7;
 	--fublis-gray-200: #EAECF0;
@@ -53,6 +55,9 @@ a{
 	cursor: pointer;
 }
 
+.text-green-500{
+	color: var(--fublis-green-500) !important;
+}
 .text-gray-100{
 	color: var(--fublis-gray-100) !important;
 }
@@ -113,6 +118,9 @@ a.text-purple-600:hover{
 	background: var(--fublis-footer-black) !important;
 }
 
+.bg-green-100{
+	background: var(--fublis-green-100) !important;
+}
 .bg-gray-50{
 	background: var(--fublis-gray-50) !important;
 }

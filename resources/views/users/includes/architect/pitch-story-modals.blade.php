@@ -1,4 +1,4 @@
-<div wire:ignore.self class="modal fade" id="selectPublicationModal" tabindex="-1" aria-labelledby="selectPublicationModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+<div wire:ignore.self class="modal fade" id="selectPublicationModal" tabindex="-1" aria-labelledby="selectPublicationModalLabel" aria-hidden="true"  data-bs-backdrop="static" data-bs-keyboard="false" data-keyboard="false">
 	<div class="modal-dialog modal-dialog-centered">
 		<div class="modal-content">
 			<div class="border-0 modal-header justify-content-center">
@@ -76,7 +76,7 @@
 	</div>
 </div>
 
-<div wire:ignore.self class="modal fade" id="selectContactModal" tabindex="-1" aria-labelledby="selectContactModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+<div wire:ignore.self class="modal fade" id="selectContactModal" tabindex="-1" aria-labelledby="selectContactModalLabel" aria-hidden="true"  data-bs-backdrop="static" data-bs-keyboard="false" data-keyboard="false">
 	<div class="modal-dialog modal-dialog-centered">
 		<div class="modal-content">
 			<div class="border-0 modal-header justify-content-center">
@@ -150,7 +150,7 @@
 	</div>
 </div>
 
-<div wire:ignore.self class="modal fade" id="selectMediaKitModal" tabindex="-1" aria-labelledby="selectMediaKitModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+<div wire:ignore.self class="modal fade" id="selectMediaKitModal" tabindex="-1" aria-labelledby="selectMediaKitModalLabel" aria-hidden="true"  data-bs-backdrop="static" data-bs-keyboard="false" data-keyboard="false">
 	<div class="modal-dialog modal-dialog-centered">
 		<div class="modal-content">
 			<div class="border-0 modal-header justify-content-center">
@@ -215,7 +215,7 @@
 	</div>
 </div>
 
-<div wire:ignore.self class="modal fade" id="sendMessageModal" tabindex="-1" aria-labelledby="sendMessageModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+<div wire:ignore.self class="modal fade" id="sendMessageModal" tabindex="-1" aria-labelledby="sendMessageModalLabel" aria-hidden="true"  data-bs-backdrop="static" data-bs-keyboard="false" data-keyboard="false">
 	<div class="modal-dialog modal-dialog-centered">
 		<div class="modal-content">
 			<div class="border-0 modal-header justify-content-center">
@@ -251,7 +251,7 @@
 	</div>
 </div>
 
-<div wire:ignore.self class="modal fade" id="pitchPublicationSuccessModal" tabindex="-1" aria-labelledby="pitchSuccessLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+<div wire:ignore.self class="modal fade" id="pitchPublicationSuccessModal" tabindex="-1" aria-labelledby="pitchSuccessLabel" aria-hidden="true"  data-bs-backdrop="static" data-bs-keyboard="false" data-keyboard="false">
 	<div class="modal-dialog modal-dialog-centered">
 		<div class="modal-content">
 			<div class="border-0 modal-header justify-content-center">
@@ -271,7 +271,7 @@
 	</div>
 </div>
 
-<div wire:ignore.self class="modal fade" id="pitchJournalistSuccessModal" tabindex="-1" aria-labelledby="pitchSuccessLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+<div wire:ignore.self class="modal fade" id="pitchJournalistSuccessModal" tabindex="-1" aria-labelledby="pitchSuccessLabel" aria-hidden="true"  data-bs-backdrop="static" data-bs-keyboard="false" data-keyboard="false">
 	<div class="modal-dialog modal-dialog-centered">
 		<div class="modal-content">
 			<div class="border-0 modal-header justify-content-center">
@@ -291,7 +291,7 @@
 	</div>
 </div>
 
-<div wire:ignore.self class="modal fade" id="pitchCallSuccessModal" tabindex="-1" aria-labelledby="pitchSuccessLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+<div wire:ignore.self class="modal fade" id="pitchCallSuccessModal" tabindex="-1" aria-labelledby="pitchSuccessLabel" aria-hidden="true"  data-bs-backdrop="static" data-bs-keyboard="false" data-keyboard="false">
 	<div class="modal-dialog modal-dialog-centered">
 		<div class="modal-content">
 			<div class="border-0 modal-header justify-content-center">
@@ -311,7 +311,7 @@
 	</div>
 </div>
 
-<div wire:ignore.self class="modal fade" id="pitchCallPremiumAlertModal" tabindex="-1" aria-labelledby="pitchCallPremiumAlertLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+<div wire:ignore.self class="modal fade" id="pitchCallPremiumAlertModal" tabindex="-1" aria-labelledby="pitchCallPremiumAlertLabel" aria-hidden="true"  data-bs-backdrop="static" data-bs-keyboard="false" data-keyboard="false">
 	<div class="modal-dialog modal-dialog-centered">
 		<div class="modal-content">
 			<div class="modal-body">

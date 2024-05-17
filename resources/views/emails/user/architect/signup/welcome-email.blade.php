@@ -7,9 +7,11 @@
 <hr style="width: 96px; margin: 15px 0; color: #EAECF0; height: 1px;">
 <p><a href="{{ route('architect.add-story.index') }}" class="link" style="text-decoration: underline;">Create Media Kit →</a><br>Create media kits and start pitching your stories</p>
 <hr style="width: 96px; margin: 15px 0; color: #EAECF0; height: 1px;">
-<p><a href="{{ route('architect.add-story.index') }}" class="link" style="text-decoration: underline;">Follow us on Twitter →</a><br>Stay up-to-date with the latest announcements and jobs.</p>
+<p><a href="{{ App\Models\SocialMedia::where('name', 'instagram')->first()->url }}" class="link" style="text-decoration: underline;">Follow us on Instagram →</a><br>Stay up-to-date with the latest announcements and jobs.</p>
 <hr style="width: 96px; margin: 15px 0; color: #EAECF0; height: 1px;">
-<p><a href="{{ route('architect.add-story.index') }}" class="link" style="text-decoration: underline;">Why we're building Fublis →</a><br>Fublis is a new standard of PR Communications and Project Pitches.</p>
+<p><a href="https://www.fublis.com" class="link" style="text-decoration: underline;">Why we're building Fublis →</a><br>Fublis is a new standard of PR Communications and Project Pitches.</p>
 <hr style="width: 96px; margin: 15px 0; color: #EAECF0; height: 1px;">
-<p>Thanks for signing up. If you have any questions, send us a message at <a href="mailto:{{ env('COMPANY_EMAIL') }}" class="link">{{ env('COMPANY_EMAIL') }}</a> or on <a href="#" class="link">Twitter</a>. We'd love to hear from you.</p>
+<p>Thanks for signing up. If you have any questions, send us a message at <a href="mailto:{{ env('COMPANY_EMAIL') }}" class="link">{{ env('COMPANY_EMAIL') }}</a> or on <a href="{{ App\Models\SocialMedia::where('name', 'instagram')->first()->url }}" class="link">Instagram</a>. We'd love to hear from you.</p>
+<p>-The team</p>
+<p><a href="{{ route('architect.pitch-story.publications.index') }}" class="button button-primary" target="_blank">Pitch Stories</a></p>
 @endsection

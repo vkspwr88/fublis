@@ -14,7 +14,7 @@ use Livewire\WithPagination;
 class Draft extends Component
 {
 	use WithPagination;
-	
+
 	public $categories;
 	public $mediaKitTypes = [];
 	public $selectedMediaKitTypes = [];
@@ -34,7 +34,7 @@ class Draft extends Component
 				'mediaKitTypes' => $this->selectedMediaKitTypes,
 				'categories' => $this->selectedCategories,
 				'name' => $this->name,
-			])->paginate(5),
+			])->paginate(10),
 		]);
     }
 
@@ -49,6 +49,11 @@ class Draft extends Component
 		elseif($type == 'category'){
 			$this->selectedCategories = $this->categories->pluck('id');
 		}
+	}
+
+	public function search()
+	{
+		$this->render();
 	}
 
 	public function clear()

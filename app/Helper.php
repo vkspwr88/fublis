@@ -154,7 +154,7 @@ if (!function_exists('isBusinessPlanSubscribed')) {
 		if($otherUser){
 			$user = $otherUser;
 		}
-		return $user->subscribed('business-plan-annually') || $user->subscribed('business-plan-quaterly');
+		return $user->subscribed('business-plan-annually') || $user->subscribed('business-plan-quarterly') || $user->subscribed('business-plan-annually-inr') || $user->subscribed('business-plan-quarterly-inr');
 	}
 }
 
@@ -165,7 +165,7 @@ if (!function_exists('isEnterprisePlanSubscribed')) {
 		if($otherUser){
 			$user = $otherUser;
 		}
-		return $user->subscribed('enterprise-plan-annually') || $user->subscribed('enterprise-plan-quaterly');
+		return $user->subscribed('enterprise-plan-annually') || $user->subscribed('enterprise-plan-quarterly') || $user->subscribed('enterprise-plan-annually-inr') || $user->subscribed('enterprise-plan-quarterly-inr');
 	}
 }
 

@@ -27,6 +27,11 @@ class MediaKitController extends Controller
 		];
 	}
 
+	public static function getMediaKitById(string $id)
+	{
+		return MediaKit::find($id);
+	}
+
 	public static function getUserMediaKitsAnalytics(string $userId)
 	{
 		return MediaKit::whereHas('architect', function (Builder $query) use ($userId) {

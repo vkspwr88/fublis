@@ -68,29 +68,29 @@
 		<a href="javascript:;" class="nav-link rounded-circle p-0 {{-- dropdown-toggle --}}" role="button" data-bs-toggle="dropdown">
 			<img class="rounded-circle img-40 img-square" src="{{ $profileImage }}" alt="..." />
 		</a>
-		<ul class="nav-sub-menu end-0" style="left: auto; width: 28em;">
+		<ul class="nav-sub-menu end-0 text-end" style="left: auto; width: 15em;">
 			<li class="nav-sub-menu-item">
-				<a class="sf-with-ul">
-					<span class="nav-sub-menu-title-text">{{-- Account --}}</span>
-				</a>
+				{{-- <a class="sf-with-ul">
+					<span class="nav-sub-menu-title-text">Account</span>
+				</a> --}}
 				<ul class="nav-sub-menu-item-ul">
 					@foreach ($menus->account as $item)
-						<li class="nav-sub-menu-item-li">
+						<li class="nav-sub-menu-item-li {{ $loop->first ? 'mt-0' : 'mt-3' }}">
 							<a
 								href="{{ $item->url ? (str()->contains($item->url, 'https://') ? $item->url : route($item->url)) : '#' }}"
 								@if(str()->contains($item->url, 'https://'))
 									target="_blank"
 								@endif
-								class="nav-sub-menu-item-with-icon"
+								class="nav-sub-menu-item-with-icon d-inline"
 							>
-								<span class="nav-sub-menu-icon svg-icon">
-									{{-- <svg role="presentation" version="1.1" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+								{{-- <span class="nav-sub-menu-icon svg-icon">
+									<svg role="presentation" version="1.1" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
 										<path d="{{ $item->icon }}"></path>
-									</svg> --}}
-								</span>
+									</svg>
+								</span> --}}
 								<span class="nav-sub-menu-icon-text">
 									<span class="nav-sub-menu-icon-title-text">{{ $item->name }}</span>
-									<small class="nav-sub-menu-icon-item-desc">{{ $item->desc }}</small>
+									{{-- <small class="nav-sub-menu-icon-item-desc">{{ $item->desc }}</small> --}}
 								</span>
 							</a>
 						</li>

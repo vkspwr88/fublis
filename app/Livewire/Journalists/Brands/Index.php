@@ -46,7 +46,7 @@ class Index extends Component
 				'name' => $this->name,
 				'location' => $this->selectedLocation,
 				'categories' => $this->selectedCategories,
-			])->paginate(5),
+			])->paginate(10),
 		]);
     }
 

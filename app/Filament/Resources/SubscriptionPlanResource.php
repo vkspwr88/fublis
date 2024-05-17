@@ -23,12 +23,33 @@ class SubscriptionPlanResource extends Resource
     {
         return $form
             ->schema([
+                Forms\Components\TextInput::make('slug')
+                    ->required()
+                    ->maxLength(255),
+                Forms\Components\TextInput::make('currency')
+                    ->required()
+					->default('USD')
+                    ->maxLength(255),
                 Forms\Components\TextInput::make('plan_name')
                     ->required()
                     ->maxLength(255),
+                Forms\Components\TextInput::make('plan_type')
+                    ->required()
+                    ->maxLength(255)
+                    ->default('monthly'),
                 Forms\Components\TextInput::make('plan_id')
                     ->required()
                     ->maxLength(255),
+                Forms\Components\TextInput::make('price_id')
+                    ->required()
+                    ->maxLength(255),
+                Forms\Components\TextInput::make('price_per_month')
+                    ->required()
+                    ->numeric(),
+                Forms\Components\TextInput::make('quantity')
+					->numeric()
+					->default(1)
+                    ->required(),
             ]);
     }
 
@@ -36,13 +57,27 @@ class SubscriptionPlanResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('id')
+                /* Tables\Columns\TextColumn::make('id')
                     ->label('ID')
+                    ->searchable(), */
+                Tables\Columns\TextColumn::make('slug')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('currency')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('plan_name')
                     ->searchable(),
+                Tables\Columns\TextColumn::make('plan_type')
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('plan_id')
                     ->searchable(),
+                Tables\Columns\TextColumn::make('price_id')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('price_per_month')
+                    ->numeric()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('quantity')
+					->numeric()
+					->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -60,6 +95,7 @@ class SubscriptionPlanResource extends Resource
                 Tables\Filters\TrashedFilter::make(),
             ])
             ->actions([
+                Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),
                 Tables\Actions\ForceDeleteAction::make(),
