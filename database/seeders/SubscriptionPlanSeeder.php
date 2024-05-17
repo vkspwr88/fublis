@@ -68,7 +68,7 @@ class SubscriptionPlanSeeder extends Seeder
 				'plan_type' => SubscriptionPlanTypeEnum::ANNUAL,
 				'plan_id' => 'prod_Q4ny3KlIL7WAgX',
 				'price_id' => 'price_1PEeMjSF38t8VQrgcCfGfFpm',
-				'price_per_month' => 24000,
+				'price_per_month' => 24900,
 				'quantity' => 12,
 			],
 			[
@@ -79,7 +79,7 @@ class SubscriptionPlanSeeder extends Seeder
 				'plan_type' => SubscriptionPlanTypeEnum::ANNUAL,
 				'plan_id' => 'prod_Q4o05OlOpbYDKh',
 				'price_id' => 'price_1PEeOpSF38t8VQrgCxs9gP59',
-				'price_per_month' => 28000,
+				'price_per_month' => 29100,
 				'quantity' => 12,
 			],
 			[

@@ -16,21 +16,21 @@ class StripeController extends Controller
 {
 	public function checkout(Request $request, SubscriptionPlan $subscriptionPlan)
 	{
-		// $user = $request->user();
-		// $stripeCustomer = $user->createOrGetStripeCustomer();
-		// // dd($user->createSetupIntent(/* [
-		// // 	'amount' => $subscriptionPlan->price_per_month * $subscriptionPlan->quantity * 100,
-		// // 	'currency' => 'usd',
-		// // 	'payment_method_types' => ['card'],
-		// // 	'automatic_payment_methods' => ['enabled' => true]
-		// // ] */));
-		// return view('users.pages.architects.payments.stripe.checkout', [
-		// 	'intent' => $user->createSetupIntent(),
-		// 	// 'intent' => $user->payWith($subscriptionPlan->price_per_month * $subscriptionPlan->quantity * 100, ['card']),
-		// 	'paymentMethod' => $user->defaultPaymentMethod(),
-		// 	'subscriptionPlan' => $subscriptionPlan,
-		// ]);
-		return $request->user()
+		$user = $request->user();
+		$stripeCustomer = $user->createOrGetStripeCustomer();
+		// dd($user->createSetupIntent(/* [
+		// 	'amount' => $subscriptionPlan->price_per_month * $subscriptionPlan->quantity * 100,
+		// 	'currency' => 'usd',
+		// 	'payment_method_types' => ['card'],
+		// 	'automatic_payment_methods' => ['enabled' => true]
+		// ] */));
+		return view('users.pages.architects.payments.stripe.checkout', [
+			'intent' => $user->createSetupIntent(),
+			// 'intent' => $user->payWith($subscriptionPlan->price_per_month * $subscriptionPlan->quantity * 100, ['card']),
+			'paymentMethod' => $user->defaultPaymentMethod(),
+			'subscriptionPlan' => $subscriptionPlan,
+		]);
+		/* return $request->user()
 					->newSubscription($subscriptionPlan->slug, $subscriptionPlan->price_id)
 					// ->trialDays(5)
 					// ->allowPromotionCodes()
@@ -43,7 +43,7 @@ class StripeController extends Controller
 							'type' => 'error',
 							'message' => 'You have cancelled the payment',
 						])->getTargetUrl(),
-					]);
+					]); */
 	}
 
 	public function callback(Request $request, SubscriptionPlan $subscriptionPlan)
