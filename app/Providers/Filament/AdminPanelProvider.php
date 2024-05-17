@@ -80,6 +80,7 @@ class AdminPanelProvider extends PanelProvider
 					...Resources\UserResource::getNavigationItems(),
 					...MediaResource::getNavigationItems(),
 					...Resources\ImageLogResource::getNavigationItems(),
+					...Resources\SubscribeNewsletterResource::getNavigationItems(),
 				])->groups([
 					Navigation\NavigationGroup::make('Architects')
 					->items([

@@ -67,7 +67,7 @@ class StripeController extends Controller
 									], [
 										// 'off_session' => true,
 										'metadata' => [
-											'plan' => str()->headline($subscriptionPlan->slug)
+											'plan' => $subscriptionPlan->plan_name
 										],
 									]);
 
@@ -96,7 +96,7 @@ class StripeController extends Controller
 				->queue(new PaidUser(auth()->user()));
 			return to_route('architect.account.profile.setting.billing')->with([
 				'type' => 'success',
-				'message' => 'You have successfully subscribed to ' . str()->headline($subscriptionPlan->slug),
+				'message' => 'You have successfully subscribed to ' . $subscriptionPlan->plan_name,
 			]);
 		}
 		catch (IncompletePayment $exception) {
@@ -107,7 +107,7 @@ class StripeController extends Controller
 				// 'id' => $exception->payment->payment_method,
 				'success_url' => redirect()->route('architect.account.profile.setting.billing')->with([
 					'type' => 'success',
-					'message' => 'You have successfully subscribed to ' . str()->headline($subscriptionPlan->slug),
+					'message' => 'You have successfully subscribed to ' . $subscriptionPlan->plan_name,
 				])->getTargetUrl(),
 				'cancel_url' => redirect()->route('architect.stripe.checkout', ['subscriptionPlan' => $subscriptionPlan->slug])->with([
 					'type' => 'error',

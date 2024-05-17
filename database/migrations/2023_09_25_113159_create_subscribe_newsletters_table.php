@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
 			$table->string('email')->unique();
 			$table->timestamp('email_verified_at')->nullable();
-			$table->string('token');
+			$table->string('token')->nullable();
 			$table->boolean('is_unsubscribed')->default(false);
             $table->timestamps();
 			$table->softDeletes();

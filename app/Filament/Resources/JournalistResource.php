@@ -70,6 +70,7 @@ class JournalistResource extends Resource
 						Forms\Components\TextInput::make('password')
 							->password()
 							->required()
+							->revealable()
 							->maxLength(255),
 						Forms\Components\Select::make('user_type')
 							->required()

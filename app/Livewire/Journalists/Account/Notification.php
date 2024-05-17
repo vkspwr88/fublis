@@ -16,8 +16,8 @@ class Notification extends Component
 
 	public function mount()
 	{
-		$this->notifications = Models\Notification::where('user_id', auth()->id())
-													->with([
+		$this->notifications = Models\Notification::/* where('user_id', auth()->id())
+													-> */with([
 														'notifiable' => function (MorphTo $morphTo) {
 															$morphTo->morphWith([
 																Models\DownloadRequest::class => [

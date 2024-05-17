@@ -18,7 +18,7 @@ class Billing extends Component
 	public int $progress;
 	public string $planName = 'Free plan';
 	public int $pricePerMonth = 0;
-	public int $allowedTotalUser = 1;
+	public int $allowedTotalUser = 2;
 	public $paymentToken;
 
 	public function mount()
@@ -26,8 +26,9 @@ class Billing extends Component
 		$user = auth()->user();
 		$this->userCount = CompanyController::getMediaContacts()->count();
 		$latestSubscription = $user?->latestSubscription;
+		// dd($latestSubscription);
 		if (isBusinessPlanSubscribed()) {
-			$this->allowedTotalUser = 3;
+			$this->allowedTotalUser = 5;
 			$this->planName = 'Business plan';
 			$this->pricePerMonth = $latestSubscription->subscriptionPrice->price_per_month;
 		}
@@ -42,6 +43,7 @@ class Billing extends Component
     public function render(Request $request)
     {
 		$user = $request->user();
+		// dd($user);
         return view('livewire.architects.accounts.settings.billing', [
 			'invoices' => $user->invoices(),
 			'paymentMethod' => $user->defaultPaymentMethod(),

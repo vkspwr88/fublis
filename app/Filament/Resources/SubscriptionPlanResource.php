@@ -26,10 +26,20 @@ class SubscriptionPlanResource extends Resource
                 Forms\Components\TextInput::make('slug')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\TextInput::make('currency')
+                Forms\Components\Select::make('currency')
                     ->required()
-					->default('USD')
-                    ->maxLength(255),
+					->options([
+						'USD' => 'USD',
+						'INR' => 'INR',
+					])
+					->default('USD'),
+				Forms\Components\Select::make('symbol')
+                    ->required()
+					->options([
+						'$' => '$',
+						'₹' => '₹',
+					])
+					->default('$'),
                 Forms\Components\TextInput::make('plan_name')
                     ->required()
                     ->maxLength(255),
@@ -62,8 +72,8 @@ class SubscriptionPlanResource extends Resource
                     ->searchable(), */
                 Tables\Columns\TextColumn::make('slug')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('currency')
-                    ->searchable(),
+                Tables\Columns\TextColumn::make('currency'),
+				Tables\Columns\TextColumn::make('symbol'),
                 Tables\Columns\TextColumn::make('plan_name')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('plan_type')
