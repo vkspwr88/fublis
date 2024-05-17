@@ -33,7 +33,7 @@
 						$subscriptionTime = $subscriptionPlan->quantity == 3 ? 'every 3 months' : 'per year';
 					@endphp
 					<div class="text-white card-header bg-primary">
-						You will be charged {{ $subscriptionPlan->symbol }}{{ $subscriptionAmount }} for {{ str()->headline($subscriptionPlan->slug) }}
+						You will be charged {{ $subscriptionPlan->symbol }}{{ $subscriptionAmount }} for {{ $subscriptionPlan->plan_name }}
 					</div>
 					<div class="card-body">
 						<form id="paymentForm" method="POST" action="{{ route('architect.stripe.callback', ['subscriptionPlan' => $subscriptionPlan->slug]) }}">
@@ -53,7 +53,7 @@
 										Subscribe to {{ $subscriptionPlan->plan_name }}
 									</p>
 									<h4 class="fw-bold text-dark fs-4">
-										${{ $subscriptionAmount }}
+										{{ $subscriptionPlan->symbol }}{{ $subscriptionAmount }}
 										<small class="text-muted fw-medium fs-7">{{ $subscriptionTime }}</small>
 									</h4>
 									<p class="fs-6">
