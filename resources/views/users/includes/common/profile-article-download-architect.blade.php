@@ -2,7 +2,7 @@
 	@if ($mediaKit->story->company_profile_path || $mediaKit->story->company_profile_link)
 		<div class="row align-items-center">
 			<div class="col">
-				<p class="text-dark fs-6 m-0">Company Profile</p>
+				<p class="m-0 text-dark fs-6">Company Profile</p>
 			</div>
 			<div class="col text-end">
 				@if ($mediaKit->story->company_profile_path)
@@ -16,7 +16,7 @@
 	@endif
 		<div class="row align-items-center">
 			<div class="col">
-				<p class="text-dark fs-6 m-0">Description</p>
+				<p class="m-0 text-dark fs-6">Full Article</p>
 			</div>
 			<div class="col text-end">
 				@if ($mediaKit->story->article_doc_path)
@@ -30,7 +30,7 @@
 		<hr class="border-gray-300">
 		<div class="row align-items-center">
 			<div class="col">
-				<p class="text-dark fs-6 m-0">Gallery</p>
+				<p class="m-0 text-dark fs-6">Photographs</p>
 			</div>
 			<div class="col text-end">
 				@if($mediaKit->story->images_link)
@@ -45,11 +45,11 @@
 	@if ($mediaKit->story->company_profile_path || $mediaKit->story->company_profile_link)
 		<div class="row align-items-center">
 			<div class="col">
-				<p class="text-dark fs-6 m-0">Company Profile</p>
+				<p class="m-0 text-dark fs-6">Company Profile</p>
 			</div>
 			<div class="col text-end">
 				@if ($mediaKit->story->company_profile_path)
-					<form class="m-0 p-0" action="{{ route('architect.download', ['mediaKit' => $mediaKit->slug]) }}" method="post">
+					<form class="p-0 m-0" action="{{ route('architect.download', ['mediaKit' => $mediaKit->slug]) }}" method="post">
 						@csrf
 						<input type="hidden" value="{{ $mediaKit->story->company_profile_path }}" name="file">
 						<input type="hidden" name="type" value="CompanyProfile">
@@ -64,14 +64,14 @@
 	@endif
 		<div class="row align-items-center">
 			<div class="col">
-				<p class="text-dark fs-6 m-0">Description</p>
+				<p class="m-0 text-dark fs-6">Full Article</p>
 			</div>
 			<div class="col text-end">
 				@if ($mediaKit->story->article_doc_path)
-					<form class="m-0 p-0" action="{{ route('architect.download', ['mediaKit' => $mediaKit->slug]) }}" method="post">
+					<form class="p-0 m-0" action="{{ route('architect.download', ['mediaKit' => $mediaKit->slug]) }}" method="post">
 						@csrf
 						<input type="hidden" value="{{ $mediaKit->story->article_doc_path }}" name="file">
-						<input type="hidden" name="type" value="Description">
+						<input type="hidden" name="type" value="FullArticle">
 						<button type="submit" class="btn btn-primary fs-6 fw-medium">Download</button>
 					</form>
 				@else
@@ -84,16 +84,16 @@
 		<hr class="border-gray-300">
 		<div class="row align-items-center">
 			<div class="col">
-				<p class="text-dark fs-6 m-0">Gallery</p>
+				<p class="m-0 text-dark fs-6">Photographs</p>
 			</div>
 			<div class="col text-end">
 				@if($mediaKit->story->images_link)
 					<a class="btn btn-primary fs-6 fw-medium" href="{{ $mediaKit->story->images_link }}" target="_blank">Download</a>
 				@else
-					<form class="m-0 p-0" action="{{ route('architect.download.bulk', ['mediaKit' => $mediaKit->slug]) }}" method="post">
+					<form class="p-0 m-0" action="{{ route('architect.download.bulk', ['mediaKit' => $mediaKit->slug]) }}" method="post">
 						@csrf
 						<input type="hidden" value="images" name="file">
-						<input type="hidden" name="type" value="Gallery">
+						<input type="hidden" name="type" value="Photographs">
 						<button type="submit" class="btn btn-primary fs-6 fw-medium">Download</button>
 					</form>
 				@endif

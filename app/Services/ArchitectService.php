@@ -190,4 +190,20 @@ class ArchitectService
 		return true;
 	}
 
+	public function checkCompanyArchitectsLimit($companyId)
+	{
+		$company = CompanyController::getTotalArchitects($companyId);
+		$totalArchitects = $company->architects_count ?? 0;
+		$allowedArchitects = CompanyController::getAllowedArchitects('');
+		if (isBusinessPlanSubscribed()) {
+			$allowedArchitects = CompanyController::getAllowedArchitects('Business Plan');
+		}
+		elseif (isBusinessPlanSubscribed()) {
+			$allowedArchitects = CompanyController::getAllowedArchitects('Enterprise Plan');
+		}
+		if($totalArchitects >= $allowedArchitects){
+			return true;
+		}
+		return false;
+	}
 }

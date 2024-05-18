@@ -184,6 +184,15 @@ class AddCompanyStepComponent extends StepComponent
 		$validated['password'] = $this->state()->guest()['password'];
 		$validated['new'] = $this->new;
 		//dd($validated);
+		if(!$this->new){
+			if($this->architectService->checkCompanyArchitectsLimit($this->selectedCompany)){
+				$this->dispatch('alert', [
+					'type' => 'warning',
+					'message' => 'Please upgrade your plan to add more users.'
+				]);
+				return;
+			}
+		}
 		if($this->architectService->addCompany($validated)){
 			$this->nextStep();
 			if($this->new){

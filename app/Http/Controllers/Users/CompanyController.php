@@ -7,6 +7,7 @@ use App\Models\Company;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
 
 class CompanyController extends Controller
 {
@@ -96,5 +97,23 @@ class CompanyController extends Controller
 						->flatten()
 						->pluck('name')
 						->unique();
+	}
+
+	public static function getTotalArchitects($companyId)
+	{
+		return Company::withCount('architects')
+				->where('id', $companyId)
+				->first();
+	}
+
+	public static function getAllowedArchitects($subscriptionPlan)
+	{
+		if(Str::contains($subscriptionPlan, 'Business Plan')){
+			return 5;
+		}
+		if(Str::contains($subscriptionPlan, 'Enterprise Plan')){
+			return 20;
+		}
+		return 2;
 	}
 }

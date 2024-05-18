@@ -21,14 +21,14 @@
 	@endif
 	<div class="row align-items-center">
 		<div class="col">
-			<p class="m-0 text-dark fs-6">Description</p>
+			<p class="m-0 text-dark fs-6">Full Article</p>
 		</div>
 		<div class="col text-end">
 			@if ($mediaKit->story->article_doc_path)
 				<form class="p-0 m-0" action="{{ route('journalist.download', ['mediaKit' => $mediaKit->slug]) }}" method="post">
 					@csrf
 					<input type="hidden" value="{{ $mediaKit->story->article_doc_path }}" name="file">
-					<input type="hidden" name="type" value="Description">
+					<input type="hidden" name="type" value="FullArticle">
 					<button type="submit" class="btn btn-primary fs-6 fw-medium">Download</button>
 				</form>
 			@else
@@ -41,7 +41,7 @@
 		<hr class="border-gray-300">
 		<div class="row align-items-center">
 			<div class="col">
-				<p class="m-0 text-dark fs-6">Gallery</p>
+				<p class="m-0 text-dark fs-6">Photographs</p>
 			</div>
 			<div class="col text-end">
 				@if($mediaKit->story->images_link)
@@ -50,7 +50,7 @@
 					<form class="p-0 m-0" action="{{ route('journalist.download.bulk', ['mediaKit' => $mediaKit->slug]) }}" method="post">
 						@csrf
 						<input type="hidden" value="images" name="file">
-						<input type="hidden" name="type" value="Gallery">
+						<input type="hidden" name="type" value="Photographs">
 						<button type="submit" class="btn btn-primary fs-6 fw-medium">Download</button>
 					</form>
 				@endif

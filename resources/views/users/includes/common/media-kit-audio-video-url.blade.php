@@ -7,4 +7,5 @@
 			<a class="btn btn-primary fs-6 fw-medium" href="{{ $mediaKit->audio_video_url }}" target="_blank">View</a>
 		</div>
 	</div>
+	<hr class="border-gray-300">
 @endif

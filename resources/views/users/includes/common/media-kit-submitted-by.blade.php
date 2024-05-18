@@ -1,4 +1,4 @@
-<p class="py-2 text-dark fs-6">Submitted By</p>
+<p class="py-2 text-dark fs-6 fw-medium">Submitted By</p>
 <div class="row align-items-center">
 	<div class="col-auto">
 		<div class="row g-2">

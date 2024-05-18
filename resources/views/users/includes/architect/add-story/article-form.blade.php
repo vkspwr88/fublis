@@ -1,4 +1,5 @@
 <form wire:submit="add" class="pt-4">
+	@include('users.includes.utilities.alerts.error')
 	@include('users.includes.architect.add-story.cover-image-field', ['subLabel' => 'This will be displayed on your media kit.<br>Kindly add a relevant cover image. For example, image of project/ product/ team/ brand logo/ founder/ event etc.'])
 	<hr class="border-gray-300">
 	<div class="mb-3 row">
@@ -39,10 +40,14 @@
 		</div>
 	</div>
 	<hr class="border-gray-300">
-	<div class="row">
+	<div class="mb-4 row">
 		<div class="col-md-4">
-			<label for="inputArticleWrite" class="col-form-label text-dark fs-6 fw-medium">Upload Article <span class="text-danger">*</span></label>
-			<label class="m-0 d-block form-text text-secondary fs-7">Add the text in 500-1000 words</label>
+			<label for="" class="col-form-label text-dark fs-6 fw-medium">Upload Article <span class="text-danger">*</span></label>
+			<label class="m-0 d-block form-text text-secondary fs-7">
+				Upload article or Add Drive Link.
+				<br>
+				Ideal text length is 500 to 1000 words.
+			</label>
 		</div>
 		<div class="col-md-8">
 			<div class="mb-2 card">
@@ -97,6 +102,16 @@
 				@error('form.articleLink')<div class="invalid-feedback">{{ $message }}</div>@enderror
 			</div>
 			{{-- <textarea id="inputArticleWrite" class="form-control @error('form.articleWrite') is-invalid @enderror" wire:model="form.articleWrite" rows="8"></textarea> --}}
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-4">
+			<label for="inputArticleWrite" class="col-form-label text-dark fs-6 fw-medium">Add Article Here <span class="text-danger">*</span></label>
+			<label class="m-0 d-block form-text text-secondary fs-7">
+				Add the full article here to provide journalists with an overview before they download the media kit. Avoid this in case of private media kit access.
+			</label>
+		</div>
+		<div class="col-md-8">
 			<div wire:ignore>
 				<trix-editor input="inputArticleWrite" x-on:trix-change="$wire.form.articleWrite = $event.target.value"></trix-editor>
 				<input id="inputArticleWrite" type="hidden" wire:model="form.articleWrite">
@@ -108,7 +123,11 @@
 	<div class="row">
 		<div class="col-md-4">
 			<label for="inputCompanyProfileFile" class="col-form-label text-dark fs-6 fw-medium">Upload Company Profile</label>
-			<label class="m-0 d-block form-text text-secondary fs-7">Add the file as Word document/PDF</label>
+			<label class="m-0 d-block form-text text-secondary fs-7">
+				Upload profile or Add Drive link.
+				<br>
+				Add the file as word document/ PDF
+			</label>
 		</div>
 		<div class="col-md-8">
 			<div class="mb-2 card">
@@ -240,36 +259,7 @@
 			@include('users.includes.input-tags')
 		</div>
 	</div>
-	<div class="mb-3 row">
-		<div class="col-md-4">
-			<label for="selectMediaContact" class="col-form-label text-dark fs-6 fw-medium">Select Media Contact <span class="text-danger">*</span></label>
-			<label class="m-0 d-block form-text text-secondary fs-7">Pick the team member who can best respond to journalists queries</label>
-		</div>
-		<div class="col-md-8">
-			<select id="selectMediaContact" class="form-select @error('form.mediaContact') is-invalid @enderror" wire:model="form.mediaContact">
-				<option value="">Select Media Contact</option>
-				@foreach ($form->mediaContacts as $mediaContact)
-					<option value="{{ $mediaContact->id }}">{{ $mediaContact->user->name }}</option>
-				@endforeach
-			</select>
-			@error('form.mediaContact')<div class="invalid-feedback">{{ $message }}</div>@enderror
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-md-4">
-			<label for="selectMediaKitAccess" class="col-form-label text-dark fs-6 fw-medium">Media Kit Access <span class="text-danger">*</span></label>
-			<label class="m-0 d-block form-text text-secondary fs-7">Set level of access for journalists</label>
-		</div>
-		<div class="col-md-8">
-			<select id="selectMediaKitAccess" class="form-select @error('form.mediaKitAccess') is-invalid @enderror" wire:model="form.mediaKitAccess">
-				<option value="">Select Media Kit Access</option>
-				@foreach ($form->projectAccess as $mediaKitAccess)
-					<option value="{{ $mediaKitAccess->id }}">{{ $mediaKitAccess->name }}</option>
-				@endforeach
-			</select>
-			@error('form.mediaKitAccess')<div class="invalid-feedback">{{ $message }}</div>@enderror
-		</div>
-	</div>
+	@include('users.includes.select-media-kit-access-contact')
 	<hr class="border-gray-300">
 	<div class="text-end">
 		<button class="btn btn-black fs-6 fw-semibold" type="button" data-bs-toggle="modal" data-bs-target="#deleteMediaKitModal">Delete</button>

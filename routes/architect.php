@@ -95,12 +95,12 @@ Route::middleware(ArchitectLogin::class)->group(function() {
 		});
 
 		Route::name('account.')->prefix('account')->group(function () {
-			Route::name('studio.')->prefix('studio')->group(function () {
+			Route::name('studio.')->prefix('company')->group(function () {
 				Route::get('/', [Architects\Accounts\StudioController::class, 'index'])->name('index');
 				Route::get('/other', [Architects\Accounts\StudioController::class, 'other'])->name('other');
 			});
-			Route::name('profile.')->prefix('profile')->group(function () {
-				Route::get('/', [Architects\Accounts\ProfileController::class, 'index'])->name('index');
+			Route::name('profile.')->/* prefix('profile')-> */group(function () {
+				Route::get('/profile', [Architects\Accounts\ProfileController::class, 'index'])->name('index');
 				Route::get('/analytics', [Architects\Accounts\ProfileController::class, 'analytic'])->name('analytic');
 				Route::get('/alerts', [Architects\Accounts\ProfileController::class, 'alert'])->name('alert');
 				Route::get('/notifications', [Architects\Accounts\ProfileController::class, 'notification'])->name('notification');

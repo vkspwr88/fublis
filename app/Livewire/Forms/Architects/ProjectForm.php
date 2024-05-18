@@ -119,7 +119,7 @@ class ProjectForm extends Form
 			'photographsFiles' => 'nullable|array',
 			'photographsFiles.*' => Rule::forEach(function (string|null $value, string $attribute) {
 				return Str::contains($value, 'tmp') ?
-							'nullable|image|' . __('validations/rules.zipPlusImageMimes') . '|' . __('validations/rules.bulkFilesSize') :
+							'nullable|file|' . __('validations/rules.zipPlusImageMimes') . '|' . __('validations/rules.bulkFilesSize') :
 							'nullable|string';
 			}),
 			// 'photographsFiles.*' => 'nullable|file|' . __('validations/rules.zipPlusImageMimes') . '|' . __('validations/rules.bulkFilesSize'),
@@ -128,7 +128,7 @@ class ProjectForm extends Form
 			'drawingsFiles' => 'nullable|array',
 			'drawingsFiles.*' => Rule::forEach(function (string|null $value, string $attribute) {
 				return Str::contains($value, 'tmp') ?
-							'nullable|image|' . __('validations/rules.zipPlusImageMimes') . '|' . __('validations/rules.bulkFilesSize') :
+							'nullable|file|' . __('validations/rules.zipPlusImageMimes') . '|' . __('validations/rules.bulkFilesSize') :
 							'nullable|string';
 			}),
 			// 'drawingsFiles.*' => 'nullable|file|' . __('validations/rules.zipPlusImageMimes') . '|' . __('validations/rules.bulkFilesSize'),
@@ -367,6 +367,7 @@ class ProjectForm extends Form
 	// store new media kit and drafted media kit
 	public function store()
 	{
+		// dd($this->all());
 		$this->updateFields();
 		$this->validate();
 		$addStoryService = new AddStoryService();

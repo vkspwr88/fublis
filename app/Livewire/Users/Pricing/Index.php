@@ -4,6 +4,7 @@ namespace App\Livewire\Users\Pricing;
 
 use App\Enums\Users\Architects\SubscriptionPlanTypeEnum;
 use App\Http\Controllers\Payments\RazorpayController;
+use App\Http\Controllers\Users\CompanyController;
 use App\Http\Controllers\Users\SubscriptionPlanController;
 use Livewire\Component;
 
@@ -32,7 +33,7 @@ class Index extends Component
 			'Media kit performance analytics',
 			'Access to premium publications',
 			'Guaranteed Publication',
-			'Up to 5 Individual Users',
+			'Up to ' . CompanyController::getAllowedArchitects('Business Plan') . ' Individual Users',
 		];
 		$this->enterprisePlanFeatures = [
 			'Weekly performance reports automated',
@@ -43,7 +44,7 @@ class Index extends Component
 			'Access to Additional Blogger networks',
 			'Automated follow-up reminders',
 			'PR Training with educational resources',
-			'Up to 20 Individual Users',
+			'Up to ' . CompanyController::getAllowedArchitects('Enterprise Plan') . ' Individual Users',
 			'+ many more...',
 		];
 	}

@@ -44,7 +44,7 @@ Route::middleware(JournalistLogin::class)->group(function() {
 	Route::name('brand.')->prefix('brand')->group(function () {
 		Route::get('/', [Journalists\BrandController::class, 'index'])->name('index');
 		Route::get('/{brand:slug}', [Journalists\BrandController::class, 'view'])->name('view');
-		Route::get('/architect/{architect:slug}', [Journalists\BrandController::class, 'architect'])->name('architect');
+		Route::get('/user/{architect:slug}', [Journalists\BrandController::class, 'architect'])->name('architect');
 	});
 
 	Route::name('submission.')->prefix('submission')->group(function () {
@@ -52,8 +52,8 @@ Route::middleware(JournalistLogin::class)->group(function() {
 	});
 
 	Route::name('account.')->prefix('account')->group(function () {
-		Route::name('profile.')->prefix('profile')->group(function () {
-			Route::get('/', [Journalists\Accounts\ProfileController::class, 'index'])->name('index');
+		Route::name('profile.')->/* prefix('profile')-> */group(function () {
+			Route::get('/profile', [Journalists\Accounts\ProfileController::class, 'index'])->name('index');
 			Route::name('journalists.')->prefix('journalists')->group(function () {
 				Route::get('/', [Journalists\Accounts\Profile\JournalistController::class, 'index'])->name('index');
 				Route::get('/{journalist:slug}', [Journalists\Accounts\Profile\JournalistController::class, 'view'])->name('view');

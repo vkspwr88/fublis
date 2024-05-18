@@ -28,12 +28,12 @@ class Billing extends Component
 		$latestSubscription = $user?->latestSubscription;
 		// dd($latestSubscription);
 		if (isBusinessPlanSubscribed()) {
-			$this->allowedTotalUser = 5;
+			$this->allowedTotalUser = CompanyController::getAllowedArchitects('Business Plan');
 			$this->planName = 'Business plan';
 			$this->pricePerMonth = $latestSubscription->subscriptionPrice->price_per_month;
 		}
-		else if (isEnterprisePlanSubscribed()) {
-			$this->allowedTotalUser = 20;
+		elseif (isEnterprisePlanSubscribed()) {
+			$this->allowedTotalUser = CompanyController::getAllowedArchitects('Enterprise Plan');
 			$this->planName = 'Enterprise plan';
 			$this->pricePerMonth = $latestSubscription->subscriptionPrice->price_per_month;
 		}

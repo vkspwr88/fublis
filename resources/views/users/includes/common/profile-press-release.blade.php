@@ -1,6 +1,11 @@
 <div class="row g-4">
+	<style>
+		#body{
+			background: var(--fublis-white) !important;
+		}
+	</style>
 	<div class="col-md-8">
-		<h1 class="py-2 m-0 text-dark fs-2 fw-semibold">{{ str()->headline($mediaKit->story->title) }}</h1>
+		<h1 class="py-2 m-0 text-dark fs-1 fw-semibold">{{ str()->headline($mediaKit->story->title) }}</h1>
 		<div class="py-3 row justify-content-center g-2">
 			<div class="col-auto">
 				<x-users.tag name="Press Release" />
@@ -10,10 +15,11 @@
 			</div>
 		</div>
 		<div class="mb-4 row">
-			<div class="col text-secondary fs-6">
+			<div class="col text-dark fs-4 fw-semibold">
 				{{ $mediaKit->story->concept_note }}
 			</div>
 		</div>
+		<hr class="my-5 border border-2 border-dark">
 		<div class="mb-4 row">
 			<div class="col text-secondary fs-6">
 				{!! $mediaKit->story->press_release_writeup !!}

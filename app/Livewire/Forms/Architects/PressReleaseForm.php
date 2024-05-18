@@ -67,7 +67,7 @@ class PressReleaseForm extends Form
 			'imageCredits' => 'nullable',
 			'category' => 'required',
 			'conceptNote' => 'required|' . __('validations/rules.mediaKitBriefCharacters'),
-			'pressReleaseWrite' => 'required',
+			'pressReleaseWrite' => 'nullable',
 			'pressReleaseFile' => $this->getValidationRule('pressReleaseFile'),
 			'pressReleaseLink' => 'nullable|required_without:pressReleaseFile|url:https',
 			'photographsFiles' => 'nullable|array',

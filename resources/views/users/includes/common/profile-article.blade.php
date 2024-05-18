@@ -1,6 +1,11 @@
 <div class="row g-4">
+	<style>
+		#body{
+			background: var(--fublis-white) !important;
+		}
+	</style>
 	<div class="col-md-8">
-		<h1 class="py-2 m-0 text-dark fs-2 fw-semibold">{{ str()->headline($mediaKit->story->title) }}</h1>
+		<h1 class="py-2 m-0 text-dark fs-1 fw-semibold">{{ str()->headline($mediaKit->story->title) }}</h1>
 		<div class="py-3 row justify-content-center g-2">
 			<div class="col-auto">
 				<x-users.tag name="Article" />
@@ -10,12 +15,13 @@
 			</div>
 		</div>
 		<div class="mb-4 row">
-			<div class="col text-secondary fs-6">
+			<div class="col text-dark fs-4 fw-semibold">
 				{{-- {!! str()->replace('\n', '<br>', $mediaKit->story->article_writeup) !!} --}}
 				{{-- {!! $mediaKit->story->project_brief !!} --}}
 				{{ $mediaKit->story->preview_text }}
 			</div>
 		</div>
+		<hr class="my-5 border border-2 border-dark">
 		<div class="mb-4 row">
 			<div class="col text-secondary fs-6">
 				{{-- {!! str()->replace('\n', '<br>', $mediaKit->story->article_writeup) !!} --}}
@@ -57,6 +63,7 @@
 			@include('users.includes.common.profile-article-download-journalist')
 		@endif
 		<hr class="border-gray-300">
+		@include('users.includes.common.media-kit-audio-video-url')
 		@include('users.includes.common.media-kit-media-contact')
 		@include('users.includes.common.media-kit-tags')
 	</div>

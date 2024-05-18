@@ -9,12 +9,12 @@ return [
 		'max' => 'Maximum allowed size to upload :attribute 3MB.',
 		'dimensions' => 'Maximum allowed dimension for the :attribute is 800x400px.',
 	],
-	'bulkFilesSize' => 'Maximum allowed size to upload :attribute 4MB.',
+	'bulkFilesSize' => 'Maximum allowed size to upload :attribute is 4MB.',
 	'mediaKitBriefCharacters' => 'The :attribute allows only 550 characters.',
 
 	'profileImage' => [
 		'max' => 'Maximum allowed size to upload :attribute 3MB.',
 		'dimensions' => 'Maximum allowed dimension for the :attribute is 400x400px.',
 	],
-	
+
 ];

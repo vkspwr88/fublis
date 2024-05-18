@@ -17,7 +17,7 @@ return new class extends Migration
 			$table->string('title');
 			$table->string('image_credits')->nullable();
 			$table->text('concept_note');
-			$table->text('press_release_writeup');
+			$table->text('press_release_writeup')->nullable();
 			$table->text('press_release_doc_path')->nullable();
 			$table->text('press_release_doc_link')->nullable();
 			$table->text('photographs_link')->nullable();

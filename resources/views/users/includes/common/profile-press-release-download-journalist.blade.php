@@ -20,7 +20,7 @@
 		<hr class="border-gray-300">
 		<div class="row align-items-center">
 			<div class="col">
-				<p class="m-0 text-dark fs-6">Gallery</p>
+				<p class="m-0 text-dark fs-6">Photographs</p>
 			</div>
 			<div class="col text-end">
 				@if($mediaKit->story->photographs_link)
@@ -29,7 +29,7 @@
 					<form class="p-0 m-0" action="{{ route('journalist.download.bulk', ['mediaKit' => $mediaKit->slug]) }}" method="post">
 						@csrf
 						<input type="hidden" value="photographs" name="file">
-						<input type="hidden" name="type" value="Gallery">
+						<input type="hidden" name="type" value="Photographs">
 						<button type="submit" class="btn btn-primary fs-6 fw-medium">Download</button>
 					</form>
 				@endif

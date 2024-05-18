@@ -1,11 +1,11 @@
 @if( ($downloadRequest && $downloadRequest->request_status === App\Enums\Users\Architects\MediaKits\RequestStatusEnum::APPROVED) || $mediaKit->projectAccess->name === 'open to all')
 	<div class="row align-items-center">
 		<div class="col-auto">
-			<p class="text-dark fs-6 m-0">Description</p>
+			<p class="m-0 text-dark fs-6">Description</p>
 		</div>
 		<div class="col text-end">
 			@if ($mediaKit->story->project_doc_path)
-				<form class="m-0 p-0" action="{{ route('journalist.download', ['mediaKit' => $mediaKit->slug]) }}" method="post">
+				<form class="p-0 m-0" action="{{ route('journalist.download', ['mediaKit' => $mediaKit->slug]) }}" method="post">
 					@csrf
 					<input type="hidden" value="{{ $mediaKit->story->project_doc_path }}" name="file">
 					<input type="hidden" name="type" value="Description">
@@ -20,13 +20,13 @@
 		<hr class="border-gray-300">
 		<div class="row align-items-center">
 			<div class="col-auto">
-				<p class="text-dark fs-6 m-0">Gallery</p>
+				<p class="m-0 text-dark fs-6">Photographs</p>
 			</div>
 			<div class="col text-end">
-				<form class="m-0 p-0" action="{{ route('journalist.download.bulk', ['mediaKit' => $mediaKit->slug]) }}" method="post">
+				<form class="p-0 m-0" action="{{ route('journalist.download.bulk', ['mediaKit' => $mediaKit->slug]) }}" method="post">
 					@csrf
 					<input type="hidden" value="photographs" name="file">
-					<input type="hidden" name="type" value="Gallery">
+					<input type="hidden" name="type" value="Photographs">
 					<button type="submit" class="btn btn-primary fs-6 fw-medium">Download</button>
 				</form>
 			</div>
@@ -36,10 +36,10 @@
 		<hr class="border-gray-300">
 		<div class="row align-items-center">
 			<div class="col-auto">
-				<p class="text-dark fs-6 m-0">Render/Drawings</p>
+				<p class="m-0 text-dark fs-6">Render/Drawings</p>
 			</div>
 			<div class="col text-end">
-				<form class="m-0 p-0" action="{{ route('journalist.download.bulk', ['mediaKit' => $mediaKit->slug]) }}" method="post">
+				<form class="p-0 m-0" action="{{ route('journalist.download.bulk', ['mediaKit' => $mediaKit->slug]) }}" method="post">
 					@csrf
 					<input type="hidden" value="drawings" name="file">
 					<input type="hidden" name="type" value="Drawings">
@@ -61,7 +61,7 @@
 @else
 	<div class="row">
 		<div class="col">
-			<form class="m-0 p-0" action="{{ route('journalist.download.request', ['mediaKit' => $mediaKit->slug]) }}" method="post">
+			<form class="p-0 m-0" action="{{ route('journalist.download.request', ['mediaKit' => $mediaKit->slug]) }}" method="post">
 				@csrf
 				<button type="submit" class="btn btn-primary fs-6 fw-medium">Request Download</button>
 			</form>

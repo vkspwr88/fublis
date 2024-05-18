@@ -1,6 +1,16 @@
 <div class="row g-4">
+	<style>
+		#body{
+			background: var(--fublis-white) !important;
+		}
+	</style>
 	<div class="col-md-8">
-		<h1 class="py-2 m-0 text-dark fs-2 fw-semibold">{{ str()->headline($mediaKit->story->title) }}</h1>
+		@php
+			$city = $mediaKit->story->location->city()->first();
+			$state = $city->state;
+			$country = $state->country;
+		@endphp
+		<h1 class="py-2 m-0 text-dark fs-1 fw-semibold">{{ str()->headline($mediaKit->story->title) }}</h1>
 		<div class="py-3 row justify-content-center g-2">
 			<div class="col-auto">
 				<x-users.tag name="Project" />
@@ -9,7 +19,7 @@
 				<x-users.tag :name="$mediaKit->category->name" />
 			</div>
 			<div class="col-auto">
-				<x-users.tag :name="$mediaKit->story->location->name" />
+				<x-users.tag :name="$country->name" />
 			</div>
 		</div>
 		<div class="mb-4 row">
@@ -18,10 +28,11 @@
 			</div>
 		</div>
 		<div class="mb-4 row">
-			<div class="col text-secondary fs-6">
+			<div class="col text-dark fs-4 fw-semibold">
 				{{ $mediaKit->story->project_brief }}
 			</div>
 		</div>
+		<hr class="my-5 border border-2 border-dark">
 		<div class="row">
 			<div class="row g-4">
 				@foreach ($mediaKit->story->photographs as $photograph)
@@ -50,7 +61,7 @@
 						<p class="p-0 m-0 text-secondary fs-6">
 							<span class="fw-bold">Location </span>
 							<span class="text-capitalize">
-								- {{ $mediaKit->story->location->name }}, {{ $mediaKit->story->location->city()->first()->state->name }}, {{ $mediaKit->story->location->city()->first()->state->country->name }}
+								- {{ $mediaKit->story->location->name }}, {{ $state->name }}, {{ $country->name }}
 							</span>
 						</p>
 					</div>
@@ -150,6 +161,7 @@
 			@include('users.includes.common.profile-project-download-journalist')
 		@endif
 		<hr class="border-gray-300">
+		@include('users.includes.common.media-kit-audio-video-url')
 		@include('users.includes.common.media-kit-media-contact')
 		@include('users.includes.common.media-kit-tags')
 	</div>
