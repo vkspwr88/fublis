@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Payments\StripeController;
 use App\Http\Controllers\Users;
 use App\Mail\TestMail;
 // use App\Services\Architects\StatsService;
@@ -75,6 +76,8 @@ Route::name('auth.')->prefix('auth')->group(function () {
 });
 
 Route::get('/pricing', [Users\SubscriptionPlanController::class, 'index'])->name('pricing');
+Route::post('/stripe/webhook', [StripeController::class, 'handlingWebhook'])->name('cashier.webhook');
+
 
 Route::name('blogs.')->prefix('blogs')->controller(Users\BlogController::class)->group(function () {
 	Route::get('/', 'index')->name('index');

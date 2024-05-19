@@ -136,4 +136,10 @@ class StripeController extends Controller
 			'url' => env('APP_URL'),
 		], $invoiceId);
 	}
+
+	public function handlingWebhook(Request $request)
+	{
+		// php artisan cashier:webhook --url "http://127.0.0.1:8000/stripe/webhook"
+		// php artisan cashier:webhook --url "https://app.fublis.com/stripe/webhook"
+	}
 }
