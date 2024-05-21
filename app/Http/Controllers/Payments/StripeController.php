@@ -63,7 +63,8 @@ class StripeController extends Controller
 				// dd($paymentMethod);
 			}
 			$subscription = $request->user()
-									->newSubscription($subscriptionPlan->slug, $subscriptionPlan->price_id)
+									->newSubscription('default', $subscriptionPlan->price_id)
+									// ->newSubscription($subscriptionPlan->slug, $subscriptionPlan->price_id)
 									// ->quantity($subscriptionPlan->quantity)
 									->create($paymentMethod, [
 										'email' => auth()->user()->email,
@@ -148,7 +149,7 @@ class StripeController extends Controller
 		info('handlingWebhook on ' . Carbon::now());
 		// info('event ' . $request->type);
 		switch ($request->type) {
-			case 'payment_intent.succeeded':
+			case 'invoice.payment_succeeded':
 				// $paymentIntent = $request->data->object; // contains a \Stripe\PaymentIntent
 				// handlePaymentIntentSucceeded($paymentIntent);
 				$subscriptionID = $request->data->subscription;
