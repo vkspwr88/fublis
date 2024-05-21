@@ -143,10 +143,10 @@ class StripeController extends Controller
 
 	public function handlingWebhook(Request $request)
 	{
+		info('handlingWebhook on ' . Carbon::now());
 		StripeWebhook::create([
 			'webhook_request' => $request->all(),
 		]);
-		info('handlingWebhook on ' . Carbon::now());
 		// info('event ' . $request->type);
 		switch ($request->type) {
 			case 'invoice.payment_succeeded':
