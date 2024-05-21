@@ -24,7 +24,7 @@ class Billing extends Component
 	public function mount()
 	{
 		$user = auth()->user();
-		dd($user->subscribed(), isBusinessPlanSubscribed(), isEnterprisePlanSubscribed());
+		// dd($user->subscribed(), isBusinessPlanSubscribed(), isEnterprisePlanSubscribed());
 		$this->userCount = CompanyController::getMediaContacts()->count();
 		$latestSubscription = $user?->latestSubscription;
 		// dd($latestSubscription);
