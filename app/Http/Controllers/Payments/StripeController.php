@@ -139,6 +139,7 @@ class StripeController extends Controller
 
 	public function handlingWebhook(Request $request)
 	{
+		info('handlingWebhook', $request->all());
 		// php artisan cashier:webhook --url "http://127.0.0.1:8000/stripe/webhook"
 		// php artisan cashier:webhook --url "https://app.fublis.com/stripe/webhook"
 	}
