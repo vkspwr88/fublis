@@ -8,7 +8,7 @@
 				<div class="col">
 					<h5 class="p-0 m-0 text-black fs-6 fw-semibold">Story Requests</h5>
 					<p class="p-0 m-0 text-secondary fs-6">
-						<small>Check all received submissions from designers</small>
+						<small>Check all received submissions</small>
 					</p>
 				</div>
 			</div>
