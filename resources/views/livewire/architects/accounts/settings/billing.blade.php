@@ -220,7 +220,7 @@
 												{{ $invoice->status }}
 											@endif
 										</td>
-										<td class="p-3 small text-secondary">USD {{ $invoice->total() }}</td>
+										<td class="p-3 small text-secondary">{{ $invoice->total() }}</td>
 										<td class="p-3 small text-secondary">{{ $invoice->subscription_details->metadata->plan ?? '' }}</td>
 										<td class="p-3 small">
 											<a href="{{ route('architect.stripe.invoice.download', ['invoice' => $invoice->id]) }}" class="text-purple-700 fw-semibold">Download</a>
