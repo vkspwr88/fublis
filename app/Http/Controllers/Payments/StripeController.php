@@ -103,7 +103,7 @@ class StripeController extends Controller
 				'message' => 'You have successfully subscribed to ' . $subscriptionPlan->plan_name,
 			]);
 		}
-		/* catch (IncompletePayment $exception) {
+		catch (IncompletePayment $exception) {
 			ErrorLogController::logErrorNew('stripe callback IncompletePayment', $exception);
 			// dd($exception);
 			return redirect()->route('cashier.payment', [
@@ -118,7 +118,7 @@ class StripeController extends Controller
 					'message' => 'You have cancelled the payment',
 				])->getTargetUrl(),
 			]);
-		} */
+		}
 		catch(Exception $exp){
 			ErrorLogController::logErrorNew('stripe callback', $exp);
 			return back()->with([
