@@ -27,7 +27,7 @@ class Billing extends Component
 		dd(
 			"user->hasIncompletePayment: " . $user->hasIncompletePayment('business-plan-annually'),
 			"user->subscription: " . $user->subscription('business-plan-annually'),
-			"user->subscribed()->recurring(): " . $user->subscribed()->recurring(),
+			// "user->subscribed()->recurring(): " . $user->subscribed()->recurring(),
 			"user->subscribed: " . $user->subscribed(),
 			"user->isBusinessPlanSubscribed: " . isBusinessPlanSubscribed(),
 			"user->isEnterprisePlanSubscribed: " . isEnterprisePlanSubscribed(),
