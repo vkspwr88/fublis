@@ -18,7 +18,7 @@ class Subscription extends CashierSubscription
 		return $this->belongsTo(SubscriptionPlan::class, 'stripe_price', 'price_id');
 	}
 
-	public static function boot() {
+	/* public static function boot() {
         parent::boot();
 
         static::created(function($item) {
@@ -28,5 +28,5 @@ class Subscription extends CashierSubscription
 		static::updated(function($item) {
 			StripeController::notifyAdmin($item);
         });
-    }
+    } */
 }
