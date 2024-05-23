@@ -155,8 +155,8 @@ class StripeController extends Controller
 				echo "<pre>";
 				echo $request->data['object']['subscription'];
 				echo "</pre>";
-				dd($request->data['object']['subscription'], $request->data['object']['lines']['data']['period']/* ['start'], $request->data['object']['lines']['data']['period']['end'], date('Y-m-d', $request->data['object']['lines']['data']['period']['start']), date('Y-m-d', $request->data['object']['lines']['data']['period']['end']) */);
-				$subscriptionID = $request->data->subscription;
+				dd($request->data['object']['subscription'], $request->data['object']['lines']['data']->period/* ['start'], $request->data['object']['lines']['data']['period']['end'], date('Y-m-d', $request->data['object']['lines']['data']['period']['start']), date('Y-m-d', $request->data['object']['lines']['data']['period']['end']) */);
+				$subscriptionID = $request->data['object']['subscription'];
 				$this->handlingPaymentSuccess($subscriptionID);
 				break;
 			default:
