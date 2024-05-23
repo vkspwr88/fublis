@@ -111,16 +111,16 @@ class StripeController extends Controller
 			return redirect()->route('cashier.payment', [
 				'id' => $exception->payment->id,
 				// 'id' => $exception->payment->payment_method,
-				/* 'success_url' => redirect()->route('architect.account.profile.setting.billing')->with([
+				'success_url' => redirect()->route('architect.account.profile.setting.billing')->with([
 					'type' => 'success',
 					'message' => 'You have successfully subscribed to ' . $subscriptionPlan->plan_name,
 				])->getTargetUrl(),
 				'cancel_url' => redirect()->route('architect.stripe.checkout', ['subscriptionPlan' => $subscriptionPlan->slug])->with([
 					'type' => 'error',
 					'message' => 'You have cancelled the payment',
-				])->getTargetUrl(), */
-				'success_url' => redirect()->route('architect.account.profile.setting.billing')->getTargetUrl(),
-				'cancel_url' => redirect()->route('architect.stripe.checkout', ['subscriptionPlan' => $subscriptionPlan->slug])->getTargetUrl(),
+				])->getTargetUrl(),
+				/* 'success_url' => redirect()->route('architect.account.profile.setting.billing')->getTargetUrl(),
+				'cancel_url' => redirect()->route('architect.stripe.checkout', ['subscriptionPlan' => $subscriptionPlan->slug])->getTargetUrl(), */
 			]);
 		}
 		catch(Exception $exp){
