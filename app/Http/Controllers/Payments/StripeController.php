@@ -154,6 +154,10 @@ class StripeController extends Controller
 				// handlePaymentIntentSucceeded($paymentIntent);
 				echo "<pre>";
 				echo $request->data['object']['subscription'];
+				echo $request->data['object']['lines']['data'][0]['period']['start'];
+				echo date('Y-m-d', $request->data['object']['lines']['data'][0]['period']['start']);
+				echo $request->data['object']['lines']['data'][0]['period']['end'];
+				echo date('Y-m-d', $request->data['object']['lines']['data'][0]['period']['end']);
 				echo "</pre>";
 				dd($request->data['object']['subscription'], $request->data['object']['lines']['data'][0]['period']/* ['start'], $request->data['object']['lines']['data']['period']['end'], date('Y-m-d', $request->data['object']['lines']['data']['period']['start']), date('Y-m-d', $request->data['object']['lines']['data']['period']['end']) */);
 				$subscriptionID = $request->data['object']['subscription'];
