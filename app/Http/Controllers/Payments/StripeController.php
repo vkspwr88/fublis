@@ -152,7 +152,7 @@ class StripeController extends Controller
 			case 'invoice.payment_succeeded':
 				// $paymentIntent = $request->data->object; // contains a \Stripe\PaymentIntent
 				// handlePaymentIntentSucceeded($paymentIntent);
-				dd($request->data['object']);
+				dd($request->data['object']->subscription);
 				$subscriptionID = $request->data->subscription;
 				$this->handlingPaymentSuccess($subscriptionID);
 				break;
