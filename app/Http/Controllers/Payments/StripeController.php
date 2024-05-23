@@ -152,16 +152,17 @@ class StripeController extends Controller
 			case 'invoice.payment_succeeded':
 				// $paymentIntent = $request->data->object; // contains a \Stripe\PaymentIntent
 				// handlePaymentIntentSucceeded($paymentIntent);
-				echo "<pre>";
-				echo $request->data['object']['subscription'];
-				echo $request->data['object']['lines']['data'][0]['period']['start'];
-				echo date('Y-m-d', $request->data['object']['lines']['data'][0]['period']['start']);
-				echo $request->data['object']['lines']['data'][0]['period']['end'];
-				echo date('Y-m-d', $request->data['object']['lines']['data'][0]['period']['end']);
-				echo "</pre>";
-				dd($request->data['object']['subscription'], $request->data['object']['lines']['data'][0]['period']/* ['start'], $request->data['object']['lines']['data']['period']['end'], date('Y-m-d', $request->data['object']['lines']['data']['period']['start']), date('Y-m-d', $request->data['object']['lines']['data']['period']['end']) */);
+				// echo "<pre>";
+				// echo $request->data['object']['subscription'];
+				// echo $request->data['object']['lines']['data'][0]['period']['start'];
+				// echo date('Y-m-d', $request->data['object']['lines']['data'][0]['period']['start']);
+				// echo $request->data['object']['lines']['data'][0]['period']['end'];
+				// echo date('Y-m-d', $request->data['object']['lines']['data'][0]['period']['end']);
+				// echo "</pre>";
+				// dd($request->data['object']['subscription'], $request->data['object']['lines']['data'][0]['period']/* ['start'], $request->data['object']['lines']['data']['period']['end'], date('Y-m-d', $request->data['object']['lines']['data']['period']['start']), date('Y-m-d', $request->data['object']['lines']['data']['period']['end']) */);
 				$subscriptionID = $request->data['object']['subscription'];
-				$this->handlingPaymentSuccess($subscriptionID);
+				$endDate = date('Y-m-d', $request->data['object']['lines']['data'][0]['period']['end']);
+				$this->handlingPaymentSuccess($subscriptionID, $endDate);
 				break;
 			default:
 				info('Received unknown event type ' . $request->type);
@@ -176,13 +177,13 @@ class StripeController extends Controller
 		// php artisan cashier:webhook --url "https://app.fublis.com/stripe/webhook"
 	}
 
-	public function handlingPaymentSuccess(string $subscriptionID)
+	public function handlingPaymentSuccess(string $subscriptionID, $endDate)
 	{
 		$subscription = Subscription::where([
 			'stripe_id' => $subscriptionID,
 		])->update([
 			'stripe_status' => 'active',
-			'ends_at' => Carbon::now()->addYear(),
+			'ends_at' => $endDate,
 		]);
 	}
 
