@@ -177,4 +177,13 @@ class StripeController extends Controller
 			'ends_at' => Carbon::now()->addYear(),
 		]);
 	}
+
+	public static function notifyAdmin($subscription)
+	{
+		if($subscription->stripe_status == 'active'){
+			Mail::to(env('COMPANY_EMAIL'))
+				->cc(['amansaini87@rediffmail.com', 'Vikas@re-thinkingthefuture.com'])
+				->queue(new PaidUser($subscription->user));
+		}
+	}
 }

@@ -2,9 +2,8 @@
 
 namespace App\Models;
 
-use App\Mail\Admin\PaidUser;
+use App\Http\Controllers\Payments\StripeController;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Support\Facades\Mail;
 use Laravel\Cashier\Subscription as CashierSubscription;
 
 class Subscription extends CashierSubscription
@@ -23,19 +22,11 @@ class Subscription extends CashierSubscription
         parent::boot();
 
         static::created(function($item) {
-			if($item->stripe_status == 'active'){
-				Mail::to(env('COMPANY_EMAIL'))
-					->cc(['amansaini87@rediffmail.com', 'Vikas@re-thinkingthefuture.com'])
-					->queue(new PaidUser($item->user));
-			}
+			StripeController::notifyAdmin($item);
         });
 
 		static::updated(function($item) {
-			if($item->stripe_status == 'active'){
-				Mail::to(env('COMPANY_EMAIL'))
-					->cc(['amansaini87@rediffmail.com', 'Vikas@re-thinkingthefuture.com'])
-					->queue(new PaidUser($item->user));
-			}
+			StripeController::notifyAdmin($item);
         });
     }
 }
