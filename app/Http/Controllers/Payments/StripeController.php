@@ -194,6 +194,7 @@ class StripeController extends Controller
 			'subscription' => $subscription,
 		]);
 		if($subscription){
+			$subscription = Subscription::with('user')->where('stripe_id', $subscriptionID)->first();
 			Mail::to(env('COMPANY_EMAIL'))
 				->cc(['amansaini87@rediffmail.com', 'Vikas@re-thinkingthefuture.com'])
 				->queue(new PaidUser($subscription->user));
