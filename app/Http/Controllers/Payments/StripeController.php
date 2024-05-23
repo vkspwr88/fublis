@@ -111,14 +111,16 @@ class StripeController extends Controller
 			return redirect()->route('cashier.payment', [
 				'id' => $exception->payment->id,
 				// 'id' => $exception->payment->payment_method,
-				'success_url' => redirect()->route('architect.account.profile.setting.billing')->with([
+				/* 'success_url' => redirect()->route('architect.account.profile.setting.billing')->with([
 					'type' => 'success',
 					'message' => 'You have successfully subscribed to ' . $subscriptionPlan->plan_name,
 				])->getTargetUrl(),
 				'cancel_url' => redirect()->route('architect.stripe.checkout', ['subscriptionPlan' => $subscriptionPlan->slug])->with([
 					'type' => 'error',
 					'message' => 'You have cancelled the payment',
-				])->getTargetUrl(),
+				])->getTargetUrl(), */
+				'success_url' => redirect()->route('architect.account.profile.setting.billing')->getTargetUrl(),
+				'cancel_url' => redirect()->route('architect.stripe.checkout', ['subscriptionPlan' => $subscriptionPlan->slug])->getTargetUrl(),
 			]);
 		}
 		catch(Exception $exp){
@@ -192,6 +194,7 @@ class StripeController extends Controller
 
 	public static function notifyAdmin($subscription)
 	{
+		info('boot subscription method: ' . json_encode($subscription));
 		if($subscription->stripe_status == 'active'){
 			Mail::to(env('COMPANY_EMAIL'))
 				->cc(['amansaini87@rediffmail.com', 'Vikas@re-thinkingthefuture.com'])
