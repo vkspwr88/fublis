@@ -190,7 +190,9 @@ class StripeController extends Controller
 			'stripe_status' => 'active',
 			'ends_at' => $endDate,
 		]);
-		info('subscription updated:',  $subscription);
+		info('subscription updated:', [
+			'subscription' => $subscription,
+		]);
 		if($subscription){
 			Mail::to(env('COMPANY_EMAIL'))
 				->cc(['amansaini87@rediffmail.com', 'Vikas@re-thinkingthefuture.com'])
