@@ -64,8 +64,10 @@ class StripeController extends Controller
 			}
 			$subscription = $request->user()
 									// ->newSubscription('default', $subscriptionPlan->price_id)
-									->newSubscription($subscriptionPlan->slug, $subscriptionPlan->price_id)
+									// ->newSubscription($subscriptionPlan->slug, $subscriptionPlan->price_id)
 									// ->quantity($subscriptionPlan->quantity)
+									->newSubscription($subscriptionPlan->slug)
+									->price($subscriptionPlan->price_id)
 									->create($paymentMethod, [
 										'email' => auth()->user()->email,
 									], [
