@@ -191,6 +191,7 @@ class StripeController extends Controller
 			'ends_at' => $endDate,
 		]);
 		info('subscription updated:', [
+			'subscriptionID' => $subscriptionID,
 			'subscription' => $subscription,
 		]);
 		if($subscription){
