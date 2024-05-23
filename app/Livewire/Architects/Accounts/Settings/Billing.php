@@ -25,6 +25,7 @@ class Billing extends Component
 	{
 		$user = auth()->user();
 		dd(
+			"user->hasIncompletePayment: " . $user->hasIncompletePayment('business-plan-annually'),
 			"user->subscription: " . $user->subscription('business-plan-annually'),
 			"user->subscribed()->recurring(): " . $user->subscribed()->recurring(),
 			"user->subscribed: " . $user->subscribed(),
