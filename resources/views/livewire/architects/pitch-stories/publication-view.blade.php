@@ -152,7 +152,7 @@
 			</div>
 		</div>
 		<div class="col-md-6 col-lg-4 col-xl-3">
-			<div class="border-0 card h-100 bg-transparent">
+			<div class="bg-transparent border-0 card h-100">
 				<div class="card-body">
 					<div class="row g-3">
 						<div class="col-12">
@@ -205,7 +205,7 @@
 		</div>
 		<div class="col-md-12 col-lg-5 col-xl-6">
 			<div class="bg-gray-300 border-0 shadow card rounded-4 h-100" style="min-height: 500px;">
-				<iframe class="w-100 h-100 rounded-4" title="{{ $publication->name }}" src="{{ $publication->website }}"></iframe>
+				<iframe class="w-100 h-100 rounded-4" title="{{ $publication->name }}" src="{{ $publication->website }}" target="_blank"></iframe>
 			</div>
 		</div>
 	</div>

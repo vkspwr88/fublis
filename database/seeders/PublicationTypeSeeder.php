@@ -21,7 +21,7 @@ class PublicationTypeSeeder extends Seeder
 				'name' => 'print magazine',
 			],
 			[
-				'name' => 'social media page',
+				'name' => 'digital publication',
 			],
 			[
 				'name' => 'newspaper',
