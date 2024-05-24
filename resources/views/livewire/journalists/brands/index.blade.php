@@ -27,14 +27,16 @@
 							<x-users.filter.checkbox-list type="category" :list="$projectTypes" model="selectedProjectTypes" /> --}}
 							<hr class="divider">
 							<div class="gap-2 d-grid">
-								<button type="submit" class="btn btn-white text-capitalize">
+								{{-- <button type="submit" class="btn btn-white text-capitalize">
 									search
 									<x-users.spinners.primary-btn wire:target="search" />
 								</button>
 								<button type="button" class="btn btn-danger text-capitalize" wire:click="clear">
 									clear
 									<x-users.spinners.white-btn wire:target="clear" />
-								</button>
+								</button> --}}
+								<x-utility.buttons.search />
+								<x-utility.buttons.clear />
 							</div>
 						</form>
 					</div>
