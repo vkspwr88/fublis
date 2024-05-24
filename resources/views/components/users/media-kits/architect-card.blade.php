@@ -43,7 +43,7 @@
 				<div class="col-md-8">
 					<div class="pb-2 row justify-content-center">
 						<p class="m-0 text-secondary fs-6 fw-semibold col">{{ $mediaKitTitle }}</p>
-						<p class="m-0 text-end text-secondary fs-6 fw-semibold col">{{ $mediaKit->category->name }}</p>
+						<p class="m-0 text-end text-secondary fs-6 fw-semibold col">{{ $mediaKit->category->name ?? '' }}</p>
 					</div>
 					<h5 class="py-2 m-0 card-title fs-5 fw-semibold">
 						<a href="{{ $viewRoute }}" class="text-dark">{{ $mediaKitHeading }}</a>
