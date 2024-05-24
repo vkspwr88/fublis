@@ -38,6 +38,9 @@ class ManagePublications extends ManageRecords
 		return [
 			'all' => Tab::make('All')
 				->badge(Publication::query()->count()),
+			/* 'display_first' => Tab::make('Display First')
+				->badge(Publication::query()->where('display_first', '>', 0)->count())
+				->modifyQueryUsing(fn (Builder $query) => $query->where('display_first', '>', 0)), */
 			'is_premium' => Tab::make('Premium')
 				->badge(Publication::query()->where('is_premium', true)->count())
 				->modifyQueryUsing(fn (Builder $query) => $query->where('is_premium', true)),

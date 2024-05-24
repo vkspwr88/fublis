@@ -66,9 +66,9 @@ class TopPublicationListResource extends Resource
 				Tables\Columns\TextColumn::make('publication.name')
                     ->searchable()
 					->sortable(),
-                Tables\Columns\TextColumn::make('rank_order')
-                    ->numeric()
-                    ->sortable(),
+                Tables\Columns\TextInputColumn::make('rank_order')
+					->rules(['numeric'])
+					->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

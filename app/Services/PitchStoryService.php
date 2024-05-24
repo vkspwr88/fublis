@@ -29,6 +29,7 @@ class PitchStoryService
 									])
 									->where('name', 'like', '%' . $data['name'] . '%')
 									->orderBy('is_premium', 'desc')
+									->orderBy('display_first', 'asc')
 									->orderBy('created_at', 'desc')
 									->get();
 

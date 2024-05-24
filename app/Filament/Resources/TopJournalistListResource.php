@@ -67,8 +67,8 @@ class TopJournalistListResource extends Resource
 				Tables\Columns\TextColumn::make('journalist.user.name')
                     ->searchable()
 					->sortable(),
-                Tables\Columns\TextColumn::make('rank_order')
-                    ->numeric()
+                Tables\Columns\TextInputColumn::make('rank_order')
+					->rules(['numeric'])
                     ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()

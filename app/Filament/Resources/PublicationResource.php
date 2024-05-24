@@ -41,13 +41,16 @@ class PublicationResource extends Resource
 					// ->directory('images/publications/logos')
 					// ->relationship('profile_image', 'imaggable')
                     ->required(fn (string $operation): bool => $operation != 'edit'),
-                Forms\Components\TextInput::make('name')
-                    ->required()
-                    ->maxLength(255),
-				Forms\Components\Toggle::make('is_premium')
+               	Forms\Components\Toggle::make('is_premium')
 					->inline(false)
 					->default(false),
-                Forms\Components\TextInput::make('website')
+				Forms\Components\TextInput::make('display_first')
+					->numeric()
+					->default(0),
+				Forms\Components\TextInput::make('name')
+                    ->required()
+                    ->maxLength(255),
+				Forms\Components\TextInput::make('website')
                     ->required()
                     ->maxLength(255),
 				Forms\Components\Select::make('country')
@@ -112,7 +115,11 @@ class PublicationResource extends Resource
                 /* Tables\Columns\TextColumn::make('id')
                     ->label('ID')
                     ->searchable(), */
-				Tables\Columns\ToggleColumn::make('is_premium'),
+				Tables\Columns\ToggleColumn::make('is_premium')
+					->sortable(),
+				Tables\Columns\TextInputColumn::make('display_first')
+					->rules(['numeric'])
+                    ->sortable(),
 				Tables\Columns\ImageColumn::make('profileImage.image_path')
 					->label('Profile Image'),
                 Tables\Columns\TextColumn::make('slug')
