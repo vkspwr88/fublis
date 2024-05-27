@@ -15,9 +15,11 @@
 			<div class="col-auto">
 				<x-users.tag name="Project" />
 			</div>
-			<div class="col-auto">
-				<x-users.tag :name="$mediaKit->category->name" />
-			</div>
+			@if($mediaKit->category)
+				<div class="col-auto">
+					<x-users.tag :name="$mediaKit->category->name" />
+				</div>
+			@endif
 			<div class="col-auto">
 				<x-users.tag :name="$country->name" />
 			</div>

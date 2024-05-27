@@ -26,8 +26,8 @@
 																Storage::url($journalist->profileImage->image_path) :
 																App\Http\Controllers\Users\AvatarController::setProfileAvatar([
 																	'name' => $journalist->user->name,
-																	'width' => 40,
-																	'fontSize' => 18,
+																	'width' => 150,
+																	'fontSize' => 60,
 																	'background' => $journalist->background_color,
 																	'foreground' => $journalist->foreground_color,
 																]);
@@ -70,7 +70,7 @@
 						</div>
 						<div class="col-12">
 							<textarea class="form-control text-dark rounded-3 border-0 @error('postUrl') is-invalid @enderror" rows="2" placeholder="Insert URL here" style="background: #CACACA" wire:model="postUrl" wire:blur="loadMeta"></textarea>
-							<div class="mt-2">
+							<div class="mt-2 text-center">
 								<x-users.spinners.primary-btn wire:target="loadMeta" style="height: 30px; width: 30px;" />
 							</div>
 						</div>

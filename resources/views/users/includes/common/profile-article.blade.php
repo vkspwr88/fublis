@@ -10,9 +10,11 @@
 			<div class="col-auto">
 				<x-users.tag name="Article" />
 			</div>
-			<div class="col-auto">
-				<x-users.tag :name="$mediaKit->category->name" />
-			</div>
+			@if($mediaKit->category)
+				<div class="col-auto">
+					<x-users.tag :name="$mediaKit->category->name" />
+				</div>
+			@endif
 		</div>
 		<div class="mb-4 row">
 			<div class="col text-dark fs-4 fw-semibold">

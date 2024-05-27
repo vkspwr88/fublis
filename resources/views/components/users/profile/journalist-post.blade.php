@@ -2,44 +2,61 @@
 	@if($posts->count() > 0)
 	<div class="row g-4">
 		@foreach ($posts as $post)
-		<div class="col-12" wire:key="{{ $post->id }}">
-			<div class="card rounded-4 shadow border-0">
-				<div class="card-body">
-					<a href="{{ $post->post_url }}" class="stretched-link" target="_blank"></a>
-					<div class="row g-3">
-						<div class="col-12">
-							<div class="row justify-content-center pb-2">
-								<p class="text-secondary fs-6 fw-semibold col m-0">{{ $post->story_type }}</p>
-								<p class="text-end text-secondary fs-6 fw-semibold col m-0">{{ $post->category->name }}</p>
+			<div class="col-12" wire:key="{{ $post->id }}">
+				<div class="border-0 shadow card rounded-4">
+					<div class="card-body">
+						<a href="{{ $post->post_url }}" class="stretched-link" target="_blank"></a>
+						<div class="row g-3">
+							<div class="col-12">
+								<div class="pb-2 row justify-content-center">
+									<p class="m-0 text-secondary fs-6 fw-semibold col">{{ $post->story_type }}</p>
+									<p class="m-0 text-end text-secondary fs-6 fw-semibold col">{{ $post->category->name }}</p>
+								</div>
 							</div>
-						</div>
-						<div class="col-12 text-dark">
-							<h4 class="fs-5 fw-semibold">{{ $post->meta_title }}</h4>
-							<p class="fs-6">{{ $post->meta_content }}</p>
-						</div>
-						<div class="col-12">
-							<div class="row align-items-center">
-								<div class="col">
-									<p class="text-dark fs-6 fw-bold m-0">
-										<img class="rounded-circle img-square img-30 me-2" src="{{ $post->publication->profileImage ? Storage::url($post->publication->profileImage->image_path) : 'https://via.placeholder.com/30x30' }}" alt="..." />
-										{{ $post->publication->name }}
-									</p>
+							<div class="col-12 text-dark">
+								<h4 class="fs-5 fw-semibold">{{ $post->meta_title }}</h4>
+								<p class="fs-6">
+									@if($post->meta_content)
+										{{ $post->meta_content }}
+									@else
+										{{ $post->post_url }}
+									@endif
+								</p>
+							</div>
+							<div class="col-12">
+								<div class="row align-items-center">
+									<div class="col">
+										<p class="m-0 text-dark fs-6 fw-bold">
+											@php
+												$profileImg = $post->publication->profileImage ?
+																Storage::url($post->publication->profileImage->image_path) :
+																App\Http\Controllers\Users\AvatarController::setProfileAvatar([
+																	'name' => $post->journalist->user->name,
+																	'width' => 150,
+																	'fontSize' => 60,
+																	'background' => $post->journalist->background_color,
+																	'foreground' => $post->journalist->foreground_color,
+																]);
+											@endphp
+											<img class="rounded-circle img-square img-30 me-2" src="{{ $profileImg }}" alt="..." />
+											{{ $post->publication->name }}
+										</p>
+									</div>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-		</div>
 		@endforeach
 	</div>
 	{{ $posts->links('vendor.livewire.custom-pagination') }}
 	@else
 	<div class="row">
 		<div class="col-12">
-			<div class="card border-0 rounded-3 bg-white shadow">
-				<div class="card-body text-center">
-					<h4 class="card-title text-purple-900 fs-5 fw-semibold m-0 py-3">No result found.</h4>
+			<div class="bg-white border-0 shadow card rounded-3">
+				<div class="text-center card-body">
+					<h4 class="py-3 m-0 text-purple-900 card-title fs-5 fw-semibold">No result found.</h4>
 				</div>
 			</div>
 		</div>

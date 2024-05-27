@@ -92,11 +92,17 @@ class Posts extends Component
 		)->validate();
 		//dd($validated);
 		$metaTags = get_meta_tags($this->postUrl);
+		// dd($metaTags);
 		if(isset($metaTags['twitter:title']) && isset($metaTags['description'])){
 			$this->showMeta = true;
 			$this->metaTitle = $metaTags['twitter:title'];
 			$this->metaContent = $metaTags['description'];
+			// return;
 		}
+		/* $this->dispatch('alert', [
+			'type' => 'warning',
+			'message' => 'Unable to fetch meta records of the URL.'
+		]); */
 	}
 
 
@@ -104,6 +110,14 @@ class Posts extends Component
 	{
 		//dd(get_meta_tags($this->postUrl));
 		$validated = $this->validate($this->rules(), $this->messages(), $this->validationAttributes());
+
+		/* if($this->metaTitle == '' || $this->metaContent == ''){
+			$this->dispatch('alert', [
+				'type' => 'warning',
+				'message' => 'Unable to save post without meta records.'
+			]);
+			return;
+		} */
 		$validated['metaTitle'] = $this->metaTitle;
 		$validated['metaContent'] = $this->metaContent;
 		//dd($validated);
