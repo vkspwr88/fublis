@@ -66,11 +66,11 @@
 							<div class="col">
 								<div class="row justify-content-center">
 									@if($publication->monthly_visitors)
-									<div class="col-12">
+									{{-- <div class="col-12">
 										<p class="py-2 m-0 fw-medium">
 											<span class="text-purple-700 badge rounded-pill bg-purple-50">{{ $publication->monthly_visitors }} monthly visits</span>
 										</p>
-									</div>
+									</div> --}}
 									@endif
 									<div class="col-12">
 										<h5 class="pt-3 m-0 fs-6 fw-semibold">

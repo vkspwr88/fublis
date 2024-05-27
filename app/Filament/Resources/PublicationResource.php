@@ -93,15 +93,15 @@ class PublicationResource extends Resource
 					->required()
 					->columns(2)
 					->gridDirection('row'),
-				Forms\Components\TextInput::make('starting_year')
+				/* Forms\Components\TextInput::make('starting_year')
 					->length(4)
 					->numeric()
 					->minValue(1900)
-					->maxValue(date('Y')),
+					->maxValue(date('Y')), */
                /*  Forms\Components\TextInput::make('instagram')
                     ->maxLength(255), */
-                Forms\Components\TextInput::make('monthly_visitors')
-                    ->maxLength(255),
+                /* Forms\Components\TextInput::make('monthly_visitors')
+                    ->maxLength(255), */
 				Forms\Components\Textarea::make('about_me')
                     ->maxLength(65535)
                     ->columnSpanFull(),

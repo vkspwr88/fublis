@@ -65,7 +65,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="col-12">
+				{{-- <div class="col-12">
 					<div class="row g-2">
 						<div class="col-auto">
 							<svg xmlns="http://www.w3.org/2000/svg" height="19" fill="currentColor" class="bi bi-file-bar-graph-fill text-secondary" viewBox="0 0 16 16">
@@ -78,8 +78,8 @@
 							</span>
 						</div>
 					</div>
-				</div>
-				<div class="col-12">
+				</div> --}}
+				{{-- <div class="col-12">
 					<div class="row g-2">
 						<div class="col-auto">
 							<svg xmlns="http://www.w3.org/2000/svg" height="19" fill="currentColor" class="bi bi-calendar2-minus text-secondary" viewBox="0 0 16 16">
@@ -92,7 +92,7 @@
 							<span class="text-gray-700 bg-gray-200 badge rounded-pill fw-semibold">{{ $publication->starting_year ?? '-' }}</span>
 						</div>
 					</div>
-				</div>
+				</div> --}}
 				<div class="col-12">
 					<div class="row g-2">
 						<div class="col-auto">
