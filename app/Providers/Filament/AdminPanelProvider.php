@@ -9,6 +9,7 @@ use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
 use Filament\Pages;
+use Filament\Pages\Auth\EditProfile;
 use Filament\Panel;
 use Filament\PanelProvider;
 use Filament\Resources\Resource;
@@ -31,6 +32,7 @@ class AdminPanelProvider extends PanelProvider
             ->id('backend')
             ->path('backend')
             ->login()
+            ->profile(EditProfile::class)
             ->colors([
                 'primary' => '#6941C6'/* Color::Amber */,
             ])

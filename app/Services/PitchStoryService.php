@@ -77,7 +77,8 @@ class PitchStoryService
 									->whereHas('user', function(Builder $query) use($data) {
 										$query->where('name', 'like', '%' . $data['name'] . '%');
 									})
-									->latest()
+									->orderBy('display_first', 'asc')
+									->orderBy('created_at', 'desc')
 									->get();
 
 		if($data['location'] != ''){

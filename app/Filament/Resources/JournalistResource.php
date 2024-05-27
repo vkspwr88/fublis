@@ -41,7 +41,10 @@ class JournalistResource extends Resource
 					// ->directory('images/publications/logos')
 					// ->relationship('profile_image', 'imaggable')
                     ->required(fn (string $operation): bool => $operation != 'edit'),
-                Forms\Components\Select::make('user_id')
+				Forms\Components\TextInput::make('display_first')
+					->numeric()
+					->default(999),
+				Forms\Components\Select::make('user_id')
                     ->relationship('user', 'name')
 					->options(function(string $operation, Get $get) {
 						// dd($operation, $get('user_id'));
@@ -137,6 +140,9 @@ class JournalistResource extends Resource
                 /* Tables\Columns\TextColumn::make('id')
                     ->label('ID')
                     ->searchable(), */
+				Tables\Columns\TextInputColumn::make('display_first')
+					->rules(['numeric'])
+                    ->sortable(),
 				Tables\Columns\ImageColumn::make('profileImage.image_path')
 					->label('Profile Image'),
                 Tables\Columns\TextColumn::make('slug')

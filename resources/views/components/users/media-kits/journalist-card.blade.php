@@ -39,7 +39,7 @@
 				<div class="col-md-8">
 					<div class="pb-2 row justify-content-center">
 						<p class="m-0 text-secondary fs-6 fw-semibold col">{{ $mediaKitTitle }}</p>
-						<p class="m-0 text-end text-secondary fs-6 fw-semibold col">{{ $mediaKit->category->name }}</p>
+						<p class="m-0 text-end text-secondary fs-6 fw-semibold col">{{ $mediaKit->category->name ?? '' }}</p>
 					</div>
 					<h5 class="py-2 m-0 card-title text-dark fs-5 fw-semibold">{{ $mediaKitHeading }}</h5>
 					<div class="py-2 row align-items-center">

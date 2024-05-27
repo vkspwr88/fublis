@@ -46,7 +46,7 @@ class PublicationResource extends Resource
 					->default(false),
 				Forms\Components\TextInput::make('display_first')
 					->numeric()
-					->default(0),
+					->default(999),
 				Forms\Components\TextInput::make('name')
                     ->required()
                     ->maxLength(255),
