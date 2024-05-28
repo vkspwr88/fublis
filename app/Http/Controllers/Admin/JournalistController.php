@@ -45,10 +45,9 @@ class JournalistController extends Controller
 	public static function update(Model $record, array $data)
 	{
 		$data = LocationController::setLocationForCreate($data);
-		$data['twitter'] = $data['twitter'] ? 'https://' . trimWebsiteUrl($data['twitter']) : null;
-		$data['facebook'] = $data['facebook'] ? 'https://' . trimWebsiteUrl($data['facebook']) : null;
-		$data['instagram'] = $data['instagram'] ? 'https://' . trimWebsiteUrl($data['instagram']) : null;
-		$data['linkedin'] = $data['linkedin'] ? 'https://' . trimWebsiteUrl($data['linkedin']) : null;
+		$data['linked_profile'] = $data['linked_profile'] ? 'https://' . trimWebsiteUrl($data['linked_profile']) : null;
+		$data['published_article_link'] = $data['published_article_link'] ? 'https://' . trimWebsiteUrl($data['published_article_link']) : null;
+		$data['publishing_platform_link'] = $data['publishing_platform_link'] ? 'https://' . trimWebsiteUrl($data['publishing_platform_link']) : null;
 
 		$mediaId = $data['media_id'];
 		Arr::forget($data, ['media_id']);
