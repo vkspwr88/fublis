@@ -5,7 +5,6 @@
 			<div class="col-12" wire:key="{{ $post->id }}">
 				<div class="border-0 shadow card rounded-4">
 					<div class="card-body">
-						<a href="{{ $post->post_url }}" class="stretched-link" target="_blank"></a>
 						<div class="row g-3">
 							<div class="col-12">
 								<div class="pb-2 row justify-content-center">
@@ -14,14 +13,16 @@
 								</div>
 							</div>
 							<div class="col-12 text-dark">
-								<h4 class="fs-5 fw-semibold">{{ $post->meta_title }}</h4>
-								<p class="fs-6">
-									@if($post->meta_content)
-										{{ $post->meta_content }}
-									@else
-										{{ $post->post_url }}
-									@endif
-								</p>
+								<a href="{{ $post->post_url }}" target="_blank">
+									<h4 class="fs-5 fw-semibold">{{ $post->meta_title }}</h4>
+									<p class="fs-6">
+										@if($post->meta_content)
+											{{ $post->meta_content }}
+										@else
+											{{ $post->post_url }}
+										@endif
+									</p>
+								</a>
 							</div>
 							<div class="col-12">
 								<div class="row align-items-center">
@@ -42,6 +43,14 @@
 											{{ $post->publication->name }}
 										</p>
 									</div>
+									@if (isJournalist() && $post->journalist_id == auth()->user()->journalist->id)
+										<div class="col text-end">
+											<button class="btn btn-sm btn-primary" wire:click="deletePost('{{ $post->id }}')">
+												<i class="bi bi-trash3" {{-- wire:loading.remove="deletePost('{{ $post->id }}')" --}}></i>
+												<x-users.spinners.white-btn wire:target="deletePost('{{ $post->id }}')" />
+											</button>
+										</div>
+									@endif
 								</div>
 							</div>
 						</div>

@@ -66,7 +66,7 @@
                         </div>
                     </div>
                     <div class="row align-items-center">
-                        <div class="col">
+                        <div class="col-auto">
                             <div class="row align-items-center g-2">
                                 <div class="col-auto">
 									@php
@@ -87,7 +87,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-auto">
+                        <div class="col">
                             <div class="flex-wrap d-flex justify-content-end align-items-center fw-medium">
 								<div class="row g-2">
 									@foreach ($journalist->publications[0]->categories as $category)

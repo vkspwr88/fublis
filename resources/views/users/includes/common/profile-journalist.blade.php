@@ -144,7 +144,7 @@
 			<livewire:journalists.profile.posts :journalist="$journalist" />
 		@endif
 	</div>
-	@if ($viewAs == 'architect')
+	{{-- @if ($viewAs == 'architect')
 
-	@endif
+	@endif --}}
 </div>

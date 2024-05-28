@@ -3,6 +3,7 @@
 namespace App\Livewire\Journalists\Profile;
 
 use App\Http\Controllers\Users\CategoryController;
+use App\Http\Controllers\Users\PostController;
 use App\Http\Controllers\Users\PublicationController;
 use App\Services\JournalistPostService;
 use Illuminate\Support\Facades\Validator;
@@ -133,6 +134,30 @@ class Posts extends Component
 		$this->dispatch('alert', [
 			'type' => 'warning',
 			'message' => 'We are facing problem in creating post. Please try again or contact support.'
+		]);
+	}
+
+	public function deletePost($postID)
+	{
+		$post = PostController::getPostById($postID);
+		if(!$post){
+			$this->dispatch('alert', [
+				'type' => 'warning',
+				'message' => 'Invalid post.'
+			]);
+			return;
+		}
+		if($post->journalist_id != auth()->user()->journalist->id){
+			$this->dispatch('alert', [
+				'type' => 'warning',
+				'message' => 'Not authorized.'
+			]);
+			return;
+		}
+		$post->delete();
+		$this->dispatch('alert', [
+			'type' => 'success',
+			'message' => 'Post deleted successfully.'
 		]);
 	}
 
