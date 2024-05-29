@@ -12,8 +12,8 @@
 									<p class="m-0 text-end text-secondary fs-6 fw-semibold col">{{ $post->category->name }}</p>
 								</div>
 							</div>
-							<div class="col-12 text-dark">
-								<a href="{{ $post->post_url }}" target="_blank">
+							<div class="col-12">
+								<a class="text-dark" href="{{ $post->post_url }}" target="_blank">
 									<h4 class="fs-5 fw-semibold">{{ $post->meta_title }}</h4>
 									<p class="fs-6">
 										@if($post->meta_content)
