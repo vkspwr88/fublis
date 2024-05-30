@@ -2,7 +2,9 @@
     @if($journalists->count() > 0)
 		<div class="row g-4">
 			@foreach ($journalists as $journalist)
-                <x-users.journalists.card :journalist="$journalist" />
+				@if($journalist->publications[0])
+                	<x-users.journalists.card :journalist="$journalist" />
+				@endif
 			@endforeach
 		</div>
 		{{ $journalists->links('vendor.livewire.custom-pagination') }}
