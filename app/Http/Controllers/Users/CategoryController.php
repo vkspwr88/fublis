@@ -52,8 +52,7 @@ class CategoryController extends Controller
 		}
 		if($type == 'call'){
 			// dd(Call::with('publication.publicationTypes')->get()->pluck('publication')->pluck('publicationTypes')->flatten()->unique()->pluck('id')/* where('submission_end_date', '>', Carbon::now()) */);
-			return Category::has(['publication', 'journalist', 'language', 'location'])
-							->whereHas('calls', function (Builder $query) {
+			return Category::whereHas('calls', function (Builder $query) {
 								$query->where('submission_end_date', '>', Carbon::now());
 							})->orderBy('name', 'asc')
 							->get();
