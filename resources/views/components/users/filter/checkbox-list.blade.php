@@ -1,5 +1,7 @@
 <div class="filter-checkbox-container">
 	@foreach ($list as $item)
-		<x-users.filter.checkbox :item="$item" :type="$type" :model="$model" />
+		@if($item)
+			<x-users.filter.checkbox :item="$item" :type="$type" :model="$model" />
+		@endif
 	@endforeach
 </div>
