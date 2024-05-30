@@ -2,7 +2,7 @@
     @if($journalists->count() > 0)
 		<div class="row g-4">
 			@foreach ($journalists as $journalist)
-				@if($journalist && $journalist->publications)
+				@if($journalist && $journalist->publications && isset($journalist->publications[0]))
                 	<x-users.journalists.card :journalist="$journalist" />
 				@endif
 			@endforeach

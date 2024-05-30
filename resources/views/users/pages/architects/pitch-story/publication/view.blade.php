@@ -20,7 +20,7 @@
 		</div>
 	</div>
 
-	@include('users.includes.architect.pitch-story-header', ['headerTitle' => 'Submit your stories to call for submissions'])
+	@include('users.includes.architect.pitch-story-header', ['headerTitle' => 'Submit your story'])
 
 	<hr class="border-gray-300 my-4">
 
