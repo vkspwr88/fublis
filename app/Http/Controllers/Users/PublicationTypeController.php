@@ -23,14 +23,18 @@ class PublicationTypeController extends Controller
 									->get();
 		}
 		if($type == 'call'){
+			// dd(PublicationType::has('publications.calls')->orderBy('name', 'asc')->get());
 			// dd(Call::with('publication.publicationTypes')->get()->pluck('publication')->pluck('publicationTypes')->flatten()->unique()->pluck('id')/* where('submission_end_date', '>', Carbon::now()) */);
 			return Call::with('publication.publicationTypes')
 						->where('submission_end_date', '>', Carbon::now())
 						->get()
 						->pluck('publication')
+						->flatten()
+						->unique()
 						->pluck('publicationTypes')
 						->flatten()
-						->unique();
+						->unique()
+						->sortBy('name');
 		}
 	}
 }
