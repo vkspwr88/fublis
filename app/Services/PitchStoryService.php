@@ -133,7 +133,7 @@ class PitchStoryService
 						])
 						->where('submission_end_date', '>', Carbon::now())
 						->where('title', 'like', '%' . $data['name'] . '%')
-						->latest()
+						->orderBy('submission_end_date', 'asc')
 						->get();
 
 		if($data['location'] != ''){

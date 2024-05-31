@@ -12,7 +12,7 @@
 						<div class="row justify-content-between align-items-center">
 							<div class="col-12">
 								<div class="px-5 card-body">
-									<h5 class="py-2 m-0 card-title text-dark fs-4 fw-semibold">Journalist Forgot Password</h5>
+									<h5 class="py-2 m-0 card-title text-dark fs-4 fw-semibold">Forgot Password</h5>
 									<livewire:journalists.auth.forgot-password />
 									<p class="py-2 m-0 text-center card-text text-secondary fs-6">
 										Already have an account?

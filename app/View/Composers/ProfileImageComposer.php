@@ -19,36 +19,24 @@ class ProfileImageComposer
     {
 		$profileImage = 'https://via.placeholder.com/40x40';
 		if(isJournalist()){
-			$authJournalist = auth()->user()->journalist->load(['profileImage']);
-			if($authJournalist->profileImage){
+			$authJournalist = auth()->user()->journalist;
+			$profileImage = AvatarController::getProfileAvatar($authJournalist, 'journalist');
+			/* if($authJournalist->profileImage){
 				$profileImage = Storage::url($authJournalist->profileImage->image_path);
 			}
 			else{
-				$profileImage = AvatarController::setProfileAvatar([
-					'name' => auth()->user()->name,
-					'width' => 40,
-					'fontSize' => 20,
-					'background' => $authJournalist->background_color,
-					'foreground' => $authJournalist->foreground_color,
-				]);
-			}
-
+				$profileImage = AvatarController::getProfileAvatar($authJournalist, 'journalist');
+			} */
 		}
 		elseif(isArchitect()){
-			$authArchitect = auth()->user()->architect->load(['profileImage']);
-			if($authArchitect->profileImage){
+			$authArchitect = auth()->user()->architect;
+			$profileImage = AvatarController::getProfileAvatar($authArchitect, 'architect');
+			/* if($authArchitect->profileImage){
 				$profileImage = Storage::url($authArchitect->profileImage->image_path);
 			}
 			else{
-				$profileImage = AvatarController::setProfileAvatar([
-					'name' => auth()->user()->name,
-					'width' => 40,
-					'fontSize' => 20,
-					'background' => $authArchitect->background_color,
-					'foreground' => $authArchitect->foreground_color,
-				]);
-			}
-
+				$profileImage = AvatarController::getProfileAvatar($authArchitect, 'architect');
+			} */
 		}
         $view->with('profileImage', $profileImage);
     }
