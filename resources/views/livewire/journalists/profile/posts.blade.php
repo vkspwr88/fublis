@@ -77,7 +77,7 @@
 							@if($showMeta)
 							<div class="col-12 text-dark">
 								<h4 class="fs-5 fw-semibold">{{ new Illuminate\Support\HtmlString($metaTitle) }}</h4>
-								<p class="fs-6">{{ $metaContent }}</p>
+								<p class="fs-6">{{ new Illuminate\Support\HtmlString($metaContent) }}</p>
 							</div>
 							@endif
 							<div class="col-12">

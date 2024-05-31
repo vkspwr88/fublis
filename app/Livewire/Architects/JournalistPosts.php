@@ -30,7 +30,7 @@ class JournalistPosts extends Component
     public function render()
     {
         return view('livewire.architects.journalist-posts', [
-			'posts' => $this->postService->getJournalistPosts($this->journalist)->paginate(5),
+			'posts' => $this->postService->getJournalistPosts($this->journalist)->paginate(10),
 		]);
     }
 }
