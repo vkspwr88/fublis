@@ -26,9 +26,9 @@
                 <div class="col-sm d-flex flex-column justify-content-between">
                     <div class="pb-4 row align-items-center">
                         <p class="m-0 fs-6 col">
-							@if ($journalist->location)
+							{{-- @if ($journalist->location)
 								<x-utility.badges.secondary-badge :text="$journalist->location->name" icon='<i class="bi bi-geo-alt"></i>' />
-							@endif
+							@endif --}}
                             @foreach ($journalist->publications[0]->publicationTypes as $publicationType)
 								<x-utility.badges.secondary-badge :text="$publicationType->name" />
                             @endforeach
