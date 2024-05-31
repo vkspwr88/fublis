@@ -8,6 +8,7 @@ use App\Http\Controllers\Users\JournalistController as UsersJournalistController
 use App\Http\Controllers\Users\PublicationController;
 use App\Models\Journalist;
 use Illuminate\Http\Request;
+use RalphJSmit\Laravel\SEO\Support\SEOData;
 
 class JournalistController extends Controller
 {
@@ -27,6 +28,9 @@ class JournalistController extends Controller
 		return view('users.pages.architects.pitch-story.journalist.view', [
 			'journalist' => $journalist,
 			'categories' => $categories,
+			'SEOData' => new SEOData(
+                title: $journalist->user->name . ' Profile',
+            ),
 		]);
 	}
 }
