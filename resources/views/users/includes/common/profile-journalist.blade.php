@@ -38,12 +38,14 @@
 						</svg>
 					</div>
 					<div class="col">
-						<span class="text-gray-700 bg-gray-200 badge rounded-pill text-capitalize">
-							{{ $journalist->location->city()->first()->state->country->name }}
-						</span>
-						<span class="text-gray-700 bg-gray-200 badge rounded-pill text-capitalize">
-							{{ $journalist->location->city()->first()->state->name }}
-						</span>
+						@if($journalist->location->city() && $journalist->location->city()->first())
+							<span class="text-gray-700 bg-gray-200 badge rounded-pill text-capitalize">
+								{{ $journalist->location->city()->first()->state->country->name }}
+							</span>
+							<span class="text-gray-700 bg-gray-200 badge rounded-pill text-capitalize">
+								{{ $journalist->location->city()->first()->state->name }}
+							</span>
+						@endif
 						<span class="text-gray-700 bg-gray-200 badge rounded-pill">{{ $journalist->location->name }}</span>
 					</div>
 				</div>
