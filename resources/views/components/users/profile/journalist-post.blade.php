@@ -1,4 +1,7 @@
 <div class="col-12">
+	@php
+		use Illuminate\Support\HtmlString;
+	@endphp
 	@if($posts->count() > 0)
 	<div class="row g-4">
 		@foreach ($posts as $post)
@@ -14,7 +17,7 @@
 							</div>
 							<div class="col-12">
 								<a class="text-dark" href="{{ $post->post_url }}" target="_blank">
-									<h4 class="fs-5 fw-semibold">{{ $post->meta_title }}</h4>
+									<h4 class="fs-5 fw-semibold">{{ new HtmlString($post->meta_title) }}</h4>
 									<p class="fs-6">
 										@if($post->meta_content)
 											{{ $post->meta_content }}
