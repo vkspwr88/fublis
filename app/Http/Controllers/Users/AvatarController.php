@@ -52,6 +52,15 @@ class AvatarController extends Controller
 
 	public static function getProfileAvatar($model, $type)
 	{
+		if(!$model){
+			return AvatarController::setProfileAvatar([
+				'name' => 'Fublis',
+				'width' => 150,
+				'fontSize' => 60,
+				'background' => '#6941C6',
+				'foreground' => '#fff',
+			]);
+		}
 		if($type == 'studio'){
 			return $model->profileImage ?
 						Storage::url($model->profileImage->image_path) :
