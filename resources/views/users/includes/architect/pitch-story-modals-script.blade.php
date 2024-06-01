@@ -1,5 +1,11 @@
 @push('scripts')
 	<script>
+		window.addEventListener('set-message', event => {
+			let editor = document.querySelector("trix-editor");
+			console.log(event.detail[0].message, editor);
+			editor.editor.loadHTML(event.detail[0].message);
+		});
+
 		window.addEventListener('hide-select-publication-modal', event => {
 			$('#selectPublicationModal').modal('hide');
 		});
@@ -54,6 +60,13 @@
 		});
 		window.addEventListener('show-pitch-premium-alert-modal', event => {
 			$('#pitchCallPremiumAlertModal').modal('show');
+		});
+
+		window.addEventListener('hide-pitch-limit-alert-modal', event => {
+			$('#pitchTotalLimitAlertModal').modal('hide');
+		});
+		window.addEventListener('show-pitch-limit-alert-modal', event => {
+			$('#pitchTotalLimitAlertModal').modal('show');
 		});
 	</script>
 @endpush

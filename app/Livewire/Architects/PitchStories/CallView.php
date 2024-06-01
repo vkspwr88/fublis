@@ -74,6 +74,9 @@ class CallView extends Component
 		// }
 		$this->dispatch('hide-select-mediakit-modal');
 		$this->dispatch('show-send-message-modal');
+		$this->dispatch('set-message', [
+			'message' => $this->message,
+		]);
 	}
 
 	// Show success message

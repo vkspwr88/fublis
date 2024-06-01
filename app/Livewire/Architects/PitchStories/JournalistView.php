@@ -94,6 +94,9 @@ class JournalistView extends Component
 		// }
 		$this->dispatch('hide-select-mediakit-modal');
 		$this->dispatch('show-send-message-modal');
+		$this->dispatch('set-message', [
+			'message' => $this->message,
+		]);
 	}
 
 	// Show success message
@@ -107,10 +110,11 @@ class JournalistView extends Component
 			return;
 		}
 		if(SubscriptionController::checkPitchesPerMonth()){
-			$this->dispatch('alert', [
+			/* $this->dispatch('alert', [
 				'type' => 'warning',
 				'message' => 'You are only allowed to do 3 pitches per month.'
-			]);
+			]); */
+			$this->dispatch('show-pitch-limit-alert-modal');
 			return;
 		}
 		if($this->subject == '' || $this->message == ''){

@@ -229,7 +229,7 @@
 				<div class="mb-3">
 					<input type="text" class="form-control" wire:model="subject">
 				</div>
-				<div class="mb-3">
+				<div class="mb-3" wire:ignore>
 					<label for="inputMessage" class="form-label fw-medium">Type your message in no more than 100 words</label>
 					<trix-editor input="inputMessage" x-on:trix-change="$wire.message = $event.target.value"></trix-editor>
 					<input id="inputMessage" type="hidden" wire:model="message">
@@ -263,9 +263,12 @@
 				</div>
 			</div>
 			<div class="border-0 modal-footer justify-content-center">
-				<a href="{{ route('architect.pitch-story.publications.index') }}" class="px-3 btn btn-primary">
+				{{-- <a href="{{ route('architect.pitch-story.publications.index') }}" class="px-3 btn btn-primary">
 					Pitch to another Publication <i class="bi bi-send-fill"></i>
-				</a>
+				</a> --}}
+				<button type="button" class="px-3 btn btn-primary" data-bs-dismiss="modal">
+					Pitch to another Publication <i class="bi bi-send-fill"></i>
+				</button>
 			</div>
 		</div>
 	</div>
@@ -283,9 +286,12 @@
 				</div>
 			</div>
 			<div class="border-0 modal-footer justify-content-center">
-				<a href="{{ route('architect.pitch-story.journalists.index') }}" class="px-3 btn btn-primary">
+				{{-- <a href="{{ route('architect.pitch-story.journalists.index') }}" class="px-3 btn btn-primary">
 					Pitch to another Journalist <i class="bi bi-send-fill"></i>
-				</a>
+				</a> --}}
+				<button type="button" class="px-3 btn btn-primary" data-bs-dismiss="modal">
+					Pitch to another Journalist <i class="bi bi-send-fill"></i>
+				</button>
 			</div>
 		</div>
 	</div>
@@ -303,21 +309,43 @@
 				</div>
 			</div>
 			<div class="border-0 modal-footer justify-content-center">
-				<a href="{{ route('architect.pitch-story.calls.index') }}" class="px-3 btn btn-primary">
+				{{-- <a href="{{ route('architect.pitch-story.calls.index') }}" class="px-3 btn btn-primary">
 					Pitch to another Call <i class="bi bi-send-fill"></i>
-				</a>
+				</a> --}}
+				<button type="button" class="px-3 btn btn-primary" data-bs-dismiss="modal">
+					Pitch to another Call <i class="bi bi-send-fill"></i>
+				</button>
 			</div>
 		</div>
 	</div>
 </div>
 
-<div wire:ignore.self class="modal fade" id="pitchCallPremiumAlertModal" tabindex="-1" aria-labelledby="pitchCallPremiumAlertLabel" aria-hidden="true"  data-bs-backdrop="static" data-bs-keyboard="false" data-keyboard="false">
+<div wire:ignore.self class="modal fade" id="pitchCallPremiumAlertModal" tabindex="-1" aria-labelledby="pitchCallPremiumAlertLabel" aria-hidden="true"  data-bs-backdrop="static" data-bs-keyboard="false" data-keyboard="false" style="background: #666 !important;">
 	<div class="modal-dialog modal-dialog-centered">
 		<div class="modal-content">
 			<div class="modal-body">
 				<div class="py-2 text-center">
 					<h4 class="text-purple-700 fs-4 fw-semibold">Premium Publication</h4>
 					<p class="text-secondary">Please upgrade your account to pitch to premium publications. Unlock unlimited pitches to a wide range of publications and enjoy many more features with a premium account.</p>
+					<p>
+						<a href="{{ route('pricing') }}" class="btn btn-primary fw-medium" style="width: 150px;">Upgrade</a>
+					</p>
+					<p class="m-0">
+						<button type="button" class="btn btn-secondary fw-medium" data-bs-dismiss="modal" aria-label="Close" style="width: 150px;">Return</button>
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div wire:ignore.self class="modal fade" id="pitchTotalLimitAlertModal" tabindex="-1" aria-labelledby="pitchTotalLimitAlertLabel" aria-hidden="true"  data-bs-backdrop="static" data-bs-keyboard="false" data-keyboard="false" style="background: #666 !important;">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<div class="modal-body">
+				<div class="py-2 text-center">
+					<h4 class="text-purple-700 fs-4 fw-semibold">Upgrade Your Account to Keep Pitching!</h4>
+					<p class="text-secondary">You've reached the limit of pitches allowed in your free account per month. Upgrade now to continue sharing your stories and take advantage of unlimited pitching, advanced features, and premium support.</p>
 					<p>
 						<a href="{{ route('pricing') }}" class="btn btn-primary fw-medium" style="width: 150px;">Upgrade</a>
 					</p>

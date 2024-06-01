@@ -1,7 +1,7 @@
 <footer id="footer">
-	<div class="bg-footer-black py-5">
+	<div class="py-5 bg-footer-black">
 		<div class="container py-5">
-			<div class="row text-center gy-5">
+			<div class="text-center row gy-5">
 				<div class="col-12">
 					<h4 id="subscribeSectionHeader" class="text-white">Subscribe and never miss out</h4>
 					<livewire:users.blogs.index.subscribe-newsletter />
@@ -9,36 +9,36 @@
 				<div class="col-12">
 					<ul class="nav justify-content-center" id="bannerFooterNav">
 						<li class="nav-item">
-						  	<a class="nav-link text-white" href="https://www.fublis.com">Home</a>
+						  	<a class="text-white nav-link" href="https://www.fublis.com">Home</a>
 						</li>
 						<li class="nav-item">
-						  	<a class="nav-link text-white" href="https://app.fublis.com/">Platform</a>
+						  	<a class="text-white nav-link" href="https://app.fublis.com/">Platform</a>
 						</li>
 						<li class="nav-item">
-						  	<a class="nav-link text-white" href="https://blog.fublis.com/">Magazine</a>
+						  	<a class="text-white nav-link" href="https://blog.fublis.com/mag/">Magazine</a>
 						</li>
 						<li class="nav-item">
-						  	<a class="nav-link text-white" href="https://help.fublis.com/">Help Center</a>
+						  	<a class="text-white nav-link" href="https://help.fublis.com/">Help Center</a>
 						</li>
 					</ul>
 				</div>
 				<div class="col-12">
-					<h1 id="fullWidthHeader" class="m-0 p-0 lh-1 text-white fw-bold">FUBLIS NOW</h1>
+					<h1 id="fullWidthHeader" class="p-0 m-0 text-white lh-1 fw-bold">FUBLIS NOW</h1>
 				</div>
 			</div>
 		</div>
 	</div>
-	<div id="footer1" class="bg-white py-5">
+	<div id="footer1" class="py-5 bg-white">
 		<div class="container">
 			<div class="row g-4">
 				@include('users.includes.footers.nav')
 			</div>
 		</div>
 	</div>
-	{{-- <div id="footer1" class="bg-white py-5">
+	{{-- <div id="footer1" class="py-5 bg-white">
 		<div class="container">
 			<div class="row g-4">
-				<div class="col-md-4 text-center text-md-start">
+				<div class="text-center col-md-4 text-md-start">
 					<p class="mb-4 mb-md-5">
 						<img src="{{ asset(env('COMPANY_LOGO')) }}" alt="{{ env('APP_NAME') }}" class="footer-logo">
 					</p>
@@ -47,7 +47,7 @@
 					</p>
 				</div>
 				<div class="col-md-8">
-					<div class="footer-nav d-flex flex-column flex-sm-row justify-content-lg-evenly flex-wrap text-center text-sm-start">
+					<div class="flex-wrap text-center footer-nav d-flex flex-column flex-sm-row justify-content-lg-evenly text-sm-start">
 						<div class="">
 							<x-users.footer.heading text="platform" />
 							<ul class="nav flex-column footer-list">
@@ -167,7 +167,7 @@
 					<ul id="socialNav" class="nav justify-content-center justify-content-md-end">
 						@foreach ($socialMedias as $socialMedia)
 						<li class="nav-item">
-							<a class="nav-link text-muted px-2" href="{{ $socialMedia->url }}" target="_blank">{!! $socialMedia->icon !!}</a>
+							<a class="px-2 nav-link text-muted" href="{{ $socialMedia->url }}" target="_blank">{!! $socialMedia->icon !!}</a>
 						</li>
 						@endforeach
 					</ul>

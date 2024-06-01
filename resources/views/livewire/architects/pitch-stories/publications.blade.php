@@ -53,4 +53,11 @@
 	</div>
 
 	@include('users.includes.architect.pitch-story-modals')
+
+	{{-- @script
+		<script>
+			let editor = document.querySelector("trix-editor");
+			editor.editor.insertHTML('{!! addslashes($message) !!}');
+		</script>
+	@endscript --}}
 </div>
