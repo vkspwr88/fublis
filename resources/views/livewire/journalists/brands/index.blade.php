@@ -71,13 +71,21 @@
 							<div class="col-sm-9">
 								<div class="row align-items-center">
 									<p class="m-0 fs-6 col">
-										<span class="mb-1 badge rounded-pill text-dark bg-light">
-											<i class="bi bi-geo-alt"></i>
-											{{ $brand->location->name }}
-										</span>
-										<span class="mb-1 badge rounded-pill text-dark bg-light">
-											{{ $brand->category->name }}
-										</span>
+										@if($brand->location)
+											<span class="mb-1 badge rounded-pill text-dark bg-light text-capitalize">
+												<i class="bi bi-geo-alt"></i>
+												@if ($brand->location->city()->first())
+													{{ $brand->location->city()->first()->state->country->name }}
+												@else
+													{{ $brand->location->name }}
+												@endif
+											</span>
+										@endif
+										@if($brand->category)
+											<span class="mb-1 badge rounded-pill text-dark bg-light">
+												{{ $brand->category->name }}
+											</span>
+										@endif
 									</p>
 									<p class="m-0 text-end fs-6 col">
 										<a href="{{ route('journalist.brand.view', ['brand' => $brand->slug]) }}" class="btn btn-primary btn-sm rounded-pill">

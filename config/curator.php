@@ -34,7 +34,7 @@ return [
     'image_resize_target_height' => null,
     'image_resize_target_width' => null,
     'is_limited_to_directory' => false,
-    'max_size' => 5000,
+    'max_size' => 15000,
     'model' => \Awcodes\Curator\Models\Media::class,
     'min_size' => 0,
     'path_generator' => null,

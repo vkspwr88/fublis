@@ -125,9 +125,10 @@ class LocationController extends Controller
 		}
 		elseif($type == 'company'){
 			$locations = Location::has('companies')->get()->pluck('name');
-			$cities = City::whereIn('name', $locations)->get()->load('state.country');
+			/* $cities = City::whereIn('name', $locations)->get()->load('state.country');
 			$states = $cities->pluck('state');
-			$countries = $states->pluck('country');
+			$countries = $states->pluck('country'); */
+			$countries = Country::whereIn('name', $locations)->get();
 		}
 		elseif($type == 'mediakit'){
 			$locations = Location::has('projects')->get()->pluck('name');

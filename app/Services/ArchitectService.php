@@ -107,7 +107,10 @@ class ArchitectService
 			if($details['new']){
 				// insert location record
 				$location = LocationController::createLocation([
-					'name' => $details['selectedCity'],
+					'name' => $details['selectedCountry'],
+					'country_flag' => 1,
+					'state_flag' => 0,
+					'city_flag' => 0,
 				]);
 
 				$company = CompanyController::createCompany([

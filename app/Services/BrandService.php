@@ -32,11 +32,17 @@ class BrandService
 							->get();
 		} */
 		if($data['location'] != ''){
-			$cities = LocationController::getCitiesByCountry($data['location']);
+			$country = LocationController::getCountryById($data['location']);
+			$filter = Company::whereHas('location', function(Builder $query) use($country) {
+				$query->where('name', $country->name);
+			})->get()->pluck('id');
+			// dd($calls, $country, $filter);
+			$brands = $brands->find($filter);
+			/* $cities = LocationController::getCitiesByCountry($data['location']);
 			$filter = Company::whereHas('location', function(Builder $query) use($cities) {
 				$query->whereIn('name', $cities->pluck('name'));
 			})->get()->pluck('id');
-			$brands = $brands->find($filter);
+			$brands = $brands->find($filter); */
 			// $brands = $brands->where('location_id', $data['location']);
 		}
 		if(!empty($data['categories'])){

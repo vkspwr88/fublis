@@ -11,18 +11,18 @@
 			</div>
 			<div class="col-12 col-sm-auto order-3 order-sm-3 order-md-2 text-center">
 				<nav aria-label="...">
-					<ul class="pagination pagination-sm justify-content-center m-0">
+					<ul class="pagination pagination-sm justify-content-center m-0 flex-wrap">
 						@foreach ($elements as $element)
 							@if (is_string($element))
 								<li class="page-item disabled" aria-current="page" aria-disabled="true">
 									<span class="page-link px-3 border-0 bg-transparent text-dark rounded">{{ $element }}</span>
 								</li>
 							@endif
-		
+
 							@if (is_array($element))
 								@foreach ($element as $page => $url)
 									@if ($page == $paginator->currentPage())
-										<li class="page-item" aria-current="page" wire:key="paginator-{{ $paginator->getPageName() }}-page-{{ $page }}">
+										<li class="page-item active" aria-current="page" wire:key="paginator-{{ $paginator->getPageName() }}-page-{{ $page }}">
 											<span class="page-link px-3 border bg-white text-dark rounded">{{ $page }}</span>
 										</li>
 									@else

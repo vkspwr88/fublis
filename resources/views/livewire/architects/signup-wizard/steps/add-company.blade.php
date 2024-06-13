@@ -23,7 +23,7 @@
 											</div>
 											<div class="mb-3">
 												<label for="selectCountry" class="form-label text-dark fs-6 fw-medium">Country</label>
-												<select class="form-select @error('selectedCountry') is-invalid @enderror" id="selectCountry" wire:model.live="selectedCountry">
+												<select class="form-select @error('selectedCountry') is-invalid @enderror" id="selectCountry" wire:model="selectedCountry">
 													<option value="0">Select Country</option>
 													@foreach ($countries as $country)
 													<option value="{{ $country->id }}">{{ str()->headline($country->name) }}</option>
@@ -31,7 +31,7 @@
 												</select>
 												@error('selectedCountry')<div class="invalid-feedback">{{ $message }}</div>@enderror
 											</div>
-											<div class="mb-3">
+											{{-- <div class="mb-3">
 												<label for="selectState" class="form-label text-dark fs-6 fw-medium">State</label>
 												<select class="form-select @error('selectedState') is-invalid @enderror" id="selectState" wire:model.live="selectedState">
 													<option value="0">Select State</option>
@@ -50,7 +50,7 @@
 													@endforeach
 												</select>
 												@error('selectedCity')<div class="invalid-feedback">{{ $message }}</div>@enderror
-											</div>
+											</div> --}}
 											<div class="mb-3">
 												<label for="selectCategory" class="form-label text-dark fs-6 fw-medium">Category</label>
 												<select class="form-select select2-dropdown @error('selectedCategory') is-invalid @enderror" id="selectCategory" wire:model="selectedCategory">

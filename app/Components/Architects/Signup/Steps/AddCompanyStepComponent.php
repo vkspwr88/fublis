@@ -19,8 +19,8 @@ class AddCompanyStepComponent extends StepComponent
 	public $website;
 	public $location;
 	public $selectedCountry;
-	public $selectedState;
-	public $selectedCity;
+	// public $selectedState;
+	// public $selectedCity;
 	public $selectedCategory;
 	public $selectedTeamSize;
 	public $selectedPosition;
@@ -39,7 +39,7 @@ class AddCompanyStepComponent extends StepComponent
 		//$this->countries = Controllers\Users\LocationController::getCountries();
 		session()->forget('initial_state');
 		$this->selectedCountry = 101;
-		$this->selectedState = 0;
+		// $this->selectedState = 0;
 		if(checkInvitation('architect')){
 			$invitation = session()->get('invitation');
 			$invitedUser = $this->userRepository->getInvitedArchitectUserById($invitation->invited_by);
@@ -67,8 +67,8 @@ class AddCompanyStepComponent extends StepComponent
 				'categories' => Controllers\Users\CategoryController::getAll(),
 				'teamSizes' => Controllers\Users\TeamSizeController::getAll(),
 				'countries' => Controllers\Users\LocationController::getCountries(),
-				'states' => Controllers\Users\LocationController::getStatesByCountryId($this->selectedCountry),
-				'cities' => Controllers\Users\LocationController::getCitiesByStateId($this->selectedState),
+				// 'states' => Controllers\Users\LocationController::getStatesByCountryId($this->selectedCountry),
+				// 'cities' => Controllers\Users\LocationController::getCitiesByStateId($this->selectedState),
 			];
 			//$this->countries = Controllers\Users\LocationController::getCountries();
 			//$this->getCities();
@@ -107,8 +107,8 @@ class AddCompanyStepComponent extends StepComponent
 			'companyName' => 'required',
 			'website' => 'required|url:https',
 			'selectedCountry' => 'required|exists:countries,id',
-			'selectedState' => 'required|exists:states,id',
-			'selectedCity' => 'required|exists:cities,name',
+			// 'selectedState' => 'required|exists:states,id',
+			// 'selectedCity' => 'required|exists:cities,name',
 			//'location' => 'required',
 			'selectedCategory' => 'required|exists:categories,id',
 			'selectedTeamSize' => 'required|exists:team_sizes,id',
@@ -124,8 +124,8 @@ class AddCompanyStepComponent extends StepComponent
 			'website.url' => 'Enter the valid https :attribute.',
 			//'location.required' => 'Select the :attribute.',
 			'selectedCountry.required' => 'Select the :attribute.',
-			'selectedState.required' => 'Select the :attribute.',
-			'selectedCity.required' => 'Select the :attribute.',
+			// 'selectedState.required' => 'Select the :attribute.',
+			// 'selectedCity.required' => 'Select the :attribute.',
 			'selectedCategory.required' => 'Select the :attribute.',
 			'selectedTeamSize.required' => 'Select the :attribute.',
 			'selectedPosition.required' => 'Select the :attribute.',
@@ -140,8 +140,8 @@ class AddCompanyStepComponent extends StepComponent
 			'website' => 'website url',
 			//'location' => 'location',
 			'selectedCountry' => 'country',
-			'selectedState' => 'state',
-			'selectedCity' => 'city',
+			// 'selectedState' => 'state',
+			// 'selectedCity' => 'city',
 			'selectedCategory' => 'category',
 			'selectedTeamSize' => 'team size',
 			'selectedPosition' => 'position',
@@ -155,8 +155,8 @@ class AddCompanyStepComponent extends StepComponent
 			'website' => 'https://' . trimWebsiteUrl($this->website),
 			//'location' => $this->location,
 			'selectedCountry' => $this->selectedCountry,
-			'selectedState' => $this->selectedState,
-			'selectedCity' => $this->selectedCity,
+			// 'selectedState' => $this->selectedState,
+			// 'selectedCity' => $this->selectedCity,
 			'selectedCategory' => $this->selectedCategory,
 			'selectedTeamSize' => $this->selectedTeamSize,
 			'selectedPosition' => $this->selectedPosition,

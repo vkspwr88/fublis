@@ -27,8 +27,8 @@ class Company extends Component
 	public $linkedin;
 	// public $location;
 	public $selectedCountry;
-	public $selectedState;
-	public $selectedCity;
+	// public $selectedState;
+	// public $selectedCity;
 	public $aboutMe;
 	public int $aboutMeLength;
 
@@ -68,8 +68,8 @@ class Company extends Component
         return view('livewire.architects.settings.company', [
 			// 'locations' => LocationController::getAll(),
 			'countries' => LocationController::getCountries(),
-			'states' => LocationController::getStatesByCountryId($this->selectedCountry),
-			'cities' => LocationController::getCitiesByStateId($this->selectedState),
+			// 'states' => LocationController::getStatesByCountryId($this->selectedCountry),
+			// 'cities' => LocationController::getCitiesByStateId($this->selectedState),
 		]);
     }
 
@@ -112,8 +112,8 @@ class Company extends Component
 			// 'profileImage' => 'nullable|image|mimes:svg,png,jpg,gif|max:3100|dimensions:max_width=400,max_height=400',
 			// 'location' => 'required|exists:locations,id',
 			'selectedCountry' => 'required|exists:countries,id',
-			'selectedState' => 'required|exists:states,id',
-			'selectedCity' => 'required|exists:cities,name',
+			// 'selectedState' => 'required|exists:states,id',
+			// 'selectedCity' => 'required|exists:cities,name',
 			'aboutMe' => 'required|max:275',
 			'twitter' => 'nullable',
 			'facebook' => 'nullable',
@@ -141,8 +141,8 @@ class Company extends Component
 			// 'location.required' => 'Select the :attribute.',
 			// 'location.exists' => 'Select the valid :attribute.',
 			'selectedCountry.required' => 'Select the :attribute.',
-			'selectedState.required' => 'Select the :attribute.',
-			'selectedCity.required' => 'Select the :attribute.',
+			// 'selectedState.required' => 'Select the :attribute.',
+			// 'selectedCity.required' => 'Select the :attribute.',
 			'aboutMe.required' => 'Enter the :attribute.',
 			'aboutMe.max' => 'The :attribute allows only 275 characters.',
 			'*.exists' => 'Select the valid :attribute.',
@@ -157,8 +157,8 @@ class Company extends Component
 			'profileImage' => 'company logo',
 			// 'location' => 'location',
 			'selectedCountry' => 'country',
-			'selectedState' => 'state',
-			'selectedCity' => 'city',
+			// 'selectedState' => 'state',
+			// 'selectedCity' => 'city',
 			'aboutMe' => 'company details',
 		];
 	}
@@ -175,8 +175,8 @@ class Company extends Component
 			'linkedin' => $this->linkedin ? $this->linkedin : '',
 			// 'location' => $this->location,
 			'selectedCountry' => $this->selectedCountry,
-			'selectedState' => $this->selectedState,
-			'selectedCity' => $this->selectedCity,
+			// 'selectedState' => $this->selectedState,
+			// 'selectedCity' => $this->selectedCity,
 			'aboutMe' => $this->aboutMe,
 		];
 	}

@@ -16,7 +16,7 @@ class CompanyController extends Controller
 {
     public static function create(array $data, string $model)
 	{
-		$data = LocationController::setLocationForCreate($data);
+		$data = LocationController::setLocationForCreate($data, true);
 		$data['slug'] = UsersCompanyController::generateSlug($data['name']);
 		$data['website'] = $data['website'] ? 'https://' . trimWebsiteUrl($data['website']) : null;
 
@@ -31,7 +31,7 @@ class CompanyController extends Controller
 
 	public static function update(Model $record, array $data)
 	{
-		$data = LocationController::setLocationForCreate($data);
+		$data = LocationController::setLocationForCreate($data, true);
 		$data['website'] = $data['website'] ? 'https://' . trimWebsiteUrl($data['website']) : null;
 
 		$mediaId = $data['media_id'];
@@ -44,7 +44,7 @@ class CompanyController extends Controller
 
 	public static function mutateFormDataBeforeFill($data)
 	{
-		$data = LocationController::setLocationForEdit($data);
+		$data = LocationController::setLocationForEdit($data, true);
 		// dd($data);
 		return $data;
 	}
