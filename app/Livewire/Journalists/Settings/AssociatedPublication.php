@@ -38,10 +38,10 @@ class AssociatedPublication extends Component
 	// public $location;
 	public $selectedCountry;
 	public $countries;
-	public $selectedState;
-	public $states;
-	public $selectedCity;
-	public $cities;
+	// public $selectedState;
+	// public $states;
+	// public $selectedCity;
+	// public $cities;
 	public $selectedCategories = [];
 	public $selectedLanguages = [];
 	public $selectedPublishFrom = [];
@@ -64,8 +64,8 @@ class AssociatedPublication extends Component
 
 	public function mount()
 	{
-		$this->selectedCountry = 101;
-		$this->selectedState = 0;
+		$this->selectedCountry = 'india';
+		// $this->selectedState = 0;
 		$this->selectedPublication = collect([]);
 		$this->languages = LanguageController::getAll();
 		$this->positions = JournalistPositionController::getAll();
@@ -83,8 +83,8 @@ class AssociatedPublication extends Component
 											$this->publications->modelKeys(),
 											auth()->user()->journalist->publications->modelKeys(),
 										]);
-		$this->states = LocationController::getStatesByCountryId($this->selectedCountry);
-		$this->cities = LocationController::getCitiesByStateId($this->selectedState);
+		// $this->states = LocationController::getStatesByCountryId($this->selectedCountry);
+		// $this->cities = LocationController::getCitiesByStateId($this->selectedState);
 		return view('livewire.journalists.settings.associated-publication', [
 			'allPublications' => PublicationController::getAll()->except($allAssociatedPublications),
 		]);
@@ -135,9 +135,9 @@ class AssociatedPublication extends Component
 			// 'language' => 'required|exists:languages,id',
 			'position' => 'required|exists:journalist_positions,id',
 			// 'location' => 'required|exists:locations,id',
-			'selectedCountry' => 'required|exists:countries,id',
-			'selectedState' => 'required|exists:states,id',
-			'selectedCity' => 'required|exists:cities,name',
+			'selectedCountry' => 'required|exists:countries,name',
+			// 'selectedState' => 'required|exists:states,id',
+			// 'selectedCity' => 'required|exists:cities,name',
 			'selectedCategories' => 'required',
 			'selectedCategories.*' => 'exists:categories,id',
 			'selectedLanguages' => 'required',
@@ -147,7 +147,7 @@ class AssociatedPublication extends Component
 			'selectedPublicationTypes' => 'required',
 			'selectedPublicationTypes.*' => 'exists:publication_types,id',
 			'monthlyVisitors' => 'nullable',
-			'aboutMe' => 'required|max:275',
+			'aboutMe' => 'nullable|max:275',
 			'startingYear' => 'nullable|year',
 		];
 	}
@@ -170,8 +170,8 @@ class AssociatedPublication extends Component
 			// 'location.required' => 'Select the :attribute.',
 			// 'location.exists' => 'Select the valid :attribute.',
 			'selectedCountry.required' => 'Select the :attribute.',
-			'selectedState.required' => 'Select the :attribute.',
-			'selectedCity.required' => 'Select the :attribute.',
+			// 'selectedState.required' => 'Select the :attribute.',
+			// 'selectedCity.required' => 'Select the :attribute.',
 			'selectedCategories.required' => 'Select the :attribute.',
 			'selectedLanguages.required' => 'Select the :attribute.',
 			'selectedPublishFrom.required' => 'Select the :attribute.',
@@ -194,8 +194,8 @@ class AssociatedPublication extends Component
 			'position' => 'role',
 			// 'location' => 'location',
 			'selectedCountry' => 'country',
-			'selectedState' => 'state',
-			'selectedCity' => 'city',
+			// 'selectedState' => 'state',
+			// 'selectedCity' => 'city',
 			'selectedCategories' => 'category',
 			'selectedLanguages' => 'language',
 			'selectedPublishFrom' => 'publish from',
@@ -215,8 +215,8 @@ class AssociatedPublication extends Component
 			'position' => $this->position,
 			// 'location' => $this->location,
 			'selectedCountry' => $this->selectedCountry,
-			'selectedState' => $this->selectedState,
-			'selectedCity' => $this->selectedCity,
+			// 'selectedState' => $this->selectedState,
+			// 'selectedCity' => $this->selectedCity,
 			'selectedCategories' => $this->selectedCategories,
 			'selectedLanguages' => $this->selectedLanguages,
 			'selectedPublishFrom' => $this->selectedPublishFrom,
@@ -251,9 +251,9 @@ class AssociatedPublication extends Component
 		$this->profileImageOld = $this->selectedPublication->profileImage;
 		$this->publicationId = $publicationId;
 		$city = LocationController::getCityByCityName($this->selectedPublication->location->name);
-		$this->selectedCity = $city->name;
-		$this->selectedState = $city->state->id;
-		$this->selectedCountry = $city->state->country->id;
+		// $this->selectedCity = $city->name;
+		// $this->selectedState = $city->state->id;
+		$this->selectedCountry = $city ? $city->state->country->id : strtolower($this->selectedPublication->location->name);
 		$this->characterCount();
 	}
 
@@ -276,8 +276,8 @@ class AssociatedPublication extends Component
 		$this->profileImage = '';
 		$this->startingYear = '';
 		$this->resetValidation();
-		$this->selectedCountry = 101;
-		$this->selectedState = 0;
+		$this->selectedCountry = 'india';
+		// $this->selectedState = 0;
 		$this->selectedPublication = collect([]);
 		$this->characterCount();
 	}

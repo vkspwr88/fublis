@@ -35,7 +35,7 @@
 								@else
 									@if ($publication->location)
 										@php
-											$country = $publication->location->city()->first()->state->country->name;
+											$country = $publication->location->city()->first() ? $publication->location->city()->first()->state->country->name : $publication->location->name;
 										@endphp
 										<x-utility.badges.secondary-badge :text="str()->headline($country)" icon='<i class="bi bi-geo-alt"></i>' />
 									@endif

@@ -42,7 +42,13 @@
 							@if($publication->publishFrom->pluck('name')->contains('Worldwide'))
 								<span class="text-gray-700 bg-gray-200 badge rounded-pill text-capitalize fw-semibold">worldwide</span>
 							@else
-								<span class="text-gray-700 bg-gray-200 badge rounded-pill text-capitalize fw-semibold">{{ $city->state->country->name }}</span>
+								<span class="text-gray-700 bg-gray-200 badge rounded-pill text-capitalize fw-semibold">
+									@if ($city)
+										{{ $city->state->country->name }}
+									@else
+										{{ $publication->location->name }}
+									@endif
+								</span>
 								{{-- <span class="text-gray-700 bg-gray-200 badge rounded-pill text-capitalize fw-semibold">{{ $city->state->name }}</span>
 								<span class="text-gray-700 bg-gray-200 badge rounded-pill text-capitalize fw-semibold">{{ $publication->location->name }}</span> --}}
 							@endif

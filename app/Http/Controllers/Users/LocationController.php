@@ -85,7 +85,7 @@ class LocationController extends Controller
 		return City::where([
 						'name' => strtolower($name)
 					])->first()
-					->load('state.country');
+					/* ->load('state.country') */;
 	}
 
 	public static function getCountryById(int $id)
@@ -113,9 +113,10 @@ class LocationController extends Controller
 		}
 		elseif($type == 'publication'){
 			$locations = Location::has('publications')->get()->pluck('name');
-			$cities = City::whereIn('name', $locations)->get()->load('state.country');
+			/* $cities = City::whereIn('name', $locations)->get()->load('state.country');
 			$states = $cities->pluck('state');
-			$countries = $states->pluck('country');
+			$countries = $states->pluck('country'); */
+			$countries = Country::whereIn('name', $locations)->get();
 		}
 		elseif($type == 'call'){
 			$locations = Location::whereHas('calls', function (Builder $query) {

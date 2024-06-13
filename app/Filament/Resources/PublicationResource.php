@@ -60,19 +60,19 @@ class PublicationResource extends Resource
 					->default(101)
 					->searchable()
 					->required(),
-				Forms\Components\Select::make('state')
+				/* Forms\Components\Select::make('state')
 					->label('State')
 					->live()
 					->options( fn (Get $get): Collection => LocationController::getStatesByCountryId($get('country'))->pluck('name', 'id') )
 					->default(0)
 					->searchable()
-					->required(),
-				Forms\Components\Select::make('location_id')
+					->required(), */
+				/* Forms\Components\Select::make('location_id')
 					->label('City')
 					->options( fn (Get $get): Collection => LocationController::getCitiesByStateId($get('state'))->pluck('name', 'id') )
 					->default(0)
 					->searchable()
-					->required(),
+					->required(), */
 				Forms\Components\CheckboxList::make('categories')
 					->required()
 					->relationship(titleAttribute: 'name')

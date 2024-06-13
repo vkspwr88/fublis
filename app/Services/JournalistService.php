@@ -106,7 +106,10 @@ class JournalistService
 			if($details['publication']['new']){
 				// insert location record
 				$location = LocationController::createLocation([
-					'name' => $details['publication']['selectedCity'],
+					'name' => $details['publication']['selectedCountry'],
+					'country_flag' => 1,
+					'state_flag' => 0,
+					'city_flag' => 0,
 				]);
 				$publication = PublicationController::createPublication([
 					'name' => $details['publication']['publicationName'],

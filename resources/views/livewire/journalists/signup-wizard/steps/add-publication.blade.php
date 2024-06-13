@@ -23,15 +23,15 @@
 											</div>
 											<div class="mb-3">
 												<label for="selectCountry" class="form-label text-dark fs-6 fw-medium">Country</label>
-												<select class="form-select @error('selectedCountry') is-invalid @enderror" id="selectCountry" wire:model.live="selectedCountry">
+												<select class="form-select @error('selectedCountry') is-invalid @enderror" id="selectCountry" wire:model="selectedCountry">
 													<option value="0">Select Country</option>
 													@foreach ($countries as $country)
-													<option value="{{ $country->id }}">{{ str()->headline($country->name) }}</option>
+													<option value="{{ $country->name }}">{{ str()->headline($country->name) }}</option>
 													@endforeach
 												</select>
 												@error('selectedCountry')<div class="invalid-feedback">{{ $message }}</div>@enderror
 											</div>
-											<div class="mb-3">
+											{{-- <div class="mb-3">
 												<label for="selectState" class="form-label text-dark fs-6 fw-medium">State</label>
 												<select class="form-select @error('selectedState') is-invalid @enderror" id="selectState" wire:model.live="selectedState">
 													<option value="0">Select State</option>
@@ -40,8 +40,8 @@
 													@endforeach
 												</select>
 												@error('selectedState')<div class="invalid-feedback">{{ $message }}</div>@enderror
-											</div>
-											<div class="mb-3">
+											</div> --}}
+											{{-- <div class="mb-3">
 												<label for="selectCity" class="form-label text-dark fs-6 fw-medium">City</label>
 												<select class="form-select @error('selectedCity') is-invalid @enderror" id="selectCity" wire:model="selectedCity">
 													<option value="">Select City</option>
@@ -50,7 +50,7 @@
 													@endforeach
 												</select>
 												@error('selectedCity')<div class="invalid-feedback">{{ $message }}</div>@enderror
-											</div>
+											</div> --}}
 											<div class="mb-3">
 												<label class="form-label text-dark fs-6 fw-medium">Language</label>
 												<div class="row">

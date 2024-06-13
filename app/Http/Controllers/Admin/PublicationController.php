@@ -16,7 +16,7 @@ class PublicationController extends Controller
 {
     public static function create(array $data, string $model)
 	{
-		$data = LocationController::setLocationForCreate($data);
+		$data = LocationController::setLocationForCreate($data, true);
 		$data['slug'] = UsersPublicationController::generateSlug($data['name']);
 		$data['website'] = $data['website'] ? 'https://' . trimWebsiteUrl($data['website']) : null;
 		/* $data['instagram'] = $data['instagram'] ? 'https://' . trimWebsiteUrl($data['instagram']) : null; */
@@ -32,7 +32,7 @@ class PublicationController extends Controller
 
 	public static function update(Model $record, array $data)
 	{
-		$data = LocationController::setLocationForCreate($data);
+		$data = LocationController::setLocationForCreate($data, true);
 		$data['website'] = $data['website'] ? 'https://' . trimWebsiteUrl($data['website']) : null;
 		/* $data['instagram'] = $data['instagram'] ? 'https://' . trimWebsiteUrl($data['instagram']) : null; */
 
@@ -46,7 +46,7 @@ class PublicationController extends Controller
 
 	public static function mutateFormDataBeforeFill($data)
 	{
-		$data = LocationController::setLocationForEdit($data);
+		$data = LocationController::setLocationForEdit($data, true);
 		// dd($data);
 		return $data;
 	}

@@ -34,10 +34,14 @@ class PitchStoryService
 									->get();
 
 		if($data['location'] != ''){
-			$cities = LocationController::getCitiesByCountry($data['location']);
+			$country = LocationController::getCountryById($data['location']);
+			$filter = Publication::whereHas('location', function(Builder $query) use($country) {
+				$query->where('name', $country->name);
+			})->get()->pluck('id');
+			/* $cities = LocationController::getCitiesByCountry($data['location']);
 			$filter = Publication::whereHas('location', function(Builder $query) use($cities) {
 				$query->whereIn('name', $cities->pluck('name'));
-			})->get()->pluck('id');
+			})->get()->pluck('id'); */
 			$publications = $publications->find($filter);
 			// dd($data['location'], $cities, $filter);
 			// $publications = $publications->where('location_id', $data['location']);

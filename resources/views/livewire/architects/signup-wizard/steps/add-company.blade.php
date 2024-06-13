@@ -26,7 +26,7 @@
 												<select class="form-select @error('selectedCountry') is-invalid @enderror" id="selectCountry" wire:model="selectedCountry">
 													<option value="0">Select Country</option>
 													@foreach ($countries as $country)
-													<option value="{{ $country->id }}">{{ str()->headline($country->name) }}</option>
+													<option value="{{ $country->name }}">{{ str()->headline($country->name) }}</option>
 													@endforeach
 												</select>
 												@error('selectedCountry')<div class="invalid-feedback">{{ $message }}</div>@enderror

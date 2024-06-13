@@ -68,7 +68,10 @@ class SettingService
 			$journalist = auth()->user()->journalist;
 			// insert location record
 			$location = LocationController::createLocation([
-				'name' => $details['selectedCity'],
+				'name' => $details['selectedCountry'],
+				'country_flag' => 1,
+				'state_flag' => 0,
+				'city_flag' => 0,
 			]);
 			if($details['new']){
 				$publication = PublicationController::createPublication([
@@ -214,7 +217,10 @@ class SettingService
 			DB::beginTransaction();
 			// insert location record
 			$location = LocationController::createLocation([
-				'name' => $details['selectedCity'],
+				'name' => $details['selectedCountry'],
+				'country_flag' => 1,
+				'state_flag' => 0,
+				'city_flag' => 0,
 			]);
 			$journalist = auth()->user()->journalist;
 			if($details['new']){

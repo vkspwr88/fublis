@@ -21,8 +21,8 @@ class AddPublicationStepComponent extends StepComponent
 	public $website;
 	//public $location;
 	public $selectedCountry;
-	public $selectedState;
-	public $selectedCity;
+	// public $selectedState;
+	// public $selectedCity;
 	public $checkedLanguage = [];
 	public $checkedPublishFrom = [];
 	public $checkedPublicationTypes = [];
@@ -42,8 +42,8 @@ class AddPublicationStepComponent extends StepComponent
 	public function mount()
 	{
 		session()->forget('initial_state');
-		$this->selectedCountry = 101;
-		$this->selectedState = 0;
+		$this->selectedCountry = 'india';
+		// $this->selectedState = 0;
 		if(checkInvitation('journalist')){
 			$invitation = session()->get('invitation');
 			$invitedUser = $this->userRepository->getInvitedJournalistUserById($invitation->invited_by);
@@ -65,10 +65,10 @@ class AddPublicationStepComponent extends StepComponent
 				'publishFrom' => Controllers\Users\PublishFromController::getAll(),
 				'publicationTypes' => Controllers\Users\PublicationTypeController::getAll(),
 				'countries' => Controllers\Users\LocationController::getCountries(),
-				'states' => Controllers\Users\LocationController::getStatesByCountryId($this->selectedCountry),
-				'cities' => Controllers\Users\LocationController::getCitiesByStateId($this->selectedState),
+				// 'states' => Controllers\Users\LocationController::getStatesByCountryId($this->selectedCountry),
+				// 'cities' => Controllers\Users\LocationController::getCitiesByStateId($this->selectedState),
 			];
-			
+
 		}
 		else{
 			if($this->searchPublicationName){
@@ -102,9 +102,9 @@ class AddPublicationStepComponent extends StepComponent
 			'publicationName' => 'required',
 			'website' => 'required|url:https',
 			//'location' => 'required',
-			'selectedCountry' => 'required|exists:countries,id',
-			'selectedState' => 'required|exists:states,id',
-			'selectedCity' => 'required|exists:cities,name',
+			'selectedCountry' => 'required|exists:countries,name',
+			// 'selectedState' => 'required|exists:states,id',
+			// 'selectedCity' => 'required|exists:cities,name',
 			'checkedLanguage' => 'required|array',
 			'checkedLanguage.*' => 'exists:languages,id',
 			'checkedPublishFrom' => 'required|array',
@@ -124,8 +124,8 @@ class AddPublicationStepComponent extends StepComponent
 			'website.url' => 'Enter the valid https :attribute.',
 			//'location.required' => 'Select the :attribute.',
 			'selectedCountry.required' => 'Select the :attribute.',
-			'selectedState.required' => 'Select the :attribute.',
-			'selectedCity.required' => 'Select the :attribute.',
+			// 'selectedState.required' => 'Select the :attribute.',
+			// 'selectedCity.required' => 'Select the :attribute.',
 			'checkedLanguage.required' => 'Check the :attribute.',
 			'checkedPublishFrom.required' => 'Check the :attribute.',
 			'checkedPublicationTypes.required' => 'Check the :attribute.',
@@ -146,8 +146,8 @@ class AddPublicationStepComponent extends StepComponent
 			'website' => 'website url',
 			//'location' => 'location',
 			'selectedCountry' => 'country',
-			'selectedState' => 'state',
-			'selectedCity' => 'city',
+			// 'selectedState' => 'state',
+			// 'selectedCity' => 'city',
 			'checkedLanguage' => 'language',
 			'checkedPublishFrom' => 'publish from',
 			'checkedPublicationTypes' => 'publication type',
@@ -162,8 +162,8 @@ class AddPublicationStepComponent extends StepComponent
 			'website' => 'https://' . trimWebsiteUrl($this->website),
 			//'location' => $this->location,
 			'selectedCountry' => $this->selectedCountry,
-			'selectedState' => $this->selectedState,
-			'selectedCity' => $this->selectedCity,
+			// 'selectedState' => $this->selectedState,
+			// 'selectedCity' => $this->selectedCity,
 			'checkedLanguage' => $this->checkedLanguage,
 			'checkedPublishFrom' => $this->checkedPublishFrom,
 			'checkedPublicationTypes' => $this->checkedPublicationTypes,

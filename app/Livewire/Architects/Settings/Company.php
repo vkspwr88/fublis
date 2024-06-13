@@ -111,7 +111,7 @@ class Company extends Component
 			'profileImage' => __('validations/rules.profileImage') . '|' . __('validations/rules.imageMimes'),
 			// 'profileImage' => 'nullable|image|mimes:svg,png,jpg,gif|max:3100|dimensions:max_width=400,max_height=400',
 			// 'location' => 'required|exists:locations,id',
-			'selectedCountry' => 'required|exists:countries,id',
+			'selectedCountry' => 'required|exists:countries,name',
 			// 'selectedState' => 'required|exists:states,id',
 			// 'selectedCity' => 'required|exists:cities,name',
 			'aboutMe' => 'required|max:275',

@@ -38,7 +38,7 @@ class AddCompanyStepComponent extends StepComponent
 	{
 		//$this->countries = Controllers\Users\LocationController::getCountries();
 		session()->forget('initial_state');
-		$this->selectedCountry = 101;
+		$this->selectedCountry = 'india';
 		// $this->selectedState = 0;
 		if(checkInvitation('architect')){
 			$invitation = session()->get('invitation');
@@ -106,7 +106,7 @@ class AddCompanyStepComponent extends StepComponent
 		return [
 			'companyName' => 'required',
 			'website' => 'required|url:https',
-			'selectedCountry' => 'required|exists:countries,id',
+			'selectedCountry' => 'required|exists:countries,name',
 			// 'selectedState' => 'required|exists:states,id',
 			// 'selectedCity' => 'required|exists:cities,name',
 			//'location' => 'required',
