@@ -3,20 +3,20 @@
 	$menus = json_decode(file_get_contents($path));
 @endphp
 
-<ul id="mobileNav" class="list-unstyled mt-4">
-	<li class="mb-3">
+<ul id="mobileNav" class="mt-4 list-unstyled">
+	{{-- <li class="mb-3">
 		<div class="m-0 ms-auto" aria-label="search">
 			<livewire:architects.header.search mobile="true" />
 		</div>
-	</li>
+	</li> --}}
 	@foreach ($menus->items as $item)
-		<li class="mb-3">
+		<li class="mb-1">
 			@php
 				$itemUrl = $item->url ? (str()->contains($item->url, 'https://') ? $item->url : route($item->url)) : '#' . $item->slug;
 			@endphp
 			@if ($item->submenu)
 				<button
-					class="btn btn-toggle align-items-center fs-5 fw-semibold collapsed"
+					class="btn btn-toggle align-items-center fs-4 fw-semibold collapsed"
 					data-bs-target="{{ $itemUrl }}"
 					data-bs-toggle="collapse"
 					aria-expanded="false"
@@ -25,7 +25,7 @@
 					<span class="menu-toggle-icon"></span>
 				</button>
 				<div class="collapse" id="{{ $item->slug }}" style="">
-					<ul class="btn-toggle-nav list-unstyled pb-1">
+					<ul class="pb-1 btn-toggle-nav list-unstyled">
 						@foreach ($item->submenu as $subMenuItem)
 							<li>
 								@php
@@ -33,16 +33,16 @@
 								@endphp
 								@if ($subMenuItem->submenu)
 									<button
-										class="btn btn-toggle align-items-center rounded fs-6 fw-medium collapsed"
+										class="rounded btn btn-toggle align-items-center fs-6 fw-medium collapsed"
 										data-bs-target="{{ $subMenuUrl }}"
 										data-bs-toggle="collapse"
 										aria-expanded="false"
 									>
-										<span class="menu-title ms-2">{{ $subMenuItem->name }}</span>
+										<span class="menu-title ms-2 text-start">{{ $subMenuItem->name }}</span>
 										<span class="menu-toggle-icon"></span>
 									</button>
 									<div class="collapse" id="{{ $subMenuItem->slug }}" style="">
-										<ul class="btn-toggle-nav list-unstyled pb-1">
+										<ul class="pb-1 btn-toggle-nav list-unstyled">
 											@foreach ($subMenuItem->submenu as $subSubMenuItem)
 												@php
 													$subSubMenuUrl = $subSubMenuItem->url ? (str()->contains($subSubMenuItem->url, 'https://') ? $subSubMenuItem->url : route($subSubMenuItem->url)) : '#' . $subSubMenuItem->slug;
@@ -78,7 +78,7 @@
 				</div>
 			@else
 				<a
-					class="btn btn-toggle align-items-center fs-5 fw-semibold"
+					class="btn btn-toggle align-items-center fs-4 fw-semibold"
 					href="{{ $itemUrl }}"
 					@if(str()->contains($item->url, 'https://'))
 						target="_blank"
@@ -89,8 +89,8 @@
 			@endif
 		</li>
 	@endforeach
-	<li class="mb-3">
-		<a class="btn btn-toggle align-items-center fs-5 fw-semibold" href="{{ route('architect.account.profile.message.index') }}">
+	<li class="mb-1">
+		<a class="btn btn-toggle align-items-center fs-4 fw-semibold" href="{{ route('architect.account.profile.message.index') }}">
 			<span class="menu-title">Messages</span>
 			@inject('messageController', 'App\Http\Controllers\Users\MessageController')
 				@php
@@ -104,8 +104,8 @@
 				@endif
 		</a>
 	</li>
-	<li class="mb-3">
-		<a class="btn btn-toggle align-items-center fs-5 fw-semibold" href="{{ route('architect.account.profile.message.index') }}">
+	<li class="mb-1">
+		<a class="btn btn-toggle align-items-center fs-4 fw-semibold" href="{{ route('architect.account.profile.message.index') }}">
 			<span class="menu-title">Notifications</span>
 			@inject('notificationController', 'App\Http\Controllers\Users\NotificationController')
 			@php
@@ -119,9 +119,9 @@
 			@endif
 		</a>
 	</li>
-	<li class="mb-3">
+	<li class="mb-1">
 		<button
-			class="btn btn-toggle align-items-center fs-5 fw-semibold collapsed"
+			class="btn btn-toggle align-items-center fs-4 fw-semibold collapsed"
 			data-bs-target="#account"
 			data-bs-toggle="collapse"
 			aria-expanded="false"
@@ -130,7 +130,7 @@
 			<span class="menu-toggle-icon"></span>
 		</button>
 		<div class="collapse" id="account">
-			<ul class="btn-toggle-nav list-unstyled pb-1">
+			<ul class="pb-1 btn-toggle-nav list-unstyled">
 				@foreach ($menus->account as $item)
 					<li>
 						<a class="btn btn-toggle align-items-center fs-7 fw-normal" href="{{ route($item->url) }}">

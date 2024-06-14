@@ -25,6 +25,41 @@
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
   		<script type="text/javascript" src="https://unpkg.com/trix@2.0.0/dist/trix.umd.min.js"></script>
 		<style>
+			.lines, .lines::before, .lines::after{
+				background: #000;
+				display: block;
+			}
+			.lines{
+				width: 22px;
+				height: 2px;
+			}
+			.lines::before, .lines::after{
+				position: absolute;
+				content: '';
+				height: 3px;
+			}
+			.lines::before{
+				top: 9px;
+				width: 1rem;
+			}
+			.lines::after{
+				top: -3px;
+				width: 22px;
+			}
+			#offcanvas{
+				background: #000;
+			}
+			#offcanvas .btn-toggle{
+				color: rgb(229, 229, 229);
+			}
+			button.btn-toggle .menu-toggle-icon::after{
+				content: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='rgba%28229,229,229,1%29' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M5 14l6-6-6-6'/%3e%3c/svg%3e");
+			}
+			/* body.shift-left{
+				transition: transform 0.8s cubic-bezier(0.15, 0.2, 0.1, 1);
+  				transform: scale(0.92) translateX(-466px) translateZ(0px) !important;
+			} */
+
 			#modal .preview {
 				text-align: center;
 				overflow: hidden;
