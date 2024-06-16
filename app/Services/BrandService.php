@@ -14,6 +14,7 @@ class BrandService
 								'mediaKit.story',
 								'profileImage',
 								'category',
+								'categories',
 								'location'
 							])
 							// ->whereHas('mediaKit')
@@ -45,8 +46,16 @@ class BrandService
 			$brands = $brands->find($filter); */
 			// $brands = $brands->where('location_id', $data['location']);
 		}
-		if(!empty($data['categories'])){
+		/* if(!empty($data['categories'])){
 			$brands = $brands->whereIn('category_id', $data['categories']);
+		} */
+		if(!empty($data['categories'])){
+			$filter1 = Company::whereHas('categories', function(Builder $query) use($data) {
+				$query->whereIn('category_id', $data['categories']);
+			})->get()->pluck('id');
+			$filter2 = $brands->whereIn('category_id', $data['categories'])->pluck('id');
+			$filter = $filter1->merge($filter2);
+			$brands = $brands->find($filter);
 		}
 
 		return $brands;

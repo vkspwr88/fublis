@@ -106,7 +106,19 @@
 						</svg>
 					</div>
 					<div class="col">
-						<span class="text-gray-700 bg-gray-200 badge rounded-pill">{{ $brand->category->name }}</span>
+						<div class="row g-2">
+							@if($brand->categories->count())
+								@foreach ($brand->categories as $category)
+									<div class="col-auto">
+										<span class="text-gray-700 bg-gray-200 badge rounded-pill">{{ $category->name }}</span>
+									</div>
+								@endforeach
+							@elseif ($brand->category)
+								<div class="col-auto">
+									<span class="text-gray-700 bg-gray-200 badge rounded-pill">{{ $brand->category->name }}</span>
+								</div>
+							@endif
+						</div>
 					</div>
 				</div>
 			</div>

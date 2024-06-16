@@ -82,6 +82,9 @@ class SettingService
 						'about_me' => $details['aboutMe'],
 					]);
 
+			// company categories
+			$company->categories()->sync($details['selectedCategories']);
+
 			if(!empty($details['profileImage'])){
 				ImageController::updateOrCreate($company->profileImage(), [
 					'image_type' => 'logo',

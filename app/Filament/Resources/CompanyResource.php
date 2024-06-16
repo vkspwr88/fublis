@@ -70,9 +70,14 @@ class CompanyResource extends Resource
                 /* Forms\Components\Select::make('location_id')
                     ->relationship('location', 'name')
                     ->required(), */
-                Forms\Components\Select::make('category_id')
+                /* Forms\Components\Select::make('category_id')
                     ->relationship('category', 'name')
-                    ->required(),
+                    ->required(), */
+				Forms\Components\CheckboxList::make('categories')
+					->required()
+					->relationship(titleAttribute: 'name')
+					->columns(2)
+					->gridDirection('row'),
                 Forms\Components\Select::make('team_size_id')
                     ->relationship('teamSize', 'name')
                     ->required(),
@@ -116,7 +121,11 @@ class CompanyResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('location.name')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('category.name')
+                /* Tables\Columns\TextColumn::make('category.name')
+                    ->searchable(), */
+				Tables\Columns\TextColumn::make('categories.name')
+					->listWithLineBreaks()
+					->toggleable(isToggledHiddenByDefault: true)
                     ->searchable(),
                 Tables\Columns\TextColumn::make('teamSize.name')
                     ->searchable(),

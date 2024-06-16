@@ -153,6 +153,23 @@
 				</div>
 			</div> --}}
 			<hr class="border-gray-300">
+			<div class="row">
+				<label for="" class="col-md-4 col-form-label text-dark fs-6 fw-medium">Category</label>
+				<div class="col-md-8">
+					<div class="row">
+						@foreach ($categories as $category)
+						<div class="col-6">
+							<div class="form-check">
+								<input class="form-check-input" type="checkbox" value="{{ $category->id }}" id="cat-{{ $category->id }}" wire:model="selectedCategories">
+								<label class="form-check-label" for="cat-{{ $category->id }}">{{ $category->name }}</label>
+							</div>
+						</div>
+						@endforeach
+					</div>
+					@error('selectedCategories')<div class="error">{{ $message }}</div>@enderror
+				</div>
+			</div>
+			<hr class="border-gray-300">
 			<div class="mb-3 row">
 				<div class="col-md-4">
 					<label for="inputAboutMe" class="col-form-label text-dark fs-6 fw-medium">About your company</label>

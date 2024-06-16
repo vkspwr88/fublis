@@ -117,12 +117,13 @@ class ArchitectService
 					'name' => $details['companyName'],
 					'website' => $details['website'],
 					'location_id' => $location->id,
-					'category_id' => $details['selectedCategory'],
+					// 'category_id' => $details['selectedCategory'],
 					'team_size_id' => $details['selectedTeamSize'],
 					'background_color' => AvatarController::getBackground('studio'),
 					'foreground_color' => '#ffffff',
 				]);
 				$companyId = $company->id;
+				$company->categories()->attach($details['selectedCategory']);
 			}
 			else{
 				$companyId = $details['selectedCompany'];

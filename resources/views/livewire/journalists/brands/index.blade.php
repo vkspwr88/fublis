@@ -81,7 +81,13 @@
 												@endif
 											</span>
 										@endif
-										@if($brand->category)
+										@if($brand->categories->count())
+											@foreach ($brand->categories as $category)
+												<span class="mb-1 badge rounded-pill text-dark bg-light">
+													{{ $category->name }}
+												</span>
+											@endforeach
+										@elseif($brand->category)
 											<span class="mb-1 badge rounded-pill text-dark bg-light">
 												{{ $brand->category->name }}
 											</span>

@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Architects\Settings;
 
+use App\Http\Controllers\Users\CategoryController;
 use App\Http\Controllers\Users\LocationController;
 use App\Services\Architects\SettingService;
 use Illuminate\Database\Query\Builder;
@@ -29,6 +30,8 @@ class Company extends Component
 	public $selectedCountry;
 	// public $selectedState;
 	// public $selectedCity;
+	public $selectedCategories = [];
+	public $categories;
 	public $aboutMe;
 	public int $aboutMeLength;
 
@@ -36,7 +39,7 @@ class Company extends Component
 
 	public function mount()
 	{
-		$company = auth()->user()->architect->company->load(['profileImage', 'location']);
+		$company = auth()->user()->architect->company->load(['profileImage', 'location', 'categories']);
 		$this->company = $company->name;
 		$this->website = $company->website;
 		$this->twitter = $company->twitter;
@@ -49,13 +52,17 @@ class Company extends Component
 		$this->resetValidation();
 		$this->characterCount();
 		$this->selectedCountry = 101;
-		$this->selectedState = 0;
-		if($company->location){
+		// $this->selectedState = 0;
+		$city = LocationController::getCityByCityName($company->location->name);
+		$this->selectedCountry = $city ? $city->state->country->id : strtolower($company->location->name);
+		$this->categories = CategoryController::getAll();
+		$this->selectedCategories = $company->categories->pluck('id')->all();
+		/* if($company->location){
 			$city = LocationController::getCityByCityName($company->location->name);
-			$this->selectedCity = $city->name;
-			$this->selectedState = $city->state->id;
+			// $this->selectedCity = $city->name;
+			// $this->selectedState = $city->state->id;
 			$this->selectedCountry = $city->state->country->id;
-		}
+		} */
 	}
 
 	public function boot()
@@ -114,7 +121,9 @@ class Company extends Component
 			'selectedCountry' => 'required|exists:countries,name',
 			// 'selectedState' => 'required|exists:states,id',
 			// 'selectedCity' => 'required|exists:cities,name',
-			'aboutMe' => 'required|max:275',
+			'selectedCategories' => 'required|array',
+			'selectedCategories.*' => 'exists:categories,id',
+			'aboutMe' => 'nullable|max:275',
 			'twitter' => 'nullable',
 			'facebook' => 'nullable',
 			'instagram' => 'nullable',
@@ -143,9 +152,11 @@ class Company extends Component
 			'selectedCountry.required' => 'Select the :attribute.',
 			// 'selectedState.required' => 'Select the :attribute.',
 			// 'selectedCity.required' => 'Select the :attribute.',
+			'selectedCategories.required' => 'Check the :attribute.',
 			'aboutMe.required' => 'Enter the :attribute.',
 			'aboutMe.max' => 'The :attribute allows only 275 characters.',
 			'*.exists' => 'Select the valid :attribute.',
+			'*.array' => 'Check atleast one :attribute.',
 		];
 	}
 
@@ -159,6 +170,7 @@ class Company extends Component
 			'selectedCountry' => 'country',
 			// 'selectedState' => 'state',
 			// 'selectedCity' => 'city',
+			'selectedCategories' => 'category',
 			'aboutMe' => 'company details',
 		];
 	}
@@ -177,6 +189,7 @@ class Company extends Component
 			'selectedCountry' => $this->selectedCountry,
 			// 'selectedState' => $this->selectedState,
 			// 'selectedCity' => $this->selectedCity,
+			'selectedCategories' => $this->selectedCategories,
 			'aboutMe' => $this->aboutMe,
 		];
 	}
@@ -188,6 +201,7 @@ class Company extends Component
 
 	public function update()
 	{
+		// dd($this->all());
 		$validated = Validator::make($this->data(), $this->rules(), $this->messages(), $this->validationAttributes())->validate();
 		if(!$this->profileImageOld && !$this->profileImage){
 			$this->addError('profileImage', 'Upload company logo.');

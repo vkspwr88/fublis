@@ -51,7 +51,7 @@
 												</select>
 												@error('selectedCity')<div class="invalid-feedback">{{ $message }}</div>@enderror
 											</div> --}}
-											<div class="mb-3">
+											{{-- <div class="mb-3">
 												<label for="selectCategory" class="form-label text-dark fs-6 fw-medium">Category</label>
 												<select class="form-select select2-dropdown @error('selectedCategory') is-invalid @enderror" id="selectCategory" wire:model="selectedCategory">
 													<option value="">Select Category</option>
@@ -60,6 +60,20 @@
 													@endforeach
 												</select>
 												@error('selectedCategory')<div class="invalid-feedback">{{ $message }}</div>@enderror
+											</div> --}}
+											<div class="mb-3">
+												<label for="" class="form-label text-dark fs-6 fw-medium">Category</label>
+												<div class="row">
+													@foreach ($categories as $category)
+													<div class="col-6" wire:key="{{ $category->id }}">
+														<div class="form-check">
+															<input class="form-check-input" type="checkbox" value="{{ $category->id }}" id="cat-{{ $category->id }}" wire:model="selectedCategory">
+															<label class="form-check-label" for="cat-{{ $category->id }}">{{ $category->name }}</label>
+														</div>
+													</div>
+													@endforeach
+												</div>
+												@error('selectedCategory')<div class="error">{{ $message }}</div>@enderror
 											</div>
 											<div class="mb-3">
 												<label for="selectTeamSize" class="form-label text-dark fs-6 fw-medium">Team Size</label>

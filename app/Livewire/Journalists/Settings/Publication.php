@@ -127,7 +127,7 @@ class Publication extends Component
 			'selectedCountry' => 'required|exists:countries,name',
 			// 'selectedState' => 'required|exists:states,id',
 			// 'selectedCity' => 'required|exists:cities,name',
-			'selectedCategories' => 'required',
+			'selectedCategories' => 'required|array',
 			'selectedCategories.*' => 'exists:categories,id',
 			'selectedLanguages' => 'required',
 			'selectedLanguages.*' => 'exists:languages,id',
@@ -161,7 +161,7 @@ class Publication extends Component
 			'selectedCountry.required' => 'Select the :attribute.',
 			// 'selectedState.required' => 'Select the :attribute.',
 			// 'selectedCity.required' => 'Select the :attribute.',
-			'selectedCategories.required' => 'Select the :attribute.',
+			'selectedCategories.required' => 'Check the :attribute.',
 			'selectedLanguages.required' => 'Select the :attribute.',
 			'selectedPublishFrom.required' => 'Select the :attribute.',
 			'selectedPublicationTypes.required' => 'Select the :attribute.',
@@ -170,6 +170,7 @@ class Publication extends Component
 			'startingYear.date_format' => 'Enter the :attribute in 4 digit year format.',
 			'*.exists' => 'Select the valid :attribute.',
 			'*.*.exists' => 'Select the valid :attribute.',
+			'*.array' => 'Check atleast one :attribute.',
 		];
 	}
 

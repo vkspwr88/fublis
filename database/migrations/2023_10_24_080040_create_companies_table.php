@@ -17,7 +17,7 @@ return new class extends Migration
 			$table->string('name');
 			$table->string('website');
 			$table->foreignIdFor(Models\Location::class);
-			$table->foreignIdFor(Models\Category::class);
+			$table->foreignIdFor(Models\Category::class)->nullable();
 			$table->foreignIdFor(Models\TeamSize::class);
 			$table->year('starting_year')->nullable();
 			$table->string('twitter')->nullable();

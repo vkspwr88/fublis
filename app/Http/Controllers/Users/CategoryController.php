@@ -46,9 +46,13 @@ class CategoryController extends Controller
 							->get();
 		}
 		if($type == 'company'){
-			return Category::has('companies')
+			$companyCategory =  Category::has('company')->get();
+			$companiesCategory =  Category::has('companies')->get();
+			// dd($companyCategory->pluck('name'), $companiesCategory->pluck('name'), $companiesCategory->merge($companyCategory)->sortBy('name')->pluck('name'));
+			return $companiesCategory->merge($companyCategory)->sortBy('name');
+			/* return Category::has('companies')
 							->orderBy('name', 'asc')
-							->get();
+							->get(); */
 		}
 		if($type == 'call'){
 			// dd(Call::with('publication.publicationTypes')->get()->pluck('publication')->pluck('publicationTypes')->flatten()->unique()->pluck('id')/* where('submission_end_date', '>', Carbon::now()) */);

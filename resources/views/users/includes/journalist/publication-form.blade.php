@@ -107,7 +107,7 @@
 </div> --}}
 <hr class="border-gray-300">
 <div class="row">
-	<label class="col-md-4 col-form-label text-dark fs-6 fw-medium">Category</label>
+	<label for="" class="col-md-4 col-form-label text-dark fs-6 fw-medium">Category</label>
 	<div class="col-md-8">
 		<div class="row">
 			@foreach ($categories as $category)

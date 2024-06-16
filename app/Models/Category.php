@@ -20,9 +20,19 @@ class Category extends Model
 		'name' => NameCast::class,
 	];
 
-	public function companies(): HasMany
+	public function company(): HasMany
 	{
 		return $this->hasMany(Company::class);
+	}
+
+	public function companies(): BelongsToMany
+	{
+		return $this->belongsToMany(
+			Company::class,
+			'company_categories',
+			'category_id',
+			'company_id',
+		);
 	}
 
 	/* public function publications(): HasMany

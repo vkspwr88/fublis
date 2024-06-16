@@ -94,7 +94,7 @@
 												@error('checkedPublicationTypes')<div class="error">{{ $message }}</div>@enderror
 											</div>
 											<div class="mb-3">
-												<label class="form-label text-dark fs-6 fw-medium">Category</label>
+												<label for="" class="form-label text-dark fs-6 fw-medium">Category</label>
 												<div class="row">
 													@foreach ($categories as $category)
 													<div class="col-6">

@@ -21,7 +21,7 @@ class AddCompanyStepComponent extends StepComponent
 	public $selectedCountry;
 	// public $selectedState;
 	// public $selectedCity;
-	public $selectedCategory;
+	public $selectedCategory = [];
 	public $selectedTeamSize;
 	public $selectedPosition;
 
@@ -110,7 +110,9 @@ class AddCompanyStepComponent extends StepComponent
 			// 'selectedState' => 'required|exists:states,id',
 			// 'selectedCity' => 'required|exists:cities,name',
 			//'location' => 'required',
-			'selectedCategory' => 'required|exists:categories,id',
+			// 'selectedCategory' => 'required|exists:categories,id',
+			'selectedCategory' => 'required|array',
+			'selectedCategory.*' => 'exists:categories,id',
 			'selectedTeamSize' => 'required|exists:team_sizes,id',
 			'selectedPosition' => 'required|exists:architect_positions,id',
 		];
@@ -126,10 +128,12 @@ class AddCompanyStepComponent extends StepComponent
 			'selectedCountry.required' => 'Select the :attribute.',
 			// 'selectedState.required' => 'Select the :attribute.',
 			// 'selectedCity.required' => 'Select the :attribute.',
-			'selectedCategory.required' => 'Select the :attribute.',
+			// 'selectedCategory.required' => 'Select the :attribute.',
+			'selectedCategory.required' => 'Check the :attribute.',
 			'selectedTeamSize.required' => 'Select the :attribute.',
 			'selectedPosition.required' => 'Select the :attribute.',
 			'*.exists' => 'Select the valid :attribute.',
+			'*.array' => 'Check atleast one :attribute.',
 		];
 	}
 

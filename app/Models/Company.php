@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -32,6 +33,16 @@ class Company extends Model
 	public function category(): BelongsTo
 	{
 		return $this->belongsTo(Category::class);
+	}
+
+	public function categories(): BelongsToMany
+	{
+		return $this->belongsToMany(
+			Category::class,
+			'company_categories',
+			'company_id',
+			'category_id',
+		);
 	}
 
 	public function location(): BelongsTo
