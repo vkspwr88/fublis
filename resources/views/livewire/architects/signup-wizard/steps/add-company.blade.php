@@ -102,7 +102,7 @@
 																		<label for="{{ $company->id }}" class="text-secondary fs-6 w-100">
 																			<span class="fw-bold text-dark">{{ $company->name }}</span>
 																			@php
-																				$country = $company->location->city()->first()->state->country->name;
+																				$country = $company->location->city()->first() ? $company->location->city()->first()->state->country->name : $company->location->name;
 																			@endphp
 																			{{-- <span>{{ $company->location->name }}</span> --}}
 																			<span class="text-capitalize">{{ $country }}</span>
