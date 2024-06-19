@@ -121,7 +121,7 @@
 																<div class="col-12">
 																	<input id="{{ $publication->id }}" type="radio" value="{{ $publication->id }}" wire:model="selectedPublication">
 																	<div class="p-2 my-1 search-list position-relative">
-																		<label for="{{ $publication->id }}" class="text-secondary fs-6 w-100">
+																		<label for="{{ $publication->id }}" class="text-secondary fs-6 w-100"  style="padding-right: 24px;">
 																			<span class="fw-bold text-dark">{{ $publication->name }}</span>
 																			<span>{{ $publication->location->name }}</span>
 																			<span class="text-purple-600 checked position-absolute">

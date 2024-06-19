@@ -99,7 +99,7 @@
 																<div class="col-12">
 																	<input id="{{ $company->id }}" type="radio" value="{{ $company->id }}" wire:model="selectedCompany">
 																	<div class="p-2 my-1 search-list position-relative">
-																		<label for="{{ $company->id }}" class="text-secondary fs-6 w-100">
+																		<label for="{{ $company->id }}" class="text-secondary fs-6 w-100" style="padding-right: 24px;">
 																			<span class="fw-bold text-dark">{{ $company->name }}</span>
 																			@php
 																				$country = $company->location->city()->first() ? $company->location->city()->first()->state->country->name : $company->location->name;
