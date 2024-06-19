@@ -7,6 +7,7 @@ use App\Http\Controllers\Users\Architects\MediaKitController as ArchitectsMediaK
 use App\Http\Controllers\Users\MediaKitController;
 use App\Models\MediaKit;
 use Illuminate\Http\Request;
+use RalphJSmit\Laravel\SEO\Support\SEOData;
 
 class ArticleController extends Controller
 {
@@ -15,6 +16,9 @@ class ArticleController extends Controller
 		ArchitectsMediaKitController::check($mediaKit);
 		return view('users.pages.architects.media-kits.articles.view', [
 			'mediaKit' => MediaKitController::loadModel($mediaKit, 'article'),
+			'SEOData' => new SEOData(
+                title: $mediaKit->story->title,
+            ),
 		]);
 	}
 
@@ -23,6 +27,9 @@ class ArticleController extends Controller
 		ArchitectsMediaKitController::check($mediaKit);
 		return view('users.pages.architects.media-kits.articles.edit', [
 			'mediaKit' => MediaKitController::loadModel($mediaKit, 'article'),
+			'SEOData' => new SEOData(
+                title: $mediaKit->story->title,
+            ),
 		]);
 	}
 }
