@@ -1,4 +1,4 @@
-<div class="col-12">
+<div class="col-12" wire:key="{{ $journalist->id }}">
     <div class="bg-white border-0 shadow card rounded-3">
         <div class="card-body">
             <div class="row gx-2 gy-4">
