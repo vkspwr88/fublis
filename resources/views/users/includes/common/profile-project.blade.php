@@ -68,24 +68,24 @@
 						</p>
 					</div>
 				</div>
-				@if ($mediaKit->story->site_area)
+				@if ($mediaKit->story->site_area > 0)
 					<div class="pb-2 row g-2">
 						<div class="col-auto"><p class="mx-auto my-1"><i class="bi bi-textarea"></i></p></div>
 						<div class="col">
 							<p class="p-0 m-0 text-secondary fs-6">
 								<span class="fw-bold">Site Area </span>
-								<span>- {{ $mediaKit->story->site_area }} {{ $mediaKit->story->siteAreaUnit->name }}</span>
+								<span>- {{ $mediaKit->story->site_area }} {{ $mediaKit->story->siteAreaUnit->name ?? '' }}</span>
 							</p>
 						</div>
 					</div>
 				@endif
-				@if ($mediaKit->story->built_up_area)
+				@if ($mediaKit->story->built_up_area > 0)
 					<div class="pb-2 row g-2">
 						<div class="col-auto"><p class="mx-auto my-1"><i class="bi bi-textarea"></i></p></div>
 						<div class="col">
 							<p class="p-0 m-0 text-secondary fs-6">
 								<span class="fw-bold">Built Up Area </span>
-								<span>- {{ $mediaKit->story->built_up_area }} {{ $mediaKit->story->builtUpAreaUnit->name }}</span>
+								<span>- {{ $mediaKit->story->built_up_area }} {{ $mediaKit->story->builtUpAreaUnit->name ? '' }}</span>
 							</p>
 						</div>
 					</div>

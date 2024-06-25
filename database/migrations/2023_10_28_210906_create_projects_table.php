@@ -15,9 +15,9 @@ return new class extends Migration
         Schema::create('projects', function (Blueprint $table) {
             $table->uuid('id')->primary();
 			$table->string('title');
-			$table->double('site_area')->nullable();
+			$table->double('site_area')->nullable()->default(0);
 			$table->foreignIdFor(Models\Area::class, 'site_area_id')->nullable();
-			$table->double('built_up_area')->nullable();
+			$table->double('built_up_area')->nullable()->default(0);
 			$table->foreignIdFor(Models\Area::class, 'built_up_area_id')->nullable();
 			$table->foreignIdFor(Models\Location::class);
 			$table->foreignIdFor(Models\ProjectStatus::class);
