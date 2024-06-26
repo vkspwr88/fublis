@@ -8,7 +8,7 @@
 		@php
 			$city = $mediaKit->story->location->city()->first();
 			$state = $city->state;
-			$country = str()->headline($state->country);
+			$country = $state->country;
 		@endphp
 		<h1 class="py-2 m-0 text-dark fs-1 fw-semibold">{{ str()->headline($mediaKit->story->title) }}</h1>
 		<div class="py-3 row justify-content-center g-2">
@@ -21,7 +21,7 @@
 				</div>
 			@endif
 			<div class="col-auto">
-				<x-users.tag :name="$country->name" />
+				<x-users.tag :name="str()->headline($country->name)" />
 			</div>
 		</div>
 		<div class="mb-4 row">
