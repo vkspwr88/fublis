@@ -85,7 +85,7 @@
 						<div class="col">
 							<p class="p-0 m-0 text-secondary fs-6">
 								<span class="fw-bold">Built Up Area </span>
-								<span>- {{ $mediaKit->story->built_up_area }} {{ $mediaKit->story->builtUpAreaUnit->name ? '' }}</span>
+								<span>- {{ $mediaKit->story->built_up_area }} {{ $mediaKit->story->builtUpAreaUnit->name ?? '' }}</span>
 							</p>
 						</div>
 					</div>
