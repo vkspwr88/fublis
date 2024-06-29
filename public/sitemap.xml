@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9">
+    <url>
+        <loc>http://fublis.test/</loc>
+    
+            </url>
+    <url>
+        <loc>http://fublis.test/user/add-story/project</loc>
+    
+            </url>
+    <url>
+        <loc>http://fublis.test</loc>
+    
+            </url>
+    <url>
+        <loc>http://fublis.test/user/add-story/press-release</loc>
+    
+            </url>
+    <url>
+        <loc>http://fublis.test/user/add-story/article</loc>
+    
+            </url>
+    <url>
+        <loc>http://fublis.test/user/pitch-story/journalists</loc>
+    
+            </url>
+    <url>
+        <loc>http://fublis.test/user/pitch-story/publications</loc>
+    
+            </url>
+    <url>
+        <loc>http://fublis.test/user/add-story</loc>
+    
+            </url>
+    <url>
+        <loc>http://fublis.test/user/pitch-story/calls</loc>
+    
+            </url>
+    <url>
+        <loc>http://fublis.test/pricing</loc>
+    
+            </url>
+    <url>
+        <loc>http://fublis.test/member/signup</loc>
+    
+            </url>
+    <url>
+        <loc>http://fublis.test/member/login</loc>
+    
+            </url>
+    <url>
+        <loc>http://fublis.test/member/invite-story/create</loc>
+    
+            </url>
+    <url>
+        <loc>http://fublis.test/member/media-kit</loc>
+    
+            </url>
+    <url>
+        <loc>http://fublis.test/member/account/settings/your-publications</loc>
+    
+            </url>
+    <url>
+        <loc>http://fublis.test/member/account/messages</loc>
+    
+            </url>
+    <url>
+        <loc>http://fublis.test/user/login</loc>
+    
+            </url>
+    <url>
+        <loc>http://fublis.test/user/pitch-story</loc>
+    
+            </url>
+    <url>
+        <loc>http://fublis.test/user/signup</loc>
+    
+            </url>
+    <url>
+        <loc>http://fublis.test/auth/google/user/journalist/signup</loc>
+    
+            </url>
+    <url>
+        <loc>http://fublis.test/user/forgot-password</loc>
+    
+            </url>
+    <url>
+        <loc>http://fublis.test/member/forgot-password</loc>
+    
+            </url>
+    <url>
+        <loc>http://fublis.test/auth/google/user/architect/signup</loc>
+    
+            </url>
+</urlset>

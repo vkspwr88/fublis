@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Payments\StripeController;
+use App\Http\Controllers\SitemapController;
 use App\Http\Controllers\Users;
 use App\Mail\TestMail;
 // use App\Services\Architects\StatsService;
@@ -27,6 +28,8 @@ Route::get('/test', function () {
 	$statsService->sendStatEmails('month');
 	var_dump('monthly sent');
 })->name('test');
+
+Route::get('/aman-sitemap', [SitemapController::class, 'index']);
 
 Route::get('/test-email', function () {
 	Mail::to('amansaini87@rediffmail.com')->send(new TestMail('amansaini87@rediffmail.com'));
