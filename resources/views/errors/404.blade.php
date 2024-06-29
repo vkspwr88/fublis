@@ -1,7 +1,7 @@
 @extends('users.layouts.master')
 
 @section('head')
-	<title>400 - Not Found</title>
+	<title>404 - Not Found</title>
 @endsection
 
 @section('body')
