@@ -29,7 +29,7 @@ Route::get('/test', function () {
 	var_dump('monthly sent');
 })->name('test');
 
-Route::get('/aman-sitemap', [SitemapController::class, 'index']);
+// Route::get('/aman-sitemap', [SitemapController::class, 'index']);
 
 Route::get('/test-email', function () {
 	Mail::to('amansaini87@rediffmail.com')->send(new TestMail('amansaini87@rediffmail.com'));
