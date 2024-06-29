@@ -26,7 +26,7 @@ class ImageController extends Controller
 	{
 		$image = Image::find($childId);
 		// dd($image);
-		$path = $image->image_path;
+		// $path = $image->image_path;
 		$image->delete();
 		// ImageController::deleteFile($path);
 	}

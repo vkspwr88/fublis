@@ -283,7 +283,8 @@ class ProjectForm extends Form
 		$this->builtUpArea = $mediaKit->story->built_up_area;
 		$this->builtUpAreaUnit = $mediaKit->story->built_up_area_id;
 		$this->materials = $mediaKit->story->title;
-		$this->buildingTypology = $mediaKit->story->buildingUse->buildingTypology->id;
+		// $this->buildingTypology = $mediaKit->story->buildingUse->buildingTypology->id;
+		$this->buildingTypology = $mediaKit->story->buildingUse && $mediaKit->story->buildingUse->buildingTypology ?$mediaKit->story->buildingUse->buildingTypology->id : '';
 		$this->buildingUse = $mediaKit->story->building_use_id;
 		/* $this->selectedCountry = $mediaKit->story->title;
 		$this->selectedState = $mediaKit->story->title;

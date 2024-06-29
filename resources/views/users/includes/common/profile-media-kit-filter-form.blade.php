@@ -30,7 +30,7 @@
 		<div class="col">
 			<div class="d-flex justify-content-end">
 				<div class="input-group" style="width: 280px;">
-					<label class="input-group-text bg-white" for="filterSearchInput" wire:click="$refresh"><i class="bi bi-search"></i></label>
+					<label for="filterSearchInput" class="input-group-text bg-white"{{--  wire:click="$refresh" --}}><i class="bi bi-search"></i></label>
 					<input id="filterSearchInput" class="form-control border-start-0 shadow-none ps-0" type="search" placeholder="Search media kit by name" aria-label="Search" wire:model="form.searchedName" wire:keydown.enter="$refresh" />
 				</div>
 			</div>

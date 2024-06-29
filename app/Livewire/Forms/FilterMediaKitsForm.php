@@ -30,6 +30,6 @@ class FilterMediaKitsForm extends Form
 		if($this->selectedMediaKitTypes->count()){
 			$mediaKits = $mediaKits->whereIn('story_type', $this->selectedMediaKitTypes);
 		}
-		return $mediaKits->paginate(5);
+		return $mediaKits->paginate(10);
 	}
 }

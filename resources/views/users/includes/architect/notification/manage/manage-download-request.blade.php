@@ -1,15 +1,15 @@
-<div class="col-12">
+<div class="col-12" wire:key="{{ $downloadRequest->id }}">
 	<div class="row g-3 align-items-center">
 		<div class="col-auto">
 			@php
-				$profileImg = $notification->notifiable->requestedJournalist->journalist->profileImage ?
-												Storage::url($notification->notifiable->requestedJournalist->journalist->profileImage->image_path) :
+				$profileImg = $downloadRequest->notifiable->requestedJournalist->journalist->profileImage ?
+												Storage::url($downloadRequest->notifiable->requestedJournalist->journalist->profileImage->image_path) :
 												App\Http\Controllers\Users\AvatarController::setProfileAvatar([
-													'name' => $notification->notifiable->requestedJournalist->journalist->user->name,
+													'name' => $downloadRequest->notifiable->requestedJournalist->journalist->user->name,
 													'width' => 150,
 													'fontSize' => 60,
-													'background' => $notification->notifiable->requestedJournalist->journalist->background_color,
-													'foreground' => $notification->notifiable->requestedJournalist->journalist->foreground_color,
+													'background' => $downloadRequest->notifiable->requestedJournalist->journalist->background_color,
+													'foreground' => $downloadRequest->notifiable->requestedJournalist->journalist->foreground_color,
 												]);
 			@endphp
 			<img class="img-square img-48 rounded-circle" src="{{ $profileImg }}" alt="..." />
