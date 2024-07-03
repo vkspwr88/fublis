@@ -9,12 +9,13 @@ use Illuminate\Support\Arr;
 use Livewire\Attributes\Lazy;
 use Livewire\Attributes\Renderless;
 use Livewire\Component;
+use Livewire\WithoutUrlPagination;
 use Livewire\WithPagination;
 
 #[Lazy]
 class Index extends Component
 {
-	use WithPagination;
+	use WithPagination, WithoutUrlPagination;
 
 	private BrandService $brandService;
 
@@ -52,6 +53,7 @@ class Index extends Component
 
 	public function search()
 	{
+		$this->resetPage();
 		$this->render();
 	}
 
@@ -69,6 +71,6 @@ class Index extends Component
 		$this->selectedLocation = '';
 		//$this->selectedMediaKitTypes = [];
 		$this->selectedCategories = [];
-		$this->render();
+		$this->search();
 	}
 }

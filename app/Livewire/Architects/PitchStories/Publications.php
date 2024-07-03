@@ -12,12 +12,13 @@ use Illuminate\Support\Arr;
 use Livewire\Attributes\Lazy;
 use Livewire\Attributes\Renderless;
 use Livewire\Component;
+use Livewire\WithoutUrlPagination;
 use Livewire\WithPagination;
 
 #[Lazy]
 class Publications extends Component
 {
-	use WithPagination;
+	use WithPagination, WithoutUrlPagination;
 
 	private PitchStoryService $pitchStoryService;
 
@@ -70,6 +71,7 @@ class Publications extends Component
 
 	public function search()
 	{
+		$this->resetPage();
 		$this->render();
 	}
 
@@ -90,7 +92,7 @@ class Publications extends Component
 		$this->selectedLocation = '';
 		$this->selectedPubliationTypes = [];
 		$this->selectedCategories = [];
-		$this->render();
+		$this->search();
 	}
 
 	// Show journalists list

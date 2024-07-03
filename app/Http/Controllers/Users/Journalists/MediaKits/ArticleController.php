@@ -17,15 +17,18 @@ class ArticleController extends Controller
 			return abort(404);
 		}
 		$mediaKit = MediaKitController::loadModel($mediaKit, 'article');
-		NotificationService::sendViewCountNotification([
-			'media_kit_id' => $mediaKit->id,
-			'media_kit_slug' => $mediaKit->slug,
-			'media_kit_title' => $mediaKit->story->title,
-			'journalist_id' => auth()->id(),
-			'journalist_slug' => auth()->user()->journalist->slug,
-			'journalist_name' => auth()->user()->name,
-			'architect_user_id' => $mediaKit->architect->user_id,
-		]);
+		if(auth()->user() && auth()->user()->journalist){
+			NotificationService::sendViewCountNotification([
+				'media_kit_id' => $mediaKit->id,
+				'media_kit_slug' => $mediaKit->slug,
+				'media_kit_title' => $mediaKit->story->title,
+				'journalist_id' => auth()->id(),
+				'journalist_slug' => auth()->user()->journalist->slug,
+				'journalist_name' => auth()->user()->name,
+				'architect_user_id' => $mediaKit->architect->user_id,
+			]);
+		}
+
 		return view('users.pages.journalists.media-kits.articles.view', [
 			'mediaKit' => $mediaKit,
 			'downloadRequest' => $mediaKit->downloadRequests->where('requested_by', auth()->id())->first(),

@@ -42,6 +42,7 @@ class ProjectForm extends Form
 	public $consultants;
 	public $designTeam;
 	// #[Rule('required|image|mimes:svg,png,jpg,gif|max:3100|dimensions:max_width=800,max_height=400')]
+	#[Validate]
 	public $coverImage;
 	public $projectBrief;
 	public int $projectBriefLength;
@@ -95,9 +96,9 @@ class ProjectForm extends Form
 		return [
 			'projectTitle' => 'required',
 			'category' => 'required',
-			'siteArea' => 'nullable|numeric',
+			'siteArea' => 'nullable|max:10',
 			'siteAreaUnit' => 'nullable',
-			'builtUpArea' => 'nullable|numeric',
+			'builtUpArea' => 'nullable|max:10',
 			'builtUpAreaUnit' => 'nullable',
 			'materials' => 'nullable',
 			'buildingTypology' => 'nullable',
@@ -171,10 +172,10 @@ class ProjectForm extends Form
 			'projectTitle.required' => 'Enter the :attribute.',
 			'category.required' => 'Select the :attribute.',
 			'siteArea.required' => 'Enter the :attribute.',
-			'siteArea.numeric' => 'Enter the :attribute in numbers.',
+			// 'siteArea.numeric' => 'Enter the :attribute in numbers.',
 			'siteAreaUnit.required' => 'Select the :attribute.',
 			'builtUpArea.required' => 'Enter the :attribute.',
-			'builtUpArea.numeric' => 'Enter the :attribute in numbers.',
+			// 'builtUpArea.numeric' => 'Enter the :attribute in numbers.',
 			'builtUpAreaUnit.required' => 'Select the :attribute.',
 			//'location.required' => 'Select the :attribute.',
 			'selectedCountry.required' => 'Select the :attribute.',

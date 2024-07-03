@@ -20,6 +20,7 @@ use Livewire\Form;
 class PressReleaseForm extends Form
 {
 	// #[Validate('image')]
+	#[Validate]
 	public $coverImage;
 	public $pressReleaseTitle;
 	public $imageCredits;

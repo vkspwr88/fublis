@@ -12,12 +12,13 @@ use Carbon\Carbon;
 use Livewire\Attributes\Lazy;
 use Livewire\Attributes\Renderless;
 use Livewire\Component;
+use Livewire\WithoutUrlPagination;
 use Livewire\WithPagination;
 
 // #[Lazy]
 class Calls extends Component
 {
-	use WithPagination;
+	use WithPagination, WithoutUrlPagination;
 
 	private PitchStoryService $pitchStoryService;
 
@@ -83,6 +84,7 @@ class Calls extends Component
 		}
 		// $this->selectedDeadline = $this->deadline != '' ? Carbon::parse($this->deadline) : '';
 		//dd($this->deadline, Carbon::parse($this->deadline));
+		$this->resetPage();
 		$this->render();
 	}
 
@@ -104,7 +106,7 @@ class Calls extends Component
 		$this->selectedDeadline = '';
 		$this->selectedPubliationTypes = [];
 		$this->selectedCategories = [];
-		$this->render();
+		$this->search();
 	}
 
 	// Show mediakits list

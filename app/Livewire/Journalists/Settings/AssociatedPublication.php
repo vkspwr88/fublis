@@ -16,6 +16,7 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule as ValidationRule;
 use Livewire\Attributes\Rule;
+use Livewire\Attributes\Validate;
 use Livewire\Component;
 use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
 use Livewire\WithFileUploads;
@@ -32,6 +33,7 @@ class AssociatedPublication extends Component
 	public $website;
 	public $profileImageOld;
 	// #[Rule('nullable|image|mimes:svg,png,jpg,gif|max:3100|dimensions:max_width=400,max_height=400')]
+	#[Validate]
 	public $profileImage;
 	// public $language;
 	public $position;

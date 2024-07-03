@@ -6,12 +6,13 @@ use App\Services\CallService;
 use Livewire\Attributes\Lazy;
 use Livewire\Attributes\Renderless;
 use Livewire\Component;
+use Livewire\WithoutUrlPagination;
 use Livewire\WithPagination;
 
 #[Lazy]
 class Index extends Component
 {
-	use WithPagination;
+	use WithPagination, WithoutUrlPagination;
 
 	private CallService $callService;
 

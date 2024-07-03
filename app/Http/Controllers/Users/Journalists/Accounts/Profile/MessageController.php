@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Users\Journalists\Accounts\Profile;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Users\MessageController as UsersMessageController;
 use App\Services\ChatService;
 use Illuminate\Http\Request;
 
@@ -17,6 +18,7 @@ class MessageController extends Controller
 
     public function index(Request $request)
 	{
+		UsersMessageController::markAsRead();
 		$subjects = $this->chatService->getUserChats();
 		$chatId = $subjects->count() ? $subjects[0]->id : '';
 		return view('users.pages.journalists.accounts.profile.message', [

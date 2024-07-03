@@ -5,11 +5,12 @@ namespace App\Livewire\Journalists\Brands;
 use App\Http\Controllers\Users\ArchitectController;
 use App\Livewire\Forms\FilterMediaKitsForm;
 use Livewire\Component;
+use Livewire\WithoutUrlPagination;
 use Livewire\WithPagination;
 
 class Architect extends Component
 {
-	use WithPagination;
+	use WithPagination, WithoutUrlPagination;
 
 	public FilterMediaKitsForm $form;
 

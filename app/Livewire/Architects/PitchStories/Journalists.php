@@ -12,12 +12,13 @@ use App\Services\PitchStoryService;
 use Livewire\Attributes\Lazy;
 use Livewire\Attributes\Renderless;
 use Livewire\Component;
+use Livewire\WithoutUrlPagination;
 use Livewire\WithPagination;
 
 #[Lazy]
 class Journalists extends Component
 {
-	use WithPagination;
+	use WithPagination, WithoutUrlPagination;
 
 	private PitchStoryService $pitchStoryService;
 
@@ -74,6 +75,7 @@ class Journalists extends Component
 
 	public function search()
 	{
+		$this->resetPage();
 		$this->render();
 	}
 
@@ -98,7 +100,7 @@ class Journalists extends Component
 		$this->selectedPubliationTypes = [];
 		$this->selectedPositions = [];
 		$this->selectedCategories = [];
-		$this->render();
+		$this->search();
 	}
 
 	public function pitchJournalist($journalistId){

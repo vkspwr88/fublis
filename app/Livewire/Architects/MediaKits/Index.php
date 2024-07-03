@@ -11,16 +11,21 @@ use App\Services\PitchStoryService;
 use Illuminate\Support\Arr;
 use Livewire\Attributes\Lazy;
 use Livewire\Attributes\Renderless;
+use Livewire\Attributes\Url;
 use Livewire\Component;
+use Livewire\WithoutUrlPagination;
 use Livewire\WithPagination;
 
 #[Lazy]
 class Index extends Component
 {
-	use WithPagination;
+	use WithPagination, WithoutUrlPagination;
 
 	private MediaKitService $mediaKitService;
 	private PitchStoryService $pitchStoryService;
+
+	#[Url]
+    public $page = 1;
 
 	public $categories;
 	public $mediaKitTypes = [];
@@ -73,6 +78,7 @@ class Index extends Component
 
 	public function search()
 	{
+		$this->resetPage();
 		$this->render();
 		//dd($this->selectedMediaKitTypes, $this->selectedCategories);
 	}
@@ -95,7 +101,7 @@ class Index extends Component
 		$this->name = '';
 		$this->selectedMediaKitTypes = [];
 		$this->selectedCategories = [];
-		$this->render();
+		$this->search();
 	}
 
 	// Show publications list

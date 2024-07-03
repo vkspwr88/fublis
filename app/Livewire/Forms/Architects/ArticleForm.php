@@ -19,6 +19,7 @@ use Livewire\Form;
 class ArticleForm extends Form
 {
     // #[Rule('required|image|mimes:svg,png,jpg,gif|max:3100|dimensions:max_width=800,max_height=400')]
+	#[Validate]
 	public $coverImage;
 	public $articleTitle;
 	public $textCredits;

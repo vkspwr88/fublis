@@ -37,7 +37,7 @@ class MessageController extends Controller
 			'message' => $validated['newMessage'],
 		]);
 	}
-	
+
 	public static function getTotalUnread()
 	{
 		return Chat::where([
@@ -47,5 +47,22 @@ class MessageController extends Controller
 			'receiver_id' => auth()->id(),
 			'receiver_unread' => true,
 		])->count();
+	}
+
+	public static function markAsRead()
+	{
+		Chat::where([
+			'sender_id' => auth()->id(),
+			'sender_unread' => true,
+		])->update([
+			'sender_unread' => false,
+		]);
+
+		Chat::where([
+			'receiver_id' => auth()->id(),
+			'receiver_unread' => true,
+		])->update([
+			'receiver_unread' => false,
+		]);
 	}
 }
