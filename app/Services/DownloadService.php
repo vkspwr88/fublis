@@ -62,26 +62,26 @@ class DownloadService
 
 			if ($zip->open(public_path($zipFileName), ZipArchive::CREATE) === true) {
 				$filesToZip = $imagesPath;
-				info('open', [
+				/* info('open', [
 					'imagesPath' => $imagesPath,
-				]);
+				]); */
 				//dd(public_path($zipFileName), $filesToZip);
 				foreach ($filesToZip as $file) {
 					$file = Storage::path($file);
 					$zip->addFile($file, basename($file));
 					//dd($file, basename($file));
-					info('foreach', [
+					/* info('foreach', [
 						'file' => basename($file),
-					]);
+					]); */
 				}
 
 				$zip->close();
 
-				info('debug', [
+				/* info('debug', [
 					'zip' => $zip,
 					'zipFileName' => $zipFileName,
 					'public_path' => public_path($zipFileName),
-				]);
+				]); */
 
 				return response()->download(public_path($zipFileName))->deleteFileAfterSend(true);
 				// return response()->download(public_path($zipFileName));
