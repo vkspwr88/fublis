@@ -67,6 +67,9 @@ class DownloadService
 					$file = Storage::path($file);
 					$zip->addFile($file, basename($file));
 					//dd($file, basename($file));
+					info('foreach', [
+						'file' => basename($file),
+					]);
 				}
 
 				$zip->close();
@@ -77,8 +80,8 @@ class DownloadService
 					'public_path' => public_path($zipFileName),
 				]);
 
-				// return response()->download(public_path($zipFileName))->deleteFileAfterSend(true);
-				return response()->download(public_path($zipFileName));
+				return response()->download(public_path($zipFileName))->deleteFileAfterSend(true);
+				// return response()->download(public_path($zipFileName));
 			} else {
 				throw ValidationException::withMessages(['Failed to create the zip file.']);
 			}
