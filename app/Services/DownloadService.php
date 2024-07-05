@@ -68,10 +68,14 @@ class DownloadService
 					$zip->addFile($file, basename($file));
 					//dd($file, basename($file));
 				}
-				/* info('zip', [
-					'file' => $zip,
-				]); */
+
 				$zip->close();
+
+				info('debug', [
+					'zip' => $zip,
+					'zipFileName' => $zipFileName,
+					'public_path' => public_path($zipFileName),
+				]);
 
 				// return response()->download(public_path($zipFileName))->deleteFileAfterSend(true);
 				return response()->download(public_path($zipFileName));
