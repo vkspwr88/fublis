@@ -67,7 +67,7 @@
 						<p class="p-0 m-0 text-secondary fs-6">
 							<span class="fw-bold">Location </span>
 							<span class="text-capitalize">
-								- {{ $mediaKit->story->location->name }}, @isset($state){{ $state->name }}@endisset, @isset($country){{ $country->name }}@endisset
+								- {{ $mediaKit->story->location->name }} @isset($state),{{ $state->name }}@endisset @isset($country),{{ $country->name }}@endisset
 							</span>
 						</p>
 					</div>

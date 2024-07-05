@@ -69,7 +69,7 @@ class DownloadService
 					//dd($file, basename($file));
 				}
 				//dd($zip);
-				$zip->close();
+				// $zip->close();
 
 				return response()->download(public_path($zipFileName))->deleteFileAfterSend(true);
 			} else {
@@ -85,6 +85,7 @@ class DownloadService
 					'code' => $exp->getCode(),
 				]
 			);
+			abort(505);
 			// dd($exp->getMessage())
 		}
 	}
