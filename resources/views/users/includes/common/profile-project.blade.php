@@ -7,8 +7,10 @@
 	<div class="col-md-8">
 		@php
 			$city = $mediaKit->story->location->city()->first();
-			$state = $city->state;
-			$country = $state->country;
+			if($city){
+				$state = $city->state;
+				$country = $state->country;
+			}
 		@endphp
 		<h1 class="py-2 m-0 text-dark fs-1 fw-semibold">{{ str()->headline($mediaKit->story->title) }}</h1>
 		<div class="py-3 row justify-content-center g-2">
@@ -20,9 +22,11 @@
 					<x-users.tag :name="$mediaKit->category->name" />
 				</div>
 			@endif
-			<div class="col-auto">
-				<x-users.tag :name="str()->headline($country->name)" />
-			</div>
+			@isset($country)
+				<div class="col-auto">
+					<x-users.tag :name="str()->headline($country->name)" />
+				</div>
+			@endisset
 		</div>
 		<div class="mb-4 row">
 			<div class="col">
@@ -63,7 +67,7 @@
 						<p class="p-0 m-0 text-secondary fs-6">
 							<span class="fw-bold">Location </span>
 							<span class="text-capitalize">
-								- {{ $mediaKit->story->location->name }}, {{ $state->name }}, {{ $country->name }}
+								- {{ $mediaKit->story->location->name }}, @isset($state){{ $state->name }}@endisset, @isset($country){{ $country->name }}@endisset
 							</span>
 						</p>
 					</div>
