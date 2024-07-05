@@ -58,8 +58,7 @@ class DownloadService
 			}
 
 			$zip = new ZipArchive;
-			$zipFileName = ucfirst(str()->camel('aman')) . '-' . $type . '.zip';
-			// $zipFileName = ucfirst(str()->camel($model->slug)) . '-' . $type . '.zip';
+			$zipFileName = ucfirst(str()->camel($model->slug)) . '-' . $type . '.zip';
 
 			if ($zip->open(public_path($zipFileName), ZipArchive::CREATE) === true) {
 				$filesToZip = $imagesPath;
