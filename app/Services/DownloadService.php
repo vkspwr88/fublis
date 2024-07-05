@@ -58,7 +58,8 @@ class DownloadService
 			}
 
 			$zip = new ZipArchive;
-			$zipFileName = ucfirst(str()->camel($model->slug)) . '-' . $type . '.zip';
+			$zipFileName = ucfirst(str()->camel('aman')) . '-' . $type . '.zip';
+			// $zipFileName = ucfirst(str()->camel($model->slug)) . '-' . $type . '.zip';
 
 			if ($zip->open(public_path($zipFileName), ZipArchive::CREATE) === true) {
 				$filesToZip = $imagesPath;
@@ -68,9 +69,9 @@ class DownloadService
 					$zip->addFile($file, basename($file));
 					//dd($file, basename($file));
 				}
-				info('zip', [
+				/* info('zip', [
 					'file' => $zip,
-				]);
+				]); */
 				$zip->close();
 
 				return response()->download(public_path($zipFileName))->deleteFileAfterSend(true);
