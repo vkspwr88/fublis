@@ -62,6 +62,9 @@ class DownloadService
 
 			if ($zip->open(public_path($zipFileName), ZipArchive::CREATE) === true) {
 				$filesToZip = $imagesPath;
+				info('open', [
+					'imagesPath' => $imagesPath,
+				]);
 				//dd(public_path($zipFileName), $filesToZip);
 				foreach ($filesToZip as $file) {
 					$file = Storage::path($file);
