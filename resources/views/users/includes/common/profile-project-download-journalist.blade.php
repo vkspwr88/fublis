@@ -39,12 +39,16 @@
 				<p class="m-0 text-dark fs-6">Render/Drawings</p>
 			</div>
 			<div class="col text-end">
-				<form class="p-0 m-0" action="{{ route('journalist.download.bulk', ['mediaKit' => $mediaKit->slug]) }}" method="post">
-					@csrf
-					<input type="hidden" value="drawings" name="file">
-					<input type="hidden" name="type" value="Drawings">
-					<button type="submit" class="btn btn-primary fs-6 fw-medium">Download</button>
-				</form>
+				@if($mediaKit->story->drawings_link)
+					<a class="btn btn-primary fs-6 fw-medium" href="{{ $mediaKit->story->drawings_link }}" target="_blank">Download</a>
+				@else
+					<form class="p-0 m-0" action="{{ route('journalist.download.bulk', ['mediaKit' => $mediaKit->slug]) }}" method="post">
+						@csrf
+						<input type="hidden" value="drawings" name="file">
+						<input type="hidden" name="type" value="Drawings">
+						<button type="submit" class="btn btn-primary fs-6 fw-medium">Download</button>
+					</form>
+				@endif
 			</div>
 		</div>
 	@endif
