@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Users\InterviewController;
 use App\Http\Controllers\Users\Journalists;
 use App\Http\Controllers\Users\MessageController;
 use App\Http\Middleware\JournalistLogin;
@@ -14,6 +15,8 @@ Route::middleware('guest')->group(function () {
 Route::get('/logout', [Journalists\Auth\LogoutController::class, 'index'])->name('logout');
 
 Route::middleware(JournalistLogin::class)->group(function() {
+	Route::get('/interview/{interview:slug}', [InterviewController::class, 'index'])->name('interview.index');
+
 	Route::post('/download/{mediaKit:slug}', [Journalists\DownloadController::class, 'index'])->name('download');
 	Route::post('/download/{mediaKit:slug}/request', [Journalists\DownloadController::class, 'request'])->name('download.request');
 	Route::post('/download/{mediaKit:slug}/bulk', [Journalists\DownloadController::class, 'bulk'])->name('download.bulk');

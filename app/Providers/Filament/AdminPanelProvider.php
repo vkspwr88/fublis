@@ -83,6 +83,7 @@ class AdminPanelProvider extends PanelProvider
 					...MediaResource::getNavigationItems(),
 					...Resources\ImageLogResource::getNavigationItems(),
 					...Resources\SubscribeNewsletterResource::getNavigationItems(),
+					...Resources\InterviewResource::getNavigationItems(),
 				])->groups([
 					Navigation\NavigationGroup::make('Architects')
 					->items([

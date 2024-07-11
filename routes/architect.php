@@ -3,6 +3,7 @@
 use App\Http\Controllers\Payments\RazorpayController;
 use App\Http\Controllers\Payments\StripeController;
 use App\Http\Controllers\Users\Architects;
+use App\Http\Controllers\Users\InterviewController;
 use App\Http\Controllers\Users\MessageController;
 use App\Http\Controllers\Users\TrixFileUploadController;
 use App\Http\Middleware\ArchitectLogin;
@@ -39,6 +40,9 @@ Route::middleware(ArchitectLogin::class)->group(function() {
 		/* Route::get('/payment', function(){
 			echo 'checking payment';
 		})->name('test'); */
+
+		Route::get('/interview/{interview:slug}', [InterviewController::class, 'index'])->name('interview.index');
+
 		Route::post('/trix-file-upload', [TrixFileUploadController::class, 'upload'])->name('trix-file-upload');
 		Route::post('/trix-file-remove', [TrixFileUploadController::class, 'remove'])->name('trix-file-remove');
 		// Route::get('/pricing', [StripeController::class, 'index'])->name('stripe.index');
