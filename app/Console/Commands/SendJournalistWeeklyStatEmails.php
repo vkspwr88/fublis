@@ -30,7 +30,7 @@ class SendJournalistWeeklyStatEmails extends Command
         info("SendJournalistWeeklyStatEmails Cron Job running at " . now());
 		try{
 			$statsService = new StatsService;
-			$statsService->sendStatEmails('month');
+			$statsService->sendStatEmails('week');
 		}
 		catch(Exception $exp){
 			info('SendJournalistWeeklyStatEmails Error: ' . $exp->getMessage());
