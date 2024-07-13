@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Users;
 use App\Http\Controllers\Controller;
 use App\Models\Interview;
 use Illuminate\Http\Request;
+use RalphJSmit\Laravel\SEO\Support\SEOData;
 
 class InterviewController extends Controller
 {
@@ -15,6 +16,9 @@ class InterviewController extends Controller
 		}
 		return view('users.pages.interviews.index', [
 			'interview' => $interview,
+			'SEOData' => new SEOData(
+                title: $interview->heading,
+            ),
 		]);
 	}
 }

@@ -49,13 +49,33 @@ class InterviewResource extends Resource
 					->label('For Submitted')
 					->inline(false)
 					->hidden(fn (string $operation) => $operation == 'create' || $operation == 'edit'),
-                Forms\Components\TextInput::make('profile_pic_path')
-                    ->maxLength(255)
+                Forms\Components\FileUpload::make('profile_pic_path')
 					->hidden(fn (string $operation) => $operation == 'create' || $operation == 'edit'),
 				Forms\Components\DateTimePicker::make('submission_date')
 					->hidden(fn (string $operation) => $operation == 'create' || $operation == 'edit'),
 
+				Forms\Components\Textarea::make('brief')
+					->hidden(fn (string $operation) => $operation == 'create' || $operation == 'edit')
+                    ->maxLength(65535)
+                    ->columnSpanFull(),
 				Forms\Components\Fieldset::make('')
+					->hidden(fn (string $operation) => $operation == 'view')
+					->schema([
+						Forms\Components\Repeater::make('interviewQuestions')
+							->relationship()
+							->schema([
+								Forms\Components\Textarea::make('question')
+									->required(),
+							])
+							->reorderable(true)
+							->reorderableWithButtons()
+							->defaultItems(1)
+							->addActionLabel('Add Question')
+							->columns(1)
+							->columnSpanFull()
+						]),
+				Forms\Components\Fieldset::make('')
+					->hidden(fn (string $operation) => $operation == 'create' || $operation == 'edit')
 					->schema([
 						Forms\Components\Repeater::make('interviewQuestions')
 							->relationship()
@@ -63,17 +83,13 @@ class InterviewResource extends Resource
 								Forms\Components\Textarea::make('question')
 									->required(),
 								Forms\Components\Textarea::make('answer')
-									->hidden(fn (string $operation) => $operation == 'create' || $operation == 'edit'),
 							])
 							->reorderable(true)
 							->reorderableWithButtons()
 							->defaultItems(1)
 							->addActionLabel('Add Question')
-							->columns([1, 2])
+							->columns(2)
 							->columnSpanFull()
-
-							/* ->columns(2)
-							->columnSpan(2) */
 						]),
             ]);
     }
@@ -117,7 +133,10 @@ class InterviewResource extends Resource
                 Tables\Columns\ImageColumn::make('profile_pic_path')
 					->label('Profile Image')
 					->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('submission_date')
+				Tables\Columns\ViewColumn::make('projectBrief.image_path')
+                    ->view('components.utility.tables.documents-column')
+					->toggleable(isToggledHiddenByDefault: true),
+				Tables\Columns\TextColumn::make('submission_date')
                     ->dateTime()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
