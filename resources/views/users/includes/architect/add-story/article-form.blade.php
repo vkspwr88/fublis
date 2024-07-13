@@ -12,7 +12,8 @@
 	<div class="mb-3 row">
 		<label for="inputTextCredits" class="col-md-4 col-form-label text-dark fs-6 fw-medium">Text Credits <span class="text-danger">*</span></label>
 		<div class="col-md-8">
-			<input type="text" id="inputTextCredits" class="form-control @error('form.textCredits') is-invalid @enderror" wire:model="form.textCredits">
+			<textarea id="inputTextCredits" class="form-control @error('form.textCredits') is-invalid @enderror" wire:model="form.textCredits" rows="6"></textarea>
+			{{-- <input type="text" id="inputTextCredits" class="form-control @error('form.textCredits') is-invalid @enderror" wire:model="form.textCredits"> --}}
 			@error('form.textCredits')<div class="invalid-feedback">{{ $message }}</div>@enderror
 		</div>
 	</div>

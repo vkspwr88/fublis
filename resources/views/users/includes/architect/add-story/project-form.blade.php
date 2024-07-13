@@ -56,7 +56,8 @@
 		<div class="mb-3 row">
 			<label for="inputMaterials" class="col-md-4 col-form-label text-dark fs-6 fw-medium">Materials</label>
 			<div class="col-md-8">
-				<input type="text" id="inputMaterials" class="form-control @error('form.materials') is-invalid @enderror" wire:model="form.materials">
+				<textarea id="inputMaterials" class="form-control @error('form.materials') is-invalid @enderror" wire:model="form.materials" rows="6"></textarea>
+				{{-- <input type="text" id="inputMaterials" class="form-control @error('form.materials') is-invalid @enderror" wire:model="form.materials"> --}}
 				@error('form.materials')<div class="invalid-feedback">{{ $message }}</div>@enderror
 			</div>
 		</div>
@@ -148,21 +149,24 @@
 	<div class="mb-3 row">
 		<label for="inputImageCredits" class="col-md-4 col-form-label text-dark fs-6 fw-medium">Image Credits</label>
 		<div class="col-md-8">
-			<input type="text" id="inputImageCredits" class="form-control @error('form.imageCredits') is-invalid @enderror" wire:model="form.imageCredits">
+			<textarea id="inputImageCredits" class="form-control @error('form.imageCredits') is-invalid @enderror" wire:model="form.imageCredits" rows="6"></textarea>
+			{{-- <input type="text" id="inputImageCredits" class="form-control @error('form.imageCredits') is-invalid @enderror" wire:model="form.imageCredits"> --}}
 			@error('form.imageCredits')<div class="invalid-feedback">{{ $message }}</div>@enderror
 		</div>
 	</div>
 	<div class="mb-3 row">
 		<label for="inputTextCredits" class="col-md-4 col-form-label text-dark fs-6 fw-medium">Text Credits</label>
 		<div class="col-md-8">
-			<input type="text" id="inputTextCredits" class="form-control @error('form.textCredits') is-invalid @enderror" wire:model="form.textCredits">
+			<textarea id="inputTextCredits" class="form-control @error('form.textCredits') is-invalid @enderror" wire:model="form.textCredits" rows="6"></textarea>
+			{{-- <input type="text" id="inputTextCredits" class="form-control @error('form.textCredits') is-invalid @enderror" wire:model="form.textCredits"> --}}
 			@error('form.textCredits')<div class="invalid-feedback">{{ $message }}</div>@enderror
 		</div>
 	</div>
 	<div class="mb-3 row">
 		<label for="inputRenderCredits" class="col-md-4 col-form-label text-dark fs-6 fw-medium">Render Credits</label>
 		<div class="col-md-8">
-			<input type="text" id="inputRenderCredits" class="form-control @error('form.renderCredits') is-invalid @enderror" wire:model="form.renderCredits">
+			<textarea id="inputRenderCredits" class="form-control @error('form.renderCredits') is-invalid @enderror" wire:model="form.renderCredits" rows="6"></textarea>
+			{{-- <input type="text" id="inputRenderCredits" class="form-control @error('form.renderCredits') is-invalid @enderror" wire:model="form.renderCredits"> --}}
 			@error('form.renderCredits')<div class="invalid-feedback">{{ $message }}</div>@enderror
 		</div>
 	</div>

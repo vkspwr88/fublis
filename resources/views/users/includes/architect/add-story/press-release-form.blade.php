@@ -12,7 +12,8 @@
 	<div class="mb-3 row">
 		<label for="inputImageCredits" class="col-md-4 col-form-label text-dark fs-6 fw-medium">Image Credits</label>
 		<div class="col-md-8">
-			<input type="text" id="inputImageCredits" class="form-control @error('form.imageCredits') is-invalid @enderror" wire:model="form.imageCredits">
+			<textarea id="inputImageCredits" class="form-control @error('form.imageCredits') is-invalid @enderror" wire:model="form.imageCredits" rows="6"></textarea>
+			{{-- <input type="text" id="inputImageCredits" class="form-control @error('form.imageCredits') is-invalid @enderror" wire:model="form.imageCredits"> --}}
 			@error('form.imageCredits')<div class="invalid-feedback">{{ $message }}</div>@enderror
 		</div>
 	</div>
