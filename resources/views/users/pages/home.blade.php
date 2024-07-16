@@ -5,14 +5,14 @@
 @section('body')
 <div class="py-5">
 	<div class="container py-5">
-		<div class="row g-4 text-center">
+		<div class="text-center row g-4">
 			<div class="col-md-12">
 				<ul id="userTab" class="nav nav-pills justify-content-center" aria-label="User Tab">
 					<li class="p-1 bg-purple-100 nav-item pe-0" role="presentation">
-						<button class="py-2 nav-link active" id="architectTab" data-bs-toggle="pill" data-bs-target="#architectTabContent" type="button" role="tab" aria-controls="architectTabContent" aria-selected="true">Join Fublis</button>
+						<a class="py-2 nav-link active" id="architectTab" data-bs-toggle="pill" href="#architect" data-bs-target="#architectTabContent" type="button" role="tab" aria-controls="architect" aria-selected="true">Join Fublis</a>
 					</li>
 					<li class="p-1 bg-purple-100 nav-item ps-0" role="presentation">
-						<button class="py-2 nav-link" id="journalistTab" data-bs-toggle="pill" data-bs-target="#journalistTabContent" type="button" role="tab" aria-controls="journalistTabContent" aria-selected="false">Join as Journalist <i class="bi bi-arrow-right"></i></button>
+						<a class="py-2 nav-link" id="journalistTab" data-bs-toggle="pill" href="#journalist" data-bs-target="#journalistTabContent" type="button" role="tab" aria-controls="journalist" aria-selected="false">Join as Journalist <i class="bi bi-arrow-right"></i></a>
 					</li>
 				</ul>
 			</div>
@@ -79,3 +79,25 @@
 	</div>
 </div>
 @endsection
+
+@push('scripts')
+	<script>
+		const triggerTabList = document.querySelectorAll('#userTab a');
+		triggerTabList.forEach(triggerEl => {
+			const tabTrigger = new bootstrap.Tab(triggerEl)
+
+			triggerEl.addEventListener('click', event => {
+				event.preventDefault();
+				console.log('click', triggerEl.hash);
+				tabTrigger.show();
+				location.hash = triggerEl.hash;
+			});
+		});
+
+		const currentURL = document.URL;
+		const hashURL = currentURL.substring(currentURL.indexOf('#'));
+		const triggerEl = document.querySelector('#userTab a[href="' + hashURL + '"]');
+		console.log(currentURL, hashURL, triggerEl);
+		bootstrap.Tab.getInstance(triggerEl).show();
+	</script>
+@endpush
