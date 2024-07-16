@@ -29,7 +29,7 @@
 											</div>
 										@endif
 										<div class="mb-3">
-											<label for="inputLinkedinProfile" class="form-label text-dark fs-6 fw-medium">LinkedIn profile <span class="text-danger">*</span></label>
+											<label for="inputLinkedinProfile" class="form-label text-dark fs-6 fw-medium">LinkedIn profile {{-- <span class="text-danger">*</span> --}}</label>
 											<input type="text" class="form-control @error('linkedinProfile') is-invalid @enderror" id="inputLinkedinProfile" placeholder="www.your-website.com" aria-label="LinkedIn profile" aria-describedby="linkedinProfileAddon" wire:model="linkedinProfile">
 											@error('linkedinProfile')<div class="invalid-feedback">{{ $message }}</div>@enderror
 										</div>

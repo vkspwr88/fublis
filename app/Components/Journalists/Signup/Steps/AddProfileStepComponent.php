@@ -47,7 +47,7 @@ class AddProfileStepComponent extends StepComponent
 		return [
 			'position' => 'required',
 			'otherPosition' => 'required_if:position,other',
-			'linkedinProfile' => 'required|url:https',
+			'linkedinProfile' => 'nullable|url:https',
 			'publishedArticleLink' => 'nullable|url:https',
 			'publishingPlatformLink' => 'nullable|url:https',
 		];
@@ -59,7 +59,7 @@ class AddProfileStepComponent extends StepComponent
 			'position.required' => 'Select the :attribute.',
 			'position.exists' => 'Select the valid :attribute.',
 			'otherPosition.required_if' => 'Enter the :attribute.',
-			'linkedinProfile.required' => 'Enter the :attribute.',
+			// 'linkedinProfile.required' => 'Enter the :attribute.',
 			'linkedinProfile.url' => 'Enter the valid https :attribute.',
 			'publishedArticleLink.required' => 'Enter the :attribute.',
 			'publishedArticleLink.url' => 'Enter the valid https :attribute.',
