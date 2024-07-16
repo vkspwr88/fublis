@@ -11,9 +11,9 @@ class InterviewController extends Controller
 {
     public function index(Interview $interview)
 	{
-		if($interview->user_id != auth()->id()){
+		/* if($interview->user_id != auth()->id()){
 			return abort(419);
-		}
+		} */
 		return view('users.pages.interviews.index', [
 			'interview' => $interview,
 			'SEOData' => new SEOData(

@@ -95,3 +95,5 @@ Route::get('/invitation/{invitation}/{type}', [Users\InvitationController::class
 
 Route::get('/publications/{categorySlug}/{countrySlug}', [Users\TopPublicationController::class, 'top'])->name('top-publications');
 Route::get('/journalists/{categorySlug}/{countrySlug}', [Users\TopJournalistController::class, 'top'])->name('top-journalists');
+
+Route::get('/interview/{interview:slug}', [Users\InterviewController::class, 'index'])->name('interview.index');

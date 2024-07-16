@@ -22,7 +22,7 @@
 					</li> --}}
 					<li class="breadcrumb-item fublis-breadcrumb-item fs-6 fw-medium" aria-current="page">
 						<span class="text-purple-600 bg-purple-100 badge">
-							{{ Str::headline($interview->slug) }}
+							{{ $interview->name }}
 						</span>
 					</li>
 				</ol>
@@ -36,7 +36,7 @@
 		<div class="row">
 			<div class="col">
 				<h2 class="text-dark fs-3 fw-semibold">
-					Thank You, {{ Str::headline($interview->slug) }}! We've received your interview responses.
+					Thank You, {{ $interview->name }}! We've received your interview responses.
 				</h2>
 				<p class="m-0 text-secondary fs-5">
 					Thank you for completing the interview questionnaire! Your responses have been successfully submitted. Our editorial team is now working diligently to get your interview live on our platform soon. We appreciate your time and valuable insights.

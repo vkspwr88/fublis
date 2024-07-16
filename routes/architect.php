@@ -41,7 +41,7 @@ Route::middleware(ArchitectLogin::class)->group(function() {
 			echo 'checking payment';
 		})->name('test'); */
 
-		Route::get('/interview/{interview:slug}', [InterviewController::class, 'index'])->name('interview.index');
+		// Route::get('/interview/{interview:slug}', [InterviewController::class, 'index'])->name('interview.index');
 
 		Route::post('/trix-file-upload', [TrixFileUploadController::class, 'upload'])->name('trix-file-upload');
 		Route::post('/trix-file-remove', [TrixFileUploadController::class, 'remove'])->name('trix-file-remove');

@@ -27,16 +27,18 @@ class InterviewResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Select::make('user_id')
+                Forms\Components\TextInput::make('slug')
+                    ->required()
+					->unique(ignoreRecord: true)
+                    ->maxLength(255),
+				Forms\Components\TextInput::make('name')
+                    ->required()
+                    ->maxLength(255),
+				Forms\Components\Select::make('user_id')
                     ->relationship('user')
 					->options(User::where('user_type', '!=', 'admin')->orderBy('email')->get()->pluck('email', 'id'))
 					->searchable()
-					->preload()
-                    ->required(),
-                Forms\Components\TextInput::make('slug')
-                    ->required()
-					->unique()
-                    ->maxLength(255),
+					->preload(),
                 Forms\Components\Textarea::make('heading')
                     ->required()
                     ->maxLength(65535)
@@ -50,6 +52,7 @@ class InterviewResource extends Resource
 					->inline(false)
 					->hidden(fn (string $operation) => $operation == 'create' || $operation == 'edit'),
                 Forms\Components\FileUpload::make('profile_pic_path')
+					->downloadable()
 					->hidden(fn (string $operation) => $operation == 'create' || $operation == 'edit'),
 				Forms\Components\DateTimePicker::make('submission_date')
 					->hidden(fn (string $operation) => $operation == 'create' || $operation == 'edit'),
@@ -58,6 +61,19 @@ class InterviewResource extends Resource
 					->hidden(fn (string $operation) => $operation == 'create' || $operation == 'edit')
                     ->maxLength(65535)
                     ->columnSpanFull(),
+				Forms\Components\FileUpload::make('projectBrief')
+					->label('Project Brief Docs')
+					->directory('images/interviews/briefs')
+					->multiple()
+					->downloadable()
+					->openable()
+					->hidden(fn (string $operation) => $operation == 'create' || $operation == 'edit')
+                    ->columnSpanFull(),
+					/* Tables\Columns\ViewColumn::make('projectBrief.image_path')
+                    ->view('components.utility.tables.documents-column')
+					->toggleable(isToggledHiddenByDefault: true), */
+				/* Forms\Components\ViewField::make('projectBrief')
+					->view('components.utility.tables.documents-column'), */
 				Forms\Components\Fieldset::make('')
 					->hidden(fn (string $operation) => $operation == 'view')
 					->schema([
@@ -104,7 +120,7 @@ class InterviewResource extends Resource
 				Tables\Columns\TextColumn::make('url')
 					->state(function (Interview $record): string {
 						// dd($record->user);
-						if($record->user->user_type == UserTypeEnum::ARCHITECT){
+						/* if($record->user->user_type == UserTypeEnum::ARCHITECT){
 							return route('architect.interview.index', [
 								'interview' => $record->slug,
 							]);
@@ -113,7 +129,8 @@ class InterviewResource extends Resource
 							return route('journalist.interview.index', [
 								'interview' => $record->slug,
 							]);
-						}
+						} */
+						return route('interview.index', ['interview' => $record->slug]);
 					})
 					->icon('heroicon-m-globe-alt')
 					->iconColor('primary')

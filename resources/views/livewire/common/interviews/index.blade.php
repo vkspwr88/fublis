@@ -110,67 +110,71 @@
 			<div class="row g-3">
 				<div class="col-md-2">
 					<label for="inputPreviewText" class="col-form-label text-dark fs-6 fw-medium">Abstract about you: </label>
-					<label class="m-0 d-block form-text text-secondary fs-7" for="">Please share an abstract about you written in 3rd person. You can also upload the brief.</label>
+					<label class="m-0 d-block form-text text-secondary fs-7" for="">Please share an abstract about you written in 3rd person or you can also upload the brief.</label>
 				</div>
 				<div class="col-md-10">
-					<textarea id="inputPreviewText" class="form-control @error('brief') is-invalid @enderror" wire:model="brief" wire:keydown.debounce.1000ms="characterCount" rows="6" placeholder="Write an introduction about you..."></textarea>
-					@error('brief')<div class="invalid-feedback">{{ $message }}</div>@enderror
-				</div>
-				<div class="col-md-12">
-					<div class="mb-2 card">
-						<div class="bg-white border card-body rounded-3 border-light">
-							<div class="row align-items-center">
-								<div class="col-12" x-data="fileUpload('projectBrief')">
-									<div
-										x-on:drop="isDropping = false"
-										x-on:drop.prevent="handleFilesDrop($event)"
-										x-on:dragover.prevent="isDropping = true"
-										x-on:dragleave.prevent="isDropping = false"
-									>
-										<div class="top-0 bottom-0 z-30 flex opacity-75 position-absolute start-0 end-0 justify-content-center align-items-center bg-primary rounded-2" x-show="isDropping" style="display: none;">
-											<span class="text-white fs-4">Release file to upload!</span>
-										</div>
-										<div class="d-flex justify-content-center align-items-center">
-											<div class="text-gray-600 upload-icon rounded-circle fs-5">
-												<i class="bi bi-cloud-upload"></i>
-											</div>
-										</div>
-										<p class="py-2 m-0 text-center card-text text-secondary fs-6">
-											<label for="imagesFiles"><span class="text-purple-700 cursor-pointer fw-semibold">Click to upload</span></label> or drag and drop
-										</p>
-										<input type="file" id="imagesFiles" class="d-none" @change="handleFilesSelect" multiple>
-										@if(count($projectBrief) > 0 || count($oldProjectBrief) > 0)
-											<ul class="flex-wrap mt-3 d-block" style="list-style: none;">
-												@foreach ($projectBrief as $key => $imagesFile)
-													@if(method_exists($imagesFile, 'temporaryUrl'))
-														<li class="p-0 position-relative" wire:key="projectBrief{{ $key }}">
-															{{ $imagesFile->getClientOriginalName() }}
-															<button type="button" class="btn btn-link text-danger text-decoration-none" @click="removeUpload('{{ $imagesFile->getFilename() }}')">X</button>
-														</li>
-													@else
+					<div class="row g-3">
+						<div class="col-md-12">
+							<textarea id="inputPreviewText" class="form-control @error('brief') is-invalid @enderror" wire:model="brief" rows="6" placeholder="Write an introduction about you..."></textarea>
+							@error('brief')<div class="invalid-feedback">{{ $message }}</div>@enderror
+						</div>
+						<div class="col-md-12">
+							<div class="mb-2 card">
+								<div class="bg-white border card-body rounded-3 border-light">
+									<div class="row align-items-center">
+										<div class="col-12" x-data="fileUpload('projectBrief')">
+											<div
+												x-on:drop="isDropping = false"
+												x-on:drop.prevent="handleFilesDrop($event)"
+												x-on:dragover.prevent="isDropping = true"
+												x-on:dragleave.prevent="isDropping = false"
+											>
+												<div class="top-0 bottom-0 z-30 flex opacity-75 position-absolute start-0 end-0 justify-content-center align-items-center bg-primary rounded-2" x-show="isDropping" style="display: none;">
+													<span class="text-white fs-4">Release file to upload!</span>
+												</div>
+												<div class="d-flex justify-content-center align-items-center">
+													<div class="text-gray-600 upload-icon rounded-circle fs-5">
+														<i class="bi bi-cloud-upload"></i>
+													</div>
+												</div>
+												<p class="py-2 m-0 text-center card-text text-secondary fs-6">
+													<label for="imagesFiles"><span class="text-purple-700 cursor-pointer fw-semibold">Click to upload</span></label> or drag and drop
+												</p>
+												<input type="file" id="imagesFiles" class="d-none" @change="handleFilesSelect" multiple>
+												@if(count($projectBrief) > 0 || count($oldProjectBrief) > 0)
+													<ul class="flex-wrap mt-3 d-block" style="list-style: none;">
+														@foreach ($projectBrief as $key => $imagesFile)
+															@if(method_exists($imagesFile, 'temporaryUrl'))
+																<li class="p-0 position-relative" wire:key="projectBrief{{ $key }}">
+																	{{ $imagesFile->getClientOriginalName() }}
+																	<button type="button" class="btn btn-link text-danger text-decoration-none" @click="removeUpload('{{ $imagesFile->getFilename() }}')">X</button>
+																</li>
+															@else
 
-													@endif
-												@endforeach
-												@foreach ($oldProjectBrief as $key => $imagesFile)
-													<li class="p-0 position-relative" wire:key="oldProjectBrief{{ $key }}">
-														<a href="{{ Storage::url($imagesFile) }}" class="text-purple-700">See Brief File {{ $loop->iteration }}</a>
-														<button type="button" class="btn btn-link text-danger text-decoration-none" wire:click="removeImage({{ $key }})">X</button>
-													</li>
-											@endforeach
-											</ul>
-										@endif
-										<div x-show="isUploading" style="display: none;">
-											<div class="progress">
-												<div class="progress-bar bg-primary" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="transition: width 1s" :style="`width: ${progress}%;`"></div>
+															@endif
+														@endforeach
+														@foreach ($oldProjectBrief as $key => $imagesFile)
+															<li class="p-0 position-relative" wire:key="oldProjectBrief{{ $key }}">
+																<a href="{{ Storage::url($imagesFile) }}" class="text-purple-700">See Brief File {{ $loop->iteration }}</a>
+																<button type="button" class="btn btn-link text-danger text-decoration-none" wire:click="removeImage({{ $key }})">X</button>
+															</li>
+													@endforeach
+													</ul>
+												@endif
+												<div x-show="isUploading" style="display: none;">
+													<div class="progress">
+														<div class="progress-bar bg-primary" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="transition: width 1s" :style="`width: ${progress}%;`"></div>
+													</div>
+												</div>
 											</div>
 										</div>
 									</div>
 								</div>
 							</div>
+							@error('projectBrief')<div class="error">{{ $message }}</div>@enderror
+							@error('projectBrief.*')<div class="error">{{ $message }}</div>@enderror
 						</div>
 					</div>
-					@error('projectBrief')<div class="error">{{ $message }}</div>@enderror
-					@error('projectBrief.*')<div class="error">{{ $message }}</div>@enderror
 				</div>
 			</div>
 		</div>

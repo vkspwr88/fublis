@@ -191,7 +191,7 @@ class Index extends Component
 
 	public function redirectUser()
 	{
-		if(isArchitect()){
+		/* if(isArchitect()){
 			return to_route('architect.interview.index', [
 				'interview' => $this->interview->slug,
 			]);
@@ -200,7 +200,8 @@ class Index extends Component
 			return to_route('journalist.interview.index', [
 				'interview' => $this->interview->slug,
 			]);
-		}
+		} */
+		return to_route('interview.index', ['interview' => $this->interview->slug]);
 	}
 
 	public function cancelSubmit()
@@ -210,7 +211,7 @@ class Index extends Component
 
 	public function removeImage($index)
 	{
-		$image = $this->interview->oldProjectBrief->where('image_path', $this->oldProjectBrief[$index])->first();
+		$image = $this->interview->projectBrief->where('image_path', $this->oldProjectBrief[$index])->first();
 		if($image){
 			$image->delete();
 		}
