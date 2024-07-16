@@ -13,7 +13,7 @@
 		@error('form.mediaContact')<div class="invalid-feedback">{{ $message }}</div>@enderror
 	</div>
 </div>
-<div class="row">
+{{-- <div class="row">
 	<div class="col-md-4">
 		<label for="selectMediaKitAccess" class="col-form-label text-dark fs-6 fw-medium">Media Kit Access <span class="text-danger">*</span></label>
 		<label class="m-0 d-block form-text text-secondary fs-7">
@@ -33,4 +33,4 @@
 		</select>
 		@error('form.mediaKitAccess')<div class="invalid-feedback">{{ $message }}</div>@enderror
 	</div>
-</div>
+</div> --}}

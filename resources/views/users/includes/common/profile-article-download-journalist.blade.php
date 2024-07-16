@@ -1,4 +1,4 @@
-@if( ($downloadRequest && $downloadRequest->request_status === App\Enums\Users\Architects\MediaKits\RequestStatusEnum::APPROVED) || $mediaKit->projectAccess->name === 'open to all')
+@if( ($downloadRequest && $downloadRequest->request_status === App\Enums\Users\Architects\MediaKits\RequestStatusEnum::APPROVED)/*  || $mediaKit->projectAccess->name === 'open to all' */)
 	@if ($mediaKit->story->company_profile_path || $mediaKit->story->company_profile_link)
 		<div class="row align-items-center">
 			<div class="col">

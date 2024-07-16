@@ -103,6 +103,8 @@ class Notification extends Component
     public function render()
     {
 		//dd($this->notifications);
+		// $this->dispatch('show-download-request-modal');
+		// dd(DownloadController::getAllowedDownloadRequest(), DownloadController::getTotalRequest());
 		return view('livewire.architects.account.notification');
     }
 
@@ -110,6 +112,10 @@ class Notification extends Component
 	{
 		$notification = $this->notifications->find($notificationId);
 		//dd($this->notifications, $notification);
+		if(!DownloadController::isAllowedToRespond()){
+			$this->dispatch('show-download-request-modal');
+			return;
+		}
 		if(DownloadController::approveRequest($notification->notifiable)){
 			$this->dispatch('alert', [
 				'type' => 'success',
@@ -130,6 +136,10 @@ class Notification extends Component
 	{
 		$notification = $this->notifications->find($notificationId);
 		//dd($this->notifications, $notification);
+		if(!DownloadController::isAllowedToRespond()){
+			$this->dispatch('show-download-request-modal');
+			return;
+		}
 		if(DownloadController::declineRequest($notification->notifiable)){
 			$this->dispatch('alert', [
 				'type' => 'success',
@@ -159,8 +169,6 @@ class Notification extends Component
 		$this->isRequestWindowDisplay = true;
 	}
 
-
-
 	public function hideAllRequest()
 	{
 		$this->isRequestWindowDisplay = false;
@@ -189,6 +197,11 @@ class Notification extends Component
 			return;
 		}
 
+		if(!DownloadController::isAllowedToRespond(count($this->selectedRequests))){
+			$this->dispatch('show-download-request-modal');
+			return;
+		}
+
 		if(DownloadController::approveBulkRequest($this->selectedRequests)){
 			$this->dispatch('alert', [
 				'type' => 'success',
@@ -213,6 +226,12 @@ class Notification extends Component
 				'message' => 'Select atleast one request.'
 			]);
 		}
+
+		if(!DownloadController::isAllowedToRespond(count($this->selectedRequests))){
+			$this->dispatch('show-download-request-modal');
+			return;
+		}
+
 		if(DownloadController::declineBulkRequest($this->selectedRequests)){
 			$this->dispatch('alert', [
 				'type' => 'success',

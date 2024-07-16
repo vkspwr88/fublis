@@ -231,4 +231,29 @@ class DownloadController extends Controller
 		}
 		return true;
 	}
+
+	public static function getAllowedDownloadRequest()
+	{
+		return isSubscribed() ? -1 : 5;
+	}
+
+	public static function getTotalRequest()
+	{
+		return auth()->user()->architect->load([
+			'mediaKits' => [
+				'downloadRequests'
+			]
+		])->mediaKits->pluck('downloadRequests')->flatten()/* ->groupBy('request_status') */;
+	}
+
+	public static function isAllowedToRespond($handlingRequest = 1)
+	{
+		$allowedLimit = DownloadController::getAllowedDownloadRequest();
+		if($allowedLimit == -1){
+			return true;
+		}
+		$alreadyResponded = DownloadController::getTotalRequest()->where('request_status', '!=', RequestStatusEnum::PENDING)->count();
+		// dd($allowedLimit, $alreadyResponded, $handlingRequest);
+		return ($allowedLimit >= ($alreadyResponded + $handlingRequest)) ? true : false;
+	}
 }

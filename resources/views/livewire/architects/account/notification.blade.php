@@ -143,4 +143,6 @@
 			@endif
 		</div>
 	@endif
+
+	@include('users.includes.architect.modal-download-request')
 </div>

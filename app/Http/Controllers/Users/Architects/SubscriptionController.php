@@ -8,6 +8,11 @@ use Illuminate\Http\Request;
 
 class SubscriptionController extends Controller
 {
+	public static function checkMediaKitDownloadRequest()
+	{
+
+	}
+
     public static function checkPremiumPublication($publication)
 	{
 		if( $publication->is_premium && !isSubscribed() ){

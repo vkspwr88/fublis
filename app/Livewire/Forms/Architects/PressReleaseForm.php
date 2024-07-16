@@ -51,6 +51,8 @@ class PressReleaseForm extends Form
 		$this->categories = CategoryController::getAll();
 		$this->mediaContacts = CompanyController::getMediaContacts();
 		$this->projectAccess = ProjectAccessController::getAll();
+		// dd($this->projectAccess[0]);
+		$this->mediaKitAccess = $this->projectAccess[0]->id;
 		// $this->collectionName = 'photographsFiles';
         // $this->photographsFiles = $this->collection;
 	}

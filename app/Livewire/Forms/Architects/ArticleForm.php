@@ -49,6 +49,7 @@ class ArticleForm extends Form
 		$this->categories = CategoryController::getAll();
 		$this->mediaContacts = CompanyController::getMediaContacts();
 		$this->projectAccess = ProjectAccessController::getAll();
+		$this->mediaKitAccess = $this->projectAccess[0]->id;
 	}
 
 	public function characterCount()

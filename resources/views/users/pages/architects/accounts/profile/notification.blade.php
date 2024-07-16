@@ -38,3 +38,14 @@
 	<livewire:architects.account.notification />
 </div>
 @endsection
+
+@push('scripts')
+	<script>
+		window.addEventListener('hide-download-request-modal', event => {
+			$('#downloadRequestAlertModal').modal('hide');
+		});
+		window.addEventListener('show-download-request-modal', event => {
+			$('#downloadRequestAlertModal').modal('show');
+		});
+	</script>
+@endpush
