@@ -1,4 +1,4 @@
-@extends('users.layouts.master')
+@extends('errors.layout')
 
 @section('head')
 	<title>404 - Not Found</title>

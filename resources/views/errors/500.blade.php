@@ -1,4 +1,4 @@
-@extends('users.layouts.master')
+@extends('errors.layout')
 
 @section('head')
 	<title>500 - Internal Error</title>
