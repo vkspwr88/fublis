@@ -144,8 +144,14 @@ class AddStoryService
 		try{
             DB::beginTransaction();
 			// insert location record
-			$location = LocationController::createLocation([
+			/* $location = LocationController::createLocation([
 				'name' => $details['selectedCity'],
+			]); */
+			$location = LocationController::createLocation([
+				'name' => $details['selectedCountry'],
+				'country_flag' => true,
+				'state_flag' => false,
+				'city_flag' => false,
 			]);
 			// create project
 			$project = Project::create([
@@ -155,6 +161,8 @@ class AddStoryService
 				'built_up_area' => $details['builtUpArea'],
 				'built_up_area_id' => $details['builtUpAreaUnit'],
 				'location_id' => $location->id,
+				'state_id' => $details['selectedState'],
+				'city_id' => $details['selectedCity'],
 				'project_status_id' => $details['status'],
 				'materials' => $details['materials'],
 				// 'building_typology_id' => $details['buildingTypology'],
@@ -245,8 +253,14 @@ class AddStoryService
 			]);
 
 			// insert location record
-			$location = LocationController::createLocation([
+			/* $location = LocationController::createLocation([
 				'name' => $details['selectedCity'],
+			]); */
+			$location = LocationController::createLocation([
+				'name' => $details['selectedCountry'],
+				'country_flag' => true,
+				'state_flag' => false,
+				'city_flag' => false,
 			]);
 
 			// update project
@@ -257,6 +271,8 @@ class AddStoryService
 				'built_up_area' => $details['builtUpArea'],
 				'built_up_area_id' => $details['builtUpAreaUnit'],
 				'location_id' => $location->id,
+				'state_id' => $details['selectedState'],
+				'city_id' => $details['selectedCity'],
 				'project_status_id' => $details['status'],
 				'materials' => $details['materials'],
 				// 'building_typology_id' => $details['buildingTypology'],

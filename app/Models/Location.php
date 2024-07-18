@@ -58,4 +58,13 @@ class Location extends Model
 			'name',
 		);
 	}
+
+	public function country(): BelongsTo
+	{
+		return $this->belongsTo(
+			Country::class,
+			'name',
+			'name',
+		);
+	}
 }

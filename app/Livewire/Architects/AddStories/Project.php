@@ -18,8 +18,13 @@ class Project extends Component
 
 	public function render()
     {
-		$this->form->states = LocationController::getStatesByCountryId($this->form->selectedCountry);
-		$this->form->cities = LocationController::getCitiesByStateId($this->form->selectedState);
+		$country = LocationController::getCountryByCountryName($this->form->selectedCountry);
+		// dd($country);
+		if($country && $country->id){
+			$this->form->states = LocationController::getStatesByCountryId($country->id);
+			$this->form->cities = LocationController::getCitiesByStateId($this->form->selectedState);
+		}
+
 		$category = $this->form->categories->find($this->form->category);
 		if($category && ($category->name === 'Architecture' || $category->name === 'Interior Design')){
 			$this->form->showOtherFields = true;

@@ -6,10 +6,26 @@
 	</style>
 	<div class="col-md-8">
 		@php
-			$city = $mediaKit->story->location->city()->first();
+			/* $city = $mediaKit->story->location->city()->first();
 			if($city){
 				$state = $city->state;
 				$country = $state->country;
+			} */
+			$city = $state = $country = '';
+			$cityDB = $mediaKit->story->location->city()->first();
+			if($cityDB){
+				$city = $mediaKit->story->location->name;
+				$stateDB = $cityDB->state;
+				$state = $stateDB->name;
+				$countryDB = $stateDB->country;
+				$country = $countryDB->name;
+			}
+			else{
+				$country = $mediaKit->story->location->name;
+				if($country){
+					$state = $mediaKit->story->state->name ?? '';
+					$city = $mediaKit->story->city->name ?? '';
+				}
 			}
 		@endphp
 		<h1 class="py-2 m-0 text-dark fs-1 fw-semibold">{{ str()->headline($mediaKit->story->title) }}</h1>
@@ -24,7 +40,7 @@
 			@endif
 			@isset($country)
 				<div class="col-auto">
-					<x-users.tag :name="str()->headline($country->name)" />
+					<x-users.tag :name="str()->headline($country)" />
 				</div>
 			@endisset
 		</div>
@@ -39,21 +55,19 @@
 			</div>
 		</div>
 		<hr class="my-5 border border-2 border-dark">
-		<div class="row">
-			<div class="row g-4">
-				@foreach ($mediaKit->story->photographs as $photograph)
+		<div class="row g-4">
+			@foreach ($mediaKit->story->photographs as $photograph)
+				<div class="col-md-4">
+					<img src="{{ Storage::url($photograph->image_path) }}" width="250" height="164" alt="" class="img-fluid" />
+				</div>
+			@endforeach
+			@if(!empty($mediaKit->story->draftPhotographs))
+				@foreach ($mediaKit->story->draftPhotographs as $photograph)
 					<div class="col-md-4">
-						<img src="{{ Storage::url($photograph->image_path) }}" width="250" height="164" alt="" class="img-fluid" />
+						<img src="{{ Storage::url($photograph) }}" width="250" height="164" alt="" class="img-fluid" />
 					</div>
 				@endforeach
-				@if(!empty($mediaKit->story->draftPhotographs))
-					@foreach ($mediaKit->story->draftPhotographs as $photograph)
-						<div class="col-md-4">
-							<img src="{{ Storage::url($photograph) }}" width="250" height="164" alt="" class="img-fluid" />
-						</div>
-					@endforeach
-				@endif
-			</div>
+			@endif
 		</div>
 	</div>
 	<div class="col-md-4">
@@ -67,7 +81,19 @@
 						<p class="p-0 m-0 text-secondary fs-6">
 							<span class="fw-bold">Location </span>
 							<span class="text-capitalize">
-								- {{ $mediaKit->story->location->name }}@isset($state), {{ $state->name }}@endisset @isset($country), {{ $country->name }}@endisset
+								@if($city || $state || $country)
+									-
+								@endif
+								@if ($city)
+									 {{ $city }},
+								@endif
+								@if ($state)
+									 {{ $state }},
+								@endif
+								@if ($country)
+									 {{ $country }}
+								@endif
+								{{-- - {{ $mediaKit->story->location->name }}@isset($state), {{ $state->name }}@endisset @isset($country), {{ $country->name }}@endisset --}}
 							</span>
 						</p>
 					</div>

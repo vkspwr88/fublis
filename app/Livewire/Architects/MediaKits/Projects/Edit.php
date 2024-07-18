@@ -5,6 +5,7 @@ namespace App\Livewire\Architects\MediaKits\Projects;
 use App\Http\Controllers\Users\BuildingUseController;
 use App\Http\Controllers\Users\LocationController;
 use App\Livewire\Forms\Architects\ProjectForm;
+use Hamcrest\Type\IsInteger;
 use Livewire\Component;
 use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
 use Livewire\WithFileUploads;
@@ -58,8 +59,17 @@ class Edit extends Component
 
 	public function render()
     {
-		$this->form->states = LocationController::getStatesByCountryId($this->form->selectedCountry);
-		$this->form->cities = LocationController::getCitiesByStateId($this->form->selectedState);
+		// if(IsInteger($this->form->selectedCountry))
+		$country = LocationController::getCountryByCountryName($this->form->selectedCountry);
+		// dd($country, $this->form->selectedCountry);
+		$this->form->states = collect([]);
+		$this->form->cities = collect([]);
+		if($country && $country->id){
+			$this->form->states = LocationController::getStatesByCountryId($country->id);
+			$this->form->cities = LocationController::getCitiesByStateId($this->form->selectedState);
+		}
+		// $this->form->states = LocationController::getStatesByCountryId($this->form->selectedCountry);
+		// $this->form->cities = LocationController::getCitiesByStateId($this->form->selectedState);
 		$category = $this->form->categories->find($this->form->category);
 		if($category && ($category->name === 'Architecture' || $category->name === 'Interior Design')){
 			$this->form->showOtherFields = true;
@@ -69,7 +79,7 @@ class Edit extends Component
 			$this->form->showOtherFields = false;
 			$this->form->buildingTypology = '';
 		}
-		
+
         return view('livewire.architects.media-kits.projects.edit');
     }
 

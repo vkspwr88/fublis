@@ -74,7 +74,7 @@ class ProjectForm extends Form
 
 	public function mount()
 	{
-		$this->selectedCountry = 101;
+		$this->selectedCountry = 'india';
 		$this->selectedState = 0;
 
 		$this->categories = CategoryController::getAll();
@@ -105,9 +105,11 @@ class ProjectForm extends Form
 			'buildingTypology' => 'nullable',
 			'buildingUse' => 'nullable',
 			//'location' => 'required',
-			'selectedCountry' => 'required|exists:countries,id',
-			'selectedState' => 'required|exists:states,id',
-			'selectedCity' => 'required|exists:cities,name',
+			'selectedCountry' => 'required|exists:countries,name',
+			'selectedState' => 'nullable',
+			'selectedCity' => 'nullable',
+			// 'selectedState' => 'nullable|exists:states,id',
+			// 'selectedCity' => 'nullable|exists:cities,id',
 			'status' => 'required',
 			'imageCredits' => 'nullable',
 			'textCredits' => 'nullable',
@@ -180,8 +182,8 @@ class ProjectForm extends Form
 			'builtUpAreaUnit.required' => 'Select the :attribute.',
 			//'location.required' => 'Select the :attribute.',
 			'selectedCountry.required' => 'Select the :attribute.',
-			'selectedState.required' => 'Select the :attribute.',
-			'selectedCity.required' => 'Select the :attribute.',
+			// 'selectedState.required' => 'Select the :attribute.',
+			// 'selectedCity.required' => 'Select the :attribute.',
 			'*.exists' => 'Select the valid :attribute.',
 			'status.required' => 'Select the :attribute.',
 			'materials.required' => 'Enter the :attribute.',
@@ -314,9 +316,20 @@ class ProjectForm extends Form
 
 		if($mediaKit->story->location){
 			$city = LocationController::getCityByCityName($mediaKit->story->location->name);
-			$this->selectedCity = $city->name;
-			$this->selectedState = $city->state->id;
-			$this->selectedCountry = $city->state->country->id;
+			if($city){
+				$this->selectedCity = $city->id;
+				$this->selectedState = $city->state->id;
+				$this->selectedCountry = $city->state->country->name;
+			}
+			else{
+				$country = LocationController::getCountryByCountryName($mediaKit->story->location->name);
+				if($country){
+					$this->selectedCountry = $country->name;
+					$this->selectedState = $mediaKit->story->state->id ?? 0;
+					$this->selectedCity = $mediaKit->story->city->id ?? 0;
+				}
+			}
+
 		}
 		// $this->characterCount();
 		// dd($this->oldPhotographsFiles);

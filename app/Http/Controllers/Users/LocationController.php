@@ -136,6 +136,8 @@ class LocationController extends Controller
 			$cities = City::whereIn('name', $locations)->get()->load('state.country');
 			$states = $cities->pluck('state');
 			$countries = $states->pluck('country');
+			$countries = $countries->merge(Country::whereIn('name', $locations)->get());
+			// dd($countries, Country::whereIn('name', $locations)->get()->merge($countries));
 		}
 		return $countries->unique()->flatten()->sortBy('name');
 	}

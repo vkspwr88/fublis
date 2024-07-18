@@ -41,7 +41,7 @@ class MediaKitService
 
 		if($data['location'] != ''){
 			$cities = LocationController::getCitiesByCountry($data['location']);
-			$filter = MediaKit::whereHasMorph(
+			$filter1 = MediaKit::whereHasMorph(
 				'story',
 				[Project::class],
 				function (Builder $query) use($cities) {
@@ -56,7 +56,24 @@ class MediaKitService
 			)
 			->get()
 			->pluck('id');
-			// dd($filter, $mediaKits);
+
+			$filter2 = MediaKit::whereHasMorph(
+				'story',
+				[Project::class],
+				function (Builder $query) use($data) {
+					$country = LocationController::getCountryById($data['location']);
+					// dd($data['location'], $query->where('location_id', $data['location']));
+					$query->whereHas('location', function(Builder $query2) use($country) {
+						$query2->where('name', $country->name);
+						// $query->where('title', 'like', '%' . $data['name'] . '%');
+					});
+				}
+			)
+			->get()
+			->pluck('id');
+
+			$filter = $filter1->merge($filter2);
+			// dd($mediaKits, $filter1, $filter2, $filter);
 			$mediaKits = $mediaKits->find($filter);
 		}
 		if(!empty($data['categories'])){

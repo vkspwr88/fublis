@@ -104,14 +104,14 @@
 			<select class="form-select @error('form.selectedCountry') is-invalid @enderror" id="selectCountry" wire:model.live="form.selectedCountry">
 				<option value="0">Select Country</option>
 				@foreach ($form->countries as $country)
-				<option value="{{ $country->id }}">{{ str()->headline($country->name) }}</option>
+				<option value="{{ $country->name }}">{{ str()->headline($country->name) }}</option>
 				@endforeach
 			</select>
 			@error('form.selectedCountry')<div class="invalid-feedback">{{ $message }}</div>@enderror
 		</div>
 	</div>
 	<div class="mb-3 row">
-		<label for="selectState" class="col-md-4 col-form-label text-dark fs-6 fw-medium">State <span class="text-danger">*</span></label>
+		<label for="selectState" class="col-md-4 col-form-label text-dark fs-6 fw-medium">State {{-- <span class="text-danger">*</span> --}}</label>
 		<div class="col-md-8">
 			<select class="form-select @error('form.selectedState') is-invalid @enderror" id="selectState" wire:model.live="form.selectedState">
 				<option value="0">Select State</option>
@@ -123,12 +123,12 @@
 		</div>
 	</div>
 	<div class="mb-3 row">
-		<label for="selectCity" class="col-md-4 col-form-label text-dark fs-6 fw-medium">City <span class="text-danger">*</span></label>
+		<label for="selectCity" class="col-md-4 col-form-label text-dark fs-6 fw-medium">City {{-- <span class="text-danger">*</span> --}}</label>
 		<div class="col-md-8">
 			<select class="form-select @error('form.selectedCity') is-invalid @enderror" id="selectCity" wire:model="form.selectedCity">
 				<option value="0">Select City</option>
 				@foreach ($form->cities as $city)
-				<option value="{{ $city->name }}">{{ str()->headline($city->name) }}</option>
+				<option value="{{ $city->id }}">{{ str()->headline($city->name) }}</option>
 				@endforeach
 			</select>
 			@error('form.selectedCity')<div class="invalid-feedback">{{ $message }}</div>@enderror

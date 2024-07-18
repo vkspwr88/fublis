@@ -38,6 +38,16 @@ class Project extends Model
 		return $this->belongsTo(Location::class);
 	}
 
+	public function state(): BelongsTo
+	{
+		return $this->belongsTo(State::class);
+	}
+
+	public function city(): BelongsTo
+	{
+		return $this->belongsTo(City::class);
+	}
+
 	public function siteAreaUnit(): BelongsTo
 	{
 		return $this->belongsTo(Area::class, 'site_area_id');
