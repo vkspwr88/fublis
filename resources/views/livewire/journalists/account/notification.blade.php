@@ -29,7 +29,9 @@
 			<div class="row g-4">
 				@foreach ($todayNotifications as $notification)
 					<div class="col-12" wire:key={{ $notification->id }}>
-						@include(getJournalistNotificationType($notification->notifiable))
+						@if($notification->notifiable)
+							@include(getJournalistNotificationType($notification->notifiable))
+						@endif
 					</div>
 				@endforeach
 			</div>
@@ -45,9 +47,12 @@
 		</div>
 		<div class="col-12">
 			<div class="row g-4">
+				{{-- {{ dd($thisWeekNotifications); }} --}}
 				@foreach ($thisWeekNotifications as $notification)
 					<div class="col-12" wire:key={{ $notification->id }}>
-						@include(getJournalistNotificationType($notification->notifiable))
+						@if($notification->notifiable)
+							@include(getJournalistNotificationType($notification->notifiable))
+						@endif
 					</div>
 					{{-- {{ dd($notification); }} --}}
 				@endforeach
@@ -66,7 +71,9 @@
 			<div class="row g-4">
 				@foreach ($thisMonthNotifications as $notification)
 					<div class="col-12" wire:key={{ $notification->id }}>
-						@include(getJournalistNotificationType($notification->notifiable))
+						@if($notification->notifiable)
+							@include(getJournalistNotificationType($notification->notifiable))
+						@endif
 					</div>
 				@endforeach
 			</div>
