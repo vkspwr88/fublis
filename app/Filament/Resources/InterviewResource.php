@@ -141,7 +141,11 @@ class InterviewResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('user.name')
                     ->searchable(),
-				Tables\Columns\TextColumn::make('user.email')
+				Tables\Columns\TextColumn::make('creator.name')
+					->label('Created By')
+                    ->searchable(),
+				Tables\Columns\TextColumn::make('updator.name')
+					->label('Last Created By')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('slug')
                     ->searchable(),

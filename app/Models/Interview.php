@@ -34,4 +34,14 @@ class Interview extends Model
 	{
 		return $this->morphMany(Image::class, 'imaggable');
 	}
+
+	public function creator(): BelongsTo
+	{
+		return $this->belongsTo(User::class, 'created_by');
+	}
+
+	public function updator(): BelongsTo
+	{
+		return $this->belongsTo(User::class, 'updated_by');
+	}
 }

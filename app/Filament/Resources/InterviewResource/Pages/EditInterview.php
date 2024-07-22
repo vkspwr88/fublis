@@ -17,4 +17,10 @@ class EditInterview extends EditRecord
             Actions\DeleteAction::make(),
         ];
     }
+
+	protected function mutateFormDataBeforeSave(array $data): array
+    {
+		$data['updated_by'] = auth()->id();
+		return $data;
+    }
 }

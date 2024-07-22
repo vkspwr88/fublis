@@ -19,6 +19,11 @@ class CityResource extends Resource
 
     // protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
+	public static function canAccess(): bool
+	{
+		return auth()->user()->hasRole('Super Admin');
+	}
+
     public static function form(Form $form): Form
     {
         return $form

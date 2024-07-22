@@ -22,6 +22,11 @@ class PitchResource extends Resource
 	protected static ?string $label = 'Pitches';
 	protected static ?string $navigationLabel = 'Lists';
 
+	public static function canAccess(): bool
+	{
+		return auth()->user()->hasRole('Super Admin');
+	}
+
     public static function form(Form $form): Form
     {
         return $form

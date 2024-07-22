@@ -5,6 +5,8 @@ namespace App\Filament\Resources\UserResource\Pages;
 use App\Filament\Resources\UserResource;
 use Filament\Actions;
 use Filament\Resources\Pages\ManageRecords;
+use Illuminate\Database\Eloquent\Model;
+use Spatie\Permission\Models\Role;
 
 class ManageUsers extends ManageRecords
 {
@@ -13,7 +15,13 @@ class ManageUsers extends ManageRecords
     protected function getHeaderActions(): array
     {
         return [
-            Actions\CreateAction::make(),
+            Actions\CreateAction::make()
+				->using(function (array $data, string $model): Model {
+					$result = $model::create($data);
+					$role = Role::firstOrCreate(['name' => 'Author']);
+					$result->assignRole($role);
+					return $result;
+				}),
         ];
     }
 }

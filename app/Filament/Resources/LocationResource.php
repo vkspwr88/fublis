@@ -21,6 +21,11 @@ class LocationResource extends Resource
     //protected static ?string $label = 'Locations';
 	// protected static ?int $navigationSort = 5;
 
+	public static function canAccess(): bool
+	{
+		return auth()->user()->hasRole('Super Admin');
+	}
+
     public static function form(Form $form): Form
     {
         return $form

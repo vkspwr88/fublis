@@ -26,6 +26,11 @@ class TopPublicationResource extends Resource
     protected static ?string $label = 'Type';
 	protected static ?int $navigationSort = 1;
 
+	public static function canAccess(): bool
+	{
+		return auth()->user()->hasRole('Super Admin');
+	}
+
     public static function form(Form $form): Form
     {
         return $form

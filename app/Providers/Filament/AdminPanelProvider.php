@@ -15,6 +15,7 @@ use Filament\PanelProvider;
 use Filament\Resources\Resource;
 use Filament\Support\Colors\Color;
 use Filament\Widgets;
+use FilipFonal\FilamentLogManager\Pages\Logs;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
@@ -72,6 +73,7 @@ class AdminPanelProvider extends PanelProvider
 					->navigationSort(3)
 					->navigationCountBadge()
 					->resource(MediaResource::class),
+				\FilipFonal\FilamentLogManager\FilamentLogManager::make(),
 			])
 			->navigation(function (Navigation\NavigationBuilder $builder): Navigation\NavigationBuilder {
 				return $builder->items([
@@ -85,99 +87,101 @@ class AdminPanelProvider extends PanelProvider
 					...Resources\ImageLogResource::getNavigationItems(),
 					...Resources\SubscribeNewsletterResource::getNavigationItems(),
 					...Resources\InterviewResource::getNavigationItems(),
+					...Logs::getNavigationItems(),
 				])->groups([
 					Navigation\NavigationGroup::make('Architects')
-					->items([
-						...Resources\ArchitectResource::getNavigationItems(),
-						...Resources\ArchitectPositionResource::getNavigationItems(),
-					])
-					->icon('heroicon-o-rectangle-stack'),
+						->items([
+							...Resources\ArchitectResource::getNavigationItems(),
+							...Resources\ArchitectPositionResource::getNavigationItems(),
+						])
+						->icon('heroicon-o-rectangle-stack'),
 
 					Navigation\NavigationGroup::make('Studios')
-					->items([
-						...Resources\CompanyResource::getNavigationItems(),
-						...Resources\TeamSizeResource::getNavigationItems(),
-					])
-					->icon('heroicon-o-rectangle-stack'),
+						->items([
+							...Resources\CompanyResource::getNavigationItems(),
+							...Resources\TeamSizeResource::getNavigationItems(),
+						])
+						->icon('heroicon-o-rectangle-stack'),
 
 					Navigation\NavigationGroup::make('Journalists')
-					->items([
-						...Resources\JournalistResource::getNavigationItems(),
-						...Resources\JournalistPositionResource::getNavigationItems(),
-					])
-					->icon('heroicon-o-rectangle-stack'),
+						->items([
+							...Resources\JournalistResource::getNavigationItems(),
+							...Resources\JournalistPositionResource::getNavigationItems(),
+						])
+						->icon('heroicon-o-rectangle-stack'),
 
 					Navigation\NavigationGroup::make('Publications')
-					->items([
-						...Resources\PublicationResource::getNavigationItems(),
-						...Resources\PublicationTypeResource::getNavigationItems(),
-					])
-					->icon('heroicon-o-rectangle-stack'),
+						->items([
+							...Resources\PublicationResource::getNavigationItems(),
+							...Resources\PublicationTypeResource::getNavigationItems(),
+						])
+						->icon('heroicon-o-rectangle-stack'),
 
 					Navigation\NavigationGroup::make('Top Journalists')
-					->items([
-						...Resources\TopJournalistResource::getNavigationItems(),
-						...Resources\TopJournalistListResource::getNavigationItems(),
-					])
-					->icon('heroicon-o-rectangle-stack'),
+						->items([
+							...Resources\TopJournalistResource::getNavigationItems(),
+							...Resources\TopJournalistListResource::getNavigationItems(),
+						])
+						->icon('heroicon-o-rectangle-stack'),
 
 					Navigation\NavigationGroup::make('Top Publications')
-					->items([
-						...Resources\TopPublicationResource::getNavigationItems(),
-						...Resources\TopPublicationListResource::getNavigationItems(),
-					])
-					->icon('heroicon-o-rectangle-stack'),
+						->items([
+							...Resources\TopPublicationResource::getNavigationItems(),
+							...Resources\TopPublicationListResource::getNavigationItems(),
+						])
+						->icon('heroicon-o-rectangle-stack'),
 
 					Navigation\NavigationGroup::make('Media Kits')
-					->items([
-						...Resources\ArticleResource::getNavigationItems(),
-						...Resources\PressReleaseResource::getNavigationItems(),
-						...Resources\ProjectResource::getNavigationItems(),
-					])
-					->icon('heroicon-o-rectangle-stack'),
+						->items([
+							...Resources\ArticleResource::getNavigationItems(),
+							...Resources\PressReleaseResource::getNavigationItems(),
+							...Resources\ProjectResource::getNavigationItems(),
+						])
+						->icon('heroicon-o-rectangle-stack'),
 
 					Navigation\NavigationGroup::make('Calls')
-					->items([
-						...Resources\CallResource::getNavigationItems(),
-					])
-					->icon('heroicon-o-rectangle-stack'),
+						->items([
+							...Resources\CallResource::getNavigationItems(),
+						])
+						->icon('heroicon-o-rectangle-stack'),
 
 					Navigation\NavigationGroup::make('Pitches')
-					->items([
-						...Resources\PitchResource::getNavigationItems(),
-					])
-					->icon('heroicon-o-rectangle-stack'),
+						->items([
+							...Resources\PitchResource::getNavigationItems(),
+						])
+						->icon('heroicon-o-rectangle-stack'),
 
 					Navigation\NavigationGroup::make('Location')
-					->items([
-						...Resources\CountryResource::getNavigationItems(),
-						...Resources\StateResource::getNavigationItems(),
-						...Resources\CityResource::getNavigationItems(),
-					])
-					->icon('heroicon-o-rectangle-stack'),
+						->items([
+							...Resources\CountryResource::getNavigationItems(),
+							...Resources\StateResource::getNavigationItems(),
+							...Resources\CityResource::getNavigationItems(),
+						])
+						->icon('heroicon-o-rectangle-stack'),
 
 					Navigation\NavigationGroup::make('Stripe')
-					->items([
-						...Resources\SubscriptionPlanResource::getNavigationItems(),
-					])
-					->icon('heroicon-o-rectangle-stack'),
+						->items([
+							...Resources\SubscriptionPlanResource::getNavigationItems(),
+						])
+						->icon('heroicon-o-rectangle-stack'),
 
 					Navigation\NavigationGroup::make('Settings')
-					->items([
-						...Resources\AreaResource::getNavigationItems(),
-						...Resources\BuildingTypologyResource::getNavigationItems(),
-						...Resources\BuildingUseResource::getNavigationItems(),
-						...Resources\CategoryResource::getNavigationItems(),
-						...Resources\FaqResource::getNavigationItems(),
-						...Resources\LanguageResource::getNavigationItems(),
-						...Resources\PublishFromResource::getNavigationItems(),
-						...Resources\ProjectStatusResource::getNavigationItems(),
-						...Resources\SettingResource::getNavigationItems(),
-						...Resources\SocialMediaResource::getNavigationItems(),
-					])
-					->icon('heroicon-o-rectangle-stack'),
+						->items([
+							...Resources\AreaResource::getNavigationItems(),
+							...Resources\BuildingTypologyResource::getNavigationItems(),
+							...Resources\BuildingUseResource::getNavigationItems(),
+							...Resources\CategoryResource::getNavigationItems(),
+							...Resources\FaqResource::getNavigationItems(),
+							...Resources\LanguageResource::getNavigationItems(),
+							...Resources\PublishFromResource::getNavigationItems(),
+							...Resources\ProjectStatusResource::getNavigationItems(),
+							...Resources\SettingResource::getNavigationItems(),
+							...Resources\SocialMediaResource::getNavigationItems(),
+						])
+						->icon('heroicon-o-rectangle-stack'),
 				]);
 			})
-			->sidebarFullyCollapsibleOnDesktop();
+			->sidebarFullyCollapsibleOnDesktop()
+			->unsavedChangesAlerts();
     }
 }
