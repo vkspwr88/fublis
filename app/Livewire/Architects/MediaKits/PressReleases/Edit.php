@@ -90,4 +90,19 @@ class Edit extends Component
 	{
 		$this->form->preview('edit', $this->mediaKitId);
 	}
+
+	public function deleteMediaKit()
+	{
+		if(AddStoryService::deleteMediaKit($this->mediaKitId)){
+			$this->dispatch('alert', [
+				'type' => 'success',
+				'message' => 'Your media kit is deleted successfully.'
+			]);
+			return to_route('architect.media-kit.index');
+		}
+		$this->dispatch('alert', [
+			'type' => 'warning',
+			'message' => 'We are facing problem in deleting your media kit. Please try again or contact support.'
+		]);
+	}
 }

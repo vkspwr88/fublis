@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 
@@ -36,5 +37,10 @@ class Pitch extends Model
 	public function notification(): MorphOne
 	{
 		return $this->morphOne(Notification::class, 'notifiable');
+	}
+
+	public function chat(): HasOne
+	{
+		return $this->hasOne(Chat::class);
 	}
 }

@@ -306,7 +306,7 @@ class ProjectForm extends Form
 		$this->photographsFiles = [];
 		$this->oldPhotographsFiles = $mediaKit->story->photographs->where('image_type', 'photographs');
 		$this->photographsLink = $mediaKit->story->photographs_link;
-		$this->audioVideoUrl = $mediaKit->audio_video_url;
+		$this->audioVideoUrl = $mediaKit->audio_video_url ?? '';
 		$this->drawingsFiles = [];
 		$this->oldDrawingsFiles = $mediaKit->story->photographs->where('image_type', 'drawings');
 		$this->drawingsLink = $mediaKit->story->drawings_link;
@@ -363,7 +363,7 @@ class ProjectForm extends Form
 		$this->projectLink = $content->projectLink;
 		$this->photographsFiles = $content->photographsFiles;
 		$this->photographsLink = $content->photographsLink;
-		$this->audioVideoUrl = $content->audioVideoUrl;
+		$this->audioVideoUrl = $content->audioVideoUrl ?? '';
 		$this->drawingsFiles = $content->drawingsFiles;
 		$this->drawingsLink = $content->drawingsLink;
 		$this->tags = $content->tags;

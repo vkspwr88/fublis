@@ -452,4 +452,59 @@ class AddStoryService
         }
 		return true;
 	}
+
+	public static function deleteMediaKit(string $mediaKitId)
+	{
+		try{
+            DB::beginTransaction();
+
+			// find media kit
+			$mediaKit = MediaKitController::findById($mediaKitId);
+			MediaKitController::isAuthorized($mediaKit);
+
+			// delete everything related to mediakit
+			foreach($mediaKit->pitch as $pitch){
+				$pitch->notification()->delete();
+				$pitch->chat->messages()->delete();
+				$pitch->chat->notification()->delete();
+				$pitch->chat()->delete();
+			}
+			$mediaKit->pitch()->delete();
+			foreach($mediaKit->analytics as $analytic){
+				$analytic->data()->delete();
+			}
+			$mediaKit->analytics()->delete();
+			$mediaKit->downloadRequests()->delete();
+			// dd($mediaKit->story instanceof PressRelease, $mediaKit->story instanceof Article, $mediaKit->story->whereInstanceOf(PressRelease::class), $mediaKit->story->whereInstanceOf(Article::class));
+			if($mediaKit->story instanceof PressRelease){
+				$mediaKit->story->photographs()->delete();
+			}
+			elseif($mediaKit->story instanceof Project){
+				$mediaKit->story->photographs()->delete();
+			}
+			elseif($mediaKit->story instanceof Article){
+				$mediaKit->story->images()->delete();
+			}
+			$mediaKit->story->tags()->detach();
+			// delete story
+			$mediaKit->story()->delete();
+			// delete mediakit
+			$mediaKit->delete();
+
+			DB::commit();
+		}
+		catch(Exception $exp){
+            DB::rollBack();
+			ErrorLogController::logError(
+				'deleteMediaKit', [
+					'line' => $exp->getLine(),
+					'file' => $exp->getFile(),
+					'message' => $exp->getMessage(),
+					'code' => $exp->getCode(),
+				]
+			);
+            return false;
+        }
+		return true;
+	}
 }

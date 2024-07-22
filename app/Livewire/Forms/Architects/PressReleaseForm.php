@@ -199,7 +199,7 @@ class PressReleaseForm extends Form
 		$this->pressReleaseLink = $mediaKit->story->press_release_doc_link;
 		$this->oldPhotographsFiles = $mediaKit->story->photographs;
 		$this->photographsLink = $mediaKit->story->photographs_link;
-		$this->audioVideoUrl = $mediaKit->audio_video_url;
+		$this->audioVideoUrl = $mediaKit->audio_video_url ?? '';
 		$this->tags = $mediaKit->story->tags->pluck('name');
 		$this->mediaContact = $mediaKit->media_contact_id;
 		$this->mediaKitAccess = $mediaKit->project_access_id;
@@ -221,7 +221,7 @@ class PressReleaseForm extends Form
 		$this->pressReleaseLink = $content->pressReleaseLink;
 		$this->photographsFiles = $content->photographsFiles;
 		$this->photographsLink = $content->photographsLink;
-		$this->audioVideoUrl = $content->audioVideoUrl;
+		$this->audioVideoUrl = $content->audioVideoUrl ?? '';
 		$this->tags = $content->tags;
 		$this->mediaContact = $content->mediaContact;
 		$this->mediaKitAccess = $content->mediaKitAccess;
@@ -308,10 +308,5 @@ class PressReleaseForm extends Form
 			return;
 		}
 		//
-	}
-
-	public function deleteMediaKit()
-	{
-		return to_route('architect.add-story.press-release.index');
 	}
 }

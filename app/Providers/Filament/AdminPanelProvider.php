@@ -2,6 +2,7 @@
 
 namespace App\Providers\Filament;
 
+use App\Filament\Pages\EditProfile;
 use App\Filament\Resources;
 use Filament\Navigation;
 use Awcodes\Curator\Resources\MediaResource;
@@ -9,7 +10,6 @@ use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
 use Filament\Pages;
-use Filament\Pages\Auth\EditProfile;
 use Filament\Panel;
 use Filament\PanelProvider;
 use Filament\Resources\Resource;
@@ -27,6 +27,7 @@ class AdminPanelProvider extends PanelProvider
 {
     public function panel(Panel $panel): Panel
     {
+		// $2y$10$mOoT3rbHV/rNqGLqtJzwCukPoVS7vD/UnonagFurp.kln57eZpyyK
         return $panel
             ->default()
             ->id('backend')

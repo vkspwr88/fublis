@@ -59,6 +59,8 @@ class ProjectDraft extends Component
 	public function render()
     {
 		$country = LocationController::getCountryByCountryName($this->form->selectedCountry);
+		$this->form->states = collect([]);
+		$this->form->cities = collect([]);
 		// dd($country);
 		if($country && $country->id){
 			$this->form->states = LocationController::getStatesByCountryId($country->id);
@@ -114,10 +116,11 @@ class ProjectDraft extends Component
 
 	public function deleteMediaKit()
 	{
+		MediaKitDraftController::deleteById($this->draftId);
 		$this->dispatch('alert', [
 			'type' => 'success',
 			'message' => 'Your media kit is deleted successfully.'
 		]);
-		return $this->form->deleteMediaKit();
+		return to_route('architect.add-story.project.index');
 	}
 }

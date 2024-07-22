@@ -205,7 +205,7 @@ class ArticleForm extends Form
 		$this->companyProfileLink = $mediaKit->story->company_profile_link;
 		$this->oldImagesFiles = $mediaKit->story->images;
 		$this->imagesLink = $mediaKit->story->images_link;
-		$this->audioVideoUrl = $mediaKit->audio_video_url;
+		$this->audioVideoUrl = $mediaKit->audio_video_url ?? '';
 		$this->tags = $mediaKit->story->tags->pluck('name');
 		$this->mediaContact = $mediaKit->media_contact_id;
 		$this->mediaKitAccess = $mediaKit->project_access_id;
@@ -227,7 +227,7 @@ class ArticleForm extends Form
 		$this->companyProfileLink = $content->companyProfileLink;
 		$this->imagesFiles = $content->imagesFiles;
 		$this->imagesLink = $content->imagesLink;
-		$this->audioVideoUrl = $content->audioVideoUrl;
+		$this->audioVideoUrl = $content->audioVideoUrl ?? '';
 		$this->tags = $content->tags;
 		$this->mediaContact = $content->mediaContact;
 		$this->mediaKitAccess = $content->mediaKitAccess;

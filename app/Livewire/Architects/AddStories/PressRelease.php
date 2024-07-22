@@ -94,6 +94,6 @@ class PressRelease extends Component
 			'type' => 'success',
 			'message' => 'Your media kit is deleted successfully.'
 		]);
-		return $this->form->deleteMediaKit();
+		return to_route('architect.add-story.press-release.index');
 	}
 }

@@ -91,6 +91,6 @@ class Article extends Component
 			'type' => 'success',
 			'message' => 'Your media kit is deleted successfully.'
 		]);
-		return $this->form->deleteMediaKit();
+		return to_route('architect.add-story.article.index');
 	}
 }

@@ -10,7 +10,7 @@
 				</div>
 			</div>
 			<div class="border-0 modal-footer justify-content-center">
-				<button wire:click="deleteMediaKit" class="px-3 btn btn-primary">
+				<button type="button" wire:click="deleteMediaKit" class="px-3 btn btn-primary">
 					Delete Media Kit <x-users.spinners.white-btn wire:target="deleteMediaKit" />
 				</button>
 			</div>

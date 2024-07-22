@@ -42,7 +42,9 @@ class MediaKitDraftController extends Controller
 
 	public static function deleteById(string $id)
 	{
-		return MediaKitDraftController::findById($id)->delete();
+		$mediaKitDraft = MediaKitDraftController::findById($id);
+		MediaKitDraftController::check($mediaKitDraft);
+		$mediaKitDraft->delete();
 	}
 
 	public static function update(string $id, array $details)

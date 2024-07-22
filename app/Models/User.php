@@ -64,7 +64,7 @@ class User extends Authenticatable implements Authorizable, FilamentUser
 	public function canAccessPanel(Panel $panel): bool
     {
 		// dd(auth()->check(), auth()->user(), $this->id);
-        return auth()->check() && auth()->user()->hasRole('Super Admin') ? true : false;
+        return auth()->check() && auth()->user()->user_type === UserTypeEnum::ADMIN;
     }
 
 	public function setPasswordAttribute($value)
