@@ -161,6 +161,7 @@ return [
          */
 		App\Providers\RepositoryServiceProvider::class,
 		App\Providers\ViewServiceProvider::class,
+		Barryvdh\DomPDF\ServiceProvider::class,
         /*
          * Application Service Providers...
          */
