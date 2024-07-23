@@ -117,6 +117,13 @@ class AdminPanelProvider extends PanelProvider
 						])
 						->icon('heroicon-o-rectangle-stack'),
 
+					Navigation\NavigationGroup::make('Affiliations')
+						->items([
+							...Resources\AffRegistrationResource::getNavigationItems(),
+							...Resources\AffListResource::getNavigationItems(),
+						])
+						->icon('heroicon-o-rectangle-stack'),
+
 					Navigation\NavigationGroup::make('Top Journalists')
 						->items([
 							...Resources\TopJournalistResource::getNavigationItems(),

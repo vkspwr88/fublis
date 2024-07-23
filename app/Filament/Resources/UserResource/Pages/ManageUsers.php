@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\UserResource\Pages;
 
+use App\Enums\Users\UserTypeEnum;
 use App\Filament\Resources\UserResource;
 use Filament\Actions;
 use Filament\Resources\Pages\ManageRecords;
@@ -18,8 +19,10 @@ class ManageUsers extends ManageRecords
             Actions\CreateAction::make()
 				->using(function (array $data, string $model): Model {
 					$result = $model::create($data);
-					$role = Role::firstOrCreate(['name' => 'Author']);
-					$result->assignRole($role);
+					if($result->user_type === UserTypeEnum::ADMIN){
+						$role = Role::firstOrCreate(['name' => 'Author']);
+						$result->assignRole($role);
+					}
 					return $result;
 				}),
         ];

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a4334fa4db32d5ca9b6f250777271d51",
+    "content-hash": "e3afd7731141963de9f00216cd7904ed",
     "packages": [
         {
             "name": "anourvalar/eloquent-serialize",
@@ -1907,7 +1907,6 @@
             "time": "2024-01-02T23:08:01+00:00"
         },
         {
-<<<<<<< HEAD
             "name": "filipfonal/filament-log-manager",
             "version": "2.0.0",
             "source": {
@@ -1950,7 +1949,33 @@
             "autoload": {
                 "psr-4": {
                     "FilipFonal\\FilamentLogManager\\": "src"
-=======
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Filip Fonal",
+                    "email": "filipfonal@gmail.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Filament Log Manager",
+            "homepage": "https://github.com/filipfonal/filament-log-manager",
+            "keywords": [
+                "filament-log-manager",
+                "filipfonal",
+                "laravel"
+            ],
+            "support": {
+                "issues": "https://github.com/filipfonal/filament-log-manager/issues",
+                "source": "https://github.com/filipfonal/filament-log-manager/tree/2.0.0"
+            },
+            "time": "2023-09-12T22:13:43+00:00"
+        },
+        {
             "name": "firebase/php-jwt",
             "version": "v6.10.1",
             "source": {
@@ -1983,34 +2008,10 @@
             "autoload": {
                 "psr-4": {
                     "Firebase\\JWT\\": "src"
->>>>>>> download-profile
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
-<<<<<<< HEAD
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Filip Fonal",
-                    "email": "filipfonal@gmail.com",
-                    "role": "Developer"
-                }
-            ],
-            "description": "Filament Log Manager",
-            "homepage": "https://github.com/filipfonal/filament-log-manager",
-            "keywords": [
-                "filament-log-manager",
-                "filipfonal",
-                "laravel"
-            ],
-            "support": {
-                "issues": "https://github.com/filipfonal/filament-log-manager/issues",
-                "source": "https://github.com/filipfonal/filament-log-manager/tree/2.0.0"
-            },
-            "time": "2023-09-12T22:13:43+00:00"
-=======
                 "BSD-3-Clause"
             ],
             "authors": [
@@ -2036,7 +2037,6 @@
                 "source": "https://github.com/firebase/php-jwt/tree/v6.10.1"
             },
             "time": "2024-05-18T18:05:11+00:00"
->>>>>>> download-profile
         },
         {
             "name": "fruitcake/php-cors",
@@ -3432,16 +3432,16 @@
         },
         {
             "name": "league/commonmark",
-            "version": "2.4.3",
+            "version": "2.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/commonmark.git",
-                "reference": "b7a7af3a23a818dcc5836e62e93e4b9ce4704481"
+                "reference": "0026475f5c9a104410ae824cb5a4d63fa3bdb1df"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/commonmark/zipball/b7a7af3a23a818dcc5836e62e93e4b9ce4704481",
-                "reference": "b7a7af3a23a818dcc5836e62e93e4b9ce4704481",
+                "url": "https://api.github.com/repos/thephpleague/commonmark/zipball/0026475f5c9a104410ae824cb5a4d63fa3bdb1df",
+                "reference": "0026475f5c9a104410ae824cb5a4d63fa3bdb1df",
                 "shasum": ""
             },
             "require": {
@@ -3454,8 +3454,8 @@
             },
             "require-dev": {
                 "cebe/markdown": "^1.0",
-                "commonmark/cmark": "0.30.3",
-                "commonmark/commonmark.js": "0.30.0",
+                "commonmark/cmark": "0.31.0",
+                "commonmark/commonmark.js": "0.31.0",
                 "composer/package-versions-deprecated": "^1.8",
                 "embed/embed": "^4.4",
                 "erusev/parsedown": "^1.0",
@@ -3477,7 +3477,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-main": "2.5-dev"
+                    "dev-main": "2.6-dev"
                 }
             },
             "autoload": {
@@ -3534,7 +3534,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-07-22T12:31:21+00:00"
+            "time": "2024-07-22T18:18:14+00:00"
         },
         {
             "name": "league/config",

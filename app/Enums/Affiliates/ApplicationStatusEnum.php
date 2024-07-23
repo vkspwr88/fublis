@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Enums\Users\Architects\MediaKits;
+namespace App\Enums\Affiliates;
 
-enum RequestStatusEnum: string
+enum ApplicationStatusEnum: string
 {
 	case PENDING = 'pending';
 	case APPROVED = 'approved';

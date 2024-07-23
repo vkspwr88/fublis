@@ -106,4 +106,9 @@ class User extends Authenticatable implements Authorizable, FilamentUser
 	{
 		return $this->hasOne(Subscription::class)->latestOfMany();
 	}
+
+	public function affRegistration(): HasOne
+	{
+		return $this->hasOne(AffRegistration::class);
+	}
 }
