@@ -51,6 +51,6 @@
 	</table>
 	<div>
 		<h4>Write Up</h4>
-		{!! $mediaKit->story->press_release_writeup !!}
+		{!! $mediaKit->story->article_writeup !!}
 	</div>
 @endsection
