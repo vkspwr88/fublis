@@ -46,6 +46,8 @@
 
 		header table td, footer table td{
 			vertical-align: top;
+			padding: 0;
+			margin: 0;
 		}
 
 		footer {
