@@ -16,7 +16,7 @@
 			margin-top: 3cm;
 			margin-left: 1.2cm;
 			margin-right: 1.2cm;
-			margin-bottom: 2cm;
+			margin-bottom: 2.5cm;
 		}
 
 		a{
@@ -33,6 +33,7 @@
 			color: rgb(108, 117, 125);
 			left: 1.2cm;
 			right: 1.2cm;
+			margin: 0;
 		}
 		header {
 			top: 1cm;
