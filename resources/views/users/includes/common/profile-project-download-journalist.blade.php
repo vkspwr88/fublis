@@ -1,5 +1,17 @@
 @if( ($downloadRequest && $downloadRequest->request_status === App\Enums\Users\Architects\MediaKits\RequestStatusEnum::APPROVED)/*  || $mediaKit->projectAccess->name === 'open to all' */)
 	<div class="row align-items-center">
+		<div class="col">
+			<p class="m-0 text-dark fs-6">Fact File</p>
+		</div>
+		<div class="col text-end">
+			<form class="p-0 m-0" action="{{ route('journalist.media-kit.project.pdf', ['mediaKit' => $mediaKit->slug]) }}" method="post">
+				@csrf
+				<button type="submit" class="btn btn-primary fs-6 fw-medium">Download</button>
+			</form>
+		</div>
+	</div>
+	<hr class="border-gray-300">
+	<div class="row align-items-center">
 		<div class="col-auto">
 			<p class="m-0 text-dark fs-6">Description</p>
 		</div>

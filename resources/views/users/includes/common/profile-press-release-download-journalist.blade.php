@@ -1,7 +1,7 @@
 @if( ($downloadRequest && $downloadRequest->request_status === App\Enums\Users\Architects\MediaKits\RequestStatusEnum::APPROVED)/*  || $mediaKit->projectAccess->name === 'open to all' */)
 	<div class="row align-items-center">
 		<div class="col">
-			<p class="m-0 text-dark fs-6">Whole Profile</p>
+			<p class="m-0 text-dark fs-6">Fact File</p>
 		</div>
 		<div class="col text-end">
 			<form class="p-0 m-0" action="{{ route('journalist.media-kit.press-release.pdf', ['mediaKit' => $mediaKit->slug]) }}" method="post">

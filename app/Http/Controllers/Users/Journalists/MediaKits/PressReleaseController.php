@@ -42,6 +42,10 @@ class PressReleaseController extends Controller
 
 	public function pdf(MediaKit $mediaKit)
 	{
+		/* return view('users.pages.journalists.media-kits.press-releases.pdf', [
+			'mediaKit' => $mediaKit,
+		]); */
+		$mediaKit = MediaKitController::loadModel($mediaKit, 'press-release');
 		$pdf = Pdf::loadView('users.pages.journalists.media-kits.press-releases.pdf', ['mediaKit' => $mediaKit]);
 		/* $pdf = Pdf::loadView('users.pages.journalists.media-kits.press-releases.view', [
 			'mediaKit' => $mediaKit,
@@ -51,7 +55,7 @@ class PressReleaseController extends Controller
             ),
 		]); */
 		return $pdf->download(
-			ucfirst(str()->camel($mediaKit->slug)) . '-' . 'profile' . '.pdf'
+			ucfirst(str()->camel($mediaKit->slug)) . '-' . 'factfile' . '.pdf'
 		);
 		/* Pdf::view('users.pages.journalists.media-kits.press-releases.pdf', ['mediaKit' => $mediaKit])
 			->format('a4')

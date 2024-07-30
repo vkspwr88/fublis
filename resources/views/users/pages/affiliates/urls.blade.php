@@ -14,14 +14,13 @@
 					<div class="setting div_with_copy-control">
 						<div class="border border-gray-200 rounded-md">
 							<div class="flex items-center justify-between py-3 pl-3 pr-4 text-sm leading-5">
-								<div class="flex flex-wrap items-center flex-1 w-0"><svg
-										class="flex-shrink-0 w-5 h-5 text-gray-400" id="referral-url-icon" fill="none"
-										viewBox="0 0 24 24" stroke="currentColor">
-										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-											d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1">
-										</path>
-									</svg><span class="flex-1 w-0 ml-2 break-words sm:truncate"
-										x-text="getUrlParam( 'referral', 'url' )">https://eduwik.com/ref/eduwik_af/</span>
+								<div class="flex flex-wrap items-center flex-1 w-0">
+									<svg class="flex-shrink-0 w-5 h-5 text-gray-400" id="referral-url-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path>
+									</svg>
+									<span class="flex-1 w-0 ml-2 break-words sm:truncate" x-text="getUrlParam( 'referral', 'url' )">
+										{{ config('app.url') . '?ref=' }} {{ 'username' }}
+									</span>
 									<div class="w-full mt-2 text-center sm:ml-4 sm:flex-shrink-0 sm:w-auto sm:mt-0">
 										<button type="button" value=""
 											class="ml-2 font-medium text-indigo-600 transition duration-150 ease-in-out hover:text-indigo-500"

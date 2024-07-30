@@ -38,9 +38,11 @@ Route::middleware(JournalistLogin::class)->group(function() {
 		});
 		Route::name('article.')->prefix('article')->group(function () {
 			Route::get('/{mediaKit:slug}', [Journalists\MediaKits\ArticleController::class, 'view'])->name('view');
+			Route::post('/{mediaKit:slug}/pdf', [Journalists\MediaKits\ArticleController::class, 'pdf'])->name('pdf');
 		});
 		Route::name('project.')->prefix('project')->group(function () {
 			Route::get('/{mediaKit:slug}', [Journalists\MediaKits\ProjectController::class, 'view'])->name('view');
+			Route::post('/{mediaKit:slug}/pdf', [Journalists\MediaKits\ProjectController::class, 'pdf'])->name('pdf');
 		});
 		//Route::get('/{mediaKit}', [Journalists\MediaKitController::class, 'view'])->name('view');
 	});

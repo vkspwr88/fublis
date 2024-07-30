@@ -24,14 +24,17 @@ Route::middleware(ArchitectLogin::class)->group(function() {
 		Route::get('/{mediaKit:slug}/edit', [Architects\MediaKitController::class, 'edit'])->name('edit');
 		Route::name('press-release.')->prefix('press-release')->group(function () {
 			Route::get('/{mediaKit:slug}', [Architects\MediaKits\PressReleaseController::class, 'view'])->name('view');
+			Route::post('/{mediaKit:slug}/pdf', [Architects\MediaKits\PressReleaseController::class, 'pdf'])->name('pdf');
 			Route::get('/{mediaKit:slug}/edit', [Architects\MediaKits\PressReleaseController::class, 'edit'])->name('edit');
 		});
 		Route::name('article.')->prefix('article')->group(function () {
 			Route::get('/{mediaKit:slug}', [Architects\MediaKits\ArticleController::class, 'view'])->name('view');
+			Route::post('/{mediaKit:slug}/pdf', [Architects\MediaKits\ArticleController::class, 'pdf'])->name('pdf');
 			Route::get('/{mediaKit:slug}/edit', [Architects\MediaKits\ArticleController::class, 'edit'])->name('edit');
 		});
 		Route::name('project.')->prefix('project')->group(function () {
 			Route::get('/{mediaKit:slug}', [Architects\MediaKits\ProjectController::class, 'view'])->name('view');
+			Route::post('/{mediaKit:slug}/pdf', [Architects\MediaKits\ProjectController::class, 'pdf'])->name('pdf');
 			Route::get('/{mediaKit:slug}/edit', [Architects\MediaKits\ProjectController::class, 'edit'])->name('edit');
 		});
 	});

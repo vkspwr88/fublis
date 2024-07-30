@@ -7,7 +7,7 @@ use App\Http\Controllers\Payments\RazorpayController;
 use App\Http\Controllers\Users\SubscriptionPlanController;
 use Livewire\Component;
 
-class Index extends Component
+class Index20240516 extends Component
 {
 	public $subscriptionPlans;
 	// public $subscriptionPrices;
