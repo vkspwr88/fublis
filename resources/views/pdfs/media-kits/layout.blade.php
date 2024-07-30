@@ -96,7 +96,7 @@
 						<img src="{{ asset(env('COMPANY_LOGO')) }}" alt="{{ env('APP_NAME') }}" class="logo">
 					</a>
 				</td>
-				<td style="text-align: right;">&copy; {{ date("Y") }} {{ env('COMPANY_NAME') }} | <a href="{{ env('APP_URL') }}">{{ trimWebsiteUrl(env('APP_URL')) }}</a></td>
+				<td style="text-align: right;">&copy; {{ date("Y") }} {{ env('COMPANY_NAME') }} | <a href="https://www.fublis.com">www.fublis.com</a></td>
 			</tr>
 		</table>
 	</footer>
