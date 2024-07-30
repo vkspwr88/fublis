@@ -1,17 +1,18 @@
-{{-- <!DOCTYPE html> --}}
+<!DOCTYPE html>
 <html lang="en">
 <head>
-	{{-- <meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta http-equiv="X-UA-Compatible" content="ie=edge"> --}}
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 	<title>{{ $title }}</title>
 	<style>
 		@page {
             margin: 0cm 0cm;
         }
 
-		body{
+		*{
 			font-family: 'Inter', sans-serif !important;
+		}
+
+		body{
 			font-size: 14px;
 			margin-top: 3cm;
 			margin-left: 1.2cm;
