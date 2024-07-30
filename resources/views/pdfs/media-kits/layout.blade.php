@@ -1,18 +1,22 @@
-<!DOCTYPE html>
+{{-- <!DOCTYPE html> --}}
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
+	{{-- <meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge"> --}}
 	<title>{{ $title }}</title>
 	<style>
 		@page {
-            margin: 100px 45px;
+            margin: 0cm 0cm;
         }
 
 		body{
 			font-family: 'Inter', sans-serif !important;
 			font-size: 14px;
+			margin-top: 3cm;
+			margin-left: 1.2cm;
+			margin-right: 1.2cm;
+			margin-bottom: 2cm;
 		}
 
 		a{
@@ -26,13 +30,12 @@
 
 		header, footer{
 			position: fixed;
-			width: 100%;
 			color: rgb(108, 117, 125);
-			left: 0px;
-			right: 0px;
+			left: 1.2cm;
+			right: 1.2cm;
 		}
 		header {
-			top: -70px;
+			top: 1cm;
 		}
 
 		header table{
@@ -45,7 +48,7 @@
 		}
 
 		footer {
-			bottom: -80px;
+			bottom: 0.5cm;
 		}
 		footer table{
 			border-top: 2px solid rgb(108, 117, 125);

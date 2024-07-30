@@ -44,9 +44,13 @@
 			<th>Tags</th>
 			<td>{{ $mediaKit->story->tags->count() ? $mediaKit->story->tags->implode('name', ', ') : '-'; }}</td>
 		</tr>
-		<tr>
+		{{-- <tr>
 			<th>Write Up</th>
 			<td>{!! $mediaKit->story->press_release_writeup !!}</td>
-		</tr>
+		</tr> --}}
 	</table>
+	<div>
+		<h4>Write Up</h4>
+		{!! $mediaKit->story->press_release_writeup !!}
+	</div>
 @endsection
