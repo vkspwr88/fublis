@@ -104,7 +104,7 @@
 					</a>
 				</td>
 				<td style="text-align: right; font-size: 12px;">
-					&copy; {{ date("Y") . ' ' . env('COMPANY_NAME') }}
+					<span>&copy; {{ date("Y") . ' ' . env('COMPANY_NAME') }}</span>
 					<br>
 					<a href="https://www.fublis.com" style="margin: 0; padding: 0; left: 0;">www.fublis.com</a>
 				</td>
