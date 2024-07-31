@@ -3,7 +3,7 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<title>{{ $title }}</title>
-	<style>
+	<style type="text/css">
 		@page {
             margin: 0cm 0cm;
         }
@@ -104,9 +104,7 @@
 					</a>
 				</td>
 				<td style="text-align: right; font-size: 12px;">
-					<span>&copy; {{ date("Y") . ' ' . env('COMPANY_NAME') }}</span>
-					<br>
-					<a href="https://www.fublis.com" style="margin: 0; padding: 0; left: 0;">www.fublis.com</a>
+					&copy; {{ date("Y") . ' ' . env('COMPANY_NAME') }} | <a href="https://www.fublis.com" style="margin: 0; padding: 0; left: 0;">www.fublis.com</a>
 				</td>
 			</tr>
 		</table>
