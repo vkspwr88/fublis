@@ -103,8 +103,8 @@
 						<img src="{{ asset(env('COMPANY_LOGO')) }}" alt="{{ env('APP_NAME') }}" class="logo">
 					</a>
 				</td>
-				<td style="text-align: right; font-size: 12px;">
-					&copy; {{ date("Y") . ' ' . env('COMPANY_NAME') }} | <a href="https://www.fublis.com" style="margin: 0; padding: 0; left: 0;">www.fublis.com</a>
+				<td style="text-align: right;">
+					&copy; {{ date("Y") . ' ' . env('COMPANY_NAME') }} | <a href="https://www.fublis.com">www.fublis.com</a>
 				</td>
 			</tr>
 		</table>
