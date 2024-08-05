@@ -234,7 +234,13 @@ class DownloadController extends Controller
 
 	public static function getAllowedDownloadRequest()
 	{
-		return isSubscribed() ? -1 : 5;
+		if(isBusinessPlanSubscribed()){
+			return -1;
+		}
+		if(isEnterprisePlanSubscribed()){
+			return 100;
+		}
+		return 0;
 	}
 
 	public static function getTotalRequest()
