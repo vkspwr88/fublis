@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use App\Enums\Users\Architects\SubscriptionPlanTypeEnum;
 use App\Filament\Resources\SubscriptionPlanResource\Pages;
 use App\Filament\Resources\SubscriptionPlanResource\RelationManagers;
 use App\Models\SubscriptionPlan;
@@ -36,6 +37,7 @@ class SubscriptionPlanResource extends Resource
 					->options([
 						'USD' => 'USD',
 						'INR' => 'INR',
+						'EUR' => 'EUR',
 					])
 					->default('USD'),
 				Forms\Components\Select::make('symbol')
@@ -43,15 +45,19 @@ class SubscriptionPlanResource extends Resource
 					->options([
 						'$' => '$',
 						'₹' => '₹',
+						'€' => '€',
 					])
 					->default('$'),
                 Forms\Components\TextInput::make('plan_name')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\TextInput::make('plan_type')
+				Forms\Components\Select::make('plan_type')
+                    ->required()
+                    ->options(SubscriptionPlanTypeEnum::class),
+                /* Forms\Components\TextInput::make('plan_type')
                     ->required()
                     ->maxLength(255)
-                    ->default('monthly'),
+                    ->default('monthly'), */
                 Forms\Components\TextInput::make('plan_id')
                     ->required()
                     ->maxLength(255),

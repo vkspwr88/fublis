@@ -58,11 +58,17 @@ a{
 .text-green-500{
 	color: var(--fublis-green-500) !important;
 }
+.text-muted{
+	color: #98A2B3 !important;
+}
 .text-gray-100{
 	color: var(--fublis-gray-100) !important;
 }
 .text-gray-300{
 	color: var(--fublis-gray-300) !important;
+}
+.text-gray-400{
+	color: var(--fublis-gray-400) !important;
 }
 .text-gray-500{
 	color: var(--fublis-gray-500) !important;

@@ -115,6 +115,6 @@ class CompanyController extends Controller
 		if(Str::contains($subscriptionPlan, 'Enterprise Plan')){
 			return 20;
 		}
-		return 2;
+		return 1; // free user
 	}
 }

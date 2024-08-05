@@ -14,5 +14,12 @@
 		cropper.destroy();
 		cropper = null;
 	});
+
+	window.addEventListener('hide-media-kit-limit-alert-modal', event => {
+		$('#addMediaKitAlertModal').modal('hide');
+	});
+	window.addEventListener('show-media-kit-limit-alert-modal', event => {
+		$('#addMediaKitAlertModal').modal('show');
+	});
 </script>
 @endpush

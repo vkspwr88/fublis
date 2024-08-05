@@ -5,6 +5,7 @@ namespace App\Livewire\Architects\AddStories;
 use App\Http\Controllers\Users\Architects\MediaKitDraftController;
 use App\Http\Controllers\Users\BuildingUseController;
 use App\Http\Controllers\Users\LocationController;
+use App\Http\Controllers\Users\MediaKitController;
 use App\Livewire\Forms\Architects\ProjectForm;
 use Livewire\Component;
 use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
@@ -81,6 +82,10 @@ class ProjectDraft extends Component
     }
 	public function add()
 	{
+		if(!MediaKitController::isAllowedToAdd('project')){
+			$this->dispatch('show-media-kit-limit-alert-modal');
+			return;
+		}
 		if($this->form->store()){
 			MediaKitDraftController::deleteById($this->draftId);
 			$this->dispatch('alert', [

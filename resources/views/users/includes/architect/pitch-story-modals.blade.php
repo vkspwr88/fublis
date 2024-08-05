@@ -345,7 +345,7 @@
 			<div class="modal-body">
 				<div class="py-2 text-center">
 					<h4 class="text-purple-700 fs-4 fw-semibold">Upgrade Your Account to Keep Pitching!</h4>
-					<p class="text-secondary">You've reached the limit of pitches allowed in your free account per month. Upgrade now to continue sharing your stories and take advantage of unlimited pitching, advanced features, and premium support.</p>
+					<p class="text-secondary">You've reached the limit of pitches allowed in your {{-- free  --}}account per month. Upgrade now to continue sharing your stories and take advantage of unlimited pitching, advanced features, and premium support.</p>
 					<p>
 						<a href="{{ route('pricing') }}" class="btn btn-primary fw-medium" style="width: 150px;">Upgrade</a>
 					</p>

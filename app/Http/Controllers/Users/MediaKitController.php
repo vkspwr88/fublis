@@ -3,8 +3,12 @@
 namespace App\Http\Controllers\Users;
 
 use App\Http\Controllers\Controller;
+use App\Models\Article;
 use App\Models\MediaKit;
+use App\Models\PressRelease;
+use App\Models\Project;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Http\Request;
 
 class MediaKitController extends Controller
@@ -125,5 +129,37 @@ class MediaKitController extends Controller
 				'projectAccess',
 			]);
 		}
+	}
+
+	public static function isAllowedToAdd($type)
+	{
+		if(isBusinessPlanSubscribed()){
+			return true;
+		}
+		$allowedMediaKits = self::getAllowedMediaKits($type);
+		$createdMediaKits = 0;
+		$architectID = auth()->user()->architect->id;
+		if($type == 'press-release'){
+			$createdMediaKits = MediaKit::whereHasMorph('story', PressRelease::class)->where('architect_id', $architectID)->count();
+		}
+		elseif($type == 'article'){
+			$createdMediaKits = MediaKit::whereHasMorph('story', Article::class)->where('architect_id', $architectID)->count();
+		}
+		elseif($type == 'project'){
+			$createdMediaKits = MediaKit::whereHasMorph('story', Project::class)->where('architect_id', $architectID)->count();
+		}
+
+		if( $createdMediaKits < $allowedMediaKits ){
+			return true;
+		}
+		return false;
+	}
+
+	public static function getAllowedMediaKits($type)
+	{
+		if(isEnterprisePlanSubscribed()){
+			return 25;
+		}
+		return 3; // free user
 	}
 }

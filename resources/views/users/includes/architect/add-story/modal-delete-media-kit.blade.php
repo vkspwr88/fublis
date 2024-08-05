@@ -17,3 +17,4 @@
 		</div>
 	</div>
 </div>
+@include('users.includes.architect.add-story.modal-add-media-kit')

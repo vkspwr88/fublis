@@ -3,6 +3,7 @@
 namespace App\Livewire\Architects\AddStories;
 
 use App\Http\Controllers\Users\Architects\MediaKitDraftController;
+use App\Http\Controllers\Users\MediaKitController;
 use App\Livewire\Forms\Architects\ArticleForm;
 use Livewire\Component;
 use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
@@ -61,6 +62,10 @@ class ArticleDraft extends Component
 
 	public function add()
 	{
+		if(!MediaKitController::isAllowedToAdd('article')){
+			$this->dispatch('show-media-kit-limit-alert-modal');
+			return;
+		}
 		if($this->form->store()){
 			MediaKitDraftController::deleteById($this->draftId);
 			$this->dispatch('alert', [
