@@ -30,7 +30,7 @@
 						$subscriptionAmountRaw = $subscriptionPlan->price_per_month * $subscriptionPlan->quantity;
 						$stripeAmount = $subscriptionAmountRaw * 100;
 						$subscriptionAmount = number_format($subscriptionPlan->price_per_month * $subscriptionPlan->quantity, 2);
-						$subscriptionTime = 'every month';
+						$subscriptionTime = 'per month';
 						if($subscriptionPlan->quantity == 3){
 							$subscriptionTime = 'every 3 months';
 						}
