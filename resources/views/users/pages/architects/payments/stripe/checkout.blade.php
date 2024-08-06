@@ -30,7 +30,14 @@
 						$subscriptionAmountRaw = $subscriptionPlan->price_per_month * $subscriptionPlan->quantity;
 						$stripeAmount = $subscriptionAmountRaw * 100;
 						$subscriptionAmount = number_format($subscriptionPlan->price_per_month * $subscriptionPlan->quantity, 2);
-						$subscriptionTime = $subscriptionPlan->quantity == 3 ? 'every 3 months' : 'per year';
+						$subscriptionTime = 'every month';
+						if($subscriptionPlan->quantity == 3){
+							$subscriptionTime = 'every 3 months';
+						}
+						elseif($subscriptionPlan->quantity == 12){
+							$subscriptionTime = 'per year';
+						}
+						// $subscriptionTime = $subscriptionPlan->quantity == 3 ? 'every 3 months' : 'per year';
 					@endphp
 					<div class="text-white card-header bg-primary">
 						You will be charged {{ $subscriptionPlan->symbol }}{{ $subscriptionAmount }} for {{ $subscriptionPlan->plan_name }}
