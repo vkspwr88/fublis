@@ -21,13 +21,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/test', function () {
+Route::get('/test-cron', function(){
+    Artisan::call('app:send-journalist-daily-new-pitches');
+});
+
+
+/* Route::get('/test', function () {
     $statsService = new StatsService;
 	$statsService->sendStatEmails('week');
 	var_dump('weekly sent');
 	$statsService->sendStatEmails('month');
 	var_dump('monthly sent');
-})->name('test');
+})->name('test'); */
 
 // Route::get('/aman-sitemap', [SitemapController::class, 'index']);
 
