@@ -21,9 +21,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/test-cron', function(){
-    Artisan::call('app:send-journalist-daily-new-pitches');
-});
+// Route::get('/test-cron', function(){
+//     Artisan::call('app:send-journalist-daily-new-pitches');
+// });
 
 
 /* Route::get('/test', function () {
@@ -36,9 +36,9 @@ Route::get('/test-cron', function(){
 
 // Route::get('/aman-sitemap', [SitemapController::class, 'index']);
 
-Route::get('/test-email', function () {
-	Mail::to('amansaini87@rediffmail.com')->send(new TestMail('amansaini87@rediffmail.com'));
-})->name('test-email');
+// Route::get('/test-email', function () {
+// 	Mail::to('amansaini87@rediffmail.com')->send(new TestMail('amansaini87@rediffmail.com'));
+// })->name('test-email');
 
 Route::get('/', function () {
 	if(isArchitect()){
@@ -54,23 +54,23 @@ Route::get('/blank', function () {
     return view('users.pages.blank');
 })->name('blank');
 
-Route::get('/clear-cache', function(){
-    Artisan::call('route:clear');
-    Artisan::call('route:cache');
-    Artisan::call('config:clear');
-    Artisan::call('config:cache');
-    Artisan::call('cache:clear');
-    Artisan::call('view:clear');
-    Artisan::call('view:cache');
-    return 'All cache cleared';
-	// php artisan route:clear
-	// php artisan route:cache
-	// php artisan config:clear
-	// php artisan config:cache
-	// php artisan cache:clear
-	// php artisan view:clear
-	// php artisan view:cache
-});
+// Route::get('/clear-cache', function(){
+//     Artisan::call('route:clear');
+//     Artisan::call('route:cache');
+//     Artisan::call('config:clear');
+//     Artisan::call('config:cache');
+//     Artisan::call('cache:clear');
+//     Artisan::call('view:clear');
+//     Artisan::call('view:cache');
+//     return 'All cache cleared';
+// 	// php artisan route:clear
+// 	// php artisan route:cache
+// 	// php artisan config:clear
+// 	// php artisan config:cache
+// 	// php artisan cache:clear
+// 	// php artisan view:clear
+// 	// php artisan view:cache
+// });
 
 /* Route::get('/email', function () {
     return (new VerifySubscriber())->render();

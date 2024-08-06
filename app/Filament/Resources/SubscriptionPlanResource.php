@@ -71,6 +71,12 @@ class SubscriptionPlanResource extends Resource
 					->numeric()
 					->default(1)
                     ->required(),
+				Forms\Components\TextInput::make('actual_price')
+                    ->required()
+                    ->numeric(),
+				Forms\Components\TextInput::make('discount_percentage')
+                    ->required()
+                    ->numeric(),
             ]);
     }
 
