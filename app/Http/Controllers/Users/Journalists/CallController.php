@@ -68,7 +68,7 @@ class CallController extends Controller
 		// $city = $call->location->city()->first();
 		return view('users.pages.journalists.calls.view', [
 			'title' => $call->title,
-			'submittedBy' => auth()->user()->name,
+			'submittedBy' => $call->journalist->user->name,
 			'description' => $call->description,
 			'submissionEndsDate' => $call->submission_end_date,
 			'publication' => $call->publication,
