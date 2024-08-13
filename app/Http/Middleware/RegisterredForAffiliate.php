@@ -19,7 +19,7 @@ class RegisterredForAffiliate
 		$user = auth()->user();
 		$affRegistration = $user->affRegistration;
 		if(!$affRegistration){
-			return to_route('affiliate.register');
+			return to_route('affiliate.register.index');
 		}
 		if($affRegistration->application_status === ApplicationStatusEnum::APPROVED){
 			return $next($request);

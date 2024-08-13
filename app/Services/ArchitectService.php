@@ -200,8 +200,12 @@ class ArchitectService
 		$totalArchitects = $company->architects_count ?? 0;
 		$allowedArchitects = CompanyController::getAllowedArchitects('');
 		if($totalArchitects > 0){
-			$user = $company->architects->where('user_role', UserRoleEnum::SUPERADMIN)->first()->user;
-			if (isBusinessPlanSubscribed($user)) {
+			// dd($company->architects->where('user_role', UserRoleEnum::SUPERADMIN)->first()?->user);
+			$user = $company->architects->where('user_role', UserRoleEnum::SUPERADMIN)->first()?->user;
+			if(!$user){
+				$allowedArchitects = 1;
+			}
+			elseif (isBusinessPlanSubscribed($user)) {
 				$allowedArchitects = CompanyController::getAllowedArchitects('Business Plan');
 			}
 			elseif (isEnterprisePlanSubscribed($user)) {

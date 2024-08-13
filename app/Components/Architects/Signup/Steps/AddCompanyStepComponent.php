@@ -198,13 +198,19 @@ class AddCompanyStepComponent extends StepComponent
 			}
 		}
 		if($this->architectService->addCompany($validated)){
-			$this->nextStep();
+			// $this->nextStep();
 			if($this->new){
 				$this->dispatch('alert', [
 					'type' => 'success',
 					'message' => 'You have successfully added your company.'
 				]);
 			}
+			if(session()->has('url.intended')){
+				$redirectUrl = session()->get('url.intended');
+				session()->forget('url.intended');
+				return redirect($redirectUrl);
+			}
+			$this->nextStep();
 			return;
 		}
 		$this->dispatch('alert', [

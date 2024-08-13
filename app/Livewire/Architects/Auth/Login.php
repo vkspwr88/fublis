@@ -67,7 +67,9 @@ class Login extends Component
 		]);
 
 		if(session()->has('url.intended')){
-			return redirect(session()->get('url.intended'));
+			$redirectUrl = session()->get('url.intended');
+			session()->forget('url.intended');
+			return redirect($redirectUrl);
 		}
 		return to_route('home');
 	}

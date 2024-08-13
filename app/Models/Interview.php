@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\Users\UserTypeEnum;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -14,6 +15,15 @@ class Interview extends Model
     use HasFactory, HasUuids;
 
 	protected $guarded = [];
+
+	/**
+	 * The attributes that should be cast.
+	 *
+	 * @var array<string, string>
+	 */
+	protected $casts = [
+		'user_type' => UserTypeEnum::class,
+	];
 
 	public function getRouteKey(): mixed
 	{

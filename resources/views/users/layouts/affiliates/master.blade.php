@@ -16,16 +16,16 @@
 		<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 		<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+		<script src="//unpkg.com/alpinejs" defer></script>
 		{{-- <script src="{{ asset('js/affiliate/core.js') }}"></script> --}}
 	</head>
 
 	<body class="font-sans antialiased">
-		<div class="flex h-screen overflow-hidden bg-gray-100" x-data="{ sidebarOpen: false, notificationsOpen: false }" @keydown.window.escape="{ sidebarOpen = false, notificationsOpen = false }">
+		<div class="flex h-screen overflow-hidden bg-gray-100"{{--  x-data="{ sidebarOpen: false, notificationsOpen: false }" @keydown.window.escape="{ sidebarOpen = false, notificationsOpen = false }" --}}>
 			@include('users.includes.affiliates.sidebar')
 			<div class="flex flex-col flex-1 w-0 overflow-hidden">
 				@include('users.includes.affiliates.header')
-				<main id="portal-content-wrap" class="relative flex-1 py-6 overflow-y-auto focus:outline-none"
-					tabindex="0" x-data="" x-init="$el.focus()">
+				<main id="portal-content-wrap" class="relative flex-1 py-6 overflow-y-auto focus:outline-none" tabindex="0" x-data="" x-init="$el.focus()">
 					<div id="affiliate-portal-content" class="px-4 pb-8 mx-auto max-w-7xl sm:px-6 md:px-8">
 						@yield('body')
 					</div>
@@ -51,6 +51,7 @@
 				}) : a.removeEventListener(n, u, s)
 			}
 		</script>
+		{{-- <script src="{{ asset('js/alp.js') }}"></script> --}}
 	</body>
 
 </html>

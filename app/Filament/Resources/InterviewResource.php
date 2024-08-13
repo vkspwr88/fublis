@@ -39,6 +39,12 @@ class InterviewResource extends Resource
 					->options(User::where('user_type', '!=', 'admin')->orderBy('email')->get()->pluck('email', 'id'))
 					->searchable()
 					->preload(),
+				Forms\Components\Select::make('user_type')
+                    ->required()
+                    ->options([
+						UserTypeEnum::ARCHITECT->value => UserTypeEnum::ARCHITECT->label(),
+						UserTypeEnum::JOURNALIST->value => UserTypeEnum::JOURNALIST->label(),
+					]),
                 Forms\Components\Textarea::make('heading')
                     ->required()
                     ->maxLength(65535)
@@ -140,6 +146,8 @@ class InterviewResource extends Resource
 				Tables\Columns\TextColumn::make('heading')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('user.name')
+                    ->searchable(),
+				Tables\Columns\TextColumn::make('user_type')
                     ->searchable(),
 				Tables\Columns\TextColumn::make('creator.name')
 					->label('Created By')
