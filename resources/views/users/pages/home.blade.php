@@ -88,7 +88,7 @@
 
 			triggerEl.addEventListener('click', event => {
 				event.preventDefault();
-				console.log('click', triggerEl.hash);
+				// console.log('click', triggerEl.hash);
 				tabTrigger.show();
 				location.hash = triggerEl.hash;
 			});
@@ -97,7 +97,9 @@
 		const currentURL = document.URL;
 		const hashURL = currentURL.substring(currentURL.indexOf('#'));
 		const triggerEl = document.querySelector('#userTab a[href="' + hashURL + '"]');
-		console.log(currentURL, hashURL, triggerEl);
-		bootstrap.Tab.getInstance(triggerEl).show();
+		// console.log(currentURL, hashURL, triggerEl);
+		if(triggerEl){
+			bootstrap.Tab.getInstance(triggerEl).show();
+		}
 	</script>
 @endpush

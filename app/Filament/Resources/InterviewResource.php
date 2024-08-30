@@ -153,7 +153,7 @@ class InterviewResource extends Resource
 					->label('Created By')
                     ->searchable(),
 				Tables\Columns\TextColumn::make('updator.name')
-					->label('Last Created By')
+					->label('Last Updated By')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('slug')
                     ->searchable(),

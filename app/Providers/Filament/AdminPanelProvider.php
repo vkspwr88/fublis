@@ -3,6 +3,9 @@
 namespace App\Providers\Filament;
 
 use App\Filament\Pages\EditProfile;
+use App\Filament\Pages\Logs;
+use App\Filament\Pages\Medias;
+// use App\Filament\Pages\Logs as PagesLogs;
 use App\Filament\Resources;
 use Filament\Navigation;
 use Awcodes\Curator\Resources\MediaResource;
@@ -15,7 +18,7 @@ use Filament\PanelProvider;
 use Filament\Resources\Resource;
 use Filament\Support\Colors\Color;
 use Filament\Widgets;
-use FilipFonal\FilamentLogManager\Pages\Logs;
+// use FilipFonal\FilamentLogManager\Pages\Logs;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
@@ -73,7 +76,7 @@ class AdminPanelProvider extends PanelProvider
 					->navigationSort(3)
 					->navigationCountBadge()
 					->resource(MediaResource::class),
-				\FilipFonal\FilamentLogManager\FilamentLogManager::make(),
+				// \FilipFonal\FilamentLogManager\FilamentLogManager::make(),
 			])
 			->navigation(function (Navigation\NavigationBuilder $builder): Navigation\NavigationBuilder {
 				return $builder->items([
@@ -83,10 +86,12 @@ class AdminPanelProvider extends PanelProvider
 						->url(fn (): string => Pages\Dashboard::getUrl()),
 
 					...Resources\UserResource::getNavigationItems(),
+					// ...Medias::getNavigationItems(),
 					...MediaResource::getNavigationItems(),
 					...Resources\ImageLogResource::getNavigationItems(),
 					...Resources\SubscribeNewsletterResource::getNavigationItems(),
 					...Resources\InterviewResource::getNavigationItems(),
+					// ...Logs::getNavigationItems(),
 					...Logs::getNavigationItems(),
 				])->groups([
 					Navigation\NavigationGroup::make('Architects')
@@ -189,6 +194,9 @@ class AdminPanelProvider extends PanelProvider
 				]);
 			})
 			->sidebarFullyCollapsibleOnDesktop()
-			->unsavedChangesAlerts();
+			// ->databaseTransactions()
+			->unsavedChangesAlerts()
+			// ->broadcasting(false)
+			;
     }
 }

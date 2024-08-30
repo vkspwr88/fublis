@@ -126,6 +126,6 @@ class UserResource extends Resource
 	public static function getEloquentQuery(): Builder
     {
         return parent::getEloquentQuery()
-			->where('user_type', '!=', 'admin');
+			->where('email', '!=', 'admin@fublis.com');
     }
 }
