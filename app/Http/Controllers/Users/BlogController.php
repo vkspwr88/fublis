@@ -23,15 +23,15 @@ class BlogController extends Controller
 
 	public function show(string $slug) {
 		$blog = $this->blogService->showBlogUsingSlug($slug);
-		$blog->load('tags', 'blogSeo', 'bannerImage', 'seoImage');
-		$blog->blogSeo->image = $blog->seoImage->path;
-		$seoData = new SEOData(
-			title: $blog->blogSeo->title,
-			description: $blog->blogSeo->description,
-			author: $blog->blogSeo->author,
-			image: 'storage/' . $blog->seoImage->path,
-		);
 		if($blog){
+			$blog->load('tags', 'blogSeo', 'bannerImage', 'seoImage');
+			$blog->blogSeo->image = $blog->seoImage->path;
+			$seoData = new SEOData(
+				title: $blog->blogSeo->title,
+				description: $blog->blogSeo->description,
+				author: $blog->blogSeo->author,
+				image: 'storage/' . $blog->seoImage->path,
+			);
 			return view('users.pages.blogs.show', [
 				'blog' => $blog,
 				'seoData' => $seoData,
