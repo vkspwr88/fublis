@@ -27,8 +27,9 @@ class ResetPasswordService
 	public function sendResetPassword(array $details)
 	{
 		// check user table
-		$user = $this->userRepository->isUserExist($details);
-		if(!$user){
+		// $user = $this->userRepository->isUserExist($details);
+		$user = $this->userRepository->isEmailExist($details['email']);
+		if(!$user || $user->user_type === UserTypeEnum::ADMIN){
 			return response()->json([
 				'success' => false,
 				'message' => 'Email address is not in our record.',
@@ -81,19 +82,20 @@ class ResetPasswordService
 				$user->forceFill([
 					'password' => $password
 				])->setRememberToken(Str::random(60));
-	 
+
 				$user->save();
 			}
 		);
 
 		if($status === Password::PASSWORD_RESET){
-			$user = $this->userRepository->isEmailExist($details['email']);
-			if($user->user_type === UserTypeEnum::ARCHITECT){
+			// $user = $this->userRepository->isEmailExist($details['email']);
+			/* if($user->user_type === UserTypeEnum::ARCHITECT){
 				$redirectUrl = route('architect.login');
 			}
 			elseif($user->user_type === UserTypeEnum::JOURNALIST){
 				$redirectUrl = route('journalist.login');
-			}
+			} */
+			$redirectUrl = route('login');
 			return response()->json([
 				'success' => true,
 				'message' => __($status),

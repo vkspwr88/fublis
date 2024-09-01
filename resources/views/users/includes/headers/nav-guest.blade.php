@@ -93,7 +93,7 @@
 							</a>
 						</li>
 						<li class="nav-sub-menu-item-li">
-							<a href="{{ route('journalist.login') }}" class="btn px-3 fs-7" style="background-color: #4f4f4f; color: #fff;">
+							<a href="{{ route('login') }}" class="btn px-3 fs-7" style="background-color: #4f4f4f; color: #fff;">
 								<small>Sign In</small>
 							</a>
 						</li>
@@ -133,7 +133,7 @@
 		</li>
 	@endforeach
 	<li class="nav-item">
-		<a class="nav-link" href="{{ route('architect.login') }}">
+		<a class="nav-link" href="{{ route('login') }}">
 			<span class="nav-text">Sign In</span>
 		</a>
 	</li>

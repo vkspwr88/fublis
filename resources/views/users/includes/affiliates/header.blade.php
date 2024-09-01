@@ -42,10 +42,8 @@
 
 					<div class="bg-white rounded-md shadow-xs">
 						<div class="px-4 py-3">
-							<p class="text-sm leading-5">
-								Signed in as </p>
-							<p class="text-sm font-medium leading-5 text-gray-900">
-								vkspwr88@gmail.com </p>
+							<p class="text-sm leading-5">Signed in as </p>
+							<p class="text-sm font-medium leading-5 text-gray-900">{{ Auth::user()->email }}</p>
 						</div>
 						<div class="border-t border-gray-100"></div>
 						<div class="py-1">

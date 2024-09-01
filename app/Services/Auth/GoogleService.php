@@ -7,6 +7,7 @@ use App\Interfaces\GuestRepositoryInterface;
 use App\Interfaces\UserRepositoryInterface;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class GoogleService
 {
@@ -27,6 +28,7 @@ class GoogleService
 		// check email exists
 		$user = $this->userRepository->isEmailExist($googleUser->email);
 		$userType = session()->get('user_type');
+		$loginType = session()->get('login_type');
 		if($user){
 			if($user->google_id === $googleUser->id){
 				// login user according to user type
@@ -51,7 +53,13 @@ class GoogleService
 			}
 		}
 		else{
-			// reguster and verify guest
+			if($loginType == 'login'){
+				return response()->json([
+					'success' => false,
+					'message' => 'Your google account is not in our record. Create your account by using Sign up with Google button at sign up page.',
+				]);
+			}
+			// register and verify guest
 			$password = uniqid();
 			$guest = $this->guestRepository->registerAndVerifyGuest([
 				'name' => $googleUser->name,
@@ -82,7 +90,8 @@ class GoogleService
 				]);
 				$redirectUrl = route('architect.signup', ['step' => 'architect-signup-add-company-step']);
 			}
-
+			// Session::forget('user_type');
+			// Session::forget('login_type');
 			return response()->json([
 				'success' => true,
 				'message' => 'You have successfully created the google account.',

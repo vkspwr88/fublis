@@ -15,6 +15,13 @@ if (!function_exists('filterFileName')) {
     }
 }
 
+if (!function_exists('isAdmin')) {
+    function isAdmin()
+    {
+		return auth()->check() && auth()->user()->user_type === UserTypeEnum::ADMIN;
+	}
+}
+
 if (!function_exists('isArchitect')) {
     function isArchitect()
     {
@@ -154,8 +161,8 @@ if (!function_exists('isBusinessPlanSubscribed')) {
 		if($otherUser){
 			$user = $otherUser;
 		}
-		return 
-			$user->subscribed('business-annual-eur') || 
+		return
+			$user->subscribed('business-annual-eur') ||
 			$user->subscribed('business-annual-inr') ||
 			$user->subscribed('business-annual-usd');
 		// return $user->subscribed('business-plan-annually') || $user->subscribed('business-plan-quarterly') || $user->subscribed('business-plan-annually-inr') || $user->subscribed('business-plan-quarterly-inr');
@@ -169,9 +176,9 @@ if (!function_exists('isEnterprisePlanSubscribed')) {
 		if($otherUser){
 			$user = $otherUser;
 		}
-		return 
+		return
 			$user->subscribed('essential-monthly-eur') || $user->subscribed('essential-annual-eur') ||
-			$user->subscribed('essential-monthly-inr') || $user->subscribed('essential-annual-inr') || 
+			$user->subscribed('essential-monthly-inr') || $user->subscribed('essential-annual-inr') ||
 			$user->subscribed('essential-monthly-usd') || $user->subscribed('essential-annual-usd');
 		// return $user->subscribed('enterprise-plan-annually') || $user->subscribed('enterprise-plan-quarterly') || $user->subscribed('enterprise-plan-annually-inr') || $user->subscribed('enterprise-plan-quarterly-inr');
 	}

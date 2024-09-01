@@ -192,7 +192,7 @@
 		} else {
 			// The card has been verified successfully...
 			console.log('Verified');
-			console.log('setupIntent', setupIntent);
+			// console.log('setupIntent', setupIntent);
 			let token = document.createElement('input')
 	        token.setAttribute('type', 'hidden')
 	        token.setAttribute('name', 'token')

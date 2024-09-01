@@ -59,6 +59,9 @@ class GoogleController extends Controller
 			$userType = session()->get('user_type');
 			$loginType = session()->get('login_type');
 			// return back()->withErrors($exp->getMessage());
+			if($loginType == 'login'){
+				return to_route('login')->with('message', $exp->getMessage());
+			}
 			return redirect()->route($userType->value . '.' . $loginType)->with('message', $exp->getMessage());
 		}
 	}

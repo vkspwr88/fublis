@@ -40,7 +40,7 @@
 							</div>
 							<div class="col-12">
 								<p class="m-0">
-									<a href="{{ route('architect.login') }}" class="btn btn-white fw-semibold">Sign In</a>
+									<a href="{{ route('login') }}" class="btn btn-white fw-semibold">Sign In</a>
 									<a href="{{ route('architect.signup') }}" class="btn btn-primary fw-semibold">Create free account</a>
 								</p>
 							</div>
@@ -64,7 +64,7 @@
 							</div>
 							<div class="col-12">
 								<p class="m-0">
-									<a href="{{ route('journalist.login') }}" class="btn btn-white fw-semibold">Sign In</a>
+									<a href="{{ route('login') }}" class="btn btn-white fw-semibold">Sign In</a>
 									<a href="{{ route('journalist.signup') }}" class="btn btn-primary fw-semibold">Create free account</a>
 								</p>
 							</div>

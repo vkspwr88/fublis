@@ -12,6 +12,7 @@ class LogoutController extends Controller
 	{
 		Session::flush();
 		Auth::logout();
-		return to_route('journalist.login');
+		// return to_route('journalist.login');
+		return to_route('login');
 	}
 }

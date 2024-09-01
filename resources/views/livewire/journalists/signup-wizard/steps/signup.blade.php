@@ -8,9 +8,9 @@
 					<div class="col-sm-12 col-md-6">
 						<div class="row justify-content-between align-items-center">
 							<div class="col-12">
-								<div class="card-body px-5">
+								<div class="card-body p-5">
 									<h5 class="card-title text-dark fs-3 fw-semibold m-0 py-2">Sign up</h5>
-									<p class="card-text text-secondary fs-6 fw-normal m-0 py-2">Create your free account</p>
+									<p class="card-text text-secondary fs-6 fw-normal m-0 py-2">For journalists, editors, writers, or any other role working with a publication</p>
 									<form class="py-3" wire:submit="signup">
 										@include('users.includes.error-alert')
 										<div class="mb-3">
@@ -38,7 +38,7 @@
 										</div>
 										<div class="d-grid gap-3">
 											<button class="btn btn-primary fs-6 fw-semibold" type="submit">
-												Get started <x-users.spinners.white-btn wire:target="signup" />
+												Sign up as Journalist <x-users.spinners.white-btn wire:target="signup" />
 											</button>
 											<a href="{{ route('auth.google.index', ['userType' => 'journalist', 'loginType' => 'signup']) }}" class="btn btn-white fs-6 fw-semibold" type="button">
 												<svg xmlns="http://www.w3.org/2000/svg" width="25" height="24" viewBox="0 0 25 24" fill="none">
@@ -57,12 +57,16 @@
 											</a>
 										</div>
 									</form>
+									<p class="card-text text-secondary fs-6 m-0 py-2">If you're a media professional - whether a journalist, editor, writer, or in another role -working with a publication, sign up for your free account here:</p>
+									<div class="d-grid m-0 py-2">
+										<a href="{{ route('architect.signup') }}" class="btn btn-primary fs-6 fw-semibold" type="button">Sign up as Brand</a>
+									</div>
 									<p class="card-text text-center text-secondary fs-6 m-0 py-2">Already have an account? <a href="{{ route('journalist.login') }}" class="text-purple-700 fw-semibold">Log in</a></p>
 								</div>
 							</div>
 						</div>
 					</div>
-					<x-users.auth.image-column :src="asset('images/signup/fublis.png')" />
+					<x-users.auth.image-column :src="asset('images/signup/fublis-stretch.png')" />
 				</div>
 			</div>
 		</div>

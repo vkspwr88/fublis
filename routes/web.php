@@ -47,6 +47,9 @@ Route::get('/', function () {
 	if(isJournalist()){
 		return to_route('journalist.media-kit.index');
 	}
+	if(isAdmin()){
+		return to_route('filament.backend.pages.dashboard');
+	}
     return view('users.pages.home');
 })->name('home');
 
@@ -75,6 +78,12 @@ Route::get('/blank', function () {
 /* Route::get('/email', function () {
     return (new VerifySubscriber())->render();
 })->name('email'); */
+
+Route::middleware('guest')->group(function () {
+	Route::get('/login', [Users\Auth\LoginController::class, 'index'])->name('login');
+	Route::get('/signup', [Users\Auth\SignupController::class, 'index'])->name('signup');
+	Route::get('/forgot-password', [Users\Auth\ForgotPasswordController::class, 'index'])->name('forgot');
+});
 
 Route::name('auth.')->prefix('auth')->group(function () {
 	Route::name('google.')->prefix('google')->controller(Users\Auth\GoogleController::class)->group(function () {

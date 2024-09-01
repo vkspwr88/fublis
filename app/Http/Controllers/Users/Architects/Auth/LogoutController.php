@@ -12,6 +12,7 @@ class LogoutController extends Controller
 	{
 		Session::flush();
 		Auth::logout();
-		return to_route('architect.login');
+		// return to_route('architect.login');
+		return to_route('login');
 	}
 }
