@@ -17,17 +17,17 @@
 
 @section('body')
 <div class="container">
-	<h4 class="text-center text-black fs-3 fw-bold m-0 py-2">Choose your account type</h4>
-	<p class="text-center text-black fs-6 fw-normal m-0 py-2">You're just 2 mins away from experiencing new world of publishing.</p>
-	<div class="row g-4 gy-5 pt-4">
+	<h4 class="py-2 m-0 text-center text-black fs-3 fw-bold">Choose your account type</h4>
+	<p class="py-2 m-0 text-center text-black fs-6 fw-normal">You're just 2 mins away from experiencing new world of publishing.</p>
+	<div class="pt-4 row g-4 gy-5">
 		<div class="col-xl-10 offset-xl-1">
-			<div class="card rounded-4 shadow border border-1">
+			<div class="border shadow card rounded-4 border-1">
 				<div class="row g-0 align-items-center">
 					<div class="col-md-6 border-end" id="brandSignUpColumn">
-						<div class="card-body py-5 px-lg-5 px-md-4 px-sm-5 px-4">
-							<h5 class="card-title text-dark fs-3 fw-semibold m-0 pb-2">Sign up as a Brand</h5>
-							<p class="card-text text-secondary fs-6 fw-normal m-0 py-2">For Architecture & Design Firms, Brands, Businesses & Startups</p>
-							<div class="d-grid gap-3">
+						<div class="px-4 py-5 card-body px-lg-5 px-md-4 px-sm-5">
+							<h5 class="pb-2 m-0 card-title text-dark fs-3 fw-semibold">Sign up as a Brand</h5>
+							<p class="py-2 m-0 card-text text-secondary fs-6 fw-normal">For Architecture & Design Firms, Brands, Businesses & Startups</p>
+							<div class="gap-3 d-grid">
 								<a href="{{ route('architect.signup') }}" class="btn btn-primary fs-6 fw-semibold" type="button">Sign up as Brand</a>
 								<a href="{{ route('auth.google.index', ['userType' => 'architect', 'loginType' => 'signup']) }}" class="btn btn-white fs-6 fw-semibold" type="button">
 									<svg xmlns="http://www.w3.org/2000/svg" width="25" height="24" viewBox="0 0 25 24" fill="none">
@@ -48,10 +48,10 @@
 						</div>
 					</div>
 					<div class="col-md-6">
-						<div class="card-body py-5 px-lg-5 px-md-4 px-sm-5 p-4">
-							<h5 class="card-title text-dark fs-3 fw-semibold m-0 pb-2">Sign up as a Journalist</h5>
-							<p class="card-text text-secondary fs-6 fw-normal m-0 py-2">For Architecture & Design Firms, Brands, Businesses & Startups</p>
-							<div class="d-grid gap-3">
+						<div class="p-4 py-5 card-body px-lg-5 px-md-4 px-sm-5">
+							<h5 class="pb-2 m-0 card-title text-dark fs-3 fw-semibold">Sign up as a Journalist</h5>
+							<p class="py-2 m-0 card-text text-secondary fs-6 fw-normal">For journalists, editors, writers, or any other role working with a publication</p>
+							<div class="gap-3 d-grid">
 								<a href="{{ route('journalist.signup') }}" class="btn btn-primary fs-6 fw-semibold" type="button">Sign up as Journalist</a>
 								<a href="{{ route('auth.google.index', ['userType' => 'journalist', 'loginType' => 'signup']) }}" class="btn btn-white fs-6 fw-semibold" type="button">
 									<svg xmlns="http://www.w3.org/2000/svg" width="25" height="24" viewBox="0 0 25 24" fill="none">
@@ -78,8 +78,8 @@
 			<img src="{{ asset('images/home/fublis-banner.png') }}" alt="" class="img-fluid">
 		</div>
 	</div>
-	{{-- <h4 class="text-center text-black fs-5 fw-bold m-0 py-2">Get your stories published. It's fast & easy.</h4>
-	<p class="text-center text-black fs-6 fw-normal m-0 py-2">You’re just 2 mins away from pitching stories to journalists.</p>
+	{{-- <h4 class="py-2 m-0 text-center text-black fs-5 fw-bold">Get your stories published. It's fast & easy.</h4>
+	<p class="py-2 m-0 text-center text-black fs-6 fw-normal">You’re just 2 mins away from pitching stories to journalists.</p>
 
 	<livewire:architect-signup-wizard show-step="{{ $step }}" :initial-state="$initialState" /> --}}
 </div>

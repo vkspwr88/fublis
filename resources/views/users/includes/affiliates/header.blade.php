@@ -45,16 +45,13 @@
 							<p class="text-sm leading-5">Signed in as </p>
 							<p class="text-sm font-medium leading-5 text-gray-900">{{ Auth::user()->email }}</p>
 						</div>
+						{{-- <div class="border-t border-gray-100"></div>
+						<div class="py-1">
+							<a class="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900" href="https://eduwik.com/affiliate-area/settings/">Settings</a>
+						</div> --}}
 						<div class="border-t border-gray-100"></div>
 						<div class="py-1">
-							<a class="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900"
-								href="https://eduwik.com/affiliate-area/settings/">Settings</a>
-						</div>
-						<div class="border-t border-gray-100"></div>
-						<div class="py-1">
-							<a class="block w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900"
-								href="https://eduwik.com/wp-login.php?action=logout&amp;redirect_to=https%3A%2F%2Feduwik.com%2Faffiliate-area%2F&amp;_wpnonce=518a503456">
-								Sign out </a>
+							<a class="block w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900" href="{{ route('journalist.logout') }}">Sign out</a>
 						</div>
 					</div>
 				</div>
