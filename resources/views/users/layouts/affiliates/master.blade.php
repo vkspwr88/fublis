@@ -17,13 +17,13 @@
 		<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 		{{-- @empty('alpine') --}}
-			<script src="//unpkg.com/alpinejs" defer></script>
+			{{-- <script src="//unpkg.com/alpinejs" defer></script> --}}
 		{{-- @endisset --}}
 		{{-- <script src="{{ asset('js/affiliate/core.js') }}"></script> --}}
 	</head>
 
 	<body class="font-sans antialiased">
-		<div class="flex h-screen overflow-hidden bg-gray-100"{{--  x-data="{ sidebarOpen: false, notificationsOpen: false }" @keydown.window.escape="{ sidebarOpen = false, notificationsOpen = false }" --}}>
+		<div class="flex h-screen overflow-hidden bg-gray-100" x-data="{ sidebarOpen: false, notificationsOpen: false }" @keydown.window.escape=" sidebarOpen = false; notificationsOpen = false ">
 			@include('users.includes.affiliates.sidebar')
 			<div class="flex flex-col flex-1 w-0 overflow-hidden">
 				@include('users.includes.affiliates.header')
