@@ -21,18 +21,13 @@ class CronService
 		try{
 			$pendingDownloadRequests = DownloadRequestService::getTodayPendingRequests();
 			$pendingDownloadRequests = DownloadRequestService::loadModel($pendingDownloadRequests);
-			// dd($pendingDownloadRequests->groupBy('mediaKit.architect.user'));
 			$requestGroup = $pendingDownloadRequests->groupBy('mediaKit.architect.user');
 			foreach($requestGroup as $user => $downloadRequest){
-				// dd($downloadRequest->pluck('mediaKit')->pluck('story')->pluck('title'), json_decode($user), $downloadRequest);
 				$mediaKitTitles = $downloadRequest->pluck('mediaKit.story.title');
 				$user = json_decode($user);
-				// dd($user->email, $user->name, $mediaKitTitles);
+				info('Name: ' . $user->name, ', Email: ' . $user->email, 'MediaKit: ' . $mediaKitTitles);
 				Mail::to($user->email)->queue(new DailyDownloadRequestMail($user->email, $user->name, $mediaKitTitles));
-				// Mail::to('amansaini87@rediffmail.com')->queue(new DailyDownloadRequestMail($user->email, $user->name, $mediaKitTitles));
 			}
-			/* $statsService = new StatsService;
-			$statsService->sendStatEmails('month'); */
 		}
 		catch(Exception $exp){
 			ErrorLogController::logErrorNew('SendArchitectDailyDownloadRequests', $exp);
@@ -51,6 +46,7 @@ class CronService
 				$mediaKits2 = $user->journalist->associatedPublications->pluck('categories')->flatten()->pluck('mediaKits')->flatten();
 				$mediaKits = $mediaKits1->merge($mediaKits2)->pluck('story')->select(['cover_image_path', 'title']);
 				// dd($mediaKits, $user, $mediaKits1, $mediaKits2);
+				info('Name: ' . $user->name, ', Email: ' . $user->email, 'Total MediaKits: ' . $mediaKits->count());
 				Mail::to($user->email)->queue(new DailyMediaKitMail($user->email, $user->name, $mediaKits));
 			}
 		}
@@ -69,6 +65,7 @@ class CronService
 			// dd($pitches, $requestGroup);
 			foreach($requestGroup as $user => $pitch){
 				$user = json_decode($user);
+				info('Name: ' . $user->name, ', Email: ' . $user->email);
 				Mail::to($user->email)->queue(new DailyPitchReceivedMail($user->email, $user->name));
 			}
 		}

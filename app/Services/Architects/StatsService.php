@@ -38,11 +38,14 @@ class StatsService
 				$resultData['total_views'] = $analytics->where('data_type', 'App\Models\MediaKitView')->count();
 				$resultData['total_downloads'] = $analytics->where('data_type', 'App\Models\MediaKitDownload')->count();
 				// dd($dateRange['from_date'], $dateRange['to_date'], $resultData, $architect->mediaKits);
-				if($statsType == 'week'){
-					Mail::to($architect->user->email)->queue(new WeeklyStatsMail($architect->user->email, $architect->user->name, $resultData));
-				}
-				elseif($statsType == 'month'){
-					Mail::to($architect->user->email)->queue(new MonthlyStatsMail($architect->user->email, $architect->user->name, $resultData));
+				if($resultData['total_media_kits'] > 0 || $resultData['total_pitches_sent'] > 0 || $resultData['total_views'] > 0 || $resultData['total_downloads'] > 0){
+					info('Name: ' . $architect->user->name, ', Email: ' . $architect->user->email, 'Result: ' . $resultData);
+					if($statsType == 'week'){
+						Mail::to($architect->user->email)->queue(new WeeklyStatsMail($architect->user->email, $architect->user->name, $resultData));
+					}
+					elseif($statsType == 'month'){
+						Mail::to($architect->user->email)->queue(new MonthlyStatsMail($architect->user->email, $architect->user->name, $resultData));
+					}
 				}
 			}
 		}
