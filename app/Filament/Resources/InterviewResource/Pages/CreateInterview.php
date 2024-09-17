@@ -5,6 +5,7 @@ namespace App\Filament\Resources\InterviewResource\Pages;
 use App\Filament\Resources\InterviewResource;
 use Filament\Actions;
 use Filament\Resources\Pages\CreateRecord;
+use Illuminate\Support\Facades\Auth;
 
 class CreateInterview extends CreateRecord
 {
@@ -12,8 +13,8 @@ class CreateInterview extends CreateRecord
 
 	protected function mutateFormDataBeforeCreate(array $data): array
     {
-		$data['created_by'] = auth()->id();
-		$data['updated_by'] = auth()->id();
+		$data['created_by'] = Auth::id();
+		$data['updated_by'] = Auth::id();
 		return $data;
 	}
 }
