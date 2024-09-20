@@ -55,7 +55,7 @@ class CronService
 				if($mediaKits->count()){
 					info('Name: ' . $user->name . ', Email: ' . $user->email . 'Total MediaKits: ' . $mediaKits->count());
 					Mail::to($user->email)->queue(new DailyMediaKitMail($user->email, $user->name, $mediaKits));
-				}				
+				}
 			}
 		}
 		catch(Exception $exp){
