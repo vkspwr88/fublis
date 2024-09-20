@@ -8,7 +8,12 @@
 <div>
 <p class="mb-3">Preview of Media Kits:</p>
 @foreach ($mediaKits as $mediaKit)
-<p><img src="{{ Storage::url($mediaKit['cover_image_path']) }}" alt="Cover" height="100" width="200"> <strong>{{ $mediaKit['title'] }}</strong></p>
+<p style="display: flex; flex-direction: row; margin-bottom: 25px;">
+<img src="{{ Storage::url($mediaKit['cover_image_path']) }}" alt="Cover" height="85" width="170">
+<span style="margin-left: 20px;">
+<strong>{{ $mediaKit['title'] }}</strong>
+</span>
+</p>
 @endforeach
 </div>
 <div class="mb-3">
