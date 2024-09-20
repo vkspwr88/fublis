@@ -52,8 +52,10 @@ class CronService
 					->whereBetween('created_at', [$startDate, $endDate])
 					->sortByDesc('created_at');
 				// dd($mediaKits, $user, $mediaKits1, $mediaKits2);
-				info('Name: ' . $user->name . ', Email: ' . $user->email . 'Total MediaKits: ' . $mediaKits->count());
-				Mail::to($user->email)->queue(new DailyMediaKitMail($user->email, $user->name, $mediaKits));
+				if($mediaKits->count()){
+					info('Name: ' . $user->name . ', Email: ' . $user->email . 'Total MediaKits: ' . $mediaKits->count());
+					Mail::to($user->email)->queue(new DailyMediaKitMail($user->email, $user->name, $mediaKits));
+				}				
 			}
 		}
 		catch(Exception $exp){
