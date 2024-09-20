@@ -49,7 +49,8 @@ class CronService
 				$mediaKits = $mediaKits1->merge($mediaKits2)
 					->pluck('story')
 					->select(['cover_image_path', 'title'])
-					->whereBetween('created_at', [$startDate, $endDate]);
+					->whereBetween('created_at', [$startDate, $endDate])
+					->sortByDesc('created_at');
 				// dd($mediaKits, $user, $mediaKits1, $mediaKits2);
 				info('Name: ' . $user->name . ', Email: ' . $user->email . 'Total MediaKits: ' . $mediaKits->count());
 				Mail::to($user->email)->queue(new DailyMediaKitMail($user->email, $user->name, $mediaKits));
