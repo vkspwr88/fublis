@@ -23,9 +23,9 @@ class CronService
 			$pendingDownloadRequests = DownloadRequestService::loadModel($pendingDownloadRequests);
 			$requestGroup = $pendingDownloadRequests->groupBy('mediaKit.architect.user');
 			foreach($requestGroup as $user => $downloadRequest){
-				$mediaKitTitles = $downloadRequest->pluck('mediaKit.story.title');
+				$mediaKitTitles = $downloadRequest->pluck('mediaKit.story.title')->unique();
 				$user = json_decode($user);
-				info('Name: ' . $user->name . ', Email: ' . $user->email . 'MediaKit: ' . $mediaKitTitles);
+				info('Name: ' . $user->name . ', Email: ' . $user->email . ', MediaKits: ' . $mediaKitTitles);
 				Mail::to($user->email)->queue(new DailyDownloadRequestMail($user->email, $user->name, $mediaKitTitles));
 			}
 		}
@@ -53,7 +53,7 @@ class CronService
 					->sortByDesc('created_at');
 				// dd($mediaKits, $user, $mediaKits1, $mediaKits2);
 				if($mediaKits->count()){
-					info('Name: ' . $user->name . ', Email: ' . $user->email . 'Total MediaKits: ' . $mediaKits->count());
+					info('Name: ' . $user->name . ', Email: ' . $user->email . ', Total MediaKits: ' . $mediaKits->count());
 					Mail::to($user->email)->queue(new DailyMediaKitMail($user->email, $user->name, $mediaKits));
 				}
 			}
