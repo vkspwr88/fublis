@@ -26,7 +26,7 @@
 											<div class="row align-items-center g-3">
 												<div class="col-auto">
 													@php
-														$profile = App\Http\Controllers\Users\AvatarController::getProfileAvatar($publication, 'publication');
+														$profileImg = App\Http\Controllers\Users\AvatarController::getProfileAvatar($publication, 'publication');
 														/* $profileImg = $publication->profileImage ?
 																		Storage::url($publication->profileImage->image_path) :
 																		App\Http\Controllers\Users\AvatarController::setProfileAvatar([
