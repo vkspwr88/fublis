@@ -39,7 +39,7 @@ class StatsService
 			$resultData['total_submissions_received'] = $submissions->whereBetween('created_at', [$dateRange['from_date'], $dateRange['to_date']])->count();
 			// dd($dateRange['from_date'], $dateRange['to_date'], $resultData, $architect->mediaKits);
 			if($resultData['total_pitches_received'] > 0 || $resultData['total_calls_created'] > 0 || $resultData['total_views'] > 0 || $resultData['total_submissions_received'] > 0){
-				info('Name: ' . $journalist->user->name . ', Email: ' . $journalist->user->email . 'Result: ' . json_encode($resultData));
+				info('Name: ' . $journalist->user->name . ', Email: ' . $journalist->user->email . ', Result: ' . json_encode($resultData));
 				if($statsType == 'week'){
 					Mail::to($journalist->user->email)->queue(new WeeklyStatsMail($journalist->user->email, $journalist->user->name, $resultData));
 				}
