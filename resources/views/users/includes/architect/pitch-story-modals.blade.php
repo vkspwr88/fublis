@@ -26,7 +26,8 @@
 											<div class="row align-items-center g-3">
 												<div class="col-auto">
 													@php
-														$profileImg = $publication->profileImage ?
+														$profile = App\Http\Controllers\Users\AvatarController::getProfileAvatar($publication, 'publication');
+														/* $profileImg = $publication->profileImage ?
 																		Storage::url($publication->profileImage->image_path) :
 																		App\Http\Controllers\Users\AvatarController::setProfileAvatar([
 																			'name' => $publication->name,
@@ -34,7 +35,7 @@
 																			'fontSize' => 22,
 																			'background' => $publication->background_color,
 																			'foreground' => $publication->foreground_color,
-																		], 'publication');
+																		], 'publication'); */
 													@endphp
 													<img class="rounded-circle img-square img-50" alt="..." src="{{ $profileImg }}" />
 												</div>
