@@ -12,6 +12,7 @@ use App\Services\NotificationService;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 
@@ -52,17 +53,31 @@ class DownloadController extends Controller
 				'media_kit_id' => $mediaKit->id,
 				'requested_by' => auth()->id(),
 			]);
+			$user = Auth::user();
+			$journalist = $user->journalist;
 			$this->notificationService->sendDownloadRequestNotification([
 				'poly' => $downloadRequest,
 				'architect_user_id' => $mediaKit->architect->user_id,
-				'journalist_slug' => auth()->user()->journalist->slug,
-				'journalist_name' => auth()->user()->name,
+				'journalist_slug' => $journalist->slug,
+				'journalist_name' => $user->name,
 				'media_kit_id' => $mediaKit->id,
 				'media_kit_slug' => $mediaKit->slug,
 				'media_kit_title' => $mediaKit->story->title,
 			]);
 			DB::commit();
-			Mail::to($mediaKit->architect->user->email)->queue(new DownloadRequestMail($mediaKit->architect->user->email, $mediaKit->architect->user->name, $mediaKit->story->title, formatDate(Carbon::now())));
+			Mail::to($mediaKit->architect->user->email)
+				->queue(new DownloadRequestMail(
+					$mediaKit->architect->user->email,
+					$mediaKit->architect->user->name,
+					$mediaKit->story->title,
+					formatDate(Carbon::now()),
+					[
+						'journalist' => $user->name,
+						'publication' => $journalist->publications[0]->name,
+						'requestTime' => Carbon::now()->format('H:i'),
+						'requestDate' => Carbon::now()->format('jS F Y'),
+					],
+				));
 		}
 		catch(Exception $exp){
 			DB::rollBack();
