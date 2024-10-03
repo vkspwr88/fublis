@@ -20,6 +20,9 @@
 	<h4 class="py-2 m-0 text-center text-black fs-3 fw-bold">Choose your account type</h4>
 	<p class="py-2 m-0 text-center text-black fs-6 fw-normal">You're just 2 mins away from experiencing new world of publishing.</p>
 	<div class="pt-4 row g-4 gy-5">
+		<div class="col-12">
+			@include('users.includes.error-alert')
+		</div>
 		<div class="col-xl-10 offset-xl-1">
 			<div class="border shadow card rounded-4 border-1">
 				<div class="row g-0 align-items-center">
