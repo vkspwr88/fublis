@@ -1,8 +1,8 @@
-<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
-	<div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 99%;">
+<div class="modal fade" id="modal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true" wire:ignore>
+	<div class="modal-dialog modal-dialog-centered" style="max-width: 99%;">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title mx-auto" id="modalLabel">Crop Cover Image Before Upload</h5>
+				<h5 class="mx-auto modal-title" id="modalLabel">Crop Cover Image Before Upload</h5>
 				{{-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">×</span>
 				</button> --}}
