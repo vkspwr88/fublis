@@ -14,9 +14,11 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 use Livewire\Component;
 use Illuminate\Support\Str;
+use Livewire\Attributes\Isolate;
 use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
 use Livewire\WithFileUploads;
 
+#[Isolate]
 class Index extends Component
 {
     use WithFileUploads;
@@ -28,6 +30,8 @@ class Index extends Component
 	public $oldProjectBrief = [];
 	public $answers = [];
 	public $profile_pic_path;
+
+	public $autosaveStopped = false;
 
 	public function mount($interview)
 	{
@@ -112,6 +116,13 @@ class Index extends Component
         app('livewire')->updateProperty($this, $name, $file);
     }
 
+	public function autosave()
+	{
+		if(!$this->autosaveStopped){
+			$this->save('autosave');
+		}
+	}
+
 	public function save($type)
 	{
 		$validated = $this->validate();
@@ -166,6 +177,11 @@ class Index extends Component
 				'message' => 'You have successfully saved the interview in draft.'
 			]);
 			$this->redirectUser();
+		}
+		elseif($type == 'autosave'){
+			$this->profile_pic_path = $this->interview->profile_pic_path;
+			$this->oldProjectBrief = $this->interview->projectBrief->pluck('image_path');
+			$this->projectBrief = [];
 		}
 	}
 

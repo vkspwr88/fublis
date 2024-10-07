@@ -1,5 +1,9 @@
 <form wire:submit="submit">
+	{{-- @if ($autosaveStopped) --}}
 	<div class="row g-4">
+	{{-- @else --}}
+	<div class="row g-4" wire:poll.10s="autosave">
+	{{-- @endif --}}
 		<div class="col-md-12 text-end">
 			<button class="btn btn-white fs-6 fw-semibold" type="button" wire:click="draft">
 				Save Draft <x-users.spinners.primary-btn wire:target="draft" />
@@ -72,7 +76,7 @@
 										<p class="py-2 m-0 text-center card-text text-secondary fs-6">
 											<label for="coverImage"><span class="text-purple-700 cursor-pointer fw-semibold">Click to upload</span></label> or drag and drop
 										</p>
-										<input type="file" id="coverImage" class="d-none" @change="handleCropFileSelect">
+										<input type="file" id="coverImage" class="d-none" @change="handleCropFileSelect" {{-- wire:change="$set('autosaveStopped', true)" --}}>
 										<p class="py-2 m-0 text-center card-text text-secondary fs-6">{{ __('text.profileImage') }}</p>
 										@if($profile_pic_path)
 											<ul class="p-0 mt-3 text-center" style="list-style: none;">
@@ -163,7 +167,7 @@
 												@endif
 												<div x-show="isUploading" style="display: none;">
 													<div class="progress">
-														<div class="progress-bar bg-primary" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="transition: width 1s" :style="`width: ${progress}%;`"></div>
+														<div class="progress-bar bg-primary" aria-valuemin="0" aria-valuemax="100" style="transition: width 1s" :style="`width: ${progress}%;`"></div>
 													</div>
 												</div>
 											</div>
