@@ -21,8 +21,8 @@ class EditProject extends EditRecord
 
 	protected function mutateFormDataBeforeFill(array $data): array
     {
-		$data = ProjectController::mutateFormDataBeforeFill($data);
 		// dd($data);
+		$data = ProjectController::mutateFormDataBeforeFill($data);
         return $data;
     }
 }

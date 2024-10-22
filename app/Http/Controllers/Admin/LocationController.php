@@ -74,6 +74,7 @@ class LocationController extends Controller
 				$data['location_id'] = $city->id;
 				$data['state'] = $state->id;
 				$data['country'] = $country->id;
+				// dd($data);
 			}
 		}
 
