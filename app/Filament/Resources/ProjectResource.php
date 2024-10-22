@@ -174,18 +174,22 @@ class ProjectResource extends Resource
                 Tables\Columns\TextColumn::make('projectStatus.name')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('materials')
+					->toggleable(isToggledHiddenByDefault: true)
                     ->searchable(),
-                Tables\Columns\TextColumn::make('buildingTypology.name')
+                Tables\Columns\TextColumn::make('buildingUse.buildingTypology.name')
 					->toggleable(isToggledHiddenByDefault: true)
                     ->searchable(),
                 Tables\Columns\TextColumn::make('buildingUse.name')
 					->toggleable(isToggledHiddenByDefault: true)
                     ->searchable(),
                 Tables\Columns\TextColumn::make('image_credits')
+					->toggleable(isToggledHiddenByDefault: true)
 					->searchable(),
                 Tables\Columns\TextColumn::make('text_credits')
+					->toggleable(isToggledHiddenByDefault: true)
                     ->searchable(),
                 Tables\Columns\TextColumn::make('render_credits')
+					->toggleable(isToggledHiddenByDefault: true)
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
