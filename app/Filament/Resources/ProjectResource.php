@@ -8,6 +8,7 @@ use App\Http\Controllers\Users\BuildingTypologyController;
 use App\Http\Controllers\Users\BuildingUseController;
 use App\Http\Controllers\Users\LocationController;
 use App\Models\Project;
+use App\Models\User;
 use Awcodes\Curator\Components\Forms\CuratorPicker;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -27,7 +28,8 @@ class ProjectResource extends Resource
 
 	public static function canAccess(): bool
 	{
-		return auth()->user()->hasRole('Super Admin');
+		$user = User::find(auth()->id());
+		return $user->hasRole('Super Admin');
 	}
 
     public static function form(Form $form): Form
@@ -160,12 +162,19 @@ class ProjectResource extends Resource
 					->toggleable(isToggledHiddenByDefault: true)
                     ->searchable(),
                 Tables\Columns\TextColumn::make('location.name')
+					->label('Country')
+                    ->searchable(),
+				Tables\Columns\TextColumn::make('state.name')
+					->label('State')
+                    ->searchable(),
+				Tables\Columns\TextColumn::make('city.name')
+					->label('City')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('projectStatus.name')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('materials')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('building_typology_id')
+                Tables\Columns\TextColumn::make('buildingTypology.name')
 					->toggleable(isToggledHiddenByDefault: true)
                     ->searchable(),
                 Tables\Columns\TextColumn::make('buildingUse.name')
