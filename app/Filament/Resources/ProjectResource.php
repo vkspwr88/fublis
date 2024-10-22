@@ -144,7 +144,8 @@ class ProjectResource extends Resource
                 /* Tables\Columns\TextColumn::make('id')
                     ->label('ID')
                     ->searchable(), */
-				Tables\Columns\ImageColumn::make('cover_image_path'),
+				Tables\Columns\TextColumn::make('cover_image_path'),
+				// Tables\Columns\ImageColumn::make('cover_image_path'),
                 Tables\Columns\TextColumn::make('title')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('site_area')
