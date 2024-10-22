@@ -144,8 +144,8 @@ class ProjectResource extends Resource
                 /* Tables\Columns\TextColumn::make('id')
                     ->label('ID')
                     ->searchable(), */
-				Tables\Columns\TextColumn::make('cover_image_path'),
-				// Tables\Columns\ImageColumn::make('cover_image_path'),
+				// Tables\Columns\TextColumn::make('cover_image_path'),
+				Tables\Columns\ImageColumn::make('cover_image_path'),
                 Tables\Columns\TextColumn::make('title')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('site_area')
@@ -181,7 +181,8 @@ class ProjectResource extends Resource
                 Tables\Columns\TextColumn::make('buildingUse.name')
 					->toggleable(isToggledHiddenByDefault: true)
                     ->searchable(),
-                Tables\Columns\ImageColumn::make('image_credits'),
+                Tables\Columns\TextColumn::make('image_credits')
+					->searchable(),
                 Tables\Columns\TextColumn::make('text_credits')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('render_credits')
