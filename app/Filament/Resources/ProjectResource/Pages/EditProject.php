@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\ProjectResource\Pages;
 
 use App\Filament\Resources\ProjectResource;
+use App\Http\Controllers\Admin\ProjectController;
 use Filament\Actions;
 use Filament\Resources\Pages\EditRecord;
 
@@ -16,5 +17,12 @@ class EditProject extends EditRecord
             Actions\ViewAction::make(),
             Actions\DeleteAction::make(),
         ];
+    }
+
+	protected function mutateFormDataBeforeFill(array $data): array
+    {
+		$data = ProjectController::mutateFormDataBeforeFill($data);
+		// dd($data);
+        return $data;
     }
 }
