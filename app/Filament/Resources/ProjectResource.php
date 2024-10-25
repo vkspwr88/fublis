@@ -71,35 +71,34 @@ class ProjectResource extends Resource
                 Forms\Components\Select::make('project_status_id')
                     ->relationship('projectStatus', 'name')
                     ->required(),
-                Forms\Components\TextInput::make('materials')
-                    ->maxLength(255),
+                Forms\Components\Textarea::make('materials')
+                    ->maxLength(65535),
                 Forms\Components\Select::make('building_typology_id')
 					->options( fn (): Collection => BuildingTypologyController::getAll()->pluck('name', 'id') ),
                 Forms\Components\Select::make('building_use_id')
 					->options( fn (Get $get): Collection => BuildingUseController::getAllByTypologyId($get('building_typology_id'))->pluck('name', 'id') )
                     ->relationship('buildingUse', 'name'),
-                Forms\Components\FileUpload::make('image_credits')
-                    ->image(),
-                Forms\Components\TextInput::make('text_credits')
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('render_credits')
-                    ->maxLength(255),
+                Forms\Components\Textarea::make('image_credits')
+					->maxLength(65535),
+                Forms\Components\Textarea::make('text_credits')
+                    ->maxLength(65535),
+                Forms\Components\Textarea::make('render_credits')
+                    ->maxLength(65535),
                 Forms\Components\Textarea::make('consultants')
-                    ->maxLength(65535)
-                    ->columnSpanFull(),
+                    ->maxLength(65535),
                 Forms\Components\Textarea::make('design_team')
-                    ->maxLength(65535)
-                    ->columnSpanFull(),
+                    ->maxLength(65535),
                 /* Forms\Components\Textarea::make('cover_image_path')
                     ->required()
                     ->maxLength(65535)
                     ->columnSpanFull(), */
-				CuratorPicker::make('cover_image_path')
+				Forms\Components\FileUpload::make('cover_image_path')
 					->label('Cover Image (800 x 400)')
 					->buttonLabel('Select Cover Image')
                     ->acceptedFileTypes(['image/*'])
 					->columnSpanFull()
 					->directory('images/projects/cover-images')
+					->downloadable()
                     ->required(),
                 Forms\Components\Textarea::make('project_brief')
                     ->required()
@@ -110,12 +109,14 @@ class ProjectResource extends Resource
                     ->columnSpanFull(), */
 				Forms\Components\FileUpload::make('project_doc_path')
 					->directory('documents/projects')
+					->downloadable()
                     ->columnSpanFull(),
                 Forms\Components\Textarea::make('project_doc_link')
                     ->maxLength(65535)
                     ->columnSpanFull(),
 				Forms\Components\FileUpload::make('photographs')
 					->directory('images/projects/photographs')
+					->downloadable()
 					->multiple()
 					->reorderable()
 					->appendFiles()
@@ -126,6 +127,7 @@ class ProjectResource extends Resource
                     ->columnSpanFull(),
 				Forms\Components\FileUpload::make('drawings')
 					->directory('images/projects/drawings')
+					->downloadable()
 					->multiple()
 					->reorderable()
 					->appendFiles()
