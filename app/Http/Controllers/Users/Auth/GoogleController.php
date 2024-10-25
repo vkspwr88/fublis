@@ -57,9 +57,9 @@ class GoogleController extends Controller
 		catch(Exception $exp){
 			DB::rollBack();
 			// dd($exp->getMessage());
-			ErrorLogController::logErrorNew('google callback', $exp);
 			$userType = session()->get('user_type');
 			$loginType = session()->get('login_type');
+			ErrorLogController::logErrorNew('google callback | ' . $userType . ' | ' . $loginType, $exp);
 			// return back()->withErrors($exp->getMessage());
 			if($loginType == 'login'){
 				return to_route('login')->with('message', $exp->getMessage());
