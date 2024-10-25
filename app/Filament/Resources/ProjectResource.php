@@ -92,9 +92,10 @@ class ProjectResource extends Resource
                     ->required()
                     ->maxLength(65535)
                     ->columnSpanFull(), */
+				// CuratorPicker::make('cover_image_path')
 				Forms\Components\FileUpload::make('cover_image_path')
 					->label('Cover Image (800 x 400)')
-					->buttonLabel('Select Cover Image')
+					// ->buttonLabel('Select Cover Image')
                     ->acceptedFileTypes(['image/*'])
 					->columnSpanFull()
 					->directory('images/projects/cover-images')
