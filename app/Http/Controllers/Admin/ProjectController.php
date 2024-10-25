@@ -45,7 +45,7 @@ class ProjectController extends Controller
 			}
 			else{
 				$country = UsersLocationController::getCountryByCountryName($location->name);
-				dd($location, $data, $country);
+				// dd($location, $data, $country);
 				$data['country'] = $country->id;
 				$data['state'] = $data['state_id'];
 				$data['location_id'] = $data['city_id'];
