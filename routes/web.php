@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Payments\StripeController;
 use App\Http\Controllers\SitemapController;
 use App\Http\Controllers\Users;
@@ -40,18 +41,7 @@ use Illuminate\Support\Facades\Route;
 // 	Mail::to('amansaini87@rediffmail.com')->send(new TestMail('amansaini87@rediffmail.com'));
 // })->name('test-email');
 
-Route::get('/', function () {
-	if(isArchitect()){
-		return to_route('architect.pitch-story.publications.index');
-	}
-	if(isJournalist()){
-		return to_route('journalist.media-kit.index');
-	}
-	if(isAdmin()){
-		return to_route('filament.backend.pages.dashboard');
-	}
-    return view('users.pages.home');
-})->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('/blank', function () {
     return view('users.pages.blank');
