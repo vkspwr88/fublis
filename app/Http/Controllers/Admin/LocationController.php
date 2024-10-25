@@ -69,6 +69,7 @@ class LocationController extends Controller
 			if($data['location_id']){
 				$location = UsersLocationController::findById($data['location_id']);
 				$city = UsersLocationController::getCityByCityName($location->name);
+				dd($location, $city, $data);
 				if($city->state){
 					$state = $city->state;
 					$data['state'] = $state->id;
