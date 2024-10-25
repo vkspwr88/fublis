@@ -18,9 +18,9 @@ class HomeController extends Controller
 			return to_route('filament.backend.pages.dashboard');
 		}
 		// dd($request->all());
-		if($request->ref){
-			dd($request->ref);
-		}
+		// if($request->ref){
+		// 	dd($request->ref);
+		// }
 		return view('users.pages.home');
 	}
 }
