@@ -44,8 +44,9 @@ class ProjectController extends Controller
 				$data = LocationController::setLocationForEdit($data);
 			}
 			else{
-				dd($location, $data);
-				$data['country'] = $data['location_id'];
+				$country = UsersLocationController::getCountryByCountryName($location->name);
+				dd($location, $data, $country);
+				$data['country'] = $country->id;
 				$data['state'] = $data['state_id'];
 				$data['location_id'] = $data['city_id'];
 				Arr::forget($data, ['city_id', 'state_id']);
