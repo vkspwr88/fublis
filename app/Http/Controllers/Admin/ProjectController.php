@@ -40,7 +40,7 @@ class ProjectController extends Controller
 	{
 		if($data['location_id']){
 			$location = UsersLocationController::findById($data['location_id']);
-			if($location){
+			if($location && $location->city_flag){
 				$data = LocationController::setLocationForEdit($data);
 			}
 			else{
