@@ -4,8 +4,10 @@ namespace App\Filament\Resources\ProjectResource\Pages;
 
 use App\Filament\Resources\ProjectResource;
 use App\Http\Controllers\Admin\ProjectController;
+use App\Http\Controllers\Users\MediaKitController;
 use App\Models\Project;
 use App\Services\DownloadService;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Filament\Actions;
 use Filament\Resources\Pages\ViewRecord;
 use Illuminate\Database\Eloquent\Model;
@@ -18,6 +20,20 @@ class ViewProject extends ViewRecord
     {
         return [
             Actions\ActionGroup::make([
+				/* Actions\Action::make('download0')
+					// ->icon('heroicon-m-arrow-down-tray')
+					->label('Download Fact File')
+					->hidden(fn(Project $project) => !$project->project_doc_path)
+					->action(
+						function (Project $project) {
+							$mediaKit = $project->mediaKit[0];
+							$mediaKit = MediaKitController::loadModel($mediaKit, 'project');
+							$pdf = Pdf::loadView('users.pages.architects.media-kits.projects.pdf', ['mediaKit' => $mediaKit]);
+							return $pdf->download(
+								ucfirst(str()->camel($mediaKit->slug)) . '-' . 'factfile' . '.pdf'
+							);
+						}
+					), */
 				Actions\Action::make('download1')
 					// ->icon('heroicon-m-arrow-down-tray')
 					->label('Download Description')
@@ -25,11 +41,8 @@ class ViewProject extends ViewRecord
 					->action(
 						function (Project $project) {
 							$mediaKit = $project->mediaKit[0];
-							// dd($mediaKit, $project);
 							$downloadService = new DownloadService;
 							return $downloadService->singleFileDownload($mediaKit->slug, $project->project_doc_path, 'Description');
-							// downloadService->singleFileDownload($mediaKit->slug, $request->file, $request->type);
-							// downloadService->zipFilesDownload($mediaKit, $request->file, $request->type);
 						}
 					),
 				Actions\Action::make('download2')
