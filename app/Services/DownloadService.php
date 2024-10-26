@@ -53,6 +53,9 @@ class DownloadService
 						]);
 				$imagesPath = $model->story->photographs->pluck('image_path');
 			}
+			elseif($file === 'brief'){
+				$imagesPath = $model->projectBrief->pluck('image_path');
+			}
 			else{
 				return;
 			}
