@@ -4,7 +4,9 @@ namespace App\Services;
 
 use App\Enums\Users\UserTypeEnum;
 use App\Http\Controllers\ErrorLogController;
+use App\Models\AffList;
 use App\Models\AffRegistration;
+use App\Models\AffVisit;
 use App\Repositories\UserRepository;
 use Exception;
 use Illuminate\Support\Arr;
@@ -54,5 +56,23 @@ class AffiliateService
             ];
         }
         return $alertData;
+	}
+
+	public static function getAffListByUsername(string $username): ?AffList
+	{
+		return AffList::where('username', $username)->first();
+	}
+
+	public static function setAffReferral(string $affVisitID, string $userID)
+	{
+		$affVisit = AffVisit::find($affVisitID);
+		if($affVisit){
+			$affReferral = $affVisit->affReferral()->create([
+				'user_id' => $userID,
+			]);
+			$affVisit->update([
+				'is_converted' => true,
+			]);
+		}
 	}
 }

@@ -23,6 +23,7 @@ use Exception;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Session;
 
 class ArchitectService
 {
@@ -177,6 +178,15 @@ class ArchitectService
 					->queue(new ArchitectSignUp($architect));
 			// login user
 			Auth::login($user);
+
+			// check affiliation
+			if(Session::has('aff_list_id') && Session::has('aff_visit_id')){
+				$affVisitID = Session::get('aff_visit_id');
+				AffiliateService::setAffReferral($affVisitID, $user->id);
+				Session::forget('aff_list_id');
+				Session::forget('aff_visit_id');
+			}
+
 			session()->forget('guest_id');
 		}
 		catch(Exception $exp){

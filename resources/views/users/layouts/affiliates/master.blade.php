@@ -11,7 +11,11 @@
 		<link rel="icon" type="image/png" href="{{ asset(env('COMPANY_ICON')) }}">
 		<link rel='stylesheet' id='inter-font-css' href='https://rsms.me/inter/inter.css?ver=6.5.3' type='text/css' media='all' />
 		<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet">
+		{{-- <script src="https://cdn.tailwindcss.com"></script> --}}
 		<link rel="stylesheet" href="{{ asset('css/style-portal.css') }}">
+		<style>
+			[x-cloak] { display: none !important; }
+		</style>
 		@stack('styles')
 		<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 		<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -34,7 +38,7 @@
 				</main>
 			</div>
 		</div>
-		<script>
+		{{-- <script>
 			c => {
 				a !== window && a !== document || document.body.contains(t) ? function(e) {
 					return ["keydown", "keyup"].includes(e)
@@ -52,7 +56,7 @@
 					!1 === e ? c.preventDefault() : r.includes("once") && a.removeEventListener(n, u, s)
 				}) : a.removeEventListener(n, u, s)
 			}
-		</script>
+		</script> --}}
 		{{-- <script src="{{ asset('js/alp.js') }}"></script> --}}
 	</body>
 
