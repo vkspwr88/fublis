@@ -61,7 +61,9 @@ class GoogleController extends Controller
 			$loginType = session()->get('login_type');
 			// [2024-11-01 05:08:48]
 			// Object of class App\Enums\Users\UserTypeEnum could not be converted to string {"exception":"[object] (Error(code: 0): Object of class App\\Enums\\Users\\UserTypeEnum could not be converted to string at /var/www/app.fublis.com/app/Http/Controllers/Users/Auth/GoogleController.php:62)
-			ErrorLogController::logErrorNew('google callback | ' . $userType->value . ' | ' . $loginType, $exp);
+			// [2024-11-10 12:23:18]
+			// Attempt to read property "value" on null {"exception":"[object] (ErrorException(code: 0): Attempt to read property \"value\" on null at /var/www/app.fublis.com/app/Http/Controllers/Users/Auth/GoogleController.php:64)
+			ErrorLogController::logErrorNew('google callback | ' . ($userType->value ?? 'no user type') . ' | ' . $loginType, $exp);
 			// return back()->withErrors($exp->getMessage());
 			if($loginType == 'login'){
 				return to_route('login')->with('message', $exp->getMessage());

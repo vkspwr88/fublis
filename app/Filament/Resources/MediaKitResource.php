@@ -74,7 +74,8 @@ class MediaKitResource extends Resource
                 Tables\Columns\TextColumn::make('story.title')
 					->label('Mediakit Title')
                     ->searchable()
-					->sortable(),
+					->sortable()
+					->wrap(),
 				// Tables\Columns\ColumnGroup::make('Download Requests', [
 					Tables\Columns\TextColumn::make('download_requests_count')
 						->label('Total Requests')
