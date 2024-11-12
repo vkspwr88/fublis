@@ -145,6 +145,7 @@ class AdminPanelProvider extends PanelProvider
 
 					Navigation\NavigationGroup::make('Media Kits')
 						->items([
+							...Resources\MediaKitResource::getNavigationItems(),
 							...Resources\ArticleResource::getNavigationItems(),
 							...Resources\PressReleaseResource::getNavigationItems(),
 							...Resources\ProjectResource::getNavigationItems(),
