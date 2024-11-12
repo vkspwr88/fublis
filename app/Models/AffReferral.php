@@ -2,10 +2,29 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class AffReferral extends Model
 {
-    use HasFactory;
+    use HasFactory, HasUuids;
+
+	protected $guarded = [];
+
+	public function affVisit(): BelongsTo
+	{
+		return $this->belongsTo(AffVisit::class);
+	}
+
+	public function user(): BelongsTo
+	{
+		return $this->belongsTo(User::class);
+	}
+
+	public function referral(): BelongsTo
+	{
+		return $this->belongsTo(User::class, 'referral_id');
+	}
 }

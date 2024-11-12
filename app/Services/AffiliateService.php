@@ -57,22 +57,4 @@ class AffiliateService
         }
         return $alertData;
 	}
-
-	public static function getAffListByUsername(string $username): ?AffList
-	{
-		return AffList::where('username', $username)->first();
-	}
-
-	public static function setAffReferral(string $affVisitID, string $userID)
-	{
-		$affVisit = AffVisit::find($affVisitID);
-		if($affVisit){
-			$affReferral = $affVisit->affReferral()->create([
-				'user_id' => $userID,
-			]);
-			$affVisit->update([
-				'is_converted' => true,
-			]);
-		}
-	}
 }

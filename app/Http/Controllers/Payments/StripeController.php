@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers\Payments;
 
+use App\Enums\Affiliates\ReturnTypeEnum;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\ErrorLogController;
 use App\Mail\Admin\PaidUser;
 use App\Models\StripeWebhook;
 use App\Models\Subscription;
 use App\Models\SubscriptionPlan;
+use App\Services\AffReferralService;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
@@ -97,9 +99,11 @@ class StripeController extends Controller
 			} */
 
 			// Send mail to the admin
-			Mail::to(env('COMPANY_EMAIL'))
-				->cc(['amansaini87@rediffmail.com', 'Vikas@re-thinkingthefuture.com'])
-				->queue(new PaidUser(auth()->user()));
+			// Mail::to(env('COMPANY_EMAIL'))
+			// 	->cc(['amansaini87@rediffmail.com', 'Vikas@re-thinkingthefuture.com'])
+			// 	->queue(new PaidUser(auth()->user()));
+			self::notifyAdmin($subscription);
+
 			return to_route('architect.account.profile.setting.billing')->with([
 				'type' => 'success',
 				'message' => 'You have successfully subscribed to ' . $subscriptionPlan->plan_name,
@@ -196,9 +200,10 @@ class StripeController extends Controller
 		]);
 		if($subscription){
 			$subscription = Subscription::with('user')->where('stripe_id', $subscriptionID)->first();
-			Mail::to(env('COMPANY_EMAIL'))
-				->cc(['amansaini87@rediffmail.com', 'Vikas@re-thinkingthefuture.com'])
-				->queue(new PaidUser($subscription->user));
+			self::notifyAdmin($subscription);
+			// Mail::to(env('COMPANY_EMAIL'))
+			// 	->cc(['amansaini87@rediffmail.com', 'Vikas@re-thinkingthefuture.com'])
+			// 	->queue(new PaidUser($subscription->user));
 		}
 	}
 
@@ -206,9 +211,13 @@ class StripeController extends Controller
 	{
 		info('boot subscription method: ' . json_encode($subscription));
 		if($subscription->stripe_status == 'active'){
+			$user = $subscription->user;
 			Mail::to(env('COMPANY_EMAIL'))
 				->cc(['amansaini87@rediffmail.com', 'Vikas@re-thinkingthefuture.com'])
-				->queue(new PaidUser($subscription->user));
+				->queue(new PaidUser($user));
+
+			// If have any refer, update amount earned
+			AffReferralService::updateAmountEarned($user, $subscription);
 		}
 	}
 }

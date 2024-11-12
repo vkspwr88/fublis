@@ -111,4 +111,14 @@ class User extends Authenticatable implements Authorizable, FilamentUser
 	{
 		return $this->hasOne(AffRegistration::class);
 	}
+
+	public function affReferral(): HasOne
+	{
+		return $this->hasOne(AffReferral::class);
+	}
+
+	public function affReferrals(): HasMany
+	{
+		return $this->hasMany(AffReferral::class, 'referral_id');
+	}
 }

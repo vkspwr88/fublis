@@ -15,9 +15,11 @@ return new class extends Migration
     {
         Schema::create('aff_referrals', function (Blueprint $table) {
             $table->uuid('id')->primary();
+            $table->foreignIdFor(User::class, 'referral_id');
             $table->foreignIdFor(User::class);
 			$table->foreignIdFor(AffVisit::class);
 			$table->double('earned_amount')->default(0);
+			$table->string('earned_currency')->default('USD');
 			$table->string('description')->nullable();
             $table->timestamps();
         });

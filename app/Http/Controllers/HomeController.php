@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Services\AffiliateService;
+use App\Services\AffListService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
@@ -21,15 +22,7 @@ class HomeController extends Controller
 		}
 		// dd($request->all());
 		if($request->ref){
-			$affList = AffiliateService::getAffListByUsername($request->ref);
-			if($affList){
-				$affVisit = $affList->affVisits()->create([
-					'campaign' => $request->campaign ?? null,
-					'ip_address' => $request->ip() ?? null,
-				]);
-				Session::put('aff_list_id', $affList->id);
-				Session::put('aff_visit_id', $affVisit->id);
-			}
+			AffListService::setSession($request);
 		}
 		return view('users.pages.home');
 	}

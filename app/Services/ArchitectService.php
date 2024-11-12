@@ -180,14 +180,7 @@ class ArchitectService
 			Auth::login($user);
 
 			// check affiliation
-			if(Session::has('aff_list_id') && Session::has('aff_visit_id')){
-				$affVisitID = Session::get('aff_visit_id');
-				AffiliateService::setAffReferral($affVisitID, $user->id);
-				Session::forget('aff_list_id');
-				Session::forget('aff_visit_id');
-			}
-
-			session()->forget('guest_id');
+			AffVisitService::setAffReferral($user->id);
 		}
 		catch(Exception $exp){
             DB::rollBack();
@@ -201,6 +194,10 @@ class ArchitectService
 			);
 			return false;
 		}
+		Session::forget('aff_list_id');
+		Session::forget('aff_visit_id');
+		Session::forget('referral_id');
+		Session::forget('guest_id');
 		return true;
 	}
 

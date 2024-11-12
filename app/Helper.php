@@ -194,3 +194,10 @@ if (!function_exists('isSubscribed')) {
 		return isArchitect() && ( isBusinessPlanSubscribed($user) || isEnterprisePlanSubscribed($user) );
 	}
 }
+
+if(!function_exists('displayCurrencyValue')){
+	function displayCurrencyValue($value)
+	{
+		return '$' . number_format($value, 2);
+	}
+}

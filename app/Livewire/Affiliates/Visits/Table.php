@@ -5,7 +5,9 @@ namespace App\Livewire\Affiliates\Visits;
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
 use Rappasoft\LaravelLivewireTables\Views\Column;
 use App\Models\AffVisit;
+use App\Services\AffVisitService;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Auth;
 use Rappasoft\LaravelLivewireTables\Views\Columns\BooleanColumn;
 
 class Table extends DataTableComponent
@@ -23,6 +25,7 @@ class Table extends DataTableComponent
 		// $this->setReorderStatus(false);
 		$this->setSortingStatus(false);
 		$this->setColumnSelectStatus(false);
+		// $this->setPaginationStatus(false);
 		$this->setPerPageVisibilityStatus(false);
 
     }
@@ -30,7 +33,7 @@ class Table extends DataTableComponent
 	public function builder(): Builder
     {
         // dd(AffVisit::with('affList')->get());
-        return AffVisit::with('affList');
+        return AffVisitService::getQueryBuilder();
     }
 
 
