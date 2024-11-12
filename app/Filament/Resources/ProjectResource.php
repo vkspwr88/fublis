@@ -17,6 +17,7 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Collection;
 
@@ -151,6 +152,14 @@ class ProjectResource extends Resource
 				Tables\Columns\ImageColumn::make('cover_image_path'),
                 Tables\Columns\TextColumn::make('title')
                     ->searchable(),
+				Tables\Columns\TextColumn::make('download_count')
+					->state(function (Model $record): int {
+						return $record->mediakit[0]->downloadRequests()->count();
+					}),
+				Tables\Columns\TextColumn::make('pending_download_count')
+					->state(function (Model $record): int {
+						return $record->mediakit[0]->downloadRequests()->where('request_status', 'pending')->count();
+					}),
                 Tables\Columns\TextColumn::make('site_area')
 					->toggleable(isToggledHiddenByDefault: true)
                     ->numeric()

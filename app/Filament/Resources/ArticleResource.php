@@ -14,6 +14,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use FilamentTiptapEditor\TiptapEditor;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class ArticleResource extends Resource
@@ -94,6 +95,14 @@ class ArticleResource extends Resource
                 Tables\Columns\ImageColumn::make('cover_image_path'),
                 Tables\Columns\TextColumn::make('title')
                     ->searchable(),
+				Tables\Columns\TextColumn::make('download_count')
+					->state(function (Model $record): int {
+						return $record->mediakit[0]->downloadRequests()->count();
+					}),
+				Tables\Columns\TextColumn::make('pending_download_count')
+					->state(function (Model $record): int {
+						return $record->mediakit[0]->downloadRequests()->where('request_status', 'pending')->count();
+					}),
                 Tables\Columns\TextColumn::make('text_credits')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
