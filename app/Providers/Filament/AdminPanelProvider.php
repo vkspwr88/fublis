@@ -4,8 +4,6 @@ namespace App\Providers\Filament;
 
 use App\Filament\Pages\EditProfile;
 use App\Filament\Pages\Logs;
-use App\Filament\Pages\Medias;
-// use App\Filament\Pages\Logs as PagesLogs;
 use App\Filament\Resources;
 use Filament\Navigation;
 use Awcodes\Curator\Resources\MediaResource;
@@ -15,10 +13,7 @@ use Filament\Http\Middleware\DispatchServingFilamentEvent;
 use Filament\Pages;
 use Filament\Panel;
 use Filament\PanelProvider;
-use Filament\Resources\Resource;
-use Filament\Support\Colors\Color;
 use Filament\Widgets;
-// use FilipFonal\FilamentLogManager\Pages\Logs;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
@@ -31,7 +26,6 @@ class AdminPanelProvider extends PanelProvider
 {
     public function panel(Panel $panel): Panel
     {
-		// $2y$10$mOoT3rbHV/rNqGLqtJzwCukPoVS7vD/UnonagFurp.kln57eZpyyK
         return $panel
             ->default()
             ->id('backend')
@@ -39,7 +33,7 @@ class AdminPanelProvider extends PanelProvider
             ->login()
             ->profile(EditProfile::class)
             ->colors([
-                'primary' => '#6941C6'/* Color::Amber */,
+                'primary' => '#6941C6',
             ])
 			->viteTheme('resources/css/filament/backend/theme.css')
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
@@ -76,7 +70,6 @@ class AdminPanelProvider extends PanelProvider
 					->navigationSort(3)
 					->navigationCountBadge()
 					->resource(MediaResource::class),
-				// \FilipFonal\FilamentLogManager\FilamentLogManager::make(),
 			])
 			->navigation(function (Navigation\NavigationBuilder $builder): Navigation\NavigationBuilder {
 				return $builder->items([
@@ -84,14 +77,11 @@ class AdminPanelProvider extends PanelProvider
 						->icon('heroicon-o-home')
 						->isActiveWhen(fn (): bool => request()->routeIs('filament.admin.pages.dashboard'))
 						->url(fn (): string => Pages\Dashboard::getUrl()),
-
 					...Resources\UserResource::getNavigationItems(),
-					// ...Medias::getNavigationItems(),
 					...MediaResource::getNavigationItems(),
 					...Resources\ImageLogResource::getNavigationItems(),
 					...Resources\SubscribeNewsletterResource::getNavigationItems(),
 					...Resources\InterviewResource::getNavigationItems(),
-					// ...Logs::getNavigationItems(),
 					...Logs::getNavigationItems(),
 				])->groups([
 					Navigation\NavigationGroup::make('Architects')
@@ -100,49 +90,42 @@ class AdminPanelProvider extends PanelProvider
 							...Resources\ArchitectPositionResource::getNavigationItems(),
 						])
 						->icon('heroicon-o-rectangle-stack'),
-
 					Navigation\NavigationGroup::make('Studios')
 						->items([
 							...Resources\CompanyResource::getNavigationItems(),
 							...Resources\TeamSizeResource::getNavigationItems(),
 						])
 						->icon('heroicon-o-rectangle-stack'),
-
 					Navigation\NavigationGroup::make('Journalists')
 						->items([
 							...Resources\JournalistResource::getNavigationItems(),
 							...Resources\JournalistPositionResource::getNavigationItems(),
 						])
 						->icon('heroicon-o-rectangle-stack'),
-
 					Navigation\NavigationGroup::make('Publications')
 						->items([
 							...Resources\PublicationResource::getNavigationItems(),
 							...Resources\PublicationTypeResource::getNavigationItems(),
 						])
 						->icon('heroicon-o-rectangle-stack'),
-
 					Navigation\NavigationGroup::make('Affiliations')
 						->items([
 							...Resources\AffRegistrationResource::getNavigationItems(),
 							...Resources\AffListResource::getNavigationItems(),
 						])
 						->icon('heroicon-o-rectangle-stack'),
-
 					Navigation\NavigationGroup::make('Top Journalists')
 						->items([
 							...Resources\TopJournalistResource::getNavigationItems(),
 							...Resources\TopJournalistListResource::getNavigationItems(),
 						])
 						->icon('heroicon-o-rectangle-stack'),
-
 					Navigation\NavigationGroup::make('Top Publications')
 						->items([
 							...Resources\TopPublicationResource::getNavigationItems(),
 							...Resources\TopPublicationListResource::getNavigationItems(),
 						])
 						->icon('heroicon-o-rectangle-stack'),
-
 					Navigation\NavigationGroup::make('Media Kits')
 						->items([
 							...Resources\MediaKitResource::getNavigationItems(),
@@ -151,19 +134,16 @@ class AdminPanelProvider extends PanelProvider
 							...Resources\ProjectResource::getNavigationItems(),
 						])
 						->icon('heroicon-o-rectangle-stack'),
-
 					Navigation\NavigationGroup::make('Calls')
 						->items([
 							...Resources\CallResource::getNavigationItems(),
 						])
 						->icon('heroicon-o-rectangle-stack'),
-
 					Navigation\NavigationGroup::make('Pitches')
 						->items([
 							...Resources\PitchResource::getNavigationItems(),
 						])
 						->icon('heroicon-o-rectangle-stack'),
-
 					Navigation\NavigationGroup::make('Location')
 						->items([
 							...Resources\CountryResource::getNavigationItems(),
@@ -171,13 +151,11 @@ class AdminPanelProvider extends PanelProvider
 							...Resources\CityResource::getNavigationItems(),
 						])
 						->icon('heroicon-o-rectangle-stack'),
-
 					Navigation\NavigationGroup::make('Stripe')
 						->items([
 							...Resources\SubscriptionPlanResource::getNavigationItems(),
 						])
 						->icon('heroicon-o-rectangle-stack'),
-
 					Navigation\NavigationGroup::make('Settings')
 						->items([
 							...Resources\AreaResource::getNavigationItems(),
@@ -195,9 +173,6 @@ class AdminPanelProvider extends PanelProvider
 				]);
 			})
 			->sidebarFullyCollapsibleOnDesktop()
-			// ->databaseTransactions()
-			->unsavedChangesAlerts()
-			// ->broadcasting(false)
-			;
+			->unsavedChangesAlerts();
     }
 }
