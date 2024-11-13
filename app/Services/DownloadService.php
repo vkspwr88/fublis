@@ -3,6 +3,8 @@
 namespace App\Services;
 
 use App\Http\Controllers\ErrorLogController;
+use App\Http\Controllers\Users\MediaKitController;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Exception;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\ValidationException;
@@ -104,5 +106,24 @@ class DownloadService
 			abort(500);
 			// dd($exp->getMessage())
 		}
+	}
+
+	public function downloadFactFile($mediaKit, $type)
+	{
+		$mediaKit = MediaKitController::loadModel($mediaKit, $type);
+		$view = 'users.pages.journalists.media-kits.projects.pdf';
+		if($type == 'press-release'){
+			$view = 'users.pages.journalists.media-kits.press-releases.pdf';
+		}
+		elseif($type == 'article'){
+			$view = 'users.pages.journalists.media-kits.articles.pdf';
+		}
+		$pdf = Pdf::loadView($view, ['mediaKit' => $mediaKit]);
+		// return $pdf->download(
+		// 	ucfirst(str()->camel($mediaKit->slug)) . '-' . 'factfile' . '.pdf'
+		// );
+		return response()->streamDownload(function () use ($pdf) {
+			echo $pdf->stream();
+		}, ucfirst(str()->camel($mediaKit->slug)) . '-' . 'factfile' . '.pdf');
 	}
 }

@@ -6,6 +6,7 @@ use App\Enums\Affiliates\ReturnTypeEnum;
 use App\Filament\Resources\AffListResource\Pages;
 use App\Filament\Resources\AffListResource\RelationManagers;
 use App\Models\AffList;
+use App\Models\User;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -21,6 +22,12 @@ class AffListResource extends Resource
 	protected static ?string $label = 'Approved List';
 
     // protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+
+	public static function canAccess(): bool
+	{
+		$user = User::find(auth()->id());
+		return $user->hasRole('Super Admin');
+	}
 
     public static function form(Form $form): Form
     {

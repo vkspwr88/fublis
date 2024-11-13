@@ -16,14 +16,20 @@ class ViewArticle extends ViewRecord
     {
         return [
 			Actions\ActionGroup::make([
+				Actions\Action::make('download0')
+					->label('Download Fact File')
+					->action(
+						function (Article $article, DownloadService $downloadService) {
+							return $downloadService->downloadFactFile($article->mediaKit[0], 'article');
+						}
+					),
 				Actions\Action::make('download1')
 					// ->icon('heroicon-m-arrow-down-tray')
 					->label('Download Company Profile')
 					->hidden(fn(Article $article) => !$article->company_profile_path)
 					->action(
-						function (Article $article) {
+						function (Article $article, DownloadService $downloadService) {
 							$mediaKit = $article->mediaKit[0];
-							$downloadService = new DownloadService;
 							return $downloadService->singleFileDownload($mediaKit->slug, $article->company_profile_path, 'CompanyProfile');
 						}
 					),
@@ -32,9 +38,8 @@ class ViewArticle extends ViewRecord
 					->label('Download Full Article')
 					->hidden(fn(Article $article) => !$article->article_doc_path)
 					->action(
-						function (Article $article) {
+						function (Article $article, DownloadService $downloadService) {
 							$mediaKit = $article->mediaKit[0];
-							$downloadService = new DownloadService;
 							return $downloadService->singleFileDownload($mediaKit->slug, $article->article_doc_path, 'FullArticle');
 						}
 					),
@@ -43,9 +48,8 @@ class ViewArticle extends ViewRecord
 					->label('Download Photographs')
 					->hidden(fn(Article $article) => $article->images->count() == 0)
 					->action(
-						function (Article $article) {
+						function (Article $article, DownloadService $downloadService) {
 							$mediaKit = $article->mediaKit[0];
-							$downloadService = new DownloadService;
 							return $downloadService->zipFilesDownload($mediaKit, 'images', 'Photographs');
 						}
 					),

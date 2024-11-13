@@ -16,14 +16,19 @@ class ViewPressRelease extends ViewRecord
     {
         return [
 			Actions\ActionGroup::make([
+				Actions\Action::make('download0')
+					->label('Download Fact File')
+					->action(
+						function (PressRelease $pressRelease, DownloadService $downloadService) {
+							return $downloadService->downloadFactFile($pressRelease->mediaKit[0], 'press-release');
+						}
+					),
 				Actions\Action::make('download1')
-					// ->icon('heroicon-m-arrow-down-tray')
 					->label('Download Description')
 					->hidden(fn(PressRelease $pressRelease) => !$pressRelease->press_release_doc_path)
 					->action(
-						function (PressRelease $pressRelease) {
+						function (PressRelease $pressRelease, DownloadService $downloadService) {
 							$mediaKit = $pressRelease->mediaKit[0];
-							$downloadService = new DownloadService;
 							return $downloadService->singleFileDownload($mediaKit->slug, $pressRelease->press_release_doc_path, 'Description');
 						}
 					),
@@ -43,9 +48,8 @@ class ViewPressRelease extends ViewRecord
 					->label('Download Photographs')
 					->hidden(fn(PressRelease $pressRelease) => $pressRelease->photographs->count() == 0)
 					->action(
-						function (PressRelease $pressRelease) {
+						function (PressRelease $pressRelease, DownloadService $downloadService) {
 							$mediaKit = $pressRelease->mediaKit[0];
-							$downloadService = new DownloadService;
 							return $downloadService->zipFilesDownload($mediaKit, 'photographs', 'Photographs');
 						}
 					),

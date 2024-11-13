@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\PitchResource\Pages;
 use App\Filament\Resources\PitchResource\RelationManagers;
 use App\Models\Pitch;
+use App\Models\User;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -24,7 +25,8 @@ class PitchResource extends Resource
 
 	public static function canAccess(): bool
 	{
-		return auth()->user()->hasRole('Super Admin');
+		$user = User::find(auth()->id());
+		return $user->hasRole('Super Admin');
 	}
 
     public static function form(Form $form): Form
