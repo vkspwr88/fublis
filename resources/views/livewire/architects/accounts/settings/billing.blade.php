@@ -240,7 +240,7 @@
 					<div class="card-body">
 						<div class="row g-4">
 							<div class="col-12">
-								<h4 class="m-0 fs-5 text-dark fw-medium">Pitches</h4>
+								<h4 class="m-0 fs-5 text-dark fw-medium">Pitches <span class="badge rounded-pill bg-purple-100 text-purple-700 fw-semibold p-2 fs-7">Monthly</span></h4>
 								<p class="m-0 fs-6 text-secondary"><small>Pitch your projects, articles and press releases</small></p>
 							</div>
 							<div class="col-12">
