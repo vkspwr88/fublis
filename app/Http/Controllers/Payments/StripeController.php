@@ -197,6 +197,7 @@ class StripeController extends Controller
 		info('subscription updated:', [
 			'subscriptionID' => $subscriptionID,
 			'subscription' => $subscription,
+			'endDate' => $endDate,
 		]);
 		if($subscription){
 			$subscription = Subscription::with('user')->where('stripe_id', $subscriptionID)->first();
@@ -215,6 +216,10 @@ class StripeController extends Controller
 			Mail::to(env('COMPANY_EMAIL'))
 				->cc(['amansaini87@rediffmail.com', 'Vikas@re-thinkingthefuture.com'])
 				->queue(new PaidUser($user));
+
+
+			// Email subscriber user
+
 
 			// If have any refer, update amount earned
 			AffReferralService::updateAmountEarned($user, $subscription);
