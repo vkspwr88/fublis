@@ -115,7 +115,7 @@
 									</div>
 									<div class="col-sm-auto text-end">
 										<h2 class="m-0">
-											<span class="text-dark fs-2 fw-bold">${{ $pricePerMonth }}</span>
+											<span class="text-dark fs-2 fw-bold">{{ $planCurrency }}{{ $pricePerMonth }}</span>
 											<span class="text-secondary fs-6 small">per month</span>
 										</h2>
 									</div>
@@ -123,7 +123,7 @@
 							</div>
 							<div class="col-12">
 								<p class="mb-2 text-dark fw-semibold">{{ $userCount }} of {{ $allowedTotalUser }} users</p>
-								<div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="{{ $progress }}" aria-valuemin="0" aria-valuemax="100" style="height: 10px;">
+								<div class="progress" aria-label="Total User" aria-valuenow="{{ $progress }}" aria-valuemin="0" aria-valuemax="100" style="height: 10px;">
 									<div class="progress-bar bg-primary" style="width: {{ $progress }}%"></div>
 								</div>
 							</div>

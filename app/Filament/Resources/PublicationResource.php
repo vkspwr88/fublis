@@ -7,6 +7,7 @@ use App\Filament\Resources\PublicationResource\RelationManagers;
 use App\Http\Controllers\Admin\PublicationController;
 use App\Http\Controllers\Users\LocationController;
 use App\Models\Publication;
+use App\Models\User;
 use Awcodes\Curator\Components\Forms\CuratorPicker;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -29,7 +30,8 @@ class PublicationResource extends Resource
 
 	public static function canAccess(): bool
 	{
-		return auth()->user()->hasRole('Super Admin');
+		$user = User::find(auth()->id());
+		return $user->hasRole('Super Admin');
 	}
 
 	public static function form(Form $form): Form

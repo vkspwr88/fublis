@@ -16,6 +16,7 @@ class Billing extends Component
 	// public $latestSubscription;
 	public bool $isPaymentMethodOpen = false;
 	public int $progress;
+	public string $planCurrency = '$';
 	public string $planName = 'Free plan';
 	public int $pricePerMonth = 0;
 	public int $allowedTotalUser = 2;
@@ -24,28 +25,19 @@ class Billing extends Component
 	public function mount()
 	{
 		$user = auth()->user();
-		/* dd(
-			"user->hasIncompletePayment: " . $user->hasIncompletePayment('business-plan-annually'),
-			"user->subscription: " . $user->subscription('business-plan-annually'),
-			// "user->subscribed()->recurring(): " . $user->subscribed()->recurring(),
-			"user->subscribed: " . $user->subscribed(),
-			"user->isBusinessPlanSubscribed: " . isBusinessPlanSubscribed(),
-			"user->isEnterprisePlanSubscribed: " . isEnterprisePlanSubscribed(),
-			"user->subscribedToProduct('prod_Q4ny3KlIL7WAgX'): " . $user->subscribedToProduct('prod_Q4ny3KlIL7WAgX'),
-			"user->subscribedToPrice('price_1PEeMjSF38t8VQrgcCfGfFpm'): " . $user->subscribedToPrice('price_1PEeMjSF38t8VQrgcCfGfFpm')
-		); */
 		$this->userCount = CompanyController::getMediaContacts()->count();
 		$latestSubscription = $user?->latestSubscription;
-		// dd($latestSubscription);
 		if (isBusinessPlanSubscribed()) {
 			$this->allowedTotalUser = CompanyController::getAllowedArchitects('Business Plan');
 			$this->planName = 'Business plan';
 			$this->pricePerMonth = $latestSubscription->subscriptionPrice->price_per_month;
+			$this->planCurrency = $latestSubscription->subscriptionPrice->symbol;
 		}
 		elseif (isEnterprisePlanSubscribed()) {
 			$this->allowedTotalUser = CompanyController::getAllowedArchitects('Enterprise Plan');
 			$this->planName = 'Enterprise plan';
 			$this->pricePerMonth = $latestSubscription->subscriptionPrice->price_per_month;
+			$this->planCurrency = $latestSubscription->subscriptionPrice->symbol;
 		}
 		$this->progress = $this->userCount * 100 / $this->allowedTotalUser;
 	}
@@ -53,7 +45,6 @@ class Billing extends Component
     public function render(Request $request)
     {
 		$user = $request->user();
-		// dd($user);
         return view('livewire.architects.accounts.settings.billing', [
 			'invoices' => $user->invoices(),
 			'paymentMethod' => $user->defaultPaymentMethod(),
@@ -62,10 +53,6 @@ class Billing extends Component
 
 	public function openPaymentMethodForm(Request $request)
 	{
-		/* $user = $request->user();
-		$this->intent = $user->createSetupIntent();
-		$this->dataSecret = $this->intent->client_secret;
-		$this->isPaymentMethodOpen = true; */
 		return to_route('architect.account.profile.setting.billing.payment-method.show');
 	}
 

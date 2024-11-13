@@ -196,8 +196,8 @@ if (!function_exists('isSubscribed')) {
 }
 
 if(!function_exists('displayCurrencyValue')){
-	function displayCurrencyValue($value)
+	function displayCurrencyValue($value, $symbol = '$')
 	{
-		return '$' . number_format($value, 2);
+		return $symbol . number_format($value, 2);
 	}
 }

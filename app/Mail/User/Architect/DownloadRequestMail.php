@@ -33,7 +33,7 @@ class DownloadRequestMail extends Mailable implements ShouldQueue
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'New Request to download Your Media Kit',
+            subject: $this->data['subscribed'] ? 'New Request to download Your Media Kit' : 'New Publication Requests Waiting for Your Approval',
         );
     }
 
@@ -51,6 +51,7 @@ class DownloadRequestMail extends Mailable implements ShouldQueue
 				'requestDate' => $this->requestDate,
 				'notificationUrl' => route('architect.account.profile.notification'),
 				'loginUrl' => route('architect.login'),
+				'upgradeUrl' => route('pricing'),
 				'data' => $this->data,
 			],
         );

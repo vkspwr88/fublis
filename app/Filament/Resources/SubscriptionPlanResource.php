@@ -6,6 +6,7 @@ use App\Enums\Users\Architects\SubscriptionPlanTypeEnum;
 use App\Filament\Resources\SubscriptionPlanResource\Pages;
 use App\Filament\Resources\SubscriptionPlanResource\RelationManagers;
 use App\Models\SubscriptionPlan;
+use App\Models\User;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -22,7 +23,8 @@ class SubscriptionPlanResource extends Resource
 
 	public static function canAccess(): bool
 	{
-		return auth()->user()->hasRole('Super Admin');
+		$user = User::find(auth()->id());
+		return $user->hasRole('Super Admin');
 	}
 
     public static function form(Form $form): Form

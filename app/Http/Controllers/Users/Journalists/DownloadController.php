@@ -76,6 +76,7 @@ class DownloadController extends Controller
 						'publication' => $journalist->publications[0]->name,
 						'requestTime' => Carbon::now()->format('H:i'),
 						'requestDate' => Carbon::now()->format('jS F Y'),
+						'subscribed' => isSubscribed($mediaKit->architect->user),
 					],
 				));
 		}
