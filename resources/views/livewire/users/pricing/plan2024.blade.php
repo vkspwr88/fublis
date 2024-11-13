@@ -55,10 +55,10 @@
 									<div class="collapse show" id="freeBenefits" aria-labelledby="freeBenefitsHeading">
 										<div class="row g-2">
 											@foreach ($features->free as $feature => $available)
-												<x-users.pricing.feature-column :$feature :$available />									
+												<x-users.pricing.feature-column :$feature :$available />
 											@endforeach
 										</div>
-									</div>									
+									</div>
 								@endisset
 							</div>
 							<div class="py-4 card-footer bg-transparent">

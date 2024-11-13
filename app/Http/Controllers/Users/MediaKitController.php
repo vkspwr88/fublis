@@ -137,22 +137,37 @@ class MediaKitController extends Controller
 			return true;
 		}
 		$allowedMediaKits = self::getAllowedMediaKits($type);
-		$createdMediaKits = 0;
-		$architectID = auth()->user()->architect->id;
-		if($type == 'press-release'){
-			$createdMediaKits = MediaKit::whereHasMorph('story', PressRelease::class)->where('architect_id', $architectID)->count();
-		}
-		elseif($type == 'article'){
-			$createdMediaKits = MediaKit::whereHasMorph('story', Article::class)->where('architect_id', $architectID)->count();
-		}
-		elseif($type == 'project'){
-			$createdMediaKits = MediaKit::whereHasMorph('story', Project::class)->where('architect_id', $architectID)->count();
-		}
+		$createdMediaKits = self::getTotalCreatedMediaKits($type);
+		// $architectID = auth()->user()->architect->id;
+		// if($type == 'press-release'){
+		// 	$createdMediaKits = MediaKit::whereHasMorph('story', PressRelease::class)->where('architect_id', $architectID)->count();
+		// }
+		// elseif($type == 'article'){
+		// 	$createdMediaKits = MediaKit::whereHasMorph('story', Article::class)->where('architect_id', $architectID)->count();
+		// }
+		// elseif($type == 'project'){
+		// 	$createdMediaKits = MediaKit::whereHasMorph('story', Project::class)->where('architect_id', $architectID)->count();
+		// }
 
 		if( $createdMediaKits < $allowedMediaKits ){
 			return true;
 		}
 		return false;
+	}
+
+	public static function getTotalCreatedMediaKits($type)
+	{
+		$architectID = auth()->user()->architect->id;
+		if($type == 'press-release'){
+			return MediaKit::whereHasMorph('story', PressRelease::class)->where('architect_id', $architectID)->count();
+		}
+		elseif($type == 'article'){
+			return MediaKit::whereHasMorph('story', Article::class)->where('architect_id', $architectID)->count();
+		}
+		elseif($type == 'project'){
+			return MediaKit::whereHasMorph('story', Project::class)->where('architect_id', $architectID)->count();
+		}
+		return 0;
 	}
 
 	public static function getAllowedMediaKits($type)

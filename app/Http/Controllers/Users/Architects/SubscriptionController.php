@@ -44,4 +44,18 @@ class SubscriptionController extends Controller
 
 		return false;
 	}
+
+	public static function getTotalPitches()
+	{
+		$mediaKits = auth()->user()->architect->mediaKits;
+		return $mediaKits->load('pitch')->pluck('pitch')->flatten()->whereBetween('created_at', [Carbon::now()->startOfMonth(), Carbon::now()->endOfMonth()])->count();
+	}
+
+	public static function getAllowedPitches()
+	{
+		if(isEnterprisePlanSubscribed()){
+			return 1000;
+		}
+		return 3;
+	}
 }

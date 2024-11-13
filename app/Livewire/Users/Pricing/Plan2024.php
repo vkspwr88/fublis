@@ -20,7 +20,7 @@ class Plan2024 extends Component
 		$this->freePlanAmount = [
 			'USD' => 350,
 			'INR' => 25000,
-			'EUR' => 350,		
+			'EUR' => 350,
 		];
 						
 		$this->currency = 'USD';
