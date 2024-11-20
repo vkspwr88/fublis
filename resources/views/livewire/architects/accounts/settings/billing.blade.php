@@ -234,7 +234,7 @@
 					</div>
 				</div>
 			</div> --}}
-			
+
 			<div class="col-md-6">
 				<div class="bg-white border-0 shadow card h-100">
 					<div class="card-body">
@@ -320,7 +320,7 @@
 									</tr>
 								@empty
 									<tr>
-										<th class="text-center text-danger" colspan="6">No invoice record is there</th>
+										<th class="text-center text-danger py-4" colspan="6">No invoice record is there</th>
 									</tr>
 								@endforelse
 							</tbody>

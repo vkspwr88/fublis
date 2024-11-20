@@ -14,8 +14,10 @@
 			@endphp
 			<img class="img-square img-48 rounded-circle" src="{{ $profileImg }}" alt="..." />
 		</div>
-		<div class="col-auto">
-			<p class="p-0 m-0 text-purple-700">{{ $downloadRequest->notifiable->mediaKit->story->title }}</p>
+		<div class="col">
+			<p class="p-0 m-0 text-dark">
+				<a class="text-purple-700" href="{{ route('architect.pitch-story.journalists.view', ['journalist' => $downloadRequest->notifiable->requestedJournalist->journalist->slug]) }}">{{ $downloadRequest->notifiable->requestedJournalist->name }}</a> from <a class="text-purple-700" href="{{ route('architect.pitch-story.publications.view', ['publication' => $downloadRequest->notifiable->requestedJournalist->journalist->publications[0]->slug]) }}">{{ $downloadRequest->notifiable->requestedJournalist->journalist->publications[0]->name }}</a> has requested to publish <a class="text-purple-700" href="{{ route('architect.media-kit.view', ['mediaKit' => $downloadRequest->notifiable->mediaKit->slug]) }}">{{ $downloadRequest->notifiable->mediaKit->story->title }}</a>
+			</p>
 			<p class="p-0 m-0 text-secondary">{{ $studioName }}</p>
 		</div>
 		<div class="col text-end">

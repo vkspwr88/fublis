@@ -111,6 +111,7 @@ Route::middleware(ArchitectLogin::class)->group(function() {
 				Route::get('/analytics', [Architects\Accounts\ProfileController::class, 'analytic'])->name('analytic');
 				Route::get('/alerts', [Architects\Accounts\ProfileController::class, 'alert'])->name('alert');
 				Route::get('/notifications', [Architects\Accounts\ProfileController::class, 'notification'])->name('notification');
+				Route::get('/requests', [Architects\Accounts\ProfileController::class, 'requests'])->name('requests');
 				Route::name('message.')->prefix('messages')->group(function () {
 					Route::get('/', [Architects\Accounts\Profile\MessageController::class, 'index'])->name('index');
 					Route::get('/subjects', [MessageController::class, 'subjects'])->name('subject');

@@ -1,6 +1,6 @@
 @extends('users.layouts.master')
 
-{!! seo() !!}
+{!! seo($SEOData) !!}
 
 @section('body')
 <div class="container py-5">
@@ -14,7 +14,7 @@
 					<li class="breadcrumb-item fublis-breadcrumb-item">
 						<a href="javascript:;" class="text-secondary fs-6 fw-medium">Account</a>
 					</li>
-					<li class="text-purple-600 breadcrumb-item fublis-breadcrumb-item fs-6 fw-medium" aria-current="page">Notifications</li>
+					<li class="text-purple-600 breadcrumb-item fublis-breadcrumb-item fs-6 fw-medium" aria-current="page">Publication Requests</li>
 				</ol>
 			</nav>
 		</div>
@@ -22,17 +22,17 @@
 
 	<div class="pb-5 row">
 		<div class="col">
-			<h2 class="p-0 m-0 text-dark fs-3 fw-semibold">Notifications</h2>
+			<h2 class="p-0 m-0 text-dark fs-3 fw-semibold">Publication Requests</h2>
 		</div>
 	</div>
 
 	<div class="pb-4 row">
 		<div class="col">
-			<h3 class="p-0 m-0 text-dark fs-5 fw-semibold">All Notifications</h3>
+			<h3 class="p-0 m-0 text-dark fs-5 fw-semibold">All Requests</h3>
 		</div>
 	</div>
 
-	<livewire:architects.account.notification />
+	<livewire:architects.account.requests />
 </div>
 @endsection
 

@@ -90,6 +90,30 @@
 	<body id="app1" class="bg-light">
 		@include('users.includes.header')
 		<section id="body" class="px-0 pb-0 m-0 w-100">
+			@php
+				$totalPendingRequests = App\Services\DownloadRequestService::getPendingRequestsQuery()->count();
+			@endphp
+			@if ($totalPendingRequests)
+				<div class="container">
+					<div class="row">
+						<div class="py-5 bg-purple-600 col-12">
+							<div class="px-md-5 px-sm-4">
+								<div class="row g-4">
+									<div class="col-md">
+										<div class="text-white pe-md-5">
+											<h2 class="mb-4 fs-4">Pending Publication Requests</h2>
+											<p class="fs-6">You have {{ $totalPendingRequests }} pending publication requests, approve them to get published. You can approve or decline these requests.</p>
+										</div>
+									</div>
+									<div class="col-md-auto text-md-end">
+										<a href="{{ route('architect.account.profile.requests') }}" class="text-purple-600 btn btn-white fs-6 fw-semibold">Manage Requests</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			@endif
 			@yield('body')
 		</section>
 		@include('users.includes.footer')

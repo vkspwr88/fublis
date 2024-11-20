@@ -163,87 +163,87 @@ class Notification extends Component
 		});
 	}
 
-	public function showAllRequest()
-	{
-		$this->updatePendingRequest();
-		$this->isRequestWindowDisplay = true;
-	}
+	// public function showAllRequest()
+	// {
+	// 	$this->updatePendingRequest();
+	// 	$this->isRequestWindowDisplay = true;
+	// }
 
-	public function hideAllRequest()
-	{
-		$this->isRequestWindowDisplay = false;
-		$this->isManageRequestWindowDisplay = false;
-		$this->selectedRequests = [];
-	}
+	// public function hideAllRequest()
+	// {
+	// 	$this->isRequestWindowDisplay = false;
+	// 	$this->isManageRequestWindowDisplay = false;
+	// 	$this->selectedRequests = [];
+	// }
 
-	public function showManageAllRequest()
-	{
-		$this->isRequestWindowDisplay = false;
-		$this->isManageRequestWindowDisplay = true;
-	}
+	// public function showManageAllRequest()
+	// {
+	// 	$this->isRequestWindowDisplay = false;
+	// 	$this->isManageRequestWindowDisplay = true;
+	// }
 
-	public function selectAllRequest()
-	{
-		$this->selectedRequests = $this->pendingDownloadRequest->pluck('id')->all();
-	}
+	// public function selectAllRequest()
+	// {
+	// 	$this->selectedRequests = $this->pendingDownloadRequest->pluck('id')->all();
+	// }
 
-	public function approveSelectedMediaKitDownload()
-	{
-		if(empty($this->selectedRequests)){
-			$this->dispatch('alert', [
-				'type' => 'warning',
-				'message' => 'Select atleast one request.'
-			]);
-			return;
-		}
+	// public function approveSelectedMediaKitDownload()
+	// {
+	// 	if(empty($this->selectedRequests)){
+	// 		$this->dispatch('alert', [
+	// 			'type' => 'warning',
+	// 			'message' => 'Select atleast one request.'
+	// 		]);
+	// 		return;
+	// 	}
 
-		if(!DownloadController::isAllowedToRespond(count($this->selectedRequests))){
-			$this->dispatch('show-download-request-modal');
-			return;
-		}
+	// 	if(!DownloadController::isAllowedToRespond(count($this->selectedRequests))){
+	// 		$this->dispatch('show-download-request-modal');
+	// 		return;
+	// 	}
 
-		if(DownloadController::approveBulkRequest($this->selectedRequests)){
-			$this->dispatch('alert', [
-				'type' => 'success',
-				'message' => 'You have successfully approved the download request.'
-			]);
-			$this->updatePendingRequest();
-			$this->selectedRequests = [];
-			return;
-		}
-		$this->dispatch('alert', [
-			'type' => 'warning',
-			'message' => 'We are facing problem in approving the download request. Please try again or contact support.'
-		]);
-	}
+	// 	if(DownloadController::approveBulkRequest($this->selectedRequests)){
+	// 		$this->dispatch('alert', [
+	// 			'type' => 'success',
+	// 			'message' => 'You have successfully approved the download request.'
+	// 		]);
+	// 		$this->updatePendingRequest();
+	// 		$this->selectedRequests = [];
+	// 		return;
+	// 	}
+	// 	$this->dispatch('alert', [
+	// 		'type' => 'warning',
+	// 		'message' => 'We are facing problem in approving the download request. Please try again or contact support.'
+	// 	]);
+	// }
 
-	public function declineSelectedMediaKitDownload()
-	{
-		//dd($this->selectedRequests, empty($this->selectedRequests));
-		if(empty($this->selectedRequests)){
-			$this->dispatch('alert', [
-				'type' => 'warning',
-				'message' => 'Select atleast one request.'
-			]);
-		}
+	// public function declineSelectedMediaKitDownload()
+	// {
+	// 	//dd($this->selectedRequests, empty($this->selectedRequests));
+	// 	if(empty($this->selectedRequests)){
+	// 		$this->dispatch('alert', [
+	// 			'type' => 'warning',
+	// 			'message' => 'Select atleast one request.'
+	// 		]);
+	// 	}
 
-		if(!DownloadController::isAllowedToRespond(count($this->selectedRequests))){
-			$this->dispatch('show-download-request-modal');
-			return;
-		}
+	// 	if(!DownloadController::isAllowedToRespond(count($this->selectedRequests))){
+	// 		$this->dispatch('show-download-request-modal');
+	// 		return;
+	// 	}
 
-		if(DownloadController::declineBulkRequest($this->selectedRequests)){
-			$this->dispatch('alert', [
-				'type' => 'success',
-				'message' => 'You have successfully declined the download request.'
-			]);
-			$this->updatePendingRequest();
-			$this->selectedRequests = [];
-			return;
-		}
-		$this->dispatch('alert', [
-			'type' => 'warning',
-			'message' => 'We are facing problem in declining the download request. Please try again or contact support.'
-		]);
-	}
+	// 	if(DownloadController::declineBulkRequest($this->selectedRequests)){
+	// 		$this->dispatch('alert', [
+	// 			'type' => 'success',
+	// 			'message' => 'You have successfully declined the download request.'
+	// 		]);
+	// 		$this->updatePendingRequest();
+	// 		$this->selectedRequests = [];
+	// 		return;
+	// 	}
+	// 	$this->dispatch('alert', [
+	// 		'type' => 'warning',
+	// 		'message' => 'We are facing problem in declining the download request. Please try again or contact support.'
+	// 	]);
+	// }
 }

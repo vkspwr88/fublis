@@ -88,8 +88,10 @@ class Billing extends Component
 
 		// $this->createdTotalRequests = DownloadController::getTotalRequest()->count();
 		$totalRequests = DownloadController::getTotalRequest();
-		$this->allowedTotalRequests = $totalRequests->count();
+		// $this->allowedTotalRequests = $totalRequests->count();
+		$this->allowedTotalRequests = DownloadController::getAllowedDownloadRequest();
 		$this->createdTotalRequests = $totalRequests->where('request_status', RequestStatusEnum::APPROVED)->count();
+		// $this->requestsProgress = $this->allowedTotalRequests > 0 ? $this->createdTotalRequests * 100 / $this->allowedTotalRequests : 0;
 		$this->requestsProgress = $this->allowedTotalRequests > 0 ? $this->createdTotalRequests * 100 / $this->allowedTotalRequests : 0;
 
 	}
