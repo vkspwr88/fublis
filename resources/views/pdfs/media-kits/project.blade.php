@@ -107,8 +107,12 @@
 			<td>{{ $mediaKit->story->project_brief }}</td>
 		</tr>
 		<tr>
+			<th>Project Document Link</th>
+			<td>{{ $mediaKit->story->project_doc_link ?? '-' }}</td>
+		</tr>
+		<tr>
 			<th>Project Text</th>
-			<td>{{ $mediaKit->story->project_doc_text }}</td>
+			<td>{{ $mediaKit->story->project_doc_text ?? '-' }}</td>
 		</tr>
 		<tr>
 			<th>Audio/Video URL</th>
