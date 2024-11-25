@@ -49,6 +49,7 @@ class ProjectForm extends Form
 	// #[Rule('nullable|file|mimes:pdf,doc,docs,docx')]
 	public $projectFile;
 	public $projectLink;
+	public $projectText;
 	public $photographsFiles = [];
 	public $oldPhotographsFiles = [];
 	public $photographsLink;
@@ -119,7 +120,8 @@ class ProjectForm extends Form
 			'coverImage' => $this->getValidationRule('coverImage'),
 			'projectBrief' => 'required|' . __('validations/rules.mediaKitBriefCharacters'),
 			'projectFile' => $this->getValidationRule('projectFile'),
-			'projectLink' => 'nullable|required_without:projectFile|url:https',
+			'projectLink' => 'nullable|required_without:projectFile,projectText|url:https',
+			'projectText' => 'nullable|required_without:projectFile,projectLink',
 			'photographsFiles' => 'nullable|array',
 			'photographsFiles.*' => Rule::forEach(function (string|null $value, string $attribute) {
 				return Str::contains($value, 'tmp') ?
@@ -201,7 +203,8 @@ class ProjectForm extends Form
 			'projectBrief.required' => 'Enter the :attribute.',
 			'projectBrief.max' => __('validations/messages.mediaKitBriefCharacters'),
 			'projectFile.mimes' => 'The :attribute supports only pdf, doc, docs or docx.',
-			'projectLink.required_without' => 'Enter the :attribute or upload the file.',
+			'projectLink.required_without' => 'Enter the :attribute or enter the project text or upload the file.',
+			'projectText.required_without' => 'Enter the :attribute or enter the project document link or upload the file.',
 			'photographsFiles.required' => 'Upload the :attribute.',
 			'photographsFiles.*.file' => 'The :attribute supports only file.',
 			'photographsFiles.*.mimes' => __('validations/messages.zipPlusImageMimes'),
@@ -241,8 +244,9 @@ class ProjectForm extends Form
 			'designTeam' => 'design team',
 			'coverImage' => 'cover image',
 			'projectBrief' => 'project brief',
-			'projectFile' => 'project document',
-			'projectLink' => 'project link',
+			'projectFile' => 'project text document',
+			'projectLink' => 'project text link',
+			'projectText' => 'project text',
 			'photographsFiles' => 'photographs',
 			'photographsLink' => 'photographs link',
 			'audioVideoUrl' => 'audio video link',
@@ -303,6 +307,7 @@ class ProjectForm extends Form
 		$this->projectBrief = $mediaKit->story->project_brief;
 		$this->projectFile = $mediaKit->story->project_doc_path;
 		$this->projectLink = $mediaKit->story->project_doc_link;
+		$this->projectText = $mediaKit->story->project_doc_text;
 		$this->photographsFiles = [];
 		$this->oldPhotographsFiles = $mediaKit->story->photographs->where('image_type', 'photographs');
 		$this->photographsLink = $mediaKit->story->photographs_link;
@@ -361,6 +366,7 @@ class ProjectForm extends Form
 		$this->projectBrief = $content->projectBrief;
 		$this->projectFile = $content->projectFile;
 		$this->projectLink = $content->projectLink;
+		$this->projectText = $content->projectText;
 		$this->photographsFiles = $content->photographsFiles;
 		$this->photographsLink = $content->photographsLink;
 		$this->audioVideoUrl = $content->audioVideoUrl ?? '';

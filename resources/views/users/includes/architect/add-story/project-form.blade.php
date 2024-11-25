@@ -236,6 +236,7 @@
 									<label for="projectFile"><span class="text-purple-700 cursor-pointer fw-semibold">Click to upload</span></label> or drag and drop
 								</p>
 								<input type="file" id="projectFile" class="d-none" @change="handleFileSelect">
+								<p class="py-2 m-0 text-center card-text text-secondary fs-6">{{ __('text.document') }}</p>
 								@if($form->projectFile)
 									<ul class="mt-3 list-disc">
 										@if(method_exists($form->projectFile, 'getClientOriginalName'))
@@ -260,11 +261,16 @@
 					</div>
 				</div>
 			</div>
-			@error('form.projectFile')<div class="error">{{ $message }}</div>@enderror
+			@error('form.projectFile')<div class="error mb-3">{{ $message }}</div>@enderror
 			<div class="mb-3">
 				<input type="text" class="form-control @error('form.projectLink') is-invalid @enderror" wire:model="form.projectLink" placeholder="Insert drive link" aria-describedby="projectLinkAddon">
 				@error('form.projectLink')<div class="invalid-feedback">{{ $message }}</div>@enderror
 			</div>
+			<div class="mb-3">
+				<textarea id="inputProjectText" class="form-control @error('form.projectText') is-invalid @enderror" wire:model="form.projectText" rows="8"></textarea>
+				@error('form.projectText')<div class="invalid-feedback">{{ $message }}</div>@enderror
+			</div>
+
 		</div>
 	</div>
 	<hr class="border-gray-300">

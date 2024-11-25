@@ -89,6 +89,7 @@
 									<label for="pressReleaseFile"><span class="text-purple-700 cursor-pointer fw-semibold">Click to upload</span></label> or drag and drop
 								</p>
 								<input type="file" id="pressReleaseFile" class="d-none" @change="handleFileSelect">
+								<p class="py-2 m-0 text-center card-text text-secondary fs-6">{{ __('text.document') }}</p>
 								@if($form->pressReleaseFile)
 									<ul class="mt-3 list-disc">
 										@if(method_exists($form->pressReleaseFile, 'getClientOriginalName'))

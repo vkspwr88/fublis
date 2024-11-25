@@ -44,7 +44,7 @@
 	<div class="mb-4 row">
 		<div class="col-md-4">
 			<label for="" class="col-form-label text-dark fs-6 fw-medium">Upload Article <span class="text-danger">*</span></label>
-			<label class="m-0 d-block form-text text-secondary fs-7">
+			<label for="" class="m-0 d-block form-text text-secondary fs-7">
 				Upload article or Add Drive Link.
 				<br>
 				Ideal text length is 500 to 1000 words.
@@ -73,6 +73,7 @@
 									<label for="articleFile"><span class="text-purple-700 cursor-pointer fw-semibold">Click to upload</span></label> or drag and drop
 								</p>
 								<input type="file" id="articleFile" class="d-none" @change="handleFileSelect">
+								<p class="py-2 m-0 text-center card-text text-secondary fs-6">{{ __('text.document') }}</p>
 								@if($form->articleFile)
 									<ul class="mt-3 list-disc">
 										@if(method_exists($form->articleFile, 'getClientOriginalName'))
@@ -153,6 +154,7 @@
 									<label for="companyProfileFile"><span class="text-purple-700 cursor-pointer fw-semibold">Click to upload</span></label> or drag and drop
 								</p>
 								<input type="file" id="companyProfileFile" class="d-none" @change="handleFileSelect">
+								<p class="py-2 m-0 text-center card-text text-secondary fs-6">{{ __('text.document') }}</p>
 								@if($form->companyProfileFile)
 									<ul class="mt-3 list-disc">
 										@if(method_exists($form->companyProfileFile, 'getClientOriginalName'))
@@ -187,7 +189,7 @@
 	<div class="mb-3 row">
 		<div class="col-md-4">
 			<label for="inputImagesFiles" class="col-form-label text-dark fs-6 fw-medium">Upload Images</label>
-			<label class="m-0 d-block form-text text-secondary fs-7">Choose the best images{{--  (maximum upload limit 4MB each image) --}}</label>
+			<label for="" class="m-0 d-block form-text text-secondary fs-7">Choose the best images{{--  (maximum upload limit 4MB each image) --}}</label>
 		</div>
 		<div class="col-md-8">
 			<div class="mb-2 card">
