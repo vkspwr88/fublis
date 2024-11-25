@@ -184,7 +184,7 @@ class PublicationResource extends Resource
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
-			->defaultSort('created_at', 'desc')
+			->defaultSort('display_first', 'asc')
             ->filters([
                 Tables\Filters\TrashedFilter::make(),
             ])

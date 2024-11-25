@@ -29,7 +29,8 @@ class JournalistResource extends Resource
 
 	public static function canAccess(): bool
 	{
-		return auth()->user()->hasRole('Super Admin');
+		$user = User::find(auth()->id());
+		return $user->hasRole('Super Admin');
 	}
 
     public static function form(Form $form): Form
@@ -173,7 +174,7 @@ class JournalistResource extends Resource
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
-			->defaultSort('created_at', 'desc')
+			->defaultSort('display_first', 'asc')
             ->filters([
                 Tables\Filters\TrashedFilter::make(),
             ])
