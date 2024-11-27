@@ -74,7 +74,7 @@
 						$this.progress = 0
 					},
 					function(error) {  //an error occured
-						console.log('error', error)
+						// console.log('error', error)
 					},
 					function (event) {  //upload progress was made
 						// console.log('progress', event.detail.progress);
