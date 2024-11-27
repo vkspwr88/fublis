@@ -83,6 +83,11 @@ class MediaKitResource extends Resource
                     ->searchable()
 					->sortable()
 					->wrap(),
+				Tables\Columns\TextColumn::make('pitch_count')
+					->label('Total Pitches')
+					->numeric()
+					->counts('pitch')
+					->sortable(),
 				// Tables\Columns\ColumnGroup::make('Download Requests', [
 					Tables\Columns\TextColumn::make('download_requests_count')
 						->label('Total Requests')
