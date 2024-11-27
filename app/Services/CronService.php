@@ -85,10 +85,13 @@ class CronService
 
 	public static function processDownloadRequestSchedule()
 	{
-		info("ProcessDownloadRequestSchedule Cron Job running at " . now());
+
 		try{
 			//
 			$downloadRequestSchedules = DownloadRequestScheduleService::getRecordsByNowAndMailNotSent();
+			if($downloadRequestSchedules->count()){
+				info("ProcessDownloadRequestSchedule Cron Job running at " . now());
+			}
 			foreach($downloadRequestSchedules as $downloadRequestSchedule){
 				DownloadService::sendDownloadRequest(
 					$downloadRequestSchedule->mediaKit,
@@ -99,11 +102,13 @@ class CronService
 					'is_mail_sent' => true,
 				]);
 			}
+			if($downloadRequestSchedules->count()){
+				info("ProcessDownloadRequestSchedule Cron Job ended at " . now());
+			}
 		}
 		catch(Exception $exp){
 			ErrorLogController::logErrorNew('processDownloadRequestSchedule', $exp);
 		}
-		info("ProcessDownloadRequestSchedule Cron Job ended at " . now());
 	}
 
 }
