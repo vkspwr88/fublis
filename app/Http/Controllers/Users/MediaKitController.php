@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Users;
 
+use App\Enums\Users\Architects\MediaKits\RequestStatusEnum;
 use App\Http\Controllers\Controller;
 use App\Models\Article;
 use App\Models\MediaKit;
 use App\Models\PressRelease;
 use App\Models\Project;
+use Illuminate\Contracts\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Http\Request;
@@ -36,12 +38,24 @@ class MediaKitController extends Controller
 		return MediaKit::find($id);
 	}
 
-	public static function getUserMediaKitsAnalytics(string $userId)
+	public static function getUserMediaKitsAnalytics(string $userId, string $name = '')
 	{
 		return MediaKit::whereHas('architect', function (Builder $query) use ($userId) {
 							$query->where('user_id', $userId);
-						})->with(['story', 'analytics'])
+						})
+						->with(['story'])
 						->withCount([
+							'pitch as total_pitches_count',
+							'downloadRequests as total_request_count',
+							'downloadRequests as total_pending_count' => function (Builder $query) {
+								$query->where('request_status', RequestStatusEnum::PENDING);
+							},
+							'downloadRequests as total_approved_count' => function (Builder $query) {
+								$query->where('request_status', RequestStatusEnum::APPROVED);
+							},
+							'downloadRequests as total_declined_count' => function (Builder $query) {
+								$query->where('request_status', RequestStatusEnum::DECLINED);
+							},
 							'analytics as view_count' => function (Builder $query) {
 								$query->where('data_type', 'App\Models\MediaKitView');
 							},
@@ -49,6 +63,13 @@ class MediaKitController extends Controller
 								$query->where('data_type', 'App\Models\MediaKitDownload');
 							},
 						])
+						->whereHasMorph(
+							'story',
+							[PressRelease::class, Project::class, Article::class],
+							function(Builder $query) use($name) {
+								$query->where('title', 'LIKE', '%' . $name . '%');
+							}
+						)
 						->get();
 	}
 

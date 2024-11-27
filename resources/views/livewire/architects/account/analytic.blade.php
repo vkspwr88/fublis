@@ -4,51 +4,68 @@
 			<tr>
 				<th class="border-0">
 					<div class="input-group">
-						<label class="bg-white input-group-text" for="filterSearchInput"><i class="bi bi-search"></i></label>
-						<input id="filterSearchInput" class="shadow-none form-control border-start-0 ps-0" type="search" placeholder="Search Media Kit" aria-label="Search" />
+						<label for="filterSearchInput" class="bg-white input-group-text"><i class="bi bi-search"></i></label>
+						<input id="filterSearchInput" class="shadow-none form-control border-start-0 ps-0" type="search" placeholder="Search Media Kit" aria-label="Search" wire:model.live="searchText" />
 					</div>
 				</th>
 			</tr>
 		</table>
 	</div>
 	<div class="card-body">
-		<table class="table">
-			<tr>
-				<th class="text-secondary fs-7">Project Name</th>
-				<th class="text-secondary fs-7">Views</th>
-				<th class="text-secondary fs-7">Downloads</th>
-				<th class="text-secondary fs-7">Track Story</th>
-			</tr>
-			@forelse ($mediaKits as $mediaKit)
-			<tr>
-				<td class="py-4">
-					<div class="row align-items-center g-1">
-						<div class="col-auto">
-							<img class="rounded-circle img-square img-32" src="{{ Storage::url($mediaKit->story->cover_image_path) }}" alt="..." />
-						</div>
-						<div class="col">
-							<h6 class="p-0 m-0 text-dark fs-7 fw-medium">{{ $mediaKit->story->title }}</h6>
-							<p class="p-0 m-0 text-secondary fs-8">{{ showModelName($mediaKit->story_type) }}</p>
-						</div>
-					</div>
-				</td>
-				<td class="py-4">
-					<span class="btn btn-outline-success btn-sm">{{ $mediaKit->view_count }}</span>
-				</td>
-				<td class="py-4">
-					<span class="btn btn-outline-success btn-sm">{{ $mediaKit->download_count }}</span>
-				</td>
-				<td class="py-4">
-					<a href="{{ getMediaKitViewUrl( showModelName($mediaKit->story_type), $mediaKit->slug ) }}" class="btn btn-primary btn-sm">Track</a>
-				</td>
-			</tr>
-			@empty
-			<tr>
-				<th colspan="4">
-					<h4 class="text-center text-purple-800 fs-5">No Media Kit Added</h4>
-				</th>
-			</tr>
-			@endforelse
-		</table>
+		<div class="table-responsive">
+			<table class="table">
+				<tr class="text-secondary fs-7"{{--  style="white-space: nowrap;" --}}>
+					<th style="min-width: 200px;">Project Name</th>
+					<th>Publication Requests</th>
+					<th>Pending Requests</th>
+					<th>Pitches</th>
+					<th>Approved Requests</th>
+					<th>Declined Requests</th>
+					<th>Downloads</th>
+				</tr>
+				@forelse ($mediaKits as $mediaKit)
+					<tr wire:key="{{ $mediaKit->id }}">
+						<td class="py-4">
+							<div class="row align-items-center g-1">
+								<div class="col-auto">
+									<img class="rounded-circle img-square img-32" src="{{ Storage::url($mediaKit->story->cover_image_path) }}" alt="..." />
+								</div>
+								<div class="col">
+									<h6 class="p-0 m-0 text-dark fs-7 fw-medium">{{ $mediaKit->story->title }}</h6>
+									<p class="p-0 m-0 text-secondary fs-8">{{ showModelName($mediaKit->story_type) }}</p>
+								</div>
+							</div>
+						</td>
+						<td class="py-4">
+							<span class="btn btn-outline-success btn-sm">{{ $mediaKit->total_request_count }}</span>
+						</td>
+						<td class="py-4">
+							<span class="btn btn-outline-success btn-sm">{{ $mediaKit->total_pending_count }}</span>
+						</td>
+						<td class="py-4">
+							<span class="btn btn-outline-success btn-sm">{{ $mediaKit->total_pitches_count }}</span>
+						</td>
+						<td class="py-4">
+							<span class="btn btn-outline-success btn-sm">{{ $mediaKit->total_approved_count }}</span>
+						</td>
+						<td class="py-4">
+							<span class="btn btn-outline-success btn-sm">{{ $mediaKit->total_declined_count }}</span>
+						</td>
+						<td class="py-4">
+							<span class="btn btn-outline-success btn-sm">{{ $mediaKit->download_count }}</span>
+						</td>
+						{{-- <td class="py-4">
+							<a href="{{ getMediaKitViewUrl( showModelName($mediaKit->story_type), $mediaKit->slug ) }}" class="btn btn-primary btn-sm">Track</a>
+						</td> --}}
+					</tr>
+				@empty
+					<tr>
+						<th colspan="7">
+							<h4 class="text-center text-purple-800 fs-5">No Media Kit Added</h4>
+						</th>
+					</tr>
+				@endforelse
+			</table>
+		</div>
 	</div>
 </div>
