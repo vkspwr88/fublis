@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Users\Architects;
 
 use App\Http\Controllers\Controller;
+use App\Jobs\DownloadRequestScheduleJob;
 use App\Models\Article;
 use App\Models\MediaKit;
 use App\Models\PressRelease;
@@ -51,9 +52,15 @@ class MediaKitController extends Controller
 		$details = Arr::add(
 						$details,
 						'slug',
-						MediaKitController::generateSlug($poly->title)
+						self::generateSlug($poly->title)
 					);
-		return $poly->mediakit()->create($details);
+
+		$mediaKit = $poly->mediakit()->create($details);
+
+		// call download request scheduler job
+		DownloadRequestScheduleJob::dispatch($mediaKit)->afterCommit();
+
+		return $mediaKit;
 	}
 
 	public static function generateSlug($name)

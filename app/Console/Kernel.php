@@ -15,25 +15,20 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')->hourly();
 		$schedule->command(Commands\SendArchitectWeeklyStatEmails::class)
-			->weeklyOn(3, '16:30')
-			->emailOutputTo('amansaini87@rediffmail.com');
+			->weeklyOn(3, '16:30');
 		$schedule->command(Commands\SendArchitectMonthlyStatEmails::class)
 			->lastDayOfMonth('21:00');
 		$schedule->command(Commands\SendArchitectDailyDownloadRequests::class)
 			->dailyAt('16:30');
 
 		$schedule->command(Commands\SendJournalistWeeklyStatEmails::class)
-			->weeklyOn(3, '16:30')
-			->emailOutputTo('amansaini87@rediffmail.com');
+			->weeklyOn(3, '16:30');
 		$schedule->command(Commands\SendJournalistMonthlyStatEmails::class)
-			->lastDayOfMonth('21:00')
-			->emailOutputTo('amansaini87@rediffmail.com');
+			->lastDayOfMonth('21:00');
 		$schedule->command(Commands\SendJournalistDailyNewMediaKits::class)
-			->dailyAt('16:30')
-			->emailOutputTo('amansaini87@rediffmail.com');
+			->dailyAt('16:30');
 		$schedule->command(Commands\SendJournalistDailyNewPitches::class)
-			->dailyAt('16:30')
-			->emailOutputTo('amansaini87@rediffmail.com');
+			->dailyAt('16:30');
 
 		/* $schedule->command(Commands\SendArchitectWeeklyStatEmails::class)->everyFiveMinutes();
 		$schedule->command(Commands\SendArchitectMonthlyStatEmails::class)->everyFiveMinutes();

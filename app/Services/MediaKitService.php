@@ -12,6 +12,11 @@ use Illuminate\Database\Eloquent\Builder;
 
 class MediaKitService
 {
+	public static function getMediaKitById(string $id)
+	{
+		return MediaKit::find($id);
+	}
+
 	public function filterMediaKits(array $data)
 	{
 		$mediaKits = MediaKit::with(['story', 'category', 'architect.company'])

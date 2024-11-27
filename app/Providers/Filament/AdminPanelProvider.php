@@ -100,7 +100,10 @@ class AdminPanelProvider extends PanelProvider
 						->items([
 							...Resources\JournalistResource::getNavigationItems(),
 							...Resources\JournalistPositionResource::getNavigationItems(),
+							...Resources\FublisJournalistResource::getNavigationItems(),
+							...Resources\DownloadRequestScheduleResource::getNavigationItems(),
 						])
+						->collapsed(false)
 						->icon('heroicon-o-rectangle-stack'),
 					Navigation\NavigationGroup::make('Publications')
 						->items([

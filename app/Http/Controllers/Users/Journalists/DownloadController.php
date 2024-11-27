@@ -48,7 +48,13 @@ class DownloadController extends Controller
 	{
 		try{
 			DB::beginTransaction();
-			$mediaKit->load(['architect.user', 'story']);
+
+			$user = Auth::user();
+			DownloadService::sendDownloadRequest($mediaKit, $user);
+
+			DB::commit();
+
+			/* $mediaKit->load(['architect.user', 'story']);
 			$downloadRequest = DownloadRequest::firstOrCreate([
 				'media_kit_id' => $mediaKit->id,
 				'requested_by' => auth()->id(),
@@ -78,7 +84,7 @@ class DownloadController extends Controller
 						'requestDate' => Carbon::now()->format('jS F Y'),
 						'subscribed' => isSubscribed($mediaKit->architect->user),
 					],
-				));
+				)); */
 		}
 		catch(Exception $exp){
 			DB::rollBack();

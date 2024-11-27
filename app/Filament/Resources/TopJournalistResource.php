@@ -8,6 +8,7 @@ use App\Http\Controllers\Users\CategoryController;
 use App\Http\Controllers\Users\JournalistController;
 use App\Http\Controllers\Users\LocationController;
 use App\Models\TopJournalist;
+use App\Models\User;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Forms\Set;
@@ -29,7 +30,8 @@ class TopJournalistResource extends Resource
 
 	public static function canAccess(): bool
 	{
-		return auth()->user()->hasRole('Super Admin');
+		$user = User::find(auth()->id());
+		return $user->hasRole('Super Admin');
 	}
 
     public static function form(Form $form): Form

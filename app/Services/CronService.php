@@ -83,4 +83,27 @@ class CronService
 		info("SendJournalistDailyNewPitches Cron Job ended at " . now());
 	}
 
+	public static function processDownloadRequestSchedule()
+	{
+		info("ProcessDownloadRequestSchedule Cron Job running at " . now());
+		try{
+			//
+			$downloadRequestSchedules = DownloadRequestScheduleService::getRecordsByNowAndMailNotSent();
+			foreach($downloadRequestSchedules as $downloadRequestSchedule){
+				DownloadService::sendDownloadRequest(
+					$downloadRequestSchedule->mediaKit,
+					$downloadRequestSchedule->user,
+				);
+				info('Name: ' . $downloadRequestSchedule->user->name . ', Email: ' . $downloadRequestSchedule->user->email . ', MediaKit: ' . $downloadRequestSchedule->mediaKit->slug);
+				DownloadRequestScheduleService::update($downloadRequestSchedule, [
+					'is_mail_sent' => true,
+				]);
+			}
+		}
+		catch(Exception $exp){
+			ErrorLogController::logErrorNew('processDownloadRequestSchedule', $exp);
+		}
+		info("ProcessDownloadRequestSchedule Cron Job ended at " . now());
+	}
+
 }
