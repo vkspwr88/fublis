@@ -34,11 +34,11 @@ class DownloadRequestScheduleJob implements ShouldQueue
 		info("DownloadRequestScheduleJob Job running at " . now());
 
 		$nextTickerInMinute = rand(20, 30);
-		$dateNow = Carbon::now();
 		// 1. get all fublis journalists and shuffle it, set the nextTickerInMin = rand(20, 30);
 		$fublisJournalists = FublisJournalistService::getAll();
 		// 2. loop through the list
 		foreach($fublisJournalists->shuffle() as $index => $fublisJournalist){
+			$dateNow = Carbon::now();
 			// 2.1. check if first journalist, set the schedule between 20-30 min.
 			if($index > 0){
 				// 2.2. set the next 3-5 hours schedule, by setting nextTickerInMin += rand(180, 300);
