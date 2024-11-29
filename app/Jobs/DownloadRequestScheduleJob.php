@@ -47,7 +47,7 @@ class DownloadRequestScheduleJob implements ShouldQueue
 			// 2.3. store media kit id, user id, schedule at, mail sent (default false)
 			DownloadRequestScheduleService::create([
 				'user_id' => $fublisJournalist->journalist->user_id,
-				'mediakit_id' => $this->mediaKit->id,
+				'media_kit_id' => $this->mediaKit->id,
 				'schedule_at' => $dateNow->addMinutes($nextTickerInMinute),
 			]);
 		}

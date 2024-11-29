@@ -37,6 +37,6 @@ class DownloadRequestScheduleService
 
 	public static function filterDetails($details)
 	{
-		return Arr::only($details, ['user_id', 'mediakit_id', 'schedule_at', 'is_mail_sent']);
+		return Arr::only($details, ['user_id', 'media_kit_id', 'schedule_at', 'is_mail_sent']);
 	}
 }
