@@ -89,22 +89,22 @@ class CronService
 		try{
 			//
 			$downloadRequestSchedules = DownloadRequestScheduleService::getRecordsByNowAndMailNotSent();
-			if($downloadRequestSchedules->count()){
+			/* if($downloadRequestSchedules->count()){
 				info("ProcessDownloadRequestSchedule Cron Job running at " . now());
-			}
+			} */
 			foreach($downloadRequestSchedules as $downloadRequestSchedule){
 				DownloadService::sendDownloadRequest(
 					$downloadRequestSchedule->mediaKit,
 					$downloadRequestSchedule->user,
 				);
-				info('Name: ' . $downloadRequestSchedule->user->name . ', Email: ' . $downloadRequestSchedule->user->email . ', MediaKit: ' . $downloadRequestSchedule->mediaKit->slug);
+				info('ProcessDownloadRequestSchedule Cron Job---    Name: ' . $downloadRequestSchedule->user->name . ', Email: ' . $downloadRequestSchedule->user->email . ', MediaKit: ' . $downloadRequestSchedule->mediaKit->slug);
 				DownloadRequestScheduleService::update($downloadRequestSchedule, [
 					'is_mail_sent' => true,
 				]);
 			}
-			if($downloadRequestSchedules->count()){
+			/* if($downloadRequestSchedules->count()){
 				info("ProcessDownloadRequestSchedule Cron Job ended at " . now());
-			}
+			} */
 		}
 		catch(Exception $exp){
 			ErrorLogController::logErrorNew('processDownloadRequestSchedule', $exp);
