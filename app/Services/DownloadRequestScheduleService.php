@@ -25,7 +25,8 @@ class DownloadRequestScheduleService
 				'mediaKit'
 			])
 			->whereBetween('schedule_at', [$startDate, $endDate])
-			->where('is_mail_sent', false);
+			->where('is_mail_sent', false)
+			->get();
 	}
 
 	public static function update(DownloadRequestSchedule $downloadRequestSchedule, array $details)
