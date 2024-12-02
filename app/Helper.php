@@ -176,10 +176,36 @@ if (!function_exists('isEnterprisePlanSubscribed')) {
 		if($otherUser){
 			$user = $otherUser;
 		}
-		return
-			$user->subscribed('essential-monthly-eur') || $user->subscribed('essential-annual-eur') ||
+		return isEnterpriseMonthlyPlanSubscribed($user) || isEnterpriseAnnualPlanSubscribed($user);
+			/* $user->subscribed('essential-monthly-eur') || $user->subscribed('essential-annual-eur') ||
 			$user->subscribed('essential-monthly-inr') || $user->subscribed('essential-annual-inr') ||
-			$user->subscribed('essential-monthly-usd') || $user->subscribed('essential-annual-usd');
+			$user->subscribed('essential-monthly-usd') || $user->subscribed('essential-annual-usd'); */
+		// return $user->subscribed('enterprise-plan-annually') || $user->subscribed('enterprise-plan-quarterly') || $user->subscribed('enterprise-plan-annually-inr') || $user->subscribed('enterprise-plan-quarterly-inr');
+	}
+}
+
+if (!function_exists('isEnterpriseMonthlyPlanSubscribed')) {
+	function isEnterpriseMonthlyPlanSubscribed($otherUser = null)
+	{
+		$user = auth()->user();
+		if($otherUser){
+			$user = $otherUser;
+		}
+		return
+			$user->subscribed('essential-monthly-eur') || $user->subscribed('essential-monthly-inr') || $user->subscribed('essential-monthly-usd');
+		// return $user->subscribed('enterprise-plan-annually') || $user->subscribed('enterprise-plan-quarterly') || $user->subscribed('enterprise-plan-annually-inr') || $user->subscribed('enterprise-plan-quarterly-inr');
+	}
+}
+
+if (!function_exists('isEnterpriseAnnualPlanSubscribed')) {
+	function isEnterpriseAnnualPlanSubscribed($otherUser = null)
+	{
+		$user = auth()->user();
+		if($otherUser){
+			$user = $otherUser;
+		}
+		return
+			$user->subscribed('essential-annual-eur') || $user->subscribed('essential-annual-inr') || $user->subscribed('essential-annual-usd');
 		// return $user->subscribed('enterprise-plan-annually') || $user->subscribed('enterprise-plan-quarterly') || $user->subscribed('enterprise-plan-annually-inr') || $user->subscribed('enterprise-plan-quarterly-inr');
 	}
 }

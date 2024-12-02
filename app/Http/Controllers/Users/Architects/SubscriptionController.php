@@ -38,7 +38,10 @@ class SubscriptionController extends Controller
 		if( $pitches->count() >= 3 && !isSubscribed() ){
 			return true;
 		}
-		if($pitches->count() >= 1000 && isEnterprisePlanSubscribed()){
+		if($pitches->count() >= 500 && isEnterpriseMonthlyPlanSubscribed()){
+			return true;
+		}
+		if($pitches->count() >= 1000 && isEnterpriseAnnualPlanSubscribed()){
 			return true;
 		}
 

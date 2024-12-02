@@ -237,7 +237,10 @@ class DownloadController extends Controller
 		if(isBusinessPlanSubscribed()){
 			return -1;
 		}
-		if(isEnterprisePlanSubscribed()){
+		if(isEnterpriseMonthlyPlanSubscribed()){
+			return 50;
+		}
+		if(isEnterpriseAnnualPlanSubscribed()){
 			return 100;
 		}
 		return 0;
@@ -254,11 +257,11 @@ class DownloadController extends Controller
 
 	public static function isAllowedToRespond($handlingRequest = 1)
 	{
-		$allowedLimit = DownloadController::getAllowedDownloadRequest();
+		$allowedLimit = self::getAllowedDownloadRequest();
 		if($allowedLimit == -1){
 			return true;
 		}
-		$alreadyResponded = DownloadController::getTotalRequest()->where('request_status', '!=', RequestStatusEnum::PENDING)->count();
+		$alreadyResponded = self::getTotalRequest()->where('request_status', '!=', RequestStatusEnum::PENDING)->count();
 		// dd($allowedLimit, $alreadyResponded, $handlingRequest);
 		return ($allowedLimit >= ($alreadyResponded + $handlingRequest)) ? true : false;
 	}

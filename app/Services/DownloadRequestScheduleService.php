@@ -21,12 +21,12 @@ class DownloadRequestScheduleService
 		$startDate = Carbon::now();
 		$endDate = Carbon::now()->addMinutes(70);
 		return DownloadRequestSchedule::with([
-				'user',
-				'mediaKit'
-			])
-			->where('schedule_at', '<=', $startDate)
-			->where('is_mail_sent', false)
-			->get();
+											'user',
+											'mediaKit'
+										])
+										->where('schedule_at', '<=', $startDate)
+										->where('is_mail_sent', false)
+										->get();
 	}
 
 	public static function update(DownloadRequestSchedule $downloadRequestSchedule, array $details)

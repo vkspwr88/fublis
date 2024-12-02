@@ -19,7 +19,7 @@
 						$essentialPlan = $subscriptionPlans->firstWhere('plan_name', $planType);
 						$businessPlan = $subscriptionPlans->firstWhere('plan_name', 'Business Annual');
 					@endphp
-						
+
 					<div id="pricingCard" class="card-group pb-4">
 						<div class="card rounded-4 border-0" data-title="FREE PLAN">
 							<div class="card-header bg-transparent">
@@ -96,28 +96,36 @@
 												<input type="radio" class="btn-check" wire:model.live="planType" id="monthlyRadio" autocomplete="off" value="Essential Monthly">
 												<label class="btn" for="monthlyRadio">Monthly</label>
 												<input type="radio" class="btn-check" wire:model.live="planType" id="annualRadio" autocomplete="off" value="Essential Annual">
-												<label class="btn" for="annualRadio">Annual <span class="px-2 small rounded-pill">+ 42% OFF</span></label>												
+												<label class="btn" for="annualRadio">Annual <span class="px-2 small rounded-pill">+ 42% OFF</span></label>
 											</div>
 										</div>
 									</div>
 								</div>
 							</div>
 							<div class="card-body border-start border-end">
-								<h5 class="card-title fs-6 fw-semibold mb-4">									
+								<h5 class="card-title fs-6 fw-semibold mb-4">
 									<a class="text-dark" data-bs-toggle="collapse" href="#essentialBenefits" role="button" aria-expanded="true" aria-controls="essentialBenefits">
 										<span>BENEFITS</span>
 										<span class="text-secomdary"><i class="bi bi-chevron-down"></i></span>
 									</a>
 								</h5>
-								@isset($features->essential)
+								@if(isset($features->essential_monthly) && $planType == 'Essential Monthly')
 									<div class="collapse show" id="essentialBenefits" aria-labelledby="essentialBenefitsHeading">
 										<div class="row g-2">
-											@foreach ($features->essential as $feature => $available)
-												<x-users.pricing.feature-column :$feature :$available />									
+											@foreach ($features->essential_monthly as $feature => $available)
+												<x-users.pricing.feature-column :$feature :$available />
 											@endforeach
 										</div>
 									</div>
-								@endisset
+								@elseif (isset($features->essential_annually) && $planType == 'Essential Annual')
+									<div class="collapse show" id="essentialBenefits" aria-labelledby="essentialBenefitsHeading">
+										<div class="row g-2">
+											@foreach ($features->essential_annually as $feature => $available)
+												<x-users.pricing.feature-column :$feature :$available />
+											@endforeach
+										</div>
+									</div>
+								@endif
 							</div>
 							<div class="py-4 card-footer bg-transparent">
 								<div class="d-grid">
