@@ -4,6 +4,7 @@ namespace App\Filament\Resources\JournalistResource\Pages;
 
 use App\Filament\Resources\JournalistResource;
 use App\Http\Controllers\Admin\JournalistController;
+use App\Models\Journalist;
 use Filament\Actions;
 use Filament\Notifications\Notification;
 use Filament\Resources\Pages\EditRecord;
@@ -27,11 +28,16 @@ class EditJournalist extends EditRecord
 
 	protected function mutateFormDataBeforeFill(array $data): array
     {
-		// dd($data);
+		$journalistPublications = Journalist::find($data['id'])->journalistPublications;
+		$data['publication_id'] = $journalistPublications[0]->publication_id;
+		$data['journalist_position_id'] = $journalistPublications[0]->journalist_position_id;
+		// dd($data, $journalistPublications);
 		$data = JournalistController::mutateFormDataBeforeFill($data);
 		// dd($data);
         return $data;
     }
+
+	// protected function mutateRel
 
 	protected function handleRecordUpdate(Model $record, array $data): Model
 	{

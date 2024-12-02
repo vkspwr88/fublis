@@ -16,6 +16,7 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Collection;
 
@@ -91,10 +92,12 @@ class JournalistResource extends Resource
                     ->required(),
 				Forms\Components\Select::make('journalist_position_id')
 					->required()
-					->relationship('position', 'name'),
+					->relationship('position', 'name')
+					->hidden(fn (string $operation) => $operation == 'edit'),
 				Forms\Components\Repeater::make('journalistPublications')
 					->columnSpanFull()
 					->relationship()
+					->hidden(fn (string $operation) => $operation == 'edit')
 					->schema([
 						Forms\Components\Select::make('publication_id')
 							->relationship('publication', 'name')
@@ -103,7 +106,44 @@ class JournalistResource extends Resource
 							->relationship('journalistPosition', 'name')
 							->required(),
 					])
+					// ->mutateRelationshipDataBeforeFillUsing(function (array $data): array {
+					// 	$data['journalistPublications'] = [];
+					// 	foreach(Journalist::find($data['journalist_id'])->journalistPublications as $row){
+					// 		$data['journalistPublications'][] = [
+					// 			'publication_id' => $row->publication_id,
+					// 			'journalist_position_id' => $row->journalist_position_id,
+					// 		];
+					// 	}
+					// 	// dd($data, Journalist::find($data['journalist_id'])->journalistPublications);
+					// 	return $data;
+					// })
+					// ->mutateRelationshipDataBeforeSaveUsing(function (array $data): array {
+					// 	unset($data['publication_id']);
+					// 	unset($data['journalist_position_id']);
+					// 	// dd($data);
+					// 	/* $data['journalistPublications'] = [
+					// 		[
+					// 			'publication_id' => $data['publication_id'],
+					// 			'journalist_position_id' => $data['journalist_position_id'],
+					// 		]
+					// 	]; */
+					// 	// dd($data);
+					// 	return $data;
+					// })
 					->columns(2),
+				Forms\Components\Select::make('publication_id')
+					->label('Publication')
+					->required()
+					->relationship('journalistPublications.publication', 'name')
+					->default(function (?Model $record) {
+						return $record->journalistPublications[0]->publication_id;
+					})
+					->hidden(fn (string $operation) => $operation == 'create'),
+				Forms\Components\Select::make('journalist_position_id')
+					->label('Position')
+					->required()
+					->relationship('journalistPublications.journalistPosition', 'name')
+					->hidden(fn (string $operation) => $operation == 'create'),
 				Forms\Components\TextInput::make('linked_profile')
                     ->required()
                     ->columnSpanFull(),
