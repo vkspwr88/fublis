@@ -3,6 +3,7 @@
 namespace App\Components\Journalists\Signup\Steps;
 
 use App\Enums\Users\UserTypeEnum;
+use App\Rules\NameRule;
 use App\Services\JournalistService;
 use Illuminate\Http\Request;
 use Spatie\LivewireWizard\Components\StepComponent;
@@ -45,7 +46,7 @@ class SignupStepComponent extends StepComponent
     {
 		// vikas@re-thinkingthefuture.com
         return [
-            'name' => 'required|min:3',
+            'name' => ['required', 'min:3', 'max:80', new NameRule],
 			'email' => 'required|email:rfc,dns|unique:users,email',
 			'password' => 'required|min:8',
         ];
