@@ -45,11 +45,14 @@ class DownloadRequestScheduleJob implements ShouldQueue
 				$nextTickerInMinute += rand(180, 300);
 			}
 			// 2.3. store media kit id, user id, schedule at, mail sent (default false)
-			DownloadRequestScheduleService::create([
-				'user_id' => $fublisJournalist->journalist->user_id,
-				'media_kit_id' => $this->mediaKit->id,
-				'schedule_at' => $dateNow->addMinutes($nextTickerInMinute),
-			]);
+			if($fublisJournalist->journalist && $this->mediaKit){
+				DownloadRequestScheduleService::create([
+					'user_id' => $fublisJournalist->journalist->user_id,
+					'media_kit_id' => $this->mediaKit->id,
+					'schedule_at' => $dateNow->addMinutes($nextTickerInMinute),
+				]);
+			}
+
 		}
 
 		info("DownloadRequestScheduleJob Job ended at " . now());

@@ -11,7 +11,10 @@ use App\Models\User;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
+
+use function Laravel\Prompts\warning;
 
 class CronService
 {
@@ -93,17 +96,22 @@ class CronService
 				info("ProcessDownloadRequestSchedule Cron Job running at " . now());
 			}
 			foreach($downloadRequestSchedules as $downloadRequestSchedule){
-				DownloadService::sendDownloadRequest(
-					$downloadRequestSchedule->mediaKit,
-					$downloadRequestSchedule->user,
-				);
-				info('Name: ' . $downloadRequestSchedule->user->name . ', Email: ' . $downloadRequestSchedule->user->email . ', MediaKit: ' . $downloadRequestSchedule->mediaKit->slug);
-				DownloadRequestScheduleService::update($downloadRequestSchedule, [
-					'is_mail_sent' => true,
-				]);
+				if($downloadRequestSchedule->mediaKit && $downloadRequestSchedule->user){
+					DownloadService::sendDownloadRequest(
+						$downloadRequestSchedule->mediaKit,
+						$downloadRequestSchedule->user,
+					);
+					Log::info('Name: ' . $downloadRequestSchedule->user->name . ', Email: ' . $downloadRequestSchedule->user->email . ', MediaKit: ' . $downloadRequestSchedule->mediaKit->slug);
+					DownloadRequestScheduleService::update($downloadRequestSchedule, [
+						'is_mail_sent' => true,
+					]);
+				}
+				else{
+					Log::warning('media kit or user is null: ' . $downloadRequestSchedule->id);
+				}
 			}
 			if($downloadRequestSchedules->count()){
-				info("ProcessDownloadRequestSchedule Cron Job ended at " . now());
+				Log::info("ProcessDownloadRequestSchedule Cron Job ended at " . now());
 			}
 		}
 		catch(Exception $exp){

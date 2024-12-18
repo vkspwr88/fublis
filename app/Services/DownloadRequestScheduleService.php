@@ -26,10 +26,12 @@ class DownloadRequestScheduleService
 										])
 										->where('schedule_at', '<=', $startDate)
 										->where('is_mail_sent', false)
+										->whereHas('user')
+										->whereHas('mediaKit')
 										->get();
 	}
 
-	public static function update(DownloadRequestSchedule $downloadRequestSchedule, array $details)
+	public static function update($downloadRequestSchedule, array $details)
 	{
 		return $downloadRequestSchedule->update(
 			self::filterDetails($details)
