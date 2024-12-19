@@ -84,7 +84,7 @@ Route::name('auth.')->prefix('auth')->group(function () {
 
 Route::get('/pricing', [Users\SubscriptionPlanController::class, 'index'])->name('pricing');
 // Route::post('/stripe/webhook1', [StripeController::class, 'handlingWebhook'])->name('cashier.webhook');
-// Route::post('/stripe/webhook', [StripeController::class, 'handlingWebhook'])->name('cashier.webhook');
+Route::post('/stripe/webhook', [StripeController::class, 'handlingWebhook'])->name('cashier.webhook');
 
 
 Route::name('blogs.')->prefix('blogs')->controller(Users\BlogController::class)->group(function () {
