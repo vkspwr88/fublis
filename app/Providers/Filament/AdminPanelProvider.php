@@ -131,10 +131,12 @@ class AdminPanelProvider extends PanelProvider
 						->icon('heroicon-o-rectangle-stack'),
 					Navigation\NavigationGroup::make('Media Kits')
 						->items([
-							...Resources\MediaKitResource::getNavigationItems(),
 							...Resources\ArticleResource::getNavigationItems(),
 							...Resources\PressReleaseResource::getNavigationItems(),
 							...Resources\ProjectResource::getNavigationItems(),
+							...Resources\MediaKitResource::getNavigationItems(),
+							...Resources\PitchResource::getNavigationItems(),
+							...Resources\DownloadRequestResource::getNavigationItems(),
 						])
 						->icon('heroicon-o-rectangle-stack'),
 					Navigation\NavigationGroup::make('Calls')
@@ -142,11 +144,11 @@ class AdminPanelProvider extends PanelProvider
 							...Resources\CallResource::getNavigationItems(),
 						])
 						->icon('heroicon-o-rectangle-stack'),
-					Navigation\NavigationGroup::make('Pitches')
-						->items([
-							...Resources\PitchResource::getNavigationItems(),
-						])
-						->icon('heroicon-o-rectangle-stack'),
+					// Navigation\NavigationGroup::make('Pitches')
+					// 	->items([
+					// 		...Resources\PitchResource::getNavigationItems(),
+					// 	])
+					// 	->icon('heroicon-o-rectangle-stack'),
 					Navigation\NavigationGroup::make('Location')
 						->items([
 							...Resources\CountryResource::getNavigationItems(),

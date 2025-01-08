@@ -10,6 +10,7 @@ use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Grouping\Group;
 use Filament\Tables\Table;
 use FilamentTiptapEditor\TiptapEditor;
 use Illuminate\Database\Eloquent\Builder;
@@ -21,7 +22,7 @@ class PitchResource extends Resource
 
     // protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 	protected static ?string $label = 'Pitches';
-	protected static ?string $navigationLabel = 'Lists';
+	protected static ?string $navigationLabel = 'Pitches';
 
 	public static function canAccess(): bool
 	{
@@ -73,14 +74,25 @@ class PitchResource extends Resource
                 /* Tables\Columns\TextColumn::make('id')
                     ->label('ID')
                     ->searchable(), */
-                Tables\Columns\TextColumn::make('journalist.slug')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('mediaKit.slug')
-                    ->searchable(),
+                Tables\Columns\TextColumn::make('mediaKit.story.title')
+					->label('Mediakit Title')
+					->searchable()
+					->sortable()
+					->wrap(),
+				Tables\Columns\TextColumn::make('mediaKit.architect.user.name')
+					->label('Architect')
+					->searchable()
+					->sortable(),
+				Tables\Columns\TextColumn::make('journalist.user.name')
+					->label('Journalist')
+					->searchable()
+					->sortable(),
                 Tables\Columns\TextColumn::make('subject')
-                    ->searchable(),
+                    ->searchable()
+					->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('publication.name')
-                    ->searchable(),
+					->searchable()
+					->sortable(),
                 /* Tables\Columns\TextColumn::make('pitchable_type')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('pitchable_id')
@@ -98,6 +110,21 @@ class PitchResource extends Resource
             ->filters([
                 //
             ])
+			->groups([
+				Group::make('mediaKit.architect.user.name')
+                	->label('Architect')
+					->collapsible(),
+				Group::make('media_kit_id')
+                	->label('Media Kit')
+					->getTitleFromRecordUsing(fn (Pitch $record): string => $record->mediaKit->story->title)
+					->collapsible(),
+				Group::make('publication.name')
+                	->label('Publication')
+					->collapsible(),
+				Group::make('journalist.user.name')
+                	->label('Journalist')
+					->collapsible(),
+			])
             ->actions([
                 Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),

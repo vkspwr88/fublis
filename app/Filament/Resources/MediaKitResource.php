@@ -12,6 +12,7 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Support\Enums\Alignment;
 use Filament\Tables;
+use Filament\Tables\Grouping\Group;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
@@ -21,8 +22,8 @@ class MediaKitResource extends Resource
 {
     protected static ?string $model = MediaKit::class;
 
-	protected static ?string $label = 'Download Requests';
-	protected static ?string $navigationLabel = 'Download Requests';
+	protected static ?string $label = 'Summary';
+	protected static ?string $navigationLabel = 'Summary';
 
     // protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
@@ -157,7 +158,9 @@ class MediaKitResource extends Resource
                 //
             ])
 			->groups([
-				'architect.user.name',
+				Group::make('architect.user.name')
+                	->label('Architect')
+					->collapsible(),
 			])
             ->actions([
                 // Tables\Actions\EditAction::make(),
