@@ -9,6 +9,7 @@ use App\Models\DownloadRequest;
 use App\Models\MediaKit;
 use App\Services\DownloadService;
 use App\Services\NotificationService;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -241,7 +242,7 @@ class DownloadController extends Controller
 			return 50;
 		}
 		if(isEnterpriseAnnualPlanSubscribed()){
-			return 100;
+			return 1000;
 		}
 		return 0;
 	}
@@ -261,7 +262,7 @@ class DownloadController extends Controller
 		if($allowedLimit == -1){
 			return true;
 		}
-		$alreadyResponded = self::getTotalRequest()->where('request_status', '!=', RequestStatusEnum::PENDING)->count();
+		$alreadyResponded = self::getTotalRequest()->where('request_status', '!=', RequestStatusEnum::PENDING)->whereBetween('created_at', [Carbon::now()->startOfMonth(), Carbon::now()->endOfMonth()])->count();
 		// dd($allowedLimit, $alreadyResponded, $handlingRequest);
 		return ($allowedLimit >= ($alreadyResponded + $handlingRequest)) ? true : false;
 	}
