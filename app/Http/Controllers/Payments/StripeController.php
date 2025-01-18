@@ -197,7 +197,7 @@ class StripeController extends Controller
 
 	public static function notifyAdmin($subscription)
 	{
-		info('boot subscription method: ' . json_encode($subscription));
+		// info('boot subscription method: ' . json_encode($subscription));
 		if($subscription->stripe_status == 'active'){
 			$user = $subscription->user;
 			Mail::to(env('COMPANY_EMAIL'))
