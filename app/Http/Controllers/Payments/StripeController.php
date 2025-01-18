@@ -152,7 +152,7 @@ class StripeController extends Controller
 	public function handlingWebhook(Request $request)
 	{
 		try{
-			// info('handlingWebhook on ' . Carbon::now());
+			info('handlingWebhook on ' . Carbon::now());
 			StripeWebhook::create([
 				'webhook_request' => $request->all(),
 			]);
@@ -177,7 +177,8 @@ class StripeController extends Controller
 		$subscription = Subscription::where([
 			'stripe_id' => $subscriptionID,
 			// 'stripe_status' => 'incomplete',
-		])->update([
+		])->whereNull('ends_at')
+		->update([
 			'stripe_status' => 'active',
 			'ends_at' => $endDate,
 		]);
