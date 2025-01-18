@@ -152,7 +152,7 @@ class StripeController extends Controller
 	public function handlingWebhook(Request $request)
 	{
 		try{
-			info('handlingWebhook on ' . Carbon::now());
+			// info('handlingWebhook on ' . Carbon::now());
 			StripeWebhook::create([
 				'webhook_request' => $request->all(),
 			]);
@@ -161,7 +161,7 @@ class StripeController extends Controller
 				$endDate = date('Y-m-d', $request->data['object']['lines']['data'][0]['period']['end']);
 				$this->handlingPaymentSuccess($subscriptionID, $endDate);
 			}
-			info('Received unknown event type: ' . $request->type);
+			// info('Received unknown event type: ' . $request->type);
 		}
 		catch(Exception $exp){
 			ErrorLogController::logErrorNew('handlingWebhook', $exp);
@@ -181,11 +181,11 @@ class StripeController extends Controller
 			'stripe_status' => 'active',
 			'ends_at' => $endDate,
 		]);
-		info('subscription updated:', [
-			'subscriptionID' => $subscriptionID,
-			'subscription' => $subscription,
-			'endDate' => $endDate,
-		]);
+		// info('subscription updated:', [
+		// 	'subscriptionID' => $subscriptionID,
+		// 	'subscription' => $subscription,
+		// 	'endDate' => $endDate,
+		// ]);
 		if($subscription){
 			$subscription = Subscription::with('user')->where('stripe_id', $subscriptionID)->first();
 			self::notifyAdmin($subscription);
