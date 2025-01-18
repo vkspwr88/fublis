@@ -161,12 +161,11 @@ class StripeController extends Controller
 				$endDate = date('Y-m-d', $request->data['object']['lines']['data'][0]['period']['end']);
 				$this->handlingPaymentSuccess($subscriptionID, $endDate);
 			}
-			// info('Received unknown event type: ' . $request->type);
+			info('Received unknown event type: ' . $request->type);
 		}
 		catch(Exception $exp){
 			ErrorLogController::logErrorNew('handlingWebhook', $exp);
 		}
-
 
 		// php artisan cashier:webhook --url "http://127.0.0.1:8000/stripe/webhook"
 		// php artisan cashier:webhook --url "https://app.fublis.com/stripe/webhook"
@@ -182,11 +181,11 @@ class StripeController extends Controller
 			'stripe_status' => 'active',
 			'ends_at' => $endDate,
 		]);
-		// info('subscription updated:', [
-		// 	'subscriptionID' => $subscriptionID,
-		// 	'subscription' => $subscription,
-		// 	'endDate' => $endDate,
-		// ]);
+		info('subscription updated:', [
+			'subscriptionID' => $subscriptionID,
+			'subscription' => $subscription,
+			'endDate' => $endDate,
+		]);
 		if($subscription){
 			$subscription = Subscription::with('user')->where('stripe_id', $subscriptionID)->first();
 			self::notifyAdmin($subscription);
@@ -198,7 +197,7 @@ class StripeController extends Controller
 
 	public static function notifyAdmin($subscription)
 	{
-		// info('boot subscription method: ' . json_encode($subscription));
+		info('boot subscription method: ' . json_encode($subscription));
 		if($subscription->stripe_status == 'active'){
 			$user = $subscription->user;
 			Mail::to(env('COMPANY_EMAIL'))
