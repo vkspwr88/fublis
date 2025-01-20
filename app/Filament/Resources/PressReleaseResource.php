@@ -95,7 +95,10 @@ class PressReleaseResource extends Resource
                     ->searchable(), */
                 Tables\Columns\ImageColumn::make('cover_image_path'),
                 Tables\Columns\TextColumn::make('title')
-                    ->searchable(),
+					->label('Mediakit Title')
+					->searchable()
+					->sortable()
+					->wrap(),
 				Tables\Columns\TextColumn::make('download_count')
 					->state(function (Model $record): int {
 						return $record->mediakit[0]->downloadRequests()->count();

@@ -91,7 +91,8 @@ class DownloadRequestScheduleResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('mediaKit.story.title')
 					->label('Media Kit')
-                    ->searchable(),
+                    ->searchable()
+					->wrap(),
                 Tables\Columns\TextColumn::make('schedule_at')
                     ->dateTime()
                     ->sortable(),
