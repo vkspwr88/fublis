@@ -31,20 +31,25 @@ class LocationController extends Controller
 				'country_flag' => 1,
 			]);
 			$state = UsersLocationController::getStateById($data['state']);
-			UsersLocationController::createLocation([
-				'name' => $state->name,
-				'city_flag' => 0,
-				'state_flag' => 1,
-				'country_flag' => 0,
-			]);
-			$city = UsersLocationController::getCityById($data['location_id']);
-			$location = UsersLocationController::createLocation([
-				'name' => $city->name,
-				'city_flag' => 1,
-				'state_flag' => 0,
-				'country_flag' => 0,
-			]);
-			$data['location_id'] = $location->id;
+			if($state){
+				UsersLocationController::createLocation([
+					'name' => $state->name,
+					'city_flag' => 0,
+					'state_flag' => 1,
+					'country_flag' => 0,
+				]);
+				$city = UsersLocationController::getCityById($data['location_id']);
+				if($city){
+					$location = UsersLocationController::createLocation([
+						'name' => $city->name,
+						'city_flag' => 1,
+						'state_flag' => 0,
+						'country_flag' => 0,
+					]);
+
+					$data['location_id'] = $location->id;
+				}
+			}
 
 			Arr::forget($data, ['country', 'state']);
 		}

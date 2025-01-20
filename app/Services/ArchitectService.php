@@ -224,4 +224,9 @@ class ArchitectService
 		}
 		return false;
 	}
+
+	public static function findById(string $id)
+	{
+		return Architect::findOrFail($id);
+	}
 }

@@ -33,7 +33,7 @@ class ArchitectController extends Controller
 		$data['background_color'] = AvatarController::getBackground('architect');
 		$data['foreground_color'] = '#ffffff';
 		$result = $model::create($data);
-		ArchitectController::manageMedia($mediaId, $result);
+		self::manageMedia($mediaId, $result);
 		return $result;
 	}
 
@@ -47,10 +47,10 @@ class ArchitectController extends Controller
 	public static function update(Model $record, array $data)
 	{
 		$data = LocationController::setLocationForCreate($data);
-		$data['twitter'] = $data['twitter'] ? 'https://' . trimWebsiteUrl($data['twitter']) : null;
-		$data['facebook'] = $data['facebook'] ? 'https://' . trimWebsiteUrl($data['facebook']) : null;
-		$data['instagram'] = $data['instagram'] ? 'https://' . trimWebsiteUrl($data['instagram']) : null;
-		$data['linkedin'] = $data['linkedin'] ? 'https://' . trimWebsiteUrl($data['linkedin']) : null;
+		// $data['twitter'] = isset($data['twitter']) ? 'https://' . trimWebsiteUrl($data['twitter']) : null;
+		// $data['facebook'] = isset($data['facebook']) ? 'https://' . trimWebsiteUrl($data['facebook']) : null;
+		// $data['instagram'] = isset($data['instagram']) ? 'https://' . trimWebsiteUrl($data['instagram']) : null;
+		// $data['linkedin'] = isset($data['linkedin']) ? 'https://' . trimWebsiteUrl($data['linkedin']) : null;
 
 		$mediaId = $data['media_id'];
 		Arr::forget($data, ['media_id']);

@@ -190,4 +190,9 @@ class JournalistService
 		}
 		return true;
 	}
+
+	public static function findById(string $id)
+	{
+		return Journalist::findOrFail($id);
+	}
 }

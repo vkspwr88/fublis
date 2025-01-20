@@ -38,6 +38,10 @@ class JournalistResource extends Resource
     {
         return $form
             ->schema([
+				Forms\Components\FileUpload::make('image_path')
+					->image()
+					->downloadable()
+					->hidden(fn (string $operation) => $operation == 'create' || $operation == 'edit'),
 				CuratorPicker::make('media_id')
 					->label('Logo Image (400 x 400)')
 					->buttonLabel('Select Logo Image')
@@ -47,6 +51,7 @@ class JournalistResource extends Resource
 					->maxWidth(400)
 					// ->directory('images/publications/logos')
 					// ->relationship('profile_image', 'imaggable')
+					->hidden(fn (string $operation) => $operation == 'view')
                     ->required(fn (string $operation): bool => $operation != 'edit'),
 				Forms\Components\TextInput::make('display_first')
 					->numeric()
@@ -163,14 +168,12 @@ class JournalistResource extends Resource
 					->live()
 					->options( fn (Get $get): Collection => LocationController::getStatesByCountryId($get('country'))->pluck('name', 'id') )
 					->default(0)
-					->searchable()
-					->required(),
+					->searchable(),
 				Forms\Components\Select::make('location_id')
 					->label('City')
 					->options( fn (Get $get): Collection => LocationController::getCitiesByStateId($get('state'))->pluck('name', 'id') )
 					->default(0)
-					->searchable()
-					->required(),
+					->searchable(),
                 Forms\Components\Select::make('language_id')
                     ->relationship('language', 'name'),
                 Forms\Components\Textarea::make('about_me')
