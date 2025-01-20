@@ -104,7 +104,10 @@ class PressReleaseResource extends Resource
 					->state(function (Model $record): int {
 						return $record->mediakit[0]->downloadRequests()->where('request_status', 'pending')->count();
 					}),
-                Tables\Columns\ImageColumn::make('image_credits'),
+                Tables\Columns\TextColumn::make('image_credits')
+					->toggleable(isToggledHiddenByDefault: true),
+				Tables\Columns\TextColumn::make('concept_note')
+					->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
