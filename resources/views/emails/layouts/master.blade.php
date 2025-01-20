@@ -13,7 +13,7 @@ The Team
 <hr style="width: 96px; margin: 15px 0; color: #EAECF0; height: 1px;">
 <p style="margin-bottom: 20px; color: #98A2B3;">
 <small>
-This email was sent to <span class="link">{{ Str::mask($senderEmail, '*', -3, Str::length($senderEmail) - 3) }}</span>. If you'd rather not receive this kind of email, you can <a href="#" class="link">unsubscribe</a> or <a href="#" class="link">manage your email preferences</a>.
+This email was sent to <span class="link">{{ Str::mask($senderEmail, '*', 3, Str::length($senderEmail) - 6) }}</span>. If you'd rather not receive this kind of email, you can <a href="#" class="link">unsubscribe</a> or <a href="#" class="link">manage your email preferences</a>.
 </small>
 </p>
 <p class="fs-14" style="margin-bottom: 30px;">
