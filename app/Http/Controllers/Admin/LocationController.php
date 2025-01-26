@@ -83,7 +83,7 @@ class LocationController extends Controller
 						$data['country'] = $country->id;
 					}
 				}
-				if($city->id){
+				if(isset($city->id)){
 					$data['location_id'] = $city->id;
 				}
 				// dd($data);
