@@ -58,8 +58,6 @@
 								{{ $city->state->name }}
 							</span>
 							@endif
-							{{-- <span class="text-gray-700 bg-gray-200 badge rounded-pill">{{ $architect->location->state->country->name }}</span>
-							<span class="text-gray-700 bg-gray-200 badge rounded-pill">{{ $architect->location->state->name }}</span> --}}
 							<span class="text-gray-700 bg-gray-200 badge rounded-pill">{{ $architect->location->name }}</span>
 						</div>
 					</div>

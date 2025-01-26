@@ -49,9 +49,15 @@ class PersonalInfo extends Component
 		$this->selectedState = 0;
 		if($architect->location){
 			$city = LocationController::getCityByCityName($architect->location->name);
-			$this->selectedCity = $city->name;
-			$this->selectedState = $city->state->id;
-			$this->selectedCountry = $city->state->country->id;
+			if($city){
+				$this->selectedCity = $city->name;
+				if($city->state){
+					$this->selectedState = $city->state->id;
+					if($city->state->country){
+						$this->selectedCountry = $city->state->country->id;
+					}
+				}
+			}
 		}
 	}
 
