@@ -95,6 +95,10 @@ class JournalistResource extends Resource
 							->default('journalist'),
 					])
                     ->required(),
+				Forms\Components\TextInput::make('slug')
+					->unique(ignoreRecord: true)
+					->hidden(fn (string $operation) => $operation != 'edit')
+					->required(),
 				Forms\Components\Select::make('journalist_position_id')
 					->required()
 					->relationship('position', 'name')
