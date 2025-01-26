@@ -264,7 +264,9 @@
 	</div>
 	<div class="col-md-8 col-lg-9">
 		<div class="row g-4">
-			@include('users.includes.common.profile-media-kit-filter-form')
+			@if ($viewAs != 'other')
+				@include('users.includes.common.profile-media-kit-filter-form')
+			@endif
 			<div class="col-12" wire:loading.remove>
 				@if ($viewAs == 'architect')
 				<x-users.media-kits.architect-list :mediaKits="$filterredMediaKits" />
