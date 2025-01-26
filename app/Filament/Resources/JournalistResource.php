@@ -94,6 +94,11 @@ class JournalistResource extends Resource
 							])
 							->default('journalist'),
 					])
+					->editOptionForm([
+						Forms\Components\TextInput::make('name')
+							->required()
+							->maxLength(255),
+					])
                     ->required(),
 				Forms\Components\TextInput::make('slug')
 					->unique(ignoreRecord: true)
