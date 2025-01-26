@@ -97,7 +97,16 @@ class ArchitectResource extends Resource
 							])
 							->default('architect'),
 					])
+					->editOptionForm([
+						Forms\Components\TextInput::make('name')
+							->required()
+							->maxLength(255),
+					])
                     ->required(),
+				Forms\Components\TextInput::make('slug')
+					->unique(ignoreRecord: true)
+					->hidden(fn (string $operation) => $operation != 'edit')
+					->required(),
 				Forms\Components\Select::make('user_role')
                     ->required()
                     ->options(UserRoleEnum::class),
