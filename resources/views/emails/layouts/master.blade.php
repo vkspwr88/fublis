@@ -28,8 +28,5 @@ This email was sent to <span class="link">{{ Str::mask($senderEmail, '*', 3, Str
 <img src="{{ asset('images/social/' . strtolower($socialMedia->name) . '.png') }}" alt="{{ strtolower($socialMedia->name) }}" style="width: 30px; height: 30px; margin-left: 5px; margin-top: 10px;">
 </a>
 @endforeach
-{{-- <a href="#"><img src="{{ asset('images/social/twitter.png') }}" alt="twitter" style="width: 25px; height: 25px; margin-right: 10px;"></a>
-<a href="#"><img src="{{ asset('images/social/facebook.png') }}" alt="facebook" style="width: 25px; height: 25px; margin-right: 10px;"></a>
-<a href="#"><img src="{{ asset('images/social/instagram.png') }}" alt="instagram" style="width: 25px; height: 25px;"></a> --}}
 </p>
 </x-mail::message>
