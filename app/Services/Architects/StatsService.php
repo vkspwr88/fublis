@@ -22,7 +22,7 @@ class StatsService
 			'user',
 		]);
 		foreach($architects as $architect){
-			if(isEnterprisePlanSubscribed($architect->user)){
+			if($architect->user && isEnterprisePlanSubscribed($architect->user)){
 				$resultData = [
 					'total_media_kits' => 0,
 					'total_pitches_sent' => 0,
