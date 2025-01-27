@@ -366,7 +366,7 @@ class ProjectForm extends Form
 		$this->projectBrief = $content->projectBrief;
 		$this->projectFile = $content->projectFile;
 		$this->projectLink = $content->projectLink;
-		$this->projectText = $content->projectText;
+		$this->projectText = $content->projectText ?? '';
 		$this->photographsFiles = $content->photographsFiles;
 		$this->photographsLink = $content->photographsLink;
 		$this->audioVideoUrl = $content->audioVideoUrl ?? '';
