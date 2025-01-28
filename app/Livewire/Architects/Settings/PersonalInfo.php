@@ -122,10 +122,10 @@ class PersonalInfo extends Component
 			// 'profileImage' => 'nullable|image|mimes:svg,png,jpg,gif|max:3100|dimensions:max_width=400,max_height=400',
 			'position' => 'required|exists:architect_positions,id',
 			// 'location' => 'required|exists:locations,id',
-			'selectedCountry' => 'nullable|exists:countries,id',
-			'selectedState' => 'nullable|exists:states,id',
-			'selectedCity' => 'nullable|exists:cities,name',
-			'aboutMe' => 'nullable|max:275',
+			'selectedCountry' => 'required|exists:countries,id',
+			'selectedState' => 'required|exists:states,id',
+			'selectedCity' => 'required|exists:cities,name',
+			'aboutMe' => 'required|max:275',
 		];
 	}
 
@@ -172,11 +172,11 @@ class PersonalInfo extends Component
 	{
 		$validated = $this->validate();
 		// $validated = $this->validate($this->rules(), $this->messages(), $this->validationAttributes());
-		if(!$this->profileImageOld && !$this->profileImage){
-			$this->addError('profileImage', 'Upload profile image.');
-			return;
-		}
-		// dd($validated);
+		// if(!$this->profileImageOld && !$this->profileImage){
+		// 	$this->addError('profileImage', 'Upload profile image.');
+		// 	return;
+		// }
+		//dd($validated);
 		if($this->settingService->updatePersonalInfo($validated)){
 			$this->dispatch('alert', [
 				'type' => 'success',
