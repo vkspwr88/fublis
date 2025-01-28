@@ -47,7 +47,7 @@ class LocationController extends Controller
 					])->first();
 	}
 
-	public static function getStatesByCountryId(int $countryId)
+	public static function getStatesByCountryId($countryId)
 	{
 		return State::where([
 						'status' => 'active',
@@ -57,7 +57,7 @@ class LocationController extends Controller
 					->get();
 	}
 
-	public static function getCitiesByStateId(int $stateId)
+	public static function getCitiesByStateId($stateId)
 	{
 		return City::where([
 						'status' => 'active',
@@ -67,7 +67,7 @@ class LocationController extends Controller
 					->get();
 	}
 
-	public static function getCitiesByCountry(int $countryId)
+	public static function getCitiesByCountry($countryId)
 	{
 		return Country::whereHas('cities', function (Builder $query) {
 								$query->where('cities.status', 'active');
