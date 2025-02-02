@@ -24,6 +24,7 @@
         "laravolt/avatar": "^5.1",
         "livewire/livewire": "^3.0",
         "pusher/pusher-php-server": "^7.2",
+        "pxlrbt/filament-excel": "^2.4",
         "ralphjsmit/laravel-filament-seo": "^1.2",
         "ralphjsmit/laravel-seo": "^1.4",
         "rappasoft/laravel-livewire-tables": "^3.4",
