@@ -35,7 +35,8 @@ class ListArchitects extends ListRecords
 								}),
 							Column::make('position.name')
 								->heading('Position'),
-							Column::make('location.name'),
+							Column::make('location.name')
+								->heading('Location'),
 							Column::make('about_me'),
 							Column::make('created_at')
 								->heading('Create Date'),
