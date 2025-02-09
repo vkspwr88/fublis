@@ -6,6 +6,7 @@ use App\Enums\Affiliates\ReturnTypeEnum;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\ErrorLogController;
 use App\Mail\Admin\PaidUser;
+use App\Mail\User\Architect\SubscriptionMail;
 use App\Models\StripeWebhook;
 use App\Models\Subscription;
 use App\Models\SubscriptionPlan;
@@ -204,7 +205,14 @@ class StripeController extends Controller
 				->cc(['amansaini87@rediffmail.com', 'Vikas@re-thinkingthefuture.com'])
 				->queue(new PaidUser($user));
 
-
+			Mail::to($user->email)
+				->queue(new SubscriptionMail([
+					'receiver_name' => $user->name,
+					'plan_name' => $user->latestSubscription->subscriptionPrice->plan_name,
+					'pitch_url' => route('architect.pitch-story.index'),
+					'senderEmail' => $user->email,
+					'preferenceUrl' => route('architect.unsubscribe'),
+				]));
 			// Email subscriber user
 
 
