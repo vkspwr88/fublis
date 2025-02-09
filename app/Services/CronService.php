@@ -28,8 +28,11 @@ class CronService
 			foreach($requestGroup as $user => $downloadRequest){
 				$mediaKitTitles = $downloadRequest->pluck('mediaKit.story.title')->unique();
 				$user = json_decode($user);
+				// dd($user);
 				info('Name: ' . $user->name . ', Email: ' . $user->email . ', MediaKits: ' . $mediaKitTitles);
-				Mail::to($user->email)->queue(new DailyDownloadRequestMail($user->email, $user->name, $mediaKitTitles));
+				if(EmailPreferenceService::isPreferenceSelected(User::find($user->id), 'architect-daily-download-request-mail')){
+					Mail::to($user->email)->queue(new DailyDownloadRequestMail($user->email, $user->name, $mediaKitTitles));
+				}
 			}
 		}
 		catch(Exception $exp){

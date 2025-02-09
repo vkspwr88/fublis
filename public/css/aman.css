@@ -1241,6 +1241,11 @@ trix-toolbar .trix-button--icon-code{
 	width: 105%;
 }
 
+.form-check .form-check-input-lg{
+	width: 1.5em;
+  	height: 1.5em;
+}
+
 @media(max-width: 1400px){
 	#fullWidthHeader{
 		font-size: 178px;

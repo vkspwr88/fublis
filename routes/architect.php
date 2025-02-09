@@ -131,6 +131,8 @@ Route::middleware(ArchitectLogin::class)->group(function() {
 			});
 		});
 
+		Route::get('unsubscribe', [Architects\EmailPreferenceController::class, 'index'])->name('unsubscribe');
+
 		/* Route::get('/journalist/{journalist_id:slug}', [Architects\AddStoryController::class, 'index'])->name('journalist');
 		Route::get('/publication/{publication_id:slug}', [Architects\AddStoryController::class, 'index'])->name('publication'); */
 	});

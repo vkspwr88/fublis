@@ -82,7 +82,9 @@ class NotificationService
 										]);
 
 			$mediaKit = MediaKitController::findById($data['media_kit_id'])->load(['architect.user', 'story']);
-			Mail::to($mediaKit->architect->user->email)->queue(new DownloadMediaKitMail($mediaKit->architect->user->email, $mediaKit->architect->user->name, $mediaKit->story->title, formatDate(Carbon::now())));
+			if(EmailPreferenceService::isPreferenceSelected($mediaKit->architect->user, 'architect-instant-download-media-kit-mail')){
+				Mail::to($mediaKit->architect->user->email)->queue(new DownloadMediaKitMail($mediaKit->architect->user->email, $mediaKit->architect->user->name, $mediaKit->story->title, formatDate(Carbon::now())));
+			}
 		}
 	}
 

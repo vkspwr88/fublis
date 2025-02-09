@@ -37,20 +37,22 @@ class DownloadService
 			'media_kit_title' => $mediaKit->story->title,
 		]);
 
-		Mail::to($mediaKit->architect->user->email)
-			->queue(new DownloadRequestMail(
-				$mediaKit->architect->user->email,
-				$mediaKit->architect->user->name,
-				$mediaKit->story->title,
-				formatDate(Carbon::now()),
-				[
-					'journalist' => $user->name,
-					'publication' => $journalist->publications[0]->name,
-					'requestTime' => Carbon::now()->format('H:i'),
-					'requestDate' => Carbon::now()->format('jS F Y'),
-					'subscribed' => isSubscribed($mediaKit->architect->user),
-				],
-			));
+		if(EmailPreferenceService::isPreferenceSelected($mediaKit->architect->user, 'architect-instant-download-request-mail')){
+			Mail::to($mediaKit->architect->user->email)
+				->queue(new DownloadRequestMail(
+					$mediaKit->architect->user->email,
+					$mediaKit->architect->user->name,
+					$mediaKit->story->title,
+					formatDate(Carbon::now()),
+					[
+						'journalist' => $user->name,
+						'publication' => $journalist->publications[0]->name,
+						'requestTime' => Carbon::now()->format('H:i'),
+						'requestDate' => Carbon::now()->format('jS F Y'),
+						'subscribed' => isSubscribed($mediaKit->architect->user),
+					],
+				));
+		}
 	}
 
 	public function singleFileDownload($slug, $file, $type)
