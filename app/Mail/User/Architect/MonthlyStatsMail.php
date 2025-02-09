@@ -48,6 +48,7 @@ class MonthlyStatsMail extends Mailable implements ShouldQueue
 				'resultData' => $this->resultData,
 				'analyticUrl' => route('architect.account.profile.analytic'),
 				'loginUrl' => route('architect.login'),
+				'preferenceUrl' => route('architect.unsubscribe'),
 			],
         );
     }

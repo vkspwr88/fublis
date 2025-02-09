@@ -251,6 +251,14 @@
 			"submenu": null
 		},
 		{
+			"url" : "architect.unsubscribe",
+			"name": "Email Preferences",
+			"desc": null,
+			"icon": null,
+			"slug": null,
+			"submenu": null
+		},
+		{
 			"url" : "architect.account.profile.setting.personal-info",
 			"name": "Settings",
 			"desc": null,

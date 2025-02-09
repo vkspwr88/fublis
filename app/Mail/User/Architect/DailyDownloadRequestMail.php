@@ -48,6 +48,7 @@ class DailyDownloadRequestMail extends Mailable implements ShouldQueue
 				'mediaKitTitles' => $this->mediaKitTitles,
 				'notificationUrl' => route('architect.account.profile.notification'),
 				'loginUrl' => route('architect.login'),
+				'preferenceUrl' => route('architect.unsubscribe'),
 			],
         );
     }

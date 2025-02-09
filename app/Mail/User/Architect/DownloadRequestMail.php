@@ -53,6 +53,7 @@ class DownloadRequestMail extends Mailable implements ShouldQueue
 				'loginUrl' => route('architect.login'),
 				'upgradeUrl' => route('pricing'),
 				'data' => $this->data,
+				'preferenceUrl' => route('architect.unsubscribe'),
 			],
         );
     }
