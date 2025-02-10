@@ -11,22 +11,10 @@
 				$state = $city->state;
 				$country = $state->country;
 			} */
-			$city = $state = $country = '';
-			$cityDB = $mediaKit->story->location->city()->first();
-			if($cityDB){
-				$city = $mediaKit->story->location->name;
-				$stateDB = $cityDB->state;
-				$state = $stateDB->name;
-				$countryDB = $stateDB->country;
-				$country = $countryDB->name;
-			}
-			else{
-				$country = $mediaKit->story->location->name;
-				if($country){
-					$state = $mediaKit->story->state->name ?? '';
-					$city = $mediaKit->story->city->name ?? '';
-				}
-			}
+			$locations = getLocations($mediaKit->story->location);
+			$city = $locations['city'] ?? '';
+			$state = $locations['state'] ?? '';
+			$country = $locations['country'] ?? '';
 		@endphp
 		<h1 class="py-2 m-0 text-dark fs-1 fw-semibold">{{ str()->headline($mediaKit->story->title) }}</h1>
 		<div class="py-3 row justify-content-center g-2">
@@ -85,13 +73,13 @@
 									-
 								@endif
 								@if ($city)
-									 {{ $city }},
+									{{ $city }},
 								@endif
 								@if ($state)
-									 {{ $state }},
+									{{ $state }},
 								@endif
 								@if ($country)
-									 {{ $country }}
+									{{ $country }}
 								@endif
 								{{-- - {{ $mediaKit->story->location->name }}@isset($state), {{ $state->name }}@endisset @isset($country), {{ $country->name }}@endisset --}}
 							</span>

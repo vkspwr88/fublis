@@ -227,3 +227,25 @@ if(!function_exists('displayCurrencyValue')){
 		return $symbol . number_format($value, 2);
 	}
 }
+
+if(!function_exists('getLocations')){
+	function getLocations($locationRec)
+	{
+		$locations = [];
+		$countryDB = $locationRec->country()->first();
+		$cityDB = $locationRec->city()->first();
+		// dd($locationRec, $countryDB, $cityDB);
+		if ($countryDB){
+			$locations['country'] = $countryDB->name;
+		}
+		elseif($cityDB){
+			$locations['city'] = $cityDB->name;
+			$stateDB = $cityDB->state;
+			$locations['state'] = $stateDB->name;
+			$countryDB = $stateDB->country;
+			$locations['country'] = $countryDB->name;
+		}
+
+		return $locations;
+	}
+}

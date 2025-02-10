@@ -49,13 +49,16 @@
 						</svg>
 					</div>
 					<div class="col">
-						@if ($brand->location->country()->first())
+						@php
+							$locations = getLocations($brand->location);
+						@endphp
+						@if (isset($locations['country']))
 							<span class="text-gray-700 bg-gray-200 badge rounded-pill text-capitalize">
-								{{ $brand->location->country()->first()->name }}
+								{{ $locations['country'] }}
 							</span>
-						@elseif ($brand->location->city()->first())
+						@elseif (isset($locations['city']))
 							<span class="text-gray-700 bg-gray-200 badge rounded-pill text-capitalize">
-								{{ $brand->location->city()->first()->state->country->name }}
+								{{ $locations['city'] }}
 							</span>
 						@else
 							<span class="text-gray-700 bg-gray-200 badge rounded-pill">{{ $brand->location->name }}</span>
