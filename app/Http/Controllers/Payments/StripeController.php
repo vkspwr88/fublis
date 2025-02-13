@@ -177,7 +177,7 @@ class StripeController extends Controller
 		$subscription = Subscription::where([
 			'stripe_id' => $subscriptionID,
 			// 'stripe_status' => 'incomplete',
-		])->whereNull('ends_at')
+		])/* ->whereNull('ends_at') */
 		->update([
 			'stripe_status' => 'active',
 			'ends_at' => $endDate,
