@@ -65,12 +65,12 @@ class Billing extends Component
 			// $this->allowedTotalPressReleases = 1000;
 			// $this->allowedTotalProjects = 1000;
 			// $this->allowedTotalArticles = 1000;
-			$this->allowedTotalPitches = 10000;
+			$this->allowedTotalPitches = -1;
 			// $this->allowedTotalRequests = 10000;
 		}
 		elseif (isEnterprisePlanSubscribed()) {
 			$this->allowedTotalUser = CompanyController::getAllowedArchitects('Enterprise Plan');
-			$this->planName = 'Enterprise plan';
+			$this->planName = 'Essential plan';
 			$this->pricePerMonth = $latestSubscription->subscriptionPrice->price_per_month;
 			$this->planCurrency = $latestSubscription->subscriptionPrice->symbol;
 		}

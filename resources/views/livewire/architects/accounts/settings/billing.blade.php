@@ -240,11 +240,11 @@
 					<div class="card-body">
 						<div class="row g-4">
 							<div class="col-12">
-								<h4 class="m-0 fs-5 text-dark fw-medium">Pitches <span class="badge rounded-pill bg-purple-100 text-purple-700 fw-semibold p-2 fs-7">Monthly</span></h4>
+								<h4 class="m-0 fs-5 text-dark fw-medium">Pitches <span class="p-2 text-purple-700 bg-purple-100 badge rounded-pill fw-semibold fs-7">Monthly</span></h4>
 								<p class="m-0 fs-6 text-secondary"><small>Pitch your projects, articles and press releases</small></p>
 							</div>
 							<div class="col-12">
-								<p class="mb-2 text-dark fw-semibold">{{ $createdTotalPitches }} of {{ $allowedTotalPitches }} Pitches</p>
+								<p class="mb-2 text-dark fw-semibold">{{ $createdTotalPitches }} of {{ $allowedTotalPitches == -1 ? 'Unlimited' : $allowedTotalPitches }} Pitches</p>
 								<div class="progress" aria-label="Total User" aria-valuenow="{{ $pitchesProgress }}" aria-valuemin="0" aria-valuemax="100" style="height: 10px;">
 									<div class="progress-bar bg-primary" style="width: {{ $pitchesProgress }}%"></div>
 								</div>
@@ -262,7 +262,7 @@
 								<p class="m-0 fs-6 text-secondary"><small>Approved requests to get published</small></p>
 							</div>
 							<div class="col-12">
-								<p class="mb-2 text-dark fw-semibold">{{ $createdTotalRequests }} of {{ $allowedTotalRequests }} Requests Approved</p>
+								<p class="mb-2 text-dark fw-semibold">{{ $createdTotalRequests }} of {{ $allowedTotalRequests == -1 ? 'Unlimited' : $allowedTotalRequests }} Requests Approved</p>
 								<div class="progress" aria-label="Total User" aria-valuenow="{{ $requestsProgress }}" aria-valuemin="0" aria-valuemax="100" style="height: 10px;">
 									<div class="progress-bar bg-primary" style="width: {{ $requestsProgress }}%"></div>
 								</div>
@@ -320,7 +320,7 @@
 									</tr>
 								@empty
 									<tr>
-										<th class="text-center text-danger py-4" colspan="6">No invoice record is there</th>
+										<th class="py-4 text-center text-danger" colspan="6">No invoice record is there</th>
 									</tr>
 								@endforelse
 							</tbody>

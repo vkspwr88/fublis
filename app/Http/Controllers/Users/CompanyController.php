@@ -110,10 +110,10 @@ class CompanyController extends Controller
 	public static function getAllowedArchitects($subscriptionPlan)
 	{
 		if(Str::contains($subscriptionPlan, 'Business Plan')){
-			return 5;
+			return 20;
 		}
 		if(Str::contains($subscriptionPlan, 'Enterprise Plan')){
-			return 20;
+			return 5;
 		}
 		return 1; // free user
 	}
