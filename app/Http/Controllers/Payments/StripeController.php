@@ -162,7 +162,13 @@ class StripeController extends Controller
 				$endDate = date('Y-m-d', $request->data['object']['lines']['data'][0]['period']['end']);
 				$this->handlingPaymentSuccess($subscriptionID, $endDate);
 			}
-			info('Received unknown event type: ' . $request->type);
+			elseif($request->type == 'customer.subscription.deleted'){
+				$subscriptionID = $request->data['object']['subscription'];
+				$this->handlingSubscriptionDeleted($subscriptionID);
+			}
+			else{
+				info('Received unknown event type: ' . $request->type);
+			}
 		}
 		catch(Exception $exp){
 			ErrorLogController::logErrorNew('handlingWebhook', $exp);
@@ -194,6 +200,21 @@ class StripeController extends Controller
 			// 	->cc(['amansaini87@rediffmail.com', 'Vikas@re-thinkingthefuture.com'])
 			// 	->queue(new PaidUser($subscription->user));
 		}
+	}
+
+	public function handlingSubscriptionDeleted(string $subscriptionID)
+	{
+		$subscription = Subscription::where([
+			'stripe_id' => $subscriptionID,
+			// 'stripe_status' => 'incomplete',
+		])/* ->whereNull('ends_at') */
+		->update([
+			'stripe_status' => 'deleted',
+		]);
+		info('subscription deleted:', [
+			'subscriptionID' => $subscriptionID,
+			'subscription' => $subscription,
+		]);
 	}
 
 	public static function notifyAdmin($subscription)
