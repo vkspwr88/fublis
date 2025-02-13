@@ -163,7 +163,7 @@ class StripeController extends Controller
 				$this->handlingPaymentSuccess($subscriptionID, $endDate);
 			}
 			elseif($request->type == 'customer.subscription.deleted'){
-				$subscriptionID = $request->data['object']['subscription'];
+				$subscriptionID = $request->data['object']['id'];
 				$this->handlingSubscriptionDeleted($subscriptionID);
 			}
 			else{
