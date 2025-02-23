@@ -74,11 +74,15 @@
 												</div>
 												<div class="col">
 													<p class="p-0 m-0 fw-semibold">
-														<a href="{{ route('journalist.account.profile.publications.view', ['publication' => $call->publication->slug]) }}" class="text-secondary" style="z-index: 2;">{{ $call->publication->name }}</a>
+														@if($call->publication)
+															<a href="{{ route('journalist.account.profile.publications.view', ['publication' => $call->publication->slug]) }}" class="text-secondary" style="z-index: 2;">{{ $call->publication->name }}</a>
+														@endif
 													</p>
 													<p class="p-0 m-0">
 														<span class="small">
-															<a href="{{ route('journalist.account.profile.journalists.view', ['journalist' => $call->journalist->slug]) }}" class="text-secondary" style="z-index: 2;">{{ $call->journalist->user->name }}</a>
+															@if($call->journalist)
+																<a href="{{ route('journalist.account.profile.journalists.view', ['journalist' => $call->journalist->slug]) }}" class="text-secondary" style="z-index: 2;">{{ $call->journalist->user->name }}</a>
+															@endif
 														</span>
 													</p>
 												</div>
