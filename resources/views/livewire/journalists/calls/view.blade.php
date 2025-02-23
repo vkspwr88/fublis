@@ -65,6 +65,7 @@
 				<img class="rounded-circle img-square img-45" src="{{ $profileImg }}" alt=".." />
 			</div>
 			<div class="col">
+				@if ($publication)
 				<p class="p-0 m-0 fw-semibold">
 					@if(isArchitect())
 						<a href="{{ route('architect.pitch-story.publications.view', ['publication' => $publication->slug]) }}" class="text-secondary">{{ $publication->name }}</a>
@@ -75,7 +76,9 @@
 				<p class="p-0 m-0">
 					<span class="small">
 						<a href="{{ $publication->website }}" target="_blank" class="text-secondary">{{ trimWebsiteUrl($publication->website) }}</a>
-					</span></p>
+					</span>
+				</p>
+				@endif
 			</div>
 		</div>
 	</div>
