@@ -50,16 +50,17 @@
 		<div class="row align-items-center">
 			<div class="col-auto">
 				@php
-					use App\Http\Controllers\Users\AvatarController as AvatarController;
-					$profileImg = $publication->profileImage ?
-									Storage::url($publication->profileImage->image_path) :
-									AvatarController::setProfileAvatar([
-										'name' => $publication->name,
-										'width' => 45,
-										'fontSize' => 18,
-										'background' => $publication->background_color,
-										'foreground' => $publication->foreground_color,
-									], 'publication');
+					$profileImg = App\Http\Controllers\Users\AvatarController::getProfileAvatar($publication, 'publication');
+					// use App\Http\Controllers\Users\AvatarController as AvatarController;
+					// $profileImg = $publication->profileImage ?
+					// 				Storage::url($publication->profileImage->image_path) :
+					// 				AvatarController::setProfileAvatar([
+					// 					'name' => $publication->name,
+					// 					'width' => 45,
+					// 					'fontSize' => 18,
+					// 					'background' => $publication->background_color,
+					// 					'foreground' => $publication->foreground_color,
+					// 				], 'publication');
 				@endphp
 				<img class="rounded-circle img-square img-45" src="{{ $profileImg }}" alt=".." />
 			</div>
