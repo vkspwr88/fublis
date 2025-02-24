@@ -116,6 +116,9 @@ class CallController extends Controller
 		if($count > 1){
 			$title .= $count;
 		}
+		$title = str()->replace('?', '', $title);
+		$title = str()->replace('/', '', $title);
+		$title = str()->replace('.', '', $title);
 		return str()->replace(
 							' ',
 							'-',

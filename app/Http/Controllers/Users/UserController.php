@@ -14,6 +14,9 @@ class UserController extends Controller
 		if($count > 1){
 			$name .= $count;
 		}
+		$name = str()->replace('?', '', $name);
+		$name = str()->replace('/', '', $name);
+		$name = str()->replace('.', '', $name);
 		return str()->replace(
 							' ',
 							'-',
