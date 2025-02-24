@@ -40,7 +40,7 @@ class CompanyController extends Controller
 		$details = Arr::add(
 							$details,
 							'slug',
-							CompanyController::generateSlug($details['name'])
+							self::generateSlug($details['name'])
 						);
 		return Company::firstOrCreate(
 			['name' => $details['name']],
@@ -54,6 +54,9 @@ class CompanyController extends Controller
 		if($count > 0){
 			$name .= $count;
 		}
+		$name = str()->replace('?', '', $name);
+		$name = str()->replace('/', '', $name);
+		$name = str()->replace('.', '', $name);
 		return str()->replace(
 							' ',
 							'-',
