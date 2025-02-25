@@ -95,16 +95,16 @@ class CronService
 		try{
 			//
 			$downloadRequestSchedules = DownloadRequestScheduleService::getRecordsByNowAndMailNotSent();
-			if($downloadRequestSchedules->count()){
-				info("ProcessDownloadRequestSchedule Cron Job running at " . now());
-			}
+			// if($downloadRequestSchedules->count()){
+			// 	info("ProcessDownloadRequestSchedule Cron Job running at " . now());
+			// }
 			foreach($downloadRequestSchedules as $downloadRequestSchedule){
 				if($downloadRequestSchedule->mediaKit && $downloadRequestSchedule->user){
 					DownloadService::sendDownloadRequest(
 						$downloadRequestSchedule->mediaKit,
 						$downloadRequestSchedule->user,
 					);
-					Log::info('Name: ' . $downloadRequestSchedule->user->name . ', Email: ' . $downloadRequestSchedule->user->email . ', MediaKit: ' . $downloadRequestSchedule->mediaKit->slug);
+					// Log::info('Name: ' . $downloadRequestSchedule->user->name . ', Email: ' . $downloadRequestSchedule->user->email . ', MediaKit: ' . $downloadRequestSchedule->mediaKit->slug);
 					DownloadRequestScheduleService::update($downloadRequestSchedule, [
 						'is_mail_sent' => true,
 					]);
@@ -113,9 +113,9 @@ class CronService
 					Log::warning('media kit or user is null: ' . $downloadRequestSchedule->id);
 				}
 			}
-			if($downloadRequestSchedules->count()){
-				Log::info("ProcessDownloadRequestSchedule Cron Job ended at " . now());
-			}
+			// if($downloadRequestSchedules->count()){
+			// 	Log::info("ProcessDownloadRequestSchedule Cron Job ended at " . now());
+			// }
 		}
 		catch(Exception $exp){
 			ErrorLogController::logErrorNew('processDownloadRequestSchedule', $exp);
