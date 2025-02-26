@@ -85,4 +85,6 @@ Route::middleware(JournalistLogin::class)->group(function() {
 			});
 		});
 	});
+
+	Route::get('unsubscribe', [Journalists\EmailPreferenceController::class, 'index'])->name('unsubscribe');
 });

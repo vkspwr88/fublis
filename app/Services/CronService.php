@@ -60,7 +60,9 @@ class CronService
 				// dd($mediaKits, $user, $mediaKits1, $mediaKits2);
 				if($mediaKits->count()){
 					info('Name: ' . $user->name . ', Email: ' . $user->email . ', Total MediaKits: ' . $mediaKits->count());
-					Mail::to($user->email)->queue(new DailyMediaKitMail($user->email, $user->name, $mediaKits));
+					if(EmailPreferenceService::isPreferenceSelected($user, 'journalist-daily-media-kit-mail')){
+						Mail::to($user->email)->queue(new DailyMediaKitMail($user->email, $user->name, $mediaKits));
+					}
 				}
 			}
 		}
@@ -80,7 +82,9 @@ class CronService
 			foreach($requestGroup as $user => $pitch){
 				$user = json_decode($user);
 				info('Name: ' . $user->name . ', Email: ' . $user->email);
-				Mail::to($user->email)->queue(new DailyPitchReceivedMail($user->email, $user->name));
+				if(EmailPreferenceService::isPreferenceSelected(User::find($user->id), 'journalist-daily-pitch-received-mail')){
+					Mail::to($user->email)->queue(new DailyPitchReceivedMail($user->email, $user->name));
+				}
 			}
 		}
 		catch(Exception $exp){

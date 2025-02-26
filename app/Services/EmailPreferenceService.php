@@ -55,6 +55,29 @@ class EmailPreferenceService
 		return $alert;
 	}
 
+	public static function updateJournalist($emailPreferences)
+	{
+		$alert = [
+			'type' => 'success',
+			'message' => 'You have successfully updated the email preferences.',
+		];
+		try{
+            DB::beginTransaction();
+
+			User::find(Auth::id())->emailPreferences()->sync(
+				self::filterSelectedRecords(self::getAllRecordsByUser('journalist')->pluck('id'), $emailPreferences)
+			);
+
+			DB::commit();
+		}
+		catch(Exception $exp){
+			DB::rollBack();
+			ErrorLogController::logErrorNew('update', $exp);
+		}
+
+		return $alert;
+	}
+
 	public static function isPreferenceSelected($user, $key)
 	{
 		return !$user->emailPreferences->firstWhere('key', $key);
