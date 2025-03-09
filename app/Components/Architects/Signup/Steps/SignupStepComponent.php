@@ -45,7 +45,7 @@ class SignupStepComponent extends StepComponent
 	public function rules()
     {
         return [
-            'name' => ['required', 'min:3', 'max:80', new NameRule],
+            'name' => ['required', 'min:3', 'max:80'/* , new NameRule */],
 			'email' => 'required|email:rfc,dns|unique:users,email',
 			'password' => 'required|min:8',
         ];
