@@ -7,12 +7,15 @@ use App\Http\Controllers\Users\Architects\SubscriptionController;
 use App\Http\Controllers\Users\MediaKitController;
 use App\Http\Controllers\Users\PublicationController;
 use App\Livewire\Forms\FilterMediaKitsForm;
+use App\Services\PitchStoryService;
 use Livewire\Component;
 use Livewire\WithPagination;
 
 class Profile extends Component
 {
 	use WithPagination;
+
+	private PitchStoryService $pitchStoryService;
 
 	public FilterMediaKitsForm $form;
 
@@ -27,6 +30,11 @@ class Profile extends Component
 	public $selectedMediaKit;
 	public $subject;
 	public $message;
+
+	public function boot()
+	{
+		$this->pitchStoryService = app()->make(PitchStoryService::class);
+	}
 
 	public function mount($architect)
 	{

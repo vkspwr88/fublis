@@ -7,12 +7,16 @@ use App\Http\Controllers\Users\CompanyController;
 use App\Http\Controllers\Users\MediaKitController;
 use App\Http\Controllers\Users\PublicationController;
 use App\Livewire\Forms\FilterMediaKitsForm;
+use App\Services\PitchStoryService;
+use Livewire\Attributes\Renderless;
 use Livewire\Component;
 use Livewire\WithPagination;
 
 class Studio extends Component
 {
 	use WithPagination;
+
+	private PitchStoryService $pitchStoryService;
 
 	public FilterMediaKitsForm $form;
 
@@ -28,6 +32,11 @@ class Studio extends Component
 	public $selectedMediaKit;
 	public $subject;
 	public $message;
+
+	public function boot()
+	{
+		$this->pitchStoryService = app()->make(PitchStoryService::class);
+	}
 
 	public function mount()
 	{
@@ -60,6 +69,7 @@ class Studio extends Component
 	}
 
 	// Show publications list
+	#[Renderless]
 	public function pitchPublications($selectedMediaKit)
 	{
 		$this->selectedMediaKit = $selectedMediaKit;
@@ -76,6 +86,7 @@ class Studio extends Component
 	}
 
 	// Show journalists list
+	#[Renderless]
 	public function showMediaKit()
 	{
 		if($this->selectedAssociatedPublication == ''){
@@ -147,6 +158,7 @@ class Studio extends Component
 	}
 
 	// Show success message
+	#[Renderless]
 	public function showPitchSuccess()
 	{
 		// dd($this->message);
