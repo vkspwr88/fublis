@@ -47,3 +47,5 @@
 	<livewire:architects.account.profile :architect="$architect" />
 </div>
 @endsection
+
+@include('users.includes.architect.pitch-story-modals-script')

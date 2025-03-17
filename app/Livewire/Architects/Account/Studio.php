@@ -63,13 +63,20 @@ class Studio extends Component
 		]);
     }
 
+	public function search()
+	{
+		// $this->resetPage();
+		$this->render();
+		//dd($this->selectedMediaKitTypes, $this->selectedCategories);
+	}
+
 	public function removeFilterOption($key)
 	{
 		$this->form->selectedMediaKitTypes->pull($key);
 	}
 
 	// Show publications list
-	#[Renderless]
+	// #[Renderless]
 	public function pitchPublications($selectedMediaKit)
 	{
 		$this->selectedMediaKit = $selectedMediaKit;
@@ -79,14 +86,14 @@ class Studio extends Component
 			'publicationTypes' => [],
 			'categories' => [],
 		]);
-		if($this->associatedPublications->count() > 1){
+		// dd($this->associatedPublications);
+		if($this->associatedPublications->count() > 0){
 			$this->dispatch('show-select-publication-modal');
 		}
 		// dd('working');
 	}
 
 	// Show journalists list
-	#[Renderless]
 	public function showMediaKit()
 	{
 		if($this->selectedAssociatedPublication == ''){
@@ -158,7 +165,6 @@ class Studio extends Component
 	}
 
 	// Show success message
-	#[Renderless]
 	public function showPitchSuccess()
 	{
 		// dd($this->message);
