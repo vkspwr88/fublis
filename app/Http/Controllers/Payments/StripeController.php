@@ -6,6 +6,7 @@ use App\Enums\Affiliates\ReturnTypeEnum;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\ErrorLogController;
 use App\Mail\Admin\PaidUser;
+use App\Mail\Admin\RenewUser;
 use App\Mail\User\Architect\SubscriptionMail;
 use App\Models\StripeWebhook;
 use App\Models\Subscription;
@@ -50,6 +51,13 @@ class StripeController extends Controller
 							'message' => 'You have cancelled the payment',
 						])->getTargetUrl(),
 					]); */
+	}
+
+	public function upgrade(Request $request, SubscriptionPlan $subscriptionPlan)
+	{
+		$user = $request->user();
+		$stripeCustomer = $user->createOrGetStripeCustomer();
+		return $user->newSubscription($subscriptionPlan->price_id);
 	}
 
 	public function callback(Request $request, SubscriptionPlan $subscriptionPlan)
@@ -103,7 +111,8 @@ class StripeController extends Controller
 			// Mail::to(env('COMPANY_EMAIL'))
 			// 	->cc(['amansaini87@rediffmail.com', 'Vikas@re-thinkingthefuture.com'])
 			// 	->queue(new PaidUser(auth()->user()));
-			self::notifyAdmin($subscription);
+
+			// self::notifyAdmin($subscription, 'subscription_create');
 
 			return to_route('architect.account.profile.setting.billing')->with([
 				'type' => 'success',
@@ -160,7 +169,8 @@ class StripeController extends Controller
 			if($request->type == 'invoice.payment_succeeded'){
 				$subscriptionID = $request->data['object']['subscription'];
 				$endDate = date('Y-m-d', $request->data['object']['lines']['data'][0]['period']['end']);
-				$this->handlingPaymentSuccess($subscriptionID, $endDate);
+				$billingReason = $request->data['object']['billing_reason'];
+				$this->handlingPaymentSuccess($subscriptionID, $endDate, $billingReason);
 			}
 			elseif($request->type == 'customer.subscription.deleted'){
 				$subscriptionID = $request->data['object']['id'];
@@ -178,7 +188,7 @@ class StripeController extends Controller
 		// php artisan cashier:webhook --url "https://app.fublis.com/stripe/webhook"
 	}
 
-	public function handlingPaymentSuccess(string $subscriptionID, $endDate)
+	public function handlingPaymentSuccess(string $subscriptionID, $endDate, $billingReason = '')
 	{
 		$subscription = Subscription::where([
 			'stripe_id' => $subscriptionID,
@@ -195,7 +205,7 @@ class StripeController extends Controller
 		]);
 		if($subscription){
 			$subscription = Subscription::with('user')->where('stripe_id', $subscriptionID)->first();
-			self::notifyAdmin($subscription);
+			self::notifyAdmin($subscription, $billingReason);
 			// Mail::to(env('COMPANY_EMAIL'))
 			// 	->cc(['amansaini87@rediffmail.com', 'Vikas@re-thinkingthefuture.com'])
 			// 	->queue(new PaidUser($subscription->user));
@@ -217,23 +227,31 @@ class StripeController extends Controller
 		]);
 	}
 
-	public static function notifyAdmin($subscription)
+	public static function notifyAdmin($subscription, $billingReason = '')
 	{
 		info('boot subscription method: ' . json_encode($subscription));
 		if($subscription->stripe_status == 'active'){
 			$user = $subscription->user;
-			Mail::to(env('COMPANY_EMAIL'))
-				->cc(['amansaini87@rediffmail.com', 'Vikas@re-thinkingthefuture.com'])
-				->queue(new PaidUser($user));
+			if($billingReason == 'subscription_cycle'){
+				Mail::to(env('COMPANY_EMAIL'))
+					->cc(['amansaini87@rediffmail.com', 'Vikas@re-thinkingthefuture.com'])
+					->queue(new RenewUser($user));
+			}
+			if($billingReason == 'subscription_create'){
+				Mail::to(env('COMPANY_EMAIL'))
+					->cc(['amansaini87@rediffmail.com', 'Vikas@re-thinkingthefuture.com'])
+					->queue(new PaidUser($user));
 
-			Mail::to($user->email)
-				->queue(new SubscriptionMail([
-					'receiver_name' => $user->name,
-					'plan_name' => $user->latestSubscription->subscriptionPrice->plan_name,
-					'pitch_url' => route('architect.pitch-story.index'),
-					'senderEmail' => $user->email,
-					'preferenceUrl' => route('architect.unsubscribe'),
-				]));
+				Mail::to($user->email)
+					->queue(new SubscriptionMail([
+						'receiver_name' => $user->name,
+						'plan_name' => $user->latestSubscription->subscriptionPrice->plan_name,
+						'pitch_url' => route('architect.pitch-story.index'),
+						'senderEmail' => $user->email,
+						'preferenceUrl' => route('architect.unsubscribe'),
+					]));
+			}
+
 			// Email subscriber user
 
 

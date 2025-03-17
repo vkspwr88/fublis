@@ -3,8 +3,8 @@
 return [
 	'wordMimes' => 'The :attribute supports only pdf, doc, docx, txt, odt or zip format.',
 	'image' => 'The :attribute supports only image.',
-	'imageMimes' => 'The :attribute supports only svg, png, jpg, jpeg or gif.',
-	'zipPlusImageMimes' => 'The :attribute supports only svg, png, jpg, jpeg, gif or zip.',
+	'imageMimes' => 'The :attribute supports only svg, png, jpg, jpeg, gif or webp.',
+	'zipPlusImageMimes' => 'The :attribute supports only svg, png, jpg, jpeg, gif, webp or zip.',
 	'coverImage' => [
 		'max' => 'Maximum allowed size to upload :attribute 3MB.',
 		'dimensions' => 'Maximum allowed dimension for the :attribute is 800x400px.',

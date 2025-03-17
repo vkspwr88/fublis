@@ -261,7 +261,7 @@
 					</div>
 				</div>
 			</div>
-			@error('form.projectFile')<div class="error mb-3">{{ $message }}</div>@enderror
+			@error('form.projectFile')<div class="mb-3 error">{{ $message }}</div>@enderror
 			<div class="mb-3">
 				<input type="text" class="form-control @error('form.projectLink') is-invalid @enderror" wire:model="form.projectLink" placeholder="Insert drive link" aria-describedby="projectLinkAddon">
 				@error('form.projectLink')<div class="invalid-feedback">{{ $message }}</div>@enderror
@@ -335,8 +335,8 @@
 					</div>
 				</div>
 			</div>
-			@error('form.photographsFiles')<div class="error">{{ $message }}</div>@enderror
-			@error('form.photographsFiles.*')<div class="error">{{ $message }}</div>@enderror
+			@error('form.photographsFiles')<div class="mb-2 error">{{ $message }}</div>@enderror
+			@error('form.photographsFiles.*')<div class="mb-2 error">{{ $message }}</div>@enderror
 			<div class="mb-3">
 				<input type="text" class="form-control @error('form.photographsLink') is-invalid @enderror" wire:model="form.photographsLink" placeholder="Insert drive link" aria-describedby="photographsLinkAddon">
 				@error('form.photographsLink')<div class="invalid-feedback">{{ $message }}</div>@enderror
@@ -406,7 +406,8 @@
 					</div>
 				</div>
 			</div>
-			@error('form.drawingsFiles')<div class="error">{{ $message }}</div>@enderror
+			@error('form.drawingsFiles')<div class="mb-2 error">{{ $message }}</div>@enderror
+			@error('form.drawingsFiles.*')<div class="mb-2 error">{{ $message }}</div>@enderror
 			<div class="mb-0">
 				<input type="text" class="form-control @error('form.drawingsLink') is-invalid @enderror" wire:model="form.drawingsLink" placeholder="Insert drive link">
 				@error('form.drawingsLink')<div class="invalid-feedback">{{ $message }}</div>@enderror

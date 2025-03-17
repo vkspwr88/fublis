@@ -128,7 +128,6 @@ class ProjectForm extends Form
 							'nullable|file|' . __('validations/rules.zipPlusImageMimes') . '|' . __('validations/rules.bulkFilesSize') :
 							'nullable|string';
 			}),
-			// 'photographsFiles.*' => 'nullable|file|' . __('validations/rules.zipPlusImageMimes') . '|' . __('validations/rules.bulkFilesSize'),
 			'photographsLink' => 'nullable|url:https',
 			'audioVideoUrl' => 'nullable|url:https',
 			'drawingsFiles' => 'nullable|array',
@@ -137,14 +136,7 @@ class ProjectForm extends Form
 							'nullable|file|' . __('validations/rules.zipPlusImageMimes') . '|' . __('validations/rules.bulkFilesSize') :
 							'nullable|string';
 			}),
-			// 'drawingsFiles.*' => 'nullable|file|' . __('validations/rules.zipPlusImageMimes') . '|' . __('validations/rules.bulkFilesSize'),
 			'drawingsLink' => 'nullable|url:https',
-			/* 'photographsFiles' => 'required|array',
-			'photographsFiles.*' => 'file|mimes:zip,svg,png,jpg,gif', */
-			//'photographsFiles.*' => 'image|mimes:svg,png,jpg,gif',
-			/* 'drawingsFiles' => 'required|array',
-			'drawingsFiles.*' => 'file|mimes:zip,svg,png,jpg,gif', */
-			//'drawingsFiles.*' => 'image|mimes:svg,png,jpg,gif',
 			'tags' => 'nullable|array',
 			'mediaContact' => 'required',
 			'mediaKitAccess' => 'required',
@@ -169,6 +161,7 @@ class ProjectForm extends Form
 				return 'nullable|string';
 			}
 		}
+		return '';
     }
 
 	public function messages()
@@ -248,9 +241,11 @@ class ProjectForm extends Form
 			'projectLink' => 'project text link',
 			'projectText' => 'project text',
 			'photographsFiles' => 'photographs',
+			'photographsFiles.*' => 'photographs',
 			'photographsLink' => 'photographs link',
 			'audioVideoUrl' => 'audio video link',
 			'drawingsFiles' => 'drawings',
+			'drawingsFiles.*' => 'drawings',
 			'drawingsLink' => 'drawings link',
 			'tags' => 'tags',
 			'mediaContact' => 'media contact',

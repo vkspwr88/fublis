@@ -1,4 +1,4 @@
-<div class="py-5 container" id="pricingContainer">
+<div class="container py-5" id="pricingContainer">
     <div class="row g-4">
 		<div class="col-md-12">
 			<div class="ms-auto text-start">
@@ -18,11 +18,13 @@
 					@php
 						$essentialPlan = $subscriptionPlans->firstWhere('plan_name', $planType);
 						$businessPlan = $subscriptionPlans->firstWhere('plan_name', 'Business Annual');
+						$userSubscription = auth()->user()?->subscriptions()?->active()?->latest()?->first();
+						$subscribedType = $userSubscription?->type;
 					@endphp
 
-					<div id="pricingCard" class="card-group pb-4">
-						<div class="card rounded-4 border-0" data-title="FREE PLAN">
-							<div class="card-header bg-transparent">
+					<div id="pricingCard" class="pb-4 card-group">
+						<div class="border-0 card rounded-4" data-title="FREE PLAN">
+							<div class="bg-transparent card-header">
 								<div class="row g-3">
 									<div class="col-12">
 										<h3 class="m-0 fs-1 text-muted text-decoration-line-through">
@@ -33,7 +35,7 @@
 										<h3 class="m-0 fs-1 text-dark">{{ $essentialPlan->symbol }} NIL <span class="fs-7 fw-medium text-secondary">per month</span></h3>
 									</div>
 									<div class="col-12">
-										<span class="badge rounded-pill bg-purple-100 text-purple-700 fw-semibold p-2 fs-6">Start pitching with free account</span>
+										<span class="p-2 text-purple-700 bg-purple-100 badge rounded-pill fw-semibold fs-6">Start pitching with free account</span>
 									</div>
 									<div class="col-12">
 										<h4 class="m-0 fs-5 fw-bold">FREE Starter Plan</h4>
@@ -45,7 +47,7 @@
 								</div>
 							</div>
 							<div class="card-body">
-								<h5 class="card-title fs-6 fw-semibold mb-4" id="freeBenefitsHeading">
+								<h5 class="mb-4 card-title fs-6 fw-semibold" id="freeBenefitsHeading">
 									<a class="text-dark" data-bs-toggle="collapse" href="#freeBenefits" role="button" aria-expanded="true" aria-controls="freeBenefits">
 										<span>BENEFITS</span>
 										<span class="text-secomdary"><i class="bi bi-chevron-down"></i></span>
@@ -61,17 +63,17 @@
 									</div>
 								@endisset
 							</div>
-							<div class="py-4 card-footer bg-transparent">
+							<div class="py-4 bg-transparent card-footer">
 								<div class="d-grid">
 									<a href="{{ route('architect.signup') }}" class="btn btn-primary text-capitalize fw-medium">get started</a>
 								</div>
 							</div>
 						</div>
-						<div class="card rounded-4 border-0" data-title="ESSENTIAL PLAN">
-							<div class="card-header bg-purple-600 rounded-top-4 text-white">
+						<div class="border-0 card rounded-4" data-title="ESSENTIAL PLAN">
+							<div class="text-white bg-purple-600 card-header rounded-top-4">
 								<div class="row g-3">
 									<div class="col-12">
-										<h3 class="m-0 fs-1 text-gray-300 text-decoration-line-through">
+										<h3 class="m-0 text-gray-300 fs-1 text-decoration-line-through">
 											{{ $essentialPlan->symbol }} {{ $essentialPlan->actual_price }}
 										</h3>
 									</div>
@@ -79,7 +81,7 @@
 										<h3 class="m-0 fs-1">{{ $essentialPlan->symbol }} {{ $essentialPlan->price_per_month }} <span class="fs-7 fw-medium">per month</span></h3>
 									</div>
 									<div class="col-12">
-										<span class="badge rounded-pill bg-purple-100 text-purple-700 fw-semibold p-2 fs-6">
+										<span class="p-2 text-purple-700 bg-purple-100 badge rounded-pill fw-semibold fs-6">
 											{{ $essentialPlan->discount_percentage }}% OFF | Offer ends this month
 										</span>
 									</div>
@@ -103,7 +105,7 @@
 								</div>
 							</div>
 							<div class="card-body border-start border-end">
-								<h5 class="card-title fs-6 fw-semibold mb-4">
+								<h5 class="mb-4 card-title fs-6 fw-semibold">
 									<a class="text-dark" data-bs-toggle="collapse" href="#essentialBenefits" role="button" aria-expanded="true" aria-controls="essentialBenefits">
 										<span>BENEFITS</span>
 										<span class="text-secomdary"><i class="bi bi-chevron-down"></i></span>
@@ -127,24 +129,28 @@
 									</div>
 								@endif
 							</div>
-							<div class="py-4 card-footer bg-transparent">
+							<div class="py-4 bg-transparent card-footer">
 								<div class="d-grid">
-									@if($isSubscribed)
+									{{-- @if($isSubscribed) --}}
 										@if(auth()->user()->subscribed($essentialPlan->slug))
 											<button type="button" class="btn btn-success text-capitalize fw-medium">Subscribed</button>
+										{{-- @elseif(Str::contains($subscribedType, strtolower($currency)))
+											<button type="button" class="btn btn-primary text-capitalize fw-medium" wire:click="changeSubscription('{{ $essentialPlan->slug }}')">
+												Change Subscription <x-users.spinners.white-btn wire:target="subscribe('{{ $essentialPlan->slug }}')" />
+											</button> --}}
 										@else
 											<button type="button" class="btn btn-danger text-capitalize fw-medium">not subscribed</button>
 										@endif
-									@else
+									{{-- @else
 										<button type="button" class="btn btn-primary text-capitalize fw-medium" wire:click="subscribe('{{ $essentialPlan->slug }}')">
 											Upgrade Now <x-users.spinners.white-btn wire:target="subscribe('{{ $essentialPlan->slug }}')" />
-										</button>
-									@endif
+										</button> --}}
+									{{-- @endif --}}
 								</div>
 							</div>
 						</div>
-						<div class="card rounded-4 border-0" data-title="BUSINESS PLAN">
-							<div class="card-header bg-transparent">
+						<div class="border-0 card rounded-4" data-title="BUSINESS PLAN">
+							<div class="bg-transparent card-header">
 								<div class="row g-3">
 									<div class="col-12">
 										<h3 class="m-0 fs-1 text-muted text-decoration-line-through">
@@ -155,7 +161,7 @@
 										<h3 class="m-0 fs-1 text-dark">{{ $businessPlan->symbol }} {{ $businessPlan->price_per_month }} <span class="fs-7 fw-medium text-secondary">per month</span></h3>
 									</div>
 									<div class="col-12">
-										<span class="badge rounded-pill bg-purple-100 text-purple-700 fw-semibold p-2 fs-6">
+										<span class="p-2 text-purple-700 bg-purple-100 badge rounded-pill fw-semibold fs-6">
 											{{ $businessPlan->discount_percentage }}% OFF | Offer ends this month
 										</span>
 									</div>
@@ -169,7 +175,7 @@
 								</div>
 							</div>
 							<div class="card-body">
-								<h5 class="card-title fs-6 fw-semibold mb-4">
+								<h5 class="mb-4 card-title fs-6 fw-semibold">
 									<a class="text-dark" data-bs-toggle="collapse" href="#businessBenefits" role="button" aria-expanded="true" aria-controls="businessBenefits">
 										<span>BENEFITS</span>
 										<span class="text-secomdary"><i class="bi bi-chevron-down"></i></span>
@@ -185,19 +191,23 @@
 									</div>
 								@endisset
 							</div>
-							<div class="py-4 card-footer bg-transparent">
+							<div class="py-4 bg-transparent card-footer">
 								<div class="d-grid">
-									@if($isSubscribed)
+									{{-- @if($isSubscribed) --}}
 										@if(auth()->user()->subscribed($businessPlan->slug))
 											<button type="button" class="btn btn-success text-capitalize fw-medium">Subscribed</button>
+										{{-- @elseif(Str::contains($subscribedType, strtolower($currency)))
+											<button type="button" class="btn btn-primary text-capitalize fw-medium" wire:click="subscribe('{{ $businessPlan->slug }}')">
+												Change Subscription <x-users.spinners.white-btn wire:target="changeSubscription('{{ $businessPlan->slug }}')" />
+											</button> --}}
 										@else
 											<button type="button" class="btn btn-danger text-capitalize fw-medium">not subscribed</button>
 										@endif
-									@else
+									{{-- @else
 										<button type="button" class="btn btn-primary text-capitalize fw-medium" wire:click="subscribe('{{ $businessPlan->slug }}')">
 											Upgrade Now <x-users.spinners.white-btn wire:target="subscribe('{{ $businessPlan->slug }}')" />
-										</button>
-									@endif
+										</button> --}}
+									{{-- @endif --}}
 								</div>
 							</div>
 						</div>

@@ -53,6 +53,7 @@ Route::middleware(ArchitectLogin::class)->group(function() {
 		// Route::get('/payment/checkout/{razorpay}', [RazorpayController::class, 'checkout'])->name('razorpay.checkout');
 		// Route::post('/payment/callback/{razorpay}', [RazorpayController::class, 'callback'])->name('razorpay.callback');
 		Route::get('/checkout/{subscriptionPlan:slug}', [StripeController::class, 'checkout'])->name('stripe.checkout');
+		Route::get('/checkout/{subscriptionPlan:slug}/upgrade', [StripeController::class, 'upgrade'])->name('stripe.upgrade');
 		Route::post('/checkout/{subscriptionPlan:slug}/callback', [StripeController::class, 'callback'])->name('stripe.callback');
 		Route::get('/invoice/{invoice}', [StripeController::class, 'downloadInvoice'])->name('stripe.invoice.download');
 

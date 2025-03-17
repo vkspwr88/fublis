@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Users\Pricing;
 
+use App\Http\Controllers\Users\SubscriptionPlanController;
 use App\Models\SubscriptionPlan;
 use Livewire\Component;
 
@@ -22,13 +23,14 @@ class Plan2024 extends Component
 			'INR' => 25000,
 			'EUR' => 350,
 		];
-						
+
 		$this->currency = 'USD';
 		$this->planType = 'Essential Monthly';
 		$this->isSubscribed = isSubscribed();
 		$path = resource_path('menus/pricePlan.json');
 		$this->features = json_decode(file_get_contents($path));
 		// dd($this->features);
+		// dd(auth()->user());
 	}
 
     public function render()
@@ -42,5 +44,15 @@ class Plan2024 extends Component
 	{
 		// dd($slug);
 		return to_route('architect.stripe.checkout', ['subscriptionPlan' => $slug]);
+	}
+
+	public function changeSubscription($slug)
+	{
+		// dd($this->subscriptionPlans->firstWhere('slug', $slug));
+		$subscriptionPlan = $this->subscriptionPlans->firstWhere('slug', $slug);
+		$subscribedPlan = SubscriptionPlanController::getActiveSubscription();
+		// auth()->user()->subscription($subscribedPlan?->type)->swapAndInvoice($subscriptionPlan->price_id);
+		// return auth()->user()
+		// 	->newSubscription($subscriptionPlan->price_id);
 	}
 }
