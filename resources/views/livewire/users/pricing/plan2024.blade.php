@@ -131,7 +131,7 @@
 							</div>
 							<div class="py-4 bg-transparent card-footer">
 								<div class="d-grid">
-									{{-- @if($isSubscribed) --}}
+									@if($isSubscribed)
 										@if(auth()->user()->subscribed($essentialPlan->slug))
 											<button type="button" class="btn btn-success text-capitalize fw-medium">Subscribed</button>
 										{{-- @elseif(Str::contains($subscribedType, strtolower($currency)))
@@ -141,11 +141,11 @@
 										@else
 											<button type="button" class="btn btn-danger text-capitalize fw-medium">not subscribed</button>
 										@endif
-									{{-- @else
+									@else
 										<button type="button" class="btn btn-primary text-capitalize fw-medium" wire:click="subscribe('{{ $essentialPlan->slug }}')">
 											Upgrade Now <x-users.spinners.white-btn wire:target="subscribe('{{ $essentialPlan->slug }}')" />
-										</button> --}}
-									{{-- @endif --}}
+										</button>
+									@endif
 								</div>
 							</div>
 						</div>
@@ -193,7 +193,7 @@
 							</div>
 							<div class="py-4 bg-transparent card-footer">
 								<div class="d-grid">
-									{{-- @if($isSubscribed) --}}
+									@if($isSubscribed)
 										@if(auth()->user()->subscribed($businessPlan->slug))
 											<button type="button" class="btn btn-success text-capitalize fw-medium">Subscribed</button>
 										{{-- @elseif(Str::contains($subscribedType, strtolower($currency)))
@@ -203,11 +203,11 @@
 										@else
 											<button type="button" class="btn btn-danger text-capitalize fw-medium">not subscribed</button>
 										@endif
-									{{-- @else
+									@else
 										<button type="button" class="btn btn-primary text-capitalize fw-medium" wire:click="subscribe('{{ $businessPlan->slug }}')">
 											Upgrade Now <x-users.spinners.white-btn wire:target="subscribe('{{ $businessPlan->slug }}')" />
-										</button> --}}
-									{{-- @endif --}}
+										</button>
+									@endif
 								</div>
 							</div>
 						</div>
