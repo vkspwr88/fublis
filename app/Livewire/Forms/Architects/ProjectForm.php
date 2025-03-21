@@ -446,8 +446,8 @@ class ProjectForm extends Form
 		}
 		if($type == 'edit'){
 			$mediaKit = MediaKitController::findById($id);
-			$pressRelease = $mediaKit->story;
-			ImageController::delete($pressRelease->photographs(), $index);
+			$project = $mediaKit->story;
+			ImageController::delete($project->photographs(), $index);
 			$this->oldPhotographsFiles = $mediaKit->story->photographs;
 			return;
 		}
