@@ -132,7 +132,7 @@
 							<div class="py-4 bg-transparent card-footer">
 								<div class="d-grid">
 									@if($isSubscribed)
-										@if(auth()->user()->subscribed($essentialPlan->slug))
+										@if(auth()->check() && auth()->user()->subscribed($essentialPlan->slug))
 											<button type="button" class="btn btn-success text-capitalize fw-medium">Subscribed</button>
 										{{-- @elseif(Str::contains($subscribedType, strtolower($currency)))
 											<button type="button" class="btn btn-primary text-capitalize fw-medium" wire:click="changeSubscription('{{ $essentialPlan->slug }}')">
@@ -194,7 +194,7 @@
 							<div class="py-4 bg-transparent card-footer">
 								<div class="d-grid">
 									@if($isSubscribed)
-										@if(auth()->user()->subscribed($businessPlan->slug))
+										@if(auth()->check() && auth()->user()->subscribed($businessPlan->slug))
 											<button type="button" class="btn btn-success text-capitalize fw-medium">Subscribed</button>
 										{{-- @elseif(Str::contains($subscribedType, strtolower($currency)))
 											<button type="button" class="btn btn-primary text-capitalize fw-medium" wire:click="subscribe('{{ $businessPlan->slug }}')">
