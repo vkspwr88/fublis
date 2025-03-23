@@ -27,6 +27,13 @@
 	<div class="row">
 		<div class="col-md-12">
 			<div class="row">
+				<div class="col-md-8 offset-md-4">
+					@include('users.includes.utilities.alerts.error')
+				</div>
+			</div>
+		</div>
+		<div class="col-md-12">
+			<div class="row">
 				<label for="inputCompany" class="col-md-4 col-form-label text-dark fs-6 fw-medium">Company Name</label>
 				<div class="col-md-8">
 					<input type="text" id="inputCompany" class="form-control @error('company') is-invalid @enderror" wire:model="company">
