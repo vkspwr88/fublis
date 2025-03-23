@@ -58,7 +58,7 @@
 					url = URL.createObjectURL(blob);
 					var reader = new FileReader();
 					reader.readAsDataURL(blob);
-					const newFile = new File([blob], 'cropped', {
+					const newFile = new File([blob], 'cropped.png', {
 						type: blob.type,
 					});
 					$this.uploadFile(newFile);

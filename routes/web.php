@@ -1,5 +1,6 @@
 <?php
 
+use App\Handlers\FileUploadHandler;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Payments\StripeController;
 use App\Http\Controllers\SitemapController;
@@ -68,6 +69,8 @@ Route::get('/blank', function () {
 /* Route::get('/email', function () {
     return (new VerifySubscriber())->render();
 })->name('email'); */
+
+// Route::post('/livewire/upload-file', [FileUploadHandler::class, 'handle'])->name('livewire.upload-file');
 
 Route::middleware('guest')->group(function () {
 	Route::get('/login', [Users\Auth\LoginController::class, 'index'])->name('login');
