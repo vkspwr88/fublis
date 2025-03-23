@@ -162,7 +162,7 @@
 																<a href="{{ Storage::url($imagesFile) }}" class="text-purple-700">See Brief File {{ $loop->iteration }}</a>
 																<button type="button" class="btn btn-link text-danger text-decoration-none" wire:click="removeImage({{ $key }})">X</button>
 															</li>
-													@endforeach
+														@endforeach
 													</ul>
 												@endif
 												<div x-show="isUploading" style="display: none;">
@@ -175,8 +175,8 @@
 									</div>
 								</div>
 							</div>
-							@error('projectBrief')<div class="error">{{ $message }}</div>@enderror
-							@error('projectBrief.*')<div class="error">{{ $message }}</div>@enderror
+							@error('projectBrief')<div class="mb-2 error">{{ $message }}</div>@enderror
+							@error('projectBrief.*')<div class="mb-2 error">{{ $message }}</div>@enderror
 						</div>
 					</div>
 				</div>

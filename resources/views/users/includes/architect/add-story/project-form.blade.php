@@ -305,20 +305,20 @@
 								@if(count($form->photographsFiles) > 0 || count($form->oldPhotographsFiles) > 0)
 									<ul class="flex-wrap mt-3 d-flex" style="list-style: none;">
 										@foreach ($form->oldPhotographsFiles as $photographsFile)
-											<li class="p-2 position-relative" wire:key="{{ $photographsFile->id }}">
-												<img class="img-fluid img-thumbnail" width="150" src="{{ Storage::url($photographsFile->image_path) }}" alt="">
+											<li class="p-2 position-relative" wire:key="photographsFiles{{ $photographsFile->id }}">
+												<img class="img-fluid img-thumbnail" width="150" src="{{ getTempPreviewFileUrl(pathinfo($photographsFile->image_path, PATHINFO_EXTENSION), Storage::url($photographsFile->image_path)) }}" alt="">
 												<button type="button" class="top-0 btn btn-sm btn-secondary rounded-circle text-decoration-none position-absolute end-0" wire:click="removeImage('{{ $photographsFile->id }}')">X</button>
 											</li>
 										@endforeach
 										@foreach ($form->photographsFiles as $key => $photographsFile)
 											@if(method_exists($photographsFile, 'temporaryUrl'))
-												<li class="p-2 position-relative" wire:key="{{ $key }}">
-													<img class="img-fluid img-thumbnail" width="150" src="{{ $photographsFile->temporaryUrl() }}" alt="">
+												<li class="p-2 position-relative" wire:key="photographsFile{{ $key }}">
+													<img class="img-fluid img-thumbnail" width="150" src="{{ getTempPreviewFileUrl($photographsFile->getClientOriginalExtension(), $photographsFile->temporaryUrl()) }}" alt="">
 													<button type="button" class="top-0 btn btn-sm btn-secondary rounded-circle text-decoration-none position-absolute end-0" @click="removeUpload('{{ $photographsFile->getFilename() }}')">X</button>
 												</li>
 											@else
-												<li class="p-2 position-relative" wire:key="{{ $key }}">
-													<img class="img-fluid img-thumbnail" width="150" src="{{ Storage::url($photographsFile) }}" alt="">
+												<li class="p-2 position-relative" wire:key="photographsFile{{ $key }}">
+													<img class="img-fluid img-thumbnail" width="150" src="{{ getTempPreviewFileUrl(pathinfo($photographsFile, PATHINFO_EXTENSION), Storage::url($photographsFile)) }}" alt="">
 													<button type="button" class="top-0 btn btn-sm btn-secondary rounded-circle text-decoration-none position-absolute end-0" wire:click="removeImage({{ $key }})">X</button>
 												</li>
 											@endif
@@ -377,19 +377,19 @@
 									<ul class="flex-wrap mt-3 d-flex" style="list-style: none;">
 										@foreach ($form->oldDrawingsFiles as $drawingsFile)
 											<li class="p-2 position-relative" wire:key="{{ $drawingsFile->id }}">
-												<img class="img-fluid img-thumbnail" width="150" src="{{ Storage::url($drawingsFile->image_path) }}" alt="">
+												<img class="img-fluid img-thumbnail" width="150" src="{{ getTempPreviewFileUrl(pathinfo($drawingsFile->image_path, PATHINFO_EXTENSION), Storage::url($drawingsFile->image_path)) }}" alt="">
 												<button type="button" class="top-0 btn btn-sm btn-secondary rounded-circle text-decoration-none position-absolute end-0" wire:click="removeImage('{{ $drawingsFile->id }}')">X</button>
 											</li>
 										@endforeach
 										@foreach ($form->drawingsFiles as $key => $drawingsFile)
 											@if(method_exists($drawingsFile, 'temporaryUrl'))
 												<li class="p-2 position-relative" wire:key="{{ $key }}">
-													<img class="img-fluid img-thumbnail" width="150" src="{{ $drawingsFile->temporaryUrl() }}" alt="">
+													<img class="img-fluid img-thumbnail" width="150" src="{{ getTempPreviewFileUrl($drawingsFile->getClientOriginalExtension(), $drawingsFile->temporaryUrl()) }}" alt="">
 													<button type="button" class="top-0 btn btn-sm btn-secondary rounded-circle text-decoration-none position-absolute end-0" @click="removeUpload('{{ $drawingsFile->getFilename() }}')">X</button>
 												</li>
 											@else
 												<li class="p-2 position-relative" wire:key="{{ $key }}">
-													<img class="img-fluid img-thumbnail" width="150" src="{{ Storage::url($drawingsFile) }}" alt="">
+													<img class="img-fluid img-thumbnail" width="150" src="{{ getTempPreviewFileUrl(pathinfo($drawingsFile, PATHINFO_EXTENSION), Storage::url($drawingsFile)) }}" alt="">
 													<button type="button" class="top-0 btn btn-sm btn-secondary rounded-circle text-decoration-none position-absolute end-0" wire:click="removeImage({{ $key }})">X</button>
 												</li>
 											@endif

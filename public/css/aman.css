@@ -1246,6 +1246,10 @@ trix-toolbar .trix-button--icon-code{
   	height: 1.5em;
 }
 
+.progress {
+	height: 4px;
+}
+
 @media(max-width: 1400px){
 	#fullWidthHeader{
 		font-size: 178px;

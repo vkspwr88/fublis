@@ -195,6 +195,7 @@
 			window.onresize = function() {
 				// toggleMyOffcanvas();
 			}
+			
 		</script>
 		@if (session('type') && session('message'))
 			<script>

@@ -155,19 +155,19 @@
 									<ul class="flex-wrap mt-3 d-flex" style="list-style: none;">
 										@foreach ($form->oldPhotographsFiles as $photographsFile)
 											<li class="p-2 position-relative" wire:key="{{ $photographsFile->id }}">
-												<img class="img-fluid img-thumbnail" width="150" src="{{ Storage::url($photographsFile->image_path) }}" alt="">
+												<img class="img-fluid img-thumbnail" width="150" src="{{ getTempPreviewFileUrl(pathinfo($photographsFile->image_path, PATHINFO_EXTENSION), Storage::url($photographsFile->image_path)) }}" alt="">
 												<button type="button" class="top-0 btn btn-sm btn-secondary rounded-circle text-decoration-none position-absolute end-0" wire:click="removeImage('{{ $photographsFile->id }}')">X</button>
 											</li>
 										@endforeach
 										@foreach ($form->photographsFiles as $key => $photographsFile)
 											@if(method_exists($photographsFile, 'temporaryUrl'))
 												<li class="p-2 position-relative" wire:key="{{ $key }}">
-													<img class="img-fluid img-thumbnail" width="150" src="{{ $photographsFile->temporaryUrl() }}" alt="">
+													<img class="img-fluid img-thumbnail" width="150" src="{{ getTempPreviewFileUrl($photographsFile->getClientOriginalExtension(), $photographsFile->temporaryUrl()) }}" alt="">
 													<button type="button" class="top-0 btn btn-sm btn-secondary rounded-circle text-decoration-none position-absolute end-0" @click="removeUpload('{{ $photographsFile->getFilename() }}')">X</button>
 												</li>
 											@else
 												<li class="p-2 position-relative" wire:key="{{ $key }}">
-													<img class="img-fluid img-thumbnail" width="150" src="{{ Storage::url($photographsFile) }}" alt="">
+													<img class="img-fluid img-thumbnail" width="150" src="{{ getTempPreviewFileUrl(pathinfo($photographsFile, PATHINFO_EXTENSION), Storage::url($photographsFile)) }}" alt="">
 													<button type="button" class="top-0 btn btn-sm btn-secondary rounded-circle text-decoration-none position-absolute end-0" wire:click="removeImage({{ $key }})">X</button>
 												</li>
 											@endif
@@ -207,8 +207,8 @@
 					</div>
 				</div>
 			</div>
-			@error('form.photographsFiles')<div class="error">{{ $message }}</div>@enderror
-			@error('form.photographsFiles.*')<div class="error">{{ $message }}</div>@enderror
+			@error('form.photographsFiles')<div class="mb-2 error">{{ $message }}</div>@enderror
+			@error('form.photographsFiles.*')<div class="mb-2 error">{{ $message }}</div>@enderror
 			<div class="">
 				<input type="text" class="form-control @error('form.photographsLink') is-invalid @enderror" wire:model="form.photographsLink" placeholder="Insert drive link" aria-describedby="basic-addon1">
 				@error('form.photographsLink')<div class="invalid-feedback">{{ $message }}</div>@enderror

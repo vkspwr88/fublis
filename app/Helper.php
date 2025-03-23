@@ -249,3 +249,13 @@ if(!function_exists('getLocations')){
 		return $locations;
 	}
 }
+
+if(!function_exists('getTempPreviewFileUrl')){
+	function getTempPreviewFileUrl($extension, $returnUrl)
+	{
+		if(in_array($extension, ['pdf', 'doc', 'docx', 'zip'])){
+			return asset('images/icons/file.png');
+		}
+		return $returnUrl;
+	}
+}

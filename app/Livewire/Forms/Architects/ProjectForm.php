@@ -50,10 +50,12 @@ class ProjectForm extends Form
 	public $projectFile;
 	public $projectLink;
 	public $projectText;
+	#[Validate]
 	public $photographsFiles = [];
 	public $oldPhotographsFiles = [];
 	public $photographsLink;
 	public $audioVideoUrl;
+	#[Validate]
 	public $drawingsFiles = [];
 	public $oldDrawingsFiles = [];
 	public $drawingsLink;
@@ -126,7 +128,7 @@ class ProjectForm extends Form
 			'photographsFiles.*' => Rule::forEach(function (string|null $value, string $attribute) {
 				return Str::contains($value, 'tmp') ?
 							'nullable|file|' . __('validations/rules.zipPlusImageMimes') . '|' . __('validations/rules.bulkFilesSize') :
-							'nullable|string';
+							'nullable|string|' . __('validations/rules.zipPlusImageFormat');
 			}),
 			'photographsLink' => 'nullable|url:https',
 			'audioVideoUrl' => 'nullable|url:https',
@@ -134,7 +136,7 @@ class ProjectForm extends Form
 			'drawingsFiles.*' => Rule::forEach(function (string|null $value, string $attribute) {
 				return Str::contains($value, 'tmp') ?
 							'nullable|file|' . __('validations/rules.zipPlusImageMimes') . '|' . __('validations/rules.bulkFilesSize') :
-							'nullable|string';
+							'nullable|string|' . __('validations/rules.zipPlusImageFormat');
 			}),
 			'drawingsLink' => 'nullable|url:https',
 			'tags' => 'nullable|array',
@@ -150,7 +152,7 @@ class ProjectForm extends Form
 				return __('validations/rules.coverImage') . '|' . __('validations/rules.imageMimes');
 			}
 			else{
-				return 'required|string';
+				return 'required|string|' . __('validations/rules.imageFormat');
 			}
 		}
 		if ($key == 'projectFile') {
@@ -158,7 +160,7 @@ class ProjectForm extends Form
 				return 'nullable|file|' . __('validations/rules.wordMimes');
 			}
 			else{
-				return 'nullable|string';
+				return 'nullable|string|' . __('validations/rules.wordFormat');
 			}
 		}
 		return '';
@@ -190,20 +192,24 @@ class ProjectForm extends Form
 			'designTeam.required' => 'Enter the :attribute.',
 			'coverImage.required' => 'Upload the :attribute.',
 			'coverImage.image' => __('validations/messages.image'),
+			'coverImage.extensions' => __('validations/messages.imageMimes'),
 			'coverImage.mimes' => __('validations/messages.imageMimes'),
 			'coverImage.max' => __('validations/messages.coverImage.max'),
 			'coverImage.dimensions' => __('validations/messages.coverImage.dimensions'),
 			'projectBrief.required' => 'Enter the :attribute.',
 			'projectBrief.max' => __('validations/messages.mediaKitBriefCharacters'),
+			'projectFile.extensions' => 'The :attribute supports only pdf, doc, docs or docx.',
 			'projectFile.mimes' => 'The :attribute supports only pdf, doc, docs or docx.',
 			'projectLink.required_without' => 'Enter the :attribute or enter the project text or upload the file.',
 			'projectText.required_without' => 'Enter the :attribute or enter the project document link or upload the file.',
 			'photographsFiles.required' => 'Upload the :attribute.',
 			'photographsFiles.*.file' => 'The :attribute supports only file.',
+			'photographsFiles.*.extensions' => __('validations/messages.zipPlusImageMimes'),
 			'photographsFiles.*.mimes' => __('validations/messages.zipPlusImageMimes'),
 			'photographsFiles.*.max' => __('validations/messages.bulkFilesSize'),
 			'drawingsFiles.required' => 'Upload the :attribute.',
 			'drawingsFiles.*.file' => 'The :attribute supports only file.',
+			'drawingsFiles.*.extensions' => __('validations/messages.zipPlusImageMimes'),
 			'drawingsFiles.*.mimes' => __('validations/messages.zipPlusImageMimes'),
 			'drawingsFiles.*.max' => __('validations/messages.bulkFilesSize'),
 			'tags.required' => 'Enter the :attribute.',

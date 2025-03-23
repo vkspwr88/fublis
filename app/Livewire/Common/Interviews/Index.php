@@ -66,7 +66,7 @@ class Index extends Component
 			'projectBrief.*' => Rule::forEach(function (string|null $value, string $attribute) {
 				return Str::contains($value, 'tmp') ?
 							'nullable|file|' . __('validations/rules.zipPlusFileMimes') . '|' . __('validations/rules.bulkFilesSize') :
-							'nullable|string';
+							'nullable|string|' . __('validations/rules.zipPlusFileFormat');
 			}),
 		];
 	}
@@ -85,7 +85,7 @@ class Index extends Component
 				return __('validations/rules.profileImage') . '|' . __('validations/rules.imageMimes');
 			}
 			else{
-				return 'nullable|string';
+				return 'nullable|string|' . __('validations/rules.imageFormat');
 			}
 		}
     }

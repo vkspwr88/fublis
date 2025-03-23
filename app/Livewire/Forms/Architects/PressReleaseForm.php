@@ -32,6 +32,7 @@ class PressReleaseForm extends Form
 	public $pressReleaseFile;
 	public $pressReleaseLink;
 	public $oldPhotographsFiles = [];
+	#[Validate]
 	public $photographsFiles = [];
 	public $collectionName;
 	public $photographsLink;
@@ -82,7 +83,7 @@ class PressReleaseForm extends Form
 				// dd($value, $attribute);
 				return Str::contains($value, 'tmp') ?
 							'nullable|image|' . __('validations/rules.imageMimes') . '|' . __('validations/rules.bulkFilesSize') :
-							'nullable|string';
+							'nullable|string|' . __('validations/rules.imageFormat');
 			}),
 			'photographsLink' => 'nullable|url:https',
 			'audioVideoUrl' => 'nullable|url:https',
@@ -102,7 +103,7 @@ class PressReleaseForm extends Form
 				return __('validations/rules.coverImage') . '|' . __('validations/rules.imageMimes');
 			}
 			else{
-				return 'required|string';
+				return 'required|string|' . __('validations/rules.imageFormat');
 			}
 		}
 		if ($key == 'pressReleaseFile') {
@@ -110,9 +111,10 @@ class PressReleaseForm extends Form
 				return 'nullable|file|' . __('validations/rules.wordMimes');
 			}
 			else{
-				return 'nullable|string';
+				return 'nullable|string|' . __('validations/rules.wordFormat');
 			}
 		}
+		return '';
     }
 
 	public function messages()
@@ -121,6 +123,7 @@ class PressReleaseForm extends Form
 			'coverImage.required' => 'Upload the :attribute.',
 			'coverImage.image' => __('validations/messages.image'),
 			// 'coverImage.image' => 'The :attribute supports only image.',
+			'coverImage.extensions' => __('validations/messages.imageMimes'),
 			'coverImage.mimes' => __('validations/messages.imageMimes') /* 'The :attribute supports only svg, png, jpg or gif.' */,
 			'coverImage.max' => __('validations/messages.coverImage.max'),
 			'coverImage.dimensions' => __('validations/messages.coverImage.dimensions'),
@@ -130,12 +133,14 @@ class PressReleaseForm extends Form
 			'conceptNote.required' => 'Enter the :attribute.',
 			'pressReleaseWrite.required' => 'Enter the :attribute.',
 			'pressReleaseWrite.max' => __('validations/messages.mediaKitBriefCharacters'),
+			'pressReleaseFile.extensions' => __('validations/messages.wordMimes'),
 			'pressReleaseFile.mimes' => __('validations/messages.wordMimes'),
 			'pressReleaseLink.required_without' => 'Enter the :attribute or upload the file.',
 			'photographsFiles.*.image' => __('validations/messages.image'),
+			'photographsFiles.*.extensions' => __('validations/messages.imageMimes'),
 			'photographsFiles.*.mimes' => __('validations/messages.imageMimes'),
 			'photographsFiles.*.max' => __('validations/messages.bulkFilesSize'),
-			'photographsLink.required_without' => 'Enter the :attribute or upload the file.',
+			// 'photographsLink.required_without' => 'Enter the :attribute or upload the file.',
 			'tags.required' => 'Enter the :attribute.',
 			'mediaContact.required' => 'Select the :attribute.',
 			'mediaKitAccess.required' => 'Select the :attribute.',
