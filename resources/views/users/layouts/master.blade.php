@@ -15,7 +15,7 @@
 		<link rel="stylesheet" type="text/css" href="https://unpkg.com/trix@2.0.0/dist/trix.css">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.6/cropper.css"/>
 		@stack('styles')
-		<link rel="stylesheet" href="{{ asset('css/aman.css') }}">
+		<link rel="stylesheet" href="{{ asset('css/aman.css?v=1.00') }}">
 		@include('users.includes.google-tags.script')
 		<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">
 		</script>
@@ -152,7 +152,7 @@
 			const uploadHostUrl = '{{ route('architect.trix-file-upload') }}';
 			// const removeHostUrl = '{{ route('architect.trix-file-remove') }}';
 		</script>
-		<script src="{{ asset('js/aman.js') }}"></script>
+		<script src="{{ asset('js/aman.js?v=1.00') }}"></script>
 		@stack('scripts')
 		<script>
 			var sidebarCollapse = document.getElementById("sidebarCollapse");
