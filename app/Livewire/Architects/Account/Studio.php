@@ -45,8 +45,8 @@ class Studio extends Component
 		$this->selectedMediaKit = '';
 		$this->subject = '';
 		$this->message = '';
-		$this->associatedPublications = collect([]);
-		$this->journalists = collect([]);
+		$this->associatedPublications = collect();
+		$this->journalists = collect();
 
 		$brand = CompanyController::getArchitectCompany(auth()->id());
 		$brand = CompanyController::loadModel($brand);
@@ -86,7 +86,6 @@ class Studio extends Component
 			'publicationTypes' => [],
 			'categories' => [],
 		]);
-		// dd($this->associatedPublications);
 		if($this->associatedPublications->count() > 0){
 			$this->dispatch('show-select-publication-modal');
 		}

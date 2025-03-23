@@ -292,7 +292,7 @@
 			</div>
 		</div>
 	</div>
-	@if (isArchitect())
+	@if (isArchitect() && $viewAs === 'architect')
 		@include('users.includes.architect.pitch-story-modals')
 	@endif
 </div>

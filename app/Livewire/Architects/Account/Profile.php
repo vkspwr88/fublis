@@ -43,8 +43,8 @@ class Profile extends Component
 		$this->selectedMediaKit = '';
 		$this->subject = '';
 		$this->message = '';
-		$this->associatedPublications = collect([]);
-		$this->journalists = collect([]);
+		$this->associatedPublications = collect();
+		$this->journalists = collect();
 
 		$this->architect = ArchitectController::loadModel($architect);
 		$this->mediaKits = $architect->mediaKits->sortByDesc('created_at');
