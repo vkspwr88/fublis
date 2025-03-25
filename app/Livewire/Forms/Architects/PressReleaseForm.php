@@ -103,7 +103,8 @@ class PressReleaseForm extends Form
 				return __('validations/rules.coverImage') . '|' . __('validations/rules.imageMimes');
 			}
 			else{
-				return 'required|string|' . __('validations/rules.imageFormat');
+				return 'required|string';
+				// return 'required|string|' . __('validations/rules.imageFormat');
 			}
 		}
 		if ($key == 'pressReleaseFile') {
@@ -111,7 +112,8 @@ class PressReleaseForm extends Form
 				return 'nullable|file|' . __('validations/rules.wordMimes');
 			}
 			else{
-				return 'nullable|string|' . __('validations/rules.wordFormat');
+				return 'nullable|string';
+				// return 'nullable|string|' . __('validations/rules.wordFormat');
 			}
 		}
 		return '';
