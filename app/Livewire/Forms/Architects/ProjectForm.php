@@ -291,7 +291,7 @@ class ProjectForm extends Form
 		$this->siteAreaUnit = $mediaKit->story->site_area_id;
 		$this->builtUpArea = $mediaKit->story->built_up_area;
 		$this->builtUpAreaUnit = $mediaKit->story->built_up_area_id;
-		$this->materials = $mediaKit->story->title;
+		$this->materials = $mediaKit->story->materials;
 		// $this->buildingTypology = $mediaKit->story->buildingUse->buildingTypology->id;
 		$this->buildingTypology = $mediaKit->story->buildingUse && $mediaKit->story->buildingUse->buildingTypology ?$mediaKit->story->buildingUse->buildingTypology->id : '';
 		$this->buildingUse = $mediaKit->story->building_use_id;

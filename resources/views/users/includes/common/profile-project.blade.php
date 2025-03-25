@@ -117,6 +117,17 @@
 						</p>
 					</div>
 				</div> --}}
+				@if ($mediaKit->story->materials)
+					<div class="pb-2 row g-2">
+						<div class="col-auto"><p class="mx-auto my-1"><i class="bi bi-building"></i></p></div>
+						<div class="col">
+							<p class="p-0 m-0 text-secondary fs-6">
+								<span class="fw-bold">Materials </span>
+								<span>- {{ $mediaKit->story->materials }}</span>
+							</p>
+						</div>
+					</div>
+				@endif
 				@if ($mediaKit->story->buildingUse)
 					@if ($mediaKit->story->buildingUse->buildingTypology)
 					<div class="pb-2 row g-2">
@@ -139,6 +150,17 @@
 						</div>
 					</div>
 				@endif
+				@if ($mediaKit->story->image_credits)
+					<div class="pb-2 row g-2">
+						<div class="col-auto"><p class="mx-auto my-1"><i class="bi bi-camera"></i></p></div>
+						<div class="col">
+							<p class="p-0 m-0 text-secondary fs-6">
+								<span class="fw-bold">Image Credits </span>
+								<span>- {{ $mediaKit->story->image_credits }}</span>
+							</p>
+						</div>
+					</div>
+				@endif
 				@if ($mediaKit->story->text_credits)
 					<div class="pb-2 row g-2">
 						<div class="col-auto"><p class="mx-auto my-1"><i class="bi bi-pencil"></i></p></div>
@@ -150,13 +172,24 @@
 						</div>
 					</div>
 				@endif
-				@if ($mediaKit->story->image_credits)
+				@if ($mediaKit->story->render_credits)
 					<div class="pb-2 row g-2">
-						<div class="col-auto"><p class="mx-auto my-1"><i class="bi bi-camera"></i></p></div>
+						<div class="col-auto"><p class="mx-auto my-1"><i class="bi bi-pencil"></i></p></div>
 						<div class="col">
 							<p class="p-0 m-0 text-secondary fs-6">
-								<span class="fw-bold">Photography Credits </span>
-								<span>- {{ $mediaKit->story->image_credits }}</span>
+								<span class="fw-bold">Render Credits </span>
+								<span>- {{ $mediaKit->story->render_credits }}</span>
+							</p>
+						</div>
+					</div>
+				@endif
+				@if ($mediaKit->story->consultants)
+					<div class="pb-2 row g-2">
+						<div class="col-auto"><p class="mx-auto my-1"><i class="bi bi-people"></i></p></div>
+						<div class="col">
+							<p class="p-0 m-0 text-secondary fs-6">
+								<span class="fw-bold">Consultants </span>
+								<span>- {{ $mediaKit->story->consultants }}</span>
 							</p>
 						</div>
 					</div>

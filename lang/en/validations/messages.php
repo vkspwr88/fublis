@@ -1,10 +1,13 @@
 <?php
 
+$image = 'svg, png, jpg, jpeg, gif, webp';
+$doc = 'pdf, doc, docx, txt, odt';
+
 return [
-	'wordMimes' => 'The :attribute supports only pdf, doc, docx, txt, odt or zip format.',
+	'wordMimes' => 'The :attribute supports only ' . $doc . ' or zip format.',
 	'image' => 'The :attribute supports only image.',
-	'imageMimes' => 'The :attribute supports only svg, png, jpg, jpeg, gif or webp.',
-	'zipPlusImageMimes' => 'The :attribute supports only svg, png, jpg, jpeg, gif, webp or zip.',
+	'imageMimes' => 'The :attribute supports only ' . $image . '.',
+	'zipPlusImageMimes' => 'The :attribute supports only ' . $image . ' or zip.',
 	'coverImage' => [
 		'max' => 'Maximum allowed size to upload :attribute 3MB.',
 		'dimensions' => 'Maximum allowed dimension for the :attribute is 800x400px.',
