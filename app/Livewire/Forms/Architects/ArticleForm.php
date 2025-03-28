@@ -118,6 +118,7 @@ class ArticleForm extends Form
 				// return 'nullable|string|' . __('validations/rules.wordFormat');
 			}
 		}
+		return '';
     }
 
 	public function messages()
