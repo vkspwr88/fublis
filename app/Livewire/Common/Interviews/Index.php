@@ -228,10 +228,12 @@ class Index extends Component
 
 	public function removeImage($index)
 	{
-		$image = $this->interview->projectBrief->where('image_path', $this->oldProjectBrief[$index])->first();
-		if($image){
-			$image->delete();
+		if(isset($this->oldProjectBrief[$index])){
+			$image = $this->interview->projectBrief->where('image_path', $this->oldProjectBrief[$index])->first();
+			if($image){
+				$image->delete();
+			}
+			Arr::pull($this->oldProjectBrief, $index);
 		}
-		Arr::pull($this->oldProjectBrief, $index);
 	}
 }
