@@ -85,7 +85,8 @@ class Index extends Component
 				return __('validations/rules.profileImage') . '|' . __('validations/rules.imageMimes');
 			}
 			else{
-				return 'nullable|string|' . __('validations/rules.imageFormat');
+				return 'nullable|string';
+				// return 'nullable|string|' . __('validations/rules.imageFormat');
 			}
 		}
     }

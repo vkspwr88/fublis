@@ -72,7 +72,7 @@
 								</div> --}}
 								@endif
 								<div class="col-12">
-									<h5 class="pt-3 m-0 fs-6 fw-semibold">
+									<h5 class="pt-3 m-0 fs-6 fw-semibold text-capitalize">
 										@if(isJournalist())
 											<a href="{{ route('journalist.account.profile.publications.view', ['publication' => $publication->slug]) }}" class="text-dark">{{ $publication->name }}</a>
 										@elseif(isArchitect())
