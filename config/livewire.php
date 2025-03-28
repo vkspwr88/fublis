@@ -74,6 +74,7 @@ return [
             'mov', 'avi', 'wmv', 'mp3', 'm4a',
             'jpg', 'jpeg', 'mpga', 'webp', 'wma',
 			'pdf', 'doc', 'docx', 'txt', 'odt', 'zip',
+			'tif',
         ],
         'max_upload_time' => 5, // Max duration (in minutes) before an upload is invalidated...
     ],

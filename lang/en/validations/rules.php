@@ -1,6 +1,6 @@
 <?php
 
-$image = 'svg,png,jpg,jpeg,gif,webp';
+$image = 'svg,png,jpg,jpeg,gif,webp,tif';
 $doc = 'pdf,doc,docx,txt,odt';
 
 return [
