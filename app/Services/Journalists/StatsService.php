@@ -6,6 +6,7 @@ use App\Http\Controllers\DateController;
 use App\Http\Controllers\Users\JournalistController;
 use App\Mail\User\Journalist\MonthlyStatsMail;
 use App\Mail\User\Journalist\WeeklyStatsMail;
+use App\Services\EmailPreferenceService;
 use Illuminate\Support\Facades\Mail;
 
 class StatsService
