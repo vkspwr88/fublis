@@ -66,7 +66,8 @@ class Index extends Component
 			'projectBrief.*' => Rule::forEach(function (string|null $value, string $attribute) {
 				return Str::contains($value, 'tmp') ?
 							'nullable|file|' . __('validations/rules.zipPlusFileMimes') . '|' . __('validations/rules.bulkFilesSize') :
-							'nullable|string|' . __('validations/rules.zipPlusFileFormat');
+							'nullable|string';
+							// 'nullable|string|' . __('validations/rules.zipPlusFileFormat');
 			}),
 		];
 	}
