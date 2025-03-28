@@ -76,7 +76,8 @@ class ArticleForm extends Form
 			'imagesFiles.*' => Rule::forEach(function (string|null $value, string $attribute) {
 				return Str::contains($value, 'tmp') ?
 							'nullable|image|' . __('validations/rules.imageMimes') . '|' . __('validations/rules.bulkFilesSize') :
-							'nullable|string|' . __('validations/rules.imageFormat');
+							'nullable|string';
+							// 'nullable|string|' . __('validations/rules.imageFormat');
 			}),
 			'imagesLink' => 'nullable|url:https',
 			'audioVideoUrl' => 'nullable|url:https',

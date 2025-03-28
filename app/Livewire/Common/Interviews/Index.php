@@ -90,6 +90,7 @@ class Index extends Component
 				// return 'nullable|string|' . __('validations/rules.imageFormat');
 			}
 		}
+		return '';
     }
 
 	public function _finishUpload($name, $tmpPath, $isMultiple)

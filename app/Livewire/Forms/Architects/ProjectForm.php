@@ -128,7 +128,8 @@ class ProjectForm extends Form
 			'photographsFiles.*' => Rule::forEach(function (string|null $value, string $attribute) {
 				return Str::contains($value, 'tmp') ?
 							'nullable|file|' . __('validations/rules.zipPlusImageMimes') . '|' . __('validations/rules.bulkFilesSize') :
-							'nullable|string|' . __('validations/rules.zipPlusImageFormat');
+							'nullable|string';
+							// 'nullable|string|' . __('validations/rules.zipPlusImageFormat');
 			}),
 			'photographsLink' => 'nullable|url:https',
 			'audioVideoUrl' => 'nullable|url:https',
@@ -136,7 +137,8 @@ class ProjectForm extends Form
 			'drawingsFiles.*' => Rule::forEach(function (string|null $value, string $attribute) {
 				return Str::contains($value, 'tmp') ?
 							'nullable|file|' . __('validations/rules.zipPlusImageMimes') . '|' . __('validations/rules.bulkFilesSize') :
-							'nullable|string|' . __('validations/rules.zipPlusImageFormat');
+							'nullable|string';
+							// 'nullable|string|' . __('validations/rules.zipPlusImageFormat');
 			}),
 			'drawingsLink' => 'nullable|url:https',
 			'tags' => 'nullable|array',
