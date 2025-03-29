@@ -70,7 +70,7 @@ Route::get('/blank', function () {
     return (new VerifySubscriber())->render();
 })->name('email'); */
 
-// Route::post('/livewire/upload-file', [FileUploadHandler::class, 'handle'])->name('livewire.upload-file');
+Route::post('/livewire/upload-file', [FileUploadHandler::class, 'handle'])->name('livewire.upload-file');
 
 Route::middleware('guest')->group(function () {
 	Route::get('/login', [Users\Auth\LoginController::class, 'index'])->name('login');

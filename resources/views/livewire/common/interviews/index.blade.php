@@ -186,12 +186,17 @@
 		<hr class="border-gray-300">
 
 		<div class="col-md-12 text-end">
-			<button class="btn btn-white fs-6 fw-semibold" type="button" wire:click="draft">
-				Save Draft <x-users.spinners.primary-btn wire:target="draft" />
-			</button>
-			<button class="btn btn-primary fs-6 fw-semibold ms-2" type="submit">
-				Submit Interview <x-users.spinners.white-btn wire:target="submit" />
-			</button>
+			<div>
+				<button class="btn btn-white fs-6 fw-semibold" type="button" wire:click="draft">
+					Save Draft <x-users.spinners.primary-btn wire:target="draft" />
+				</button>
+				<button class="btn btn-primary fs-6 fw-semibold ms-2" type="submit">
+					Submit Interview <x-users.spinners.white-btn wire:target="submit" />
+				</button>
+			</div>
+			<p class="m-0 mt-2 text-end">
+				Last Saved: {{ $interview->updated_at }} UTC
+			</p>
 		</div>
 	</div>
 	@include('users.includes.common.file-upload-script', ['width' => 400, 'height' => 400])

@@ -134,15 +134,22 @@ class Index extends Component
             DB::beginTransaction();
 
 			$this->interview->update([
+				'updated_at' => Carbon::now(),
+			]);
+
+			$this->interview->update([
 				'profile_pic_path' => $validated['profile_pic_path'] ? FileController::upload($validated['profile_pic_path'], 'images/interviews/profile-images', 'interview_save_'.$type) : null,
 				'brief' => $validated['brief'],
 			]);
 
 			// update answers
 			foreach($this->answers as $id => $answer){
-				InterviewQuestion::where('id', $id)->update([
-					'answer' => $answer,
-				]);
+				$this->interview
+					->interviewQuestions()
+					->where('id', $id)
+					->update([
+						'answer' => $answer,
+					]);
 			}
 
 			// create briefs

@@ -11,6 +11,13 @@ class Image extends Model
 {
     use HasFactory, HasUuids;
 
+	/**
+     * All of the relationships to be touched.
+     *
+     * @var array
+     */
+	protected $touches = ['imaggable'];
+
 	public function imaggable(): MorphTo
 	{
 		return $this->morphTo();

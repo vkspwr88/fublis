@@ -14,12 +14,6 @@
 					<li class="breadcrumb-item fublis-breadcrumb-item">
 						<a href="javascript:;" class="text-secondary fs-6 fw-medium">Interview</a>
 					</li>
-					{{-- <li class="breadcrumb-item fublis-breadcrumb-item">
-						<a href="javascript:;" class="text-secondary fs-6 fw-medium">People</a>
-					</li>
-					<li class="breadcrumb-item fublis-breadcrumb-item">
-						<a href="javascript:;" class="text-secondary fs-6 fw-medium">{{ $architect->company->category->name }}</a>
-					</li> --}}
 					<li class="breadcrumb-item fublis-breadcrumb-item fs-6 fw-medium" aria-current="page">
 						<span class="text-purple-600 bg-purple-100 badge">
 							{{ $interview->name }}
