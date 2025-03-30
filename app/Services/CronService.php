@@ -29,7 +29,7 @@ class CronService
 				$mediaKitTitles = $downloadRequest->pluck('mediaKit.story.title')->unique();
 				$user = json_decode($user);
 				// dd($user);
-				info('Name: ' . $user->name . ', Email: ' . $user->email . ', MediaKits: ' . $mediaKitTitles);
+				// info('Name: ' . $user->name . ', Email: ' . $user->email . ', MediaKits: ' . $mediaKitTitles);
 				if(EmailPreferenceService::isPreferenceSelected(User::find($user->id), 'architect-daily-download-request-mail')){
 					Mail::to($user->email)->queue(new DailyDownloadRequestMail($user->email, $user->name, $mediaKitTitles));
 				}
@@ -81,7 +81,7 @@ class CronService
 			// dd($pitches, $requestGroup);
 			foreach($requestGroup as $user => $pitch){
 				$user = json_decode($user);
-				info('Name: ' . $user->name . ', Email: ' . $user->email);
+				// info('Name: ' . $user->name . ', Email: ' . $user->email);
 				if(EmailPreferenceService::isPreferenceSelected(User::find($user->id), 'journalist-daily-pitch-received-mail')){
 					Mail::to($user->email)->queue(new DailyPitchReceivedMail($user->email, $user->name));
 				}
