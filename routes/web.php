@@ -48,6 +48,8 @@ Route::get('/blank', function () {
     return view('users.pages.blank');
 })->name('blank');
 
+Route::get('/aman', [HomeController::class, 'aman'])->name('aman');
+
 // Route::get('/clear-cache', function(){
 //     Artisan::call('route:clear');
 //     Artisan::call('route:cache');
