@@ -40,9 +40,10 @@ class ViewProject extends ViewRecord
 					->label('Download Photographs')
 					->hidden(fn(Project $project) => !($project->photographs && $project->photographs->where('image_type', 'photographs')->count() > 0))
 					->action(
-						function (Project $project, DownloadService $downloadService) {
+						function (Project $project/* , DownloadService $downloadService */) {
 							$mediaKit = $project->mediaKit[0];
 							$images = Image::query()
+								->select('image_path')
 								->where('image_type', 'photographs')
 								->where('imaggable_id', $project->id)
 								->get();
@@ -50,7 +51,7 @@ class ViewProject extends ViewRecord
 								$imagesPath = $images->pluck('image_path');
 
 							$zip = new ZipArchive;
-							$zipFileName = ucfirst(str()->camel('AMAN SAINI')) . '-' . 'photos' . '.zip';
+							$zipFileName = ucfirst(str()->camel($mediaKit->slug)) . '-' . 'photographs' . '.zip';
 
 							if ($zip->open(public_path($zipFileName), ZipArchive::CREATE) === true) {
 								$filesToZip = $imagesPath;
