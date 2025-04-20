@@ -114,9 +114,12 @@ class DownloadService
 					'imagesPath' => $imagesPath,
 				]); */
 				//dd(public_path($zipFileName), $filesToZip);
-				foreach ($filesToZip as $file) {
-					$file = Storage::path($file);
-					$zip->addFile($file, basename($file));
+				foreach ($filesToZip as $tempFile) {
+					// $tempFile = Storage::path($tempFile);
+					$zip->addFile(
+						Storage::path($tempFile),
+						basename($tempFile)
+					);
 					//dd($file, basename($file));
 					/* info('foreach', [
 						'file' => basename($file),
