@@ -46,9 +46,10 @@ class ViewProject extends ViewRecord
 								->select('image_path')
 								->where('image_type', 'photographs')
 								->where('imaggable_id', $project->id)
+								->limit(1)
 								->get();
 
-								$imagesPath = $images->pluck('image_path');
+							$imagesPath = $images->pluck('image_path');
 
 							$zip = new ZipArchive;
 							$zipFileName = ucfirst(str()->camel($mediaKit->slug)) . '-' . 'photographs' . '.zip';
