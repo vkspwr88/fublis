@@ -46,7 +46,7 @@ class ViewProject extends ViewRecord
 								->select('image_path')
 								->where('image_type', 'photographs')
 								->where('imaggable_id', $project->id)
-								->limit(5)
+								->limit(9)
 								->get();
 
 							$imagesPath = $images->pluck('image_path');
