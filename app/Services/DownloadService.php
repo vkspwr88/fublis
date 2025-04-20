@@ -149,7 +149,7 @@ class DownloadService
 					'code' => $exp->getCode(),
 				]
 			);
-			abort(500);
+			// abort(500);
 			// dd($exp->getMessage())
 		}
 	}
