@@ -46,7 +46,7 @@ class ViewProject extends ViewRecord
 								->select('image_path')
 								->where('image_type', 'photographs')
 								->where('imaggable_id', $project->id)
-								->limit(15)
+								// ->limit(15)
 								->get();
 
 							$imagesPath = $images->pluck('image_path');
@@ -65,7 +65,14 @@ class ViewProject extends ViewRecord
 
 								$zip->close();
 
-								return response()->download(public_path($zipFileName))->deleteFileAfterSend(true);
+								return response()->download(
+										public_path($zipFileName),
+										$zipFileName,
+										[
+											'Content-Type' => 'application/zip',
+											'Content-Disposition' => 'attachment; filename="' . $zipFileName . '"',
+										]
+									)->deleteFileAfterSend(true);
 							}
 							// return $downloadService->zipFilesDownload($mediaKit, 'photographs', 'Photographs');
 						}
