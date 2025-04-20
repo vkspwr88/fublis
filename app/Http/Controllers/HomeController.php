@@ -96,8 +96,9 @@ class HomeController extends Controller
 					'code' => $exp->getCode(),
 				]
 			);
-			abort(500);
-			// dd($exp->getMessage())
+			// abort(500);
+			echo $exp->getMessage();
+			echo '<hr>';
 		}
 
 		phpinfo();
