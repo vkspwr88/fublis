@@ -6,6 +6,8 @@ use App\Http\Controllers\Payments\StripeController;
 use App\Http\Controllers\SitemapController;
 use App\Http\Controllers\Users;
 use App\Mail\TestMail;
+use App\Models\MediaKit;
+use App\Services\DownloadService;
 // use App\Services\Architects\StatsService;
 use App\Services\Journalists\StatsService;
 use Illuminate\Support\Facades\Artisan;
@@ -73,7 +75,7 @@ Route::get('/aman', [HomeController::class, 'aman'])->name('aman');
 })->name('email'); */
 
 Route::get('/download/{mediaKit}/{file}/{type}', function (MediaKit $mediaKit, $file, $type, DownloadService $downloadService) {
-	return $downloadService->zipFilesDownload($mediaKit, $file, $type);
+	return $downloadService->zipFilesDownloadUrl($mediaKit, $file, $type);
 })->name('download.zip');
 
 Route::post('/livewire/upload-file', [FileUploadHandler::class, 'handle'])->name('livewire.upload-file');
