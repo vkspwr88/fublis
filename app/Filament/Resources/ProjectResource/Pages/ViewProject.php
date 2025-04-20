@@ -39,8 +39,8 @@ class ViewProject extends ViewRecord
 				Actions\Action::make('download2')
 					->label('Download Photographs')
 					->hidden(fn(Project $project) => !($project->photographs && $project->photographs->where('image_type', 'photographs')->count() > 0))
-					->url(fn (): string => route('download.zip', [
-						'mediaKit' => $this->project->mediaKit[0]->id,
+					->url(fn (Project $project): string => route('download.zip', [
+						'mediaKit' => $project->mediaKit[0]->id,
 						'file' => 'photographs',
 						'type' => 'Photographs',
 					]))
