@@ -7,7 +7,11 @@
 		@yield('head')
 		@stack('meta')
 		@include('users.includes.google-tags.meta')
-		<link rel="icon" type="image/png" href="{{ asset(env('COMPANY_ICON')) }}">
+		{{-- <link rel="icon" type="image/png" href="{{ asset(env('COMPANY_ICON')) }}"> --}}
+		<link rel="apple-touch-icon" sizes="180x180" href="{{ asset('apple-touch-icon.png') }}">
+		<link rel="icon" type="image/png" sizes="32x32" href="{{ asset('favicon-32x32.png') }}">
+		<link rel="icon" type="image/png" sizes="16x16" href="{{ asset('favicon-16x16.png') }}">
+		<link rel="manifest" href="{{ asset('site.webmanifest') }}">
 		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
 		<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet">
@@ -15,7 +19,7 @@
 		<link rel="stylesheet" type="text/css" href="https://unpkg.com/trix@2.0.0/dist/trix.css">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.6/cropper.css"/>
 		@stack('styles')
-		<link rel="stylesheet" href="{{ asset('css/aman.css?v=1.00') }}">
+		<link rel="stylesheet" href="{{ asset('css/aman.css') }}?v=1.01">
 		@include('users.includes.google-tags.script')
 		<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">
 		</script>
@@ -124,7 +128,7 @@
 			const uploadHostUrl = '{{ route('architect.trix-file-upload') }}';
 			// const removeHostUrl = '{{ route('architect.trix-file-remove') }}';
 		</script>
-		<script src="{{ asset('js/aman.js?v=1.00') }}"></script>
+		<script src="{{ asset('js/aman.js') }}?v=1.01"></script>
 		@stack('scripts')
 		<script>
 			var sidebarCollapse = document.getElementById("sidebarCollapse");
