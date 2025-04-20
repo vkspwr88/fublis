@@ -72,6 +72,10 @@ Route::get('/aman', [HomeController::class, 'aman'])->name('aman');
     return (new VerifySubscriber())->render();
 })->name('email'); */
 
+Route::get('/download/{mediaKit}/{file}/{type}', function (MediaKit $mediaKit, $file, $type, DownloadService $downloadService) {
+	return $downloadService->zipFilesDownload($mediaKit, $file, $type);
+})->name('download.zip');
+
 Route::post('/livewire/upload-file', [FileUploadHandler::class, 'handle'])->name('livewire.upload-file');
 
 Route::middleware('guest')->group(function () {

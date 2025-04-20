@@ -134,7 +134,14 @@ class DownloadService
 					'public_path' => public_path($zipFileName),
 				]); */
 
-				return response()->download(public_path($zipFileName))->deleteFileAfterSend(true);
+				return response()->download(
+						public_path($zipFileName),
+						$zipFileName,
+						[
+							'Content-Type' => 'application/zip',
+							'Content-Disposition' => 'attachment; filename="' . $zipFileName . '"',
+						]
+					)->deleteFileAfterSend(true);
 				// return response()->download(public_path($zipFileName));
 			} else {
 				throw ValidationException::withMessages(['Failed to create the zip file.']);
