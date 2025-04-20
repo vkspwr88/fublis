@@ -4,10 +4,13 @@ namespace App\Filament\Resources\ProjectResource\Pages;
 
 use App\Filament\Resources\ProjectResource;
 use App\Http\Controllers\Admin\ProjectController;
+use App\Models\Image;
 use App\Models\Project;
 use App\Services\DownloadService;
 use Filament\Actions;
 use Filament\Resources\Pages\ViewRecord;
+use Illuminate\Support\Facades\Storage;
+use ZipArchive;
 
 class ViewProject extends ViewRecord
 {
@@ -39,7 +42,30 @@ class ViewProject extends ViewRecord
 					->action(
 						function (Project $project, DownloadService $downloadService) {
 							$mediaKit = $project->mediaKit[0];
-							return $downloadService->zipFilesDownload($mediaKit, 'photographs', 'Photographs');
+							$images = Image::query()
+								->where('image_type', 'photographs')
+								->where('imaggable_id', $project->id)
+								->get();
+
+								$imagesPath = $images->pluck('image_path');
+
+							$zip = new ZipArchive;
+							$zipFileName = ucfirst(str()->camel('AMAN SAINI')) . '-' . 'photos' . '.zip';
+
+							if ($zip->open(public_path($zipFileName), ZipArchive::CREATE) === true) {
+								$filesToZip = $imagesPath;
+								foreach ($filesToZip as $tempFile) {
+									$zip->addFile(
+										Storage::path($tempFile),
+										basename($tempFile)
+									);
+								}
+
+								$zip->close();
+
+								return response()->download(public_path($zipFileName))->deleteFileAfterSend(true);
+							}
+							// return $downloadService->zipFilesDownload($mediaKit, 'photographs', 'Photographs');
 						}
 					),
 				Actions\Action::make('download3')
