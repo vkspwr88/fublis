@@ -23,10 +23,10 @@ class JournalistView extends Component
 	public $subject;
 	public $message;
 
-    public function render()
-    {
-        return view('livewire.architects.pitch-stories.journalist-view');
-    }
+	public function render()
+	{
+		return view('livewire.architects.pitch-stories.journalist-view');
+	}
 
 	public function boot()
 	{
@@ -36,6 +36,7 @@ class JournalistView extends Component
 	public function mount($journalist)
 	{
 		$this->journalist = $journalist;
+		$this->selectedJournalist = $journalist->id;
 		$this->associatedPublications = collect([]);
 		$this->journalists = collect([]);
 		$this->mediaKits = collect([]);
@@ -44,9 +45,9 @@ class JournalistView extends Component
 	// Show mediakits list
 	public function showMediaKit($checkAssociates = false)
 	{
-		if($checkAssociates){
+		if ($checkAssociates) {
 			$this->associatedPublications = $this->journalist->publications->merge($this->journalist->associatedPublications);
-			if($this->associatedPublications->count() > 1){
+			if ($this->associatedPublications->count() > 1) {
 				$this->dispatch('hide-select-contact-modal');
 				$this->dispatch('show-select-publication-modal');
 				return;
@@ -55,7 +56,7 @@ class JournalistView extends Component
 		}
 
 		$selectedPublication = $this->associatedPublications->find($this->selectedAssociatedPublication);
-		if(SubscriptionController::checkPremiumPublication($selectedPublication)){
+		if (SubscriptionController::checkPremiumPublication($selectedPublication)) {
 			/* $this->dispatch('alert', [
 				'type' => 'warning',
 				'message' => 'Upgrade your plan to pitch premium publication.'
@@ -66,9 +67,9 @@ class JournalistView extends Component
 		}
 
 		$this->mediaKits = auth()->user()
-									->architect
-									->mediaKits
-									->sortByDesc('created_at');
+			->architect
+			->mediaKits
+			->sortByDesc('created_at');
 		$this->dispatch('hide-select-contact-modal');
 		$this->dispatch('hide-select-publication-modal');
 		$this->dispatch('show-select-mediakit-modal');
@@ -77,7 +78,7 @@ class JournalistView extends Component
 	// Show send message form
 	public function showSendMessage()
 	{
-		if($this->selectedMediaKit == ''){
+		if ($this->selectedMediaKit == '') {
 			$this->dispatch('alert', [
 				'type' => 'warning',
 				'message' => 'Select a media kit.'
@@ -89,8 +90,8 @@ class JournalistView extends Component
 		$this->subject = 'New ' . showModelName($mediaKit->story_type) . ' | ' . $mediaKit->story->title;
 		$this->message = "";
 		// if(isSubscribed()){
-			$this->message = "Hi " . $this->journalist->user->name . ",<br><br>I'm writing to you about our latest story <a href='" . route('journalist.media-kit.view', ['mediaKit' => $mediaKit->slug]) . "' class='text-purple-800'>" . $mediaKit->story->title . "</a> for your consideration.<br><br>" . getProjectBrief($mediaKit) . "<br><br>It would be great to have it published in " . $selectedPublication->name . ". I would be happy to share any more information that you might need.<br><br>Regards,<br><a href='" . route('journalist.brand.architect', ['architect' => auth()->user()->architect->slug]) .  "' class='text-purple-800'>" . auth()->user()->name . "</a>";
-			// $this->message = "Hi " . $this->journalist->user->name . ",<br><br>I'm writing to you about our latest story <a href='" . route('journalist.media-kit.view', ['mediaKit' => $mediaKit->slug]) . "' class='text-purple-800'>" . $mediaKit->story->title . "</a> for your consideration.<br><br>" . getProjectBrief($mediaKit) . "<br><br>It would be great to have it published in " . $selectedPublication->name . ". I would be happy to share any more information that you might need.<br><br>Regards,<br>" . auth()->user()->name . "";
+		$this->message = "Hi " . $this->journalist->user->name . ",<br><br>I'm writing to you about our latest story <a href='" . route('journalist.media-kit.view', ['mediaKit' => $mediaKit->slug]) . "' class='text-purple-800'>" . $mediaKit->story->title . "</a> for your consideration.<br><br>" . getProjectBrief($mediaKit) . "<br><br>It would be great to have it published in " . $selectedPublication->name . ". I would be happy to share any more information that you might need.<br><br>Regards,<br><a href='" . route('journalist.brand.architect', ['architect' => auth()->user()->architect->slug]) .  "' class='text-purple-800'>" . auth()->user()->name . "</a>";
+		// $this->message = "Hi " . $this->journalist->user->name . ",<br><br>I'm writing to you about our latest story <a href='" . route('journalist.media-kit.view', ['mediaKit' => $mediaKit->slug]) . "' class='text-purple-800'>" . $mediaKit->story->title . "</a> for your consideration.<br><br>" . getProjectBrief($mediaKit) . "<br><br>It would be great to have it published in " . $selectedPublication->name . ". I would be happy to share any more information that you might need.<br><br>Regards,<br>" . auth()->user()->name . "";
 		// }
 		$this->dispatch('hide-select-mediakit-modal');
 		$this->dispatch('show-send-message-modal');
@@ -102,14 +103,15 @@ class JournalistView extends Component
 	// Show success message
 	public function showPitchSuccess()
 	{
-		if($this->pitchStoryService->isStoryPitched($this->selectedJournalist, $this->selectedMediaKit)){
+		// dd($this->selectedJournalist);
+		if ($this->pitchStoryService->isStoryPitched($this->selectedJournalist, $this->selectedMediaKit)) {
 			$this->dispatch('alert', [
 				'type' => 'warning',
 				'message' => 'Story is already pitched to this journalist.'
 			]);
 			return;
 		}
-		if(SubscriptionController::checkPitchesPerMonth()){
+		if (SubscriptionController::checkPitchesPerMonth()) {
 			/* $this->dispatch('alert', [
 				'type' => 'warning',
 				'message' => 'You are only allowed to do 3 pitches per month.'
@@ -117,7 +119,7 @@ class JournalistView extends Component
 			$this->dispatch('show-pitch-limit-alert-modal');
 			return;
 		}
-		if($this->subject == '' || $this->message == ''){
+		if ($this->subject == '' || $this->message == '') {
 			$this->dispatch('alert', [
 				'type' => 'warning',
 				'message' => 'Enter the subject and message.'
@@ -125,7 +127,7 @@ class JournalistView extends Component
 			return;
 		}
 		$mediaKit = $this->mediaKits->find($this->selectedMediaKit);
-		if($this->pitchStoryService->createPitchStory($this->journalist, [
+		if ($this->pitchStoryService->createPitchStory($this->journalist, [
 			'journalist' => $this->selectedJournalist,
 			'mediaKit' => $this->selectedMediaKit,
 			'mediaKitType' => showModelName($mediaKit->story_type),
@@ -134,7 +136,7 @@ class JournalistView extends Component
 			'subject' => $this->subject,
 			'message' => $this->message,
 			'publicationId' => $this->selectedAssociatedPublication,
-		])){
+		])) {
 			$this->dispatch('hide-send-message-modal');
 			$this->dispatch('show-pitch-journalist-success-modal');
 			return;

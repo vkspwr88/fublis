@@ -43,46 +43,7 @@ class ViewProject extends ViewRecord
 						'mediaKit' => $project->mediaKit[0]->id,
 						'file' => 'photographs',
 						'type' => 'Photographs',
-					]))
-					/* ->action(
-						function (Project $project/* , DownloadService $downloadService *) {
-
-							// $mediaKit = $project->mediaKit[0];
-							// $images = Image::query()
-							// 	->select('image_path')
-							// 	->where('image_type', 'photographs')
-							// 	->where('imaggable_id', $project->id)
-							// 	// ->limit(15)
-							// 	->get();
-
-							// $imagesPath = $images->pluck('image_path');
-
-							// $zip = new ZipArchive;
-							// $zipFileName = ucfirst(str()->camel($mediaKit->slug)) . '-' . 'photographs' . '.zip';
-
-							// if ($zip->open(public_path($zipFileName), ZipArchive::CREATE) === true) {
-							// 	$filesToZip = $imagesPath;
-							// 	foreach ($filesToZip as $tempFile) {
-							// 		$zip->addFile(
-							// 			Storage::path($tempFile),
-							// 			basename($tempFile)
-							// 		);
-							// 	}
-
-							// 	$zip->close();
-
-							// 	return response()->download(
-							// 			public_path($zipFileName),
-							// 			$zipFileName,
-							// 			[
-							// 				'Content-Type' => 'application/zip',
-							// 				'Content-Disposition' => 'attachment; filename="' . $zipFileName . '"',
-							// 			]
-							// 		)->deleteFileAfterSend(true);
-							// }
-							// return $downloadService->zipFilesDownload($mediaKit, 'photographs', 'Photographs');
-						}
-					) */,
+					])),
 				Actions\Action::make('download3')
 					->label('Download Diagrams')
 					->hidden(fn(Project $project) => !($project->photographs && $project->photographs->where('image_type', 'drawings')->count() > 0))

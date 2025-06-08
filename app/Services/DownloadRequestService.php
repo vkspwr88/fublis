@@ -50,6 +50,32 @@ class DownloadRequestService
 			]);
 	}
 
+	public static function getAllRequestsQuery()
+	{
+		return Notification::where('user_id', auth()->id())
+			->whereHasMorph(
+				'notifiable',
+				DownloadRequest::class
+			)
+			->with([
+				'notifiable' => function (MorphTo $morphTo) {
+					$morphTo->morphWith([
+						DownloadRequest::class => [
+							'requestedJournalist' => [
+								'journalist' => [
+									'publications',
+									'profileImage',
+								]
+							],
+							'mediaKit' => [
+								'story',
+							]
+						],
+					]);
+				}
+			]);
+	}
+
 	public static function loadModel($model)
 	{
 		return $model->load([
