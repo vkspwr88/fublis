@@ -49,10 +49,13 @@ class ProjectForm extends Form
 	// #[Rule('nullable|file|mimes:pdf,doc,docs,docx')]
 	public $projectFile;
 	public $projectLink;
+	public $projectText;
+	#[Validate]
 	public $photographsFiles = [];
 	public $oldPhotographsFiles = [];
 	public $photographsLink;
 	public $audioVideoUrl;
+	#[Validate]
 	public $drawingsFiles = [];
 	public $oldDrawingsFiles = [];
 	public $drawingsLink;
@@ -119,14 +122,15 @@ class ProjectForm extends Form
 			'coverImage' => $this->getValidationRule('coverImage'),
 			'projectBrief' => 'required|' . __('validations/rules.mediaKitBriefCharacters'),
 			'projectFile' => $this->getValidationRule('projectFile'),
-			'projectLink' => 'nullable|required_without:projectFile|url:https',
+			'projectLink' => 'nullable|required_without:projectFile,projectText|url:https',
+			'projectText' => 'nullable|required_without:projectFile,projectLink',
 			'photographsFiles' => 'nullable|array',
 			'photographsFiles.*' => Rule::forEach(function (string|null $value, string $attribute) {
 				return Str::contains($value, 'tmp') ?
 							'nullable|file|' . __('validations/rules.zipPlusImageMimes') . '|' . __('validations/rules.bulkFilesSize') :
 							'nullable|string';
+							// 'nullable|string|' . __('validations/rules.zipPlusImageFormat');
 			}),
-			// 'photographsFiles.*' => 'nullable|file|' . __('validations/rules.zipPlusImageMimes') . '|' . __('validations/rules.bulkFilesSize'),
 			'photographsLink' => 'nullable|url:https',
 			'audioVideoUrl' => 'nullable|url:https',
 			'drawingsFiles' => 'nullable|array',
@@ -134,15 +138,9 @@ class ProjectForm extends Form
 				return Str::contains($value, 'tmp') ?
 							'nullable|file|' . __('validations/rules.zipPlusImageMimes') . '|' . __('validations/rules.bulkFilesSize') :
 							'nullable|string';
+							// 'nullable|string|' . __('validations/rules.zipPlusImageFormat');
 			}),
-			// 'drawingsFiles.*' => 'nullable|file|' . __('validations/rules.zipPlusImageMimes') . '|' . __('validations/rules.bulkFilesSize'),
 			'drawingsLink' => 'nullable|url:https',
-			/* 'photographsFiles' => 'required|array',
-			'photographsFiles.*' => 'file|mimes:zip,svg,png,jpg,gif', */
-			//'photographsFiles.*' => 'image|mimes:svg,png,jpg,gif',
-			/* 'drawingsFiles' => 'required|array',
-			'drawingsFiles.*' => 'file|mimes:zip,svg,png,jpg,gif', */
-			//'drawingsFiles.*' => 'image|mimes:svg,png,jpg,gif',
 			'tags' => 'nullable|array',
 			'mediaContact' => 'required',
 			'mediaKitAccess' => 'required',
@@ -157,6 +155,7 @@ class ProjectForm extends Form
 			}
 			else{
 				return 'required|string';
+				// return 'required|string|' . __('validations/rules.imageFormat');
 			}
 		}
 		if ($key == 'projectFile') {
@@ -165,8 +164,10 @@ class ProjectForm extends Form
 			}
 			else{
 				return 'nullable|string';
+				// return 'nullable|string|' . __('validations/rules.wordFormat');
 			}
 		}
+		return '';
     }
 
 	public function messages()
@@ -195,19 +196,24 @@ class ProjectForm extends Form
 			'designTeam.required' => 'Enter the :attribute.',
 			'coverImage.required' => 'Upload the :attribute.',
 			'coverImage.image' => __('validations/messages.image'),
+			'coverImage.extensions' => __('validations/messages.imageMimes'),
 			'coverImage.mimes' => __('validations/messages.imageMimes'),
 			'coverImage.max' => __('validations/messages.coverImage.max'),
 			'coverImage.dimensions' => __('validations/messages.coverImage.dimensions'),
 			'projectBrief.required' => 'Enter the :attribute.',
 			'projectBrief.max' => __('validations/messages.mediaKitBriefCharacters'),
+			'projectFile.extensions' => 'The :attribute supports only pdf, doc, docs or docx.',
 			'projectFile.mimes' => 'The :attribute supports only pdf, doc, docs or docx.',
-			'projectLink.required_without' => 'Enter the :attribute or upload the file.',
+			'projectLink.required_without' => 'Enter the :attribute or enter the project text or upload the file.',
+			'projectText.required_without' => 'Enter the :attribute or enter the project document link or upload the file.',
 			'photographsFiles.required' => 'Upload the :attribute.',
 			'photographsFiles.*.file' => 'The :attribute supports only file.',
+			'photographsFiles.*.extensions' => __('validations/messages.zipPlusImageMimes'),
 			'photographsFiles.*.mimes' => __('validations/messages.zipPlusImageMimes'),
 			'photographsFiles.*.max' => __('validations/messages.bulkFilesSize'),
 			'drawingsFiles.required' => 'Upload the :attribute.',
 			'drawingsFiles.*.file' => 'The :attribute supports only file.',
+			'drawingsFiles.*.extensions' => __('validations/messages.zipPlusImageMimes'),
 			'drawingsFiles.*.mimes' => __('validations/messages.zipPlusImageMimes'),
 			'drawingsFiles.*.max' => __('validations/messages.bulkFilesSize'),
 			'tags.required' => 'Enter the :attribute.',
@@ -241,12 +247,15 @@ class ProjectForm extends Form
 			'designTeam' => 'design team',
 			'coverImage' => 'cover image',
 			'projectBrief' => 'project brief',
-			'projectFile' => 'project document',
-			'projectLink' => 'project link',
+			'projectFile' => 'project text document',
+			'projectLink' => 'project text link',
+			'projectText' => 'project text',
 			'photographsFiles' => 'photographs',
+			'photographsFiles.*' => 'photographs',
 			'photographsLink' => 'photographs link',
 			'audioVideoUrl' => 'audio video link',
 			'drawingsFiles' => 'drawings',
+			'drawingsFiles.*' => 'drawings',
 			'drawingsLink' => 'drawings link',
 			'tags' => 'tags',
 			'mediaContact' => 'media contact',
@@ -286,7 +295,7 @@ class ProjectForm extends Form
 		$this->siteAreaUnit = $mediaKit->story->site_area_id;
 		$this->builtUpArea = $mediaKit->story->built_up_area;
 		$this->builtUpAreaUnit = $mediaKit->story->built_up_area_id;
-		$this->materials = $mediaKit->story->title;
+		$this->materials = $mediaKit->story->materials;
 		// $this->buildingTypology = $mediaKit->story->buildingUse->buildingTypology->id;
 		$this->buildingTypology = $mediaKit->story->buildingUse && $mediaKit->story->buildingUse->buildingTypology ?$mediaKit->story->buildingUse->buildingTypology->id : '';
 		$this->buildingUse = $mediaKit->story->building_use_id;
@@ -303,6 +312,7 @@ class ProjectForm extends Form
 		$this->projectBrief = $mediaKit->story->project_brief;
 		$this->projectFile = $mediaKit->story->project_doc_path;
 		$this->projectLink = $mediaKit->story->project_doc_link;
+		$this->projectText = $mediaKit->story->project_doc_text;
 		$this->photographsFiles = [];
 		$this->oldPhotographsFiles = $mediaKit->story->photographs->where('image_type', 'photographs');
 		$this->photographsLink = $mediaKit->story->photographs_link;
@@ -361,6 +371,7 @@ class ProjectForm extends Form
 		$this->projectBrief = $content->projectBrief;
 		$this->projectFile = $content->projectFile;
 		$this->projectLink = $content->projectLink;
+		$this->projectText = $content->projectText ?? '';
 		$this->photographsFiles = $content->photographsFiles;
 		$this->photographsLink = $content->photographsLink;
 		$this->audioVideoUrl = $content->audioVideoUrl ?? '';
@@ -392,6 +403,7 @@ class ProjectForm extends Form
 
 	public function update($mediaKitId)
 	{
+		// dd($this->all());
 		$this->updateFields();
 		$this->validate();
 		$addStoryService = new AddStoryService();
@@ -445,8 +457,8 @@ class ProjectForm extends Form
 		}
 		if($type == 'edit'){
 			$mediaKit = MediaKitController::findById($id);
-			$pressRelease = $mediaKit->story;
-			ImageController::delete($pressRelease->photographs(), $index);
+			$project = $mediaKit->story;
+			ImageController::delete($project->photographs(), $index);
 			$this->oldPhotographsFiles = $mediaKit->story->photographs;
 			return;
 		}

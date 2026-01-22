@@ -1,5 +1,9 @@
 <form wire:submit="submit">
+	{{-- @if ($autosaveStopped) --}}
 	<div class="row g-4">
+	{{-- @else --}}
+	<div class="row g-4" wire:poll.10s="autosave">
+	{{-- @endif --}}
 		<div class="col-md-12 text-end">
 			<button class="btn btn-white fs-6 fw-semibold" type="button" wire:click="draft">
 				Save Draft <x-users.spinners.primary-btn wire:target="draft" />
@@ -72,7 +76,7 @@
 										<p class="py-2 m-0 text-center card-text text-secondary fs-6">
 											<label for="coverImage"><span class="text-purple-700 cursor-pointer fw-semibold">Click to upload</span></label> or drag and drop
 										</p>
-										<input type="file" id="coverImage" class="d-none" @change="handleCropFileSelect">
+										<input type="file" id="coverImage" class="d-none" @change="handleCropFileSelect" {{-- wire:change="$set('autosaveStopped', true)" --}}>
 										<p class="py-2 m-0 text-center card-text text-secondary fs-6">{{ __('text.profileImage') }}</p>
 										@if($profile_pic_path)
 											<ul class="p-0 mt-3 text-center" style="list-style: none;">
@@ -158,12 +162,12 @@
 																<a href="{{ Storage::url($imagesFile) }}" class="text-purple-700">See Brief File {{ $loop->iteration }}</a>
 																<button type="button" class="btn btn-link text-danger text-decoration-none" wire:click="removeImage({{ $key }})">X</button>
 															</li>
-													@endforeach
+														@endforeach
 													</ul>
 												@endif
 												<div x-show="isUploading" style="display: none;">
 													<div class="progress">
-														<div class="progress-bar bg-primary" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="transition: width 1s" :style="`width: ${progress}%;`"></div>
+														<div class="progress-bar bg-primary" aria-valuemin="0" aria-valuemax="100" style="transition: width 1s" :style="`width: ${progress}%;`"></div>
 													</div>
 												</div>
 											</div>
@@ -171,8 +175,8 @@
 									</div>
 								</div>
 							</div>
-							@error('projectBrief')<div class="error">{{ $message }}</div>@enderror
-							@error('projectBrief.*')<div class="error">{{ $message }}</div>@enderror
+							@error('projectBrief')<div class="mb-2 error">{{ $message }}</div>@enderror
+							@error('projectBrief.*')<div class="mb-2 error">{{ $message }}</div>@enderror
 						</div>
 					</div>
 				</div>
@@ -182,12 +186,17 @@
 		<hr class="border-gray-300">
 
 		<div class="col-md-12 text-end">
-			<button class="btn btn-white fs-6 fw-semibold" type="button" wire:click="draft">
-				Save Draft <x-users.spinners.primary-btn wire:target="draft" />
-			</button>
-			<button class="btn btn-primary fs-6 fw-semibold ms-2" type="submit">
-				Submit Interview <x-users.spinners.white-btn wire:target="submit" />
-			</button>
+			<div>
+				<button class="btn btn-white fs-6 fw-semibold" type="button" wire:click="draft">
+					Save Draft <x-users.spinners.primary-btn wire:target="draft" />
+				</button>
+				<button class="btn btn-primary fs-6 fw-semibold ms-2" type="submit">
+					Submit Interview <x-users.spinners.white-btn wire:target="submit" />
+				</button>
+			</div>
+			<p class="m-0 mt-2 text-end">
+				Last Saved: {{ $interview->updated_at }} UTC
+			</p>
 		</div>
 	</div>
 	@include('users.includes.common.file-upload-script', ['width' => 400, 'height' => 400])

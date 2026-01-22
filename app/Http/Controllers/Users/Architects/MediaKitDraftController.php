@@ -17,7 +17,7 @@ class MediaKitDraftController extends Controller
 
 	public function view(MediaKitDraft $mediaKitDraft)
 	{
-		MediaKitDraftController::check($mediaKitDraft);
+		self::check($mediaKitDraft);
 		if($mediaKitDraft->media_kit_type === 'press-release'){
 			return to_route('architect.add-story.press-release.draft', ['mediaKitDraft' => $mediaKitDraft->id]);
 		}
@@ -31,7 +31,7 @@ class MediaKitDraftController extends Controller
 
     public static function create(array $details)
 	{
-		$details = MediaKitDraftController::setDetails($details);
+		$details = self::setDetails($details);
 		return MediaKitDraft::create($details);
 	}
 
@@ -42,16 +42,16 @@ class MediaKitDraftController extends Controller
 
 	public static function deleteById(string $id)
 	{
-		$mediaKitDraft = MediaKitDraftController::findById($id);
-		MediaKitDraftController::check($mediaKitDraft);
+		$mediaKitDraft = self::findById($id);
+		self::check($mediaKitDraft);
 		$mediaKitDraft->delete();
 	}
 
 	public static function update(string $id, array $details)
 	{
 		// dd($details);
-		$details = MediaKitDraftController::setDetails($details);
-		$mediaKitDraft = MediaKitDraftController::findById($id);
+		$details = self::setDetails($details);
+		$mediaKitDraft = self::findById($id);
 		$mediaKitDraft->update($details);
 		return $mediaKitDraft;
 	}
@@ -141,6 +141,7 @@ class MediaKitDraftController extends Controller
 					'projectBrief' => $content['projectBrief'],
 					'projectFile' => $content['projectFile'],
 					'projectLink' => $content['projectLink'],
+					'projectText' => $content['projectText'],
 					'photographsFiles' => $content['photographsFiles'],
 					'photographsLink' => $content['photographsLink'],
 					'drawingsFiles' => $content['drawingsFiles'],

@@ -19,6 +19,7 @@ class ArchitectLogin
 		if(auth()->check() && auth()->user()->user_type === UserTypeEnum::ARCHITECT){
 			return $next($request);
 		}
-		return to_route('architect.login');
+		return to_route('login');
+		// return to_route('architect.login');
     }
 }

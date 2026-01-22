@@ -12,11 +12,11 @@
 						<a href="{{ route('home') }}" class="text-secondary fs-6 fw-medium"><i class="bi bi-house"></i></a>
 					</li>
 					<li class="breadcrumb-item fublis-breadcrumb-item">
-						<a href="javascript:;" class="text-secondary fs-6 fw-medium">Brands</a>
+						<a href="javascript:;" class="text-secondary fs-6 fw-medium">Company</a>
 					</li>
-					<li class="breadcrumb-item fublis-breadcrumb-item">
+					{{-- <li class="breadcrumb-item fublis-breadcrumb-item">
 						<a href="javascript:;" class="text-secondary fs-6 fw-medium">{{ $brand->category->name }}</a>
-					</li>
+					</li> --}}
 					<li class="breadcrumb-item fublis-breadcrumb-item text-purple-600 fs-6 fw-medium" aria-current="page">{{ $brand->name }}</li>
 				</ol>
 			</nav>

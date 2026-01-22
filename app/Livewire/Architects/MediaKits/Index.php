@@ -114,7 +114,7 @@ class Index extends Component
 			'publicationTypes' => [],
 			'categories' => [],
 		]);
-		if($this->associatedPublications->count() > 1){
+		if($this->associatedPublications->count() > 0){
 			$this->dispatch('show-select-publication-modal');
 		}
 		// dd('working');

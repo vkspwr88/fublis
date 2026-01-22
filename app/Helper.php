@@ -15,6 +15,13 @@ if (!function_exists('filterFileName')) {
     }
 }
 
+if (!function_exists('isAdmin')) {
+    function isAdmin()
+    {
+		return auth()->check() && auth()->user()->user_type === UserTypeEnum::ADMIN;
+	}
+}
+
 if (!function_exists('isArchitect')) {
     function isArchitect()
     {
@@ -154,7 +161,11 @@ if (!function_exists('isBusinessPlanSubscribed')) {
 		if($otherUser){
 			$user = $otherUser;
 		}
-		return $user->subscribed('business-plan-annually') || $user->subscribed('business-plan-quarterly') || $user->subscribed('business-plan-annually-inr') || $user->subscribed('business-plan-quarterly-inr');
+		return
+			$user->subscribed('business-annual-eur') ||
+			$user->subscribed('business-annual-inr') ||
+			$user->subscribed('business-annual-usd');
+		// return $user->subscribed('business-plan-annually') || $user->subscribed('business-plan-quarterly') || $user->subscribed('business-plan-annually-inr') || $user->subscribed('business-plan-quarterly-inr');
 	}
 }
 
@@ -165,7 +176,37 @@ if (!function_exists('isEnterprisePlanSubscribed')) {
 		if($otherUser){
 			$user = $otherUser;
 		}
-		return $user->subscribed('enterprise-plan-annually') || $user->subscribed('enterprise-plan-quarterly') || $user->subscribed('enterprise-plan-annually-inr') || $user->subscribed('enterprise-plan-quarterly-inr');
+		return isEnterpriseMonthlyPlanSubscribed($user) || isEnterpriseAnnualPlanSubscribed($user);
+			/* $user->subscribed('essential-monthly-eur') || $user->subscribed('essential-annual-eur') ||
+			$user->subscribed('essential-monthly-inr') || $user->subscribed('essential-annual-inr') ||
+			$user->subscribed('essential-monthly-usd') || $user->subscribed('essential-annual-usd'); */
+		// return $user->subscribed('enterprise-plan-annually') || $user->subscribed('enterprise-plan-quarterly') || $user->subscribed('enterprise-plan-annually-inr') || $user->subscribed('enterprise-plan-quarterly-inr');
+	}
+}
+
+if (!function_exists('isEnterpriseMonthlyPlanSubscribed')) {
+	function isEnterpriseMonthlyPlanSubscribed($otherUser = null)
+	{
+		$user = auth()->user();
+		if($otherUser){
+			$user = $otherUser;
+		}
+		return
+			$user->subscribed('essential-monthly-eur') || $user->subscribed('essential-monthly-inr') || $user->subscribed('essential-monthly-usd');
+		// return $user->subscribed('enterprise-plan-annually') || $user->subscribed('enterprise-plan-quarterly') || $user->subscribed('enterprise-plan-annually-inr') || $user->subscribed('enterprise-plan-quarterly-inr');
+	}
+}
+
+if (!function_exists('isEnterpriseAnnualPlanSubscribed')) {
+	function isEnterpriseAnnualPlanSubscribed($otherUser = null)
+	{
+		$user = auth()->user();
+		if($otherUser){
+			$user = $otherUser;
+		}
+		return
+			$user->subscribed('essential-annual-eur') || $user->subscribed('essential-annual-inr') || $user->subscribed('essential-annual-usd');
+		// return $user->subscribed('enterprise-plan-annually') || $user->subscribed('enterprise-plan-quarterly') || $user->subscribed('enterprise-plan-annually-inr') || $user->subscribed('enterprise-plan-quarterly-inr');
 	}
 }
 
@@ -177,5 +218,44 @@ if (!function_exists('isSubscribed')) {
 			$user = $otherUser;
 		}
 		return isArchitect() && ( isBusinessPlanSubscribed($user) || isEnterprisePlanSubscribed($user) );
+	}
+}
+
+if(!function_exists('displayCurrencyValue')){
+	function displayCurrencyValue($value, $symbol = '$')
+	{
+		return $symbol . number_format($value, 2);
+	}
+}
+
+if(!function_exists('getLocations')){
+	function getLocations($locationRec)
+	{
+		$locations = [];
+		$countryDB = $locationRec->country()->first();
+		$cityDB = $locationRec->city()->first();
+		// dd($locationRec, $countryDB, $cityDB);
+		if ($countryDB){
+			$locations['country'] = $countryDB->name;
+		}
+		elseif($cityDB){
+			$locations['city'] = $cityDB->name;
+			$stateDB = $cityDB->state;
+			$locations['state'] = $stateDB->name;
+			$countryDB = $stateDB->country;
+			$locations['country'] = $countryDB->name;
+		}
+
+		return $locations;
+	}
+}
+
+if(!function_exists('getTempPreviewFileUrl')){
+	function getTempPreviewFileUrl($extension, $returnUrl)
+	{
+		if(in_array($extension, ['pdf', 'doc', 'docx', 'zip'])){
+			return asset('images/icons/file.png');
+		}
+		return $returnUrl;
 	}
 }

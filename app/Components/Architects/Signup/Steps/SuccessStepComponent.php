@@ -10,4 +10,14 @@ class SuccessStepComponent extends StepComponent
 	{
 		return view('livewire.architects.signup-wizard.steps.success');
 	}
+
+	public function afterSignupRedirect()
+	{
+		if(session()->has('url.intended')){
+			$redirectUrl = session()->get('url.intended');
+			session()->forget('url.intended');
+			return redirect($redirectUrl);
+		}
+		return to_route('architect.add-story.index');
+	}
 }

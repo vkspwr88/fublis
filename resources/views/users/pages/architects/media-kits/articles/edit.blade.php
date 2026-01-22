@@ -12,3 +12,6 @@
 	</div>
 </div>
 @endsection
+
+@include('users.includes.architect.add-story.media-kit-form-script')
+

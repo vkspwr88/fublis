@@ -21,7 +21,7 @@ class PublicationController extends Controller
 		$details = Arr::add(
 							$details,
 							'slug',
-							PublicationController::generateSlug($details['name'])
+							self::generateSlug($details['name'])
 						);
 		return Publication::create($details);
 	}
@@ -32,6 +32,9 @@ class PublicationController extends Controller
 		if($count > 0){
 			$name .= $count;
 		}
+		$name = str()->replace('?', '', $name);
+		$name = str()->replace('/', '', $name);
+		$name = str()->replace('.', '', $name);
 		return str()->replace(
 							' ',
 							'-',

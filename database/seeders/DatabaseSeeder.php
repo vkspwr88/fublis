@@ -39,6 +39,8 @@ class DatabaseSeeder extends Seeder
 			SocialMediaSeeder::class,
 			SubscriptionPlanSeeder::class,
 			FaqSeeder::class,
+			EmailPreferenceSeeder::class,
+			JournalistEmailPreferenceSeeder::class,
 		]);
 
 		// php artisan db:seed --class=SubscriptionPlanSeeder

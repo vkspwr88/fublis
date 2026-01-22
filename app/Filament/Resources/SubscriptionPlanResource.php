@@ -2,9 +2,11 @@
 
 namespace App\Filament\Resources;
 
+use App\Enums\Users\Architects\SubscriptionPlanTypeEnum;
 use App\Filament\Resources\SubscriptionPlanResource\Pages;
 use App\Filament\Resources\SubscriptionPlanResource\RelationManagers;
 use App\Models\SubscriptionPlan;
+use App\Models\User;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -21,7 +23,8 @@ class SubscriptionPlanResource extends Resource
 
 	public static function canAccess(): bool
 	{
-		return auth()->user()->hasRole('Super Admin');
+		$user = User::find(auth()->id());
+		return $user->hasRole('Super Admin');
 	}
 
     public static function form(Form $form): Form
@@ -36,6 +39,7 @@ class SubscriptionPlanResource extends Resource
 					->options([
 						'USD' => 'USD',
 						'INR' => 'INR',
+						'EUR' => 'EUR',
 					])
 					->default('USD'),
 				Forms\Components\Select::make('symbol')
@@ -43,15 +47,19 @@ class SubscriptionPlanResource extends Resource
 					->options([
 						'$' => '$',
 						'₹' => '₹',
+						'€' => '€',
 					])
 					->default('$'),
                 Forms\Components\TextInput::make('plan_name')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\TextInput::make('plan_type')
+				Forms\Components\Select::make('plan_type')
+                    ->required()
+                    ->options(SubscriptionPlanTypeEnum::class),
+                /* Forms\Components\TextInput::make('plan_type')
                     ->required()
                     ->maxLength(255)
-                    ->default('monthly'),
+                    ->default('monthly'), */
                 Forms\Components\TextInput::make('plan_id')
                     ->required()
                     ->maxLength(255),
@@ -65,6 +73,12 @@ class SubscriptionPlanResource extends Resource
 					->numeric()
 					->default(1)
                     ->required(),
+				Forms\Components\TextInput::make('actual_price')
+                    ->required()
+                    ->numeric(),
+				Forms\Components\TextInput::make('discount_percentage')
+                    ->required()
+                    ->numeric(),
             ]);
     }
 

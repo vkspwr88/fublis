@@ -1,4 +1,13 @@
 <div class="row">
+	<div class="col-md-12">
+		<div class="row">
+			<div class="col-md-8 offset-md-4">
+				@include('users.includes.utilities.alerts.error')
+			</div>
+		</div>
+	</div>
+</div>
+<div class="row">
 	<label for="inputPublication" class="col-md-4 col-form-label text-dark fs-6 fw-medium">Publication Name</label>
 	<div class="col-md-8">
 		<input type="text" id="inputPublication" class="form-control @error('publicationName') is-invalid @enderror" wire:model="publicationName">

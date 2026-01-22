@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Users\Auth;
 
 use App\Enums\Users\UserTypeEnum;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\ErrorLogController;
 use App\Services\Auth\GoogleService;
 use Exception;
 use Illuminate\Http\Request;
@@ -58,8 +59,21 @@ class GoogleController extends Controller
 			// dd($exp->getMessage());
 			$userType = session()->get('user_type');
 			$loginType = session()->get('login_type');
+			// [2024-11-01 05:08:48]
+			// Object of class App\Enums\Users\UserTypeEnum could not be converted to string {"exception":"[object] (Error(code: 0): Object of class App\\Enums\\Users\\UserTypeEnum could not be converted to string at /var/www/app.fublis.com/app/Http/Controllers/Users/Auth/GoogleController.php:62)
+			// [2024-11-10 12:23:18]
+			// Attempt to read property "value" on null {"exception":"[object] (ErrorException(code: 0): Attempt to read property \"value\" on null at /var/www/app.fublis.com/app/Http/Controllers/Users/Auth/GoogleController.php:64)
+			ErrorLogController::logErrorNew('google callback | ' . ($userType->value ?? 'no user type') . ' | ' . $loginType, $exp);
 			// return back()->withErrors($exp->getMessage());
-			return redirect()->route($userType->value . '.' . $loginType)->with('message', $exp->getMessage());
+			if($loginType == 'login'){
+				return to_route('login')->with('message', $exp->getMessage());
+			}
+			if($userType){
+				// 03-Oct-2024 04:21:50
+				// Attempt to read property "value" on null {"exception":"[object] (ErrorException(code: 0): Attempt to read property \"value\" on null at /var/www/app.fublis.com/app/Http/Controllers/Users/Auth/GoogleController.php:65)
+				return redirect()->route($userType->value . '.' . $loginType)->with('message', $exp->getMessage());
+			}
+			return redirect()->route('signup')->with('message', $exp->getMessage());
 		}
 	}
 }

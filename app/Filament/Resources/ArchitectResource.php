@@ -36,13 +36,18 @@ class ArchitectResource extends Resource
 
 	public static function canAccess(): bool
 	{
-		return auth()->user()->hasRole('Super Admin');
+		$user = User::find(auth()->id());
+		return $user->hasRole('Super Admin');
 	}
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
+				Forms\Components\FileUpload::make('image_path')
+					->image()
+					->downloadable()
+					->hidden(fn (string $operation) => $operation == 'create' || $operation == 'edit'),
 				CuratorPicker::make('media_id')
 					->label('Logo Image (400 x 400)')
 					->buttonLabel('Select Logo Image')
@@ -52,6 +57,7 @@ class ArchitectResource extends Resource
 					->maxWidth(400)
 					// ->directory('images/publications/logos')
 					// ->relationship('profile_image', 'imaggable')
+					->hidden(fn (string $operation) => $operation == 'view')
                     ->required(fn (string $operation): bool => $operation != 'edit'),
 				Forms\Components\Select::make('user_id')
                     ->relationship('user', 'name')
@@ -91,7 +97,16 @@ class ArchitectResource extends Resource
 							])
 							->default('architect'),
 					])
+					->editOptionForm([
+						Forms\Components\TextInput::make('name')
+							->required()
+							->maxLength(255),
+					])
                     ->required(),
+				Forms\Components\TextInput::make('slug')
+					->unique(ignoreRecord: true)
+					->hidden(fn (string $operation) => $operation != 'edit')
+					->required(),
 				Forms\Components\Select::make('user_role')
                     ->required()
                     ->options(UserRoleEnum::class),
@@ -115,15 +130,13 @@ class ArchitectResource extends Resource
 					->label('State')
 					->live()
 					->options( fn (Get $get): Collection => LocationController::getStatesByCountryId($get('country'))->pluck('name', 'id') )
-					->default(0)
-					->searchable()
-					->required(),
+					->default('')
+					->searchable(),
 				Forms\Components\Select::make('location_id')
 					->label('City')
 					->options( fn (Get $get): Collection => LocationController::getCitiesByStateId($get('state'))->pluck('name', 'id') )
-					->default(0)
-					->searchable()
-					->required(),
+					->default('')
+					->searchable(),
                 Forms\Components\Textarea::make('about_me')
                     ->maxLength(65535)
                     ->columnSpanFull(),
@@ -165,6 +178,7 @@ class ArchitectResource extends Resource
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
+			->defaultSort('created_at', 'desc')
             ->filters([
                 Tables\Filters\TrashedFilter::make(),
             ])

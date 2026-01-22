@@ -6,9 +6,9 @@
 					<div class="p-2 bg-gray-400 text-dark rounded-circle fs-5 fw-light"><i class="bi bi-person-plus"></i></div>
 				</div>
 				<div class="col">
-					<h5 class="p-0 m-0 text-black fs-6 fw-semibold">Media Kit Requests</h5>
+					<h5 class="p-0 m-0 text-black fs-6 fw-semibold">Publication Requests</h5>
 					<p class="p-0 m-0 text-secondary fs-6">
-						<small>Approve or decline download Media Kits</small>
+						<small>Approve or decline publication requests</small>
 					</p>
 				</div>
 			</div>
@@ -28,9 +28,10 @@
 					Cancel <x-users.spinners.primary-btn wire:target="hideAllRequest" />
 				</button>
 			@else
-				<button type="button" class="btn btn-white text-dark fw-semibold" wire:click="showAllRequest">
+				{{-- <button type="button" class="btn btn-white text-dark fw-semibold" wire:click="showAllRequest">
 					Check All Requests <x-users.spinners.primary-btn wire:target="showAllRequest" />
-				</button>
+				</button> --}}
+				<a href="{{ route('architect.account.profile.requests') }}" class="btn btn-white text-dark fw-semibold">Check All Requests</a>
 			@endif
 		</div>
 	</div>

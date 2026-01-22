@@ -14,9 +14,11 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 use Livewire\Component;
 use Illuminate\Support\Str;
+use Livewire\Attributes\Isolate;
 use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
 use Livewire\WithFileUploads;
 
+#[Isolate]
 class Index extends Component
 {
     use WithFileUploads;
@@ -28,6 +30,8 @@ class Index extends Component
 	public $oldProjectBrief = [];
 	public $answers = [];
 	public $profile_pic_path;
+
+	public $autosaveStopped = false;
 
 	public function mount($interview)
 	{
@@ -63,6 +67,7 @@ class Index extends Component
 				return Str::contains($value, 'tmp') ?
 							'nullable|file|' . __('validations/rules.zipPlusFileMimes') . '|' . __('validations/rules.bulkFilesSize') :
 							'nullable|string';
+							// 'nullable|string|' . __('validations/rules.zipPlusFileFormat');
 			}),
 		];
 	}
@@ -82,8 +87,10 @@ class Index extends Component
 			}
 			else{
 				return 'nullable|string';
+				// return 'nullable|string|' . __('validations/rules.imageFormat');
 			}
 		}
+		return '';
     }
 
 	public function _finishUpload($name, $tmpPath, $isMultiple)
@@ -112,6 +119,13 @@ class Index extends Component
         app('livewire')->updateProperty($this, $name, $file);
     }
 
+	public function autosave()
+	{
+		if(!$this->autosaveStopped){
+			$this->save('autosave');
+		}
+	}
+
 	public function save($type)
 	{
 		$validated = $this->validate();
@@ -120,15 +134,22 @@ class Index extends Component
             DB::beginTransaction();
 
 			$this->interview->update([
+				'updated_at' => Carbon::now(),
+			]);
+
+			$this->interview->update([
 				'profile_pic_path' => $validated['profile_pic_path'] ? FileController::upload($validated['profile_pic_path'], 'images/interviews/profile-images', 'interview_save_'.$type) : null,
 				'brief' => $validated['brief'],
 			]);
 
 			// update answers
 			foreach($this->answers as $id => $answer){
-				InterviewQuestion::where('id', $id)->update([
-					'answer' => $answer,
-				]);
+				$this->interview
+					->interviewQuestions()
+					->where('id', $id)
+					->update([
+						'answer' => $answer,
+					]);
 			}
 
 			// create briefs
@@ -166,6 +187,11 @@ class Index extends Component
 				'message' => 'You have successfully saved the interview in draft.'
 			]);
 			$this->redirectUser();
+		}
+		elseif($type == 'autosave'){
+			$this->profile_pic_path = $this->interview->profile_pic_path;
+			$this->oldProjectBrief = $this->interview->projectBrief->pluck('image_path');
+			$this->projectBrief = [];
 		}
 	}
 
@@ -211,10 +237,12 @@ class Index extends Component
 
 	public function removeImage($index)
 	{
-		$image = $this->interview->projectBrief->where('image_path', $this->oldProjectBrief[$index])->first();
-		if($image){
-			$image->delete();
+		if(isset($this->oldProjectBrief[$index])){
+			$image = $this->interview->projectBrief->where('image_path', $this->oldProjectBrief[$index])->first();
+			if($image){
+				$image->delete();
+			}
+			Arr::pull($this->oldProjectBrief, $index);
 		}
-		Arr::pull($this->oldProjectBrief, $index);
 	}
 }

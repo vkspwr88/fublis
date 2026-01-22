@@ -1,18 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<title>{{ $title }}</title>
-	<style>
+	<style type="text/css">
 		@page {
-            margin: 100px 45px;
+            margin: 0cm 0cm;
         }
 
-		body{
+		*{
 			font-family: 'Inter', sans-serif !important;
+		}
+
+		body{
 			font-size: 14px;
+			margin-top: 3cm;
+			margin-left: 1.2cm;
+			margin-right: 1.2cm;
+			margin-bottom: 2.5cm;
 		}
 
 		a{
@@ -26,13 +31,13 @@
 
 		header, footer{
 			position: fixed;
-			width: 100%;
 			color: rgb(108, 117, 125);
-			left: 0px;
-			right: 0px;
+			left: 1.2cm;
+			right: 1.2cm;
+			margin: 0;
 		}
 		header {
-			top: -70px;
+			top: 1cm;
 		}
 
 		header table{
@@ -42,10 +47,12 @@
 
 		header table td, footer table td{
 			vertical-align: top;
+			padding: 0 !important;
+			margin: 0 !important;
 		}
 
 		footer {
-			bottom: -80px;
+			bottom: 0.5cm;
 		}
 		footer table{
 			border-top: 2px solid rgb(108, 117, 125);
@@ -96,7 +103,9 @@
 						<img src="{{ asset(env('COMPANY_LOGO')) }}" alt="{{ env('APP_NAME') }}" class="logo">
 					</a>
 				</td>
-				<td style="text-align: right;">&copy; {{ date("Y") }} {{ env('COMPANY_NAME') }} | <a href="{{ env('APP_URL') }}">{{ trimWebsiteUrl(env('APP_URL')) }}</a></td>
+				<td style="text-align: right;">
+					{{-- &copy; {{ date("Y") . ' ' . env('COMPANY_NAME') }} |  --}}<a href="https://www.fublis.com">www.fublis.com</a>
+				</td>
 			</tr>
 		</table>
 	</footer>

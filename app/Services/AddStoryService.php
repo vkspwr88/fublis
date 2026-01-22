@@ -176,6 +176,7 @@ class AddStoryService
 				'project_brief' => $details['projectBrief'],
 				'project_doc_path' => $details['projectFile'] ? FileController::upload($details['projectFile'], 'documents/projects', 'project_doc') : null,
 				'project_doc_link' => $details['projectLink'],
+				'project_doc_text' => $details['projectText'],
 				'photographs_link' => $details['photographsLink'],
 				'drawings_link' => $details['drawingsLink'],
 			]);
@@ -286,6 +287,7 @@ class AddStoryService
 				'project_brief' => $details['projectBrief'],
 				'project_doc_path' => $details['projectFile'] ? FileController::upload($details['projectFile'], 'documents/projects', 'project_doc_edit') : null,
 				'project_doc_link' => $details['projectLink'],
+				'project_doc_text' => $details['projectText'],
 				'photographs_link' => $details['photographsLink'],
 				'drawings_link' => $details['drawingsLink'],
 			]);

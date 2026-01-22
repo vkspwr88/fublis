@@ -115,7 +115,7 @@
 									</div>
 									<div class="col-sm-auto text-end">
 										<h2 class="m-0">
-											<span class="text-dark fs-2 fw-bold">${{ $pricePerMonth }}</span>
+											<span class="text-dark fs-2 fw-bold">{{ $planCurrency }}{{ $pricePerMonth }}</span>
 											<span class="text-secondary fs-6 small">per month</span>
 										</h2>
 									</div>
@@ -123,7 +123,7 @@
 							</div>
 							<div class="col-12">
 								<p class="mb-2 text-dark fw-semibold">{{ $userCount }} of {{ $allowedTotalUser }} users</p>
-								<div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="{{ $progress }}" aria-valuemin="0" aria-valuemax="100" style="height: 10px;">
+								<div class="progress" aria-label="Total User" aria-valuenow="{{ $progress }}" aria-valuemin="0" aria-valuemax="100" style="height: 10px;">
 									<div class="progress-bar bg-primary" style="width: {{ $progress }}%"></div>
 								</div>
 							</div>
@@ -179,6 +179,98 @@
 					</div>
 				</div>
 			</div>
+
+			{{-- <div class="col-md-4">
+				<div class="bg-white border-0 shadow card h-100">
+					<div class="card-body">
+						<div class="row g-4">
+							<div class="col-12">
+								<h4 class="m-0 fs-5 text-dark fw-medium">Press Releases</h4>
+								<p class="m-0 fs-6 text-secondary"><small>Created press releases</small></p>
+							</div>
+							<div class="col-12">
+								<p class="mb-2 text-dark fw-semibold">{{ $createdTotalPressReleases }} of {{ $allowedTotalPressReleases }} Press Releases</p>
+								<div class="progress" aria-label="Total User" aria-valuenow="{{ $pressReleaseProgress }}" aria-valuemin="0" aria-valuemax="100" style="height: 10px;">
+									<div class="progress-bar bg-primary" style="width: {{ $pressReleaseProgress }}%"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div class="bg-white border-0 shadow card h-100">
+					<div class="card-body">
+						<div class="row g-4">
+							<div class="col-12">
+								<h4 class="m-0 fs-5 text-dark fw-medium">Projects</h4>
+								<p class="m-0 fs-6 text-secondary"><small>Created press releases</small></p>
+							</div>
+							<div class="col-12">
+								<p class="mb-2 text-dark fw-semibold">{{ $createdTotalProjects }} of {{ $allowedTotalProjects }} Projects</p>
+								<div class="progress" aria-label="Total User" aria-valuenow="{{ $projectProgress }}" aria-valuemin="0" aria-valuemax="100" style="height: 10px;">
+									<div class="progress-bar bg-primary" style="width: {{ $projectProgress }}%"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div class="bg-white border-0 shadow card h-100">
+					<div class="card-body">
+						<div class="row g-4">
+							<div class="col-12">
+								<h4 class="m-0 fs-5 text-dark fw-medium">Articles</h4>
+								<p class="m-0 fs-6 text-secondary"><small>Created press releases</small></p>
+							</div>
+							<div class="col-12">
+								<p class="mb-2 text-dark fw-semibold">{{ $createdTotalArticles }} of {{ $allowedTotalArticles }} Articles</p>
+								<div class="progress" aria-label="Total User" aria-valuenow="{{ $articleProgress }}" aria-valuemin="0" aria-valuemax="100" style="height: 10px;">
+									<div class="progress-bar bg-primary" style="width: {{ $articleProgress }}%"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div> --}}
+
+			<div class="col-md-6">
+				<div class="bg-white border-0 shadow card h-100">
+					<div class="card-body">
+						<div class="row g-4">
+							<div class="col-12">
+								<h4 class="m-0 fs-5 text-dark fw-medium">Pitches <span class="p-2 text-purple-700 bg-purple-100 badge rounded-pill fw-semibold fs-7">Monthly</span></h4>
+								<p class="m-0 fs-6 text-secondary"><small>Pitch your projects, articles and press releases</small></p>
+							</div>
+							<div class="col-12">
+								<p class="mb-2 text-dark fw-semibold">{{ $createdTotalPitches }} of {{ $allowedTotalPitches == -1 ? 'Unlimited' : $allowedTotalPitches }} Pitches</p>
+								<div class="progress" aria-label="Total User" aria-valuenow="{{ $pitchesProgress }}" aria-valuemin="0" aria-valuemax="100" style="height: 10px;">
+									<div class="progress-bar bg-primary" style="width: {{ $pitchesProgress }}%"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="bg-white border-0 shadow card h-100">
+					<div class="card-body">
+						<div class="row g-4">
+							<div class="col-12">
+								<h4 class="m-0 fs-5 text-dark fw-medium">Publication Requests</h4>
+								<p class="m-0 fs-6 text-secondary"><small>Approved requests to get published</small></p>
+							</div>
+							<div class="col-12">
+								<p class="mb-2 text-dark fw-semibold">{{ $createdTotalRequests }} of {{ $allowedTotalRequests == -1 ? 'Unlimited' : $allowedTotalRequests }} Requests Approved</p>
+								<div class="progress" aria-label="Total User" aria-valuenow="{{ $requestsProgress }}" aria-valuemin="0" aria-valuemax="100" style="height: 10px;">
+									<div class="progress-bar bg-primary" style="width: {{ $requestsProgress }}%"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 
 		<div class="row g-4">
@@ -228,7 +320,7 @@
 									</tr>
 								@empty
 									<tr>
-										<th class="text-center text-danger" colspan="6">No invoice record is there</th>
+										<th class="py-4 text-center text-danger" colspan="6">No invoice record is there</th>
 									</tr>
 								@endforelse
 							</tbody>

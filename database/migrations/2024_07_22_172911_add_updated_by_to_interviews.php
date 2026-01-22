@@ -1,4 +1,4 @@
-$table->foreignIdFor(User::class, 'created_by')->after('user_id');<?php
+<?php
 
 use App\Models\User;
 use Illuminate\Database\Migrations\Migration;

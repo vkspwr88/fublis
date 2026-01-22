@@ -14,11 +14,24 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule): void
     {
         // $schedule->command('inspire')->hourly();
-		$schedule->command(Commands\SendArchitectWeeklyStatEmails::class)->weeklyOn(3, '16:30');
-		$schedule->command(Commands\SendArchitectMonthlyStatEmails::class)->lastDayOfMonth('21:00');
+		$schedule->command(Commands\ProcessDownloadRequestSchedule::class)
+			->everyMinute();
 
-		$schedule->command(Commands\SendJournalistWeeklyStatEmails::class)->weeklyOn(3, '16:30');
-		$schedule->command(Commands\SendJournalistMonthlyStatEmails::class)->lastDayOfMonth('21:00');
+		$schedule->command(Commands\SendArchitectWeeklyStatEmails::class)
+			->weeklyOn(3, '16:30');
+		$schedule->command(Commands\SendArchitectMonthlyStatEmails::class)
+			->lastDayOfMonth('21:00');
+		$schedule->command(Commands\SendArchitectDailyDownloadRequests::class)
+			->dailyAt('16:30');
+
+		$schedule->command(Commands\SendJournalistWeeklyStatEmails::class)
+			->weeklyOn(3, '16:30');
+		$schedule->command(Commands\SendJournalistMonthlyStatEmails::class)
+			->lastDayOfMonth('21:00');
+		$schedule->command(Commands\SendJournalistDailyNewMediaKits::class)
+			->dailyAt('16:30');
+		$schedule->command(Commands\SendJournalistDailyNewPitches::class)
+			->dailyAt('16:30');
 
 		/* $schedule->command(Commands\SendArchitectWeeklyStatEmails::class)->everyFiveMinutes();
 		$schedule->command(Commands\SendArchitectMonthlyStatEmails::class)->everyFiveMinutes();

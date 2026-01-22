@@ -11,6 +11,7 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class JournalistController extends Controller
@@ -44,6 +45,23 @@ class JournalistController extends Controller
 
 	public static function update(Model $record, array $data)
 	{
+		// dd($record, $data, $record->journalistPublications[0]);
+		$journalistPublication = $record->journalistPublications[0];
+		DB::table('journalist_publications')->where([
+			'journalist_id' => $journalistPublication->journalist_id,
+			'publication_id' => $journalistPublication->publication_id,
+			'journalist_position_id' => $journalistPublication->journalist_position_id,
+		])->update([
+			'publication_id' => $data['publication_id'],
+			'journalist_position_id' => $data['journalist_position_id'],
+		]);
+		/* $record->journalistPublications[0]->update([
+			'publication_id' => $data['publication_id'],
+			'journalist_position_id' => $data['journalist_position_id'],
+		]); */
+		unset($data['publication_id']);
+		unset($data['journalist_position_id']);
+		// $record->publications()->syncWithoutDetaching
 		$data = LocationController::setLocationForCreate($data);
 		$data['linked_profile'] = $data['linked_profile'] ? 'https://' . trimWebsiteUrl($data['linked_profile']) : null;
 		$data['published_article_link'] = $data['published_article_link'] ? 'https://' . trimWebsiteUrl($data['published_article_link']) : null;

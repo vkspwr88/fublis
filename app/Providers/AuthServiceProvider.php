@@ -21,6 +21,7 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         Models\MediaKit::class => Policies\MediaKitPolicy::class,
+        // Models\Call::class => Policies\CallPolicy::class,
     ];
 
     /**

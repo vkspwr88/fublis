@@ -11,22 +11,10 @@
 				$state = $city->state;
 				$country = $state->country;
 			} */
-			$city = $state = $country = '';
-			$cityDB = $mediaKit->story->location->city()->first();
-			if($cityDB){
-				$city = $mediaKit->story->location->name;
-				$stateDB = $cityDB->state;
-				$state = $stateDB->name;
-				$countryDB = $stateDB->country;
-				$country = $countryDB->name;
-			}
-			else{
-				$country = $mediaKit->story->location->name;
-				if($country){
-					$state = $mediaKit->story->state->name ?? '';
-					$city = $mediaKit->story->city->name ?? '';
-				}
-			}
+			$locations = getLocations($mediaKit->story->location);
+			$city = $locations['city'] ?? '';
+			$state = $locations['state'] ?? '';
+			$country = $locations['country'] ?? '';
 		@endphp
 		<h1 class="py-2 m-0 text-dark fs-1 fw-semibold">{{ str()->headline($mediaKit->story->title) }}</h1>
 		<div class="py-3 row justify-content-center g-2">
@@ -85,13 +73,13 @@
 									-
 								@endif
 								@if ($city)
-									 {{ $city }},
+									{{ $city }},
 								@endif
 								@if ($state)
-									 {{ $state }},
+									{{ $state }},
 								@endif
 								@if ($country)
-									 {{ $country }}
+									{{ $country }}
 								@endif
 								{{-- - {{ $mediaKit->story->location->name }}@isset($state), {{ $state->name }}@endisset @isset($country), {{ $country->name }}@endisset --}}
 							</span>
@@ -129,6 +117,17 @@
 						</p>
 					</div>
 				</div> --}}
+				@if ($mediaKit->story->materials)
+					<div class="pb-2 row g-2">
+						<div class="col-auto"><p class="mx-auto my-1"><i class="bi bi-building"></i></p></div>
+						<div class="col">
+							<p class="p-0 m-0 text-secondary fs-6">
+								<span class="fw-bold">Materials </span>
+								<span>- {{ $mediaKit->story->materials }}</span>
+							</p>
+						</div>
+					</div>
+				@endif
 				@if ($mediaKit->story->buildingUse)
 					@if ($mediaKit->story->buildingUse->buildingTypology)
 					<div class="pb-2 row g-2">
@@ -151,6 +150,17 @@
 						</div>
 					</div>
 				@endif
+				@if ($mediaKit->story->image_credits)
+					<div class="pb-2 row g-2">
+						<div class="col-auto"><p class="mx-auto my-1"><i class="bi bi-camera"></i></p></div>
+						<div class="col">
+							<p class="p-0 m-0 text-secondary fs-6">
+								<span class="fw-bold">Image Credits </span>
+								<span>- {{ $mediaKit->story->image_credits }}</span>
+							</p>
+						</div>
+					</div>
+				@endif
 				@if ($mediaKit->story->text_credits)
 					<div class="pb-2 row g-2">
 						<div class="col-auto"><p class="mx-auto my-1"><i class="bi bi-pencil"></i></p></div>
@@ -162,13 +172,24 @@
 						</div>
 					</div>
 				@endif
-				@if ($mediaKit->story->image_credits)
+				@if ($mediaKit->story->render_credits)
 					<div class="pb-2 row g-2">
-						<div class="col-auto"><p class="mx-auto my-1"><i class="bi bi-camera"></i></p></div>
+						<div class="col-auto"><p class="mx-auto my-1"><i class="bi bi-pencil"></i></p></div>
 						<div class="col">
 							<p class="p-0 m-0 text-secondary fs-6">
-								<span class="fw-bold">Photography Credits </span>
-								<span>- {{ $mediaKit->story->image_credits }}</span>
+								<span class="fw-bold">Render Credits </span>
+								<span>- {{ $mediaKit->story->render_credits }}</span>
+							</p>
+						</div>
+					</div>
+				@endif
+				@if ($mediaKit->story->consultants)
+					<div class="pb-2 row g-2">
+						<div class="col-auto"><p class="mx-auto my-1"><i class="bi bi-people"></i></p></div>
+						<div class="col">
+							<p class="p-0 m-0 text-secondary fs-6">
+								<span class="fw-bold">Consultants </span>
+								<span>- {{ $mediaKit->story->consultants }}</span>
 							</p>
 						</div>
 					</div>

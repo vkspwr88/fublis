@@ -236,6 +236,7 @@
 									<label for="projectFile"><span class="text-purple-700 cursor-pointer fw-semibold">Click to upload</span></label> or drag and drop
 								</p>
 								<input type="file" id="projectFile" class="d-none" @change="handleFileSelect">
+								<p class="py-2 m-0 text-center card-text text-secondary fs-6">{{ __('text.document') }}</p>
 								@if($form->projectFile)
 									<ul class="mt-3 list-disc">
 										@if(method_exists($form->projectFile, 'getClientOriginalName'))
@@ -260,11 +261,16 @@
 					</div>
 				</div>
 			</div>
-			@error('form.projectFile')<div class="error">{{ $message }}</div>@enderror
+			@error('form.projectFile')<div class="mb-3 error">{{ $message }}</div>@enderror
 			<div class="mb-3">
 				<input type="text" class="form-control @error('form.projectLink') is-invalid @enderror" wire:model="form.projectLink" placeholder="Insert drive link" aria-describedby="projectLinkAddon">
 				@error('form.projectLink')<div class="invalid-feedback">{{ $message }}</div>@enderror
 			</div>
+			<div class="mb-3">
+				<textarea id="inputProjectText" class="form-control @error('form.projectText') is-invalid @enderror" wire:model="form.projectText" rows="8"></textarea>
+				@error('form.projectText')<div class="invalid-feedback">{{ $message }}</div>@enderror
+			</div>
+
 		</div>
 	</div>
 	<hr class="border-gray-300">
@@ -299,20 +305,20 @@
 								@if(count($form->photographsFiles) > 0 || count($form->oldPhotographsFiles) > 0)
 									<ul class="flex-wrap mt-3 d-flex" style="list-style: none;">
 										@foreach ($form->oldPhotographsFiles as $photographsFile)
-											<li class="p-2 position-relative" wire:key="{{ $photographsFile->id }}">
-												<img class="img-fluid img-thumbnail" width="150" src="{{ Storage::url($photographsFile->image_path) }}" alt="">
+											<li class="p-2 position-relative" wire:key="photographsFiles{{ $photographsFile->id }}">
+												<img class="img-fluid img-thumbnail" width="150" src="{{ getTempPreviewFileUrl(pathinfo($photographsFile->image_path, PATHINFO_EXTENSION), Storage::url($photographsFile->image_path)) }}" alt="">
 												<button type="button" class="top-0 btn btn-sm btn-secondary rounded-circle text-decoration-none position-absolute end-0" wire:click="removeImage('{{ $photographsFile->id }}')">X</button>
 											</li>
 										@endforeach
 										@foreach ($form->photographsFiles as $key => $photographsFile)
 											@if(method_exists($photographsFile, 'temporaryUrl'))
-												<li class="p-2 position-relative" wire:key="{{ $key }}">
-													<img class="img-fluid img-thumbnail" width="150" src="{{ $photographsFile->temporaryUrl() }}" alt="">
+												<li class="p-2 position-relative" wire:key="photographsFile{{ $key }}">
+													<img class="img-fluid img-thumbnail" width="150" src="{{ getTempPreviewFileUrl($photographsFile->getClientOriginalExtension(), $photographsFile->temporaryUrl()) }}" alt="">
 													<button type="button" class="top-0 btn btn-sm btn-secondary rounded-circle text-decoration-none position-absolute end-0" @click="removeUpload('{{ $photographsFile->getFilename() }}')">X</button>
 												</li>
 											@else
-												<li class="p-2 position-relative" wire:key="{{ $key }}">
-													<img class="img-fluid img-thumbnail" width="150" src="{{ Storage::url($photographsFile) }}" alt="">
+												<li class="p-2 position-relative" wire:key="photographsFile{{ $key }}">
+													<img class="img-fluid img-thumbnail" width="150" src="{{ getTempPreviewFileUrl(pathinfo($photographsFile, PATHINFO_EXTENSION), Storage::url($photographsFile)) }}" alt="">
 													<button type="button" class="top-0 btn btn-sm btn-secondary rounded-circle text-decoration-none position-absolute end-0" wire:click="removeImage({{ $key }})">X</button>
 												</li>
 											@endif
@@ -329,8 +335,8 @@
 					</div>
 				</div>
 			</div>
-			@error('form.photographsFiles')<div class="error">{{ $message }}</div>@enderror
-			@error('form.photographsFiles.*')<div class="error">{{ $message }}</div>@enderror
+			@error('form.photographsFiles')<div class="mb-2 error">{{ $message }}</div>@enderror
+			@error('form.photographsFiles.*')<div class="mb-2 error">{{ $message }}</div>@enderror
 			<div class="mb-3">
 				<input type="text" class="form-control @error('form.photographsLink') is-invalid @enderror" wire:model="form.photographsLink" placeholder="Insert drive link" aria-describedby="photographsLinkAddon">
 				@error('form.photographsLink')<div class="invalid-feedback">{{ $message }}</div>@enderror
@@ -371,19 +377,19 @@
 									<ul class="flex-wrap mt-3 d-flex" style="list-style: none;">
 										@foreach ($form->oldDrawingsFiles as $drawingsFile)
 											<li class="p-2 position-relative" wire:key="{{ $drawingsFile->id }}">
-												<img class="img-fluid img-thumbnail" width="150" src="{{ Storage::url($drawingsFile->image_path) }}" alt="">
+												<img class="img-fluid img-thumbnail" width="150" src="{{ getTempPreviewFileUrl(pathinfo($drawingsFile->image_path, PATHINFO_EXTENSION), Storage::url($drawingsFile->image_path)) }}" alt="">
 												<button type="button" class="top-0 btn btn-sm btn-secondary rounded-circle text-decoration-none position-absolute end-0" wire:click="removeImage('{{ $drawingsFile->id }}')">X</button>
 											</li>
 										@endforeach
 										@foreach ($form->drawingsFiles as $key => $drawingsFile)
 											@if(method_exists($drawingsFile, 'temporaryUrl'))
 												<li class="p-2 position-relative" wire:key="{{ $key }}">
-													<img class="img-fluid img-thumbnail" width="150" src="{{ $drawingsFile->temporaryUrl() }}" alt="">
+													<img class="img-fluid img-thumbnail" width="150" src="{{ getTempPreviewFileUrl($drawingsFile->getClientOriginalExtension(), $drawingsFile->temporaryUrl()) }}" alt="">
 													<button type="button" class="top-0 btn btn-sm btn-secondary rounded-circle text-decoration-none position-absolute end-0" @click="removeUpload('{{ $drawingsFile->getFilename() }}')">X</button>
 												</li>
 											@else
 												<li class="p-2 position-relative" wire:key="{{ $key }}">
-													<img class="img-fluid img-thumbnail" width="150" src="{{ Storage::url($drawingsFile) }}" alt="">
+													<img class="img-fluid img-thumbnail" width="150" src="{{ getTempPreviewFileUrl(pathinfo($drawingsFile, PATHINFO_EXTENSION), Storage::url($drawingsFile)) }}" alt="">
 													<button type="button" class="top-0 btn btn-sm btn-secondary rounded-circle text-decoration-none position-absolute end-0" wire:click="removeImage({{ $key }})">X</button>
 												</li>
 											@endif
@@ -400,7 +406,8 @@
 					</div>
 				</div>
 			</div>
-			@error('form.drawingsFiles')<div class="error">{{ $message }}</div>@enderror
+			@error('form.drawingsFiles')<div class="mb-2 error">{{ $message }}</div>@enderror
+			@error('form.drawingsFiles.*')<div class="mb-2 error">{{ $message }}</div>@enderror
 			<div class="mb-0">
 				<input type="text" class="form-control @error('form.drawingsLink') is-invalid @enderror" wire:model="form.drawingsLink" placeholder="Insert drive link">
 				@error('form.drawingsLink')<div class="invalid-feedback">{{ $message }}</div>@enderror

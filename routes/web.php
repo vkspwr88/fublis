@@ -1,9 +1,13 @@
 <?php
 
+use App\Handlers\FileUploadHandler;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Payments\StripeController;
 use App\Http\Controllers\SitemapController;
 use App\Http\Controllers\Users;
 use App\Mail\TestMail;
+use App\Models\MediaKit;
+use App\Services\DownloadService;
 // use App\Services\Architects\StatsService;
 use App\Services\Journalists\StatsService;
 use Illuminate\Support\Facades\Artisan;
@@ -21,55 +25,66 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/test', function () {
+// Route::get('/test-cron', function(){
+//     Artisan::call('app:send-journalist-daily-new-pitches');
+// });
+
+
+/* Route::get('/test', function () {
     $statsService = new StatsService;
 	$statsService->sendStatEmails('week');
 	var_dump('weekly sent');
 	$statsService->sendStatEmails('month');
 	var_dump('monthly sent');
-})->name('test');
+})->name('test'); */
 
 // Route::get('/aman-sitemap', [SitemapController::class, 'index']);
 
-Route::get('/test-email', function () {
-	Mail::to('amansaini87@rediffmail.com')->send(new TestMail('amansaini87@rediffmail.com'));
-})->name('test-email');
+// Route::get('/test-email', function () {
+// 	Mail::to('amansaini87@rediffmail.com')->send(new TestMail('amansaini87@rediffmail.com'));
+// })->name('test-email');
 
-Route::get('/', function () {
-	if(isArchitect()){
-		return to_route('architect.pitch-story.publications.index');
-	}
-	if(isJournalist()){
-		return to_route('journalist.media-kit.index');
-	}
-    return view('users.pages.home');
-})->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('/blank', function () {
     return view('users.pages.blank');
 })->name('blank');
 
-Route::get('/clear-cache', function(){
-    Artisan::call('route:clear');
-    Artisan::call('route:cache');
-    Artisan::call('config:clear');
-    Artisan::call('config:cache');
-    Artisan::call('cache:clear');
-    Artisan::call('view:clear');
-    Artisan::call('view:cache');
-    return 'All cache cleared';
-	// php artisan route:clear
-	// php artisan route:cache
-	// php artisan config:clear
-	// php artisan config:cache
-	// php artisan cache:clear
-	// php artisan view:clear
-	// php artisan view:cache
-});
+Route::get('/aman', [HomeController::class, 'aman'])->name('aman');
+
+// Route::get('/clear-cache', function(){
+//     Artisan::call('route:clear');
+//     Artisan::call('route:cache');
+//     Artisan::call('config:clear');
+//     Artisan::call('config:cache');
+//     Artisan::call('cache:clear');
+//     Artisan::call('view:clear');
+//     Artisan::call('view:cache');
+//     return 'All cache cleared';
+// 	// php artisan route:clear
+// 	// php artisan route:cache
+// 	// php artisan config:clear
+// 	// php artisan config:cache
+// 	// php artisan cache:clear
+// 	// php artisan view:clear
+// 	// php artisan view:cache
+// });
 
 /* Route::get('/email', function () {
     return (new VerifySubscriber())->render();
 })->name('email'); */
+
+Route::get('/download/{mediaKit}/{file}/{type}', function (MediaKit $mediaKit, $file, $type, DownloadService $downloadService) {
+	return $downloadService->zipFilesDownloadUrl($mediaKit, $file, $type);
+})->name('download.zip');
+
+Route::post('/livewire/upload-file', [FileUploadHandler::class, 'handle'])->name('livewire.upload-file');
+
+Route::middleware('guest')->group(function () {
+	Route::get('/login', [Users\Auth\LoginController::class, 'index'])->name('login');
+	Route::get('/signup', [Users\Auth\SignupController::class, 'index'])->name('signup');
+	Route::get('/forgot-password', [Users\Auth\ForgotPasswordController::class, 'index'])->name('forgot');
+});
 
 Route::name('auth.')->prefix('auth')->group(function () {
 	Route::name('google.')->prefix('google')->controller(Users\Auth\GoogleController::class)->group(function () {
@@ -79,8 +94,9 @@ Route::name('auth.')->prefix('auth')->group(function () {
 });
 
 Route::get('/pricing', [Users\SubscriptionPlanController::class, 'index'])->name('pricing');
+// Route::post('/stripe/webhook1', [StripeController::class, 'handlingWebhook'])->name('cashier.webhook');
 Route::post('/stripe/webhook', [StripeController::class, 'handlingWebhook'])->name('cashier.webhook');
-
+// php artisan cashier:webhook --url "https://app.fublis.com/stripe/webhook"
 
 Route::name('blogs.')->prefix('blogs')->controller(Users\BlogController::class)->group(function () {
 	Route::get('/', 'index')->name('index');

@@ -3,6 +3,8 @@
 namespace App\Livewire\Architects\AddStories;
 
 ini_set('max_execution_time', 300);
+
+use App\Http\Controllers\Users\MediaKitController;
 use App\Livewire\Forms\Architects\ArticleForm;
 use Livewire\Component;
 use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
@@ -58,6 +60,10 @@ class Article extends Component
 
 	public function add()
 	{
+		if(!MediaKitController::isAllowedToAdd('article')){
+			$this->dispatch('show-media-kit-limit-alert-modal');
+			return;
+		}
 		if($this->form->store()){
 			$this->dispatch('alert', [
 				'type' => 'success',

@@ -6,10 +6,17 @@ use App\Http\Controllers\Users\LocationController;
 use App\Models\Call;
 use App\Models\MediaKit;
 use App\Models\Project;
+use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 
 class MediaKitService
 {
+	public static function getMediaKitById(string $id)
+	{
+		return MediaKit::find($id);
+	}
+
 	public function filterMediaKits(array $data)
 	{
 		$mediaKits = MediaKit::with(['story', 'category', 'architect.company'])
@@ -118,5 +125,43 @@ class MediaKitService
 		}
 		dd($mediaKits);
 		return $mediaKits;
+	}
+
+	public static function getTodayMediaKits()
+	{
+		/* $startDate = Carbon::now()->startOfDay();
+		$endDate = Carbon::now()->endOfDay();
+		return MediaKit::whereBetween('created_at', [$startDate, $endDate])
+			->get(); */
+		$startDate = Carbon::now()->startOfDay();
+		$endDate = Carbon::now()->endOfDay();
+		return User::with([
+				'journalist' => [
+					'publications.categories.mediaKits.story',
+					'associatedPublications.categories.mediaKits.story',
+				],
+			])
+			->whereHas('journalist.publications.categories.mediaKits', function (Builder $query) use ($startDate, $endDate) {
+				$query->whereBetween('created_at', [$startDate, $endDate]);
+			})->orWhereHas('journalist.associatedPublications.categories.mediaKits', function (Builder $query) use ($startDate, $endDate) {
+				$query->whereBetween('created_at', [$startDate, $endDate]);
+			})
+			->get();
+	}
+
+	public static function loadModel($model)
+	{
+		return $model->load([
+			'category' => [
+				'publications' => [
+					'journalists' => [
+						'user'
+					],
+					'associatedJournalists' => [
+						'user'
+					],
+				],
+			],
+		]);
 	}
 }

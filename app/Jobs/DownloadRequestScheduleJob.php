@@ -1,0 +1,62 @@
+<?php
+
+namespace App\Jobs;
+
+use App\Models\MediaKit;
+use App\Services\DownloadRequestScheduleService;
+use App\Services\FublisJournalistService;
+use Carbon\Carbon;
+use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Foundation\Bus\Dispatchable;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Queue\SerializesModels;
+
+class DownloadRequestScheduleJob implements ShouldQueue
+{
+    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+
+    /**
+     * Create a new job instance.
+     */
+    public function __construct(
+		public MediaKit $mediaKit,
+	)
+    {
+        //
+    }
+
+    /**
+     * Execute the job.
+     */
+    public function handle(): void
+    {
+		info("DownloadRequestScheduleJob Job running at " . now());
+
+		$nextTicker = rand(180, 1440);
+		// 1. get all fublis journalists and shuffle it, set the nextTicker = rand(180, 1440);
+		$fublisJournalists = FublisJournalistService::getAll();
+		// 2. loop through the list
+		foreach($fublisJournalists->shuffle() as $index => $fublisJournalist){
+			$dateNow = Carbon::now();
+			// 2.1. check if first journalist, set the schedule between 20-30 min. (OLD)
+			// 2.1. check if first journalist, set the schedule between 3hr(180 min) to 24hr(1440 min)
+			if($index > 0){
+				// 2.2. set the next 3-5 hours schedule, by setting nextTicker += rand(180, 300); (OLD)
+				// 2.2. set the next 20-24 hours schedule, by setting nextTicker += rand(1200, 1440);
+				$nextTicker += rand(1200, 1440);
+			}
+			// 2.3. store media kit id, user id, schedule at, mail sent (default false)
+			if($fublisJournalist->journalist && $this->mediaKit){
+				DownloadRequestScheduleService::create([
+					'user_id' => $fublisJournalist->journalist->user_id,
+					'media_kit_id' => $this->mediaKit->id,
+					'schedule_at' => $dateNow->addMinutes($nextTicker),
+				]);
+			}
+
+		}
+
+		info("DownloadRequestScheduleJob Job ended at " . now());
+    }
+}

@@ -44,7 +44,7 @@
 	<div class="mb-4 row">
 		<div class="col-md-4">
 			<label for="" class="col-form-label text-dark fs-6 fw-medium">Upload Article <span class="text-danger">*</span></label>
-			<label class="m-0 d-block form-text text-secondary fs-7">
+			<label for="" class="m-0 d-block form-text text-secondary fs-7">
 				Upload article or Add Drive Link.
 				<br>
 				Ideal text length is 500 to 1000 words.
@@ -73,6 +73,7 @@
 									<label for="articleFile"><span class="text-purple-700 cursor-pointer fw-semibold">Click to upload</span></label> or drag and drop
 								</p>
 								<input type="file" id="articleFile" class="d-none" @change="handleFileSelect">
+								<p class="py-2 m-0 text-center card-text text-secondary fs-6">{{ __('text.document') }}</p>
 								@if($form->articleFile)
 									<ul class="mt-3 list-disc">
 										@if(method_exists($form->articleFile, 'getClientOriginalName'))
@@ -153,6 +154,7 @@
 									<label for="companyProfileFile"><span class="text-purple-700 cursor-pointer fw-semibold">Click to upload</span></label> or drag and drop
 								</p>
 								<input type="file" id="companyProfileFile" class="d-none" @change="handleFileSelect">
+								<p class="py-2 m-0 text-center card-text text-secondary fs-6">{{ __('text.document') }}</p>
 								@if($form->companyProfileFile)
 									<ul class="mt-3 list-disc">
 										@if(method_exists($form->companyProfileFile, 'getClientOriginalName'))
@@ -187,7 +189,7 @@
 	<div class="mb-3 row">
 		<div class="col-md-4">
 			<label for="inputImagesFiles" class="col-form-label text-dark fs-6 fw-medium">Upload Images</label>
-			<label class="m-0 d-block form-text text-secondary fs-7">Choose the best images{{--  (maximum upload limit 4MB each image) --}}</label>
+			<label for="" class="m-0 d-block form-text text-secondary fs-7">Choose the best images{{--  (maximum upload limit 4MB each image) --}}</label>
 		</div>
 		<div class="col-md-8">
 			<div class="mb-2 card">
@@ -215,20 +217,20 @@
 								@if(count($form->imagesFiles) > 0 || count($form->oldImagesFiles) > 0)
 									<ul class="flex-wrap mt-3 d-flex" style="list-style: none;">
 										@foreach ($form->oldImagesFiles as $imagesFile)
-											<li class="p-2 position-relative">
-												<img class="img-fluid img-thumbnail" width="150" src="{{ Storage::url($imagesFile->image_path) }}" alt="">
+											<li class="p-2 position-relative" wire:key="oldImagesFiles{{ $imagesFile->id }}">
+												<img class="img-fluid img-thumbnail" width="150" src="{{ getTempPreviewFileUrl(pathinfo($imagesFile->image_path, PATHINFO_EXTENSION), Storage::url($imagesFile->image_path)) }}" alt="">
 												<button type="button" class="top-0 btn btn-sm btn-secondary rounded-circle text-decoration-none position-absolute end-0" wire:click="removeImage('{{ $imagesFile->id }}')">X</button>
 											</li>
 										@endforeach
 										@foreach ($form->imagesFiles as $key => $imagesFile)
 											@if(method_exists($imagesFile, 'temporaryUrl'))
-												<li class="p-2 position-relative" wire:key="{{ $key }}">
-													<img class="img-fluid img-thumbnail" width="150" src="{{ $imagesFile->temporaryUrl() }}" alt="">
+												<li class="p-2 position-relative" wire:key="imagesFile{{ $key }}">
+													<img class="img-fluid img-thumbnail" width="150" src="{{ getTempPreviewFileUrl($imagesFile->getClientOriginalExtension(), $imagesFile->temporaryUrl()) }}" alt="">
 													<button type="button" class="top-0 btn btn-sm btn-secondary rounded-circle text-decoration-none position-absolute end-0" @click="removeUpload('{{ $imagesFile->getFilename() }}')">X</button>
 												</li>
 											@else
-												<li class="p-2 position-relative" wire:key="{{ $key }}">
-													<img class="img-fluid img-thumbnail" width="150" src="{{ Storage::url($imagesFile) }}" alt="">
+												<li class="p-2 position-relative" wire:key="imagesFile{{ $key }}">
+													<img class="img-fluid img-thumbnail" width="150" src="{{ getTempPreviewFileUrl(pathinfo($imagesFile, PATHINFO_EXTENSION), Storage::url($imagesFile)) }}" alt="">
 													<button type="button" class="top-0 btn btn-sm btn-secondary rounded-circle text-decoration-none position-absolute end-0" wire:click="removeImage({{ $key }})">X</button>
 												</li>
 											@endif
@@ -245,7 +247,8 @@
 					</div>
 				</div>
 			</div>
-			@error('form.imagesFiles')<div class="error">{{ $message }}</div>@enderror
+			@error('form.imagesFiles')<div class="mb-2 error">{{ $message }}</div>@enderror
+			@error('form.imagesFiles.*')<div class="mb-2 error">{{ $message }}</div>@enderror
 			<div class="">
 				<input type="text" class="form-control @error('form.imagesLink') is-invalid @enderror" wire:model="form.imagesLink" placeholder="Insert drive link" aria-describedby="imagesLinkAddon">
 				@error('form.imagesLink')<div class="invalid-feedback">{{ $message }}</div>@enderror

@@ -53,6 +53,7 @@ Route::middleware(ArchitectLogin::class)->group(function() {
 		// Route::get('/payment/checkout/{razorpay}', [RazorpayController::class, 'checkout'])->name('razorpay.checkout');
 		// Route::post('/payment/callback/{razorpay}', [RazorpayController::class, 'callback'])->name('razorpay.callback');
 		Route::get('/checkout/{subscriptionPlan:slug}', [StripeController::class, 'checkout'])->name('stripe.checkout');
+		Route::get('/checkout/{subscriptionPlan:slug}/upgrade', [StripeController::class, 'upgrade'])->name('stripe.upgrade');
 		Route::post('/checkout/{subscriptionPlan:slug}/callback', [StripeController::class, 'callback'])->name('stripe.callback');
 		Route::get('/invoice/{invoice}', [StripeController::class, 'downloadInvoice'])->name('stripe.invoice.download');
 
@@ -111,6 +112,7 @@ Route::middleware(ArchitectLogin::class)->group(function() {
 				Route::get('/analytics', [Architects\Accounts\ProfileController::class, 'analytic'])->name('analytic');
 				Route::get('/alerts', [Architects\Accounts\ProfileController::class, 'alert'])->name('alert');
 				Route::get('/notifications', [Architects\Accounts\ProfileController::class, 'notification'])->name('notification');
+				Route::get('/requests', [Architects\Accounts\ProfileController::class, 'requests'])->name('requests');
 				Route::name('message.')->prefix('messages')->group(function () {
 					Route::get('/', [Architects\Accounts\Profile\MessageController::class, 'index'])->name('index');
 					Route::get('/subjects', [MessageController::class, 'subjects'])->name('subject');
@@ -129,6 +131,8 @@ Route::middleware(ArchitectLogin::class)->group(function() {
 				});
 			});
 		});
+
+		Route::get('unsubscribe', [Architects\EmailPreferenceController::class, 'index'])->name('unsubscribe');
 
 		/* Route::get('/journalist/{journalist_id:slug}', [Architects\AddStoryController::class, 'index'])->name('journalist');
 		Route::get('/publication/{publication_id:slug}', [Architects\AddStoryController::class, 'index'])->name('publication'); */

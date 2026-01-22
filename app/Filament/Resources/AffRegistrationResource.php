@@ -27,6 +27,12 @@ class AffRegistrationResource extends Resource
 
     // protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
+	public static function canAccess(): bool
+	{
+		$user = User::find(auth()->id());
+		return $user->hasRole('Super Admin');
+	}
+
     public static function form(Form $form): Form
     {
         return $form
@@ -85,6 +91,7 @@ class AffRegistrationResource extends Resource
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
+			->defaultSort('created_at', 'desc')
             ->filters([
                 //
             ])

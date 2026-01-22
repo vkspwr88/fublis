@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class ErrorLogController extends Controller
 {
@@ -13,6 +14,7 @@ class ErrorLogController extends Controller
 
 	public static function logErrorNew($functionName, $exp)
 	{
+		Log::error($exp->getMessage());
 		info($functionName, [
 			'line' => $exp->getLine(),
 			'file' => $exp->getFile(),

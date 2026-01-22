@@ -97,11 +97,17 @@ class AddProfileStepComponent extends StepComponent
 		$validated['publication'] = $this->state()->publication();
 		//dd($validated);
 		if($this->journalistService->addJournalist($validated)){
-			$this->nextStep();
+			// $this->nextStep();
 			$this->dispatch('alert', [
 				'type' => 'success',
 				'message' => 'You have successfully created your profile.'
 			]);
+			if(session()->has('url.intended')){
+				$redirectUrl = session()->get('url.intended');
+				session()->forget('url.intended');
+				return redirect($redirectUrl);
+			}
+			$this->nextStep();
 			return;
 		}
 		$this->dispatch('alert', [

@@ -7,6 +7,7 @@ use App\Http\Controllers\Users\ArchitectController;
 use App\Http\Controllers\Users\MediaKitController;
 use App\Http\Controllers\Users\NotificationController;
 use Illuminate\Http\Request;
+use RalphJSmit\Laravel\SEO\Support\SEOData;
 
 class ProfileController extends Controller
 {
@@ -33,6 +34,15 @@ class ProfileController extends Controller
 	{
 		NotificationController::markAsRead();
 		return view('users.pages.architects.accounts.profile.notification');
+	}
+
+	public function requests()
+	{
+		return view('users.pages.architects.accounts.profile.requests', [
+			'SEOData' => new SEOData(
+                title: 'Publication Requests',
+            ),
+		]);
 	}
 
 	public function inviteColleague()

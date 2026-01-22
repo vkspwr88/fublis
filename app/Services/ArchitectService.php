@@ -23,6 +23,7 @@ use Exception;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Session;
 
 class ArchitectService
 {
@@ -177,7 +178,9 @@ class ArchitectService
 					->queue(new ArchitectSignUp($architect));
 			// login user
 			Auth::login($user);
-			session()->forget('guest_id');
+
+			// check affiliation
+			AffVisitService::setAffReferral($user->id);
 		}
 		catch(Exception $exp){
             DB::rollBack();
@@ -191,6 +194,10 @@ class ArchitectService
 			);
 			return false;
 		}
+		Session::forget('aff_list_id');
+		Session::forget('aff_visit_id');
+		Session::forget('referral_id');
+		Session::forget('guest_id');
 		return true;
 	}
 
@@ -200,8 +207,12 @@ class ArchitectService
 		$totalArchitects = $company->architects_count ?? 0;
 		$allowedArchitects = CompanyController::getAllowedArchitects('');
 		if($totalArchitects > 0){
-			$user = $company->architects->where('user_role', UserRoleEnum::SUPERADMIN)->first()->user;
-			if (isBusinessPlanSubscribed($user)) {
+			// dd($company->architects->where('user_role', UserRoleEnum::SUPERADMIN)->first()?->user);
+			$user = $company->architects->where('user_role', UserRoleEnum::SUPERADMIN)->first()?->user;
+			if(!$user){
+				$allowedArchitects = 1;
+			}
+			elseif (isBusinessPlanSubscribed($user)) {
 				$allowedArchitects = CompanyController::getAllowedArchitects('Business Plan');
 			}
 			elseif (isEnterprisePlanSubscribed($user)) {
@@ -212,5 +223,10 @@ class ArchitectService
 			}
 		}
 		return false;
+	}
+
+	public static function findById(string $id)
+	{
+		return Architect::findOrFail($id);
 	}
 }

@@ -37,17 +37,7 @@ class SettingController extends Controller
 	public function billing(Request $request)
 	{
 		if(isArchitectAdmin()){
-			$user = $request->user();
-			// dd($user->latestSubscription->subscriptionPrice);
-			// dd($user->invoices());
-			// return $request->user()->redirectToBillingPortal();
-			return view('users.pages.architects.accounts.settings.billing'/* , [
-				'invoices' => $user->invoices(),
-				'paymentMethod' => $user->defaultPaymentMethod(),
-				'userCount' => CompanyController::getMediaContacts()->count(),
-				'latestSubscription' => $user?->latestSubscription,
-				// 'subscriptionPrice' => $user?->latestSubscription?->subscriptionPrice,
-			] */);
+			return view('users.pages.architects.accounts.settings.billing');
 		}
 		return abort(401);
 	}

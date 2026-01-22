@@ -53,7 +53,7 @@
                     </div>
                     <div class="pb-2 row justify-content-center">
                         <div class="col">
-                            <h5 class="m-0 fs-5 fw-semibold">
+                            <h5 class="m-0 fs-5 fw-semibold text-capitalize">
 								@if(isArchitect())
 									<a class="text-dark" href="{{ route('architect.pitch-story.journalists.view', ['journalist' => $journalist->slug]) }}">{{ $journalist->user->name }}</a>
 								@elseif(isJournalist())
@@ -75,7 +75,7 @@
                                     <img src="{{ $profileImg }}" style="max-width: 30px; max-height: 30px;" class="rounded-circle img-30 img-square" alt="..." />
                                 </div>
                                 <div class="col">
-                                    <p class="p-0 m-0 fs-6 fw-bold">
+                                    <p class="p-0 m-0 fs-6 fw-bold text-capitalize">
                                         @if(isArchitect())
                                             <a class="text-dark" href="{{ route('architect.pitch-story.publications.view', ['publication' => $journalist->publications[0]->slug]) }}"><span class="small">{{ $journalist->publications[0]->name }}</span></a>
                                         @elseif(isJournalist())

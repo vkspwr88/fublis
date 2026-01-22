@@ -58,7 +58,7 @@
 					url = URL.createObjectURL(blob);
 					var reader = new FileReader();
 					reader.readAsDataURL(blob);
-					const newFile = new File([blob], 'cropped', {
+					const newFile = new File([blob], 'cropped.png', {
 						type: blob.type,
 					});
 					$this.uploadFile(newFile);
@@ -74,7 +74,7 @@
 						$this.progress = 0
 					},
 					function(error) {  //an error occured
-						console.log('error', error)
+						// console.log('error', error)
 					},
 					function (event) {  //upload progress was made
 						// console.log('progress', event.detail.progress);

@@ -10,7 +10,7 @@
 <p><strong>Email Address:</strong> {{ $journalist->user->email }}</p>
 <p><strong>Publication Name:</strong> {{ $journalist->publications[0]->name }}</p>
 <p><strong>Location:</strong> {{ $journalist->publications[0]->location->name }}</p>
-<p><strong>Position in Publication:</strong> {{ $journalist->publications[0]->name }}</p>
+<p><strong>Position in Publication:</strong> {{ $journalist->position->name }}</p>
 <p><strong>Date & Time of Signup:</strong> {{ formatDateTime($journalist->created_at) }}</p>
 {{-- <hr style="width: 96px; margin: 15px 0; color: #EAECF0; height: 1px;"> --}}
 <p><x-mail::button :url="$mailUrl">Member Profile</x-mail::button></p>

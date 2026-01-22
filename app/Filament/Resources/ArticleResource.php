@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\ArticleResource\Pages;
 use App\Filament\Resources\ArticleResource\RelationManagers;
 use App\Models\Article;
+use App\Models\User;
 use Awcodes\Curator\Components\Forms\CuratorPicker;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -13,6 +14,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use FilamentTiptapEditor\TiptapEditor;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class ArticleResource extends Resource
@@ -21,21 +23,26 @@ class ArticleResource extends Resource
 
     // protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
+	protected static ?string $recordTitleAttribute = 'title';
+
 	public static function canAccess(): bool
 	{
-		return auth()->user()->hasRole('Super Admin');
+		$user = User::find(auth()->id());
+		return $user->hasRole('Super Admin');
 	}
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-				CuratorPicker::make('cover_image_path')
+				// CuratorPicker::make('cover_image_path')
+				Forms\Components\FileUpload::make('cover_image_path')
 					->label('Cover Image (800 x 400)')
-					->buttonLabel('Select Cover Image')
+					// ->buttonLabel('Select Cover Image')
                     ->acceptedFileTypes(['image/*'])
 					->columnSpanFull()
 					->directory('images/articles/cover-images')
+					->downloadable()
                     ->required(),
                 Forms\Components\TextInput::make('title')
                     ->required()
@@ -49,6 +56,7 @@ class ArticleResource extends Resource
                     ->columnSpanFull(),
                 Forms\Components\FileUpload::make('article_doc_path')
 					->directory('documents/articles')
+					->downloadable()
                     ->columnSpanFull(),
                 Forms\Components\Textarea::make('article_doc_link')
                     ->maxLength(65535)
@@ -60,12 +68,14 @@ class ArticleResource extends Resource
                     ->columnSpanFull(),
                 Forms\Components\FileUpload::make('company_profile_path')
 					->directory('documents/articles/company-profiles')
+					->downloadable()
                     ->columnSpanFull(),
                 Forms\Components\Textarea::make('company_profile_link')
                     ->maxLength(65535)
                     ->columnSpanFull(),
 				Forms\Components\FileUpload::make('images')
 					->directory('images/articles/images')
+					->downloadable()
 					->multiple()
 					->reorderable()
 					->appendFiles()
@@ -86,7 +96,18 @@ class ArticleResource extends Resource
                     ->searchable(), */
                 Tables\Columns\ImageColumn::make('cover_image_path'),
                 Tables\Columns\TextColumn::make('title')
-                    ->searchable(),
+					->label('Mediakit Title')
+					->searchable()
+					->sortable()
+					->wrap(),
+				Tables\Columns\TextColumn::make('download_count')
+					->state(function (Model $record): int {
+						return $record->mediakit[0]->downloadRequests()->count();
+					}),
+				Tables\Columns\TextColumn::make('pending_download_count')
+					->state(function (Model $record): int {
+						return $record->mediakit[0]->downloadRequests()->where('request_status', 'pending')->count();
+					}),
                 Tables\Columns\TextColumn::make('text_credits')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
@@ -98,6 +119,7 @@ class ArticleResource extends Resource
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
+			->defaultSort('created_at', 'desc')
             ->filters([
                 //
             ])

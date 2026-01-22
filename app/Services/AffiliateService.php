@@ -4,7 +4,9 @@ namespace App\Services;
 
 use App\Enums\Users\UserTypeEnum;
 use App\Http\Controllers\ErrorLogController;
+use App\Models\AffList;
 use App\Models\AffRegistration;
+use App\Models\AffVisit;
 use App\Repositories\UserRepository;
 use Exception;
 use Illuminate\Support\Arr;

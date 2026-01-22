@@ -11,28 +11,34 @@
 		<link rel="icon" type="image/png" href="{{ asset(env('COMPANY_ICON')) }}">
 		<link rel='stylesheet' id='inter-font-css' href='https://rsms.me/inter/inter.css?ver=6.5.3' type='text/css' media='all' />
 		<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet">
+		{{-- <script src="https://cdn.tailwindcss.com"></script> --}}
 		<link rel="stylesheet" href="{{ asset('css/style-portal.css') }}">
+		<style>
+			[x-cloak] { display: none !important; }
+		</style>
 		@stack('styles')
 		<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 		<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+		{{-- @empty('alpine') --}}
+			{{-- <script src="//unpkg.com/alpinejs" defer></script> --}}
+		{{-- @endisset --}}
 		{{-- <script src="{{ asset('js/affiliate/core.js') }}"></script> --}}
 	</head>
 
 	<body class="font-sans antialiased">
-		<div class="flex h-screen overflow-hidden bg-gray-100" x-data="{ sidebarOpen: false, notificationsOpen: false }" @keydown.window.escape="{ sidebarOpen = false, notificationsOpen = false }">
+		<div class="flex h-screen overflow-hidden bg-gray-100" x-data="{ sidebarOpen: false, notificationsOpen: false }" @keydown.window.escape=" sidebarOpen = false; notificationsOpen = false ">
 			@include('users.includes.affiliates.sidebar')
 			<div class="flex flex-col flex-1 w-0 overflow-hidden">
 				@include('users.includes.affiliates.header')
-				<main id="portal-content-wrap" class="relative flex-1 py-6 overflow-y-auto focus:outline-none"
-					tabindex="0" x-data="" x-init="$el.focus()">
+				<main id="portal-content-wrap" class="relative flex-1 py-6 overflow-y-auto focus:outline-none" tabindex="0" x-data="" x-init="$el.focus()">
 					<div id="affiliate-portal-content" class="px-4 pb-8 mx-auto max-w-7xl sm:px-6 md:px-8">
 						@yield('body')
 					</div>
 				</main>
 			</div>
 		</div>
-		<script>
+		{{-- <script>
 			c => {
 				a !== window && a !== document || document.body.contains(t) ? function(e) {
 					return ["keydown", "keyup"].includes(e)
@@ -50,7 +56,8 @@
 					!1 === e ? c.preventDefault() : r.includes("once") && a.removeEventListener(n, u, s)
 				}) : a.removeEventListener(n, u, s)
 			}
-		</script>
+		</script> --}}
+		{{-- <script src="{{ asset('js/alp.js') }}"></script> --}}
 	</body>
 
 </html>

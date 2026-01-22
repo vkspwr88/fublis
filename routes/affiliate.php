@@ -6,29 +6,24 @@ use App\Http\Middleware\RegisterredForAffiliate;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(JournalistLogin::class)->group(function() {
-	Route::get('/register', [Affiliates\RegisterController::class, 'index'])->name('register');
-	Route::get('/register/{affRegistration}', [Affiliates\RegisterController::class, 'status'])->name('register.status');
+	Route::get('/', function(){
+		return to_route('affiliate.register.index');
+	})->name('index');
+	Route::prefix('/register')
+		->name('register.')
+		->controller(Affiliates\RegisterController::class)
+		->group(function(){
+			Route::get('', 'index')->name('index');
+			Route::get('/{affRegistration}', 'status')->name('status');
+		});
+
 	Route::middleware(RegisterredForAffiliate::class)->group(function() {
-		Route::get('/dashboard', function(){
-			return view('users.pages.affiliates.dashboard');
-		})->name('dashboard');
-		Route::get('/urls', function(){
-			return view('users.pages.affiliates.urls');
-		})->name('urls');
-		Route::get('/stats', function(){
-			return view('users.pages.affiliates.stats');
-		})->name('stats');
-		Route::get('/graphs', function(){
-			return view('users.pages.affiliates.graphs');
-		})->name('graphs');
-		Route::get('/referrals', function(){
-			return view('users.pages.affiliates.referrals');
-		})->name('referrals');
-		Route::get('/payouts', function(){
-			return view('users.pages.affiliates.payouts');
-		})->name('payouts');
-		Route::get('/visits', function(){
-			return view('users.pages.affiliates.visits');
-		})->name('visits');
+		Route::get('/dashboard', [Affiliates\DashboardController::class, 'index'])->name('dashboard');
+		Route::get('/urls', [Affiliates\UrlController::class, 'index'])->name('urls');
+		Route::get('/stats', [Affiliates\StatsController::class, 'index'])->name('stats');
+		Route::get('/graphs', [Affiliates\GraphsController::class, 'index'])->name('graphs');
+		Route::get('/referrals', [Affiliates\ReferralsController::class, 'index'])->name('referrals');
+		Route::get('/payouts', [Affiliates\PayoutsController::class, 'index'])->name('payouts');
+		Route::get('/visits', [Affiliates\VisitsController::class, 'index'])->name('visits');
 	});
 });

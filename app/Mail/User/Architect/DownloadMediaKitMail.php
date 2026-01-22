@@ -49,6 +49,7 @@ class DownloadMediaKitMail extends Mailable implements ShouldQueue
 				'mediaKitTitle' => $this->mediaKitTitle,
 				'downloadDate' => $this->downloadDate,
 				'loginUrl' => route('architect.login'),
+				'preferenceUrl' => route('architect.unsubscribe'),
 			],
         );
     }

@@ -8,16 +8,18 @@ use Livewire\Component;
 class Analytic extends Component
 {
 	public $mediaKits;
+	public $filterredMediaKits;
 	public $searchText;
 
 	public function mount()
 	{
 		$this->searchText = '';
-		$this->mediaKits = MediaKitController::getUserMediaKitsAnalytics(auth()->id());
 	}
 
     public function render()
     {
+		// $this->filterredMediaKits = $this->mediaKits->where('story.title', '%' . $this->searchText . '%');
+		$this->mediaKits = MediaKitController::getUserMediaKitsAnalytics(auth()->id(), $this->searchText);
         return view('livewire.architects.account.analytic');
     }
 }

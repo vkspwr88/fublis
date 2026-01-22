@@ -34,6 +34,7 @@ class ArticleForm extends Form
 	public $companyProfileFile;
 	public $companyProfileLink;
 	public $oldImagesFiles = [];
+	#[Validate]
 	public $imagesFiles = [];
 	public $imagesLink;
 	public $audioVideoUrl;
@@ -76,6 +77,7 @@ class ArticleForm extends Form
 				return Str::contains($value, 'tmp') ?
 							'nullable|image|' . __('validations/rules.imageMimes') . '|' . __('validations/rules.bulkFilesSize') :
 							'nullable|string';
+							// 'nullable|string|' . __('validations/rules.imageFormat');
 			}),
 			'imagesLink' => 'nullable|url:https',
 			'audioVideoUrl' => 'nullable|url:https',
@@ -95,6 +97,7 @@ class ArticleForm extends Form
 			}
 			else{
 				return 'required|string';
+				// return 'required|string|' . __('validations/rules.imageFormat');
 			}
 		}
 		if ($key == 'articleFile') {
@@ -103,6 +106,7 @@ class ArticleForm extends Form
 			}
 			else{
 				return 'nullable|string';
+				// return 'nullable|string|' . __('validations/rules.wordFormat');
 			}
 		}
 		if ($key == 'companyProfileFile') {
@@ -111,8 +115,10 @@ class ArticleForm extends Form
 			}
 			else{
 				return 'nullable|string';
+				// return 'nullable|string|' . __('validations/rules.wordFormat');
 			}
 		}
+		return '';
     }
 
 	public function messages()
@@ -121,6 +127,7 @@ class ArticleForm extends Form
 			'coverImage.required' => 'Upload the :attribute.',
 			'coverImage.image' => __('validations/messages.image'),
 			// 'coverImage.image' => 'The :attribute supports only image.',
+			'coverImage.extensions' => __('validations/messages.imageMimes'),
 			'coverImage.mimes' => __('validations/messages.imageMimes') /* 'The :attribute supports only svg, png, jpg or gif.' */,
 			'coverImage.max' => __('validations/messages.coverImage.max'),
 			'coverImage.dimensions' => __('validations/messages.coverImage.dimensions'),
@@ -128,13 +135,16 @@ class ArticleForm extends Form
 			'textCredits.required' => 'Enter the :attribute.',
 			'category.required' => 'Select the :attribute.',
 			'previewText.required' => 'Enter the :attribute.',
+			'articleFile.extensions' => 'The :attribute supports only pdf, doc, docs or docx.',
 			'articleFile.mimes' => 'The :attribute supports only pdf, doc, docs or docx.',
 			'articleLink.required_without' => 'Enter the :attribute or upload the file.',
 			'articleWrite.required' => 'Enter the :attribute.',
 			'articleWrite.max' => __('validations/messages.mediaKitBriefCharacters'),
+			'companyProfileFile.extensions' => 'The :attribute supports only pdf, doc, docs or docx.',
 			'companyProfileFile.mimes' => 'The :attribute supports only pdf, doc, docs or docx.',
 			'companyProfileLink.required_without' => 'Enter the :attribute or upload the file.',
 			'imagesFiles.*.image' => __('validations/messages.image'),
+			'imagesFiles.*.extensions' => __('validations/messages.imageMimes'),
 			'imagesFiles.*.mimes' => __('validations/messages.imageMimes'),
 			'imagesFiles.*.max' => __('validations/messages.bulkFilesSize'),
 			'imagesLink.required_without' => 'Enter the :attribute or upload the file.',
@@ -248,6 +258,7 @@ class ArticleForm extends Form
 	public function store()
 	{
 		$this->updateFields();
+		// dd($this->all());
 		$this->validate();
 		$addStoryService = new AddStoryService();
 		return $addStoryService->addArticle($this->all());

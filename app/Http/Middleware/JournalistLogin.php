@@ -19,6 +19,7 @@ class JournalistLogin
         if(auth()->check() && auth()->user()->user_type === UserTypeEnum::JOURNALIST){
 			return $next($request);
 		}
-		return to_route('journalist.login');
+		// return to_route('journalist.login');
+		return to_route('login');
     }
 }

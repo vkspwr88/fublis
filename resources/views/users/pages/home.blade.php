@@ -40,7 +40,7 @@
 							</div>
 							<div class="col-12">
 								<p class="m-0">
-									<a href="{{ route('architect.login') }}" class="btn btn-white fw-semibold">Sign In</a>
+									<a href="{{ route('login') }}" class="btn btn-white fw-semibold">Sign In</a>
 									<a href="{{ route('architect.signup') }}" class="btn btn-primary fw-semibold">Create free account</a>
 								</p>
 							</div>
@@ -64,7 +64,7 @@
 							</div>
 							<div class="col-12">
 								<p class="m-0">
-									<a href="{{ route('journalist.login') }}" class="btn btn-white fw-semibold">Sign In</a>
+									<a href="{{ route('login') }}" class="btn btn-white fw-semibold">Sign In</a>
 									<a href="{{ route('journalist.signup') }}" class="btn btn-primary fw-semibold">Create free account</a>
 								</p>
 							</div>
@@ -88,7 +88,7 @@
 
 			triggerEl.addEventListener('click', event => {
 				event.preventDefault();
-				console.log('click', triggerEl.hash);
+				// console.log('click', triggerEl.hash);
 				tabTrigger.show();
 				location.hash = triggerEl.hash;
 			});
@@ -97,7 +97,9 @@
 		const currentURL = document.URL;
 		const hashURL = currentURL.substring(currentURL.indexOf('#'));
 		const triggerEl = document.querySelector('#userTab a[href="' + hashURL + '"]');
-		console.log(currentURL, hashURL, triggerEl);
-		bootstrap.Tab.getInstance(triggerEl).show();
+		// console.log(currentURL, hashURL, triggerEl);
+		if(triggerEl){
+			bootstrap.Tab.getInstance(triggerEl).show();
+		}
 	</script>
 @endpush

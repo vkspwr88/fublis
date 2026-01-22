@@ -32,4 +32,9 @@ class SubscriptionPlanController extends Controller
 			'faqs' => FaqController::getAll(),
 		]);
     }
+
+	public static function getActiveSubscription()
+	{
+		return auth()->user()?->subscriptions()?->active()?->latest()?->first();
+	}
 }

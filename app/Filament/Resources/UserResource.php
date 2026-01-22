@@ -24,7 +24,8 @@ class UserResource extends Resource
 
 	public static function canAccess(): bool
 	{
-		return auth()->user()->hasRole('Super Admin');
+		$user = User::find(auth()->id());
+		return $user->hasRole('Super Admin');
 	}
 
 	/* public static function shouldRegisterNavigation(): bool
@@ -102,6 +103,7 @@ class UserResource extends Resource
                     ->dateTime()
                     ->sortable(), */
             ])
+			->defaultSort('created_at', 'desc')
             ->filters([
                 //
             ])
@@ -126,6 +128,6 @@ class UserResource extends Resource
 	public static function getEloquentQuery(): Builder
     {
         return parent::getEloquentQuery()
-			->where('user_type', '!=', 'admin');
+			->where('email', '!=', 'admin@fublis.com');
     }
 }

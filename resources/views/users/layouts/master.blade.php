@@ -7,7 +7,11 @@
 		@yield('head')
 		@stack('meta')
 		@include('users.includes.google-tags.meta')
-		<link rel="icon" type="image/png" href="{{ asset(env('COMPANY_ICON')) }}">
+		{{-- <link rel="icon" type="image/png" href="{{ asset(env('COMPANY_ICON')) }}"> --}}
+		<link rel="apple-touch-icon" sizes="180x180" href="{{ asset('apple-touch-icon.png') }}">
+		<link rel="icon" type="image/png" sizes="32x32" href="{{ asset('favicon-32x32.png') }}">
+		<link rel="icon" type="image/png" sizes="16x16" href="{{ asset('favicon-16x16.png') }}">
+		<link rel="manifest" href="{{ asset('site.webmanifest') }}">
 		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
 		<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet">
@@ -15,7 +19,7 @@
 		<link rel="stylesheet" type="text/css" href="https://unpkg.com/trix@2.0.0/dist/trix.css">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.6/cropper.css"/>
 		@stack('styles')
-		<link rel="stylesheet" href="{{ asset('css/aman.css') }}">
+		<link rel="stylesheet" href="{{ asset('css/aman.css') }}?v=1.01">
 		@include('users.includes.google-tags.script')
 		<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">
 		</script>
@@ -90,43 +94,41 @@
 	<body id="app1" class="bg-light">
 		@include('users.includes.header')
 		<section id="body" class="px-0 pb-0 m-0 w-100">
-			@yield('body')
-		</section>
-		@include('users.includes.footer')
-		{{-- <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
-			<div class="modal-dialog modal-lg" role="document">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title" id="modalLabel">Crop Image Before Upload</h5>
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">×</span>
-						</button>
-					</div>
-					<div class="modal-body">
-						<div class="img-container">
-							<div class="row">
-								<div class="col-md-8">
-									<img id="image" src="https://avatars0.githubusercontent.com/u/3456749" class="img-fluid" alt="..." />
-								</div>
-								<div class="col-md-4">
-									<div class="preview w-100"></div>
+			@if(isArchitect())
+				@php
+					$totalPendingRequests = App\Services\DownloadRequestService::getPendingRequestsQuery()->count();
+				@endphp
+				@if ($totalPendingRequests)
+					<div class="container">
+						<div class="row">
+							<div class="py-5 bg-purple-600 col-12">
+								<div class="px-md-5 px-sm-4">
+									<div class="row g-4">
+										<div class="col-md">
+											<div class="text-white pe-md-5">
+												<h2 class="mb-4 fs-4">Pending Publication Requests</h2>
+												<p class="fs-6">You have {{ $totalPendingRequests }} pending publication requests, approve them to get published. You can approve or decline these requests.</p>
+											</div>
+										</div>
+										<div class="col-md-auto text-md-end">
+											<a href="{{ route('architect.account.profile.requests') }}" class="text-purple-600 btn btn-white fs-6 fw-semibold">Manage Requests</a>
+										</div>
+									</div>
 								</div>
 							</div>
 						</div>
 					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-						<button type="button" class="btn btn-primary" id="crop">Crop</button>
-					</div>
-				</div>
-			</div>
-		</div> --}}
+				@endif
+			@endif
+			@yield('body')
+		</section>
+		@include('users.includes.footer')
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.6/cropper.js"></script>
 		<script>
 			const uploadHostUrl = '{{ route('architect.trix-file-upload') }}';
 			// const removeHostUrl = '{{ route('architect.trix-file-remove') }}';
 		</script>
-		<script src="{{ asset('js/aman.js') }}"></script>
+		<script src="{{ asset('js/aman.js') }}?v=1.01"></script>
 		@stack('scripts')
 		<script>
 			var sidebarCollapse = document.getElementById("sidebarCollapse");
@@ -169,6 +171,7 @@
 			window.onresize = function() {
 				// toggleMyOffcanvas();
 			}
+
 		</script>
 		@if (session('type') && session('message'))
 			<script>

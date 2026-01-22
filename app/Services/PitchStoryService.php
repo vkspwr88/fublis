@@ -248,4 +248,12 @@ class PitchStoryService
 			'media_kit_id' => $mediaKitId,
 		])->first();
 	}
+
+	public static function getTodayPitches()
+	{
+		$startDate = Carbon::now()->startOfDay();
+		$endDate = Carbon::now()->endOfDay();
+		return Pitch::with('journalist.user')->whereBetween('created_at', [$startDate, $endDate])
+			->get();
+	}
 }

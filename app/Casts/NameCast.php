@@ -15,7 +15,9 @@ class NameCast implements CastsAttributes
      */
     public function get(Model $model, string $key, mixed $value, array $attributes): mixed
     {
-        return Str::headline($value);
+        // return Str::headline($value);
+        // return trim($value);
+		return Str::ucfirst($value);
     }
 
     /**
@@ -25,6 +27,7 @@ class NameCast implements CastsAttributes
      */
     public function set(Model $model, string $key, mixed $value, array $attributes): mixed
     {
-        return strtolower($value);
+        return trim($value);
+        // return strtolower($value);
     }
 }

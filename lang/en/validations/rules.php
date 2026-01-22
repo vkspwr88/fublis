@@ -1,10 +1,17 @@
 <?php
 
+$image = 'svg,png,jpg,jpeg,gif,webp,tif';
+$doc = 'pdf,doc,docx,txt,odt';
+
 return [
-	'wordMimes' => 'mimes:pdf,doc,docx,txt,odt,zip',
-	'imageMimes' => 'mimes:svg,png,jpg,jpeg,gif,webp',
-	'zipPlusImageMimes' => 'mimes:svg,png,jpg,jpeg,gif,webp,zip',
-	'zipPlusFileMimes' => 'mimes:svg,png,jpg,jpeg,gif,webp,pdf,doc,docx,txt,odt,zip',
+	'wordFormat' => 'extensions:' . $doc . ',zip',
+	'wordMimes' => 'mimes:' . $doc . ',zip',
+	'imageFormat' => 'extensions:' . $image . '',
+	'imageMimes' => 'mimes:' . $image . '',
+	'zipPlusImageFormat' => 'extensions:' . $image . ',zip',
+	'zipPlusImageMimes' => 'mimes:' . $image . ',zip',
+	'zipPlusFileFormat' => 'extensions:' . $image . ',' . $doc . ',zip',
+	'zipPlusFileMimes' => 'mimes:' . $image . ',' . $doc . ',zip',
 	'coverImage' => 'required|image|max:3100|dimensions:max_width=800,max_height=400',
 	'bulkFilesSize' => 'max:42000',
 	'mediaKitBriefCharacters' => 'max:550',

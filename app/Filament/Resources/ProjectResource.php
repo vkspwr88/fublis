@@ -8,6 +8,7 @@ use App\Http\Controllers\Users\BuildingTypologyController;
 use App\Http\Controllers\Users\BuildingUseController;
 use App\Http\Controllers\Users\LocationController;
 use App\Models\Project;
+use App\Models\User;
 use Awcodes\Curator\Components\Forms\CuratorPicker;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -16,6 +17,7 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Collection;
 
@@ -25,9 +27,12 @@ class ProjectResource extends Resource
 
     // protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
+	protected static ?string $recordTitleAttribute = 'title';
+
 	public static function canAccess(): bool
 	{
-		return auth()->user()->hasRole('Super Admin');
+		$user = User::find(auth()->id());
+		return $user->hasRole('Super Admin');
 	}
 
     public static function form(Form $form): Form
@@ -69,35 +74,35 @@ class ProjectResource extends Resource
                 Forms\Components\Select::make('project_status_id')
                     ->relationship('projectStatus', 'name')
                     ->required(),
-                Forms\Components\TextInput::make('materials')
-                    ->maxLength(255),
+                Forms\Components\Textarea::make('materials')
+                    ->maxLength(65535),
                 Forms\Components\Select::make('building_typology_id')
 					->options( fn (): Collection => BuildingTypologyController::getAll()->pluck('name', 'id') ),
                 Forms\Components\Select::make('building_use_id')
 					->options( fn (Get $get): Collection => BuildingUseController::getAllByTypologyId($get('building_typology_id'))->pluck('name', 'id') )
                     ->relationship('buildingUse', 'name'),
-                Forms\Components\FileUpload::make('image_credits')
-                    ->image(),
-                Forms\Components\TextInput::make('text_credits')
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('render_credits')
-                    ->maxLength(255),
+                Forms\Components\Textarea::make('image_credits')
+					->maxLength(65535),
+                Forms\Components\Textarea::make('text_credits')
+                    ->maxLength(65535),
+                Forms\Components\Textarea::make('render_credits')
+                    ->maxLength(65535),
                 Forms\Components\Textarea::make('consultants')
-                    ->maxLength(65535)
-                    ->columnSpanFull(),
+                    ->maxLength(65535),
                 Forms\Components\Textarea::make('design_team')
-                    ->maxLength(65535)
-                    ->columnSpanFull(),
+                    ->maxLength(65535),
                 /* Forms\Components\Textarea::make('cover_image_path')
                     ->required()
                     ->maxLength(65535)
                     ->columnSpanFull(), */
-				CuratorPicker::make('cover_image_path')
+				// CuratorPicker::make('cover_image_path')
+				Forms\Components\FileUpload::make('cover_image_path')
 					->label('Cover Image (800 x 400)')
-					->buttonLabel('Select Cover Image')
+					// ->buttonLabel('Select Cover Image')
                     ->acceptedFileTypes(['image/*'])
 					->columnSpanFull()
 					->directory('images/projects/cover-images')
+					->downloadable()
                     ->required(),
                 Forms\Components\Textarea::make('project_brief')
                     ->required()
@@ -108,12 +113,14 @@ class ProjectResource extends Resource
                     ->columnSpanFull(), */
 				Forms\Components\FileUpload::make('project_doc_path')
 					->directory('documents/projects')
+					->downloadable()
                     ->columnSpanFull(),
                 Forms\Components\Textarea::make('project_doc_link')
                     ->maxLength(65535)
                     ->columnSpanFull(),
 				Forms\Components\FileUpload::make('photographs')
 					->directory('images/projects/photographs')
+					->downloadable()
 					->multiple()
 					->reorderable()
 					->appendFiles()
@@ -124,6 +131,7 @@ class ProjectResource extends Resource
                     ->columnSpanFull(),
 				Forms\Components\FileUpload::make('drawings')
 					->directory('images/projects/drawings')
+					->downloadable()
 					->multiple()
 					->reorderable()
 					->appendFiles()
@@ -142,9 +150,21 @@ class ProjectResource extends Resource
                 /* Tables\Columns\TextColumn::make('id')
                     ->label('ID')
                     ->searchable(), */
+				// Tables\Columns\TextColumn::make('cover_image_path'),
 				Tables\Columns\ImageColumn::make('cover_image_path'),
                 Tables\Columns\TextColumn::make('title')
-                    ->searchable(),
+					->label('Mediakit Title')
+					->searchable()
+					->sortable()
+					->wrap(),
+				Tables\Columns\TextColumn::make('download_count')
+					->state(function (Model $record): int {
+						return $record->mediakit[0]->downloadRequests()->count();
+					}),
+				Tables\Columns\TextColumn::make('pending_download_count')
+					->state(function (Model $record): int {
+						return $record->mediakit[0]->downloadRequests()->where('request_status', 'pending')->count();
+					}),
                 Tables\Columns\TextColumn::make('site_area')
 					->toggleable(isToggledHiddenByDefault: true)
                     ->numeric()
@@ -160,21 +180,33 @@ class ProjectResource extends Resource
 					->toggleable(isToggledHiddenByDefault: true)
                     ->searchable(),
                 Tables\Columns\TextColumn::make('location.name')
+					->label('Country')
+                    ->searchable(),
+				Tables\Columns\TextColumn::make('state.name')
+					->label('State')
+                    ->searchable(),
+				Tables\Columns\TextColumn::make('city.name')
+					->label('City')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('projectStatus.name')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('materials')
+					->toggleable(isToggledHiddenByDefault: true)
                     ->searchable(),
-                Tables\Columns\TextColumn::make('building_typology_id')
+                Tables\Columns\TextColumn::make('buildingUse.buildingTypology.name')
 					->toggleable(isToggledHiddenByDefault: true)
                     ->searchable(),
                 Tables\Columns\TextColumn::make('buildingUse.name')
 					->toggleable(isToggledHiddenByDefault: true)
                     ->searchable(),
-                Tables\Columns\ImageColumn::make('image_credits'),
+                Tables\Columns\TextColumn::make('image_credits')
+					->toggleable(isToggledHiddenByDefault: true)
+					->searchable(),
                 Tables\Columns\TextColumn::make('text_credits')
+					->toggleable(isToggledHiddenByDefault: true)
                     ->searchable(),
                 Tables\Columns\TextColumn::make('render_credits')
+					->toggleable(isToggledHiddenByDefault: true)
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
@@ -185,6 +217,7 @@ class ProjectResource extends Resource
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
+			->defaultSort('created_at', 'desc')
             ->filters([
                 //
             ])

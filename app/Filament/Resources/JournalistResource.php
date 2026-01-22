@@ -16,6 +16,7 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Collection;
 
@@ -29,13 +30,18 @@ class JournalistResource extends Resource
 
 	public static function canAccess(): bool
 	{
-		return auth()->user()->hasRole('Super Admin');
+		$user = User::find(auth()->id());
+		return $user->hasRole('Super Admin');
 	}
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
+				Forms\Components\FileUpload::make('image_path')
+					->image()
+					->downloadable()
+					->hidden(fn (string $operation) => $operation == 'create' || $operation == 'edit'),
 				CuratorPicker::make('media_id')
 					->label('Logo Image (400 x 400)')
 					->buttonLabel('Select Logo Image')
@@ -45,6 +51,7 @@ class JournalistResource extends Resource
 					->maxWidth(400)
 					// ->directory('images/publications/logos')
 					// ->relationship('profile_image', 'imaggable')
+					->hidden(fn (string $operation) => $operation == 'view')
                     ->required(fn (string $operation): bool => $operation != 'edit'),
 				Forms\Components\TextInput::make('display_first')
 					->numeric()
@@ -87,13 +94,24 @@ class JournalistResource extends Resource
 							])
 							->default('journalist'),
 					])
+					->editOptionForm([
+						Forms\Components\TextInput::make('name')
+							->required()
+							->maxLength(255),
+					])
                     ->required(),
+				Forms\Components\TextInput::make('slug')
+					->unique(ignoreRecord: true)
+					->hidden(fn (string $operation) => $operation != 'edit')
+					->required(),
 				Forms\Components\Select::make('journalist_position_id')
 					->required()
-					->relationship('position', 'name'),
+					->relationship('position', 'name')
+					->hidden(fn (string $operation) => $operation == 'edit'),
 				Forms\Components\Repeater::make('journalistPublications')
 					->columnSpanFull()
 					->relationship()
+					->hidden(fn (string $operation) => $operation == 'edit')
 					->schema([
 						Forms\Components\Select::make('publication_id')
 							->relationship('publication', 'name')
@@ -102,7 +120,44 @@ class JournalistResource extends Resource
 							->relationship('journalistPosition', 'name')
 							->required(),
 					])
+					// ->mutateRelationshipDataBeforeFillUsing(function (array $data): array {
+					// 	$data['journalistPublications'] = [];
+					// 	foreach(Journalist::find($data['journalist_id'])->journalistPublications as $row){
+					// 		$data['journalistPublications'][] = [
+					// 			'publication_id' => $row->publication_id,
+					// 			'journalist_position_id' => $row->journalist_position_id,
+					// 		];
+					// 	}
+					// 	// dd($data, Journalist::find($data['journalist_id'])->journalistPublications);
+					// 	return $data;
+					// })
+					// ->mutateRelationshipDataBeforeSaveUsing(function (array $data): array {
+					// 	unset($data['publication_id']);
+					// 	unset($data['journalist_position_id']);
+					// 	// dd($data);
+					// 	/* $data['journalistPublications'] = [
+					// 		[
+					// 			'publication_id' => $data['publication_id'],
+					// 			'journalist_position_id' => $data['journalist_position_id'],
+					// 		]
+					// 	]; */
+					// 	// dd($data);
+					// 	return $data;
+					// })
 					->columns(2),
+				Forms\Components\Select::make('publication_id')
+					->label('Publication')
+					->required()
+					->relationship('journalistPublications.publication', 'name')
+					->default(function (?Model $record) {
+						return $record->journalistPublications[0]->publication_id;
+					})
+					->hidden(fn (string $operation) => $operation == 'create'),
+				Forms\Components\Select::make('journalist_position_id')
+					->label('Position')
+					->required()
+					->relationship('journalistPublications.journalistPosition', 'name')
+					->hidden(fn (string $operation) => $operation == 'create'),
 				Forms\Components\TextInput::make('linked_profile')
                     ->required()
                     ->columnSpanFull(),
@@ -122,14 +177,12 @@ class JournalistResource extends Resource
 					->live()
 					->options( fn (Get $get): Collection => LocationController::getStatesByCountryId($get('country'))->pluck('name', 'id') )
 					->default(0)
-					->searchable()
-					->required(),
+					->searchable(),
 				Forms\Components\Select::make('location_id')
 					->label('City')
 					->options( fn (Get $get): Collection => LocationController::getCitiesByStateId($get('state'))->pluck('name', 'id') )
 					->default(0)
-					->searchable()
-					->required(),
+					->searchable(),
                 Forms\Components\Select::make('language_id')
                     ->relationship('language', 'name'),
                 Forms\Components\Textarea::make('about_me')
@@ -173,6 +226,7 @@ class JournalistResource extends Resource
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
+			->defaultSort('display_first', 'asc')
             ->filters([
                 Tables\Filters\TrashedFilter::make(),
             ])

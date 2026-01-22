@@ -1,8 +1,9 @@
-@extends('users.layouts.affiliates.master')
+@extends('users.layouts.affiliates.master', ['alpine' => false])
 
 @section('body')
 	<h1 id="visits-head" class="mb-5 text-3xl font-semibold text-gray-900 sm:mb-10">Visits</h1>
-	<div class="mt-10 sm:mt-0">
+	<livewire:affiliates.visits.table />
+	{{-- <div class="mt-10 sm:mt-0">
 		<div class="md:grid md:grid-cols-3 md:gap-6">
 			<div class="mt-5 overflow-hidden md:mt-0 sm:rounded-md md:col-span-3 lg:col-span-3">
 				<div>
@@ -12,8 +13,7 @@
 								x-init="init()" x-show="!isLoading">
 								<div class="flex flex-col">
 									<div class="py-2 mt-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-										<div
-											class="inline-block min-w-full overflow-hidden align-middle border-b border-gray-200 shadow sm:rounded-lg">
+										<div class="inline-block min-w-full overflow-hidden align-middle border-b border-gray-200 shadow sm:rounded-lg">
 											<table class="min-w-full">
 												<thead>
 													<tr><template x-for="(heading, index) in schema" :key="index">
@@ -140,8 +140,8 @@
 								</div>
 								<div class="flex items-center justify-between px-4 py-3 sm:px-6" x-show="showPagination"
 									style="display: none;">
-									<nav class="relative z-0 inline-flex shadow-sm affwp-pagination"><a
-											class="flex items-center prev page-numbers disabled" role="button"
+									<nav class="relative z-0 inline-flex shadow-sm affwp-pagination">
+										<a class="flex items-center prev page-numbers disabled" role="button"
 											id="visits-table-prev-link" x-bind:href="urlForPage( previousPage )"
 											x-on:click="handlePageEvent( $event, previousPage )"
 											:class="{'disabled': currentPage <= 1}"
@@ -175,5 +175,5 @@
 				</div>
 			</div>
 		</div>
-	</div>
+	</div> --}}
 @endsection

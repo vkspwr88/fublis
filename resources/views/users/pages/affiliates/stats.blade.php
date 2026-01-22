@@ -14,10 +14,9 @@
 									<div class="flex items-center px-4 py-5 sm:p-6">
 										<div class="flex-1">
 											<dl>
-												<dt class="text-sm font-medium leading-5 text-gray-500 truncate">Unpaid
-													referrals</dt>
+												<dt class="text-sm font-medium leading-5 text-gray-500 truncate">Unpaid referrals</dt>
 												<dd class="flex items-baseline">
-													<div class="text-3xl font-semibold leading-8 text-gray-900">0</div>
+													<div class="text-3xl font-semibold leading-8 text-gray-900">{{ $totalUnpaidReferrals }}</div>
 												</dd>
 											</dl>
 										</div>
@@ -28,10 +27,9 @@
 									<div class="flex items-center px-4 py-5 sm:p-6">
 										<div class="flex-1">
 											<dl>
-												<dt class="text-sm font-medium leading-5 text-gray-500 truncate">Paid
-													referrals</dt>
+												<dt class="text-sm font-medium leading-5 text-gray-500 truncate">Paid referrals</dt>
 												<dd class="flex items-baseline">
-													<div class="text-3xl font-semibold leading-8 text-gray-900">0</div>
+													<div class="text-3xl font-semibold leading-8 text-gray-900">{{ $totalPaidReferrals }}</div>
 												</dd>
 											</dl>
 										</div>
@@ -42,10 +40,9 @@
 									<div class="flex items-center px-4 py-5 sm:p-6">
 										<div class="flex-1">
 											<dl>
-												<dt class="text-sm font-medium leading-5 text-gray-500 truncate">Visits
-												</dt>
+												<dt class="text-sm font-medium leading-5 text-gray-500 truncate">Visits</dt>
 												<dd class="flex items-baseline">
-													<div class="text-3xl font-semibold leading-8 text-gray-900">0</div>
+													<div class="text-3xl font-semibold leading-8 text-gray-900">{{ $totalVisits }}</div>
 												</dd>
 											</dl>
 										</div>
@@ -56,8 +53,7 @@
 									<div class="flex items-center px-4 py-5 sm:p-6">
 										<div class="flex-1">
 											<dl>
-												<dt class="text-sm font-medium leading-5 text-gray-500 truncate">
-													Conversion rate</dt>
+												<dt class="text-sm font-medium leading-5 text-gray-500 truncate">Conversion rate</dt>
 												<dd class="flex items-baseline">
 													<div class="text-3xl font-semibold leading-8 text-gray-900">0%</div>
 												</dd>
@@ -76,11 +72,9 @@
 									<div class="flex items-center px-4 py-5 sm:p-6">
 										<div class="flex-1">
 											<dl>
-												<dt class="text-sm font-medium leading-5 text-gray-500 truncate">Unpaid
-													earnings</dt>
+												<dt class="text-sm font-medium leading-5 text-gray-500 truncate">Total earnings</dt>
 												<dd class="flex items-baseline">
-													<div class="text-3xl font-semibold leading-8 text-gray-900">$0.00
-													</div>
+													<div class="text-3xl font-semibold leading-8 text-gray-900">{{ displayCurrencyValue($totalEarnings) }}</div>
 												</dd>
 											</dl>
 										</div>
@@ -91,11 +85,9 @@
 									<div class="flex items-center px-4 py-5 sm:p-6">
 										<div class="flex-1">
 											<dl>
-												<dt class="text-sm font-medium leading-5 text-gray-500 truncate">Paid
-													earnings</dt>
+												<dt class="text-sm font-medium leading-5 text-gray-500 truncate">Total payouts</dt>
 												<dd class="flex items-baseline">
-													<div class="text-3xl font-semibold leading-8 text-gray-900">$0.00
-													</div>
+													<div class="text-3xl font-semibold leading-8 text-gray-900">{{ displayCurrencyValue($totalPayouts) }}</div>
 												</dd>
 											</dl>
 										</div>
@@ -106,11 +98,9 @@
 									<div class="flex items-center px-4 py-5 sm:p-6">
 										<div class="flex-1">
 											<dl>
-												<dt class="text-sm font-medium leading-5 text-gray-500 truncate">
-													Commission rate</dt>
+												<dt class="text-sm font-medium leading-5 text-gray-500 truncate">Commission rate</dt>
 												<dd class="flex items-baseline">
-													<div class="text-3xl font-semibold leading-8 text-gray-900">20%
-													</div>
+													<div class="text-3xl font-semibold leading-8 text-gray-900">{{ $commissionRate }}</div>
 												</dd>
 											</dl>
 										</div>
@@ -122,6 +112,32 @@
 					<div class="mt-5 setting table-control">
 						<h3 id="campaigns-table-head" class="mb-2 text-lg font-medium leading-6 text-gray-900">Campaigns
 						</h3>
+						<div class="inline-block min-w-full overflow-hidden align-middle border-b border-gray-200 shadow sm:rounded-lg">
+							<table class="min-w-full">
+								<thead>
+									<tr>
+										<th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase bg-white border-b border-gray-200">test 1</th>
+										<th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase bg-white border-b border-gray-200">test 1</th>
+										<th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase bg-white border-b border-gray-200">test 1</th>
+										<th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase bg-white border-b border-gray-200">test 1</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td class="px-6 py-4 text-sm font-medium leading-5 text-gray-500 whitespace-no-wrap">test 1</td>
+										<td class="px-6 py-4 text-sm font-medium leading-5 text-gray-500 whitespace-no-wrap">test 1</td>
+										<td class="px-6 py-4 text-sm font-medium leading-5 text-gray-500 whitespace-no-wrap">test 1</td>
+										<td class="px-6 py-4 text-sm font-medium leading-5 text-gray-500 whitespace-no-wrap">test 1</td>
+									</tr>
+									<tr>
+										<td class="px-6 py-4 text-sm font-medium leading-5 text-gray-500 whitespace-no-wrap">test 1</td>
+										<td class="px-6 py-4 text-sm font-medium leading-5 text-gray-500 whitespace-no-wrap">test 1</td>
+										<td class="px-6 py-4 text-sm font-medium leading-5 text-gray-500 whitespace-no-wrap">test 1</td>
+										<td class="px-6 py-4 text-sm font-medium leading-5 text-gray-500 whitespace-no-wrap">test 1</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
 						<div class="px-4 mx-auto mb-10 max-w-7xl sm:px-6 md:px-8">
 							<div x-data="AFFWP.portal.table.default({&quot;allowSorting&quot;:false,&quot;type&quot;:&quot;campaigns-table&quot;,&quot;perPage&quot;:20})"
 								x-init="init()" x-show="!isLoading">

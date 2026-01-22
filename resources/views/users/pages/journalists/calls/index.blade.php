@@ -4,14 +4,14 @@
 
 @section('body')
 <div class="container py-5">
-	<div class="row mb-3">
+	<div class="mb-3 row">
 		<div class="col-12">
 			<nav aria-label="breadcrumb">
 				<ol class="breadcrumb">
 					<li class="breadcrumb-item fublis-breadcrumb-item">
 						<a href="{{ route('home') }}" class="text-secondary fs-6 fw-medium"><i class="bi bi-house"></i></a>
 					</li>
-					<li class="breadcrumb-item fublis-breadcrumb-item text-purple-600 fs-6 fw-medium" aria-current="page">Your Calls</li>
+					<li class="text-purple-600 breadcrumb-item fublis-breadcrumb-item fs-6 fw-medium" aria-current="page">Your Calls</li>
 				</ol>
 			</nav>
 		</div>
@@ -20,13 +20,13 @@
 	<div class="row g-4 justify-content-end align-items-end">
 		<div class="col">
 			<div class="d-flex justify-content-start">
-				<h2 class="text-dark fs-3 fw-semibold m-0">Your call for stories</h2>
+				<h2 class="m-0 text-dark fs-3 fw-semibold">Your call for stories</h2>
 			</div>
 		</div>
 		<div class="col-auto">
 			<div class="row justify-content-end align-items-end gx-0 gy-3">
 				<div class="col-auto">
-					<a href="{{ route('journalist.call.create') }}" class="btn btn-link text-decoration-none text-purple-600 fw-semibold">
+					<a href="{{ route('journalist.call.create') }}" class="text-purple-600 btn btn-link text-decoration-none fw-semibold">
 						<i class="bi bi-plus"></i> Create New Call
 					</a>
 				</div>
@@ -38,58 +38,64 @@
 			</div>
 		</div>
 	</div>
-	<hr class="border-gray-300 my-4">
+	<hr class="my-4 border-gray-300">
 	<div class="row g-4">
 		@forelse ($calls as $call)
-			<div class="col-12">
-				<div class="card rounded-3 shadow">
-					<div class="card-body">
-						<a href="{{ route('journalist.call.view', ['call' => $call->slug]) }}" class="stretched-link" aria-label="View Call"></a>
-						<div class="row g-2 align-items-center">
-							<div class="col-12">
-								<div class="row align-items-center">
-									<div class="col-auto">
-										<h4 class="text-dark fs-5 fw-semibold m-0 py-1">{{ $call->title }}</h4>
-										<p class="text-secondary fs-6 m-0 py-1">Deadline: {{ $call->submission_end_date }}</p>
-									</div>
-									<div class="col">
-										<div class="d-flex justify-content-end">
-											<p class="m-0 py-2" style="z-index: 2;">
-												<a href="{{ route('journalist.call.edit', ['call' => $call->slug]) }}" class="btn btn-primary btn-sm">Edit Call</a>
-											</p>
+			@if ($call)
+				<div class="col-12">
+					<div class="shadow card rounded-3">
+						<div class="card-body">
+							<a href="{{ route('journalist.call.view', ['call' => $call->slug]) }}" class="stretched-link" aria-label="View Call"></a>
+							<div class="row g-2 align-items-center">
+								<div class="col-12">
+									<div class="row align-items-center">
+										<div class="col-auto">
+											<h4 class="py-1 m-0 text-dark fs-5 fw-semibold">{{ $call->title }}</h4>
+											<p class="py-1 m-0 text-secondary fs-6">Deadline: {{ $call->submission_end_date }}</p>
+										</div>
+										<div class="col">
+											<div class="d-flex justify-content-end">
+												<p class="py-2 m-0" style="z-index: 2;">
+													<a href="{{ route('journalist.call.edit', ['call' => $call->slug]) }}" class="btn btn-primary btn-sm">Edit Call</a>
+												</p>
+											</div>
 										</div>
 									</div>
 								</div>
-							</div>
-							<div class="col-12">
-								<div class="row justify-content-center align-items-end">
-									<div class="col-auto">
-										<div class="row g-3">
-											<div class="col-auto">
-												@php
-													$profileImg = App\Http\Controllers\Users\AvatarController::getProfileAvatar($call->publication, 'publication');
-												@endphp
-												<img class="rounded-circle img-square img-45" src="{{ $profileImg }}" alt=".." />
-											</div>
-											<div class="col">
-												<p class="fw-semibold m-0 p-0">
-													<a href="{{ route('journalist.account.profile.publications.view', ['publication' => $call->publication->slug]) }}" class="text-secondary" style="z-index: 2;">{{ $call->publication->name }}</a>
-												</p>
-												<p class="m-0 p-0">
-													<span class="small">
-														<a href="{{ route('journalist.account.profile.journalists.view', ['journalist' => $call->journalist->slug]) }}" class="text-secondary" style="z-index: 2;">{{ $call->journalist->user->name }}</a>
-													</span>
-												</p>
+								<div class="col-12">
+									<div class="row justify-content-center align-items-end">
+										<div class="col-auto">
+											<div class="row g-3">
+												<div class="col-auto">
+													@php
+														$profileImg = App\Http\Controllers\Users\AvatarController::getProfileAvatar($call->publication, 'publication');
+													@endphp
+													<img class="rounded-circle img-square img-45" src="{{ $profileImg }}" alt=".." />
+												</div>
+												<div class="col">
+													<p class="p-0 m-0 fw-semibold">
+														@if($call->publication)
+															<a href="{{ route('journalist.account.profile.publications.view', ['publication' => $call->publication->slug]) }}" class="text-secondary" style="z-index: 2;">{{ $call->publication->name }}</a>
+														@endif
+													</p>
+													<p class="p-0 m-0">
+														<span class="small">
+															@if($call->journalist)
+																<a href="{{ route('journalist.account.profile.journalists.view', ['journalist' => $call->journalist->slug]) }}" class="text-secondary" style="z-index: 2;">{{ $call->journalist->user->name }}</a>
+															@endif
+														</span>
+													</p>
+												</div>
 											</div>
 										</div>
-									</div>
-									<div class="col">
-										<div class="row gx-1 gy-3 justify-content-end align-items-center">
-											@foreach ($call->tags as $tag)
-												<div class="col-auto">
-													<span class="badge rounded-pill bg-purple-50 text-purple-700 fw-medium">{{ $tag->name }}</span>
-												</div>
-											@endforeach
+										<div class="col">
+											<div class="row gx-1 gy-3 justify-content-end align-items-center">
+												@foreach ($call->tags as $tag)
+													<div class="col-auto">
+														<span class="text-purple-700 badge rounded-pill bg-purple-50 fw-medium">{{ $tag->name }}</span>
+													</div>
+												@endforeach
+											</div>
 										</div>
 									</div>
 								</div>
@@ -97,12 +103,12 @@
 						</div>
 					</div>
 				</div>
-			</div>
+			@endif
 		@empty
 			<div class="col-12">
-				<div class="card rounded-3 shadow">
+				<div class="shadow card rounded-3">
 					<div class="card-body">
-						<h4 class="card-title fs-4 fw-semibold text-purple-800 text-center">No stories added by you</h4>
+						<h4 class="text-center text-purple-800 card-title fs-4 fw-semibold">No stories added by you</h4>
 					</div>
 				</div>
 			</div>

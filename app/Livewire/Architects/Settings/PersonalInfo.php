@@ -46,12 +46,18 @@ class PersonalInfo extends Component
 		$this->profileImageOld = $architect->profileImage;
 		$this->characterCount();
 		$this->selectedCountry = 101;
-		$this->selectedState = 0;
+		$this->selectedState = '';
 		if($architect->location){
 			$city = LocationController::getCityByCityName($architect->location->name);
-			$this->selectedCity = $city->name;
-			$this->selectedState = $city->state->id;
-			$this->selectedCountry = $city->state->country->id;
+			if($city){
+				$this->selectedCity = $city->name;
+				if($city->state){
+					$this->selectedState = $city->state->id;
+					if($city->state->country){
+						$this->selectedCountry = $city->state->country->id;
+					}
+				}
+			}
 		}
 	}
 
@@ -164,11 +170,12 @@ class PersonalInfo extends Component
 
 	public function update()
 	{
-		$validated = $this->validate($this->rules(), $this->messages(), $this->validationAttributes());
-		if(!$this->profileImageOld && !$this->profileImage){
-			$this->addError('profileImage', 'Upload profile image.');
-			return;
-		}
+		$validated = $this->validate();
+		// $validated = $this->validate($this->rules(), $this->messages(), $this->validationAttributes());
+		// if(!$this->profileImageOld && !$this->profileImage){
+		// 	$this->addError('profileImage', 'Upload profile image.');
+		// 	return;
+		// }
 		//dd($validated);
 		if($this->settingService->updatePersonalInfo($validated)){
 			$this->dispatch('alert', [

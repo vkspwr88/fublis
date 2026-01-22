@@ -1,16 +1,16 @@
 <div>
 	@include('livewire.journalists.signup-wizard.navigation')
 
-	<div class="row bg-white justify-content-center pt-5">
+	<div class="pt-5 bg-white row justify-content-center">
 		<div class="col-lg-10">
-			<div class="card rounded-4 shadow border border-1">
+			<div class="border shadow card rounded-4 border-1">
 				<div class="row g-0 align-items-start">
 					<div class="col-sm-12 col-md-6">
 						<div class="row justify-content-between align-items-center">
 							<div class="col-12">
-								<div class="card-body px-5">
-									<h5 class="card-title text-dark fs-3 fw-semibold m-0 py-2">Sign up</h5>
-									<p class="card-text text-secondary fs-6 fw-normal m-0 py-2">Create your free account</p>
+								<div class="p-5 card-body">
+									<h5 class="py-2 m-0 card-title text-dark fs-3 fw-semibold">Sign up</h5>
+									<p class="py-2 m-0 card-text text-secondary fs-6 fw-normal">For journalists, editors, writers, or any other role working with a publication</p>
 									<form class="py-3" wire:submit="signup">
 										@include('users.includes.error-alert')
 										<div class="mb-3">
@@ -36,9 +36,9 @@
 											@error('password')<div class="error">{{ $message }}</div>@enderror
 											<div id="passwordHelpBlock" class="form-text">Must be at least 8 characters.</div>
 										</div>
-										<div class="d-grid gap-3">
+										<div class="gap-3 d-grid">
 											<button class="btn btn-primary fs-6 fw-semibold" type="submit">
-												Get started <x-users.spinners.white-btn wire:target="signup" />
+												Sign up as Journalist <x-users.spinners.white-btn wire:target="signup" />
 											</button>
 											<a href="{{ route('auth.google.index', ['userType' => 'journalist', 'loginType' => 'signup']) }}" class="btn btn-white fs-6 fw-semibold" type="button">
 												<svg xmlns="http://www.w3.org/2000/svg" width="25" height="24" viewBox="0 0 25 24" fill="none">
@@ -57,12 +57,16 @@
 											</a>
 										</div>
 									</form>
-									<p class="card-text text-center text-secondary fs-6 m-0 py-2">Already have an account? <a href="{{ route('journalist.login') }}" class="text-purple-700 fw-semibold">Log in</a></p>
+									<p class="py-2 m-0 card-text text-secondary fs-6">If you're an Architecture or Design Firm, Brand, Business or Startup looking to get your stories featured, sign up for your free account here:</p>
+									<div class="py-2 m-0 d-grid">
+										<a href="{{ route('architect.signup') }}" class="btn btn-primary fs-6 fw-semibold" type="button">Sign up as Brand</a>
+									</div>
+									<p class="py-2 m-0 text-center card-text text-secondary fs-6">Already have an account? <a href="{{ route('login') }}" class="text-purple-700 fw-semibold">Log in</a></p>
 								</div>
 							</div>
 						</div>
 					</div>
-					<x-users.auth.image-column :src="asset('images/signup/fublis.png')" />
+					<x-users.auth.image-column :src="asset('images/signup/fublis-stretch.png')" />
 				</div>
 			</div>
 		</div>

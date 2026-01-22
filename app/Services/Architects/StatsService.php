@@ -6,6 +6,7 @@ use App\Http\Controllers\DateController;
 use App\Http\Controllers\Users\ArchitectController;
 use App\Mail\User\Architect\MonthlyStatsMail;
 use App\Mail\User\Architect\WeeklyStatsMail;
+use App\Services\EmailPreferenceService;
 use Illuminate\Support\Facades\Mail;
 
 class StatsService
@@ -22,7 +23,7 @@ class StatsService
 			'user',
 		]);
 		foreach($architects as $architect){
-			if(isEnterprisePlanSubscribed($architect->user)){
+			if($architect->user && isEnterprisePlanSubscribed($architect->user)){
 				$resultData = [
 					'total_media_kits' => 0,
 					'total_pitches_sent' => 0,
@@ -38,11 +39,15 @@ class StatsService
 				$resultData['total_views'] = $analytics->where('data_type', 'App\Models\MediaKitView')->count();
 				$resultData['total_downloads'] = $analytics->where('data_type', 'App\Models\MediaKitDownload')->count();
 				// dd($dateRange['from_date'], $dateRange['to_date'], $resultData, $architect->mediaKits);
-				if($statsType == 'week'){
-					Mail::to($architect->user->email)->queue(new WeeklyStatsMail($architect->user->email, $architect->user->name, $resultData));
-				}
-				elseif($statsType == 'month'){
-					Mail::to($architect->user->email)->queue(new MonthlyStatsMail($architect->user->email, $architect->user->name, $resultData));
+				// var_dump($resultData, isEnterprisePlanSubscribed($architect->user), $architect->user->id);
+				if($resultData['total_media_kits'] > 0 || $resultData['total_pitches_sent'] > 0 || $resultData['total_views'] > 0 || $resultData['total_downloads'] > 0){
+					info('Name: ' . $architect->user->name . ', Email: ' . $architect->user->email . ', Result: ' . json_encode($resultData));
+					if($statsType == 'week' && EmailPreferenceService::isPreferenceSelected($architect->user, 'architect-weekly-stats-mail')){
+						Mail::to($architect->user->email)->queue(new WeeklyStatsMail($architect->user->email, $architect->user->name, $resultData));
+					}
+					elseif($statsType == 'month' && EmailPreferenceService::isPreferenceSelected($architect->user, 'architect-monthly-stats-mail')){
+						Mail::to($architect->user->email)->queue(new MonthlyStatsMail($architect->user->email, $architect->user->name, $resultData));
+					}
 				}
 			}
 		}

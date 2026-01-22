@@ -9,6 +9,7 @@ use App\Models\DownloadRequest;
 use App\Models\MediaKit;
 use App\Services\DownloadService;
 use App\Services\NotificationService;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -234,7 +235,16 @@ class DownloadController extends Controller
 
 	public static function getAllowedDownloadRequest()
 	{
-		return isSubscribed() ? -1 : 5;
+		if(isBusinessPlanSubscribed()){
+			return -1;
+		}
+		if(isEnterpriseMonthlyPlanSubscribed()){
+			return 50;
+		}
+		if(isEnterpriseAnnualPlanSubscribed()){
+			return 1000;
+		}
+		return 0;
 	}
 
 	public static function getTotalRequest()
@@ -248,11 +258,11 @@ class DownloadController extends Controller
 
 	public static function isAllowedToRespond($handlingRequest = 1)
 	{
-		$allowedLimit = DownloadController::getAllowedDownloadRequest();
+		$allowedLimit = self::getAllowedDownloadRequest();
 		if($allowedLimit == -1){
 			return true;
 		}
-		$alreadyResponded = DownloadController::getTotalRequest()->where('request_status', '!=', RequestStatusEnum::PENDING)->count();
+		$alreadyResponded = self::getTotalRequest()->where('request_status', '!=', RequestStatusEnum::PENDING)->whereBetween('created_at', [Carbon::now()->startOfMonth(), Carbon::now()->endOfMonth()])->count();
 		// dd($allowedLimit, $alreadyResponded, $handlingRequest);
 		return ($allowedLimit >= ($alreadyResponded + $handlingRequest)) ? true : false;
 	}

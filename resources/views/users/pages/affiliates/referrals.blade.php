@@ -2,7 +2,9 @@
 
 @section('body')
 	<h1 id="referrals-head" class="mb-5 text-3xl font-semibold text-gray-900 sm:mb-10">Referrals</h1>
-	<div class="mt-10 sm:mt-0">
+	<livewire:affiliates.referrals.table />
+
+	{{-- <div class="mt-10 sm:mt-0">
 		<div class="md:grid md:grid-cols-3 md:gap-6">
 			<div class="mt-5 overflow-hidden md:mt-0 sm:rounded-md md:col-span-3 lg:col-span-3">
 				<div>
@@ -197,5 +199,5 @@
 				</div>
 			</div>
 		</div>
-	</div>
+	</div> --}}
 @endsection
